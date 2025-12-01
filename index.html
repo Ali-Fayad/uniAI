@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Unique Login Page - Tailwind CSS</title>
+    <title>Unique Login Page</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -12,248 +11,54 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
     <script>
       tailwind.config = {
-        darkMode: "class",
         theme: {
           extend: {
             colors: {
-              primary: "#b7ae9f",
-              "background-light": "#f7f7f7",
-              "background-dark": "#1a1918",
               "custom-primary": "#B6AE9F",
               "custom-secondary": "#C5C7BC",
               "custom-light": "#DEDED1",
               "custom-accent": "#FBF3D1",
             },
             fontFamily: {
-              display: ["Space Grotesk"],
-            },
-            borderRadius: {
-              DEFAULT: "1rem",
-              lg: "2rem",
-              xl: "3rem",
-              full: "9999px",
+              display: ["Space Grotesk", "sans-serif"],
             },
           },
         },
       };
     </script>
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      }
-    </style>
   </head>
-  <body class="font-display">
-    <div
-      class="relative flex min-h-screen w-full flex-col bg-custom-light group/design-root overflow-hidden"
-    >
+  <body class="font-display bg-custom-light">
+    <div class="relative flex min-h-screen w-full flex-col overflow-hidden">
       <div class="flex-grow">
         <div class="h-full">
           <div class="grid grid-cols-1 lg:grid-cols-3 min-h-screen">
-            <!-- Left Decorative Column -->
-            <div
-              class="hidden lg:flex flex-col items-center justify-center bg-custom-accent p-8 relative"
-            >
+
+            <div class="hidden lg:flex flex-col items-center justify-center bg-custom-accent p-8 relative">
               <div
-                class="absolute top-0 left-0 w-full h-full opacity-30 bg-[url('https://images.unsplash.com/photo-1549488344-cbb6c34cf08b?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMHBhdHRlcm58ZW58MHx8fHwxNzE3NTg4NjE0fDA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080')] bg-cover bg-center"
+                class="absolute top-0 left-0 w-full h-full opacity-30 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1549488344-cbb6c34cf08b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMHBhdHRlcm58ZW58MHx8fHwxNzE3NTg4NjE0fDA&ixlib=rb-4.0.3&q=80&w=1080');"
               ></div>
               <div class="z-10 text-center text-[#151514]">
-                <svg
-                  class="mx-auto h-12 w-auto text-[#B6AE9F]"
-                  fill="currentColor"
-                  viewbox="0 0 54 44"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"
-                  ></path>
+                <svg class="mx-auto h-12 w-auto text-[#B6AE9F]" fill="currentColor" viewbox="0 0 54 44" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"></path>
                 </svg>
-                <h2
-                  class="mt-6 text-3xl font-black tracking-tight text-[#151514]/80"
-                >
-                  Unlock Your Workflow
-                </h2>
-                <p class="mt-2 text-base text-[#151514]/60">
-                  Seamless access to your projects and team.
-                </p>
+                <h2 class="mt-6 text-3xl font-black tracking-tight text-[#151514]/80">Unlock Your Workflow</h2>
+                <p class="mt-2 text-base text-[#151514]/60">Seamless access to your projects and team.</p>
               </div>
             </div>
-            <!-- Right Login Form Column -->
+
             <div
+              id="root"
               class="col-span-1 lg:col-span-2 flex flex-col items-center justify-center p-6 sm:p-12"
             >
-              <div
-                class="w-full max-w-md bg-white/50 backdrop-blur-sm p-8 sm:p-10 rounded-lg shadow-lg border border-white/20"
-              >
-                <!-- PageHeading -->
-                <div class="flex flex-col gap-2 mb-8">
-                  <p
-                    class="text-[#151514] text-4xl font-black leading-tight tracking-[-0.033em]"
-                  >
-                    Welcome Back
-                  </p>
-                  <p
-                    class="text-[#797672] text-base font-normal leading-normal"
-                  >
-                    Sign in to continue to your dashboard.
-                  </p>
-                </div>
-                <form class="space-y-6">
-                  <!-- TextField Email -->
-                  <div class="flex flex-col">
-                    <label class="flex flex-col w-full">
-                      <p
-                        class="text-[#151514] text-base font-medium leading-normal pb-2"
-                      >
-                        Email Address
-                      </p>
-                      <input
-                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#151514] focus:outline-none focus:ring-2 focus:ring-custom-primary/50 border border-custom-secondary/50 bg-white h-14 placeholder:text-[#797672] p-[15px] text-base font-normal leading-normal transition-shadow"
-                        placeholder="Enter your email"
-                        value=""
-                      />
-                    </label>
-                  </div>
-                  <!-- TextField Password -->
-                  <div class="flex flex-col">
-                    <label class="flex flex-col w-full">
-                      <div class="flex justify-between items-center pb-2">
-                        <p
-                          class="text-[#151514] text-base font-medium leading-normal"
-                        >
-                          Password
-                        </p>
-                        <!-- MetaText -->
-                        <a
-                          class="text-[#797672] text-sm font-normal leading-normal underline hover:text-[#151514] transition-colors"
-                          href="#"
-                          >Forgot Password?</a
-                        >
-                      </div>
-                      <div class="flex w-full flex-1 items-stretch rounded-xl">
-                        <input
-                          class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-xl text-[#151514] focus:outline-none focus:ring-2 focus:ring-custom-primary/50 border border-custom-secondary/50 bg-white h-14 placeholder:text-[#797672] p-[15px] pr-2 text-base font-normal leading-normal border-r-0 transition-shadow"
-                          placeholder="Enter your password"
-                          type="password"
-                          value=""
-                        />
-                        <div
-                          class="text-[#797672] flex border border-custom-secondary/50 bg-white items-center justify-center px-4 rounded-r-xl border-l-0"
-                        >
-                          <span
-                            class="material-symbols-outlined"
-                            data-icon="Eye"
-                            data-size="24px"
-                            data-weight="regular"
-                            >visibility_off</span
-                          >
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                  <!-- SingleButton -->
-                  <div>
-                    <button
-                      class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-custom-primary text-[#151514] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
-                    >
-                      <span class="truncate">Sign In</span>
-                    </button>
-                  </div>
-                </form>
-                <!-- Divider -->
-                <div class="relative my-8">
-                  <div class="absolute inset-0 flex items-center">
-                    <div
-                      class="w-full border-t border-custom-secondary/50"
-                    ></div>
-                  </div>
-                  <div class="relative flex justify-center text-sm">
-                    <span class="bg-white/50 px-2 text-sm text-[#797672]"
-                      >or</span
-                    >
-                  </div>
-                </div>
-                <!-- Social Login Buttons -->
-                <div class="space-y-4">
-                  <button
-                    class="flex w-full items-center justify-center gap-3 rounded-full border border-custom-secondary/50 bg-white h-12 px-5 text-[#151514] hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-secondary"
-                  >
-                    <svg
-                      class="h-5 w-5"
-                      fill="none"
-                      viewbox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_3033_335)">
-                        <path
-                          d="M22.56 12.25C22.56 11.45 22.49 10.68 22.36 9.92H12V14.45H18.02C17.75 16.03 16.92 17.39 15.61 18.29V21.09H19.5C21.46 19.26 22.56 16.05 22.56 12.25Z"
-                          fill="#4285F4"
-                        ></path>
-                        <path
-                          d="M12 23C14.97 23 17.45 22.04 19.5 20.46L15.61 17.66C14.65 18.33 13.43 18.75 12 18.75C9.6 18.75 7.53 17.15 6.73 15.05H2.76V17.94C4.72 20.98 8.08 23 12 23Z"
-                          fill="#34A853"
-                        ></path>
-                        <path
-                          d="M6.73 14.35C6.5 13.72 6.36 13.06 6.36 12.38C6.36 11.7 6.5 11.04 6.73 10.41V7.52H2.76C1.82 9.36 1.27 11.45 1.27 13.63C1.27 15.81 1.82 17.9 2.76 19.74L6.73 16.95V14.35Z"
-                          fill="#FBBC05"
-                        ></path>
-                        <path
-                          d="M12 5.25C13.56 5.25 14.92 5.81 16.01 6.84L19.58 3.27C17.45 1.25 14.97 0 12 0C8.08 0 4.72 2.02 2.76 5.06L6.73 7.95C7.53 5.85 9.6 4.25 12 4.25V5.25Z"
-                          fill="#EA4335"
-                        ></path>
-                      </g>
-                      <defs>
-                        <clippath id="clip0_3033_335">
-                          <rect fill="white" height="24" width="24"></rect>
-                        </clippath>
-                      </defs>
-                    </svg>
-                    <span class="text-base font-medium"
-                      >Sign in with Google</span
-                    >
-                  </button>
-                  <button
-                    class="flex w-full items-center justify-center gap-3 rounded-full border border-custom-secondary/50 bg-white h-12 px-5 text-[#151514] hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-secondary"
-                  >
-                    <svg
-                      class="h-6 w-6"
-                      fill="currentColor"
-                      viewbox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
-                        fill-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <span class="text-base font-medium"
-                      >Sign in with GitHub</span
-                    >
-                  </button>
-                </div>
-                <!-- Sign Up Link -->
-                <div class="mt-8 text-center">
-                  <p class="text-sm text-[#797672]">
-                    Don't have an account?
-                    <a
-                      class="font-bold text-custom-primary underline hover:text-[#a69d8f] transition-colors"
-                      href="#"
-                      >Sign Up</a
-                    >
-                  </p>
-                </div>
               </div>
-            </div>
+
           </div>
         </div>
       </div>
     </div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
