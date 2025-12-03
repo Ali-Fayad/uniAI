@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Unique Login Page</title>
+    <title>Main Page - uniAI (Feedback Section Added)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -11,11 +11,23 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              primary: "#b7ae9f",
+              "background-light": "#f7f7f7",
+              "background-dark": "#1a1918",
               "custom-primary": "#B6AE9F",
               "custom-secondary": "#C5C7BC",
               "custom-light": "#DEDED1",
@@ -23,52 +35,209 @@
             },
             fontFamily: {
               display: ["Space Grotesk", "sans-serif"],
+              playful: ["Pacifico", "cursive"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
             },
           },
         },
       };
     </script>
   </head>
-  <body class="font-display bg-custom-light">
-    <div class="relative flex min-h-screen w-full flex-col overflow-hidden">
-      <div class="flex-grow">
-        <div class="h-full">
-          <div class="grid grid-cols-1 lg:grid-cols-3 min-h-screen">
+  <body class="font-display bg-custom-light text-[#151514]">
+    <div class="flex min-h-screen w-full flex-col group/design-root">
+      <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="relative flex h-16 items-center justify-center">
             <div
-              class="hidden lg:flex flex-col items-center justify-center bg-custom-accent p-8 relative"
+              class="absolute inset-y-0 left-0 flex items-center sm:hidden"
+            ></div>
+            <div
+              class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
             >
-
-
-              <div class="z-10 text-center text-[#151514]">
+              <div class="flex flex-shrink-0 items-center">
                 <svg
-                  class="mx-auto h-12 w-auto text-[#B6AE9F]"
+                  class="h-8 w-auto text-custom-primary"
                   fill="currentColor"
-                  viewbox="0 0 54 44"
+                  viewBox="0 0 54 44"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"
                   ></path>
                 </svg>
-                <h2
-                  class="mt-6 text-3xl font-black tracking-tight text-[#151514]/80"
+              </div>
+            </div>
+            <div class="absolute inset-y-0 flex items-center justify-center">
+              <a
+                class="font-playful text-2xl font-bold tracking-tight text-[#151514]"
+                href="#"
+                >uniAI</a
+              >
+            </div>
+            <div
+              class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+            >
+              <button
+                class="relative rounded-full bg-transparent p-1 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-custom-primary focus:ring-offset-2"
+                type="button"
+              >
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">Toggle theme</span>
+                <span class="material-symbols-outlined"> light_mode </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="flex-grow">
+        <section
+          class="relative flex h-screen min-h-[700px] items-center overflow-hidden bg-custom-accent py-12"
+        >
+          <div
+            class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHw1fHx1bml2ZXJzaXR5fGVufDB8fHx8MTcxNzU4OTIyNnww&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080')] bg-cover bg-center opacity-10"
+          ></div>
+          <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+              class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+            >
+              <div class="text-center md:text-left">
+                <h1
+                  class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[#151514]/90"
                 >
-                  Why You Must Log In?
-                </h2>
-                <p class="mt-2 text-base text-[#151514]/60">
-                  Logging in allows you to save your chats and data, so you can continue your conversations anytime, without losing progress.
+                  Welcome to uniAI
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-[#151514]/70">
+                  Your unified platform for next-generation artificial
+                  intelligence. Streamline your workflow, boost creativity, and
+                  unlock new possibilities with our intuitive toolset.
+                </p>
+              </div>
+              <div class="flex justify-center items-center">
+                <img
+                  alt="Graduation cap illustration"
+                  class="h-64 w-64 md:h-80 md:w-80 object-cover rounded-full border-4 border-white shadow-lg"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDchELEmNB0CNKcnCkxUDv36OZb4QPhsSkxcj8BV0hiuobbsrHMK8IgOsN8DRL8AfUDGJxo4ZYwbfLjxln1nPQ4RinsoGIggV86zitWGy0HyVT-_inFeJdrvMNOyjSg7UsFwQ32cz83Y3a7F-aDaSIl46JoAOt1KpBpHDkSd4i39JjAMIaF9iaxXI0dlgSbCDnwVdFRI7jfnV9hpA_F2qlppD8ezA240E9nPyH1iyOa-LraGLm5I9QhqeZU6xN7HY-Uf2gJooV6jjs"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <section class="my-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div
+                class="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-md border border-white/30 text-center"
+              >
+                <h3 class="text-2xl font-bold text-[#151514] mb-4">
+                  Powerful Integration
+                </h3>
+                <p class="text-[#797672]">
+                  Seamlessly connect with your favorite tools and platforms.
+                  UniAI works with your existing ecosystem to enhance
+                  productivity without disruption.
+                </p>
+              </div>
+              <div
+                class="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-md border border-white/30 text-center"
+              >
+                <h3 class="text-2xl font-bold text-[#151514] mb-4">
+                  Creative Assistance
+                </h3>
+                <p class="text-[#797672]">
+                  Break through creative blocks with AI-powered suggestions,
+                  content generation, and idea exploration. Elevate your
+                  creative projects to new heights.
+                </p>
+              </div>
+              <div
+                class="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-md border border-white/30 text-center"
+              >
+                <h3 class="text-2xl font-bold text-[#151514] mb-4">
+                  Data-driven Insights
+                </h3>
+                <p class="text-[#797672]">
+                  Transform complex data into clear, actionable insights. Make
+                  smarter decisions with our advanced analytics and
+                  visualization capabilities.
                 </p>
               </div>
             </div>
-
-            <div
-              id="root"
-              class="col-span-1 lg:col-span-2 flex flex-col items-center justify-center p-6 sm:p-12"
-            ></div>
-          </div>
+          </section>
+          <section class="text-center my-12">
+            <button
+              class="cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
+              type="button"
+              onclick="window.open('auth.html', '_blank')"
+            >
+              <span class="truncate">Try Now</span>
+            </button>
+          </section>
         </div>
-      </div>
+        <section class="w-full bg-custom-secondary/30 py-16 sm:py-24">
+          <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+              <h2
+                class="text-3xl font-bold tracking-tight text-[#151514] sm:text-4xl"
+              >
+                We value your feedback
+              </h2>
+              <p class="mt-4 text-lg leading-8 text-[#151514]/80">
+                Tried uniAI? We'd love to hear what you think! Your suggestions
+                help us improve and build a better experience for everyone.
+              </p>
+            </div>
+            <div class="mt-12 max-w-2xl mx-auto">
+              <form action="#" class="space-y-6" method="POST">
+                <div>
+                  <label
+                    class="block text-sm font-medium leading-6 text-[#151514]"
+                    for="email"
+                    >Email</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      class="block w-full rounded-md border-0 py-2.5 px-3.5 text-[#151514] bg-white/50 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-custom-primary sm:text-sm sm:leading-6"
+                      id="email"
+                      name="email"
+                      placeholder="you@example.com"
+                      type="email"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium leading-6 text-[#151514]"
+                    for="feedback"
+                    >Your Feedback</label
+                  >
+                  <div class="mt-2">
+                    <textarea
+                      class="block w-full rounded-md border-0 py-2.5 px-3.5 text-[#151514] bg-white/50 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-custom-primary sm:text-sm sm:leading-6"
+                      id="feedback"
+                      name="feedback"
+                      placeholder="Let us know how we can improve..."
+                      rows="4"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <button
+                    class="cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-custom-primary text-[#151514] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
+                    type="submit"
+                  >
+                    <span class="truncate">Submit Feedback</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Unique Login Page</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "custom-primary": "#B6AE9F",
+              "custom-secondary": "#C5C7BC",
+              "custom-light": "#DEDED1",
+              "custom-accent": "#FBF3D1",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-display bg-custom-light">
+    <div class="relative flex min-h-screen w-full flex-col overflow-hidden">
+      <div class="flex-grow">
+        <div class="h-full">
+          <div class="grid grid-cols-1 lg:grid-cols-3 min-h-screen">
+            <div
+              class="hidden lg:flex flex-col items-center justify-center bg-custom-accent p-8 relative"
+            >
+
+
+              <div class="z-10 text-center text-[#151514]">
+                <svg
+                  class="mx-auto h-12 w-auto text-[#B6AE9F]"
+                  fill="currentColor"
+                  viewbox="0 0 54 44"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"
+                  ></path>
+                </svg>
+                <h2
+                  class="mt-6 text-3xl font-black tracking-tight text-[#151514]/80"
+                >
+                  Why You Must Log In?
+                </h2>
+                <p class="mt-2 text-base text-[#151514]/60">
+                  Logging in allows you to save your chats and data, so you can continue your conversations anytime, without losing progress.
+                </p>
+              </div>
+            </div>
+
+            <div
+              id="root"
+              class="col-span-1 lg:col-span-2 flex flex-col items-center justify-center p-6 sm:p-12"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
