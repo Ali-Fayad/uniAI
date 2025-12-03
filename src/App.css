@@ -1,42 +1,56 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Custom Google Thunder Button Styles */
+.google-thunder-button {
+  position: relative;
+  z-index: 1; 
+  /* Important: Ensure overflow is hidden to keep the lines strictly inside the button */
+  overflow: hidden; 
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Base style for all four lines */
+.google-thunder-button::before,
+.google-thunder-button::after,
+.google-thunder-button .line-red,
+.google-thunder-button .line-green {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) skewX(-20deg); /* Use skew for the thunder angle */
+    width: 2px; /* Thickness of the lines */
+    height: 70%; /* Vertical length of the lines */
+    pointer-events: none;
+    z-index: 2; 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* ---------------------------------- */
+/* LEFT SIDE (Approx. 1/4 mark) */
+/* ---------------------------------- */
+
+/* Blue Line (closest to text) */
+.google-thunder-button::before {
+    background-color: #4285F4; /* Google Blue */
+    left: 10%; /* Position at approx 1/4 mark */
 }
 
-.card {
-  padding: 2em;
+/* Red Line (second line) - Requires an inner element since we can't use two ::before */
+.google-thunder-button .line-red {
+    background-color: #DB4437; /* Google Red */
+    left: 14%; 
 }
 
-.read-the-docs {
-  color: #888;
+/* ---------------------------------- */
+/* RIGHT SIDE (Approx. 3/4 mark) */
+/* ---------------------------------- */
+
+/* Yellow Line (third line) */
+.google-thunder-button::after {
+    background-color: #F4B400; /* Google Yellow */
+    right: 10%; /* Position at approx 3/4 mark */
+    transform: translateY(-50%) skewX(20deg); /* Reverse angle for right side */
+}
+
+/* Green Line (farthest from text) */
+.google-thunder-button .line-green {
+    background-color: #0F9D58; /* Google Green */
+    right: 14%;
+    transform: translateY(-50%) skewX(20deg); /* Reverse angle for right side */
 }
