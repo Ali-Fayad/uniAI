@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 // Reusable hook for scroll animations that reverse when scrolling up
 const useScrollAnimation = (delay = 0) => {
@@ -171,20 +170,18 @@ const Feedback: React.FC = () => {
 };
 
 const MainPage: React.FC = () => {
-  const navigate = useNavigate();
   const introTextRef = useScrollAnimation(0);
 
   return (
     <div>
       {/* Try Now Button */}
       <section className="text-center mb-16">
-        <button
-          className="cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
-          type="button"
-          onClick={() => navigate("/auth")}
+        <a
+          href="/auth.html"
+          className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
         >
           <span className="truncate">Try Now</span>
-        </button>
+        </a>
       </section>
 
       {/* Cards Section */}
