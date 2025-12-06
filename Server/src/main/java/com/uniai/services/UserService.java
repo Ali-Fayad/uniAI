@@ -1,6 +1,6 @@
 package com.uniai.services;
 
-import com.uniai.dto.ResponseDto;
+import com.uniai.dto.AuthenticationResponseDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
 import com.uniai.exception.InvalidEmailOrPassword;
@@ -49,10 +49,10 @@ public class UserService {
         return jwtUtil.generateToken(user.getUsername());
     }
 
-    public List<ResponseDto> getAllUsers() {
+    public List<AuthenticationResponseDto> getAllUsers() {
         List<User> users = userRepository.findAll();
 
-        return users.stream().map(user -> ResponseDto.builder()
+        return users.stream().map(user -> AuthenticationResponseDto.builder()
                 .username(user.getUsername())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -62,13 +62,13 @@ public class UserService {
                 .build()).toList();
     }
 
-    public ResponseDto getResponseDtoByToken(String token) {
+    public AuthenticationResponseDto getResponseDtoByToken(String token) {
         String username = jwtUtil.getUsernameFromToken(token);
         User user = userRepository.findByUsername(username);
         if (user == null)
             throw new InvalidTokenException();
 
-        return ResponseDto.builder()
+        return AuthenticationResponseDto.builder()
                 .username(user.getUsername())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())

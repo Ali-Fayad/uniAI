@@ -1,6 +1,6 @@
 package com.uniai.controller;
 
-import com.uniai.dto.ResponseDto;
+import com.uniai.dto.AuthenticationResponseDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
 import com.uniai.services.UserService;
@@ -32,16 +32,16 @@ public class UserController {
     }
 
     @GetMapping("auth/users")
-    public ResponseEntity<List<ResponseDto>> getAllUsers() {
-        List<ResponseDto> entity = userService.getAllUsers();
+    public ResponseEntity<List<AuthenticationResponseDto>> getAllUsers() {
+        List<AuthenticationResponseDto> entity = userService.getAllUsers();
 
         return ResponseEntity.ok(entity);
     }
 
     @GetMapping("auth/me")
-    public ResponseEntity<ResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<AuthenticationResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.substring(7); // Remove "Bearer " prefix
-        ResponseDto responseDto = userService.getResponseDtoByToken(token);
+        AuthenticationResponseDto responseDto = userService.getResponseDtoByToken(token);
         return ResponseEntity.ok(responseDto);
     }
 

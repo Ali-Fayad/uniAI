@@ -1,9 +1,10 @@
 package com.uniai.security;
 
-import com.uniai.dto.ResponseDto;
+import com.uniai.dto.AuthenticationResponseDto;
 import com.uniai.model.User;
 import com.uniai.repository.UserRepository;
 
+import com.uniai.services.AuthenticationResponseBuilder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,12 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -37,41 +36,52 @@ public class JwtFilter extends OncePerRequestFilter {
 
 		final String authHeader = request.getHeader("Authorization");
 
-		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-			String token = authHeader.substring(7);
+		AuthenticationResponseDto authenticatedUser = extractUser(authHeader);
+		UsernamePasswordAuthenticationToken authToken = getAuthTokenIfPossible(request, authenticatedUser);
 
-			if (jwtUtil.validateToken(token)) {
-				String username = jwtUtil.getUsernameFromToken(token);
-
-				if (username != null &&
-						SecurityContextHolder.getContext().getAuthentication() == null) {
-
-					User user = userRepository.findByUsername(username);
-
-					if (user != null) {
-						ResponseDto dto = ResponseDto.builder()
-								.username(user.getUsername())
-								.firstName(user.getFirstName())
-								.lastName(user.getLastName())
-								.email(user.getEmail())
-								.isVerified(user.isVerified())
-								.isTwoFacAuth(user.isTwoFacAuth())
-								.build();
-
-						UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-								dto,
-								null,
-								Collections.emptyList());
-
-						authToken.setDetails(
-								new WebAuthenticationDetailsSource().buildDetails(request));
-
-						SecurityContextHolder.getContext().setAuthentication(authToken);
-					}
-				}
-			}
-		}
+		if(authToken != null)
+			SecurityContextHolder.getContext().setAuthentication(authToken);
 
 		filterChain.doFilter(request, response);
 	}
+
+	private UsernamePasswordAuthenticationToken getAuthTokenIfPossible(HttpServletRequest request, AuthenticationResponseDto authenticatedUser) {
+		if(authenticatedUser == null)
+			return null;
+
+		return AuthenticationResponseBuilder.getUsernamePasswordAuthenticationToken(request, authenticatedUser);
+
+	}
+
+
+
+	private AuthenticationResponseDto extractUser( String authHeader) {
+		if (authHeader == null || !authHeader.startsWith("Bearer "))
+			return null;
+
+		String token = authHeader.substring(7);
+
+		if (!jwtUtil.validateToken(token))
+			throw new RuntimeException("Token is invalid");
+
+		String username = jwtUtil.getUsernameFromToken(token);
+
+		if (username == null || SecurityContextHolder.getContext().getAuthentication() != null)
+			throw new RuntimeException("Can't extract username from token");
+
+		User user = userRepository.findByUsername(username);
+
+		if (user == null)
+			throw new RuntimeException("User not found");
+
+		if (user.isVerified())
+			throw new RuntimeException("User not verified");
+
+		AuthenticationResponseDto dto = AuthenticationResponseBuilder.getAuthenticationResponseDtoFromUser(user);
+		return dto;
+
+	}
+
+
+
 }
