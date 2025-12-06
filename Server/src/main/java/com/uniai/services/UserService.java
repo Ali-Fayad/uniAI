@@ -35,6 +35,7 @@ public class UserService {
 
         userRepository.save(user);
 
+
         return jwtUtil.generateToken(user.getUsername());
     }
 
