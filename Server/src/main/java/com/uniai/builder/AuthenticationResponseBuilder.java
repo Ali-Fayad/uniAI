@@ -1,4 +1,4 @@
-package com.uniai.services;
+package com.uniai.builder;
 
 import com.uniai.dto.AuthenticationResponseDto;
 import com.uniai.model.User;

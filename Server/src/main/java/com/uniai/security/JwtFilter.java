@@ -1,10 +1,10 @@
 package com.uniai.security;
 
+import com.uniai.builder.AuthenticationResponseBuilder;
 import com.uniai.dto.AuthenticationResponseDto;
 import com.uniai.model.User;
 import com.uniai.repository.UserRepository;
 
-import com.uniai.services.AuthenticationResponseBuilder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

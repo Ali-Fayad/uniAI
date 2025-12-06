@@ -1,32 +1,65 @@
-// package com.uniai.services;
+package com.uniai.services;
 
-// import java.security.SecureRandom;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
-// import org.springframework.mail.SimpleMailMessage;
-// import org.springframework.mail.javamail.JavaMailSender;
-// import org.springframework.stereotype.Service;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
-// @Service
-// public class EmailService {
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import java.io.IOException;
 
-//     private final JavaMailSender mailSender;
-//     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//     private static final SecureRandom RANDOM = new SecureRandom();
-//     private static final int CODE_LENGTH = 6;
+@Service
+public class EmailService {
 
-//     public void sendEmail(String to, String subject, String body) {
-//         SimpleMailMessage message = new SimpleMailMessage();
-//         message.setTo(to);
-//         message.setSubject(subject);
-//         message.setText(body);
-//         mailSender.send(message);
-//     }
+    private final JavaMailSender mailSender;
 
-//     public String generateVerificationCode() {
-//         StringBuilder sb = new StringBuilder(CODE_LENGTH);
-//         for (int i = 0; i < CODE_LENGTH; i++) {
-//             sb.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
-//         }
-//         return sb.toString();
-//     }
-// }
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final SecureRandom RANDOM = new SecureRandom();
+    private static final int CODE_LENGTH = 6;
+
+    public EmailService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
+    public String generateVerificationCode() {
+        StringBuilder sb = new StringBuilder(CODE_LENGTH);
+
+        for (int i = 0; i < CODE_LENGTH; i++) {
+            sb.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
+        }
+
+        return sb.toString();
+    }
+
+    private String loadHtmlTemplate(String code) throws IOException {
+        ClassPathResource resource =
+                new ClassPathResource("templates/verification_email.html");
+
+        String html = new String(resource.getInputStream().readAllBytes(),
+                StandardCharsets.UTF_8);
+
+        return html.replace("{{CODE}}", code);
+    }
+
+    public String sendVerificationCode(String userEmail)
+            throws MessagingException, IOException {
+
+        String code = generateVerificationCode();
+        String htmlContent = loadHtmlTemplate(code);
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper =
+                new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setTo(userEmail);
+        helper.setSubject("uniAIVerification Code");
+        helper.setText(htmlContent, true);
+
+        mailSender.send(message);
+        return code;
+    }
+}

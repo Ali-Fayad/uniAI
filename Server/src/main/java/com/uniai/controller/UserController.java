@@ -1,10 +1,15 @@
 package com.uniai.controller;
 
 import com.uniai.dto.AuthenticationResponseDto;
+import com.uniai.dto.EmailRequestDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
+import com.uniai.services.EmailService;
 import com.uniai.services.UserService;
 
+import java.io.IOException;
+
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final EmailService emailService;
 
     @PostMapping("auth/signup")
     public ResponseEntity<?> signUp(@RequestBody SignUpDto signUpDto) {
@@ -45,5 +51,17 @@ public class UserController {
         return ResponseEntity.ok(responseDto);
     }
 
-    private record TokenResponse(String token) {   }
+    @PostMapping("auth/verify")
+    public ResponseEntity<?> sendVerificationCode(@RequestBody EmailRequestDto request)
+            throws MessagingException, IOException {
+
+        emailService.sendVerificationCode(request.email());
+        return ResponseEntity.ok(new MessageResponse("Verification email sent successfully."));
+    }
+
+    private record MessageResponse(String message) {
+    }
+
+    private record TokenResponse(String token) {
+    }
 }
