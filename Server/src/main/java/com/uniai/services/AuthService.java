@@ -5,9 +5,12 @@ import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
 import com.uniai.exception.InvalidEmailOrPassword;
 import com.uniai.exception.InvalidTokenException;
+import com.uniai.exception.VerificationNeededException;
 import com.uniai.model.User;
 import com.uniai.repository.UserRepository;
 import com.uniai.security.JwtUtil;
+import com.uniai.exception.AlreadyExistsException;
+import com.uniai.builder.AuthenticationResponseBuilder;
 
 import lombok.AllArgsConstructor;
 
@@ -18,23 +21,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class AuthService {
 
     private final UserRepository userRepository;
+    private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
     public String signUp(SignUpDto userDto) {
-        User user = User.builder()
-                .username(userDto.getUsername())
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .email(userDto.getEmail())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .build();
+
+        if (userRepository.existsByEmail(userDto.getEmail().toLowerCase())) {
+            throw new AlreadyExistsException("Email already exists");
+        }
+
+        if (userRepository.existsByUsername(userDto.getUsername().toLowerCase)) {
+            throw new AlreadyExistsException("Username already exists");
+        }
+
+        User user = AuthenticationResponseBuilder.getUserFromSignUpDto(userDto);
 
         userRepository.save(user);
 
+        if(user.isVerified() == false){
+            emailService.sendVerificationCode(user.gmail);
+            throw new VerificationNeededException("a verification code was send, check your email!");
+        }
 
         return jwtUtil.generateToken(user.getUsername());
     }
@@ -44,6 +55,11 @@ public class UserService {
 
         if (user == null || !passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
             throw new InvalidEmailOrPassword();
+        }
+
+        if(user.isVerified() == false){
+            emailService.sendVerificationCode(user.gmail);
+            throw new VerificationNeededException("a verification code was send, check your email!");
         }
 
         return jwtUtil.generateToken(user.getUsername());

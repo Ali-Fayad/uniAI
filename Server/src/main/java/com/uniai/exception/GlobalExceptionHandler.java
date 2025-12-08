@@ -20,4 +20,16 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
+    @ExceptionHandler(VerificationNeededException.class)
+    public ResponseEntity<?> VerificationNeededException(Exception ex) {
+        return ResponseEntity.status(202)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<?> AlreadyExistsException(Exception ex) {
+        return ResponseEntity.status(409)
+                .body(ex.getMessage());
+    }
+
 }
