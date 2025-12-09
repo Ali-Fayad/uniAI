@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>uniAI Chat Bot Interface</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "custom-primary": "#B6AE9F",
+              "custom-secondary": "#C5C7BC",
+              "custom-light": "#DEDED1",
+              "custom-accent": "#FBF3D1",
+              "background-light": "#F7F7F7",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+              playful: ["Pacifico", "cursive"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-display bg-background-light text-[#151514]">
+    <div
+      class="flex h-screen w-full flex-col group/design-root bg-custom-light"
+    >
+      <header
+        class="sticky top-0 z-30 flex h-16 w-full items-center justify-center border-b border-custom-secondary/50 bg-white/70 backdrop-blur-md"
+      >
+        <div class="absolute left-4">
+          <svg
+            class="h-8 w-auto text-custom-primary"
+            fill="currentColor"
+            viewBox="0 0 54 44"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"
+            ></path>
+          </svg>
+        </div>
+        <a
+          class="font-playful text-2xl font-bold tracking-tight text-[#151514]"
+          href="#"
+          >uniAI</a
+        >
+        <div class="absolute right-4">
+          <button
+            class="relative rounded-full bg-transparent p-1 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-custom-primary focus:ring-offset-2"
+            type="button"
+          >
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">Toggle theme</span>
+            <span class="material-symbols-outlined">light_mode</span>
+          </button>
+        </div>
+      </header>
+      <div class="flex flex-1 overflow-hidden">
+        <aside
+          class="w-80 flex-shrink-0 border-r border-custom-secondary/50 bg-white/50 p-4"
+        >
+          <div class="flex h-full flex-col">
+            <button
+              class="mb-4 flex w-full items-center justify-center gap-2 rounded-full border border-custom-primary bg-custom-accent/50 py-3 px-4 font-semibold text-[#151514] transition-colors hover:bg-custom-accent"
+            >
+              <span class="material-symbols-outlined text-xl">add</span>
+              New Chat
+            </button>
+            <div class="flex-1 space-y-2 overflow-y-auto">
+              <a
+                class="block rounded-lg bg-custom-primary/50 p-4 shadow-sm transition-colors hover:bg-custom-primary/70"
+                href="#"
+              >
+                <h3 class="font-bold text-sm text-[#151514] truncate">
+                  The Impact of AI on Education
+                </h3>
+                <p class="text-xs text-[#151514]/70 mt-1">
+                  Hey uniAI, can you explain the main impacts...
+                </p>
+              </a>
+              <a
+                class="block rounded-lg p-4 transition-colors hover:bg-custom-secondary/40"
+                href="#"
+              >
+                <h3 class="font-bold text-sm text-[#151514] truncate">
+                  Python Code for Data Scraping
+                </h3>
+                <p class="text-xs text-[#151514]/70 mt-1">
+                  Write a Python script that scrapes data...
+                </p>
+              </a>
+              <a
+                class="block rounded-lg p-4 transition-colors hover:bg-custom-secondary/40"
+                href="#"
+              >
+                <h3 class="font-bold text-sm text-[#151514] truncate">
+                  Creative Story Ideas
+                </h3>
+                <p class="text-xs text-[#151514]/70 mt-1">
+                  Give me five story prompts for a sci-fi novel.
+                </p>
+              </a>
+              <a
+                class="block rounded-lg p-4 transition-colors hover:bg-custom-secondary/40"
+                href="#"
+              >
+                <h3 class="font-bold text-sm text-[#151514] truncate">
+                  Marketing Strategy for a Startup
+                </h3>
+                <p class="text-xs text-[#151514]/70 mt-1">
+                  What are the key components of a good marketing...
+                </p>
+              </a>
+            </div>
+          </div>
+        </aside>
+        <main class="flex flex-1 flex-col">
+          <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="mx-auto max-w-4xl space-y-8">
+              <div class="flex items-start gap-4">
+                <img
+                  alt="User Avatar"
+                  class="h-10 w-10 rounded-full border-2 border-custom-secondary"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDchELEmNB0CNKcnCkxUDv36OZb4QPhsSkxcj8BV0hiuobbsrHMK8IgOsN8DRL8AfUDGJxo4ZYwbfLjxln1nPQ4RinsoGIggV86zitWGy0HyVT-_inFeJdrvMNOyjSg7UsFwQ32cz83Y3a7F-aDaSIl46JoAOt1KpBpHDkSd4i39JjAMIaF9iaxXI0dlgSbCDnwVdFRI7jfnV9hpA_F2qlppD8ezA240E9nPyH1iyOa-LraGLm5I9QhqeZU6xN7HY-Uf2gJooV6jjs"
+                />
+                <div class="flex-1">
+                  <p class="font-bold text-[#151514]">You</p>
+                  <div
+                    class="mt-1 rounded-lg rounded-tl-none bg-custom-secondary/60 p-4"
+                  >
+                    <p class="text-base leading-relaxed text-[#151514]/90">
+                      Hey uniAI, can you explain the main impacts of Artificial
+                      Intelligence on higher education? Focus on both positive
+                      and negative aspects.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-custom-primary"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="font-bold text-[#151514]">uniAI</p>
+                  <div
+                    class="mt-1 rounded-lg rounded-tl-none bg-white p-4 shadow-sm"
+                  >
+                    <p class="text-base leading-relaxed text-[#151514]/90">
+                      Of course! AI is profoundly reshaping higher education.
+                      <br /><br />
+                      <strong>Positive Impacts:</strong>
+                    </p>
+                    <ul class="mt-2 list-disc space-y-1 pl-5 text-[#151514]/90">
+                      <li>
+                        <strong>Personalized Learning:</strong> AI algorithms
+                        can tailor course content to individual student paces
+                        and learning styles.
+                      </li>
+                      <li>
+                        <strong>Enhanced Research:</strong> Researchers can
+                        analyze vast datasets much faster, accelerating
+                        discoveries.
+                      </li>
+                      <li>
+                        <strong>Administrative Efficiency:</strong> AI can
+                        automate tasks like admissions, grading, and scheduling,
+                        freeing up human resources.
+                      </li>
+                    </ul>
+                    <p class="mt-4 text-base leading-relaxed text-[#151514]/90">
+                      <strong>Negative Aspects:</strong>
+                    </p>
+                    <ul class="mt-2 list-disc space-y-1 pl-5 text-[#151514]/90">
+                      <li>
+                        <strong>Academic Integrity:</strong> Concerns about
+                        students using AI to cheat on assignments are a
+                        significant challenge.
+                      </li>
+                      <li>
+                        <strong>Job Displacement:</strong> Some administrative
+                        and even teaching roles could be reduced by automation.
+                      </li>
+                      <li>
+                        <strong>Algorithmic Bias:</strong> If not carefully
+                        designed, AI systems can perpetuate existing biases in
+                        admissions or grading.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-custom-secondary/50 bg-white/50 p-4">
+            <div class="mx-auto max-w-4xl">
+              <div class="relative">
+                <input
+                  class="w-full rounded-full border-0 bg-white py-3 pl-5 pr-12 text-[#151514] shadow-sm ring-1 ring-inset ring-custom-secondary/80 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-custom-primary"
+                  placeholder="Type your message here..."
+                  type="text"
+                />
+                <button
+                  class="absolute inset-y-0 right-0 flex items-center pr-3"
+                  type="submit"
+                >
+                  <span
+                    class="material-symbols-outlined rounded-full bg-custom-primary p-1.5 text-white transition-colors hover:bg-[#a69d8f]"
+                    >arrow_upward</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

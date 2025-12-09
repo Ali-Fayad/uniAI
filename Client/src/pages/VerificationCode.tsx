@@ -1,9 +1,50 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthCard } from "../components/AuthCard";
+import { AuthService } from "../api/AuthService";
 
 const VerificationCode = () => {
+  const navigate = useNavigate();
+  const [code, setCode] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Verifying code... (Staying on page for demo)");
+    setError(null);
+
+    if (code.length !== 6) {
+      setError("Verification code must be 6 characters.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await AuthService.verifyCode({ email, verificationCode: code });
+      console.log("Code verified successfully!");
+      // navigate to dashboard or next page
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Verification failed:", err);
+      setError("Invalid verification code. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResend = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+      await AuthService.resendCode(email);
+      console.log("Verification code resent!");
+    } catch (err) {
+      console.error("Resend failed:", err);
+      setError("Failed to resend code. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -13,7 +54,7 @@ const VerificationCode = () => {
           Verification
         </p>
         <p className="text-[#797672]">
-          Enter the 6-digit code sent to your email.
+          Enter the 6-character code sent to your email.
         </p>
       </div>
 
@@ -23,19 +64,31 @@ const VerificationCode = () => {
             <p className="text-[#151514] font-medium pb-2">Code</p>
             <input
               type="text"
-              placeholder="123456"
+              placeholder="ABC123"
+              value={code}
+              onChange={(e) =>
+                setCode(
+                  e.target.value
+                    .toUpperCase()
+                    .replace(/[^A-Z0-9]/g, "")
+                    .slice(0, 6)
+                )
+              }
               className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] tracking-widest text-lg"
               maxLength={6}
+              required
             />
           </label>
         </div>
 
-        {/* Verify button as plain text or background (you can pick) */}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
         <button
           type="submit"
-          className="flex w-full items-center justify-center rounded-full h-12 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition"
+          disabled={loading}
+          className="flex w-full items-center justify-center rounded-full h-12 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition disabled:opacity-50"
         >
-          Verify
+          {loading ? "Verifying..." : "Verify"}
         </button>
       </form>
 
@@ -43,8 +96,9 @@ const VerificationCode = () => {
         Didn't receive code?{" "}
         <button
           type="button"
+          onClick={handleResend}
+          disabled={loading}
           className="text-[#B3AB9C] font-medium hover:text-[#a69d8f] transition-colors ml-1 bg-transparent p-0 border-0"
-          onClick={() => console.log("Resend code")}
         >
           Resend
         </button>

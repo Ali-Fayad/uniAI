@@ -2,15 +2,47 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCard } from "../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { hashPassword } from "../utils/hash";
+import type { SignUpDto } from "../utils/auth";
+import { AuthService } from "../api/AuthService";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signing up...");
+
+    if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
+      console.error("All fields are required");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      console.error("Passwords do not match");
+      return;
+    }
+
+    const dto: SignUpDto = {
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      username: username.trim(),
+      email: email.trim().toLowerCase(),
+      password: await hashPassword(password),
+    };
+
+    console.log("SignUp DTO:", dto);
+
+    // Placeholder for API call
+    // await AuthService.signUp(dto);
   };
 
   return (
@@ -23,40 +55,51 @@ const SignUp = () => {
       </div>
 
       <form className="space-y-6" onSubmit={handleSignup}>
-        {/* Name fields */}
         <div className="grid grid-cols-2 gap-4">
           <input
             type="text"
             placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514]"
+            required
           />
           <input
             type="text"
             placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514]"
+            required
           />
         </div>
 
-        {/* Email */}
         <input
           type="email"
           placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514]"
+          required
         />
 
-        {/* Username */}
         <input
           type="text"
           placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514]"
+          required
         />
 
-        {/* Password */}
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] pr-14"
+            required
           />
           <button
             type="button"
@@ -67,12 +110,14 @@ const SignUp = () => {
           </button>
         </div>
 
-        {/* Confirm Password */}
         <div className="relative">
           <input
             type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] pr-14"
+            required
           />
           <button
             type="button"
@@ -83,7 +128,6 @@ const SignUp = () => {
           </button>
         </div>
 
-        {/* Create Account button as plain text */}
         <button
           type="submit"
           className="flex w-full items-center justify-center rounded-full h-12 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition"

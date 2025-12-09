@@ -4,7 +4,6 @@ import com.uniai.dto. AuthenticationResponseDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
 import com.uniai.exception. InvalidEmailOrPassword;
-import com.uniai.exception.InvalidTokenException;
 import com.uniai.exception.VerificationNeededException;
 import com.uniai.model.User;
 import com.uniai.repository.UserRepository;
