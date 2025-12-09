@@ -1,13 +1,11 @@
 package com.uniai.security;
 
-import com.uniai.builder.AuthenticationResponseBuilder;
-import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.model.User;
-import com.uniai.repository.UserRepository;
+import com.uniai.builder.JwtSecurityBuilder;
+import com.uniai.dto. AuthenticationResponseDto;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet. http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,11 +19,9 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
 	private final JwtUtil jwtUtil;
-	private final UserRepository userRepository;
 
-	public JwtFilter(JwtUtil jwtUtil, UserRepository userRepository) {
+	public JwtFilter(JwtUtil jwtUtil) {
 		this.jwtUtil = jwtUtil;
-		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -49,13 +45,10 @@ public class JwtFilter extends OncePerRequestFilter {
 		if(authenticatedUser == null)
 			return null;
 
-		return AuthenticationResponseBuilder.getUsernamePasswordAuthenticationToken(request, authenticatedUser);
-
+		return JwtSecurityBuilder.getUsernamePasswordAuthenticationToken(request, authenticatedUser);
 	}
 
-
-
-	private AuthenticationResponseDto extractUser( String authHeader) {
+	private AuthenticationResponseDto extractUser(String authHeader) {
 		if (authHeader == null || !authHeader.startsWith("Bearer "))
 			return null;
 
@@ -64,24 +57,14 @@ public class JwtFilter extends OncePerRequestFilter {
 		if (!jwtUtil.validateToken(token))
 			throw new RuntimeException("Token is invalid");
 
-		String username = jwtUtil.getUsernameFromToken(token);
+		AuthenticationResponseDto dto = jwtUtil.getUserDtoFromToken(token);
 
-		if (username == null || SecurityContextHolder.getContext().getAuthentication() != null)
+		if (dto. getUsername() == null || SecurityContextHolder.getContext().getAuthentication() != null)
 			throw new RuntimeException("Can't extract username from token");
 
-		User user = userRepository.findByUsername(username);
-
-		if (user == null)
-			throw new RuntimeException("User not found");
-
-		if (user.isVerified())
+		if (!dto.isVerified())
 			throw new RuntimeException("User not verified");
 
-		AuthenticationResponseDto dto = AuthenticationResponseBuilder.getAuthenticationResponseDtoFromUser(user);
 		return dto;
-
 	}
-
-
-
 }

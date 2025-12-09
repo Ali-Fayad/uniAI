@@ -1,16 +1,15 @@
 package com.uniai.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class VerifyDto {
 	private String email;
 	private String verificationCode;
-
-	public VerifyDto(String email, String verificationCode) {
-		this.email = email.toLowerCase();
-		this.verificationCode = verificationCode;
-	}
 }
