@@ -1,4 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { TokenStorage } from "../utils/storage";
+
+// Helper to get the correct redirect URL
+const getStartUrl = () => {
+  return TokenStorage.isAuthenticated() ? "/chat" : "/auth";
+};
 
 // Reusable hook for scroll animations that reverse when scrolling up
 const useScrollAnimation = (delay = 0) => {
@@ -177,7 +183,7 @@ const MainPage: React.FC = () => {
       {/* Try Now Button */}
       <section className="text-center mb-16">
         <a
-          href="/auth.html"
+          href={getStartUrl()}
           className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
         >
           <span className="truncate">Try Now</span>

@@ -6,6 +6,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import VerificationCode from './pages/VerificationCode';
 import OAuthLoading from './pages/OAuthLoading';
 import MainPage from './pages/MainPage';
+import ChatPage from './pages/ChatPage';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { PublicRoute } from './components/PublicRoute';
 
 const App = () => {
   return (
@@ -13,18 +16,63 @@ const App = () => {
       {/* Main marketing page */}
       <Route path="/" element={<MainPage />} />
 
-      {/* Auth Routes */}
-      <Route path="/auth" element={<DefaultView />} />
-      <Route path="/auth/signin" element={<SignIn />} />
-      <Route path="/auth/signup" element={<SignUp />} />
-      <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-      <Route path="/auth/verification" element={<VerificationCode />} />
+      {/* Protected Chat Route */}
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Auth Routes - redirect to /chat if already authenticated */}
+      <Route
+        path="/auth"
+        element={
+          <PublicRoute>
+            <DefaultView />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/auth/signin"
+        element={
+          <PublicRoute>
+            <SignIn />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/auth/signup"
+        element={
+          <PublicRoute>
+            <SignUp />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/auth/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/auth/verification"
+        element={
+          <PublicRoute>
+            <VerificationCode />
+          </PublicRoute>
+        }
+      />
 
       {/* OAuth Routes */}
       <Route path="/auth/google" element={<OAuthLoading provider="Google" />} />
       <Route path="/auth/github" element={<OAuthLoading provider="GitHub" />} />
 
-      {/* keep a fallback to /auth for unknown routes */}
+      {/* Fallback to /auth for unknown routes */}
       <Route path="*" element={<Navigate to="/auth" replace />} />
     </Routes>
   );

@@ -1,5 +1,4 @@
 import type { AuthenticationResponseDto } from "./auth";
-import {jwtDecode} from "jwt-decode";
 
 const TOKEN_KEY = "token";
 const DATA_KEY = "data";
@@ -27,5 +26,22 @@ export const TokenStorage = {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(DATA_KEY);
     localStorage.removeItem(EMAIL_KEY);
+  },
+
+  isAuthenticated: (): boolean => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    const data = localStorage.getItem(DATA_KEY);
+    return !!token && !!data;
+  },
+
+  logout: (): boolean => {
+    try {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(DATA_KEY);
+      localStorage.removeItem(EMAIL_KEY);
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 };

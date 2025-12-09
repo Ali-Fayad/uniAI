@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCard } from "../components/AuthCard";
 import { AuthService } from "../api/AuthService";
+import { TokenStorage } from "../utils/storage";
 
 const VerificationCode = () => {
   const navigate = useNavigate();
@@ -9,6 +10,15 @@ const VerificationCode = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Prefill email from TokenStorage (saved during sign-in / sign-up flow)
+  useEffect(() => {
+    const savedEmail =
+      (typeof TokenStorage.getEmailForVerification === "function"
+        ? TokenStorage.getEmailForVerification()
+        : undefined) || "";
+    setEmail(savedEmail);
+  }, []);
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,15 +29,30 @@ const VerificationCode = () => {
       return;
     }
 
+    if (!email) {
+      setError("Email is missing.  Please go back and request a new code.");
+      return;
+    }
+
     setLoading(true);
     try {
-      await AuthService.verifyCode({ email, verificationCode: code });
-      console.log("Code verified successfully!");
-      // navigate to dashboard or next page
-      navigate("/dashboard");
+      const response = await AuthService.verifyCode({
+        email,
+        verificationCode: code,
+      });
+
+      // Successful verification (200) -> token available
+      if (response.status === 200 && response.token) {
+        TokenStorage.saveToken(response.token);
+        navigate("/chat");
+        return;
+      }
+
+      // Show backend message when available
+      setError(response.message || "Invalid verification code. Please try again.");
     } catch (err) {
       console.error("Verification failed:", err);
-      setError("Invalid verification code. Please try again.");
+      setError("Verification failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -35,13 +60,20 @@ const VerificationCode = () => {
 
   const handleResend = async () => {
     setError(null);
+
+    if (!email) {
+      setError("Email is missing. Please go back and request a new code.");
+      return;
+    }
+
     setLoading(true);
     try {
       await AuthService.resendCode(email);
       console.log("Verification code resent!");
-    } catch (err) {
+    } catch (err:  any) {
       console.error("Resend failed:", err);
-      setError("Failed to resend code. Please try again.");
+      const backendMessage = err?. response?.data?.message;
+      setError(backendMessage || "Failed to resend code. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -80,6 +112,13 @@ const VerificationCode = () => {
             />
           </label>
         </div>
+
+        {/* show the email being verified so user can confirm it */}
+        {email && (
+          <p className="text-sm text-[#797672]">
+            Verifying email: <span className="font-medium text-[#151514]">{email}</span>
+          </p>
+        )}
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 

@@ -14,42 +14,46 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (!email.trim() || !password) {
+    if (!email. trim() || !password) {
       setError("Email and password are required.");
       return;
     }
 
-    const loginData: SignInDto = {
-      email: email.trim().toLowerCase(),
-      password: await hashPassword(password),
-    };
-
+    setLoading(true);
     try {
+      const loginData:  SignInDto = {
+        email: email.trim().toLowerCase(),
+        password: await hashPassword(password),
+      };
+
       const response = await AuthService.signIn(loginData);
 
-      // status 200 → token available → go to dashboard
-      if (response.status === 200 && response.token) {
+      // status 200 → token available → go to chat
+      if (response. status === 200 && response.token) {
         TokenStorage.saveToken(response.token);
-        navigate("/dashboard");
+        navigate("/chat");
       }
       // status 202 → email not verified → go to verification page
       else if (response.status === 202) {
         // Save the email temporarily for verification
-        TokenStorage.saveEmailForVerification(email.trim().toLowerCase());
-        navigate("/auth/verify");
+        TokenStorage.saveEmailForVerification(email. trim().toLowerCase());
+        navigate("/auth/verification");
       }
       // any other status
       else {
-        setError(response.message || "Login failed. Please try again.");
+        setError(response.message || "Login failed.  Please try again.");
       }
     } catch (err) {
       console.error("Login failed", err);
       setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,17 +113,21 @@ const SignIn = () => {
 
         {/* SIGN IN BUTTON */}
         <div>
-          <button className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition">
-            Sign In
+          <button
+            type="submit"
+            disabled={loading}
+            className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition disabled:opacity-50"
+          >
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </div>
       </form>
 
       {/* Footer */}
       <p className="text-center text-[#797672] text-sm mt-6">
-        Don’t have an account?{" "}
+        Don't have an account?{" "}
         <button
-          className="text-[#B3AB9C] font-medium hover:text-[#a69d8f] transition-colors ml-1 bg-transparent p-0"
+          className="text-[#B3AB9C] font-medium hover: text-[#a69d8f] transition-colors ml-1 bg-transparent p-0"
           onClick={() => navigate("/auth/signup")}
         >
           Create one
