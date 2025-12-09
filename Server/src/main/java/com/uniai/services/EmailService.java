@@ -45,21 +45,24 @@ public class EmailService {
         return html.replace("{{CODE}}", code);
     }
 
-    public String sendVerificationCode(String userEmail)
-            throws MessagingException, IOException {
+    public String sendVerificationCode(String userEmail) {
+        try {
+            String code = generateVerificationCode();
+            String htmlContent = loadHtmlTemplate(code);
 
-        String code = generateVerificationCode();
-        String htmlContent = loadHtmlTemplate(code);
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper =
-                new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(userEmail);
+            helper.setSubject("uniAIVerification Code");
+            helper.setText(htmlContent, true);
 
-        helper.setTo(userEmail);
-        helper.setSubject("uniAIVerification Code");
-        helper.setText(htmlContent, true);
+            mailSender.send(message);
+            return code;
 
-        mailSender.send(message);
-        return code;
+        } catch (MessagingException | IOException e) {
+            // Handle exception: log it, rethrow as runtime, or return null
+            throw new RuntimeException("Failed to send verification email", e);
+        }
     }
 }
