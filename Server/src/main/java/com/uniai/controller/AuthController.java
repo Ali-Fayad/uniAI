@@ -1,21 +1,19 @@
 package com.uniai.controller;
 
 import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.dto.EmailRequestDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
-import com.uniai.services.EmailService;
 import com.uniai.services.AuthService;
 
-import java.io.IOException;
-
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-    private final EmailService emailService;
 
     @PostMapping("auth/signup")
     public ResponseEntity<?> signUp(@RequestBody SignUpDto signUpDto) {
@@ -46,21 +43,19 @@ public class AuthController {
 
     @GetMapping("auth/me")
     public ResponseEntity<AuthenticationResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.substring(7); // Remove "Bearer " prefix
+        String token = authHeader.substring(7);
         AuthenticationResponseDto responseDto = authService.getResponseDtoByToken(token);
         return ResponseEntity.ok(responseDto);
     }
 
-//    @PostMapping("auth/verify")
-//    public ResponseEntity<?> sendVerificationCode(@RequestBody EmailRequestDto request)
-//            throws MessagingException, IOException {
-//
-//        emailService.sendVerificationCode(request.email());
-//        return ResponseEntity.ok(new MessageResponse("Verification email sent successfully."));
-//    }
+    // @PostMapping")
+    // public String postMethodName(@RequestBody String entity) {
+    //     //TODO: process POST request
 
-    private record MessageResponse(String message) {
-    }
+    //     return entity;
+    // }
+
+
 
     private record TokenResponse(String token) {
     }

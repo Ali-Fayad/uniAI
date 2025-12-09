@@ -6,6 +6,7 @@ import com.uniai.dto.SignUpDto;
 import com.uniai.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import java.util.Collections;
@@ -25,12 +26,12 @@ public class AuthenticationResponseBuilder {
         return dto;
     }
 
-    public static User getUserFromSignUpDto(SignUpDto userDto)
+    public static User getUserFromSignUpDto(SignUpDto userDto, PasswordEncoder passwordEncoder)
     {
         User user = User.builder()
                 .username(userDto.getUsername().toLowerCase())
                 .firstName(capitalize(userDto.getFirstName()))
-                .lastName(capitalize(user.getLastName()))
+                .lastName(capitalize(userDto.getLastName()))
                 .email(userDto.getEmail().toLowerCase())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .build();

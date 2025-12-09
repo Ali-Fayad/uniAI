@@ -34,16 +34,16 @@ public class AuthService {
             throw new AlreadyExistsException("Email already exists");
         }
 
-        if (userRepository.existsByUsername(userDto.getUsername().toLowerCase)) {
+        if (userRepository.existsByUsername(userDto.getUsername().toLowerCase())) {
             throw new AlreadyExistsException("Username already exists");
         }
 
-        User user = AuthenticationResponseBuilder.getUserFromSignUpDto(userDto);
+        User user = AuthenticationResponseBuilder.getUserFromSignUpDto(userDto, passwordEncoder);
 
         userRepository.save(user);
 
-        if(user.isVerified() == false){
-            emailService.sendVerificationCode(user.gmail);
+        if (user.isVerified() == false) {
+            emailService.sendVerificationCode(user.getEmail());
             throw new VerificationNeededException("a verification code was send, check your email!");
         }
 
@@ -51,14 +51,14 @@ public class AuthService {
     }
 
     public String signIn(SignInDto userDto) {
-        User user = userRepository.findByEmail(userDto.getEmail());
+        User user = userRepository.findByEmail(userDto.getEmail().toLowerCase());
 
         if (user == null || !passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
             throw new InvalidEmailOrPassword();
         }
 
-        if(user.isVerified() == false){
-            emailService.sendVerificationCode(user.gmail);
+        if (user.isVerified() == false) {
+            emailService.sendVerificationCode(user.getEmail());
             throw new VerificationNeededException("a verification code was send, check your email!");
         }
 
@@ -68,29 +68,18 @@ public class AuthService {
     public List<AuthenticationResponseDto> getAllUsers() {
         List<User> users = userRepository.findAll();
 
-        return users.stream().map(user -> AuthenticationResponseDto.builder()
-                .username(user.getUsername())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .isVerified(user.isVerified())
-                .isTwoFacAuth(user.isTwoFacAuth())
-                .build()).toList();
+        return users.stream()
+                .map(AuthenticationResponseBuilder::getAuthenticationResponseDtoFromUser)
+                .toList();
     }
 
     public AuthenticationResponseDto getResponseDtoByToken(String token) {
         String username = jwtUtil.getUsernameFromToken(token);
         User user = userRepository.findByUsername(username);
+
         if (user == null)
             throw new InvalidTokenException();
 
-        return AuthenticationResponseDto.builder()
-                .username(user.getUsername())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .isVerified(user.isVerified())
-                .isTwoFacAuth(user.isTwoFacAuth())
-                .build();
+        return AuthenticationResponseBuilder.getAuthenticationResponseDtoFromUser(user);
     }
 }
