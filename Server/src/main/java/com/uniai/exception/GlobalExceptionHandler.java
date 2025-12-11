@@ -38,4 +38,10 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
 
     }
+
+    @ExceptionHandler(EmailNotFoundException.class)
+    public ResponseEntity<?> handleEmailNotFoundException(Exception ex) {
+        return ResponseEntity.status(404)
+                .body(ex.getMessage());
+    }
 }

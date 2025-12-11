@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api")
@@ -33,13 +36,6 @@ public class AuthController {
         return ResponseEntity.ok(new TokenResponse(token));
     }
 
-    @GetMapping("auth/users")
-    public ResponseEntity<List<AuthenticationResponseDto>> getAllUsers() {
-        List<AuthenticationResponseDto> entity = authService.getAllUsers();
-
-        return ResponseEntity.ok(entity);
-    }
-
     @GetMapping("auth/me")
     public ResponseEntity<AuthenticationResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.substring(7);
@@ -52,6 +48,14 @@ public class AuthController {
         String token = authService.verifyAndGenerateToken(verifyDto.getEmail(), verifyDto.getVerificationCode());
         return ResponseEntity.ok(new TokenResponse(token));
     }
+
+    // @PostMapping("auth/forgetpassword")
+    // public String changePassword(@RequestBody String entity) {
+    //     //TODO: process POST request
+
+    //     return entity;
+    // }
+
 
     private record TokenResponse(String token) {
     }
