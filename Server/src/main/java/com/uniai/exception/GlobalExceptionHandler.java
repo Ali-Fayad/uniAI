@@ -32,4 +32,10 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidVerificationCodeException.class)
+    public ResponseEntity<?> handleInvalidVerificationCodeException(Exception ex) {
+        return ResponseEntity.badRequest()
+                .body(ex.getMessage());
+
+    }
 }

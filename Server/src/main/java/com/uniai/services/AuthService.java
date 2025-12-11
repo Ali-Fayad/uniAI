@@ -1,16 +1,16 @@
 package com.uniai.services;
 
-import com.uniai.dto.AuthenticationResponseDto;
+import com.uniai.dto. AuthenticationResponseDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
-import com.uniai.exception.InvalidEmailOrPassword;
+import com.uniai.exception. InvalidEmailOrPassword;
 import com.uniai.exception.InvalidTokenException;
 import com.uniai.exception.VerificationNeededException;
 import com.uniai.model.User;
 import com.uniai.repository.UserRepository;
-import com.uniai.security.JwtUtil;
+import com.uniai. security.JwtUtil;
 import com.uniai.exception.AlreadyExistsException;
-import com.uniai.builder.AuthenticationResponseBuilder;
+import com.uniai.builder. AuthenticationResponseBuilder;
 
 import lombok.AllArgsConstructor;
 
@@ -38,20 +38,22 @@ public class AuthService {
             throw new AlreadyExistsException("Username already exists");
         }
 
-        User user = AuthenticationResponseBuilder.getUserFromSignUpDto(userDto, passwordEncoder);
+        User user = AuthenticationResponseBuilder. getUserFromSignUpDto(userDto, passwordEncoder);
 
         userRepository.save(user);
 
         if (user.isVerified() == false) {
-            emailService.sendVerificationCode(user.getEmail());
+            emailService. sendVerificationCode(user.getEmail());
             throw new VerificationNeededException("a verification code was send, check your email!");
         }
 
-        return jwtUtil.generateToken(user.getUsername());
+        // Convert User to DTO and generate token with full user data
+        AuthenticationResponseDto responseDto = AuthenticationResponseBuilder.getAuthenticationResponseDtoFromUser(user);
+        return jwtUtil.generateToken(responseDto);
     }
 
     public String signIn(SignInDto userDto) {
-        User user = userRepository.findByEmail(userDto.getEmail().toLowerCase());
+        User user = userRepository.findByEmail(userDto. getEmail().toLowerCase());
 
         if (user == null || !passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
             throw new InvalidEmailOrPassword();
@@ -62,24 +64,29 @@ public class AuthService {
             throw new VerificationNeededException("a verification code was send, check your email!");
         }
 
-        return jwtUtil.generateToken(user.getUsername());
+        // Convert User to DTO and generate token with full user data
+        AuthenticationResponseDto responseDto = AuthenticationResponseBuilder.getAuthenticationResponseDtoFromUser(user);
+        return jwtUtil.generateToken(responseDto);
+    }
+
+    public String verifyAndGenerateToken(String email, String code) {
+        User user = emailService.verifyCode(email, code);
+
+        // Convert User to DTO and generate token with full user data
+        AuthenticationResponseDto responseDto = AuthenticationResponseBuilder.getAuthenticationResponseDtoFromUser(user);
+        return jwtUtil.generateToken(responseDto);
     }
 
     public List<AuthenticationResponseDto> getAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository. findAll();
 
-        return users.stream()
+        return users. stream()
                 .map(AuthenticationResponseBuilder::getAuthenticationResponseDtoFromUser)
                 .toList();
     }
 
     public AuthenticationResponseDto getResponseDtoByToken(String token) {
-        String username = jwtUtil.getUsernameFromToken(token);
-        User user = userRepository.findByUsername(username);
-
-        if (user == null)
-            throw new InvalidTokenException();
-
-        return AuthenticationResponseBuilder.getAuthenticationResponseDtoFromUser(user);
+        // Now we can get the user info directly from the token!
+        return jwtUtil.getUserDtoFromToken(token);
     }
 }
