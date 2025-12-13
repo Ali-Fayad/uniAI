@@ -1,7 +1,7 @@
 package com.uniai.controller;
 
 import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.dto.ChangePasswordDto;
+import com.uniai.dto.RequestPasswordDto;
 import com.uniai.dto.EmailDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
@@ -59,7 +59,7 @@ public class AuthController {
      * On success returns a new JWT for the user.
      */
     @PostMapping("auth/forget-password/confirm")
-    public ResponseEntity<?> confirmForgetPassword(@RequestBody ChangePasswordDto dto) {
+    public ResponseEntity<?> confirmForgetPassword(@RequestBody RequestPasswordDto dto) {
         String token = authService.resetPasswordWithCode(dto.getEmail(), dto.getVerificationCode(), dto.getNewPassword());
         return ResponseEntity.ok(new TokenResponse(token));
     }
