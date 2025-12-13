@@ -1,8 +1,15 @@
-package com.uniai.exception;
+package com.uniai.exeptionhandler;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.uniai.exception.AlreadyExistsException;
+import com.uniai.exception.EmailNotFoundException;
+import com.uniai.exception.InvalidEmailOrPassword;
+import com.uniai.exception.InvalidTokenException;
+import com.uniai.exception.InvalidVerificationCodeException;
+import com.uniai.exception.VerificationNeededException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

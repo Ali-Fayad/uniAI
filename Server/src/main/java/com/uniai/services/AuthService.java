@@ -60,19 +60,50 @@ public class AuthService {
             throw new VerificationNeededException("a verification code was send, check your email!");
         }
 
+        if (user.isTwoFacAuth() == true) {
+            // automatically request the TWO_FACT_AUTH code and tell caller that verification is needed
+            emailService.sendVerificationCode(user.getEmail(), VerificationCodeType.TWO_FACT_AUTH);
+            throw new VerificationNeededException("two-factor authentication code sent to email");
+        }
+
         // Convert User to DTO and generate token with full user data
         AuthenticationResponseDto responseDto = AuthenticationResponseBuilder
                 .getAuthenticationResponseDtoFromUser(user);
         return jwtUtil.generateToken(responseDto);
     }
 
+    /**
+     * Verify an email + code for VERIFY type and generate a token.
+     * Backwards-compatible helper that defaults to VERIFY type.
+     */
     public String verifyAndGenerateToken(String email, String code) {
-        User user = emailService.verifyCode(email, code, VerificationCodeType.VERIFY);
+        return verifyAndGenerateToken(email, code, VerificationCodeType.VERIFY);
+    }
+
+    /**
+     * Generic verification for a specific VerificationCodeType, then generate JWT.
+     */
+    public String verifyAndGenerateToken(String email, String code, VerificationCodeType type) {
+        // normalize email to lower-case for verification lookups (your repositories expect lower-case)
+        User user = emailService.verifyCode(email.toLowerCase(), code, type);
 
         // Convert User to DTO and generate token with full user data
         AuthenticationResponseDto responseDto = AuthenticationResponseBuilder
                 .getAuthenticationResponseDtoFromUser(user);
         return jwtUtil.generateToken(responseDto);
+    }
+
+    /**
+     * Convenience method specifically for two-factor verification check + token generation.
+     * Call this after signIn() has triggered a TWO_FACT_AUTH email to be sent.
+     *
+     * Example flow:
+     * 1) client calls /auth/signin -> signIn() throws VerificationNeededException and server sends TWO_FACT_AUTH
+     * 2) client shows "enter 2fa code" UI and calls /auth/2fa/verify (or similar) with email + code
+     * 3) controller calls this method to verify the TWO_FACT_AUTH code and return the JWT
+     */
+    public String checkTwoFactorAndGenerate(String email, String code) {
+        return verifyAndGenerateToken(email, code, VerificationCodeType.TWO_FACT_AUTH);
     }
 
     public AuthenticationResponseDto getResponseDtoByToken(String token) {
@@ -119,10 +150,5 @@ public class AuthService {
         return jwtUtil.generateToken(responseDto);
     }
 
-    /**
-     * Convenience: request a two-factor code (TWO_FACT_AUTH).
-     */
-    public String requestTwoFactorCode(String email) {
-        return emailService.sendVerificationCode(email, VerificationCodeType.TWO_FACT_AUTH);
-    }
+    // removed requestTwoFactorCode() as you said you won't call it manually
 }

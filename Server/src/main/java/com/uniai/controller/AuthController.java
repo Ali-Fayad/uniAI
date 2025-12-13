@@ -1,15 +1,18 @@
 package com.uniai.controller;
 
 import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.dto.ChangePasswordDto;
+import com.uniai.dto.RequestPasswordDto;
 import com.uniai.dto.EmailDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
 import com.uniai.dto.VerifyDto;
 import com.uniai.services.AuthService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api")
@@ -43,23 +46,20 @@ public class AuthController {
         return ResponseEntity.ok(new TokenResponse(token));
     }
 
-    /**
-     * Request a change-password code to be sent to the given email.
-     * Body: { "email": "user@example.com" }
-     */
+    @PostMapping("auth/2fa/verify")
+    public ResponseEntity<?> verifyTwoFactor(@Valid @RequestBody VerifyDto dto) {
+        String token = authService.checkTwoFactorAndGenerate(dto.getEmail(), dto.getVerificationCode());
+        return ResponseEntity.ok(new TokenResponse(token));
+    }
+
     @PostMapping("auth/forget-password")
     public ResponseEntity<?> forgetPassword(@RequestBody EmailDto emailDto) {
         authService.forgetPassword(emailDto.getEmail());
         return ResponseEntity.ok(new MessageResponse("verification code sent"));
     }
 
-    /**
-     * Confirm change-password with email + code + newPassword.
-     * Body: { "email": "...", "verificationCode": "...", "newPassword": "..." }
-     * On success returns a new JWT for the user.
-     */
     @PostMapping("auth/forget-password/confirm")
-    public ResponseEntity<?> confirmForgetPassword(@RequestBody ChangePasswordDto dto) {
+    public ResponseEntity<?> confirmForgetPassword(@RequestBody RequestPasswordDto dto) {
         String token = authService.resetPasswordWithCode(dto.getEmail(), dto.getVerificationCode(), dto.getNewPassword());
         return ResponseEntity.ok(new TokenResponse(token));
     }
