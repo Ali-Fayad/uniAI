@@ -1,20 +1,21 @@
-package com. uniai.services;
+package com.uniai.services;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
-import java. time.LocalDateTime;
+import java.time.LocalDateTime;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail. javamail.MimeMessageHelper;
-import org. springframework.stereotype.Service;
-
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 import com.uniai.exception.InvalidVerificationCodeException;
 import com.uniai.model.User;
 import com.uniai.model.VerifyCode;
+import com.uniai.builder.EmailBuilder;
+import com.uniai.domain.VerificationCodeType;
 import com.uniai.repository.UserRepository;
 import com.uniai.repository.VerifyCodeRepository;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet. MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 import java.io.IOException;
 
@@ -28,6 +29,7 @@ public class EmailService {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final SecureRandom RANDOM = new SecureRandom();
     private static final int CODE_LENGTH = 6;
+    private static final int EXPIRY_MINUTES = 15;
 
     public String generateVerificationCode() {
         StringBuilder sb = new StringBuilder(CODE_LENGTH);
@@ -37,25 +39,32 @@ public class EmailService {
         return sb.toString();
     }
 
-    private String loadHtmlTemplate(String code) throws IOException {
+    private String loadHtmlTemplate(String code, String title, String paragraph, int expiryMinutes) throws IOException {
         ClassPathResource resource = new ClassPathResource("templates/verification_email.html");
-
         String html = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-        return html.replace("{{CODE}}", code);
+
+        html = html.replace("{{CODE}}", code);
+        html = html.replace("{{TITLE}}", title != null ? title : "Verify Your Email Address");
+        html = html.replace("{{PARAGRAPH}}", paragraph != null ? paragraph
+                : "Thanks for signing up for uniAI! To complete your registration, please use the verification code below.");
+        html = html.replace("{{EXPIRY_MINUTES}}", String.valueOf(expiryMinutes));
+
+        return html;
     }
 
-    public String sendVerificationCode(String userEmail) {
+    public String sendVerificationCode(String userEmail, VerificationCodeType type) {
         try {
             String code = generateVerificationCode();
-            String htmlContent = loadHtmlTemplate(code);
 
-            verifyCodeRepository.deleteByEmail(userEmail);
+            String subject = type.getSubject();
+            String title = type.getTitle();
+            String paragraph = type.getParagraph();
 
-            VerifyCode newCode = VerifyCode.builder()
-                    .email(userEmail)
-                    .code(code)
-                    .expirationTime(LocalDateTime.now().plusMinutes(15))
-                    .build();
+            String htmlContent = loadHtmlTemplate(code, title, paragraph, EXPIRY_MINUTES);
+
+            verifyCodeRepository.deleteByEmailAndType(userEmail, type);
+
+            VerifyCode newCode = EmailBuilder.getVerifyCode(userEmail, code, type, EXPIRY_MINUTES);
 
             verifyCodeRepository.save(newCode);
 
@@ -63,7 +72,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
             helper.setTo(userEmail);
-            helper. setSubject("uniAI Verification Code");
+            helper.setSubject(subject);
             helper.setText(htmlContent, true);
 
             mailSender.send(message);
@@ -74,26 +83,28 @@ public class EmailService {
         }
     }
 
-    public User verifyCode(String email, String code) {
+    public User verifyCode(String email, String code, VerificationCodeType type) {
 
-        VerifyCode stored = verifyCodeRepository.findTopByEmailOrderByExpirationTimeDesc(email);
+        VerifyCode stored = verifyCodeRepository.findTopByEmailAndTypeOrderByExpirationTimeDesc(email, type);
 
         if (stored == null ||
                 stored.getExpirationTime().isBefore(LocalDateTime.now()) ||
-                ! stored.getCode().equals(code)) {
+                !stored.getCode().equals(code)) {
 
             throw new InvalidVerificationCodeException();
         }
 
-        User user = userRepository.findByEmail(email. toLowerCase());
+        User user = userRepository.findByEmail(email.toLowerCase());
         if (user == null) {
             throw new InvalidVerificationCodeException();
         }
 
-        user.setVerified(true);
-        userRepository.save(user);
+        if (type == VerificationCodeType.VERIFY) {
+            user.setVerified(true);
+            userRepository.save(user);
+        }
 
-        verifyCodeRepository. delete(stored);
+        verifyCodeRepository.delete(stored);
 
         return user;
     }
