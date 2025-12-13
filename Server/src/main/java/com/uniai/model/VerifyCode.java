@@ -2,6 +2,8 @@ package com.uniai.model;
 
 import java.time.LocalDateTime;
 
+import com.uniai.domain.VerificationCodeType;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,11 +26,15 @@ public class VerifyCode {
 
     private String code;
 
+    @Enumerated(EnumType.STRING)
+    private VerificationCodeType type;
+
     private LocalDateTime expirationTime;
 
-    public void saveCode(String email, String code) {
+    public void saveCode(String email, String code, VerificationCodeType type) {
         this.email = email;
         this.code = code;
+        this.type = type;
         this.expirationTime = LocalDateTime.now().plusMinutes(15);
     }
 }

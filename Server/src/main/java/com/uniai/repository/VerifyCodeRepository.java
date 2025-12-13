@@ -1,13 +1,14 @@
 package com.uniai.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.uniai.model.VerifyCode;
+import com.uniai.domain.VerificationCodeType;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
 public interface VerifyCodeRepository extends JpaRepository<VerifyCode, Long> {
 
-    VerifyCode findTopByEmailOrderByExpirationTimeDesc(String email);
-    void deleteByEmail(String email);
+    // Delete any existing codes for the email+type before creating a new one
+    void deleteByEmailAndType(String email, VerificationCodeType type);
+
+    // Find the most recent code for this email+type
+    VerifyCode findTopByEmailAndTypeOrderByExpirationTimeDesc(String email, VerificationCodeType type);
 }

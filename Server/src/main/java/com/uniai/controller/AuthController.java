@@ -1,21 +1,15 @@
 package com.uniai.controller;
 
 import com.uniai.dto.AuthenticationResponseDto;
+import com.uniai.dto.ChangePasswordDto;
+import com.uniai.dto.EmailDto;
 import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
 import com.uniai.dto.VerifyDto;
-import com.uniai.model.User;
 import com.uniai.services.AuthService;
-import com.uniai.services.EmailService;
-
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/api")
@@ -49,14 +43,30 @@ public class AuthController {
         return ResponseEntity.ok(new TokenResponse(token));
     }
 
-    // @PostMapping("auth/forgetpassword")
-    // public String changePassword(@RequestBody String entity) {
-    //     //TODO: process POST request
+    /**
+     * Request a change-password code to be sent to the given email.
+     * Body: { "email": "user@example.com" }
+     */
+    @PostMapping("auth/forget-password")
+    public ResponseEntity<?> forgetPassword(@RequestBody EmailDto emailDto) {
+        authService.forgetPassword(emailDto.getEmail());
+        return ResponseEntity.ok(new MessageResponse("verification code sent"));
+    }
 
-    //     return entity;
-    // }
-
+    /**
+     * Confirm change-password with email + code + newPassword.
+     * Body: { "email": "...", "verificationCode": "...", "newPassword": "..." }
+     * On success returns a new JWT for the user.
+     */
+    @PostMapping("auth/forget-password/confirm")
+    public ResponseEntity<?> confirmForgetPassword(@RequestBody ChangePasswordDto dto) {
+        String token = authService.resetPasswordWithCode(dto.getEmail(), dto.getVerificationCode(), dto.getNewPassword());
+        return ResponseEntity.ok(new TokenResponse(token));
+    }
 
     private record TokenResponse(String token) {
+    }
+
+    private record MessageResponse(String message) {
     }
 }

@@ -1,20 +1,21 @@
-package com. uniai.services;
+package com.uniai.services;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
-import java. time.LocalDateTime;
+import java.time.LocalDateTime;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail. javamail.MimeMessageHelper;
-import org. springframework.stereotype.Service;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
 import com.uniai.exception.InvalidVerificationCodeException;
 import com.uniai.model.User;
 import com.uniai.model.VerifyCode;
+import com.uniai.domain.VerificationCodeType;
 import com.uniai.repository.UserRepository;
 import com.uniai.repository.VerifyCodeRepository;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet. MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 import java.io.IOException;
 
@@ -44,16 +45,25 @@ public class EmailService {
         return html.replace("{{CODE}}", code);
     }
 
-    public String sendVerificationCode(String userEmail) {
+    /**
+     * Send verification code of a particular type to the user email.
+     * Caller should specify the type: VERIFY, TWO_FACT_AUTH, or CHANGE_PASSWORD.
+     * Returns the generated code (useful for tests); in production code you may
+     * wish
+     * to avoid exposing it.
+     */
+    public String sendVerificationCode(String userEmail, VerificationCodeType type) {
         try {
             String code = generateVerificationCode();
             String htmlContent = loadHtmlTemplate(code);
 
-            verifyCodeRepository.deleteByEmail(userEmail);
+            // Remove previous codes for the same email & type
+            verifyCodeRepository.deleteByEmailAndType(userEmail, type);
 
             VerifyCode newCode = VerifyCode.builder()
                     .email(userEmail)
                     .code(code)
+                    .type(type)
                     .expirationTime(LocalDateTime.now().plusMinutes(15))
                     .build();
 
@@ -63,7 +73,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
             helper.setTo(userEmail);
-            helper. setSubject("uniAI Verification Code");
+            helper.setSubject("uniAI Verification Code");
             helper.setText(htmlContent, true);
 
             mailSender.send(message);
@@ -74,26 +84,36 @@ public class EmailService {
         }
     }
 
-    public User verifyCode(String email, String code) {
+    /**
+     * Verify the code for a given email and code type.
+     * If valid, mark user's verified status for VERIFY type and remove the code.
+     * Returns the affected User (if any).
+     */
+    public User verifyCode(String email, String code, VerificationCodeType type) {
 
-        VerifyCode stored = verifyCodeRepository.findTopByEmailOrderByExpirationTimeDesc(email);
+        VerifyCode stored = verifyCodeRepository.findTopByEmailAndTypeOrderByExpirationTimeDesc(email, type);
 
         if (stored == null ||
                 stored.getExpirationTime().isBefore(LocalDateTime.now()) ||
-                ! stored.getCode().equals(code)) {
+                !stored.getCode().equals(code))
 
             throw new InvalidVerificationCodeException();
-        }
 
-        User user = userRepository.findByEmail(email. toLowerCase());
+        User user = userRepository.findByEmail(email.toLowerCase());
         if (user == null) {
             throw new InvalidVerificationCodeException();
         }
 
-        user.setVerified(true);
-        userRepository.save(user);
+        // If this is an account verification code, mark user verified
+        if (type == VerificationCodeType.VERIFY) {
+            user.setVerified(true);
+            userRepository.save(user);
+        }
 
-        verifyCodeRepository. delete(stored);
+        // For CHANGE_PASSWORD or TWO_FACT_AUTH, you may want to handle differently in
+        // callers
+
+        verifyCodeRepository.delete(stored);
 
         return user;
     }
