@@ -1,5 +1,6 @@
 package com.uniai.controller;
 
+import com.uniai.dto.GoogleAuthUrlRequestDto;
 import com.uniai.dto.AuthenticationResponseDto;
 import com.uniai.dto.RequestPasswordDto;
 import com.uniai.dto.EmailDto;
@@ -7,12 +8,11 @@ import com.uniai.dto.SignInDto;
 import com.uniai.dto.SignUpDto;
 import com.uniai.dto.VerifyDto;
 import com.uniai.services.AuthService;
-
+import com.uniai.services.OAuthGoogleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping("/api")
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final OAuthGoogleService oAuthGoogleService;
 
     @PostMapping("auth/signup")
     public ResponseEntity<?> signUp(@RequestBody SignUpDto signUpDto) {
@@ -64,9 +65,24 @@ public class AuthController {
         return ResponseEntity.ok(new TokenResponse(token));
     }
 
+    /**
+     * Accepts an optional request body with redirectUri and state.
+     * If request is null the service uses the configured redirectUri.
+     */
+    @PostMapping("auth/google/url")
+    public ResponseEntity<?> getGoogleAuthUrl(@Valid @RequestBody(required = false) GoogleAuthUrlRequestDto request) {
+        String redirect = request == null ? null : request.getRedirectUri();
+        String state = request == null ? null : request.getState();
+        String url = oAuthGoogleService.getGoogleAuthorizationUrl(redirect, state);
+        return ResponseEntity.ok(new UrlResponse(url));
+    }
+
     private record TokenResponse(String token) {
     }
 
     private record MessageResponse(String message) {
+    }
+
+    private record UrlResponse(String url) {
     }
 }

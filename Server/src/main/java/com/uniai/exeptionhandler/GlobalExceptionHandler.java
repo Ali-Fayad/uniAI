@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.uniai.exception.AlreadyExistsException;
 import com.uniai.exception.EmailNotFoundException;
+import com.uniai.exception.GoogleAuthException;
 import com.uniai.exception.InvalidEmailOrPassword;
 import com.uniai.exception.InvalidTokenException;
 import com.uniai.exception.InvalidVerificationCodeException;
@@ -49,6 +50,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailNotFoundException.class)
     public ResponseEntity<?> handleEmailNotFoundException(Exception ex) {
         return ResponseEntity.status(404)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(GoogleAuthException.class)
+    public ResponseEntity<?> handleGoogleAuthException(Exception ex) {
+        return ResponseEntity.status(401)
                 .body(ex.getMessage());
     }
 }
