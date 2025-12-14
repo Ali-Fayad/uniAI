@@ -10,7 +10,6 @@ import com.uniai.dto.AuthenticationResponseDto;
 import com.uniai.exception.GoogleAuthException;
 import com.uniai.model.User;
 import com.uniai.repository.UserRepository;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.UUID;
