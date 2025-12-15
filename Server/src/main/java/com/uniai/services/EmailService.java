@@ -19,9 +19,7 @@ import com.uniai.security.email.EmailUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailService {
@@ -114,7 +112,6 @@ public class EmailService {
 			mailSender.send(mimeMessage);
 
 		} catch (MessagingException e) {
-			log.error("Failed to send email to {}", to, e);
 			throw new IllegalStateException("Email sending failed");
 		}
 	}
