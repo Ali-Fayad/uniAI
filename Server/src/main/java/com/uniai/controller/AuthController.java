@@ -34,6 +34,7 @@ public class AuthController {
         return ResponseEntity.ok(new TokenResponse(token));
     }
 
+    //TODO : move Auth to rest filter
     @GetMapping("auth/me")
     public ResponseEntity<AuthenticationResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.substring(7);

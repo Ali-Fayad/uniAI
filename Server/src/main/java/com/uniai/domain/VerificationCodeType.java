@@ -1,6 +1,7 @@
 package com.uniai.domain;
 
 public enum VerificationCodeType {
+	//TODO: Move these as per request
 	VERIFY(
 			"uniAI — Email Verification",
 			"Verify Your Email Address",

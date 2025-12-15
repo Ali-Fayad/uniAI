@@ -13,6 +13,7 @@ import com.uniai.exception.InvalidTokenException;
 import com.uniai.exception.InvalidVerificationCodeException;
 import com.uniai.exception.VerificationNeededException;
 
+//TODO : Search about log4j and save into a file log
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidEmailOrPassword.class)

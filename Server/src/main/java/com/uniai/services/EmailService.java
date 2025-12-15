@@ -19,6 +19,7 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 import java.io.IOException;
 
+//TODO : refactor while respecting single responsability
 @Service
 @AllArgsConstructor
 public class EmailService {
@@ -39,6 +40,7 @@ public class EmailService {
         return sb.toString();
     }
 
+    //TODO : search for thymeleaf
     private String loadHtmlTemplate(String code, String title, String paragraph, int expiryMinutes) throws IOException {
         ClassPathResource resource = new ClassPathResource("templates/verification_email.html");
         String html = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
@@ -72,7 +74,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
             helper.setTo(userEmail);
-            helper.setFrom("ali.nz.fayad@gmail.com");
+            helper.setFrom("ali.nz.fayad@gmail.com"); //TODO : use conf file
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
 
