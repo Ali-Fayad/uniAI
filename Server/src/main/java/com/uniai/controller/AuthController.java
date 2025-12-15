@@ -33,16 +33,6 @@ public class AuthController {
         return ResponseEntity.ok(new TokenResponse(token));
     }
 
-    //TODO : move Auth to rest filter
-
-    // the validation token will be in UserController for security reasons
-
-    // @GetMapping("auth/me")
-    // public ResponseEntity<AuthenticationResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
-    //     String token = authHeader.substring(7);
-    //     AuthenticationResponseDto responseDto = authService.getResponseDtoByToken(token);
-    //     return ResponseEntity.ok(responseDto);
-    // }
 
     @PostMapping("auth/verify")
     public ResponseEntity<?> verifyCode(@RequestBody VerifyDto verifyDto) {
