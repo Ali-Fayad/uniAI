@@ -1,7 +1,7 @@
-package com.uniai.security;
+package com.uniai.security.jwt;
 
 import com.uniai.builder.JwtSecurityBuilder;
-import com.uniai.dto. AuthenticationResponseDto;
+import com.uniai.dto.auth.AuthenticationResponseDto;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -45,7 +45,16 @@ public class JwtFilter extends OncePerRequestFilter {
 		if(authenticatedUser == null)
 			return null;
 
-		return JwtSecurityBuilder.getUsernamePasswordAuthenticationToken(request, authenticatedUser);
+		// Store the email as the principal (name) for easy retrieval in controllers
+		UsernamePasswordAuthenticationToken authToken =
+			JwtSecurityBuilder.getUsernamePasswordAuthenticationToken(request, authenticatedUser);
+
+		// Set the email as the principal so controllers can access it via SecurityContextHolder
+		return new UsernamePasswordAuthenticationToken(
+			authenticatedUser.getEmail().toLowerCase(),
+			authToken.getCredentials(),
+			authToken.getAuthorities()
+		);
 	}
 
 	private AuthenticationResponseDto extractUser(String authHeader) {

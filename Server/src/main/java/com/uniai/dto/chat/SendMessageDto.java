@@ -1,4 +1,4 @@
-package com. uniai.dto;
+package com.uniai.dto.chat;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class SendMessageDto {
     @NotNull(message = "Chat ID is required")
     private Long chatId;
-    
+
     @NotBlank(message = "Content cannot be empty")
     private String content;
 }

@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uniai.builder.ChatBuilder;
-import com.uniai.dto.ChatCreationResponseDto;
-import com.uniai.dto.MessageResponseDto;
-import com.uniai.dto.SendMessageDto;
+import com.uniai.dto.auth.MessageResponseDto;
+import com.uniai.dto.chat.ChatCreationResponseDto;
+import com.uniai.dto.chat.SendMessageDto;
 import com.uniai.exception.ChatNotFoundException;
 import com.uniai.exception.EmailNotFoundException;
 import com.uniai.exception.UnauthorizedAccessException;

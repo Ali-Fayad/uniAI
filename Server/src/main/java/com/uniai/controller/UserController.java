@@ -1,11 +1,12 @@
 package com.uniai.controller;
 
-import com.uniai.dto.ChangePasswordDto;
-import com.uniai.dto.DeleteAccountDto;
-import com.uniai.dto.UpdateUserDto;
-import com.uniai.dto.AuthenticationResponseDto;
+import com.uniai.dto.auth.AuthenticationResponseDto;
+import com.uniai.dto.user.ChangePasswordDto;
+import com.uniai.dto.user.DeleteAccountDto;
+import com.uniai.dto.user.UpdateUserDto;
+import com.uniai.security.jwt.JwtFacade;
 import com.uniai.services.UserService;
-import com.uniai.security.JwtUtil;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,27 +18,20 @@ import jakarta.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
+    private final JwtFacade authenticationFacade;
 
     @GetMapping("users/me")
-    public ResponseEntity<AuthenticationResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
-        String token = jwtUtil.extractToken(authHeader);
-        AuthenticationResponseDto tokenDto = jwtUtil.getUserDtoFromToken(token);
-        String email = tokenDto.getEmail().toLowerCase();
-
+    public ResponseEntity<AuthenticationResponseDto> getMe() {
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         AuthenticationResponseDto response = userService.getMe(email);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("users/me")
     public ResponseEntity<AuthenticationResponseDto> updateMe(
-            @RequestHeader("Authorization") String authHeader,
             @Valid @RequestBody UpdateUserDto updateDto) {
 
-        String token = jwtUtil.extractToken(authHeader);
-        AuthenticationResponseDto tokenDto = jwtUtil.getUserDtoFromToken(token);
-        String email = tokenDto.getEmail().toLowerCase();
-
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         AuthenticationResponseDto response = userService.updateUserProfile(email, updateDto);
 
         return ResponseEntity.ok(response);
@@ -50,13 +44,9 @@ public class UserController {
      */
     @DeleteMapping("users/me")
     public ResponseEntity<Void> deleteMe(
-            @RequestHeader("Authorization") String authHeader,
             @Valid @RequestBody DeleteAccountDto dto) {
 
-        String token = jwtUtil.extractToken(authHeader);
-        AuthenticationResponseDto tokenDto = jwtUtil.getUserDtoFromToken(token);
-        String email = tokenDto.getEmail().toLowerCase();
-
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         userService.deleteCurrentUser(email, dto.getPassword());
 
         return ResponseEntity.noContent().build();
@@ -68,13 +58,9 @@ public class UserController {
      */
     @PostMapping("users/change-password")
     public ResponseEntity<Void> changePassword(
-            @RequestHeader("Authorization") String authHeader,
             @Valid @RequestBody ChangePasswordDto dto) {
 
-        String token = jwtUtil.extractToken(authHeader);
-        AuthenticationResponseDto tokenDto = jwtUtil.getUserDtoFromToken(token);
-        String email = tokenDto.getEmail().toLowerCase();
-
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         userService.changePasswordForUser(email, dto.getCurrentPassword(), dto.getNewPassword());
 
         return ResponseEntity.ok().build();

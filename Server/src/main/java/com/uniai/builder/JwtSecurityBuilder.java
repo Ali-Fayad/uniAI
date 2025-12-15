@@ -1,11 +1,12 @@
 package com.uniai.builder;
 
-import com.uniai. dto.AuthenticationResponseDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken. Jwts;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+
+import com.uniai.dto.auth.AuthenticationResponseDto;
 
 import javax.crypto.SecretKey;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.uniai.dto;
+package com.uniai.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

@@ -1,16 +1,17 @@
 package com.uniai.services;
 
 import com.uniai.builder.AuthenticationResponseBuilder;
-import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.dto.SignInDto;
-import com.uniai.dto.SignUpDto;
+import com.uniai.dto.auth.AuthenticationResponseDto;
+import com.uniai.dto.auth.SignInDto;
+import com.uniai.dto.auth.SignUpDto;
 import com.uniai.exception.AlreadyExistsException;
 import com.uniai.exception.InvalidEmailOrPassword;
 import com.uniai.exception.VerificationNeededException;
 import com.uniai.model.User;
 import com.uniai.domain.VerificationCodeType;
 import com.uniai.repository.UserRepository;
-import com.uniai.security.JwtUtil;
+import com.uniai.security.jwt.JwtUtil;
+
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

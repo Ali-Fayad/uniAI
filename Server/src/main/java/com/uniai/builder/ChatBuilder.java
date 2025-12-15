@@ -2,9 +2,9 @@ package com.uniai.builder;
 
 import java.time.LocalDateTime;
 
-import com.uniai.dto.ChatCreationResponseDto;
-import com.uniai.dto.MessageResponseDto;
-import com.uniai.dto.SendMessageDto;
+import com.uniai.dto.auth.MessageResponseDto;
+import com.uniai.dto.chat.ChatCreationResponseDto;
+import com.uniai.dto.chat.SendMessageDto;
 import com.uniai.model.Chat;
 import com.uniai.model.Message;
 
@@ -36,7 +36,7 @@ public class ChatBuilder {
     }
 
     /**
-     * Build an AI response message. 
+     * Build an AI response message.
      */
     public static Message buildAIMessage(Long chatId, String aiResponseContent) {
         return Message. builder()

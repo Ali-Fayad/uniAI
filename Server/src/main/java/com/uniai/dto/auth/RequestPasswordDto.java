@@ -1,4 +1,4 @@
-package com.uniai.dto;
+package com.uniai.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
