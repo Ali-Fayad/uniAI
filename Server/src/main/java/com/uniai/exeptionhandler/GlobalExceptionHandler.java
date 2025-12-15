@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.uniai.exception.AlreadyExistsException;
+import com.uniai.exception.ChatNotFoundException;
 import com.uniai.exception.EmailNotFoundException;
 import com.uniai.exception.GoogleAuthException;
 import com.uniai.exception.InvalidEmailOrPassword;
@@ -56,6 +57,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(GoogleAuthException.class)
     public ResponseEntity<?> handleGoogleAuthException(Exception ex) {
         return ResponseEntity.status(401)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ChatNotFoundException.class)
+    public ResponseEntity<?> handleChatNotFoundException(Exception ex) {
+        return ResponseEntity.status(404)
                 .body(ex.getMessage());
     }
 }

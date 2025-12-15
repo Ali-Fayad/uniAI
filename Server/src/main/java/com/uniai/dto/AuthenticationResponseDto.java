@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationResponseDto {
     private String username;
-    private  String firstName;
-    private  String lastName;
+    private String firstName;
+    private String lastName;
     private String email;
     private boolean isVerified = false;
-    private boolean isTwoFacAuth =  false;
+    private boolean isTwoFacAuth = false;
 }
