@@ -13,7 +13,7 @@ export const ENDPOINTS = {
     FORGOT_PASSWORD_CONFIRM: '/api/auth/forget-password/confirm',
     GOOGLE_URL: '/api/auth/google/url',
   },
-  
+
   // User endpoints
   USER: {
     ME: '/api/users/me',
@@ -21,7 +21,7 @@ export const ENDPOINTS = {
     DELETE_ME: '/api/users/me',
     CHANGE_PASSWORD: '/api/users/change-password',
   },
-  
+
   // Chat endpoints
   CHAT: {
     CREATE: '/api/chats',

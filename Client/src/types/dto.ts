@@ -5,6 +5,7 @@
 export interface SignUpDto {
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -16,12 +17,12 @@ export interface SignInDto {
 
 export interface VerifyDto {
   email: string;
-  code: string;
+  verificationCode: string; // server expects verificationCode
 }
 
 export interface RequestPasswordDto {
   email: string;
-  code: string;
+  verificationCode: string;
   newPassword: string;
 }
 
@@ -30,7 +31,8 @@ export interface EmailRequestDto {
 }
 
 export interface GoogleAuthUrlRequestDto {
-  redirectUrl?: string;
+  redirectUri?: string;
+  state?: string;
 }
 
 // ============================================================
@@ -38,20 +40,16 @@ export interface GoogleAuthUrlRequestDto {
 // ============================================================
 
 export interface TokenResponse {
-  token: string;
-  user: UserData;
+  token: string; // server returns only { token }
 }
 
 export interface AuthenticationResponseDto {
-  id: number;
+  username: string;
   firstName: string;
   lastName: string;
   email: string;
-  role: string;
-  twoFactorEnabled: boolean;
-  provider: string;
-  createdAt: string;
-  updatedAt: string;
+  isVerified: boolean;
+  isTwoFacAuth: boolean;
 }
 
 export interface MessageResponse {
