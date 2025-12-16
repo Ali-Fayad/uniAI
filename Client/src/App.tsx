@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import Header from './components/common/Header';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import MainPage from './components/page/MainPage';
+import AuthLanding from './components/page/auth/AuthLanding';
 import SignIn from './components/page/auth/SignIn';
 import SignUp from './components/page/auth/SignUp';
 import Verify from './components/page/auth/Verify';
@@ -26,8 +27,8 @@ const App = () => {
             {/* Main landing page */}
             <Route path="/" element={<MainPage />} />
 
-            {/* Auth Routes - redirect /auth to /signin for simplicity */}
-            <Route path="/auth" element={<Navigate to="/signin" replace />} />
+            {/* Auth Routes */}
+            <Route path="/auth" element={<AuthLanding />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/verify" element={<Verify />} />
