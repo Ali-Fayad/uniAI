@@ -1,4 +1,5 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError } from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
 import { API_URL } from '../constants';
 import { Storage } from '../utils/Storage';
 
@@ -40,7 +41,7 @@ apiClient.interceptors.response.use(
   },
   (error: AxiosError) => {
     // Handle 401 Unauthorized - clear storage and redirect to auth
-    if (error.response?.status === 401) {
+    if (error.response && error.response.status === 401) {
       Storage.clearAll();
       
       // Only redirect if we're not already on the auth pages
@@ -51,16 +52,18 @@ apiClient.interceptors.response.use(
     }
     
     // Handle other error status codes
-    if (error.response?.status === 403) {
-      console.error('Access forbidden:', error.response.data);
-    }
-    
-    if (error.response?.status === 404) {
-      console.error('Resource not found:', error.response.data);
-    }
-    
-    if (error.response?.status >= 500) {
-      console.error('Server error:', error.response.data);
+    if (error.response) {
+      if (error.response.status === 403) {
+        console.error('Access forbidden:', error.response.data);
+      }
+      
+      if (error.response.status === 404) {
+        console.error('Resource not found:', error.response.data);
+      }
+      
+      if (error.response.status >= 500) {
+        console.error('Server error:', error.response.data);
+      }
     }
     
     return Promise.reject(error);

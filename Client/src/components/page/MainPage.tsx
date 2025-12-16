@@ -192,15 +192,45 @@ const MainPage: React.FC = () => {
 
   return (
     <div>
-      {/* Try Now Button */}
-      <section className="text-center mb-16">
-        <button
-          onClick={() => navigate('/chat')}
-          className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
-        >
-          <span className="truncate">Try Now</span>
-        </button>
+      {/* Hero Section */}
+      <section className="relative flex min-h-[700px] items-center overflow-hidden bg-custom-accent py-12">
+        <div
+          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHw1fHx1bml2ZXJzaXR5fGVufDB8fHx8MTcxNzU4OTIyNnww&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center opacity-10"
+        ></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="text-center md:text-left">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[#151514]/90">
+                Welcome to uniAI
+              </h1>
+              <p className="mt-4 text-lg md:text-xl text-[#151514]/70">
+                Your unified platform for next-generation artificial intelligence.
+                Streamline your workflow, boost creativity, and unlock new
+                possibilities with our intuitive toolset.
+              </p>
+            </div>
+            <div className="flex justify-center items-center">
+              <img
+                alt="Graduation cap illustration"
+                className="h-64 w-64 md:h-80 md:w-80 object-cover rounded-full border-4 border-white shadow-lg"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDchELEmNB0CNKcnCkxUDv36OZb4QPhsSkxcj8BV0hiuobbsrHMK8IgOsN8DRL8AfUDGJxo4ZYwbfLjxln1nPQ4RinsoGIggV86zitWGy0HyVT-_inFeJdrvMNOyjSg7UsFwQ32cz83Y3a7F-aDaSIl46JoAOt1KpBpHDkSd4i39JjAMIaF9iaxXI0dlgSbCDnwVdFRI7jfnV9hpA_F2qlppD8ezA240E9nPyH1iyOa-LraGLm5I9QhqeZU6xN7HY-Uf2gJooV6jjs"
+              />
+            </div>
+          </div>
+        </div>
       </section>
+
+      {/* Content Container */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Try Now Button */}
+        <section className="text-center mb-16">
+          <button
+            onClick={() => navigate('/chat')}
+            className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
+          >
+            <span className="truncate">Try Now</span>
+          </button>
+        </section>
 
       {/* Cards Section */}
       <section className="my-12">
@@ -241,6 +271,7 @@ const MainPage: React.FC = () => {
       <section>
         <Feedback />
       </section>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { Storage } from '../utils/Storage';
 import { extractUserFromToken } from '../utils/JwtDecode';
 import type { UserData } from '../types/dto';
