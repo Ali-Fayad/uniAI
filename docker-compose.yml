@@ -1,0 +1,87 @@
+version: "3.8"
+
+services:
+  # lightweight service that generates self-signed certs into a shared volume
+  certs:
+    image: alpine:3.18
+    container_name: uniai_certs
+    volumes:
+      - certs:/etc/nginx/certs
+    command: sh -c "apk add --no-cache openssl >/dev/null 2>&1 || true; \
+      if [ ! -f /etc/nginx/certs/fullchain.pem ]; then mkdir -p /etc/nginx/certs && \
+      openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/certs/privkey.pem -out /etc/nginx/certs/fullchain.pem -subj '/CN=localhost'; fi; sleep 1"
+
+  # Spring Boot app - dev mode: mounts source and runs mvn spring-boot:run
+  app:
+    build:
+      context: ./Server
+      dockerfile: server/Dockerfile
+    container_name: uniai_app
+    volumes:
+      - ./Server/:/workspace:cached
+      - ~/.m2:/root/.m2:rw
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - MAIL_USERNAME
+      - MAIL_PASSWORD
+      - JWT_SECRET
+      - APP_BASE_URL=https://localhost
+    ports:
+      - "9090:9090"
+    depends_on:
+      - certs
+    stdin_open: true
+    tty: true
+
+  # client-build: builds the React/Vite app and writes static files into Server/client/dist
+  client-build:
+    image: node:18
+    container_name: uniai_client_builder
+    working_dir: /app
+    volumes:
+      - ./Client:/app:cached
+      - ./Server/client/dist:/app/dist
+    environment:
+      - NODE_ENV=production
+    command: sh -c "npm ci && npm run build && cp -r dist/* /app/dist/ || true && chmod -R a+rX /app/dist || true"
+
+  # client-dev: run Vite dev server inside a container for frontend development
+  client-dev:
+    image: node:20
+    container_name: uniai_client_dev
+    working_dir: /app
+    volumes:
+      - ./Client:/app:cached
+      - client_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "5173:5173"
+    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
+    stdin_open: true
+    tty: true
+
+  # nginx: TLS termination and reverse-proxy for /api -> app, serves client static from Server/client/dist or proxies to client-dev
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: uniai_nginx
+    ports:
+      - "8443:443"   # map 8443 on host to 443 in container
+      - "8080:80"    # optional HTTP port
+    volumes:
+      - certs:/etc/nginx/certs:ro
+      - ./Server/client/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - app
+      - certs
+      - client-build
+      - client-dev
+
+
+volumes:
+  certs:
+    driver: local
+  client_node_modules: {}
