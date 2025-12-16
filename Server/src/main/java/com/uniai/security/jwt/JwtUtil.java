@@ -1,7 +1,7 @@
-package com.uniai.security;
+package com.uniai.security.jwt;
 
 import com.uniai.builder.JwtSecurityBuilder;
-import com.uniai.dto.AuthenticationResponseDto;
+import com.uniai.dto.auth.AuthenticationResponseDto;
 import com.uniai.exception.InvalidEmailOrPassword;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

@@ -2,10 +2,11 @@ package com.uniai.services;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.uniai.builder.OAuthGoogleBuilder;
-import com.uniai.dto.AuthenticationResponseDto;
+import com.uniai.dto.auth.AuthenticationResponseDto;
 import com.uniai.model.User;
 import com.uniai.repository.UserRepository;
-import com.uniai.security.JwtUtil;
+import com.uniai.security.jwt.JwtUtil;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

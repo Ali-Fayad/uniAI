@@ -1,10 +1,10 @@
 package com. uniai.controller;
 
-import com.uniai.dto.ChatCreationResponseDto;
-import com. uniai.dto.MessageResponseDto;
-import com.uniai. dto.SendMessageDto;
+import com.uniai.dto.auth.MessageResponseDto;
+import com.uniai.dto.chat.ChatCreationResponseDto;
+import com.uniai.dto.chat.SendMessageDto;
 import com.uniai.model.Chat;
-import com.uniai.security.JwtUtil;
+import com.uniai.security.jwt.JwtFacade;
 import com.uniai. services.ChatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +20,17 @@ import java.util.List;
 public class ChatController {
 
     private final ChatService chatService;
-    private final JwtUtil jwtUtil;
+    private final JwtFacade authenticationFacade;
 
     /**
      * Create a new chat for the authenticated user.
      * POST /api/chats
      */
     @PostMapping
-    public ResponseEntity<ChatCreationResponseDto> createChat(
-            @RequestHeader("Authorization") String authHeader) {
-        
-        String email = jwtUtil.extractEmailFromAuthorizationHeader(authHeader);
+    public ResponseEntity<ChatCreationResponseDto> createChat() {
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         ChatCreationResponseDto response = chatService.createChat(email);
-        
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -42,12 +40,11 @@ public class ChatController {
      */
     @PostMapping("/messages")
     public ResponseEntity<MessageResponseDto> sendMessage(
-            @RequestHeader("Authorization") String authHeader,
             @Valid @RequestBody SendMessageDto dto) {
-        
-        String email = jwtUtil.extractEmailFromAuthorizationHeader(authHeader);
+
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         MessageResponseDto response = chatService.sendMessage(email, dto);
-        
+
         return ResponseEntity. ok(response);
     }
 
@@ -56,12 +53,10 @@ public class ChatController {
      * GET /api/chats
      */
     @GetMapping
-    public ResponseEntity<List<Chat>> getUserChats(
-            @RequestHeader("Authorization") String authHeader) {
-        
-        String email = jwtUtil.extractEmailFromAuthorizationHeader(authHeader);
+    public ResponseEntity<List<Chat>> getUserChats() {
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         List<Chat> chats = chatService.getUserChats(email);
-        
+
         return ResponseEntity. ok(chats);
     }
 
@@ -71,27 +66,25 @@ public class ChatController {
      */
     @GetMapping("/{chatId}/messages")
     public ResponseEntity<List<MessageResponseDto>> getChatMessages(
-            @RequestHeader("Authorization") String authHeader,
             @PathVariable Long chatId) {
-        
-        String email = jwtUtil. extractEmailFromAuthorizationHeader(authHeader);
+
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         List<MessageResponseDto> messages = chatService. getChatMessages(email, chatId);
-        
+
         return ResponseEntity.ok(messages);
     }
 
     /**
-     * Delete a specific chat and all its messages. 
+     * Delete a specific chat and all its messages.
      * DELETE /api/chats/{chatId}
      */
     @DeleteMapping("/{chatId}")
     public ResponseEntity<MessageResponse> deleteChat(
-            @RequestHeader("Authorization") String authHeader,
             @PathVariable Long chatId) {
-        
-        String email = jwtUtil.extractEmailFromAuthorizationHeader(authHeader);
+
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         chatService.deleteChat(email, chatId);
-        
+
         return ResponseEntity.ok(new MessageResponse("Chat deleted successfully"));
     }
 
@@ -100,12 +93,10 @@ public class ChatController {
      * DELETE /api/chats
      */
     @DeleteMapping
-    public ResponseEntity<MessageResponse> deleteAllChats(
-            @RequestHeader("Authorization") String authHeader) {
-        
-        String email = jwtUtil.extractEmailFromAuthorizationHeader(authHeader);
+    public ResponseEntity<MessageResponse> deleteAllChats() {
+        String email = authenticationFacade.getAuthenticatedUserEmail();
         chatService.deleteAllChats(email);
-        
+
         return ResponseEntity.ok(new MessageResponse("All chats deleted successfully"));
     }
 

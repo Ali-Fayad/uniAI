@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uniai.builder.AuthenticationResponseBuilder;
-import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.dto.UpdateUserDto;
+import com.uniai.dto.auth.AuthenticationResponseDto;
+import com.uniai.dto.user.UpdateUserDto;
 import com.uniai.exception.AlreadyExistsException;
 import com.uniai.exception.InvalidEmailOrPassword;
 import com.uniai.model.User;

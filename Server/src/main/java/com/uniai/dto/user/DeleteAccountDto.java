@@ -1,4 +1,4 @@
-package com.uniai.dto;
+package com.uniai.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

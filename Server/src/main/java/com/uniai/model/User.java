@@ -30,7 +30,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 2, max = 100)
+    @Size(min = 8, max = 100)
     private String password;
 
     private boolean isVerified;

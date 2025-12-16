@@ -1,4 +1,4 @@
-package com.uniai.dto;
+package com.uniai.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Used by POST /api/users/change-password
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +15,6 @@ public class ChangePasswordDto {
     private String currentPassword;
 
     @NotBlank
-    @Size(min = 8, message = "password must be at least 8 characters")
+    @Size(min = 8)
     private String newPassword;
 }

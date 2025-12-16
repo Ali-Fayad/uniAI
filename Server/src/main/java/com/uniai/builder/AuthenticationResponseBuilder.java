@@ -1,7 +1,7 @@
 package com.uniai.builder;
 
-import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.dto.SignUpDto;
+import com.uniai.dto.auth.AuthenticationResponseDto;
+import com.uniai.dto.auth.SignUpDto;
 import com.uniai.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

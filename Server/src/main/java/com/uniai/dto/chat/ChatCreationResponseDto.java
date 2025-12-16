@@ -1,4 +1,4 @@
-package com.uniai.dto;
+package com.uniai.dto.chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatCreationResponseDto {
     private Long chatId;
-    // Title will be null on creation — no problem! 
+    // Title will be null on creation — no problem!
     // Frontend fetches it after first message or via separate endpoint
 }

@@ -1,12 +1,11 @@
 package com.uniai.controller;
 
-import com.uniai.dto.GoogleAuthUrlRequestDto;
-import com.uniai.dto.AuthenticationResponseDto;
-import com.uniai.dto.RequestPasswordDto;
-import com.uniai.dto.EmailDto;
-import com.uniai.dto.SignInDto;
-import com.uniai.dto.SignUpDto;
-import com.uniai.dto.VerifyDto;
+import com.uniai.dto.auth.GoogleAuthUrlRequestDto;
+import com.uniai.dto.auth.RequestPasswordDto;
+import com.uniai.dto.auth.SignInDto;
+import com.uniai.dto.auth.SignUpDto;
+import com.uniai.dto.auth.VerifyDto;
+import com.uniai.dto.user.EmailRequestDto;
 import com.uniai.services.AuthService;
 import com.uniai.services.OAuthGoogleService;
 import jakarta.validation.Valid;
@@ -34,12 +33,6 @@ public class AuthController {
         return ResponseEntity.ok(new TokenResponse(token));
     }
 
-    @GetMapping("auth/me")
-    public ResponseEntity<AuthenticationResponseDto> getMe(@RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.substring(7);
-        AuthenticationResponseDto responseDto = authService.getResponseDtoByToken(token);
-        return ResponseEntity.ok(responseDto);
-    }
 
     @PostMapping("auth/verify")
     public ResponseEntity<?> verifyCode(@RequestBody VerifyDto verifyDto) {
@@ -54,7 +47,7 @@ public class AuthController {
     }
 
     @PostMapping("auth/forget-password")
-    public ResponseEntity<?> forgetPassword(@RequestBody EmailDto emailDto) {
+    public ResponseEntity<?> forgetPassword(@RequestBody EmailRequestDto emailDto) {
         authService.forgetPassword(emailDto.getEmail());
         return ResponseEntity.ok(new MessageResponse("verification code sent"));
     }
