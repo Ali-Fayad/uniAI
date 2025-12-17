@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 /**
  * Header component for the application
@@ -11,7 +11,7 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/auth');
+    navigate("/");
   };
 
   return (
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-center">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden"></div>
-          
+
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <svg
@@ -32,16 +32,16 @@ const Header: React.FC = () => {
               </svg>
             </div>
           </div>
-          
+
           <div className="absolute inset-y-0 flex items-center justify-center">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className="font-playful text-2xl font-bold tracking-tight text-[#151514] hover:text-custom-primary transition-colors cursor-pointer bg-transparent"
             >
               uniAI
             </button>
           </div>
-          
+
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-2">
             {isAuthenticated && (
               <button
@@ -51,15 +51,8 @@ const Header: React.FC = () => {
                 Logout
               </button>
             )}
-            
-            <button
-              className="relative rounded-full bg-transparent p-1 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-custom-primary focus:ring-offset-2"
-              type="button"
-            >
-              <span className="absolute -inset-1.5"></span>
-              <span className="sr-only">Toggle theme</span>
-              <span className="material-symbols-outlined">light_mode</span>
-            </button>
+
+            {/* Theme toggle removed to keep SPA navbar consistent */}
           </div>
         </div>
       </div>

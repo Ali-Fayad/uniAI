@@ -1,27 +1,28 @@
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import Header from './components/common/Header';
-import ProtectedRoute from './components/common/ProtectedRoute';
-import MainPage from './components/page/MainPage';
-import AuthLanding from './components/page/auth/AuthLanding';
-import SignIn from './components/page/auth/SignIn';
-import SignUp from './components/page/auth/SignUp';
-import Verify from './components/page/auth/Verify';
-import Verify2FA from './components/page/auth/Verify2FA';
-import ForgotPassword from './components/page/auth/ForgotPassword';
-import ForgotPasswordConfirm from './components/page/auth/ForgotPasswordConfirm';
-import GoogleCallback from './components/page/auth/GoogleCallback';
-import ChatPage from './components/page/ChatPage';
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Header from "./components/common/Header";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import MainPage from "./components/page/MainPage";
+import SettingsPage from "./components/page/SettingsPage";
+import AuthLanding from "./components/page/auth/AuthLanding";
+import SignIn from "./components/page/auth/SignIn";
+import SignUp from "./components/page/auth/SignUp";
+import Verify from "./components/page/auth/Verify";
+import Verify2FA from "./components/page/auth/Verify2FA";
+import ForgotPassword from "./components/page/auth/ForgotPassword";
+import ForgotPasswordConfirm from "./components/page/auth/ForgotPasswordConfirm";
+import GoogleCallback from "./components/page/auth/GoogleCallback";
+import ChatPage from "./components/page/ChatPage";
 
 const App = () => {
   const location = useLocation();
-  const showHeader = location.pathname !== '/chat';
+  const showHeader = location.pathname !== "/chat";
 
   return (
     <AuthProvider>
       <div className="min-h-screen flex flex-col bg-custom-light">
         {showHeader && <Header />}
-        
+
         <div className="flex-grow">
           <Routes>
             {/* Main landing page */}
@@ -34,8 +35,11 @@ const App = () => {
             <Route path="/verify" element={<Verify />} />
             <Route path="/2fa/verify" element={<Verify2FA />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/forgot-password/confirm" element={<ForgotPasswordConfirm />} />
-            
+            <Route
+              path="/forgot-password/confirm"
+              element={<ForgotPasswordConfirm />}
+            />
+
             {/* OAuth Callback */}
             <Route path="/google/callback" element={<GoogleCallback />} />
 
@@ -48,6 +52,9 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+
+            {/* Settings Page */}
+            <Route path="/settings" element={<SettingsPage />} />
 
             {/* Fallback to main page */}
             <Route path="*" element={<Navigate to="/" replace />} />

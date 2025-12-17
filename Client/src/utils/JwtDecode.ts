@@ -40,6 +40,7 @@ export function extractUserFromToken(token: string): UserData | null {
       lastName: payload.lastName as string || '',
       email: payload.email as string || payload.sub as string || '',
       role: payload.role as string,
+      username: (payload.username as string) || (payload.preferred_username as string) || '',
       twoFactorEnabled: payload.twoFactorEnabled as boolean,
       provider: payload.provider as string,
     };

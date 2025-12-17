@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { chatService } from "../../services/chat";
 import { AuthContext } from "../../context/AuthContext";
 import type { Chat } from "../../types/dto";
@@ -16,7 +17,10 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
   onNewChat,
   onDeleteChat,
 }) => {
-  const { user } = useContext(AuthContext)!;
+  const { user, logout } = useContext(AuthContext)!;
+  const navigate = useNavigate();
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement | null>(null);
   const [chats, setChats] = useState<Chat[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,6 +28,22 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
   useEffect(() => {
     loadChats();
   }, [selectedChatId]); // Reload when selection changes (e.g. new chat created)
+
+  // Close profile menu on outside click
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      if (!profileMenuRef.current) return;
+      if (
+        e.target instanceof Node &&
+        !profileMenuRef.current.contains(e.target)
+      ) {
+        setProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, []);
 
   const loadChats = async () => {
     try {
@@ -141,23 +161,61 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
           )}
         </div>
 
-        {/* User Profile Section */}
+        {/* User Profile Section with dropdown menu */}
         <div className="p-4 border-t border-gray-100 bg-white">
-          <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
-            <div className="w-10 h-10 rounded-full bg-custom-primary/20 flex items-center justify-center text-custom-primary font-bold">
-              {user?.firstName?.[0] || user?.username?.[0] || "U"}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-gray-800 truncate">
-                {user?.firstName} {user?.lastName}
-              </p>
-              <p className="text-xs text-gray-500 truncate">
-                @{user?.username}
-              </p>
-            </div>
-            <span className="material-symbols-outlined text-gray-400">
-              more_vert
-            </span>
+          <div className="relative" ref={profileMenuRef}>
+            <button
+              onClick={() => setProfileMenuOpen((s) => !s)}
+              className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors w-full"
+              aria-expanded={profileMenuOpen}
+            >
+              <div className="w-10 h-10 rounded-full bg-custom-primary/20 flex items-center justify-center text-custom-primary font-bold">
+                {user?.firstName?.[0] || user?.username?.[0] || "U"}
+              </div>
+              <div className="flex-1 min-w-0 text-left">
+                <p className="text-sm font-semibold text-gray-800 truncate">
+                  {user?.firstName} {user?.lastName}
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  @{user?.username}
+                </p>
+              </div>
+              <span className="material-symbols-outlined text-gray-400">
+                more_vert
+              </span>
+            </button>
+
+            {profileMenuOpen && (
+              <div className="absolute left-4 right-4 bottom-14 z-40">
+                <div className="bg-white rounded-md shadow-lg ring-1 ring-black/5">
+                  <ul className="py-1">
+                    <li>
+                      <button
+                        onClick={() => {
+                          setProfileMenuOpen(false);
+                          navigate("/settings");
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-[#151514] hover:bg-gray-50"
+                      >
+                        Settings
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => {
+                          setProfileMenuOpen(false);
+                          logout();
+                          navigate('/');
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </aside>

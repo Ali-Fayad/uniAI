@@ -3,6 +3,7 @@ package com.uniai.controller;
 import com.uniai.dto.auth.AuthenticationResponseDto;
 import com.uniai.dto.user.ChangePasswordDto;
 import com.uniai.dto.user.DeleteAccountDto;
+import com.uniai.dto.user.FeedbackRequest;
 import com.uniai.dto.user.UpdateUserDto;
 import com.uniai.security.jwt.JwtFacade;
 import com.uniai.services.UserService;
@@ -11,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api")
@@ -65,4 +69,11 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("users/feedback")
+    public ResponseEntity<Void> sendFeedback(@RequestBody FeedbackRequest entity) {
+        userService.sendFeedback(entity);
+        return ResponseEntity.ok().build();
+    }
+    
 }

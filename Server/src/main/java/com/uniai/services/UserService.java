@@ -7,11 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uniai.builder.AuthenticationResponseBuilder;
+import com.uniai.builder.FeedbackBuilder;
 import com.uniai.dto.auth.AuthenticationResponseDto;
+import com.uniai.dto.user.FeedbackRequest;
 import com.uniai.dto.user.UpdateUserDto;
 import com.uniai.exception.AlreadyExistsException;
+import com.uniai.exception.FeedbackNotValidException;
 import com.uniai.exception.InvalidEmailOrPassword;
+import com.uniai.model.Feedback;
 import com.uniai.model.User;
+import com.uniai.repository.FeedbackRepository;
 import com.uniai.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +27,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final FeedbackRepository feedbackRepository;
 
     public List<AuthenticationResponseDto> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -107,7 +113,8 @@ public class UserService {
     }
 
     /**
-     * Change password for the current authenticated user after verifying current password.
+     * Change password for the current authenticated user after verifying current
+     * password.
      */
     @Transactional
     public void changePasswordForUser(String email, String currentPassword, String newPassword) {
@@ -125,7 +132,8 @@ public class UserService {
     }
 
     /**
-     * Fix: previous method used findByUsername with an email parameter — corrected to findByEmail.
+     * Fix: previous method used findByUsername with an email parameter — corrected
+     * to findByEmail.
      */
     public void changePasswordWithoutOTP(String email, String Password, String newPassword) {
         User user = userRepository.findByEmail(email);
@@ -136,5 +144,16 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+    }
+
+    public void sendFeedback(FeedbackRequest feedbackRequest) {
+        if (!userRepository.existsByEmail(feedbackRequest.getEmail()) || feedbackRequest.getComment() == null
+                || feedbackRequest.getComment().isBlank())
+            throw new FeedbackNotValidException("Feedback is not valid");
+
+        Feedback feedback = FeedbackBuilder.getFeedbackFromFeedbackRequest(feedbackRequest);
+
+        feedbackRepository.save(feedback);
+
     }
 }

@@ -60,4 +60,10 @@ public class GlobalExceptionHandler {
         logger.warn("ChatNotFoundException: {}", ex.getMessage(), ex);
         return ResponseEntity.status(404).body(ex.getMessage());
     }
+
+    @ExceptionHandler(FeedbackNotValidException.class)
+    public ResponseEntity<?> handleFeedbackNotValidException(Exception ex) {
+        logger.warn("FeedbackNotValidException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
 }
