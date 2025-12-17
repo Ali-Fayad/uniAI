@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { chatService } from '../../services/chat';
-import ChatSidebar from '../chat/ChatSidebar';
-import ChatMessage from '../chat/ChatMessage';
-import ChatInput from '../chat/ChatInput';
-import LoadingSpinner from '../common/LoadingSpinner';
-import type { MessageResponseDto, SendMessageDto } from '../../types/dto';
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { chatService } from "../../services/chat";
+import ChatSidebar from "../chat/ChatSidebar";
+import ChatMessage from "../chat/ChatMessage";
+import ChatInput from "../chat/ChatInput";
+import LoadingSpinner from "../common/LoadingSpinner";
+import { AuthContext } from "../../context/AuthContext";
+import type { MessageResponseDto, SendMessageDto } from "../../types/dto";
 
 const ChatPage: React.FC = () => {
+  const { user } = useContext(AuthContext)!;
   const [currentChatId, setCurrentChatId] = useState<number | null>(null);
   const [messages, setMessages] = useState<MessageResponseDto[]>([]);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
@@ -15,13 +17,15 @@ const ChatPage: React.FC = () => {
 
   // Scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isSendingMessage]);
 
   // Load messages when chat is selected
   useEffect(() => {
     if (currentChatId) {
       loadMessages(currentChatId);
+    } else {
+      setMessages([]);
     }
   }, [currentChatId]);
 
@@ -31,24 +35,21 @@ const ChatPage: React.FC = () => {
       const data = await chatService.getChatMessages(chatId);
       setMessages(data);
     } catch (error) {
-      console.error('Failed to load messages:', error);
+      console.error("Failed to load messages:", error);
     } finally {
       setIsLoadingMessages(false);
     }
   };
 
-  const handleNewChat = async () => {
-    try {
-      const newChat = await chatService.createChat();
-      setCurrentChatId(newChat.id);
-      setMessages([]);
-    } catch (error) {
-      console.error('Failed to create new chat:', error);
-    }
+  const handleNewChat = () => {
+    setCurrentChatId(null);
+    setMessages([]);
   };
 
   const handleSelectChat = (chatId: number) => {
-    setCurrentChatId(chatId);
+    if (chatId !== currentChatId) {
+      setCurrentChatId(chatId);
+    }
   };
 
   const handleDeleteChat = (chatId: number) => {
@@ -59,37 +60,51 @@ const ChatPage: React.FC = () => {
     }
   };
 
-  const handleSendMessage = async (messageText: string) => {
-    if (!currentChatId) {
-      // Create a new chat if none exists
-      await handleNewChat();
-      // Wait for chat to be created
-      setTimeout(() => handleSendMessage(messageText), 500);
-      return;
-    }
+  const handleSendMessage = async (content: string) => {
+    if (!content.trim()) return;
 
     setIsSendingMessage(true);
 
+    // Optimistic update: Add user message immediately
+    const tempUserMessage: MessageResponseDto = {
+      messageId: Date.now(), // Temporary ID
+      chatId: currentChatId || 0,
+      senderId: user?.id || 1,
+      content: content,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, tempUserMessage]);
+
     try {
+      let targetChatId = currentChatId;
+
+      // If no chat exists, create one first
+      if (!targetChatId) {
+        const newChat = await chatService.createChat();
+        targetChatId = newChat.chatId;
+        setCurrentChatId(targetChatId);
+      }
+
       const data: SendMessageDto = {
-        chatId: currentChatId,
-        message: messageText,
+        chatId: targetChatId,
+        content: content,
       };
 
       const response = await chatService.sendMessage(data);
-      
-      // Add user message and AI response to messages
-      setMessages(prev => [...prev, response]);
-      
+
+      // Add AI response to messages
+      setMessages((prev) => [...prev, response]);
     } catch (error) {
-      console.error('Failed to send message:', error);
+      console.error("Failed to send message:", error);
+      // Optionally remove the optimistic message or show error
     } finally {
       setIsSendingMessage(false);
     }
   };
 
   return (
-    <div className="flex h-[calc(100vh-64px)]">
+    <div className="flex h-screen">
       {/* Sidebar */}
       <ChatSidebar
         selectedChatId={currentChatId}
@@ -99,75 +114,72 @@ const ChatPage: React.FC = () => {
       />
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col bg-custom-light">
+      <div className="flex-1 flex flex-col bg-custom-light relative">
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-6">
-          {!currentChatId ? (
-            <div className="h-full flex flex-col items-center justify-center text-center">
-              <svg
-                className="h-20 w-20 text-custom-primary mb-4 opacity-50"
-                fill="currentColor"
-                viewBox="0 0 54 44"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"></path>
-              </svg>
-              <h2 className="text-2xl font-bold text-[#151514] mb-2">Welcome to uniAI Chat</h2>
-              <p className="text-[#797672] mb-6">
-                Start a new chat to begin your conversation with AI
-              </p>
-              <button
-                onClick={handleNewChat}
-                className="bg-custom-primary text-[#151514] px-6 py-3 rounded-full font-bold hover:bg-[#a69d8f] transition"
-              >
-                Start New Chat
-              </button>
-            </div>
-          ) : isLoadingMessages ? (
+        <div className="flex-1 overflow-y-auto p-6 pb-32">
+          {isLoadingMessages ? (
             <div className="h-full flex items-center justify-center">
               <LoadingSpinner text="Loading messages..." />
             </div>
           ) : (
             <div className="max-w-4xl mx-auto">
-              {messages.length === 0 ? (
-                <div className="text-center text-[#797672] py-8">
-                  No messages yet. Start the conversation!
+              {messages.length === 0 && !currentChatId ? (
+                <div className="flex flex-col items-center justify-center h-full py-20 opacity-50">
+                  <span className="material-symbols-outlined text-6xl mb-4 text-custom-primary">
+                    chat_bubble_outline
+                  </span>
+                  <p className="text-xl font-medium">
+                    Start a new conversation
+                  </p>
                 </div>
               ) : (
-                messages.map((message) => (
-                  <ChatMessage
-                    key={message.id}
-                    message={message}
-                    isAI={message.senderId === 0}
-                  />
-                ))
-              )}
-              {isSendingMessage && (
-                <div className="flex justify-start gap-3 mb-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-custom-primary flex items-center justify-center">
-                    <span className="material-symbols-outlined text-[#151514] text-sm">smart_toy</span>
-                  </div>
-                  <div className="bg-white/70 px-4 py-3 rounded-2xl rounded-tl-none">
-                    <div className="flex gap-1">
-                      <span className="w-2 h-2 bg-custom-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                      <span className="w-2 h-2 bg-custom-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                      <span className="w-2 h-2 bg-custom-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                <>
+                  {messages.map((message) => (
+                    <ChatMessage
+                      key={message.messageId}
+                      message={message}
+                      isAI={message.senderId === 0}
+                    />
+                  ))}
+                  {isSendingMessage && (
+                    <div className="flex justify-start gap-3 mb-4 animate-fadeIn">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-custom-primary flex items-center justify-center">
+                        <span className="material-symbols-outlined text-[#151514] text-sm">
+                          smart_toy
+                        </span>
+                      </div>
+                      <div className="bg-white/70 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
+                        <div className="flex gap-1 items-center h-5">
+                          <span
+                            className="w-2 h-2 bg-custom-primary rounded-full animate-bounce"
+                            style={{ animationDelay: "0ms" }}
+                          ></span>
+                          <span
+                            className="w-2 h-2 bg-custom-primary rounded-full animate-bounce"
+                            style={{ animationDelay: "150ms" }}
+                          ></span>
+                          <span
+                            className="w-2 h-2 bg-custom-primary rounded-full animate-bounce"
+                            style={{ animationDelay: "300ms" }}
+                          ></span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  )}
+                </>
               )}
               <div ref={messagesEndRef} />
             </div>
           )}
         </div>
 
-        {/* Input Area */}
-        {currentChatId && (
+        {/* Input Area - Fixed at bottom */}
+        <div className="absolute bottom-0 left-0 right-0">
           <ChatInput
             onSendMessage={handleSendMessage}
             disabled={isSendingMessage}
           />
-        )}
+        </div>
       </div>
     </div>
   );

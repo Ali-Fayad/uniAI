@@ -95,30 +95,27 @@ export interface DeleteAccountDto {
 // ============================================================
 
 export interface ChatCreationResponseDto {
-  id: number;
-  userId: number;
-  title: string;
-  createdAt: string;
-  updatedAt: string;
+  chatId: number;
 }
 
 export interface SendMessageDto {
   chatId: number;
-  message: string;
+  content: string;
 }
 
 export interface MessageResponseDto {
-  id: number;
+  messageId: number;
   chatId: number;
-  senderId: number; // 0 indicates AI responses
-  message: string;
-  createdAt: string;
+  senderId: number; // 0 = AI, user ID = user
+  content: string;
+  timestamp: string;
 }
 
 export interface Chat {
   id: number;
-  userId: number;
-  title: string;
+  user: UserData;
+  title: string | null;
   createdAt: string;
   updatedAt: string;
 }
+
