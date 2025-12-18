@@ -157,6 +157,9 @@ export const applyThemeByName = (name: ThemeName) => {
     });
     // persist selection
     localStorage.setItem("theme", name);
+
+    // Dispatch a custom event so components can react
+    window.dispatchEvent(new CustomEvent('themeChanged', { detail: name }));
   } catch (e) {
     // ignore errors (e.g., server-side rendering)
     // console.warn('Failed to apply theme', e);

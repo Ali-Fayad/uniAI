@@ -6,7 +6,7 @@
     <title>uniAI - Your AI Assistant for University Life</title>
 
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script> -->
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -26,26 +26,7 @@
       rel="stylesheet"
     />
 
-    <!-- Tailwind Configuration -->
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            fontFamily: {
-              display: ["Space Grotesk", "sans-serif"],
-              playful: ["Pacifico", "cursive"],
-            },
-            borderRadius: {
-              DEFAULT: "1rem",
-              lg: "2rem",
-              xl: "3rem",
-              full: "9999px",
-            },
-          },
-        },
-      };
-    </script>
+    <!-- Tailwind is configured via tailwind.config.js and processed locally; removed CDN inline config -->
   </head>
   <!-- Use CSS variables for background and text so the theme applied at runtime is effective immediately -->
   <body class="font-display" style="background:var(--color-background); color:var(--color-textPrimary)">

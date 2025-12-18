@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useTheme } from "../../hooks/useTheme";
+import LiquidEther from "../LiquidEther";
 
 // Reusable hook for scroll animations that reverse when scrolling up
 const useScrollAnimation = (delay = 0) => {
@@ -189,32 +191,60 @@ const Feedback: React.FC = () => {
 const MainPage: React.FC = () => {
   const introTextRef = useScrollAnimation(0);
   const navigate = useNavigate();
+  const { colors, themeName } = useTheme();
+
+  // Map theme colors to LiquidEther palette
+  // We use primary, secondary, and accent/variant to create a nice fluid mix
+  const fluidColors = [
+    colors.primary,
+    colors.secondary,
+    colors.primaryVariant || colors.accent,
+    colors.info // Add a splash of info color for depth
+  ];
 
   return (
     <div>
       {/* Hero Section */}
       <section className="relative flex min-h-[700px] items-center overflow-hidden bg-[var(--color-surface)] py-12">
-        <div
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHw1fHx1bml2ZXJzaXR5fGVufDB8fHx8MTcxNzU4OTIyNnww&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center opacity-10"
-        ></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="text-center md:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[var(--color-textPrimary)]/90">
-                Welcome to uniAI
+        {/* Liquid Background */}
+        <div className="absolute inset-0 z-0">
+          <LiquidEther
+            colors={fluidColors}
+            isViscous={true}
+            viscous={20}
+            mouseForce={30}
+            cursorSize={80}
+            autoDemo={true}
+            autoSpeed={0.3}
+            // Force re-mount on theme change to ensure colors update cleanly if hot-swap isn't perfect
+            key={themeName}
+          />
+        </div>
+
+        {/* Content Overlay */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
+            <div ref={introTextRef}>
+              <h1 className="text-4xl font-extrabold tracking-tight text-[var(--color-textPrimary)] sm:text-5xl md:text-6xl lg:text-7xl mb-6">
+                Welcome to <span className="text-[var(--color-primary)]">uniAI</span>
               </h1>
-              <p className="mt-4 text-lg md:text-xl text-[var(--color-textPrimary)]/70">
-                Your unified platform for next-generation artificial intelligence.
-                Streamline your workflow, boost creativity, and unlock new
-                possibilities with our intuitive toolset.
+              <p className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10">
+                Your intelligent companion for academic excellence. Experience the future of learning with our advanced AI-powered platform.
               </p>
-            </div>
-            <div className="flex justify-center items-center">
-              <img
-                alt="Graduation cap illustration"
-                className="h-64 w-64 md:h-80 md:w-80 object-cover rounded-full border-4 border-white shadow-lg"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDchELEmNB0CNKcnCkxUDv36OZb4QPhsSkxcj8BV0hiuobbsrHMK8IgOsN8DRL8AfUDGJxo4ZYwbfLjxln1nPQ4RinsoGIggV86zitWGy0HyVT-_inFeJdrvMNOyjSg7UsFwQ32cz83Y3a7F-aDaSIl46JoAOt1KpBpHDkSd4i39JjAMIaF9iaxXI0dlgSbCDnwVdFRI7jfnV9hpA_F2qlppD8ezA240E9nPyH1iyOa-LraGLm5I9QhqeZU6xN7HY-Uf2gJooV6jjs"
-              />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => navigate("/chat")}
+                  className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-[var(--color-background)] bg-[var(--color-primary)] hover:bg-[var(--color-primaryVariant)] md:py-4 md:text-lg md:px-10 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                >
+                  Get Started
+                </button>
+                <button
+                  onClick={() => navigate("/about")}
+                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-[var(--color-primary)] text-base font-medium rounded-full text-[var(--color-primary)] bg-transparent hover:bg-[var(--color-surface)] md:py-4 md:text-lg md:px-10 transition-all"
+                >
+                  Learn More
+                </button>
+              </div>
             </div>
           </div>
         </div>
