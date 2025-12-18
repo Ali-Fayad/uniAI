@@ -10,13 +10,13 @@ type Props = {
 
 const variantClass: Record<string, string> = {
   primary:
-    "rounded-full bg-custom-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#a69d8f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-custom-primary",
+    "rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--color-primaryVariant)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focusRing)]",
   secondary:
-    "rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#151514] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50",
+    "rounded-full bg-[var(--color-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--color-textPrimary)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] hover:bg-[var(--color-elevatedSurface)]",
   danger:
-    "rounded-lg bg-red-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-500",
+    "rounded-lg bg-[var(--color-error)] px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-500",
   ghost:
-    "rounded-full bg-transparent px-5 py-2.5 text-sm font-semibold text-[#151514] shadow-sm",
+    "rounded-full bg-transparent px-5 py-2.5 text-sm font-semibold text-[var(--color-textPrimary)] shadow-sm",
 };
 
 const FormButton: React.FC<Props> = ({

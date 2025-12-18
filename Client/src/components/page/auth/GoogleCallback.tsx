@@ -45,22 +45,22 @@ const GoogleCallback = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-custom-light">
-        <div className="max-w-md w-full bg-white/50 backdrop-blur-sm p-8 rounded-3xl shadow-lg border border-white/20 text-center">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--color-background)]">
+        <div className="max-w-md w-full bg-[var(--color-surface)] p-8 rounded-3xl shadow-lg border border-[var(--color-border)] text-center">
           <div className="mb-4">
-            <span className="material-symbols-outlined text-red-500 text-5xl">error</span>
+            <span className="material-symbols-outlined text-[var(--color-error)] text-5xl">error</span>
           </div>
-          <h2 className="text-2xl font-bold text-[#151514] mb-2">Authentication Failed</h2>
-          <p className="text-[#797672] mb-4">{error}</p>
-          <p className="text-sm text-[#797672]">Redirecting to login page...</p>
+          <h2 className="text-2xl font-bold text-[var(--color-textPrimary)] mb-2">Authentication Failed</h2>
+          <p className="text-[var(--color-textSecondary)] mb-4">{error}</p>
+          <p className="text-sm text-[var(--color-textSecondary)]">Redirecting to login page...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-custom-light">
-      <div className="max-w-md w-full bg-white/50 backdrop-blur-sm p-8 rounded-3xl shadow-lg border border-white/20 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-background)]">
+      <div className="max-w-md w-full bg-[var(--color-surface)] p-8 rounded-3xl shadow-lg border border-[var(--color-border)] text-center">
         <LoadingSpinner size="large" text="Completing Google Sign In..." />
       </div>
     </div>

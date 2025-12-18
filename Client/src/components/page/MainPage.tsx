@@ -50,8 +50,8 @@ const StarIcon: React.FC<{ filled: boolean; onClick: () => void }> = ({
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    fill={filled ? "#B6AE9F" : "none"} // custom-primary color when filled
-    stroke={filled ? "#B6AE9F" : "#9CA3AF"} // gray-400 when empty
+    fill={filled ? "var(--color-customPrimary)" : "none"}
+    stroke={filled ? "var(--color-customPrimary)" : "var(--color-textMuted, #9CA3AF)"}
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -71,10 +71,10 @@ const Card: React.FC<{
   return (
     <div
       ref={ref}
-      className="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-md border border-white/30 text-center"
+      className="bg-[var(--color-surface)] p-8 rounded-lg shadow-md border border-[var(--color-border)] text-center"
     >
-      <h3 className="text-2xl font-bold text-[#151514] mb-4">{title}</h3>
-      <p className="text-[#797672]">{children}</p>
+      <h3 className="text-2xl font-bold text-[var(--color-textPrimary)] mb-4">{title}</h3>
+      <p className="text-[var(--color-textSecondary)]">{children}</p>
     </div>
   );
 };
@@ -94,13 +94,13 @@ const Feedback: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Check if user is authenticated before sending feedback
     if (!isAuthenticated) {
       navigate('/auth');
       return;
     }
-    
+
     // TODO: Implement real API call for feedback
     console.log('Feedback submitted (placeholder)');
   };
@@ -122,7 +122,7 @@ const Feedback: React.FC = () => {
               name="email"
               placeholder="you@example.com"
               type="email"
-              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[#151514] bg-white/50 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-custom-primary sm:text-sm sm:leading-6"
+              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textSecondary)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-primary)] sm:text-sm sm:leading-6"
             />
           </div>
         </AnimatedField>
@@ -154,7 +154,7 @@ const Feedback: React.FC = () => {
         {/* 3. Feedback Textarea - Delay shifted to 200 */}
         <AnimatedField delay={200}>
           <label
-            className="block text-sm font-medium leading-6 text-[#151514]"
+            className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
             htmlFor="feedback"
           >
             Your Feedback
@@ -165,7 +165,7 @@ const Feedback: React.FC = () => {
               name="feedback"
               placeholder="Let us know how we can improve..."
               rows={4}
-              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[#151514] bg-white/50 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-custom-primary sm:text-sm sm:leading-6"
+              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textSecondary)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-primary)] sm:text-sm sm:leading-6"
             />
           </div>
         </AnimatedField>
@@ -175,7 +175,7 @@ const Feedback: React.FC = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-custom-primary text-[#151514] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
+              className="cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
             >
               <span className="truncate">Submit Feedback</span>
             </button>
@@ -193,17 +193,17 @@ const MainPage: React.FC = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative flex min-h-[700px] items-center overflow-hidden bg-custom-accent py-12">
+      <section className="relative flex min-h-[700px] items-center overflow-hidden bg-[var(--color-surface)] py-12">
         <div
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHw1fHx1bml2ZXJzaXR5fGVufDB8fHx8MTcxNzU4OTIyNnww&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center opacity-10"
         ></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="text-center md:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[#151514]/90">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[var(--color-textPrimary)]/90">
                 Welcome to uniAI
               </h1>
-              <p className="mt-4 text-lg md:text-xl text-[#151514]/70">
+              <p className="mt-4 text-lg md:text-xl text-[var(--color-textPrimary)]/70">
                 Your unified platform for next-generation artificial intelligence.
                 Streamline your workflow, boost creativity, and unlock new
                 possibilities with our intuitive toolset.
@@ -226,7 +226,7 @@ const MainPage: React.FC = () => {
         <section className="text-center mb-16">
           <button
             onClick={() => navigate('/chat')}
-            className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
+            className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
           >
             <span className="truncate">Try Now</span>
           </button>
@@ -256,10 +256,10 @@ const MainPage: React.FC = () => {
       {/* Spacer & Intro Text */}
       <section className="mt-32 mb-8 text-center max-w-2xl mx-auto px-4">
         <div ref={introTextRef}>
-          <h2 className="text-3xl font-bold text-[#151514] mb-4">
+          <h2 className="text-3xl font-bold text-[var(--color-textPrimary)] mb-4">
             We Value Your Input
           </h2>
-          <p className="text-lg text-[#797672]">
+          <p className="text-lg text-[var(--color-textSecondary)]">
             Your experience matters to us. Whether you have a suggestion, a
             question, or just want to say hello, we're here to listen. Help us
             shape the future of UniAI.

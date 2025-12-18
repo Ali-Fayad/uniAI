@@ -8,7 +8,7 @@ interface LoadingSpinnerProps {
 /**
  * LoadingSpinner component for showing loading states
  */
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'medium',
   text = 'Loading...'
 }) => {
@@ -22,7 +22,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     <div className="flex flex-col items-center justify-center gap-4">
       <div className={`${sizeClasses[size]} animate-spin`}>
         <svg
-          className="text-custom-primary"
+          className="text-[var(--color-primary)]"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -43,7 +43,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         </svg>
       </div>
       {text && (
-        <p className="text-[#797672] text-sm font-medium animate-pulse">
+        <p className="text-[var(--color-textSecondary)] text-sm font-medium animate-pulse">
           {text}
         </p>
       )}

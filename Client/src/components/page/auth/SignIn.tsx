@@ -61,13 +61,13 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-custom-light py-12 px-4">
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">
       <AuthCard>
         <div className="flex flex-col gap-2 mb-8 pt-8">
-          <p className="text-[#151514] text-4xl font-black tracking-[-0.033em]">
+          <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
             Welcome Back
           </p>
-          <p className="text-[#797672] text-base">
+          <p className="text-[var(--color-textSecondary)] text-base">
             Sign in to continue to your dashboard.
           </p>
         </div>
@@ -82,14 +82,14 @@ const SignIn = () => {
           {/* EMAIL FIELD */}
           <div className="flex flex-col">
             <label className="flex flex-col w-full pb-2">
-              <p className="text-[#151514] font-medium pb-2">Email Address</p>
+              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Email Address</p>
               <input
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white h-14 px-[15px] text-[#151514]"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
               />
             </label>
           </div>
@@ -98,12 +98,12 @@ const SignIn = () => {
           <div className="flex flex-col w-full">
             {/* Label + Forgot Password */}
             <div className="flex justify-between items-center pb-2">
-              <p className="text-[#151514] font-medium">Password</p>
+              <p className="text-[var(--color-textPrimary)] font-medium">Password</p>
 
               <button
                 type="button"
                 onClick={() => navigate("/forgot-password")}
-                className="text-[#B3AB9C] text-sm font-medium hover:text-[#a69d8f] transition-colors bg-transparent p-0"
+                className="text-[var(--color-primaryVariant)] text-sm font-medium hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
               >
                 Forgot Password?
               </button>
@@ -117,13 +117,13 @@ const SignIn = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white h-14 px-[15px] text-[#151514] pr-14"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
               />
 
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#B3AB9C] hover:text-[#a69d8f] transition-colors bg-transparent p-0"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
               >
                 {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
               </button>
@@ -135,18 +135,18 @@ const SignIn = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? "Signing In..." : "Sign In"}
             </button>
           </div>
         </form>
 
-        <p className="text-center text-[#797672] text-sm mt-6">
+        <p className="text-center text-[var(--color-textSecondary)] text-sm mt-6">
           Don’t have an account?{" "}
           <button
             type="button"
-            className="text-[#B3AB9C] font-medium hover:text-[#a69d8f] transition-colors ml-1 bg-transparent p-0"
+            className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0"
             onClick={() => navigate("/signup")}
           >
             Create one

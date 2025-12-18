@@ -74,7 +74,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 bg-custom-primary text-[#151514] p-2 rounded-full shadow-lg hover:bg-[#a69d8f] transition-colors"
+        className="lg:hidden fixed top-4 left-4 z-50 bg-[var(--color-primary)] text-[var(--color-background)] p-2 rounded-full shadow-lg hover:bg-[var(--color-primaryVariant)] transition-colors"
         aria-label="Toggle Sidebar"
       >
         <span className="material-symbols-outlined">
@@ -85,7 +85,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
       {/* Mobile Backdrop */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 lg:hidden"
+          className="fixed inset-0 bg-black/40 z-30 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -93,7 +93,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
       {/* Sidebar Container */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-40 w-80 bg-[#fcfcfc] border-r border-gray-200
+          fixed inset-y-0 left-0 z-40 w-80 bg-[var(--color-surface)] border-r border-[var(--color-border)]
           transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
           flex flex-col h-full shadow-sm
@@ -101,13 +101,13 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
       >
         {/* Header */}
         <div className="p-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-800">Chats</h2>
+          <h2 className="text-xl font-bold text-[var(--color-textPrimary)]">Chats</h2>
           <button
             onClick={() => {
               onNewChat();
               setIsSidebarOpen(false);
             }}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors text-custom-primary"
+            className="p-2 rounded-full hover:bg-[var(--color-elevatedSurface)] transition-colors text-[var(--color-primary)]"
             title="New Chat"
           >
             <span className="material-symbols-outlined">add_circle</span>
@@ -115,13 +115,13 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
         </div>
 
         {/* Chat List */}
-        <div className="flex-1 overflow-y-auto px-4 space-y-2 scrollbar-thin scrollbar-thumb-gray-200">
+        <div className="flex-1 overflow-y-auto px-4 space-y-2 scrollbar-thin scrollbar-thumb-[var(--color-border)]">
           {isLoading ? (
-            <div className="flex items-center justify-center h-20 text-gray-400">
+            <div className="flex items-center justify-center h-20 text-[var(--color-textSecondary)]">
               <span className="text-sm">Loading...</span>
             </div>
           ) : chats.length === 0 ? (
-            <div className="text-center text-gray-400 py-8 text-sm">
+            <div className="text-center text-[var(--color-textSecondary)] py-8 text-sm">
               No chats yet
             </div>
           ) : (
@@ -133,11 +133,11 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
                   setIsSidebarOpen(false);
                 }}
                 className={`
-                  group relative flex items-center justify-between px-4 py-3 rounded-2xl cursor-pointer transition-all duration-200
+                  group relative flex items-center justify-between px-4 py-3 rounded-2xl cursor-pointer transition-all duration-200 mb-1
                   ${
                     selectedChatId === chat.id
-                      ? "bg-custom-primary/10 text-custom-primary font-medium"
-                      : "hover:bg-gray-50 text-gray-600"
+                      ? "bg-[var(--color-primary)] text-[var(--color-background)] font-medium shadow-md"
+                      : "bg-[var(--color-elevatedSurface)] hover:bg-[var(--color-elevatedSurface)] text-[var(--color-textSecondary)] hover:text-[var(--color-textPrimary)]"
                   }
                 `}
               >
@@ -162,32 +162,32 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
         </div>
 
         {/* User Profile Section with dropdown menu */}
-        <div className="p-4 border-t border-gray-100 bg-white">
+        <div className="p-4 border-t border-[var(--color-border)] bg-[var(--color-surface)]">
           <div className="relative" ref={profileMenuRef}>
             <button
               onClick={() => setProfileMenuOpen((s) => !s)}
-              className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors w-full"
+              className="flex items-center gap-3 p-2 rounded-xl bg-[var(--color-elevatedSurface)] hover:bg-[var(--color-elevatedSurface)] transition-colors w-full"
               aria-expanded={profileMenuOpen}
             >
-              <div className="w-10 h-10 rounded-full bg-custom-primary/20 flex items-center justify-center text-custom-primary font-bold">
+              <div className="w-10 h-10 rounded-full bg-[var(--color-primary)] flex items-center justify-center text-[var(--color-background)] font-bold">
                 {user?.firstName?.[0] || user?.username?.[0] || "U"}
               </div>
               <div className="flex-1 min-w-0 text-left">
-                <p className="text-sm font-semibold text-gray-800 truncate">
+                <p className="text-sm font-semibold text-[var(--color-textPrimary)] truncate">
                   {user?.firstName} {user?.lastName}
                 </p>
-                <p className="text-xs text-gray-500 truncate">
+                <p className="text-xs text-[var(--color-textSecondary)] truncate">
                   @{user?.username}
                 </p>
               </div>
-              <span className="material-symbols-outlined text-gray-400">
+              <span className="material-symbols-outlined text-[var(--color-textSecondary)]">
                 more_vert
               </span>
             </button>
 
             {profileMenuOpen && (
               <div className="absolute left-4 right-4 bottom-14 z-40">
-                <div className="bg-white rounded-md shadow-lg ring-1 ring-black/5">
+                <div className="bg-[var(--color-surface)] rounded-md shadow-lg ring-1 ring-[var(--color-border)]">
                   <ul className="py-1">
                     <li>
                       <button
@@ -195,7 +195,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
                           setProfileMenuOpen(false);
                           navigate("/settings");
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-[#151514] hover:bg-gray-50"
+                        className="w-full text-left px-4 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                       >
                         Settings
                       </button>
@@ -207,7 +207,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
                           logout();
                           navigate("/");
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+                        className="w-full text-left px-4 py-2 text-sm text-[var(--color-error)] hover:bg-[var(--color-elevatedSurface)]"
                       >
                         Logout
                       </button>

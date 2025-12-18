@@ -37,11 +37,11 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-custom-light py-12 px-4">
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">
       <AuthCard>
         <div className="flex flex-col gap-2 mb-8 pt-8">
-          <p className="text-[#151514] text-4xl font-black tracking-[-0.033em]">Reset Password</p>
-          <p className="text-[#797672]">Enter your email to receive a reset code.</p>
+          <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">Reset Password</p>
+          <p className="text-[var(--color-textSecondary)]">Enter your email to receive a reset code.</p>
         </div>
 
         <form className="space-y-6" onSubmit={handleForgotPassword}>
@@ -59,14 +59,14 @@ const ForgotPassword = () => {
 
           <div className="flex flex-col">
             <label className="flex flex-col w-full">
-              <p className="text-[#151514] font-medium pb-2">Email Address</p>
+              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Email Address</p>
               <input
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514]"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
               />
             </label>
           </div>
@@ -74,17 +74,17 @@ const ForgotPassword = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="flex w-full items-center justify-center rounded-full h-12 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Sending...' : 'Send Code'}
           </button>
         </form>
 
-        <p className="text-center text-[#797672] text-sm mt-6">
+        <p className="text-center text-[var(--color-textSecondary)] text-sm mt-6">
           Remember your password?{" "}
           <button
             type="button"
-            className="text-[#B3AB9C] font-medium hover:text-[#a69d8f] transition-colors ml-1 bg-transparent p-0 border-0"
+            className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0 border-0"
             onClick={() => navigate("/signin")}
           >
             Sign in

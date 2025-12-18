@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>uniAI - Your AI Assistant for University Life</title>
-    
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -19,28 +19,19 @@
       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
     />
-    
+
     <!-- Material Symbols -->
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
-    
+
     <!-- Tailwind Configuration -->
     <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
-            colors: {
-              primary: "#b7ae9f",
-              "background-light": "#f7f7f7",
-              "background-dark": "#1a1918",
-              "custom-primary": "#B6AE9F",
-              "custom-secondary": "#C5C7BC",
-              "custom-light": "#DEDED1",
-              "custom-accent": "#FBF3D1",
-            },
             fontFamily: {
               display: ["Space Grotesk", "sans-serif"],
               playful: ["Pacifico", "cursive"],
@@ -56,10 +47,11 @@
       };
     </script>
   </head>
-  <body class="font-display bg-custom-light text-[#151514]">
+  <!-- Use CSS variables for background and text so the theme applied at runtime is effective immediately -->
+  <body class="font-display" style="background:var(--color-background); color:var(--color-textPrimary)">
     <!-- React Application Root -->
     <div id="root"></div>
-    
+
     <!-- React Application Entry Point -->
     <script type="module" src="/src/main.tsx"></script>
   </body>

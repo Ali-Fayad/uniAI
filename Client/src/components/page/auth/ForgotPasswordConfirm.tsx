@@ -59,13 +59,13 @@ const ForgotPasswordConfirm = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-custom-light py-12 px-4">
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">
       <AuthCard>
         <div className="flex flex-col gap-2 mb-8 pt-8">
-          <p className="text-[#151514] text-4xl font-black tracking-[-0.033em]">
+          <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
             Reset Password
           </p>
-          <p className="text-[#797672]">
+          <p className="text-[var(--color-textSecondary)]">
             Enter the code and your new password.
           </p>
         </div>
@@ -79,7 +79,7 @@ const ForgotPasswordConfirm = () => {
 
           <div className="flex flex-col">
             <label className="flex flex-col w-full">
-              <p className="text-[#151514] font-medium pb-2">Reset Code</p>
+              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Reset Code</p>
               <input
                 type="text"
                 placeholder="123456"
@@ -87,14 +87,14 @@ const ForgotPasswordConfirm = () => {
                 onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                 required
                 maxLength={6}
-                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] tracking-widest"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] tracking-widest"
               />
             </label>
           </div>
 
           <div className="relative">
             <label className="flex flex-col w-full">
-              <p className="text-[#151514] font-medium pb-2">New Password</p>
+              <p className="text-[var(--color-textPrimary)] font-medium pb-2">New Password</p>
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter new password"
@@ -102,13 +102,13 @@ const ForgotPasswordConfirm = () => {
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
                 minLength={8}
-                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] pr-14"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
               />
             </label>
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-[42px] text-[#B3AB9C] hover:text-[#a69d8f] transition-colors bg-transparent p-0"
+              className="absolute right-4 top-[42px] text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
             >
               {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
             </button>
@@ -116,7 +116,7 @@ const ForgotPasswordConfirm = () => {
 
           <div className="relative">
             <label className="flex flex-col w-full">
-              <p className="text-[#151514] font-medium pb-2">Confirm Password</p>
+              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Confirm Password</p>
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm new password"
@@ -124,13 +124,13 @@ const ForgotPasswordConfirm = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 minLength={8}
-                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] pr-14"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
               />
             </label>
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-4 top-[42px] text-[#B3AB9C] hover:text-[#a69d8f] transition-colors bg-transparent p-0"
+              className="absolute right-4 top-[42px] text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
             >
               {showConfirmPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
             </button>
@@ -139,17 +139,17 @@ const ForgotPasswordConfirm = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="flex w-full items-center justify-center rounded-full h-12 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Resetting...' : 'Reset Password'}
           </button>
         </form>
 
-        <p className="text-center text-[#797672] text-sm mt-6">
+        <p className="text-center text-[var(--color-textSecondary)] text-sm mt-6">
           Remember your password?{" "}
           <button
             type="button"
-            className="text-[#B3AB9C] font-medium hover:text-[#a69d8f] transition-colors ml-1 bg-transparent p-0 border-0"
+            className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0 border-0"
             onClick={() => navigate("/signin")}
           >
             Sign in

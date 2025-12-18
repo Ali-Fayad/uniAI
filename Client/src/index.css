@@ -163,15 +163,15 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--color-elevatedSurface);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #B6AE9F;
+  background: var(--color-accent);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a69d8f;
+  background: var(--color-primaryVariant);
 }

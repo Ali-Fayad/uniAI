@@ -114,7 +114,7 @@ const ChatPage: React.FC = () => {
       />
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col bg-custom-light relative">
+      <div className="flex-1 flex flex-col bg-[var(--color-background)] relative">
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-6 pb-32">
           {isLoadingMessages ? (
@@ -125,7 +125,7 @@ const ChatPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               {messages.length === 0 && !currentChatId ? (
                 <div className="flex flex-col items-center justify-center h-full py-20 opacity-50">
-                  <span className="material-symbols-outlined text-6xl mb-4 text-custom-primary">
+                  <span className="material-symbols-outlined text-6xl mb-4 text-[var(--color-primary)]">
                     chat_bubble_outline
                   </span>
                   <p className="text-xl font-medium">
@@ -143,23 +143,23 @@ const ChatPage: React.FC = () => {
                   ))}
                   {isSendingMessage && (
                     <div className="flex justify-start gap-3 mb-4 animate-fadeIn">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-custom-primary flex items-center justify-center">
-                        <span className="material-symbols-outlined text-[#151514] text-sm">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-primary)] flex items-center justify-center">
+                        <span className="material-symbols-outlined text-[var(--color-background)] text-sm">
                           smart_toy
                         </span>
                       </div>
-                      <div className="bg-white/70 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
+                      <div className="bg-[var(--color-surface)] px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
                         <div className="flex gap-1 items-center h-5">
                           <span
-                            className="w-2 h-2 bg-custom-primary rounded-full animate-bounce"
+                            className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce"
                             style={{ animationDelay: "0ms" }}
                           ></span>
                           <span
-                            className="w-2 h-2 bg-custom-primary rounded-full animate-bounce"
+                            className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce"
                             style={{ animationDelay: "150ms" }}
                           ></span>
                           <span
-                            className="w-2 h-2 bg-custom-primary rounded-full animate-bounce"
+                            className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce"
                             style={{ animationDelay: "300ms" }}
                           ></span>
                         </div>

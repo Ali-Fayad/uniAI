@@ -14,8 +14,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAI }) => {
       }`}
     >
       {isAI && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-custom-primary flex items-center justify-center">
-          <span className="material-symbols-outlined text-[#151514] text-sm">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-primary)] flex items-center justify-center">
+          <span className="material-symbols-outlined text-[var(--color-background)] text-sm">
             smart_toy
           </span>
         </div>
@@ -24,8 +24,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAI }) => {
       <div
         className={`max-w-[70%] px-4 py-3 rounded-2xl shadow-sm ${
           isAI
-            ? "bg-white/70 text-[#151514] rounded-tl-none"
-            : "bg-custom-primary text-[#151514] rounded-tr-none"
+            ? "bg-[var(--color-surface)] text-[var(--color-textPrimary)] rounded-tl-none"
+            : "bg-[var(--color-primary)] text-[var(--color-background)] rounded-tr-none"
         }`}
       >
         <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
@@ -40,8 +40,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAI }) => {
       </div>
 
       {!isAI && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-custom-secondary flex items-center justify-center">
-          <span className="material-symbols-outlined text-[#151514] text-sm">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-secondary)] flex items-center justify-center">
+          <span className="material-symbols-outlined text-[var(--color-background)] text-sm">
             person
           </span>
         </div>
