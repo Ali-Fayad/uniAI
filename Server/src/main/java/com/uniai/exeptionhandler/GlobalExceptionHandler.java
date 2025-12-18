@@ -66,4 +66,10 @@ public class GlobalExceptionHandler {
         logger.warn("FeedbackNotValidException: {}", ex.getMessage(), ex);
         return ResponseEntity.status(404).body(ex.getMessage());
     }
+
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public ResponseEntity<?> handleUnauthorizedAccessException(Exception ex) {
+        logger.warn("UnauthorizedAccessException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(401).body(ex.getMessage());
+    }
 }

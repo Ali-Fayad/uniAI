@@ -34,13 +34,18 @@ const Verify2FA = () => {
       // Store token and user data
       login(response.token);
       // Redirect to chat page
-      navigate('/chat');
+      navigate("/chat");
     } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response?: { data?: { message?: string } } };
-        setError(axiosError.response?.data?.message || 'Invalid 2FA code. Please try again.');
+      if (err && typeof err === "object" && "response" in err) {
+        const axiosError = err as {
+          response?: { data?: { message?: string } };
+        };
+        setError(
+          axiosError.response?.data?.message ||
+            "Invalid 2FA code. Please try again."
+        );
       } else {
-        setError('An unexpected error occurred.');
+        setError("An unexpected error occurred.");
       }
     } finally {
       setIsLoading(false);
@@ -55,7 +60,7 @@ const Verify2FA = () => {
             Two-Factor Authentication
           </p>
           <p className="text-[#797672]">
-            Enter the 6-digit code from your authenticator app.
+            Enter the verification code from your authenticator app or email.
           </p>
         </div>
 
@@ -71,22 +76,22 @@ const Verify2FA = () => {
               <p className="text-[#151514] font-medium pb-2">Code</p>
               <input
                 type="text"
-                placeholder="123456"
+                placeholder="Enter code"
                 value={code}
-                onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                onChange={(e) => setCode(e.target.value)}
                 required
-                maxLength={6}
-                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] tracking-widest text-lg"
+                maxLength={128}
+                className="form-input w-full rounded-xl border border-custom-secondary/50 bg-white/50 backdrop-blur-sm h-14 px-[15px] text-[#151514] text-lg"
               />
             </label>
           </div>
 
           <button
             type="submit"
-            disabled={isLoading || code.length !== 6}
+            disabled={isLoading || code.length === 0}
             className="flex w-full items-center justify-center rounded-full h-12 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Verifying...' : 'Verify'}
+            {isLoading ? "Verifying..." : "Verify"}
           </button>
         </form>
 
@@ -94,7 +99,7 @@ const Verify2FA = () => {
           <button
             type="button"
             className="text-[#B3AB9C] font-medium hover:text-[#a69d8f] transition-colors bg-transparent p-0 border-0"
-            onClick={() => navigate('/signin')}
+            onClick={() => navigate("/signin")}
           >
             Back to Sign In
           </button>

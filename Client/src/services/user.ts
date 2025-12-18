@@ -48,4 +48,11 @@ export const userService = {
   async changePassword(data: ChangePasswordDto): Promise<void> {
     await apiClient.post(ENDPOINTS.USER.CHANGE_PASSWORD, data);
   },
+
+  /**
+   * Send feedback
+   */
+  async sendFeedback(data: { email: string; comment: string }): Promise<void> {
+    await apiClient.post(ENDPOINTS.USER.FEEDBACK, data);
+  },
 };

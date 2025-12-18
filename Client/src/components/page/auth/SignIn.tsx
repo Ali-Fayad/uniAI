@@ -28,20 +28,32 @@ const SignIn = () => {
       login(response.token);
 
       // Redirect to chat page
-      navigate('/chat');
+      navigate("/chat");
     } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response?: { status?: number; data?: { message?: string } } };
+      if (err && typeof err === "object" && "response" in err) {
+        const axiosError = err as {
+          response?: { status?: number; data?: { message?: string } };
+        };
 
         // Handle 202 status (verification required)
-        if (axiosError.response?.status === 202) {
-          navigate('/verify', { state: { email } });
+        // 2FA flow: backend returns 401 when 2FA is required
+        if (axiosError.response?.status === 401) {
+          navigate("/2fa/verify", { state: { email } });
           return;
         }
 
-        setError(axiosError.response?.data?.message || 'Failed to sign in. Please check your credentials.');
+        // Email verification flow: backend returns 202
+        if (axiosError.response?.status === 202) {
+          navigate("/verify", { state: { email } });
+          return;
+        }
+
+        setError(
+          axiosError.response?.data?.message ||
+            "Failed to sign in. Please check your credentials."
+        );
       } else {
-        setError('An unexpected error occurred.');
+        setError("An unexpected error occurred.");
       }
     } finally {
       setIsLoading(false);
@@ -66,7 +78,7 @@ const SignIn = () => {
               {error}
             </div>
           )}
-          
+
           {/* EMAIL FIELD */}
           <div className="flex flex-col">
             <label className="flex flex-col w-full pb-2">
@@ -84,7 +96,6 @@ const SignIn = () => {
 
           {/* PASSWORD FIELD */}
           <div className="flex flex-col w-full">
-
             {/* Label + Forgot Password */}
             <div className="flex justify-between items-center pb-2">
               <p className="text-[#151514] font-medium">Password</p>
@@ -121,12 +132,12 @@ const SignIn = () => {
 
           {/* SIGN IN BUTTON */}
           <div>
-            <button 
+            <button
               type="submit"
               disabled={isLoading}
               className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-custom-primary text-[#151514] font-bold hover:bg-[#a69d8f] transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Signing In...' : 'Sign In'}
+              {isLoading ? "Signing In..." : "Sign In"}
             </button>
           </div>
         </form>

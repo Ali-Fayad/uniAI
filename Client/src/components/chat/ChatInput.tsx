@@ -53,8 +53,28 @@ const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="w-full bg-gradient-to-t from-white via-white to-transparent pt-10 pb-6 px-4">
-      <div className="max-w-3xl mx-auto">
+    <div className="w-full relative pt-10 pb-6 px-4 overflow-hidden">
+      
+      {/* --- DIAMOND GRID PATTERN BACKGROUND --- */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+         {/* This creates the diamond shape using repeating gradients */}
+        <div 
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: `linear-gradient(135deg, #e5e7eb 25%, transparent 25%), 
+                              linear-gradient(225deg, #e5e7eb 25%, transparent 25%), 
+                              linear-gradient(45deg, #e5e7eb 25%, transparent 25%), 
+                              linear-gradient(315deg, #e5e7eb 25%, transparent 25%)`,
+            backgroundPosition: '10px 0, 10px 0, 0 0, 0 0',
+            backgroundSize: '20px 20px',
+            backgroundRepeat: 'repeat'
+          }}
+        />
+        {/* This creates the fade/spotlight effect so it blends into the page */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
+      </div>
+
+      <div className="max-w-3xl mx-auto relative z-10">
         <form
           onSubmit={handleSubmit}
           className={`

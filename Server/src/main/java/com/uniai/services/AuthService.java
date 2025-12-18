@@ -6,6 +6,7 @@ import com.uniai.dto.auth.SignInDto;
 import com.uniai.dto.auth.SignUpDto;
 import com.uniai.exception.AlreadyExistsException;
 import com.uniai.exception.InvalidEmailOrPassword;
+import com.uniai.exception.UnauthorizedAccessException;
 import com.uniai.exception.VerificationNeededException;
 import com.uniai.model.User;
 import com.uniai.domain.VerificationCodeType;
@@ -64,7 +65,7 @@ public class AuthService {
         if (user.isTwoFacAuth() == true) {
             // automatically request the TWO_FACT_AUTH code and tell caller that verification is needed
             emailService.sendVerificationCode(user.getEmail(), VerificationCodeType.TWO_FACT_AUTH);
-            throw new VerificationNeededException("two-factor authentication code sent to email");
+            throw new UnauthorizedAccessException("two-factor authentication code sent to email");
         }
 
         // Convert User to DTO and generate token with full user data

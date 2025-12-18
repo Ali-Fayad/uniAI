@@ -20,6 +20,7 @@ export const ENDPOINTS = {
     UPDATE_ME: '/api/users/me',
     DELETE_ME: '/api/users/me',
     CHANGE_PASSWORD: '/api/users/change-password',
+    FEEDBACK: '/api/users/feedback',
   },
 
   // Chat endpoints

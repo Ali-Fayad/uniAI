@@ -76,10 +76,15 @@ export interface UserData {
 }
 
 export interface UpdateUserDto {
+  username?: string;
   firstName?: string;
   lastName?: string;
-  email?: string;
-  twoFactorEnabled?: boolean;
+  enableTwoFactor?: boolean;
+}
+
+export interface FeedbackRequest {
+  email: string;
+  comment: string;
 }
 
 export interface ChangePasswordDto {

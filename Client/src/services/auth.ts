@@ -32,10 +32,36 @@ export const authService = {
    * Sign in an existing user
    */
   async signIn(data: SignInDto): Promise<TokenResponse> {
+    // Accept all statuses so we can handle 202/401 specially without triggering
+    // the global error interceptor behavior.
     const response = await apiClient.post<TokenResponse>(
       ENDPOINTS.AUTH.SIGNIN,
-      data
+      data,
+      { validateStatus: () => true }
     );
+
+    // Log HTTP status for sign-in (kept in service per request)
+    try {
+      console.log('authService.signIn - HTTP status:', response.status);
+    } catch (err) {
+      // best-effort logging; swallow errors
+    }
+
+    // 202 => verification needed (email verification)
+    if (response.status === 202) {
+      const err: any = new Error('Verification needed');
+      err.response = response;
+      throw err;
+    }
+
+    // 401 => indicates 2FA required for this API (per backend contract)
+    if (response.status === 401) {
+      const err: any = new Error('Two-factor authentication required');
+      err.response = response;
+      throw err;
+    }
+
+    // otherwise return token payload
     return response.data;
   },
 
