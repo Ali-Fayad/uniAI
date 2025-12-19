@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
 import LiquidEther from "../LiquidEther";
+import TextType from "../common/TextType";
 
 // Reusable hook for scroll animations that reverse when scrolling up
 const useScrollAnimation = (delay = 0) => {
@@ -53,7 +54,9 @@ const StarIcon: React.FC<{ filled: boolean; onClick: () => void }> = ({
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill={filled ? "var(--color-customPrimary)" : "none"}
-    stroke={filled ? "var(--color-customPrimary)" : "var(--color-textMuted, #9CA3AF)"}
+    stroke={
+      filled ? "var(--color-customPrimary)" : "var(--color-textMuted, #9CA3AF)"
+    }
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -75,7 +78,9 @@ const Card: React.FC<{
       ref={ref}
       className="bg-[var(--color-surface)] p-8 rounded-lg shadow-md border border-[var(--color-border)] text-center"
     >
-      <h3 className="text-2xl font-bold text-[var(--color-textPrimary)] mb-4">{title}</h3>
+      <h3 className="text-2xl font-bold text-[var(--color-textPrimary)] mb-4">
+        {title}
+      </h3>
       <p className="text-[var(--color-textSecondary)]">{children}</p>
     </div>
   );
@@ -99,12 +104,12 @@ const Feedback: React.FC = () => {
 
     // Check if user is authenticated before sending feedback
     if (!isAuthenticated) {
-      navigate('/auth');
+      navigate("/auth");
       return;
     }
 
     // TODO: Implement real API call for feedback
-    console.log('Feedback submitted (placeholder)');
+    console.log("Feedback submitted (placeholder)");
   };
 
   return (
@@ -113,7 +118,7 @@ const Feedback: React.FC = () => {
         {/* 1. Email Field */}
         <AnimatedField delay={0}>
           <label
-            className="block text-sm font-medium leading-6 text-[#151514]"
+            className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
             htmlFor="email"
           >
             Email
@@ -131,7 +136,7 @@ const Feedback: React.FC = () => {
 
         {/* 2. Rating Field (New) */}
         <AnimatedField delay={100}>
-          <label className="block text-sm font-medium leading-6 text-[#151514] mb-2">
+          <label className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)] mb-2">
             Rate Your Experience
           </label>
           <div className="flex flex-col items-center space-y-2">
@@ -192,6 +197,7 @@ const MainPage: React.FC = () => {
   const introTextRef = useScrollAnimation(0);
   const navigate = useNavigate();
   const { colors, themeName } = useTheme();
+  const [typingStage, setTypingStage] = useState(0);
 
   // Map theme colors to LiquidEther palette
   // We use primary, secondary, and accent/variant to create a nice fluid mix
@@ -199,7 +205,7 @@ const MainPage: React.FC = () => {
     colors.primary,
     colors.secondary,
     colors.primaryVariant || colors.accent,
-    colors.info // Add a splash of info color for depth
+    colors.info, // Add a splash of info color for depth
   ];
 
   return (
@@ -226,11 +232,50 @@ const MainPage: React.FC = () => {
           <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
             <div ref={introTextRef}>
               <h1 className="text-4xl font-extrabold tracking-tight text-[var(--color-textPrimary)] sm:text-5xl md:text-6xl lg:text-7xl mb-6">
-                Welcome to <span className="text-[var(--color-primary)]">uniAI</span>
+                <TextType
+                  text="Welcome to "
+                  typingSpeed={50}
+                  startOnVisible={true}
+                  loop={false}
+                  showCursor={typingStage === 0}
+                  cursorCharacter="|"
+                  onSentenceComplete={() => setTypingStage(1)}
+                />
+                <span className="text-[var(--color-primary)]">
+                  {typingStage >= 1 && (
+                    <TextType
+                      text="uniAI"
+                      typingSpeed={50}
+                      startOnVisible={true}
+                      loop={false}
+                      showCursor={typingStage === 1}
+                      cursorCharacter="|"
+                      onSentenceComplete={() => setTypingStage(2)}
+                    />
+                  )}
+                </span>
               </h1>
-              <p className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10">
-                Your intelligent companion for academic excellence. Experience the future of learning with our advanced AI-powered platform.
-              </p>
+
+              {typingStage >= 2 && (
+                <TextType
+                  as="p"
+                  className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10"
+                  text="Your intelligent companion for academic excellence. Experience the future of learning with our advanced AI-powered platform."
+                  typingSpeed={30}
+                  startOnVisible={true}
+                  loop={false}
+                  showCursor={true}
+                  cursorCharacter="|"
+                />
+              )}
+              {/* Placeholder to prevent layout shift if needed, or just let it flow */}
+              {typingStage < 2 && (
+                <p className="mt-4 text-xl text-transparent max-w-2xl mx-auto mb-10 select-none">
+                  Your intelligent companion for academic excellence. Experience
+                  the future of learning with our advanced AI-powered platform.
+                </p>
+              )}
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => navigate("/chat")}
@@ -252,55 +297,47 @@ const MainPage: React.FC = () => {
 
       {/* Content Container */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Try Now Button */}
-        <section className="text-center mb-16">
-          <button
-            onClick={() => navigate('/chat')}
-            className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
-          >
-            <span className="truncate">Try Now</span>
-          </button>
+        {/* Try Now Button removed - 'Get Started' already navigates to chat */}
+
+        {/* Cards Section */}
+        <section className="my-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card title="Powerful Integration" delay={0}>
+              Seamlessly connect with your favorite tools and platforms. UniAI
+              works with your existing ecosystem to enhance productivity without
+              disruption.
+            </Card>
+            <Card title="Creative Assistance" delay={0}>
+              Break through creative blocks with AI-powered suggestions, content
+              generation, and idea exploration. Elevate your creative projects
+              to new heights.
+            </Card>
+            <Card title="Data-driven Insights" delay={0}>
+              Transform complex data into clear, actionable insights. Make
+              smarter decisions with our advanced analytics and visualization
+              capabilities.
+            </Card>
+          </div>
         </section>
 
-      {/* Cards Section */}
-      <section className="my-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card title="Powerful Integration" delay={0}>
-            Seamlessly connect with your favorite tools and platforms. UniAI
-            works with your existing ecosystem to enhance productivity without
-            disruption.
-          </Card>
-          <Card title="Creative Assistance" delay={0}>
-            Break through creative blocks with AI-powered suggestions, content
-            generation, and idea exploration. Elevate your creative projects to
-            new heights.
-          </Card>
-          <Card title="Data-driven Insights" delay={0}>
-            Transform complex data into clear, actionable insights. Make smarter
-            decisions with our advanced analytics and visualization
-            capabilities.
-          </Card>
-        </div>
-      </section>
+        {/* Spacer & Intro Text */}
+        <section className="mt-32 mb-8 text-center max-w-2xl mx-auto px-4">
+          <div ref={introTextRef}>
+            <h2 className="text-3xl font-bold text-[var(--color-textPrimary)] mb-4">
+              We Value Your Input
+            </h2>
+            <p className="text-lg text-[var(--color-textSecondary)]">
+              Your experience matters to us. Whether you have a suggestion, a
+              question, or just want to say hello, we're here to listen. Help us
+              shape the future of UniAI.
+            </p>
+          </div>
+        </section>
 
-      {/* Spacer & Intro Text */}
-      <section className="mt-32 mb-8 text-center max-w-2xl mx-auto px-4">
-        <div ref={introTextRef}>
-          <h2 className="text-3xl font-bold text-[var(--color-textPrimary)] mb-4">
-            We Value Your Input
-          </h2>
-          <p className="text-lg text-[var(--color-textSecondary)]">
-            Your experience matters to us. Whether you have a suggestion, a
-            question, or just want to say hello, we're here to listen. Help us
-            shape the future of UniAI.
-          </p>
-        </div>
-      </section>
-
-      {/* Feedback Form */}
-      <section>
-        <Feedback />
-      </section>
+        {/* Feedback Form */}
+        <section>
+          <Feedback />
+        </section>
       </div>
     </div>
   );

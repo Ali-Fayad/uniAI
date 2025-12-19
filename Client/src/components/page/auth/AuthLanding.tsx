@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { authService } from '../../../services/auth';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { authService } from "../../../services/auth";
+import { getSavedTheme } from "../../../styles/themes";
 
 /**
  * Auth Landing page - provides options to sign in, sign up, or use OAuth
@@ -16,31 +17,48 @@ const AuthLanding = () => {
       // Redirect to Google OAuth URL
       window.location.href = response.url;
     } catch (error) {
-      console.error('Failed to get Google auth URL:', error);
+      console.error("Failed to get Google auth URL:", error);
       setIsLoadingGoogle(false);
     }
   };
+
+  const [activeTheme, setActiveTheme] = useState<string>(getSavedTheme());
+
+  useEffect(() => {
+    const handler = (e: any) => setActiveTheme(e.detail || getSavedTheme());
+    window.addEventListener("themeChanged", handler as EventListener);
+    return () =>
+      window.removeEventListener("themeChanged", handler as EventListener);
+  }, []);
 
   return (
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">
       <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-6xl min-h-[600px] rounded-3xl overflow-hidden shadow-2xl">
         {/* Left Panel - Information */}
-        <div className="hidden lg:flex flex-col items-center justify-center bg-[var(--color-accent)] p-8 relative">
-          <div className="z-10 text-center text-[var(--color-textPrimary)]">
+        <div className="hidden lg:flex flex-col items-center justify-center bg-[var(--color-accent)] dark:bg-[var(--color-primary)] p-8 relative">
+          <div
+            className="z-10 text-center"
+            style={{
+              color:
+                activeTheme === "dark"
+                  ? "var(--color-background)"
+                  : "var(--color-textPrimary)",
+            }}
+          >
             <svg
-              className="mx-auto h-12 w-auto text-[var(--color-primary)] mb-6"
+              className="mx-auto h-12 w-auto text-[var(--color-primary)] dark:text-[var(--color-background)] mb-6"
               fill="currentColor"
               viewBox="0 0 54 44"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"></path>
             </svg>
-            <h2 className="text-3xl font-black tracking-tight text-[var(--color-textPrimary)] opacity-80 mb-4">
+            <h2 className="text-3xl font-black tracking-tight opacity-80 mb-4">
               Why You Must Log In?
             </h2>
-            <p className="text-base text-[var(--color-textPrimary)] opacity-60">
-              Logging in allows you to save your chats and data, so you can continue
-              your conversations anytime, without losing progress.
+            <p className="text-base opacity-60">
+              Logging in allows you to save your chats and data, so you can
+              continue your conversations anytime, without losing progress.
             </p>
           </div>
         </div>
@@ -52,14 +70,16 @@ const AuthLanding = () => {
               <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
                 Welcome Back
               </p>
-              <p className="text-[var(--color-textSecondary)]">Sign in to continue to your dashboard.</p>
+              <p className="text-[var(--color-textSecondary)]">
+                Sign in to continue to your dashboard.
+              </p>
             </div>
 
             <div className="space-y-4">
               {/* Sign In Button */}
               <button
                 type="button"
-                onClick={() => navigate('/signin')}
+                onClick={() => navigate("/signin")}
                 className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition"
               >
                 Sign In
@@ -70,14 +90,16 @@ const AuthLanding = () => {
                   <div className="w-full border-t border-[var(--color-border)]"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-[var(--color-surface)] px-2 text-[var(--color-textSecondary)]">or</span>
+                  <span className="bg-[var(--color-surface)] px-2 text-[var(--color-textSecondary)]">
+                    or
+                  </span>
                 </div>
               </div>
 
               {/* Sign Up Button */}
               <button
                 type="button"
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate("/signup")}
                 className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition"
               >
                 Sign Up
@@ -88,7 +110,9 @@ const AuthLanding = () => {
                   <div className="w-full border-t border-[var(--color-border)]"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-[var(--color-surface)] px-2 text-[var(--color-textSecondary)]">or continue with</span>
+                  <span className="bg-[var(--color-surface)] px-2 text-[var(--color-textSecondary)]">
+                    or continue with
+                  </span>
                 </div>
               </div>
 
@@ -99,7 +123,7 @@ const AuthLanding = () => {
                   disabled={isLoadingGoogle}
                   className="flex w-full items-center justify-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] h-12 text-[var(--color-textPrimary)] font-medium hover:bg-[var(--color-elevatedSurface)] transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoadingGoogle ? 'Loading...' : 'Google'}
+                  {isLoadingGoogle ? "Loading..." : "Google"}
                 </button>
               </div>
             </div>
