@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useAutoResizeTextarea } from "@hooks/useAutoResizeTextarea";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -29,9 +30,6 @@ const ChatInput: React.FC<ChatInputProps> = ({
     if (message.trim() && !disabled) {
       onSendMessage(message.trim());
       setMessage("");
-      if (textareaRef.current) {
-        textareaRef.current.style.height = "auto";
-      }
     }
   };
 
@@ -42,22 +40,16 @@ const ChatInput: React.FC<ChatInputProps> = ({
     }
   };
 
-  const adjustHeight = () => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${Math.min(
-        textareaRef.current.scrollHeight,
-        200
-      )}px`;
-    }
-  };
+  const { adjust } = useAutoResizeTextarea(textareaRef, message, {
+    maxHeight: 200,
+    minHeight: 60,
+  });
 
   return (
     <div className="w-full relative pt-10 pb-6 px-4 overflow-hidden">
-
       {/* --- DIAMOND GRID PATTERN BACKGROUND --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-         {/* This creates the diamond shape using repeating gradients */}
+        {/* This creates the diamond shape using repeating gradients */}
         <div
           className="absolute inset-0 opacity-20"
           style={{
@@ -65,9 +57,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
                               linear-gradient(225deg, var(--color-primary) 25%, transparent 25%),
                               linear-gradient(45deg, var(--color-primary) 25%, transparent 25%),
                               linear-gradient(315deg, var(--color-primary) 25%, transparent 25%)`,
-            backgroundPosition: '10px 0, 10px 0, 0 0, 0 0',
-            backgroundSize: '20px 20px',
-            backgroundRepeat: 'repeat'
+            backgroundPosition: "10px 0, 10px 0, 0 0, 0 0",
+            backgroundSize: "20px 20px",
+            backgroundRepeat: "repeat",
           }}
         />
         {/* This creates the fade/spotlight effect so it blends into the page */}
@@ -89,7 +81,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             value={message}
             onChange={(e) => {
               setMessage(e.target.value);
-              adjustHeight();
+              adjust();
             }}
             onKeyDown={handleKeyDown}
             placeholder="Message uniAI..."

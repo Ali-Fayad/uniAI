@@ -1,48 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
 import LiquidEther from "../LiquidEther";
 import TextType from "../common/TextType";
+import { useScrollAnimation } from "@hooks/useScrollAnimation";
 
-// Reusable hook for scroll animations that reverse when scrolling up
-const useScrollAnimation = (delay = 0) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Initial state
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    el.style.transition = "opacity 500ms ease, transform 500ms ease";
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Animate in
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, delay);
-          } else {
-            // Reverse animation (hide) when scrolling up/away
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [delay]);
-
-  return ref;
-};
+// useScrollAnimation moved to src/hooks/useScrollAnimation
 
 // Simple Star Icon Component
 const StarIcon: React.FC<{ filled: boolean; onClick: () => void }> = ({
@@ -115,24 +79,7 @@ const Feedback: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto p-6">
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* 1. Email Field */}
-        <AnimatedField delay={0}>
-          <label
-            className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <div className="mt-2">
-            <input
-              id="email"
-              name="email"
-              placeholder="you@example.com"
-              type="email"
-              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textSecondary)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-primary)] sm:text-sm sm:leading-6"
-            />
-          </div>
-        </AnimatedField>
+        {/* Email removed: feedback requires authentication, navigate to auth when unauthenticated */}
 
         {/* 2. Rating Field (New) */}
         <AnimatedField delay={100}>
@@ -260,7 +207,7 @@ const MainPage: React.FC = () => {
                 <TextType
                   as="p"
                   className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10"
-                  text="Your intelligent companion for academic excellence. Experience the future of learning with our advanced AI-powered platform."
+                  text="Explore programs, admission requirements, tuition fees, deadlines, and campus life — all in one place. UniAI is an AI-powered assistant designed to guide high-school graduates through every step of their university journey in Lebanon."
                   typingSpeed={30}
                   startOnVisible={true}
                   loop={false}
@@ -271,8 +218,10 @@ const MainPage: React.FC = () => {
               {/* Placeholder to prevent layout shift if needed, or just let it flow */}
               {typingStage < 2 && (
                 <p className="mt-4 text-xl text-transparent max-w-2xl mx-auto mb-10 select-none">
-                  Your intelligent companion for academic excellence. Experience
-                  the future of learning with our advanced AI-powered platform.
+                  Explore programs, admission requirements, tuition fees,
+                  deadlines, and campus life — all in one place. UniAI is an
+                  AI-powered assistant designed to guide high-school graduates
+                  through every step of their university journey in Lebanon.
                 </p>
               )}
 
@@ -302,20 +251,22 @@ const MainPage: React.FC = () => {
         {/* Cards Section */}
         <section className="my-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card title="Powerful Integration" delay={0}>
-              Seamlessly connect with your favorite tools and platforms. UniAI
-              works with your existing ecosystem to enhance productivity without
-              disruption.
+            <Card title="Centralized University Information" delay={0}>
+              Get accurate and up-to-date information from Lebanese universities
+              in one place. UniAI gathers details about programs, faculties,
+              admission conditions, tuition fees, and deadlines so you don’t
+              have to search across multiple websites.
             </Card>
-            <Card title="Creative Assistance" delay={0}>
-              Break through creative blocks with AI-powered suggestions, content
-              generation, and idea exploration. Elevate your creative projects
-              to new heights.
+            <Card title="Personalized Academic Guidance" delay={0}>
+              Ask questions in natural language and get clear, tailored answers.
+              Whether you’re unsure which major fits your interests or need help
+              comparing universities, UniAI provides personalized guidance based
+              on your goals and preferences.
             </Card>
-            <Card title="Data-driven Insights" delay={0}>
-              Transform complex data into clear, actionable insights. Make
-              smarter decisions with our advanced analytics and visualization
-              capabilities.
+            <Card title="Smart Comparisons & Insights" delay={0}>
+              Compare universities, majors, and costs side by side. UniAI turns
+              complex academic information into simple insights, helping you
+              make confident decisions about your future education.
             </Card>
           </div>
         </section>

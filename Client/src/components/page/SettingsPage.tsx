@@ -7,50 +7,15 @@ import { userService } from "../../services/user";
 import type { UpdateUserDto } from "../../types/dto";
 import { applyThemeByName, getSavedTheme } from "../../styles/themes";
 import type { ThemeName } from "../../styles/themes";
+import { useScrollAnimation } from "@hooks/useScrollAnimation";
 
-// Reusable hook for scroll animations (copies behavior from MainPage)
-const useScrollAnimation = (delay = 0) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+// useScrollAnimation moved to src/hooks/useScrollAnimation
 
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Initial state
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    // faster transition
-    el.style.transition = "opacity 300ms ease, transform 300ms ease";
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Animate in
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, delay);
-          } else {
-            // Reverse animation (hide) when scrolling up/away
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-          }
-        });
-      },
-      // lower threshold so element triggers sooner
-      { threshold: 0.05 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [delay]);
-
-  return ref;
-};
-
-const AnimatedField: React.FC<{ children: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => {
-  const ref = useScrollAnimation(delay);
+const AnimatedField: React.FC<{
+  children: React.ReactNode;
+  delay?: number;
+}> = ({ children, delay = 0 }) => {
+  const ref = useScrollAnimation(delay, { threshold: 0.05, duration: 300 });
   return <div ref={ref}>{children}</div>;
 };
 
@@ -75,7 +40,9 @@ const SettingsPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Theme selection state
-  const [selectedTheme, setSelectedTheme] = useState<ThemeName>(() => getSavedTheme());
+  const [selectedTheme, setSelectedTheme] = useState<ThemeName>(() =>
+    getSavedTheme()
+  );
 
   useEffect(() => {
     // Ensure the currently saved theme is applied when this page mounts
@@ -350,7 +317,9 @@ const SettingsPage: React.FC = () => {
                 />
                 <span className="flex flex-1">
                   <span className="flex flex-col">
-                    <span className={`block text-sm font-medium text-[var(--color-textPrimary)] flex items-center gap-2`}>
+                    <span
+                      className={`block text-sm font-medium text-[var(--color-textPrimary)] flex items-center gap-2`}
+                    >
                       <span className="material-symbols-outlined text-[var(--color-textPrimary)]">
                         dark_mode
                       </span>
