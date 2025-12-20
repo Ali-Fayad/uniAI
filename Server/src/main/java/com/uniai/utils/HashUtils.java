@@ -5,8 +5,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Simple SHA-256 hashing helper used to compute the server-side hash of the frontend-submitted hash.
- * Per validation_rules.MD the backend must hash the received SHA-256 value again before storing.
+ * Simple SHA-256 hashing helper used to compute the server-side hash of the
+ * frontend-submitted hash.
+ * Per validation_rules.MD the backend must hash the received SHA-256 value
+ * again before storing.
  */
 public class HashUtils {
 

@@ -11,9 +11,9 @@ public class AuthenticationResponseBuilder {
     public static AuthenticationResponseDto getAuthenticationResponseDtoFromUser(User user) {
         AuthenticationResponseDto dto = AuthenticationResponseDto.builder()
                 .username(user.getUsername().toLowerCase())
-                .firstName(capitalize(user. getFirstName()))
+                .firstName(capitalize(user.getFirstName()))
                 .lastName(capitalize(user.getLastName()))
-                .email(user. getEmail().toLowerCase())
+                .email(user.getEmail().toLowerCase())
                 .isVerified(user.isVerified())
                 .isTwoFacAuth(user.isTwoFacAuth())
                 .build();

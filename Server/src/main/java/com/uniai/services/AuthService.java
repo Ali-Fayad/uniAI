@@ -43,11 +43,13 @@ public class AuthService {
         }
 
         if (!ValidationUtils.isValidUsername(username)) {
-            throw new InputValidationException("Invalid username. Must be at least 2 characters and contain only letters, numbers, or underscore");
+            throw new InputValidationException(
+                    "Invalid username. Must be at least 2 characters and contain only letters, numbers, or underscore");
         }
 
         if (!ValidationUtils.isAlphaName(firstName) || !ValidationUtils.isAlphaName(lastName)) {
-            throw new InputValidationException("First name and last name must contain only alphabetic characters and be at least 2 characters long");
+            throw new InputValidationException(
+                    "First name and last name must contain only alphabetic characters and be at least 2 characters long");
         }
 
         // Ensure frontend hashed password looks like a SHA-256 hex
@@ -93,7 +95,8 @@ public class AuthService {
 
         User user = userRepository.findByEmail(email);
 
-        // Compute server-side hash of the frontend-provided SHA-256 value before matching
+        // Compute server-side hash of the frontend-provided SHA-256 value before
+        // matching
         String serverSideHash = HashUtils.sha256Hex(frontendHash);
 
         if (user == null || !passwordEncoder.matches(serverSideHash, user.getPassword())) {
@@ -106,7 +109,8 @@ public class AuthService {
         }
 
         if (user.isTwoFacAuth() == true) {
-            // automatically request the TWO_FACT_AUTH code and tell caller that verification is needed
+            // automatically request the TWO_FACT_AUTH code and tell caller that
+            // verification is needed
             emailService.sendVerificationCode(user.getEmail(), VerificationCodeType.TWO_FACT_AUTH);
             throw new UnauthorizedAccessException("two-factor authentication code sent to email");
         }
@@ -129,7 +133,8 @@ public class AuthService {
      * Generic verification for a specific VerificationCodeType, then generate JWT.
      */
     public String verifyAndGenerateToken(String email, String code, VerificationCodeType type) {
-        // normalize email to lower-case for verification lookups (your repositories expect lower-case)
+        // normalize email to lower-case for verification lookups (your repositories
+        // expect lower-case)
         User user = emailService.verifyCode(email.toLowerCase(), code, type);
 
         // Convert User to DTO and generate token with full user data
@@ -139,13 +144,17 @@ public class AuthService {
     }
 
     /**
-     * Convenience method specifically for two-factor verification check + token generation.
+     * Convenience method specifically for two-factor verification check + token
+     * generation.
      * Call this after signIn() has triggered a TWO_FACT_AUTH email to be sent.
      *
      * Example flow:
-     * 1) client calls /auth/signin -> signIn() throws VerificationNeededException and server sends TWO_FACT_AUTH
-     * 2) client shows "enter 2fa code" UI and calls /auth/2fa/verify (or similar) with email + code
-     * 3) controller calls this method to verify the TWO_FACT_AUTH code and return the JWT
+     * 1) client calls /auth/signin -> signIn() throws VerificationNeededException
+     * and server sends TWO_FACT_AUTH
+     * 2) client shows "enter 2fa code" UI and calls /auth/2fa/verify (or similar)
+     * with email + code
+     * 3) controller calls this method to verify the TWO_FACT_AUTH code and return
+     * the JWT
      */
     public String checkTwoFactorAndGenerate(String email, String code) {
         return verifyAndGenerateToken(email, code, VerificationCodeType.TWO_FACT_AUTH);
@@ -163,7 +172,8 @@ public class AuthService {
         String currentFrontendHash = ValidationUtils.trim(Password);
         String newFrontendHash = ValidationUtils.trim(newPassword);
 
-        if (!ValidationUtils.isValidFrontendPasswordHash(currentFrontendHash) || !ValidationUtils.isValidFrontendPasswordHash(newFrontendHash)) {
+        if (!ValidationUtils.isValidFrontendPasswordHash(currentFrontendHash)
+                || !ValidationUtils.isValidFrontendPasswordHash(newFrontendHash)) {
             throw new InvalidEmailOrPassword();
         }
 
@@ -190,13 +200,15 @@ public class AuthService {
     }
 
     /**
-     * Verify the CHANGE_PASSWORD code, update the user's password and return a new JWT.
+     * Verify the CHANGE_PASSWORD code, update the user's password and return a new
+     * JWT.
      */
     public String resetPasswordWithCode(String email, String code, String newPassword) {
         User user = emailService.verifyCode(email, code, VerificationCodeType.CHANGE_PASSWORD);
 
         // set the new password
-        // Expect frontend provided SHA-256 of the new password; hash again on server before storing
+        // Expect frontend provided SHA-256 of the new password; hash again on server
+        // before storing
         String newServerHash = HashUtils.sha256Hex(ValidationUtils.trim(newPassword));
         user.setPassword(passwordEncoder.encode(newServerHash));
         userRepository.save(user);

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthCard } from "../../../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
-import { sha256Hex } from '../../../utils/hash';
-import validation from '../../../utils/validation';
+import { sha256Hex } from "../../../utils/hash";
+import validation from "../../../utils/validation";
 import { useAuth } from "../../../hooks/useAuth";
 import type { SignInDto } from "../../../types/dto";
 
@@ -27,13 +27,15 @@ const SignIn = () => {
 
       // Validate inputs client-side per validation_rules.MD
       if (!validation.isValidEmail(formattedEmail)) {
-        setError('Please enter a valid email address.');
+        setError("Please enter a valid email address.");
         setIsLoading(false);
         return;
       }
 
       if (!validation.isValidRawPassword(password)) {
-        setError('Password must be at least 8 characters, include one uppercase letter and one number.');
+        setError(
+          "Password must be at least 8 characters, include one uppercase letter and one number."
+        );
         setIsLoading(false);
         return;
       }
@@ -41,7 +43,10 @@ const SignIn = () => {
       // Hash password with SHA-256 before submitting
       const hashed = await sha256Hex(password);
 
-      const data: SignInDto = { email: formattedEmail, password: hashed } as any;
+      const data: SignInDto = {
+        email: formattedEmail,
+        password: hashed,
+      } as any;
       const response = await authService.signIn(data);
 
       // Store token and user data
@@ -67,8 +72,13 @@ const SignIn = () => {
       }
 
       // Prefer server-provided message
-      const serverMessage = anyErr?.message || anyErr?.response?.data || anyErr?.response?.data?.message;
-      setError(serverMessage || "Failed to sign in. Please check your credentials.");
+      const serverMessage =
+        anyErr?.message ||
+        anyErr?.response?.data ||
+        anyErr?.response?.data?.message;
+      setError(
+        serverMessage || "Failed to sign in. Please check your credentials."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +106,9 @@ const SignIn = () => {
           {/* EMAIL FIELD */}
           <div className="flex flex-col">
             <label className="flex flex-col w-full pb-2">
-              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Email Address</p>
+              <p className="text-[var(--color-textPrimary)] font-medium pb-2">
+                Email Address
+              </p>
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -112,7 +124,9 @@ const SignIn = () => {
           <div className="flex flex-col w-full">
             {/* Label + Forgot Password */}
             <div className="flex justify-between items-center pb-2">
-              <p className="text-[var(--color-textPrimary)] font-medium">Password</p>
+              <p className="text-[var(--color-textPrimary)] font-medium">
+                Password
+              </p>
 
               <button
                 type="button"

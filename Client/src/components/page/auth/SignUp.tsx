@@ -4,8 +4,8 @@ import { useAuth } from "../../../hooks/useAuth";
 import { AuthCard } from "../../../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
-import { sha256Hex } from '../../../utils/hash';
-import validation from '../../../utils/validation';
+import { sha256Hex } from "../../../utils/hash";
+import validation from "../../../utils/validation";
 import type { SignUpDto } from "../../../types/dto";
 
 const SignUp = () => {
@@ -33,22 +33,31 @@ const SignUp = () => {
 
     // Client-side validation per validation_rules.MD
     if (!validation.isValidUsername(username)) {
-      setError('Username must be at least 2 characters and contain only letters, numbers, or underscore.');
+      setError(
+        "Username must be at least 2 characters and contain only letters, numbers, or underscore."
+      );
       return;
     }
 
-    if (!validation.isAlphaName(firstName) || !validation.isAlphaName(lastName)) {
-      setError('First name and last name must contain only alphabetic characters and be at least 2 characters long.');
+    if (
+      !validation.isAlphaName(firstName) ||
+      !validation.isAlphaName(lastName)
+    ) {
+      setError(
+        "First name and last name must contain only alphabetic characters and be at least 2 characters long."
+      );
       return;
     }
 
     if (!validation.isValidEmail(email)) {
-      setError('Please enter a valid email address.');
+      setError("Please enter a valid email address.");
       return;
     }
 
     if (!validation.isValidRawPassword(password)) {
-      setError('Password must be at least 8 characters, include one uppercase letter and one number.');
+      setError(
+        "Password must be at least 8 characters, include one uppercase letter and one number."
+      );
       return;
     }
 
@@ -56,7 +65,12 @@ const SignUp = () => {
 
     try {
       // Format fields per storage rules (trim/capitalize/lowercase)
-      const formatted = validation.formatSignUpPayload({ username, firstName, lastName, email });
+      const formatted = validation.formatSignUpPayload({
+        username,
+        firstName,
+        lastName,
+        email,
+      });
 
       // Hash password on frontend with SHA-256 before submitting
       const hashed = await sha256Hex(password);
@@ -74,22 +88,22 @@ const SignUp = () => {
       // If server returned a token, log in and redirect to chat
       if (response?.token) {
         login(response.token);
-        navigate('/chat');
+        navigate("/chat");
         return;
       }
 
       // Otherwise (e.g. verification required), navigate to verification page
-      navigate('/verify', { state: { email: formatted.email } });
+      navigate("/verify", { state: { email: formatted.email } });
     } catch (err: unknown) {
       const anyErr = err as any;
       const status = anyErr?.status || anyErr?.response?.status;
       if (status === 202) {
-        navigate('/verify', { state: { email } });
+        navigate("/verify", { state: { email } });
         return;
       }
 
       const serverMessage = anyErr?.message || anyErr?.response?.data?.message;
-      setError(serverMessage || 'Failed to sign up. Please try again.');
+      setError(serverMessage || "Failed to sign up. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +116,9 @@ const SignUp = () => {
           <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
             Create Account
           </p>
-          <p className="text-[var(--color-textSecondary)]">Join and save your chats securely.</p>
+          <p className="text-[var(--color-textSecondary)]">
+            Join and save your chats securely.
+          </p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSignup}>
@@ -188,7 +204,11 @@ const SignUp = () => {
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
             >
-              {showConfirmPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
+              {showConfirmPassword ? (
+                <LuEyeOff size={22} />
+              ) : (
+                <LuEye size={22} />
+              )}
             </button>
           </div>
 
@@ -198,7 +218,7 @@ const SignUp = () => {
             disabled={isLoading}
             className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Creating Account...' : 'Create Account'}
+            {isLoading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
