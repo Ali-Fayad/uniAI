@@ -51,6 +51,9 @@ export const authService = {
     if (response.status === 202) {
       const err: any = new Error('Verification needed');
       err.response = response;
+      err.status = response.status;
+      err.payload = response.data;
+      err.message = response.data?.message || response.data?.error || err.message;
       throw err;
     }
 
@@ -58,6 +61,19 @@ export const authService = {
     if (response.status === 401) {
       const err: any = new Error('Two-factor authentication required');
       err.response = response;
+      err.status = response.status;
+      err.payload = response.data;
+      err.message = response.data?.message ;
+      throw err;
+    }
+
+    // 400 => invalid credentials or bad request — surface backend message to caller
+    if (response.status === 400) {
+      const err: any = new Error('Invalid request');
+      err.response = response;
+      err.status = response.status;
+      err.payload = response.data;
+      err.message = response.data?.message || response.data?.error || err.message;
       throw err;
     }
 

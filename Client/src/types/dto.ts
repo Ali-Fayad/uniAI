@@ -40,6 +40,8 @@ export interface GoogleAuthUrlRequestDto {
 // ============================================================
 
 export interface TokenResponse {
+  error: any;
+  message: any;
   token: string; // server returns only { token }
 }
 

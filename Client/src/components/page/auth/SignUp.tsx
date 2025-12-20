@@ -4,6 +4,8 @@ import { useAuth } from "../../../hooks/useAuth";
 import { AuthCard } from "../../../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
+import { sha256Hex } from '../../../utils/hash';
+import validation from '../../../utils/validation';
 import type { SignUpDto } from "../../../types/dto";
 
 const SignUp = () => {
@@ -23,17 +25,50 @@ const SignUp = () => {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
     // Validate password match
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
+    // Client-side validation per validation_rules.MD
+    if (!validation.isValidUsername(username)) {
+      setError('Username must be at least 2 characters and contain only letters, numbers, or underscore.');
+      return;
+    }
+
+    if (!validation.isAlphaName(firstName) || !validation.isAlphaName(lastName)) {
+      setError('First name and last name must contain only alphabetic characters and be at least 2 characters long.');
+      return;
+    }
+
+    if (!validation.isValidEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (!validation.isValidRawPassword(password)) {
+      setError('Password must be at least 8 characters, include one uppercase letter and one number.');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const data: SignUpDto = { username, firstName, lastName, email, password };
+      // Format fields per storage rules (trim/capitalize/lowercase)
+      const formatted = validation.formatSignUpPayload({ username, firstName, lastName, email });
+
+      // Hash password on frontend with SHA-256 before submitting
+      const hashed = await sha256Hex(password);
+
+      const data: SignUpDto = {
+        username: formatted.username,
+        firstName: formatted.firstName,
+        lastName: formatted.lastName,
+        email: formatted.email,
+        password: hashed,
+      } as any;
+
       const response = await authService.signUp(data);
 
       // If server returned a token, log in and redirect to chat
@@ -44,21 +79,17 @@ const SignUp = () => {
       }
 
       // Otherwise (e.g. verification required), navigate to verification page
-      navigate('/verify', { state: { email } });
+      navigate('/verify', { state: { email: formatted.email } });
     } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response?: { status?: number; data?: { message?: string } } };
-
-        // Handle 202 status (verification required)
-        if (axiosError.response?.status === 202) {
-          navigate('/verify', { state: { email } });
-          return;
-        }
-
-        setError(axiosError.response?.data?.message || 'Failed to sign up. Please try again.');
-      } else {
-        setError('An unexpected error occurred.');
+      const anyErr = err as any;
+      const status = anyErr?.status || anyErr?.response?.status;
+      if (status === 202) {
+        navigate('/verify', { state: { email } });
+        return;
       }
+
+      const serverMessage = anyErr?.message || anyErr?.response?.data?.message;
+      setError(serverMessage || 'Failed to sign up. Please try again.');
     } finally {
       setIsLoading(false);
     }

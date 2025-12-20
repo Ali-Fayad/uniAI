@@ -51,21 +51,29 @@ apiClient.interceptors.response.use(
       }
     }
     
-    // Handle other error status codes
+    // Normalize backend messages and attach status so frontend can use them
     if (error.response) {
-      if (error.response.status === 403) {
-        console.error('Access forbidden:', error.response.data);
+      const status = error.response.status;
+      const data = error.response.data as any;
+
+      // Best-effort extraction of a user-facing message from backend payload
+      let backendMessage: string | undefined;
+      if (typeof data === 'string') {
+        backendMessage = data;
+      } else if (data) {
+        backendMessage = data.message || data.error || (Array.isArray(data.messages) ? data.messages[0] : undefined);
       }
-      
-      if (error.response.status === 404) {
-        console.error('Resource not found:', error.response.data);
+
+      if (backendMessage) {
+        // Prefer backend message as the error's message so existing catch blocks can display it
+        (error as any).message = backendMessage;
       }
-      
-      if (error.response.status >= 500) {
-        console.error('Server error:', error.response.data);
-      }
+
+      // Attach status and raw payload for callers that need them
+      (error as any).status = status;
+      (error as any).payload = data;
     }
-    
+
     return Promise.reject(error);
   }
 );

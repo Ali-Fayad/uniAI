@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import PageTransition from "./components/common/PageTransition";
 import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/common/Header";
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -24,41 +26,112 @@ const App = () => {
         {showHeader && <Header />}
 
         <div className="flex-grow">
-          <Routes>
-            {/* Main landing page */}
-            <Route path="/" element={<MainPage />} />
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              {/* Main landing page */}
+              <Route
+                path="/"
+                element={
+                  <PageTransition>
+                    <MainPage />
+                  </PageTransition>
+                }
+              />
 
-            {/* Auth Routes */}
-            <Route path="/auth" element={<AuthLanding />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/verify" element={<Verify />} />
-            <Route path="/2fa/verify" element={<Verify2FA />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route
-              path="/forgot-password/confirm"
-              element={<ForgotPasswordConfirm />}
-            />
+              {/* Auth Routes */}
+              <Route
+                path="/auth"
+                element={
+                  <PageTransition>
+                    <AuthLanding />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/signin"
+                element={
+                  <PageTransition>
+                    <SignIn />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <PageTransition>
+                    <SignUp />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/verify"
+                element={
+                  <PageTransition>
+                    <Verify />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/2fa/verify"
+                element={
+                  <PageTransition>
+                    <Verify2FA />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/forgot-password"
+                element={
+                  <PageTransition>
+                    <ForgotPassword />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/forgot-password/confirm"
+                element={
+                  <PageTransition>
+                    <ForgotPasswordConfirm />
+                  </PageTransition>
+                }
+              />
 
-            {/* OAuth Callback */}
-            <Route path="/google/callback" element={<GoogleCallback />} />
+              {/* OAuth Callback */}
+              <Route
+                path="/google/callback"
+                element={
+                  <PageTransition>
+                    <GoogleCallback />
+                  </PageTransition>
+                }
+              />
 
-            {/* Protected Chat Route */}
-            <Route
-              path="/chat"
-              element={
-                <ProtectedRoute>
-                  <ChatPage />
-                </ProtectedRoute>
-              }
-            />
+              {/* Protected Chat Route */}
+              <Route
+                path="/chat"
+                element={
+                  <PageTransition>
+                    <ProtectedRoute>
+                      <ChatPage />
+                    </ProtectedRoute>
+                  </PageTransition>
+                }
+              />
 
-            {/* Settings Page */}
-            <Route path="/settings" element={<SettingsPage />} />
+              {/* Settings Page */}
+              <Route
+                path="/settings"
+                element={
+                  <PageTransition>
+                    <SettingsPage />
+                  </PageTransition>
+                }
+              />
 
-            {/* Fallback to main page */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+              {/* Fallback to main page */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </AnimatePresence>
         </div>
       </div>
     </AuthProvider>

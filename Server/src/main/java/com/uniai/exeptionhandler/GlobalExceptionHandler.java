@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+    @ExceptionHandler(com.uniai.exception.InputValidationException.class)
+    public ResponseEntity<?> handleInputValidationException(Exception ex) {
+        logger.warn("InputValidationException: {}", ex.getMessage(), ex);
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
     @ExceptionHandler(InvalidTokenException.class)
     public ResponseEntity<?> handleInvalidTokenException(Exception ex) {
         logger.warn("InvalidTokenException: {}", ex.getMessage(), ex);

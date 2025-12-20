@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthCard } from "../../../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
+import { sha256Hex } from '../../../utils/hash';
+import validation from '../../../utils/validation';
 import { useAuth } from "../../../hooks/useAuth";
 import type { SignInDto } from "../../../types/dto";
 
@@ -19,9 +21,27 @@ const SignIn = () => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-
     try {
-      const data: SignInDto = { email, password };
+      // Trim and lowercase email per rules
+      const formattedEmail = validation.toLower(email);
+
+      // Validate inputs client-side per validation_rules.MD
+      if (!validation.isValidEmail(formattedEmail)) {
+        setError('Please enter a valid email address.');
+        setIsLoading(false);
+        return;
+      }
+
+      if (!validation.isValidRawPassword(password)) {
+        setError('Password must be at least 8 characters, include one uppercase letter and one number.');
+        setIsLoading(false);
+        return;
+      }
+
+      // Hash password with SHA-256 before submitting
+      const hashed = await sha256Hex(password);
+
+      const data: SignInDto = { email: formattedEmail, password: hashed } as any;
       const response = await authService.signIn(data);
 
       // Store token and user data
@@ -30,31 +50,25 @@ const SignIn = () => {
       // Redirect to chat page
       navigate("/chat");
     } catch (err: unknown) {
-      if (err && typeof err === "object" && "response" in err) {
-        const axiosError = err as {
-          response?: { status?: number; data?: { message?: string } };
-        };
+      const anyErr = err as any;
 
-        // Handle 202 status (verification required)
-        // 2FA flow: backend returns 401 when 2FA is required
-        if (axiosError.response?.status === 401) {
-          navigate("/2fa/verify", { state: { email } });
-          return;
-        }
-
-        // Email verification flow: backend returns 202
-        if (axiosError.response?.status === 202) {
-          navigate("/verify", { state: { email } });
-          return;
-        }
-
-        setError(
-          axiosError.response?.data?.message ||
-            "Failed to sign in. Please check your credentials."
-        );
-      } else {
-        setError("An unexpected error occurred.");
+      // Handle 2FA and verification flows by status if provided
+      const status = anyErr?.status || anyErr?.response?.status;
+      if (status === 401) {
+        navigate("/2fa/verify", { state: { email } });
+        setIsLoading(false);
+        return;
       }
+
+      if (status === 202) {
+        navigate("/verify", { state: { email } });
+        setIsLoading(false);
+        return;
+      }
+
+      // Prefer server-provided message
+      const serverMessage = anyErr?.message || anyErr?.response?.data || anyErr?.response?.data?.message;
+      setError(serverMessage || "Failed to sign in. Please check your credentials.");
     } finally {
       setIsLoading(false);
     }

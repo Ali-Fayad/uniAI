@@ -4,6 +4,7 @@ import com.uniai.dto.auth.AuthenticationResponseDto;
 import com.uniai.dto.auth.SignUpDto;
 import com.uniai.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.uniai.utils.ValidationUtils;
 
 public class AuthenticationResponseBuilder {
 
@@ -21,10 +22,12 @@ public class AuthenticationResponseBuilder {
 
     public static User getUserFromSignUpDto(SignUpDto userDto, PasswordEncoder passwordEncoder) {
         User user = User.builder()
-                .username(userDto.getUsername().toLowerCase())
-                .firstName(capitalize(userDto.getFirstName()))
-                .lastName(capitalize(userDto. getLastName()))
-                .email(userDto.getEmail().toLowerCase())
+                .username(ValidationUtils.toLower(userDto.getUsername()))
+                .firstName(ValidationUtils.capitalizeName(userDto.getFirstName()))
+                .lastName(ValidationUtils.capitalizeName(userDto.getLastName()))
+                .email(ValidationUtils.toLower(userDto.getEmail()))
+                // Note: passwordEncoder.encode expects the server-side raw to hash; per rules
+                // the backend must hash the received SHA-256 value again before storing.
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .build();
         return user;

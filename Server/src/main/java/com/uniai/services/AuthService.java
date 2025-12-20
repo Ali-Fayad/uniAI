@@ -16,6 +16,9 @@ import com.uniai.security.jwt.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.uniai.utils.ValidationUtils;
+import com.uniai.utils.HashUtils;
+import com.uniai.exception.InputValidationException;
 
 @Service
 @AllArgsConstructor
@@ -28,13 +31,42 @@ public class AuthService {
 
     public String signUp(SignUpDto userDto) {
 
-        if (userRepository.existsByEmail(userDto.getEmail().toLowerCase())) {
+        // Server-side validation (re-validate everything per validation_rules.MD)
+        String email = ValidationUtils.toLower(userDto.getEmail());
+        String username = ValidationUtils.trim(userDto.getUsername());
+        String firstName = ValidationUtils.trim(userDto.getFirstName());
+        String lastName = ValidationUtils.trim(userDto.getLastName());
+        String frontendHash = ValidationUtils.trim(userDto.getPassword());
+
+        if (!ValidationUtils.isValidEmail(email)) {
+            throw new InputValidationException("Invalid email format");
+        }
+
+        if (!ValidationUtils.isValidUsername(username)) {
+            throw new InputValidationException("Invalid username. Must be at least 2 characters and contain only letters, numbers, or underscore");
+        }
+
+        if (!ValidationUtils.isAlphaName(firstName) || !ValidationUtils.isAlphaName(lastName)) {
+            throw new InputValidationException("First name and last name must contain only alphabetic characters and be at least 2 characters long");
+        }
+
+        // Ensure frontend hashed password looks like a SHA-256 hex
+        if (!ValidationUtils.isValidFrontendPasswordHash(frontendHash)) {
+            throw new InputValidationException("Password must be SHA-256 hashed on the client before submission");
+        }
+
+        // Normalize for uniqueness checks
+        if (userRepository.existsByEmail(email)) {
             throw new AlreadyExistsException("Email already exists");
         }
 
-        if (userRepository.existsByUsername(userDto.getUsername().toLowerCase())) {
+        if (userRepository.existsByUsername(username.toLowerCase())) {
             throw new AlreadyExistsException("Username already exists");
         }
+
+        // Per rules: backend must hash the received SHA-256 value again before storing
+        String serverSideHash = HashUtils.sha256Hex(frontendHash);
+        userDto.setPassword(serverSideHash);
 
         User user = AuthenticationResponseBuilder.getUserFromSignUpDto(userDto, passwordEncoder);
 
@@ -51,9 +83,20 @@ public class AuthService {
     }
 
     public String signIn(SignInDto userDto) {
-        User user = userRepository.findByEmail(userDto.getEmail().toLowerCase());
+        // Re-validate incoming credentials per validation_rules.MD
+        String email = ValidationUtils.toLower(userDto.getEmail());
+        String frontendHash = ValidationUtils.trim(userDto.getPassword());
 
-        if (user == null || !passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+        if (!ValidationUtils.isValidEmail(email) || !ValidationUtils.isValidFrontendPasswordHash(frontendHash)) {
+            throw new InvalidEmailOrPassword();
+        }
+
+        User user = userRepository.findByEmail(email);
+
+        // Compute server-side hash of the frontend-provided SHA-256 value before matching
+        String serverSideHash = HashUtils.sha256Hex(frontendHash);
+
+        if (user == null || !passwordEncoder.matches(serverSideHash, user.getPassword())) {
             throw new InvalidEmailOrPassword();
         }
 
@@ -116,11 +159,21 @@ public class AuthService {
     public void changePasswordWithOTP(String email, String Password, String newPassword) {
         User user = userRepository.findByUsername(email);
 
-        if (user == null || !passwordEncoder.matches(Password, user.getPassword())) {
+        // Expect frontend to send SHA-256 hashed values; compute server-side hash
+        String currentFrontendHash = ValidationUtils.trim(Password);
+        String newFrontendHash = ValidationUtils.trim(newPassword);
+
+        if (!ValidationUtils.isValidFrontendPasswordHash(currentFrontendHash) || !ValidationUtils.isValidFrontendPasswordHash(newFrontendHash)) {
             throw new InvalidEmailOrPassword();
         }
 
-        user.setPassword(passwordEncoder.encode(newPassword));
+        String currentServerHash = HashUtils.sha256Hex(currentFrontendHash);
+        if (user == null || !passwordEncoder.matches(currentServerHash, user.getPassword())) {
+            throw new InvalidEmailOrPassword();
+        }
+
+        String newServerHash = HashUtils.sha256Hex(newFrontendHash);
+        user.setPassword(passwordEncoder.encode(newServerHash));
         userRepository.save(user);
     }
 
@@ -143,7 +196,9 @@ public class AuthService {
         User user = emailService.verifyCode(email, code, VerificationCodeType.CHANGE_PASSWORD);
 
         // set the new password
-        user.setPassword(passwordEncoder.encode(newPassword));
+        // Expect frontend provided SHA-256 of the new password; hash again on server before storing
+        String newServerHash = HashUtils.sha256Hex(ValidationUtils.trim(newPassword));
+        user.setPassword(passwordEncoder.encode(newServerHash));
         userRepository.save(user);
 
         // return a new JWT for the user
