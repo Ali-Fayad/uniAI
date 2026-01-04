@@ -42,18 +42,15 @@ This repository language breakdown (provided):
 
 ## Architecture (visual)
 
-Paste this Mermaid diagram into GitHub README (it uses `<br>` inside quoted labels, which GitHub's Mermaid accepts):
-
-```mermaid
 flowchart LR
   subgraph Host
     direction TB
     Certs["certs volume"]:::vol
-    nginx["nginx container<br>ports: 8443(host)/443(container) or 8080(host)/80(container)"]:::srv
+    nginx["nginx container<br>ports: 443 / 80"]:::srv
     app["Spring Boot app<br>9090"]:::srv
     client_dev["Vite dev server<br>5173"]:::srv
     client_build["Client build → Server/client/dist"]:::proc
-    ServerDist["Server/client/dist (static files)"]:::fs
+    ServerDist["Server/client/dist"]:::fs
   end
 
   Certs --> nginx
@@ -66,7 +63,6 @@ flowchart LR
   classDef vol fill:#fff7d6,stroke:#c79b00;
   classDef proc fill:#e6f7ff,stroke:#1a8cff;
   classDef fs fill:#f0fff4,stroke:#1f8f3b;
-```
 
 Short explanation:
 - certs: generates self-signed certs for local TLS.
