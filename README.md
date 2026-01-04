@@ -3,7 +3,6 @@
 [![Repo languages](https://img.shields.io/github/languages/top/Ali-Fayad/uniAI?color=blue)](https://github.com/Ali-Fayad/uniAI)
 [![Repo size](https://img.shields.io/github/repo-size/Ali-Fayad/uniAI)](https://github.com/Ali-Fayad/uniAI)
 [![License](https://img.shields.io/badge/license-None-lightgrey)](https://github.com/Ali-Fayad/uniAI)
-[![Last commit](https://img.shields.io/github/last-commit/Ali-Fayad/uniAI)](https://github.com/Ali-Fayad/uniAI/commits/main)
 
 A university information chatbot: a full-stack project that uses a Java Spring Boot backend and a React + TypeScript frontend to provide an AI-powered chatbot that answers questions and offers information about universities in Lebanon.
 
