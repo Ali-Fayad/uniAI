@@ -185,7 +185,6 @@ public class ChatService {
         }
     }
 
-
     /**
      * Generate AI response based on user message.
      * Placeholder implementation - replace with actual AI integration.

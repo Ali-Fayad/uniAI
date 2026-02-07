@@ -46,4 +46,6 @@ public class ChatBuilder {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+
 }

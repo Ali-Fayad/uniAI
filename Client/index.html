@@ -3,138 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>uniAI</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>uniAI - Your AI Assistant for University Life</title>
+
+    <!-- Tailwind CSS CDN -->
+    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script> -->
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Material Symbols -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#b7ae9f",
-              "background-light": "#f7f7f7",
-              "background-dark": "#1a1918",
-              "custom-primary": "#B6AE9F",
-              "custom-secondary": "#C5C7BC",
-              "custom-light": "#DEDED1",
-              "custom-accent": "#FBF3D1",
-            },
-            fontFamily: {
-              display: ["Space Grotesk", "sans-serif"],
-              playful: ["Pacifico", "cursive"],
-            },
-            borderRadius: {
-              DEFAULT: "1rem",
-              lg: "2rem",
-              xl: "3rem",
-              full: "9999px",
-            },
-          },
-        },
-      };
-    </script>
+
+    <!-- Tailwind is configured via tailwind.config.js and processed locally; removed CDN inline config -->
   </head>
-  <body class="font-display bg-custom-light text-[#151514]">
-    <div class="flex min-h-screen w-full flex-col group/design-root">
-      <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md shadow-sm">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="relative flex h-16 items-center justify-center">
-            <div
-              class="absolute inset-y-0 left-0 flex items-center sm:hidden"
-            ></div>
-            <div
-              class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
-            >
-              <div class="flex flex-shrink-0 items-center">
-                <svg
-                  class="h-8 w-auto text-custom-primary"
-                  fill="currentColor"
-                  viewBox="0 0 54 44"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-            <div class="absolute inset-y-0 flex items-center justify-center">
-              <a
-                class="font-playful text-2xl font-bold tracking-tight text-[#151514]"
-                href="#"
-                >uniAI</a
-              >
-            </div>
-            <div
-              class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
-            >
-              <button
-                class="relative rounded-full bg-transparent p-1 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-custom-primary focus:ring-offset-2"
-                type="button"
-              >
-                <span class="absolute -inset-1.5"></span>
-                <span class="sr-only">Toggle theme</span>
-                <span class="material-symbols-outlined"> light_mode </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-      <main class="flex-grow">
-        <section
-          class="relative flex h-screen min-h-[700px] items-center overflow-hidden bg-custom-accent py-12"
-        >
-          <div
-            class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3wzNjAzNTV8MHwxfHNlYXJjaHw1fHx1bml2ZXJzaXR5fGVufDB8fHx8MTcxNzU4OTIyNnww&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080')] bg-cover bg-center opacity-10"
-          ></div>
-          <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-              class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
-            >
-              <div class="text-center md:text-left">
-                <h1
-                  class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[#151514]/90"
-                >
-                  Welcome to uniAI
-                </h1>
-                <p class="mt-4 text-lg md:text-xl text-[#151514]/70">
-                  Your unified platform for next-generation artificial
-                  intelligence. Streamline your workflow, boost creativity, and
-                  unlock new possibilities with our intuitive toolset.
-                </p>
-              </div>
-              <div class="flex justify-center items-center">
-                <img
-                  alt="Graduation cap illustration"
-                  class="h-64 w-64 md:h-80 md:w-80 object-cover rounded-full border-4 border-white shadow-lg"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDchELEmNB0CNKcnCkxUDv36OZb4QPhsSkxcj8BV0hiuobbsrHMK8IgOsN8DRL8AfUDGJxo4ZYwbfLjxln1nPQ4RinsoGIggV86zitWGy0HyVT-_inFeJdrvMNOyjSg7UsFwQ32cz83Y3a7F-aDaSIl46JoAOt1KpBpHDkSd4i39JjAMIaF9iaxXI0dlgSbCDnwVdFRI7jfnV9hpA_F2qlppD8ezA240E9nPyH1iyOa-LraGLm5I9QhqeZU6xN7HY-Uf2gJooV6jjs"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- React mount point for the animated main page (cards + feedback will be rendered by React) -->
-        <div
-          id="root"
-          class="container mx-auto px-4 sm:px-6 lg:px-8 py-12"
-        ></div>
-        <!-- Mount the React app for the main page -->
-        <script type="module" src="/src/main.tsx"></script>
-      </main>
-    </div>
+  <!-- Use CSS variables for background and text so the theme applied at runtime is effective immediately -->
+  <body class="font-display" style="background:var(--color-background); color:var(--color-textPrimary)">
+    <!-- React Application Root -->
+    <div id="root"></div>
+
+    <!-- React Application Entry Point -->
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

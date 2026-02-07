@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { useTheme } from "../../hooks/useTheme";
+import LiquidEther from "../LiquidEther";
 
 // Reusable hook for scroll animations that reverse when scrolling up
 const useScrollAnimation = (delay = 0) => {
@@ -48,8 +52,8 @@ const StarIcon: React.FC<{ filled: boolean; onClick: () => void }> = ({
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    fill={filled ? "#B6AE9F" : "none"} // custom-primary color when filled
-    stroke={filled ? "#B6AE9F" : "#9CA3AF"} // gray-400 when empty
+    fill={filled ? "var(--color-customPrimary)" : "none"}
+    stroke={filled ? "var(--color-customPrimary)" : "var(--color-textMuted, #9CA3AF)"}
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -69,10 +73,10 @@ const Card: React.FC<{
   return (
     <div
       ref={ref}
-      className="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-md border border-white/30 text-center"
+      className="bg-[var(--color-surface)] p-8 rounded-lg shadow-md border border-[var(--color-border)] text-center"
     >
-      <h3 className="text-2xl font-bold text-[#151514] mb-4">{title}</h3>
-      <p className="text-[#797672]">{children}</p>
+      <h3 className="text-2xl font-bold text-[var(--color-textPrimary)] mb-4">{title}</h3>
+      <p className="text-[var(--color-textSecondary)]">{children}</p>
     </div>
   );
 };
@@ -87,10 +91,25 @@ const AnimatedField: React.FC<{
 
 const Feedback: React.FC = () => {
   const [rating, setRating] = useState(0);
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Check if user is authenticated before sending feedback
+    if (!isAuthenticated) {
+      navigate('/auth');
+      return;
+    }
+
+    // TODO: Implement real API call for feedback
+    console.log('Feedback submitted (placeholder)');
+  };
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <form action="#" className="space-y-6" method="POST">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* 1. Email Field */}
         <AnimatedField delay={0}>
           <label
@@ -105,7 +124,7 @@ const Feedback: React.FC = () => {
               name="email"
               placeholder="you@example.com"
               type="email"
-              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[#151514] bg-white/50 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-custom-primary sm:text-sm sm:leading-6"
+              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textSecondary)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-primary)] sm:text-sm sm:leading-6"
             />
           </div>
         </AnimatedField>
@@ -137,7 +156,7 @@ const Feedback: React.FC = () => {
         {/* 3. Feedback Textarea - Delay shifted to 200 */}
         <AnimatedField delay={200}>
           <label
-            className="block text-sm font-medium leading-6 text-[#151514]"
+            className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
             htmlFor="feedback"
           >
             Your Feedback
@@ -148,7 +167,7 @@ const Feedback: React.FC = () => {
               name="feedback"
               placeholder="Let us know how we can improve..."
               rows={4}
-              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[#151514] bg-white/50 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-custom-primary sm:text-sm sm:leading-6"
+              className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textSecondary)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-primary)] sm:text-sm sm:leading-6"
             />
           </div>
         </AnimatedField>
@@ -158,7 +177,7 @@ const Feedback: React.FC = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-custom-primary text-[#151514] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
+              className="cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
             >
               <span className="truncate">Submit Feedback</span>
             </button>
@@ -171,18 +190,77 @@ const Feedback: React.FC = () => {
 
 const MainPage: React.FC = () => {
   const introTextRef = useScrollAnimation(0);
+  const navigate = useNavigate();
+  const { colors, themeName } = useTheme();
+
+  // Map theme colors to LiquidEther palette
+  // We use primary, secondary, and accent/variant to create a nice fluid mix
+  const fluidColors = [
+    colors.primary,
+    colors.secondary,
+    colors.primaryVariant || colors.accent,
+    colors.info // Add a splash of info color for depth
+  ];
 
   return (
     <div>
-      {/* Try Now Button */}
-      <section className="text-center mb-16">
-        <a
-          href="/auth.html"
-          className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-custom-primary text-[#151514] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[#a69d8f] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary"
-        >
-          <span className="truncate">Try Now</span>
-        </a>
+      {/* Hero Section */}
+      <section className="relative flex min-h-[700px] items-center overflow-hidden bg-[var(--color-surface)] py-12">
+        {/* Liquid Background */}
+        <div className="absolute inset-0 z-0">
+          <LiquidEther
+            colors={fluidColors}
+            isViscous={true}
+            viscous={20}
+            mouseForce={30}
+            cursorSize={80}
+            autoDemo={true}
+            autoSpeed={0.3}
+            // Force re-mount on theme change to ensure colors update cleanly if hot-swap isn't perfect
+            key={themeName}
+          />
+        </div>
+
+        {/* Content Overlay */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
+            <div ref={introTextRef}>
+              <h1 className="text-4xl font-extrabold tracking-tight text-[var(--color-textPrimary)] sm:text-5xl md:text-6xl lg:text-7xl mb-6">
+                Welcome to <span className="text-[var(--color-primary)]">uniAI</span>
+              </h1>
+              <p className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10">
+                Your intelligent companion for academic excellence. Experience the future of learning with our advanced AI-powered platform.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => navigate("/chat")}
+                  className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-[var(--color-background)] bg-[var(--color-primary)] hover:bg-[var(--color-primaryVariant)] md:py-4 md:text-lg md:px-10 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                >
+                  Get Started
+                </button>
+                <button
+                  onClick={() => navigate("/about")}
+                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-[var(--color-primary)] text-base font-medium rounded-full text-[var(--color-primary)] bg-transparent hover:bg-[var(--color-surface)] md:py-4 md:text-lg md:px-10 transition-all"
+                >
+                  Learn More
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
+
+      {/* Content Container */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Try Now Button */}
+        <section className="text-center mb-16">
+          <button
+            onClick={() => navigate('/chat')}
+            className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
+          >
+            <span className="truncate">Try Now</span>
+          </button>
+        </section>
 
       {/* Cards Section */}
       <section className="my-12">
@@ -208,10 +286,10 @@ const MainPage: React.FC = () => {
       {/* Spacer & Intro Text */}
       <section className="mt-32 mb-8 text-center max-w-2xl mx-auto px-4">
         <div ref={introTextRef}>
-          <h2 className="text-3xl font-bold text-[#151514] mb-4">
+          <h2 className="text-3xl font-bold text-[var(--color-textPrimary)] mb-4">
             We Value Your Input
           </h2>
-          <p className="text-lg text-[#797672]">
+          <p className="text-lg text-[var(--color-textSecondary)]">
             Your experience matters to us. Whether you have a suggestion, a
             question, or just want to say hello, we're here to listen. Help us
             shape the future of UniAI.
@@ -223,6 +301,7 @@ const MainPage: React.FC = () => {
       <section>
         <Feedback />
       </section>
+      </div>
     </div>
   );
 };

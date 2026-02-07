@@ -1,32 +1,67 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import DefaultView from './pages/DefaultView';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import ForgotPassword from './pages/ForgotPassword';
-import VerificationCode from './pages/VerificationCode';
-import OAuthLoading from './pages/OAuthLoading';
-import MainPage from './pages/MainPage';
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Header from "./components/common/Header";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import MainPage from "./components/page/MainPage";
+import SettingsPage from "./components/page/SettingsPage";
+import AuthLanding from "./components/page/auth/AuthLanding";
+import SignIn from "./components/page/auth/SignIn";
+import SignUp from "./components/page/auth/SignUp";
+import Verify from "./components/page/auth/Verify";
+import Verify2FA from "./components/page/auth/Verify2FA";
+import ForgotPassword from "./components/page/auth/ForgotPassword";
+import ForgotPasswordConfirm from "./components/page/auth/ForgotPasswordConfirm";
+import GoogleCallback from "./components/page/auth/GoogleCallback";
+import ChatPage from "./components/page/ChatPage";
 
 const App = () => {
+  const location = useLocation();
+  const showHeader = location.pathname !== "/chat";
+
   return (
-    <Routes>
-      {/* Main marketing page */}
-      <Route path="/" element={<MainPage />} />
+    <AuthProvider>
+      <div className="min-h-screen flex flex-col bg-custom-light">
+        {showHeader && <Header />}
 
-      {/* Auth Routes */}
-      <Route path="/auth" element={<DefaultView />} />
-      <Route path="/auth/signin" element={<SignIn />} />
-      <Route path="/auth/signup" element={<SignUp />} />
-      <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-      <Route path="/auth/verification" element={<VerificationCode />} />
+        <div className="flex-grow">
+          <Routes>
+            {/* Main landing page */}
+            <Route path="/" element={<MainPage />} />
 
-      {/* OAuth Routes */}
-      <Route path="/auth/google" element={<OAuthLoading provider="Google" />} />
-      <Route path="/auth/github" element={<OAuthLoading provider="GitHub" />} />
+            {/* Auth Routes */}
+            <Route path="/auth" element={<AuthLanding />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/2fa/verify" element={<Verify2FA />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route
+              path="/forgot-password/confirm"
+              element={<ForgotPasswordConfirm />}
+            />
 
-      {/* keep a fallback to /auth for unknown routes */}
-      <Route path="*" element={<Navigate to="/auth" replace />} />
-    </Routes>
+            {/* OAuth Callback */}
+            <Route path="/google/callback" element={<GoogleCallback />} />
+
+            {/* Protected Chat Route */}
+            <Route
+              path="/chat"
+              element={
+                <ProtectedRoute>
+                  <ChatPage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Settings Page */}
+            <Route path="/settings" element={<SettingsPage />} />
+
+            {/* Fallback to main page */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </div>
+    </AuthProvider>
   );
 };
 
