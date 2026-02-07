@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # lightweight service that generates self-signed certs into a shared volume
+  certs:
+    image: alpine:3.18
+    container_name: uniai_certs
+    volumes:
+      - certs:/etc/nginx/certs
+    command: sh -c "apk add --no-cache openssl >/dev/null 2>&1 || true; \
+      if [ ! -f /etc/nginx/certs/fullchain.pem ]; then mkdir -p /etc/nginx/certs && \
+      openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/certs/privkey.pem -out /etc/nginx/certs/fullchain.pem -subj '/CN=localhost'; fi; sleep 1"
+
+  # Spring Boot app - dev mode: mounts source and runs mvn spring-boot:run
+  app:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: uniai_app
+    volumes:
+      - ./:/workspace:cached
+      - ~/.m2:/root/.m2:rw
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - MAIL_USERNAME
+      - MAIL_PASSWORD
+      - JWT_SECRET
+      - APP_BASE_URL=https://localhost
+    ports:
+      - "9090:9090"
+    depends_on:
+      - certs
+    stdin_open: true
+    tty: true
+
+  # nginx: TLS termination and reverse-proxy for /api -> app
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    container_name: uniai_nginx
+    ports:
+      - "443:443"
+    volumes:
+      - certs:/etc/nginx/certs:ro
+      # if you have a client build, mount it to serve static files
+      - ./client/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - app
+      - certs
+
+volumes:
+  certs:
+    driver: local
