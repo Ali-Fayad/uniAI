@@ -15,7 +15,8 @@ import { AppRouter, ROUTES } from "./router";
  */
 const App = () => {
   const location = useLocation();
-  const showHeader = location.pathname !== ROUTES.CHAT;
+  // Hide header on chat and map routes where we want full-bleed UI
+  const showHeader = location.pathname !== ROUTES.CHAT && location.pathname !== ROUTES.MAP;
 
   return (
     <AuthProvider>

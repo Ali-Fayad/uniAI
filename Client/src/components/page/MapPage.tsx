@@ -1,224 +1,211 @@
-import { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { useTheme } from '@/hooks/useTheme';
-import { TEXT } from '@/constants/static';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-
-// Fix for default marker icon issue in React-Leaflet
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
-// @ts-ignore
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconUrl: markerIcon,
-  iconRetinaUrl: markerIcon2x,
-  shadowUrl: markerShadow,
-});
-
-// Lebanese Universities Data
-const universities = [
-  {
-    id: 1,
-    name: 'American University of Beirut (AUB)',
-    coordinates: [33.8990, 35.4807] as [number, number],
-    description: 'Founded in 1866, AUB is a leading institution of higher learning in Lebanon and the Middle East.',
-    website: 'https://www.aub.edu.lb',
-  },
-  {
-    id: 2,
-    name: 'Lebanese American University (LAU)',
-    coordinates: [33.8201, 35.5352] as [number, number],
-    description: 'A leading non-profit institution with campuses in Beirut and Byblos.',
-    website: 'https://www.lau.edu.lb',
-  },
-  {
-    id: 3,
-    name: 'Université Saint-Joseph (USJ)',
-    coordinates: [33.8835, 35.5059] as [number, number],
-    description: 'A private French-language university founded in 1875.',
-    website: 'https://www.usj.edu.lb',
-  },
-  {
-    id: 4,
-    name: 'Beirut Arab University (BAU)',
-    coordinates: [33.8607, 35.5078] as [number, number],
-    description: 'An Arab university offering programs in Arabic, English, and French.',
-    website: 'https://www.bau.edu.lb',
-  },
-  {
-    id: 5,
-    name: 'Lebanese University (UL)',
-    coordinates: [33.8719, 35.5138] as [number, number],
-    description: 'The only public university in Lebanon, founded in 1951.',
-    website: 'https://www.ul.edu.lb',
-  },
-  {
-    id: 6,
-    name: 'Notre Dame University (NDU)',
-    coordinates: [34.0007, 35.6499] as [number, number],
-    description: 'A Catholic institution with multiple campuses across Lebanon.',
-    website: 'https://www.ndu.edu.lb',
-  },
-  {
-    id: 7,
-    name: 'Lebanese International University (LIU)',
-    coordinates: [33.8422, 35.8394] as [number, number],
-    description: 'A private university with multiple campuses across Lebanon.',
-    website: 'https://www.liu.edu.lb',
-  },
-  {
-    id: 8,
-    name: 'Holy Spirit University of Kaslik (USEK)',
-    coordinates: [33.9780, 35.6477] as [number, number],
-    description: 'A private Catholic university founded in 1938.',
-    website: 'https://www.usek.edu.lb',
-  },
-  {
-    id: 9,
-    name: 'Haigazian University',
-    coordinates: [33.8800, 35.5100] as [number, number],
-    description: 'A private university affiliated with the Union of Armenian Evangelical Churches.',
-    website: 'https://www.haigazian.edu.lb',
-  },
-  {
-    id: 10,
-    name: 'Antonine University (UA)',
-    coordinates: [34.0024, 35.6512] as [number, number],
-    description: 'A private Catholic university run by the Antonine Maronite Order.',
-    website: 'https://www.ua.edu.lb',
-  },
-];
+import { useEffect } from "react";
+import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import { useTheme } from "@/hooks/useTheme";
+import { TEXT } from "@/constants/static";
+import "leaflet/dist/leaflet.css";
+import useMap from "@/hooks/useMap";
+import { ROUTES } from "@/router";
+import { useNavigate } from "react-router-dom";
 
 const MapPage = () => {
   const { themeName } = useTheme();
+  const navigate = useNavigate();
 
-  // Apply dark mode styles to Leaflet controls
+  const {
+    universities,
+    selected,
+    setSelected,
+    isSidebarOpen,
+    toggleSidebar,
+    openSidebar,
+    closeSidebar,
+    center,
+  } = useMap();
+
   useEffect(() => {
-    const mapContainer = document.querySelector('.leaflet-container');
+    const mapContainer = document.querySelector(".leaflet-container");
     if (mapContainer) {
-      if (themeName === 'dark') {
-        mapContainer.classList.add('dark-mode-map');
+      if (themeName === "dark") {
+        mapContainer.classList.add("dark-mode-map");
       } else {
-        mapContainer.classList.remove('dark-mode-map');
+        mapContainer.classList.remove("dark-mode-map");
       }
     }
   }, [themeName]);
 
-  // OpenStreetMap tile layer URL (different for light/dark themes)
-  const tileLayerUrl = themeName === 'dark'
-    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-    : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const tileLayerUrl =
+    themeName === "dark"
+      ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+      : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
-  const attribution = themeName === 'dark'
-    ? '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-    : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+  const attribution =
+    themeName === "dark"
+      ? '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
   return (
-    <div className="min-h-screen bg-[var(--color-background)]">
-      {/* Header Section */}
-      <section className="bg-[var(--color-surface)] py-12 px-4 sm:px-6 lg:px-8 border-b border-[var(--color-border)]">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-[var(--color-textPrimary)] sm:text-5xl mb-4">
-            {TEXT.map.title}
-          </h1>
-          <p className="text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto">
-            {TEXT.map.subtitle}
-          </p>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-[var(--color-surface)] rounded-lg overflow-hidden border border-[var(--color-border)] shadow-lg">
-          <div style={{ height: '600px', width: '100%' }}>
-            <MapContainer
-              center={[33.8547, 35.8623]}
-              zoom={9}
-              scrollWheelZoom={true}
-              style={{ height: '100%', width: '100%' }}
+    <div className="relative min-h-screen w-full bg-[var(--color-background)] overflow-hidden">
+      {/* Fullscreen Map as background */}
+      <div className="absolute inset-0 z-0">
+        <MapContainer
+          center={center}
+          zoom={9}
+          scrollWheelZoom
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer attribution={attribution} url={tileLayerUrl} />
+          {universities.map((u) => (
+            <CircleMarker
+              key={u.id}
+              center={u.coordinates}
+              radius={10}
+              pathOptions={{
+                color: u.color,
+                fillColor: u.color,
+                fillOpacity: 0.9,
+              }}
+              eventHandlers={{
+                click: () => {
+                  setSelected(u);
+                  openSidebar();
+                },
+              }}
             >
-              <TileLayer
-                attribution={attribution}
-                url={tileLayerUrl}
+              <Popup>
+                <div className="max-w-xs">
+                  <h3 className="font-bold">{u.name}</h3>
+                  <p className="text-sm">{u.description}</p>
+                </div>
+              </Popup>
+            </CircleMarker>
+          ))}
+        </MapContainer>
+      </div>
+
+      {/* Floating sidebar toggle (top-right) */}
+      <div className="fixed z-50 top-6 right-6">
+        <button
+          aria-label={
+            isSidebarOpen
+              ? "Close universities sidebar"
+              : "Open universities sidebar"
+          }
+          onClick={toggleSidebar}
+          className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-[var(--color-primary)] text-[var(--color-background)] border border-[var(--color-border)] shadow-lg hover:shadow-xl"
+        >
+          {isSidebarOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
               />
-              {universities.map((university) => (
-                <Marker key={university.id} position={university.coordinates}>
-                  <Popup className="custom-popup">
-                    <div className="p-2">
-                      <h3 className="font-bold text-base mb-2">{university.name}</h3>
-                      <p className="text-sm mb-2">{university.description}</p>
-                      <a
-                        href={university.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-blue-600 hover:text-blue-800 underline"
-                      >
-                        {TEXT.map.visitWebsite}
-                      </a>
-                    </div>
-                  </Popup>
-                </Marker>
-              ))}
-            </MapContainer>
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* Header removed by request: Map is full background and controls are overlaid */}
+
+      {/* Sidebar (right) */}
+      <aside
+        className={`fixed top-0 right-0 h-full z-20 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        } w-full sm:w-96`}
+        style={{
+          background: "var(--color-surface)",
+          borderLeft: "1px solid var(--color-border)",
+        }}
+      >
+        <div className="p-4 h-full flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-[var(--color-textPrimary)]">
+              Universities
+            </h2>
+            <button
+              onClick={closeSidebar}
+              aria-label="Close universities sidebar"
+              className="inline-flex items-center justify-center h-8 w-8 rounded bg-transparent text-[var(--color-textSecondary)] hover:bg-[var(--color-elevatedSurface)]"
+            />
+          </div>
+
+          <div className="overflow-auto flex-1 space-y-3">
+            {universities.map((u) => (
+              <div
+                key={u.id}
+                onClick={() => {
+                  setSelected(u);
+                }}
+                className={`p-3 rounded-lg border border-[var(--color-border)] hover:shadow-md cursor-pointer flex items-start gap-3 ${
+                  selected?.id === u.id
+                    ? "ring-2 ring-[var(--color-primary)]"
+                    : ""
+                }`}
+              >
+                <div
+                  style={{
+                    width: 12,
+                    height: 12,
+                    background: u.color,
+                    borderRadius: 6,
+                    marginTop: 6,
+                  }}
+                />
+                <div>
+                  <h3 className="font-medium text-[var(--color-textPrimary)]">
+                    {u.name}
+                  </h3>
+                  <p className="text-sm text-[var(--color-textSecondary)]">
+                    {u.description}
+                  </p>
+                  <a
+                    href={u.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-[var(--color-primary)] underline mt-1 inline-block"
+                  >
+                    {TEXT.map.visitWebsite}
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </aside>
 
-        {/* Universities List */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {universities.map((university) => (
-            <div
-              key={university.id}
-              className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg p-4 hover:shadow-md transition-shadow"
-            >
-              <h3 className="font-semibold text-[var(--color-textPrimary)] mb-2">
-                {university.name}
-              </h3>
-              <p className="text-sm text-[var(--color-textSecondary)] mb-3">
-                {university.description}
-              </p>
-              <a
-                href={university.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-[var(--color-primary)] hover:text-[var(--color-primaryVariant)] underline"
-              >
-                {TEXT.map.visitWebsite}
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Floating back to menu button */}
+      <div className="fixed z-30 bottom-6 right-6">
+        <button
+          onClick={() => navigate(ROUTES.HOME)}
+          className="inline-flex items-center justify-center h-12 px-4 rounded-full bg-[var(--color-primary)] text-[var(--color-background)] shadow-lg hover:shadow-xl"
+        >
+          Back to Menu
+        </button>
+      </div>
 
-      {/* Dark mode styles for Leaflet */}
+      {/* Dark mode styles for Leaflet controls and popup tweaks */}
       <style>{`
         .dark-mode-map .leaflet-control-attribution {
-          background-color: rgba(0, 0, 0, 0.7) !important;
+          background-color: rgba(0, 0, 0, 0.6) !important;
           color: #fff !important;
         }
-
-        .dark-mode-map .leaflet-control-attribution a {
-          color: #8ab4f8 !important;
-        }
-
         .dark-mode-map .leaflet-popup-content-wrapper {
-          background-color: #2c2c2c !important;
-          color: #e0e0e0 !important;
-        }
-
-        .dark-mode-map .leaflet-popup-tip {
-          background-color: #2c2c2c !important;
-        }
-
-        .dark-mode-map .leaflet-control-zoom a {
-          background-color: #2c2c2c !important;
-          color: #e0e0e0 !important;
-        }
-
-        .dark-mode-map .leaflet-control-zoom a:hover {
-          background-color: #3c3c3c !important;
+          background-color: #222 !important;
+          color: #eee !important;
         }
       `}</style>
     </div>
