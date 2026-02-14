@@ -5,8 +5,10 @@
  * following separation of concerns principles.
  */
 
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import PageTransition from "./components/common/PageTransition";
 
 // Page Components
 import MainPage from "./components/page/MainPage";
@@ -29,44 +31,51 @@ import GoogleCallback from "./components/page/auth/GoogleCallback";
  * 
  * Defines all application routes in a centralized location.
  * Protected routes use the ProtectedRoute wrapper component.
+ * AnimatePresence enables smooth page transitions.
  */
 export const AppRouter = () => {
+  const location = useLocation();
+
   return (
-    <Routes>
-      {/* Main landing page */}
-      <Route path="/" element={<MainPage />} />
+    <AnimatePresence mode="wait">
+      <Routes location={location}>
+        {/* Main landing page */}
+        <Route path="/" element={<PageTransition><MainPage /></PageTransition>} />
 
-      {/* Auth Routes */}
-      <Route path="/auth" element={<AuthLanding />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/verify" element={<Verify />} />
-      <Route path="/2fa/verify" element={<Verify2FA />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/forgot-password/confirm" element={<ForgotPasswordConfirm />} />
+        {/* Auth Routes */}
+        <Route path="/auth" element={<PageTransition><AuthLanding /></PageTransition>} />
+        <Route path="/signin" element={<PageTransition><SignIn /></PageTransition>} />
+        <Route path="/signup" element={<PageTransition><SignUp /></PageTransition>} />
+        <Route path="/verify" element={<PageTransition><Verify /></PageTransition>} />
+        <Route path="/2fa/verify" element={<PageTransition><Verify2FA /></PageTransition>} />
+        <Route path="/forgot-password" element={<PageTransition><ForgotPassword /></PageTransition>} />
+        <Route path="/forgot-password/confirm" element={<PageTransition><ForgotPasswordConfirm /></PageTransition>} />
 
-      {/* OAuth Callback */}
-      <Route path="/google/callback" element={<GoogleCallback />} />
+        {/* OAuth Callback */}
+        <Route path="/google/callback" element={<PageTransition><GoogleCallback /></PageTransition>} />
 
-      {/* Protected Chat Route */}
-      <Route
-        path="/chat"
-        element={
-          <ProtectedRoute>
-            <ChatPage />
-          </ProtectedRoute>
-        }
-      />
+        {/* Protected Chat Route */}
+        <Route
+          path="/chat"
+          element={
+            <PageTransition>
+              <ProtectedRoute>
+                <ChatPage />
+              </ProtectedRoute>
+            </PageTransition>
+          }
+        />
 
-      {/* Settings Page */}
-      <Route path="/settings" element={<SettingsPage />} />
+        {/* Settings Page */}
+        <Route path="/settings" element={<PageTransition><SettingsPage /></PageTransition>} />
 
-      {/* Map Page */}
-      <Route path="/map" element={<MapPage />} />
+        {/* Map Page */}
+        <Route path="/map" element={<PageTransition><MapPage /></PageTransition>} />
 
-      {/* Fallback to main page */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        {/* Fallback to main page */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AnimatePresence>
   );
 };
 
