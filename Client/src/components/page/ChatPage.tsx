@@ -1,107 +1,32 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { chatService } from "../../services/chat";
+import React from "react";
+import { useChat } from "../../hooks/useChat";
+import { TEXT } from "../../constants/static";
 import ChatSidebar from "../chat/ChatSidebar";
 import ChatMessage from "../chat/ChatMessage";
 import ChatInput from "../chat/ChatInput";
 import LoadingSpinner from "../common/LoadingSpinner";
-import { AuthContext } from "../../context/AuthContext";
-import type { MessageResponseDto, SendMessageDto } from "../../types/dto";
 
+/**
+ * ChatPage Component
+ * 
+ * Responsibilities:
+ * - Render chat interface layout
+ * - Compose chat components (sidebar, messages, input)
+ * 
+ * All business logic is encapsulated in useChat hook.
+ */
 const ChatPage: React.FC = () => {
-  const { user } = useContext(AuthContext)!;
-  const [currentChatId, setCurrentChatId] = useState<number | null>(null);
-  const [messages, setMessages] = useState<MessageResponseDto[]>([]);
-  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
-  const [isSendingMessage, setIsSendingMessage] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  // Scroll to bottom when messages change
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isSendingMessage]);
-
-  // Load messages when chat is selected
-  useEffect(() => {
-    if (currentChatId) {
-      loadMessages(currentChatId);
-    } else {
-      setMessages([]);
-    }
-  }, [currentChatId]);
-
-  const loadMessages = async (chatId: number) => {
-    setIsLoadingMessages(true);
-    try {
-      const data = await chatService.getChatMessages(chatId);
-      setMessages(data);
-    } catch (error) {
-      console.error("Failed to load messages:", error);
-    } finally {
-      setIsLoadingMessages(false);
-    }
-  };
-
-  const handleNewChat = () => {
-    setCurrentChatId(null);
-    setMessages([]);
-  };
-
-  const handleSelectChat = (chatId: number) => {
-    if (chatId !== currentChatId) {
-      setCurrentChatId(chatId);
-    }
-  };
-
-  const handleDeleteChat = (chatId: number) => {
-    if (chatId === currentChatId || chatId === -1) {
-      // Current chat was deleted or all chats deleted
-      setCurrentChatId(null);
-      setMessages([]);
-    }
-  };
-
-  const handleSendMessage = async (content: string) => {
-    if (!content.trim()) return;
-
-    setIsSendingMessage(true);
-
-    // Optimistic update: Add user message immediately
-    const tempUserMessage: MessageResponseDto = {
-      messageId: Date.now(), // Temporary ID
-      chatId: currentChatId || 0,
-      senderId: user?.id || 1,
-      content: content,
-      timestamp: new Date().toISOString(),
-    };
-
-    setMessages((prev) => [...prev, tempUserMessage]);
-
-    try {
-      let targetChatId = currentChatId;
-
-      // If no chat exists, create one first
-      if (!targetChatId) {
-        const newChat = await chatService.createChat();
-        targetChatId = newChat.chatId;
-        setCurrentChatId(targetChatId);
-      }
-
-      const data: SendMessageDto = {
-        chatId: targetChatId,
-        content: content,
-      };
-
-      const response = await chatService.sendMessage(data);
-
-      // Add AI response to messages
-      setMessages((prev) => [...prev, response]);
-    } catch (error) {
-      console.error("Failed to send message:", error);
-      // Optionally remove the optimistic message or show error
-    } finally {
-      setIsSendingMessage(false);
-    }
-  };
+  const {
+    currentChatId,
+    messages,
+    isLoadingMessages,
+    isSendingMessage,
+    messagesEndRef,
+    handleNewChat,
+    handleSelectChat,
+    handleDeleteChat,
+    handleSendMessage,
+  } = useChat();
 
   return (
     <div className="flex h-screen">
@@ -119,17 +44,17 @@ const ChatPage: React.FC = () => {
         <div className="flex-1 overflow-y-auto p-6 pb-32">
           {isLoadingMessages ? (
             <div className="h-full flex items-center justify-center">
-              <LoadingSpinner text="Loading messages..." />
+              <LoadingSpinner text={TEXT.chat.loading} />
             </div>
           ) : (
             <div className="max-w-4xl mx-auto">
               {messages.length === 0 && !currentChatId ? (
                 <div className="flex flex-col items-center justify-center h-full py-20 opacity-50">
                   <span className="material-symbols-outlined text-6xl mb-4 text-[var(--color-primary)]">
-                    chat_bubble_outline
+                    {TEXT.chat.emptyState.icon}
                   </span>
                   <p className="text-xl font-medium">
-                    Start a new conversation
+                    {TEXT.chat.emptyState.message}
                   </p>
                 </div>
               ) : (

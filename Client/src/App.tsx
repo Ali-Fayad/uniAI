@@ -1,22 +1,21 @@
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/common/Header";
-import ProtectedRoute from "./components/common/ProtectedRoute";
-import MainPage from "./components/page/MainPage";
-import SettingsPage from "./components/page/SettingsPage";
-import AuthLanding from "./components/page/auth/AuthLanding";
-import SignIn from "./components/page/auth/SignIn";
-import SignUp from "./components/page/auth/SignUp";
-import Verify from "./components/page/auth/Verify";
-import Verify2FA from "./components/page/auth/Verify2FA";
-import ForgotPassword from "./components/page/auth/ForgotPassword";
-import ForgotPasswordConfirm from "./components/page/auth/ForgotPasswordConfirm";
-import GoogleCallback from "./components/page/auth/GoogleCallback";
-import ChatPage from "./components/page/ChatPage";
+import { AppRouter, ROUTES } from "./router";
 
+/**
+ * Main Application Component
+ * 
+ * Responsibilities:
+ * - Provide authentication context
+ * - Conditionally render header
+ * - Render application router
+ * 
+ * All routing configuration has been moved to router.tsx
+ */
 const App = () => {
   const location = useLocation();
-  const showHeader = location.pathname !== "/chat";
+  const showHeader = location.pathname !== ROUTES.CHAT;
 
   return (
     <AuthProvider>
@@ -24,41 +23,7 @@ const App = () => {
         {showHeader && <Header />}
 
         <div className="flex-grow">
-          <Routes>
-            {/* Main landing page */}
-            <Route path="/" element={<MainPage />} />
-
-            {/* Auth Routes */}
-            <Route path="/auth" element={<AuthLanding />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/verify" element={<Verify />} />
-            <Route path="/2fa/verify" element={<Verify2FA />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route
-              path="/forgot-password/confirm"
-              element={<ForgotPasswordConfirm />}
-            />
-
-            {/* OAuth Callback */}
-            <Route path="/google/callback" element={<GoogleCallback />} />
-
-            {/* Protected Chat Route */}
-            <Route
-              path="/chat"
-              element={
-                <ProtectedRoute>
-                  <ChatPage />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* Settings Page */}
-            <Route path="/settings" element={<SettingsPage />} />
-
-            {/* Fallback to main page */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <AppRouter />
         </div>
       </div>
     </AuthProvider>

@@ -4,6 +4,8 @@ import { AuthCard } from "../../../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
 import { useAuth } from "../../../hooks/useAuth";
+import { TEXT } from "../../../constants/static";
+import { ROUTES } from "../../../router";
 import type { SignInDto } from "../../../types/dto";
 
 const SignIn = () => {
@@ -28,7 +30,7 @@ const SignIn = () => {
       login(response.token);
 
       // Redirect to chat page
-      navigate("/chat");
+      navigate(ROUTES.CHAT);
     } catch (err: unknown) {
       if (err && typeof err === "object" && "response" in err) {
         const axiosError = err as {
@@ -38,22 +40,22 @@ const SignIn = () => {
         // Handle 202 status (verification required)
         // 2FA flow: backend returns 401 when 2FA is required
         if (axiosError.response?.status === 401) {
-          navigate("/2fa/verify", { state: { email } });
+          navigate(ROUTES.VERIFY_2FA, { state: { email } });
           return;
         }
 
         // Email verification flow: backend returns 202
         if (axiosError.response?.status === 202) {
-          navigate("/verify", { state: { email } });
+          navigate(ROUTES.VERIFY, { state: { email } });
           return;
         }
 
         setError(
           axiosError.response?.data?.message ||
-            "Failed to sign in. Please check your credentials."
+            TEXT.auth.signIn.errors.invalidCredentials
         );
       } else {
-        setError("An unexpected error occurred.");
+        setError(TEXT.common.error);
       }
     } finally {
       setIsLoading(false);
@@ -65,10 +67,10 @@ const SignIn = () => {
       <AuthCard>
         <div className="flex flex-col gap-2 mb-8 pt-8">
           <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
-            Welcome Back
+            {TEXT.auth.signIn.title}
           </p>
           <p className="text-[var(--color-textSecondary)] text-base">
-            Sign in to continue to your dashboard.
+            {TEXT.auth.signIn.subtitle}
           </p>
         </div>
 
@@ -82,10 +84,10 @@ const SignIn = () => {
           {/* EMAIL FIELD */}
           <div className="flex flex-col">
             <label className="flex flex-col w-full pb-2">
-              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Email Address</p>
+              <p className="text-[var(--color-textPrimary)] font-medium pb-2">{TEXT.auth.signIn.emailLabel}</p>
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={TEXT.auth.signIn.emailPlaceholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -98,14 +100,14 @@ const SignIn = () => {
           <div className="flex flex-col w-full">
             {/* Label + Forgot Password */}
             <div className="flex justify-between items-center pb-2">
-              <p className="text-[var(--color-textPrimary)] font-medium">Password</p>
+              <p className="text-[var(--color-textPrimary)] font-medium">{TEXT.auth.signIn.passwordLabel}</p>
 
               <button
                 type="button"
-                onClick={() => navigate("/forgot-password")}
+                onClick={() => navigate(ROUTES.FORGOT_PASSWORD)}
                 className="text-[var(--color-primaryVariant)] text-sm font-medium hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
               >
-                Forgot Password?
+                {TEXT.auth.signIn.forgotPassword}
               </button>
             </div>
 
@@ -113,7 +115,7 @@ const SignIn = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
+                placeholder={TEXT.auth.signIn.passwordPlaceholder}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -137,19 +139,19 @@ const SignIn = () => {
               disabled={isLoading}
               className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? "Signing In..." : "Sign In"}
+              {isLoading ? TEXT.auth.signIn.submitButtonLoading : TEXT.auth.signIn.submitButton}
             </button>
           </div>
         </form>
 
         <p className="text-center text-[var(--color-textSecondary)] text-sm mt-6">
-          Don’t have an account?{" "}
+          {TEXT.auth.signIn.noAccount}{" "}
           <button
             type="button"
             className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0"
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate(ROUTES.SIGN_UP)}
           >
-            Create one
+            {TEXT.auth.signIn.signUpLink}
           </button>
         </p>
       </AuthCard>

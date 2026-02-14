@@ -1,47 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { useFeedback } from "../../hooks/useFeedback";
+import { TEXT } from "../../constants/static";
+import { ROUTES } from "../../router";
 import LiquidEther from "../LiquidEther";
-
-// Reusable hook for scroll animations that reverse when scrolling up
-const useScrollAnimation = (delay = 0) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Initial state
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    el.style.transition = "opacity 500ms ease, transform 500ms ease";
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Animate in
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, delay);
-          } else {
-            // Reverse animation (hide) when scrolling up/away
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [delay]);
-
-  return ref;
-};
 
 // Simple Star Icon Component
 const StarIcon: React.FC<{ filled: boolean; onClick: () => void }> = ({
@@ -81,31 +45,24 @@ const Card: React.FC<{
   );
 };
 
+/**
+ * AnimatedField Component
+ * Wrapper for scroll animations
+ */
 const AnimatedField: React.FC<{
   children: React.ReactNode;
   delay?: number;
 }> = ({ children, delay = 0 }) => {
-  const ref = useScrollAnimation(delay);
+  const ref = useScrollAnimation({ delay, threshold: 0.15 });
   return <div ref={ref}>{children}</div>;
 };
 
+/**
+ * Feedback Component
+ * Feedback form section with rating and comment
+ */
 const Feedback: React.FC = () => {
-  const [rating, setRating] = useState(0);
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Check if user is authenticated before sending feedback
-    if (!isAuthenticated) {
-      navigate('/auth');
-      return;
-    }
-
-    // TODO: Implement real API call for feedback
-    console.log('Feedback submitted (placeholder)');
-  };
+  const { rating, email, comment, setRating, setEmail, setComment, handleSubmit } = useFeedback();
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -116,14 +73,16 @@ const Feedback: React.FC = () => {
             className="block text-sm font-medium leading-6 text-[#151514]"
             htmlFor="email"
           >
-            Email
+            {TEXT.main.feedback.emailLabel}
           </label>
           <div className="mt-2">
             <input
               id="email"
               name="email"
-              placeholder="you@example.com"
+              placeholder={TEXT.main.feedback.emailPlaceholder}
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textSecondary)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-primary)] sm:text-sm sm:leading-6"
             />
           </div>
@@ -132,7 +91,7 @@ const Feedback: React.FC = () => {
         {/* 2. Rating Field (New) */}
         <AnimatedField delay={100}>
           <label className="block text-sm font-medium leading-6 text-[#151514] mb-2">
-            Rate Your Experience
+            {TEXT.main.feedback.ratingLabel}
           </label>
           <div className="flex flex-col items-center space-y-2">
             <div className="flex items-center justify-center space-x-2">
@@ -159,14 +118,16 @@ const Feedback: React.FC = () => {
             className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
             htmlFor="feedback"
           >
-            Your Feedback
+            {TEXT.main.feedback.feedbackLabel}
           </label>
           <div className="mt-2">
             <textarea
               id="feedback"
               name="feedback"
-              placeholder="Let us know how we can improve..."
+              placeholder={TEXT.main.feedback.feedbackPlaceholder}
               rows={4}
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
               className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textSecondary)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-primary)] sm:text-sm sm:leading-6"
             />
           </div>
@@ -179,7 +140,7 @@ const Feedback: React.FC = () => {
               type="submit"
               className="cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
             >
-              <span className="truncate">Submit Feedback</span>
+              <span className="truncate">{TEXT.main.feedback.submitButton}</span>
             </button>
           </div>
         </AnimatedField>
@@ -188,8 +149,17 @@ const Feedback: React.FC = () => {
   );
 };
 
+/**
+ * MainPage Component
+ * 
+ * Responsibilities:
+ * - Render main landing page layout
+ * - Compose sections (hero, cards, feedback)
+ * 
+ * Business logic is extracted to hooks.
+ */
 const MainPage: React.FC = () => {
-  const introTextRef = useScrollAnimation(0);
+  const introTextRef = useScrollAnimation({ delay: 0, threshold: 0.15 });
   const navigate = useNavigate();
   const { colors, themeName } = useTheme();
 
@@ -226,23 +196,23 @@ const MainPage: React.FC = () => {
           <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
             <div ref={introTextRef}>
               <h1 className="text-4xl font-extrabold tracking-tight text-[var(--color-textPrimary)] sm:text-5xl md:text-6xl lg:text-7xl mb-6">
-                Welcome to <span className="text-[var(--color-primary)]">uniAI</span>
+                {TEXT.main.hero.welcome} <span className="text-[var(--color-primary)]">{TEXT.main.hero.appName}</span>
               </h1>
               <p className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10">
-                Your intelligent companion for academic excellence. Experience the future of learning with our advanced AI-powered platform.
+                {TEXT.main.hero.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
-                  onClick={() => navigate("/chat")}
+                  onClick={() => navigate(ROUTES.CHAT)}
                   className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-[var(--color-background)] bg-[var(--color-primary)] hover:bg-[var(--color-primaryVariant)] md:py-4 md:text-lg md:px-10 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
-                  Get Started
+                  {TEXT.main.hero.getStarted}
                 </button>
                 <button
-                  onClick={() => navigate("/about")}
+                  onClick={() => navigate(ROUTES.ABOUT)}
                   className="inline-flex items-center justify-center px-8 py-3 border-2 border-[var(--color-primary)] text-base font-medium rounded-full text-[var(--color-primary)] bg-transparent hover:bg-[var(--color-surface)] md:py-4 md:text-lg md:px-10 transition-all"
                 >
-                  Learn More
+                  {TEXT.main.hero.learnMore}
                 </button>
               </div>
             </div>
@@ -255,30 +225,24 @@ const MainPage: React.FC = () => {
         {/* Try Now Button */}
         <section className="text-center mb-16">
           <button
-            onClick={() => navigate('/chat')}
+            onClick={() => navigate(ROUTES.CHAT)}
             className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
           >
-            <span className="truncate">Try Now</span>
+            <span className="truncate">{TEXT.main.tryNow}</span>
           </button>
         </section>
 
       {/* Cards Section */}
       <section className="my-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card title="Powerful Integration" delay={0}>
-            Seamlessly connect with your favorite tools and platforms. UniAI
-            works with your existing ecosystem to enhance productivity without
-            disruption.
+          <Card title={TEXT.main.cards.powerfulIntegration.title} delay={0}>
+            {TEXT.main.cards.powerfulIntegration.description}
           </Card>
-          <Card title="Creative Assistance" delay={0}>
-            Break through creative blocks with AI-powered suggestions, content
-            generation, and idea exploration. Elevate your creative projects to
-            new heights.
+          <Card title={TEXT.main.cards.creativeAssistance.title} delay={0}>
+            {TEXT.main.cards.creativeAssistance.description}
           </Card>
-          <Card title="Data-driven Insights" delay={0}>
-            Transform complex data into clear, actionable insights. Make smarter
-            decisions with our advanced analytics and visualization
-            capabilities.
+          <Card title={TEXT.main.cards.dataInsights.title} delay={0}>
+            {TEXT.main.cards.dataInsights.description}
           </Card>
         </div>
       </section>
@@ -287,12 +251,10 @@ const MainPage: React.FC = () => {
       <section className="mt-32 mb-8 text-center max-w-2xl mx-auto px-4">
         <div ref={introTextRef}>
           <h2 className="text-3xl font-bold text-[var(--color-textPrimary)] mb-4">
-            We Value Your Input
+            {TEXT.main.feedback.heading}
           </h2>
           <p className="text-lg text-[var(--color-textSecondary)]">
-            Your experience matters to us. Whether you have a suggestion, a
-            question, or just want to say hello, we're here to listen. Help us
-            shape the future of UniAI.
+            {TEXT.main.feedback.subheading}
           </p>
         </div>
       </section>

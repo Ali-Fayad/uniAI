@@ -1,199 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SettingsSection from "../settings/SettingsSection";
 import FormInput from "../settings/FormInput";
 import FormButton from "../settings/FormButton";
-import { Storage } from "../../utils/Storage";
-import { userService } from "../../services/user";
-import type { UpdateUserDto } from "../../types/dto";
-import { applyThemeByName, getSavedTheme } from "../../styles/themes";
-import type { ThemeName } from "../../styles/themes";
+import { useSettings } from "../../hooks/useSettings";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { TEXT } from "../../constants/static";
 
-// Reusable hook for scroll animations (copies behavior from MainPage)
-const useScrollAnimation = (delay = 0) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Initial state
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    // faster transition
-    el.style.transition = "opacity 300ms ease, transform 300ms ease";
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Animate in
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, delay);
-          } else {
-            // Reverse animation (hide) when scrolling up/away
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-          }
-        });
-      },
-      // lower threshold so element triggers sooner
-      { threshold: 0.05 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [delay]);
-
-  return ref;
-};
-
-const AnimatedField: React.FC<{ children: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => {
-  const ref = useScrollAnimation(delay);
+/**
+ * AnimatedField Component
+ * 
+ * Wrapper component for scroll animations
+ */
+const AnimatedField: React.FC<{ children: React.ReactNode; delay?: number }> = ({ 
+  children, 
+  delay = 0 
+}) => {
+  const ref = useScrollAnimation({
+    delay,
+    threshold: 0.05,
+    transition: "opacity 300ms ease, transform 300ms ease",
+  });
   return <div ref={ref}>{children}</div>;
 };
 
+/**
+ * SettingsPage Component
+ * 
+ * Responsibilities:
+ * - Render settings interface layout
+ * - Compose settings sections
+ * 
+ * All business logic is encapsulated in useSettings hook.
+ */
 const SettingsPage: React.FC = () => {
-  // Initialize state from storage to avoid "uncontrolled" error and unnecessary API calls
-  const [profile, setProfile] = useState(() => {
-    const stored = Storage.getUser();
-    return {
-      firstName: stored?.firstName || "",
-      lastName: stored?.lastName || "",
-      username: stored?.username || "",
-      email: stored?.email || "",
-      twoFactorEnabled: stored?.twoFactorEnabled || false,
-    };
-  });
-
-  const [feedback, setFeedback] = useState({
-    rating: 0,
-    comment: "",
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Theme selection state
-  const [selectedTheme, setSelectedTheme] = useState<ThemeName>(() => getSavedTheme());
-
-  useEffect(() => {
-    // Ensure the currently saved theme is applied when this page mounts
-    applyThemeByName(selectedTheme);
-  }, [selectedTheme]);
-
-  // We rely on Storage data as primary source.
-  // Only fetch if storage is empty (rare if protected route)
-  useEffect(() => {
-    if (!Storage.getUser()) {
-      const loadUserData = async () => {
-        try {
-          const userData = await userService.getMe();
-          setProfile({
-            firstName: userData.firstName || "",
-            lastName: userData.lastName || "",
-            username: userData.username || "",
-            email: userData.email || "",
-            twoFactorEnabled: userData.isTwoFacAuth,
-          });
-
-          // Save to storage mapped correctly
-          Storage.setUser({
-            id: 0, // ID might be missing if not in token/response, but UserData requires it? Check DTO.
-            ...userData,
-            twoFactorEnabled: userData.isTwoFacAuth,
-          } as any); // Type assertion might be needed if DTOs don't perfectly align
-        } catch (error) {
-          console.error("Failed to fetch user data", error);
-        }
-      };
-      loadUserData();
-    }
-  }, []);
-
-  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setProfile((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleProfileSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const stored = Storage.getUser();
-      const updateDto: UpdateUserDto = {};
-      let hasChanges = false;
-
-      // Only include fields that have changed
-      if (profile.firstName !== (stored?.firstName || "")) {
-        updateDto.firstName = profile.firstName;
-        hasChanges = true;
-      }
-      if (profile.lastName !== (stored?.lastName || "")) {
-        updateDto.lastName = profile.lastName;
-        hasChanges = true;
-      }
-      if (profile.username !== (stored?.username || "")) {
-        updateDto.username = profile.username;
-        hasChanges = true;
-      }
-      if (profile.twoFactorEnabled !== (stored?.twoFactorEnabled || false)) {
-        updateDto.enableTwoFactor = profile.twoFactorEnabled;
-        hasChanges = true;
-      }
-
-      if (!hasChanges) {
-        console.log("No changes to save");
-        setIsLoading(false);
-        return;
-      }
-
-      const updatedUser = await userService.updateMe(updateDto);
-
-      // Update local state and storage
-      setProfile((prev) => ({
-        ...prev,
-        firstName: updatedUser.firstName || "",
-        lastName: updatedUser.lastName || "",
-        username: updatedUser.username || "",
-      }));
-
-      const currentStorage = Storage.getUser();
-      if (currentStorage) {
-        Storage.setUser({
-          ...currentStorage,
-          firstName: updatedUser.firstName,
-          lastName: updatedUser.lastName,
-          username: updatedUser.username,
-          twoFactorEnabled: updatedUser.isTwoFacAuth,
-        });
-      }
-
-      console.log("Profile updated successfully");
-    } catch (error) {
-      console.error("Failed to update profile", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleFeedbackSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const commentWithRating = `Rating: ${feedback.rating}/5. ${feedback.comment}`;
-      await userService.sendFeedback({
-        email: profile.email,
-        comment: commentWithRating,
-      });
-      setFeedback({ rating: 0, comment: "" });
-      console.log("Feedback submitted successfully");
-    } catch (error) {
-      console.error("Failed to submit feedback", error);
-    }
-  };
+  const {
+    profile,
+    feedback,
+    isLoading,
+    selectedTheme,
+    setSelectedTheme,
+    handleProfileChange,
+    handleProfileSubmit,
+    handleFeedbackSubmit,
+    setFeedback,
+  } = useSettings();
 
   return (
     <main className="flex-grow py-10 px-4 sm:px-6 lg:px-8">
@@ -201,20 +51,20 @@ const SettingsPage: React.FC = () => {
         <div className="md:flex md:items-center md:justify-between">
           <div className="min-w-0 flex-1">
             <h2 className="text-3xl font-bold leading-7 text-[var(--color-textPrimary)] sm:truncate sm:text-4xl sm:tracking-tight">
-              Settings
+              {TEXT.settings.title}
             </h2>
           </div>
         </div>
 
         <AnimatedField delay={0}>
-          <SettingsSection title="Update Profile" icon="person">
+          <SettingsSection title={TEXT.settings.profile.title} icon="person">
             <form onSubmit={handleProfileSubmit}>
               <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <FormInput
                     id="first-name"
                     name="firstName"
-                    label="First name"
+                    label={TEXT.settings.profile.firstName}
                     value={profile.firstName}
                     onChange={handleProfileChange}
                   />
@@ -223,7 +73,7 @@ const SettingsPage: React.FC = () => {
                   <FormInput
                     id="last-name"
                     name="lastName"
-                    label="Last name"
+                    label={TEXT.settings.profile.lastName}
                     value={profile.lastName}
                     onChange={handleProfileChange}
                   />
@@ -232,8 +82,8 @@ const SettingsPage: React.FC = () => {
                   <FormInput
                     id="username"
                     name="username"
-                    label="Username"
-                    placeholder="janesmith"
+                    label={TEXT.settings.profile.username}
+                    placeholder={TEXT.settings.profile.usernamePlaceholder}
                     value={profile.username}
                     onChange={handleProfileChange}
                   />
@@ -242,7 +92,7 @@ const SettingsPage: React.FC = () => {
                   <FormInput
                     id="email"
                     name="email"
-                    label="Email address"
+                    label={TEXT.settings.profile.email}
                     type="email"
                     value={profile.email}
                     disabled={true}
@@ -254,10 +104,10 @@ const SettingsPage: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col">
                       <span className="text-sm font-medium leading-6 text-[var(--color-textPrimary)]">
-                        Two-Factor Authentication (2FA)
+                        {TEXT.settings.profile.twoFactor.title}
                       </span>
                       <span className="text-sm text-[var(--color-textSecondary)]">
-                        Add an extra layer of security to your account.
+                        {TEXT.settings.profile.twoFactor.description}
                       </span>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -276,14 +126,14 @@ const SettingsPage: React.FC = () => {
 
               <div className="mt-8 flex justify-end gap-x-4">
                 <FormButton variant="secondary" type="button">
-                  Cancel
+                  {TEXT.common.cancel}
                 </FormButton>
                 <button
                   type="submit"
                   className="inline-flex items-center justify-center rounded-md bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Saving..." : "Save Changes"}
+                  {isLoading ? TEXT.settings.profile.saveButtonLoading : TEXT.settings.profile.saveButton}
                 </button>
               </div>
             </form>
@@ -291,7 +141,7 @@ const SettingsPage: React.FC = () => {
         </AnimatedField>
 
         <AnimatedField delay={50}>
-          <SettingsSection title="Theme Preference" icon="palette">
+          <SettingsSection title={TEXT.settings.theme.title} icon="palette">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <label
                 className={`relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none ring-2 ${
@@ -315,10 +165,10 @@ const SettingsPage: React.FC = () => {
                       <span className="material-symbols-outlined text-yellow-500">
                         light_mode
                       </span>
-                      Light Mode
+                      {TEXT.settings.theme.light.title}
                     </span>
                     <span className="mt-1 flex items-center text-sm text-[var(--color-textSecondary)]">
-                      Default light appearance
+                      {TEXT.settings.theme.light.description}
                     </span>
                   </span>
                 </span>
@@ -354,10 +204,10 @@ const SettingsPage: React.FC = () => {
                       <span className="material-symbols-outlined text-[var(--color-textPrimary)]">
                         dark_mode
                       </span>
-                      Dark Mode
+                      {TEXT.settings.theme.dark.title}
                     </span>
                     <span className="mt-1 flex items-center text-[var(--color-textSecondary)]">
-                      Easy on the eyes
+                      {TEXT.settings.theme.dark.description}
                     </span>
                   </span>
                 </span>
@@ -375,15 +225,15 @@ const SettingsPage: React.FC = () => {
         </AnimatedField>
 
         <AnimatedField delay={100}>
-          <SettingsSection title="Feedback" icon="reviews">
+          <SettingsSection title={TEXT.settings.feedback.title} icon="reviews">
             <p className="text-sm text-[var(--color-textSecondary)] mb-6">
-              How was your experience using uniAI? We value your input.
+              {TEXT.settings.feedback.description}
             </p>
 
             <form onSubmit={handleFeedbackSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]">
-                  Rate your experience
+                  {TEXT.settings.feedback.ratingLabel}
                 </label>
                 <div className="mt-2 flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((i) => (
@@ -418,7 +268,7 @@ const SettingsPage: React.FC = () => {
                   className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
                   htmlFor="feedback-text"
                 >
-                  Your Feedback
+                  {TEXT.settings.feedback.feedbackLabel}
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -431,7 +281,7 @@ const SettingsPage: React.FC = () => {
                         comment: e.target.value,
                       }))
                     }
-                    placeholder="What features should we build next?"
+                    placeholder={TEXT.settings.feedback.feedbackPlaceholder}
                     rows={4}
                     className="block w-full rounded-md border-0 py-2.5 px-3.5 text-[var(--color-textPrimary)] bg-[var(--color-surface)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] placeholder:text-[var(--color-textMuted)] focus:ring-2 focus:ring-inset focus:ring-[var(--color-focusRing)] sm:text-sm sm:leading-6"
                   />
@@ -444,7 +294,7 @@ const SettingsPage: React.FC = () => {
                   variant="secondary"
                   className="bg-[var(--color-surface)] text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                 >
-                  Submit Feedback
+                  {TEXT.settings.feedback.submitButton}
                 </FormButton>
               </div>
             </form>
@@ -452,17 +302,17 @@ const SettingsPage: React.FC = () => {
         </AnimatedField>
 
         <AnimatedField delay={150}>
-          <SettingsSection title="Danger Zone" icon="warning">
+          <SettingsSection title={TEXT.settings.dangerZone.title} icon="warning">
             <p className="text-sm text-[var(--color-error)]/80 mb-6">
-              Irreversible and sensitive actions.
+              {TEXT.settings.dangerZone.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <FormButton variant="danger">Change Password</FormButton>
+              <FormButton variant="danger">{TEXT.settings.dangerZone.changePassword}</FormButton>
               <FormButton
                 variant="ghost"
                 className="border-2 border-[var(--color-error)] text-[var(--color-error)]"
               >
-                Delete Account
+                {TEXT.settings.dangerZone.deleteAccount}
               </FormButton>
             </div>
           </SettingsSection>

@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AuthCard } from "../../../components/AuthCard";
 import { authService } from "../../../services/auth";
 import { useAuth } from "../../../hooks/useAuth";
+import { TEXT } from "../../../constants/static";
+import { ROUTES } from "../../../router";
 import type { VerifyDto } from "../../../types/dto";
 
 const Verify = () => {
@@ -42,7 +44,7 @@ const Verify = () => {
       // Store token (AuthContext will extract user from token if not provided)
       login(response.token);
       // Redirect to chat after successful verification
-      navigate('/chat');
+      navigate(ROUTES.CHAT);
     } catch (err: unknown) {
       if (err && typeof err === "object" && "response" in err) {
         const axiosError = err as {
@@ -50,10 +52,10 @@ const Verify = () => {
         };
         setError(
           axiosError.response?.data?.message ||
-            "Invalid verification code. Please try again."
+            TEXT.auth.verify.error
         );
       } else {
-        setError("An unexpected error occurred.");
+        setError(TEXT.common.error);
       }
     } finally {
       setIsLoading(false);
@@ -77,10 +79,10 @@ const Verify = () => {
       <AuthCard>
         <div className="flex flex-col gap-2 mb-8 pt-8">
           <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
-            Verification
+            {TEXT.auth.verify.title}
           </p>
           <p className="text-[var(--color-textSecondary)]">
-            Enter the 6-digit code sent to {email || "your email"}.
+            {TEXT.auth.verify.subtitle}
           </p>
         </div>
 
@@ -99,7 +101,7 @@ const Verify = () => {
                 inputMode="numeric"
                 pattern="[A-Za-z0-9]{6}"
                 autoComplete="one-time-code"
-                placeholder="123456"
+                placeholder={TEXT.auth.verify.codePlaceholder}
                 value={code}
                 onChange={(e) =>
                   setCode(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))
@@ -116,7 +118,7 @@ const Verify = () => {
             disabled={isLoading || code.length !== 6}
             className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Verifying..." : "Verify"}
+            {isLoading ? TEXT.auth.verify.submitButtonLoading : TEXT.auth.verify.submitButton}
           </button>
         </form>
 

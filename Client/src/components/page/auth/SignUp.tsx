@@ -4,6 +4,8 @@ import { useAuth } from "../../../hooks/useAuth";
 import { AuthCard } from "../../../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
+import { TEXT } from "../../../constants/static";
+import { ROUTES } from "../../../router";
 import type { SignUpDto } from "../../../types/dto";
 
 const SignUp = () => {
@@ -26,7 +28,7 @@ const SignUp = () => {
 
     // Validate password match
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(TEXT.auth.signUp.errors.passwordMismatch);
       return;
     }
 
@@ -39,25 +41,25 @@ const SignUp = () => {
       // If server returned a token, log in and redirect to chat
       if (response?.token) {
         login(response.token);
-        navigate('/chat');
+        navigate(ROUTES.CHAT);
         return;
       }
 
       // Otherwise (e.g. verification required), navigate to verification page
-      navigate('/verify', { state: { email } });
+      navigate(ROUTES.VERIFY, { state: { email } });
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as { response?: { status?: number; data?: { message?: string } } };
 
         // Handle 202 status (verification required)
         if (axiosError.response?.status === 202) {
-          navigate('/verify', { state: { email } });
+          navigate(ROUTES.VERIFY, { state: { email } });
           return;
         }
 
-        setError(axiosError.response?.data?.message || 'Failed to sign up. Please try again.');
+        setError(axiosError.response?.data?.message || TEXT.auth.signUp.errors.signUpFailed);
       } else {
-        setError('An unexpected error occurred.');
+        setError(TEXT.common.error);
       }
     } finally {
       setIsLoading(false);
@@ -69,9 +71,9 @@ const SignUp = () => {
       <AuthCard>
         <div className="flex flex-col gap-2 mb-8 pt-8">
           <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
-            Create Account
+            {TEXT.auth.signUp.title}
           </p>
-          <p className="text-[var(--color-textSecondary)]">Join and save your chats securely.</p>
+          <p className="text-[var(--color-textSecondary)]">{TEXT.auth.signUp.subtitle}</p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSignup}>
@@ -84,7 +86,7 @@ const SignUp = () => {
           {/* Username */}
           <input
             type="text"
-            placeholder="Username"
+            placeholder={TEXT.auth.signUp.usernamePlaceholder}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -95,7 +97,7 @@ const SignUp = () => {
           <div className="grid grid-cols-2 gap-4">
             <input
               type="text"
-              placeholder="First Name"
+              placeholder={TEXT.auth.signUp.firstNamePlaceholder}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
@@ -103,7 +105,7 @@ const SignUp = () => {
             />
             <input
               type="text"
-              placeholder="Last Name"
+              placeholder={TEXT.auth.signUp.lastNamePlaceholder}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
@@ -114,7 +116,7 @@ const SignUp = () => {
           {/* Email */}
           <input
             type="email"
-            placeholder="Email Address"
+            placeholder={TEXT.auth.signUp.emailPlaceholder}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -125,7 +127,7 @@ const SignUp = () => {
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder={TEXT.auth.signUp.passwordPlaceholder}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -145,7 +147,7 @@ const SignUp = () => {
           <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm Password"
+              placeholder={TEXT.auth.signUp.confirmPasswordPlaceholder}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -167,18 +169,18 @@ const SignUp = () => {
             disabled={isLoading}
             className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Creating Account...' : 'Create Account'}
+            {isLoading ? TEXT.auth.signUp.submitButtonLoading : TEXT.auth.signUp.submitButton}
           </button>
         </form>
 
         <p className="text-center text-[var(--color-textSecondary)] text-sm mt-6">
-          Already have an account?{" "}
+          {TEXT.auth.signUp.haveAccount}{" "}
           <button
             type="button"
             className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0 border-0"
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate(ROUTES.SIGN_IN)}
           >
-            Sign in
+            {TEXT.auth.signUp.signInLink}
           </button>
         </p>
       </AuthCard>
