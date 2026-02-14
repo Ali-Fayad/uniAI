@@ -36,7 +36,7 @@ export const TEXT = {
       appName: "uniAI",
       subtitle: "Your intelligent companion for academic excellence. Experience the future of learning with our advanced AI-powered platform.",
       getStarted: "Get Started",
-      learnMore: "Learn More",
+      maps: "Discover All Campuses",
     },
     tryNow: "Try Now",
     cards: {
@@ -140,19 +140,6 @@ export const TEXT = {
       submitButtonLoading: "Verifying...",
       error: "Invalid verification code. Please try again.",
     },
-    forgotPasswordConfirm: {
-      title: "Enter Reset Code",
-      subtitle: "Check your email for the verification code.",
-      codePlaceholder: "Enter verification code",
-      newPasswordPlaceholder: "New Password",
-      confirmPasswordPlaceholder: "Confirm New Password",
-      submitButton: "Reset Password",
-      submitButtonLoading: "Resetting...",
-      errors: {
-        passwordMismatch: "Passwords do not match",
-        resetFailed: "Failed to reset password. Please try again.",
-      },
-    },
   },
 
   chat: {
@@ -213,6 +200,14 @@ export const TEXT = {
       changePassword: "Change Password",
       deleteAccount: "Delete Account",
     },
+  },
+
+  map: {
+    title: "Lebanese Universities Map",
+    subtitle: "Explore all major universities across Lebanon. Click on markers to learn more about each institution.",
+    visitWebsite: "Visit Website",
+    loading: "Loading map...",
+    error: "Failed to load map. Please try again later.",
   },
 
   errors: {

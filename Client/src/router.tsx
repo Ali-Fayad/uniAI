@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import MainPage from "./components/page/MainPage";
 import SettingsPage from "./components/page/SettingsPage";
 import ChatPage from "./components/page/ChatPage";
+import MapPage from "./components/page/MapPage";
 
 // Auth Pages
 import AuthLanding from "./components/page/auth/AuthLanding";
@@ -60,6 +61,9 @@ export const AppRouter = () => {
       {/* Settings Page */}
       <Route path="/settings" element={<SettingsPage />} />
 
+      {/* Map Page */}
+      <Route path="/map" element={<MapPage />} />
+
       {/* Fallback to main page */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
@@ -84,6 +88,7 @@ export const ROUTES = {
   GOOGLE_CALLBACK: "/google/callback",
   CHAT: "/chat",
   SETTINGS: "/settings",
+  MAP: "/map",
   ABOUT: "/about",
 } as const;
 

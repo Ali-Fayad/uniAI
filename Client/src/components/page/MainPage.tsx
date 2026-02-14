@@ -209,10 +209,10 @@ const MainPage: React.FC = () => {
                   {TEXT.main.hero.getStarted}
                 </button>
                 <button
-                  onClick={() => navigate(ROUTES.ABOUT)}
+                  onClick={() => navigate(ROUTES.MAP)}
                   className="inline-flex items-center justify-center px-8 py-3 border-2 border-[var(--color-primary)] text-base font-medium rounded-full text-[var(--color-primary)] bg-transparent hover:bg-[var(--color-surface)] md:py-4 md:text-lg md:px-10 transition-all"
                 >
-                  {TEXT.main.hero.learnMore}
+                  {TEXT.main.hero.maps}
                 </button>
               </div>
             </div>
