@@ -1,4 +1,4 @@
-version: '3.8'
+ 
 
 services:
   # lightweight service that generates self-signed certs into a shared volume

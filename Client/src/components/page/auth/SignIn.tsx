@@ -29,6 +29,11 @@ const SignIn = () => {
       const data: SignInDto = { email, password };
       const response = await authService.signIn(data);
 
+      // Defensive: ensure token exists before attempting to use it
+      if (!response || !response.token) {
+        throw new Error('Sign in failed: missing token');
+      }
+
       // Store token and user data
       login(response.token);
 

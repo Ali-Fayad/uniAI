@@ -83,7 +83,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
           onSubmit={handleSubmit}
           className={`
             relative bg-[var(--color-surface)] rounded-[26px] shadow-lg border border-[var(--color-border)]
-            transition-all duration-200 focus-within:shadow-xl focus-within:border-[var(--color-primary)]/50
+            transition-all duration-200
             ${disabled ? "opacity-70 cursor-not-allowed" : ""}
           `}
         >
@@ -99,7 +99,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             placeholder="Message uniAI..."
             disabled={disabled}
             rows={1}
-            className="w-full bg-transparent border-none px-5 py-4 text-[var(--color-textPrimary)] placeholder-[var(--color-textSecondary)] focus:ring-0 resize-none min-h-[60px] max-h-[200px] scrollbar-thin scrollbar-thumb-[var(--color-border)]"
+            className="w-full bg-transparent border-none px-5 py-4 text-[var(--color-textPrimary)] placeholder-[var(--color-textSecondary)] focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none focus-visible:shadow-none focus-visible:border-[var(--color-border)] resize-none min-h-[60px] max-h-[200px] scrollbar-thin scrollbar-thumb-[var(--color-border)]"
             style={{ height: "60px" }}
           />
 

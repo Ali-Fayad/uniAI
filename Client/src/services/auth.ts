@@ -61,7 +61,15 @@ export const authService = {
       throw err;
     }
 
-    // otherwise return token payload
+    // If response is not successful (4xx/5xx) and not one of the
+    // special-handled statuses above, surface an error so callers
+    // don't try to use an absent `token` field.
+    if (response.status >= 400) {
+      const err: any = new Error('Sign in failed');
+      err.response = response;
+      throw err;
+    }
+
     return response.data;
   },
 
