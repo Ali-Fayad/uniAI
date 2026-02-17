@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { AuthCard } from "../../../components/AuthCard";
+import AuthHeading from "../../../components/auth/AuthHeading";
+import { StaggerContainer, staggerItemVariants } from "../../../components/animations";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
 import { useAuth } from "../../../hooks/useAuth";
@@ -65,95 +68,103 @@ const SignIn = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">
       <AuthCard>
-        <div className="flex flex-col gap-2 mb-8 pt-8">
-          <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
-            {TEXT.auth.signIn.title}
-          </p>
-          <p className="text-[var(--color-textSecondary)] text-base">
-            {TEXT.auth.signIn.subtitle}
-          </p>
+        <div className="pt-8">
+          <AuthHeading 
+            title={TEXT.auth.signIn.title}
+            subtitle={TEXT.auth.signIn.subtitle}
+          />
         </div>
 
-        <form className="space-y-6" onSubmit={handleLogin}>
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          {/* EMAIL FIELD */}
-          <div className="flex flex-col">
-            <label className="flex flex-col w-full pb-2">
-              <p className="text-[var(--color-textPrimary)] font-medium pb-2">{TEXT.auth.signIn.emailLabel}</p>
-              <input
-                type="email"
-                placeholder={TEXT.auth.signIn.emailPlaceholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
-              />
-            </label>
-          </div>
-
-          {/* PASSWORD FIELD */}
-          <div className="flex flex-col w-full">
-            {/* Label + Forgot Password */}
-            <div className="flex justify-between items-center pb-2">
-              <p className="text-[var(--color-textPrimary)] font-medium">{TEXT.auth.signIn.passwordLabel}</p>
-
-              <button
-                type="button"
-                onClick={() => navigate(ROUTES.FORGOT_PASSWORD)}
-                className="text-[var(--color-primaryVariant)] text-sm font-medium hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
+        <StaggerContainer staggerDelay={0.08} initialDelay={0.1}>
+          <form className="space-y-6" onSubmit={handleLogin}>
+            {error && (
+              <motion.div 
+                variants={staggerItemVariants}
+                className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm"
               >
-                {TEXT.auth.signIn.forgotPassword}
-              </button>
-            </div>
+                {error}
+              </motion.div>
+            )}
 
-            {/* Input + Toggle Icon */}
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder={TEXT.auth.signIn.passwordPlaceholder}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
-              />
+            {/* EMAIL FIELD */}
+            <motion.div variants={staggerItemVariants} className="flex flex-col">
+              <label className="flex flex-col w-full pb-2">
+                <p className="text-[var(--color-textPrimary)] font-medium pb-2">{TEXT.auth.signIn.emailLabel}</p>
+                <input
+                  type="email"
+                  placeholder={TEXT.auth.signIn.emailPlaceholder}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
+                />
+              </label>
+            </motion.div>
 
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
+            {/* PASSWORD FIELD */}
+            <motion.div variants={staggerItemVariants} className="flex flex-col w-full">
+              {/* Label + Forgot Password */}
+              <div className="flex justify-between items-center pb-2">
+                <p className="text-[var(--color-textPrimary)] font-medium">{TEXT.auth.signIn.passwordLabel}</p>
+
+                <button
+                  type="button"
+                  onClick={() => navigate(ROUTES.FORGOT_PASSWORD)}
+                  className="text-[var(--color-primaryVariant)] text-sm font-medium hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
+                >
+                  {TEXT.auth.signIn.forgotPassword}
+                </button>
+              </div>
+
+              {/* Input + Toggle Icon */}
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder={TEXT.auth.signIn.passwordPlaceholder}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] transition-colors bg-transparent p-0"
+                >
+                  {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
+                </button>
+              </div>
+            </motion.div>
+
+            {/* SIGN IN BUTTON */}
+            <motion.div variants={staggerItemVariants}>
+              <motion.button
+                type="submit"
+                disabled={isLoading}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
-              </button>
-            </div>
-          </div>
+                {isLoading ? TEXT.auth.signIn.submitButtonLoading : TEXT.auth.signIn.submitButton}
+              </motion.button>
+            </motion.div>
+          </form>
 
-          {/* SIGN IN BUTTON */}
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="flex w-full items-center justify-center rounded-full h-12 px-5 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? TEXT.auth.signIn.submitButtonLoading : TEXT.auth.signIn.submitButton}
-            </button>
-          </div>
-        </form>
-
-        <p className="text-center text-[var(--color-textSecondary)] text-sm mt-6">
-          {TEXT.auth.signIn.noAccount}{" "}
-          <button
-            type="button"
-            className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0"
-            onClick={() => navigate(ROUTES.SIGN_UP)}
+          <motion.p 
+            variants={staggerItemVariants}
+            className="text-center text-[var(--color-textSecondary)] text-sm mt-6"
           >
-            {TEXT.auth.signIn.signUpLink}
-          </button>
-        </p>
+            {TEXT.auth.signIn.noAccount}{" "}
+            <button
+              type="button"
+              className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0"
+              onClick={() => navigate(ROUTES.SIGN_UP)}
+            >
+              {TEXT.auth.signIn.signUpLink}
+            </button>
+          </motion.p>
+        </StaggerContainer>
       </AuthCard>
     </div>
   );

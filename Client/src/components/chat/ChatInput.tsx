@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -75,7 +76,10 @@ const ChatInput: React.FC<ChatInputProps> = ({
       </div>
 
       <div className="max-w-3xl mx-auto relative z-10">
-        <form
+        <motion.form
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.3 }}
           onSubmit={handleSubmit}
           className={`
             relative bg-[var(--color-surface)] rounded-[26px] shadow-lg border border-[var(--color-border)]
@@ -168,7 +172,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
               </span>
             </button>
           </div>
-        </form>
+        </motion.form>
 
         <p className="text-center text-[10px] text-[var(--color-textSecondary)] mt-3">
           AI can make mistakes. Check important info.

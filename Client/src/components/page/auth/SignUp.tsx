@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useAuth } from "../../../hooks/useAuth";
 import { AuthCard } from "../../../components/AuthCard";
+import AuthHeading from "../../../components/auth/AuthHeading";
+import { StaggerContainer, staggerItemVariants } from "../../../components/animations";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
 import { TEXT } from "../../../constants/static";
@@ -69,120 +72,134 @@ const SignUp = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">
       <AuthCard>
-        <div className="flex flex-col gap-2 mb-8 pt-8">
-          <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
-            {TEXT.auth.signUp.title}
-          </p>
-          <p className="text-[var(--color-textSecondary)]">{TEXT.auth.signUp.subtitle}</p>
+        <div className="pt-8">
+          <AuthHeading 
+            title={TEXT.auth.signUp.title}
+            subtitle={TEXT.auth.signUp.subtitle}
+          />
         </div>
 
-        <form className="space-y-6" onSubmit={handleSignup}>
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
+        <StaggerContainer staggerDelay={0.06} initialDelay={0.1}>
+          <form className="space-y-6" onSubmit={handleSignup}>
+            {error && (
+              <motion.div 
+                variants={staggerItemVariants}
+                className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm"
+              >
+                {error}
+              </motion.div>
+            )}
 
-          {/* Username */}
-          <input
-            type="text"
-            placeholder={TEXT.auth.signUp.usernamePlaceholder}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
-          />
-
-          {/* Name fields */}
-          <div className="grid grid-cols-2 gap-4">
-            <input
+            {/* Username */}
+            <motion.input
+              variants={staggerItemVariants}
               type="text"
-              placeholder={TEXT.auth.signUp.firstNamePlaceholder}
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              placeholder={TEXT.auth.signUp.usernamePlaceholder}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
               className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
             />
-            <input
-              type="text"
-              placeholder={TEXT.auth.signUp.lastNamePlaceholder}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+
+            {/* Name fields */}
+            <motion.div variants={staggerItemVariants} className="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder={TEXT.auth.signUp.firstNamePlaceholder}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
+              />
+              <input
+                type="text"
+                placeholder={TEXT.auth.signUp.lastNamePlaceholder}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
+              />
+            </motion.div>
+
+            {/* Email */}
+            <motion.input
+              variants={staggerItemVariants}
+              type="email"
+              placeholder={TEXT.auth.signUp.emailPlaceholder}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
             />
-          </div>
 
-          {/* Email */}
-          <input
-            type="email"
-            placeholder={TEXT.auth.signUp.emailPlaceholder}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
-          />
+            {/* Password */}
+            <motion.div variants={staggerItemVariants} className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder={TEXT.auth.signUp.passwordPlaceholder}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={8}
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
+              >
+                {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
+              </button>
+            </motion.div>
 
-          {/* Password */}
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder={TEXT.auth.signUp.passwordPlaceholder}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
-            />
+            {/* Confirm Password */}
+            <motion.div variants={staggerItemVariants} className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder={TEXT.auth.signUp.confirmPasswordPlaceholder}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                minLength={8}
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
+              >
+                {showConfirmPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
+              </button>
+            </motion.div>
+
+            {/* Create Account button */}
+            <motion.div variants={staggerItemVariants}>
+              <motion.button
+                type="submit"
+                disabled={isLoading}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? TEXT.auth.signUp.submitButtonLoading : TEXT.auth.signUp.submitButton}
+              </motion.button>
+            </motion.div>
+          </form>
+
+          <motion.p 
+            variants={staggerItemVariants}
+            className="text-center text-[var(--color-textSecondary)] text-sm mt-6"
+          >
+            {TEXT.auth.signUp.haveAccount}{" "}
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
+              className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0 border-0"
+              onClick={() => navigate(ROUTES.SIGN_IN)}
             >
-              {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
+              {TEXT.auth.signUp.signInLink}
             </button>
-          </div>
-
-          {/* Confirm Password */}
-          <div className="relative">
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder={TEXT.auth.signUp.confirmPasswordPlaceholder}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              minLength={8}
-              className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
-            />
-            <button
-              type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
-            >
-              {showConfirmPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
-            </button>
-          </div>
-
-          {/* Create Account button as plain text */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? TEXT.auth.signUp.submitButtonLoading : TEXT.auth.signUp.submitButton}
-          </button>
-        </form>
-
-        <p className="text-center text-[var(--color-textSecondary)] text-sm mt-6">
-          {TEXT.auth.signUp.haveAccount}{" "}
-          <button
-            type="button"
-            className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0 border-0"
-            onClick={() => navigate(ROUTES.SIGN_IN)}
-          >
-            {TEXT.auth.signUp.signInLink}
-          </button>
-        </p>
+          </motion.p>
+        </StaggerContainer>
       </AuthCard>
     </div>
   );

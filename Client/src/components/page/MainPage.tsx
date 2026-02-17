@@ -1,11 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useTheme } from "../../hooks/useTheme";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import { useFeedback } from "../../hooks/useFeedback";
 import { TEXT } from "../../constants/static";
 import { ROUTES } from "../../router";
 import LiquidEther from "../LiquidEther";
+import { PageTransition, ScaleIn, SlideIn, StaggerContainer, staggerItemVariants, FadeIn } from "../animations";
 
 // Simple Star Icon Component
 const StarIcon: React.FC<{ filled: boolean; onClick: () => void }> = ({
@@ -32,12 +34,13 @@ const Card: React.FC<{
   children: React.ReactNode;
   delay?: number;
 }> = ({ title, children, delay = 0 }) => {
-  const ref = useScrollAnimation(delay);
+  // Use scroll animation for cards as they might be below fold
+  const ref = useScrollAnimation({ delay, threshold: 0.15 });
 
   return (
     <div
       ref={ref}
-      className="bg-[var(--color-surface)] p-8 rounded-lg shadow-md border border-[var(--color-border)] text-center"
+      className="bg-[var(--color-surface)] p-8 rounded-lg shadow-md border border-[var(--color-border)] text-center h-full flex flex-col justify-center"
     >
       <h3 className="text-2xl font-bold text-[var(--color-textPrimary)] mb-4">{title}</h3>
       <p className="text-[var(--color-textSecondary)]">{children}</p>
@@ -47,7 +50,7 @@ const Card: React.FC<{
 
 /**
  * AnimatedField Component
- * Wrapper for scroll animations
+ * Wrapper for scroll animations with fade-in effect
  */
 const AnimatedField: React.FC<{
   children: React.ReactNode;
@@ -88,7 +91,7 @@ const Feedback: React.FC = () => {
           </div>
         </AnimatedField>
 
-        {/* 2. Rating Field (New) */}
+        {/* 2. Rating Field */}
         <AnimatedField delay={100}>
           <label className="block text-sm font-medium leading-6 text-[#151514] mb-2">
             {TEXT.main.feedback.ratingLabel}
@@ -108,11 +111,10 @@ const Feedback: React.FC = () => {
               {rating > 0 ? `${rating} / 5` : ""}
             </span>
           </div>
-          {/* Hidden input to submit the value with the form */}
           <input type="hidden" name="rating" value={rating} />
         </AnimatedField>
 
-        {/* 3. Feedback Textarea - Delay shifted to 200 */}
+        {/* 3. Feedback Textarea */}
         <AnimatedField delay={200}>
           <label
             className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
@@ -133,7 +135,7 @@ const Feedback: React.FC = () => {
           </div>
         </AnimatedField>
 
-        {/* 4. Submit Button - Delay shifted to 300 */}
+        {/* 4. Submit Button */}
         <AnimatedField delay={300}>
           <div className="flex justify-center">
             <button
@@ -159,112 +161,109 @@ const Feedback: React.FC = () => {
  * Business logic is extracted to hooks.
  */
 const MainPage: React.FC = () => {
-  const introTextRef = useScrollAnimation({ delay: 0, threshold: 0.15 });
   const navigate = useNavigate();
   const { colors, themeName } = useTheme();
 
   // Map theme colors to LiquidEther palette
-  // We use primary, secondary, and accent/variant to create a nice fluid mix
   const fluidColors = [
     colors.primary,
     colors.secondary,
     colors.primaryVariant || colors.accent,
-    colors.info // Add a splash of info color for depth
+    colors.info
   ];
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative flex min-h-[700px] items-center overflow-hidden bg-[var(--color-surface)] py-12">
-        {/* Liquid Background */}
-        <div className="absolute inset-0 z-0">
-          <LiquidEther
-            colors={fluidColors}
-            isViscous={true}
-            viscous={20}
-            mouseForce={30}
-            cursorSize={80}
-            autoDemo={true}
-            autoSpeed={0.3}
-            // Force re-mount on theme change to ensure colors update cleanly if hot-swap isn't perfect
-            key={themeName}
-          />
-        </div>
+    <PageTransition>
+      <StaggerContainer staggerDelay={0.15} initialDelay={0.1}>
+        {/* Hero Section */}
+        <ScaleIn delay={0} className="relative flex min-h-[700px] items-center overflow-hidden bg-[var(--color-surface)] py-12">
+          {/* Liquid Background */}
+          <div className="absolute inset-0 z-0">
+            <LiquidEther
+              colors={fluidColors}
+              isViscous={true}
+              viscous={20}
+              mouseForce={30}
+              cursorSize={80}
+              autoDemo={true}
+              autoSpeed={0.3}
+              key={themeName}
+            />
+          </div>
 
-        {/* Content Overlay */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
-            <div ref={introTextRef}>
-              <h1 className="text-4xl font-extrabold tracking-tight text-[var(--color-textPrimary)] sm:text-5xl md:text-6xl lg:text-7xl mb-6">
-                {TEXT.main.hero.welcome} <span className="text-[var(--color-primary)]">{TEXT.main.hero.appName}</span>
-              </h1>
-              <p className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10">
-                {TEXT.main.hero.subtitle}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
-                  onClick={() => navigate(ROUTES.CHAT)}
-                  className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-[var(--color-background)] bg-[var(--color-primary)] hover:bg-[var(--color-primaryVariant)] md:py-4 md:text-lg md:px-10 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                >
-                  {TEXT.main.hero.getStarted}
-                </button>
-                <button
-                  onClick={() => navigate(ROUTES.MAP)}
-                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-[var(--color-primary)] text-base font-medium rounded-full text-[var(--color-primary)] bg-transparent hover:bg-[var(--color-surface)] md:py-4 md:text-lg md:px-10 transition-all"
-                >
-                  {TEXT.main.hero.maps}
-                </button>
-              </div>
+          {/* Content Overlay */}
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
+              <StaggerContainer staggerDelay={0.12} initialDelay={0.2}>
+                <motion.h1 variants={staggerItemVariants} className="text-4xl font-extrabold tracking-tight text-[var(--color-textPrimary)] sm:text-5xl md:text-6xl lg:text-7xl mb-6">
+                  {TEXT.main.hero.welcome} <span className="text-[var(--color-primary)]">{TEXT.main.hero.appName}</span>
+                </motion.h1>
+                <motion.p variants={staggerItemVariants} className="mt-4 text-xl text-[var(--color-textSecondary)] max-w-2xl mx-auto mb-10">
+                  {TEXT.main.hero.subtitle}
+                </motion.p>
+                <motion.div variants={staggerItemVariants} className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button
+                    onClick={() => navigate(ROUTES.CHAT)}
+                    className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-[var(--color-background)] bg-[var(--color-primary)] hover:bg-[var(--color-primaryVariant)] md:py-4 md:text-lg md:px-10 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  >
+                    {TEXT.main.hero.getStarted}
+                  </button>
+                  <button
+                    onClick={() => navigate(ROUTES.MAP)}
+                    className="inline-flex items-center justify-center px-8 py-3 border-2 border-[var(--color-primary)] text-base font-medium rounded-full text-[var(--color-primary)] bg-transparent hover:bg-[var(--color-surface)] md:py-4 md:text-lg md:px-10 transition-all"
+                  >
+                    {TEXT.main.hero.maps}
+                  </button>
+                </motion.div>
+              </StaggerContainer>
             </div>
           </div>
+        </ScaleIn>
+
+        {/* Content Container */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Try Now Button */}
+          <SlideIn direction="up" delay={0.3} className="text-center mb-16">
+            <button
+              onClick={() => navigate(ROUTES.CHAT)}
+              className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
+            >
+              <span className="truncate">{TEXT.main.tryNow}</span>
+            </button>
+          </SlideIn>
+
+          {/* Cards Section */}
+          <SlideIn direction="left" delay={0.4} className="my-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Card title={TEXT.main.cards.powerfulIntegration.title} delay={0}>
+                {TEXT.main.cards.powerfulIntegration.description}
+              </Card>
+              <Card title={TEXT.main.cards.creativeAssistance.title} delay={100}>
+                {TEXT.main.cards.creativeAssistance.description}
+              </Card>
+              <Card title={TEXT.main.cards.dataInsights.title} delay={200}>
+                {TEXT.main.cards.dataInsights.description}
+              </Card>
+            </div>
+          </SlideIn>
+
+          {/* Spacer & Intro Text */}
+          <FadeIn delay={0.6} className="mt-32 mb-8 text-center max-w-2xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-[var(--color-textPrimary)] mb-4">
+              {TEXT.main.feedback.heading}
+            </h2>
+            <p className="text-lg text-[var(--color-textSecondary)]">
+              {TEXT.main.feedback.subheading}
+            </p>
+          </FadeIn>
+
+          {/* Feedback Form */}
+          <SlideIn direction="up" delay={0.7}>
+            <Feedback />
+          </SlideIn>
         </div>
-      </section>
-
-      {/* Content Container */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Try Now Button */}
-        <section className="text-center mb-16">
-          <button
-            onClick={() => navigate(ROUTES.CHAT)}
-            className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
-          >
-            <span className="truncate">{TEXT.main.tryNow}</span>
-          </button>
-        </section>
-
-      {/* Cards Section */}
-      <section className="my-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card title={TEXT.main.cards.powerfulIntegration.title} delay={0}>
-            {TEXT.main.cards.powerfulIntegration.description}
-          </Card>
-          <Card title={TEXT.main.cards.creativeAssistance.title} delay={0}>
-            {TEXT.main.cards.creativeAssistance.description}
-          </Card>
-          <Card title={TEXT.main.cards.dataInsights.title} delay={0}>
-            {TEXT.main.cards.dataInsights.description}
-          </Card>
-        </div>
-      </section>
-
-      {/* Spacer & Intro Text */}
-      <section className="mt-32 mb-8 text-center max-w-2xl mx-auto px-4">
-        <div ref={introTextRef}>
-          <h2 className="text-3xl font-bold text-[var(--color-textPrimary)] mb-4">
-            {TEXT.main.feedback.heading}
-          </h2>
-          <p className="text-lg text-[var(--color-textSecondary)]">
-            {TEXT.main.feedback.subheading}
-          </p>
-        </div>
-      </section>
-
-      {/* Feedback Form */}
-      <section>
-        <Feedback />
-      </section>
-      </div>
-    </div>
+      </StaggerContainer>
+    </PageTransition>
   );
 };
 

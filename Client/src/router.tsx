@@ -8,7 +8,7 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-import PageTransition from "./components/common/PageTransition";
+import { PageTransition } from "./components/animations";
 
 // Page Components
 import MainPage from "./components/page/MainPage";
@@ -38,14 +38,14 @@ export const AppRouter = () => {
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location}>
-        {/* Main landing page */}
-        <Route path="/" element={<PageTransition><MainPage /></PageTransition>} />
+      <Routes location={location} key={location.pathname}>
+        {/* Main landing page - has its own PageTransition */}
+        <Route path="/" element={<MainPage />} />
 
         {/* Auth Routes */}
         <Route path="/auth" element={<PageTransition><AuthLanding /></PageTransition>} />
-        <Route path="/signin" element={<PageTransition><SignIn /></PageTransition>} />
-        <Route path="/signup" element={<PageTransition><SignUp /></PageTransition>} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/verify" element={<PageTransition><Verify /></PageTransition>} />
         <Route path="/2fa/verify" element={<PageTransition><Verify2FA /></PageTransition>} />
         <Route path="/forgot-password" element={<PageTransition><ForgotPassword /></PageTransition>} />
@@ -54,15 +54,13 @@ export const AppRouter = () => {
         {/* OAuth Callback */}
         <Route path="/google/callback" element={<PageTransition><GoogleCallback /></PageTransition>} />
 
-        {/* Protected Chat Route */}
+        {/* Protected Chat Route - has its own PageTransition */}
         <Route
           path="/chat"
           element={
-            <PageTransition>
-              <ProtectedRoute>
-                <ChatPage />
-              </ProtectedRoute>
-            </PageTransition>
+            <ProtectedRoute>
+              <ChatPage />
+            </ProtectedRoute>
           }
         />
 
