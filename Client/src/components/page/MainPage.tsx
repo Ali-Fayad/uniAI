@@ -73,7 +73,7 @@ const Feedback: React.FC = () => {
         {/* 1. Email Field */}
         <AnimatedField delay={0}>
           <label
-            className="block text-sm font-medium leading-6 text-[#151514]"
+            className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
             htmlFor="email"
           >
             {TEXT.main.feedback.emailLabel}
@@ -93,7 +93,7 @@ const Feedback: React.FC = () => {
 
         {/* 2. Rating Field */}
         <AnimatedField delay={100}>
-          <label className="block text-sm font-medium leading-6 text-[#151514] mb-2">
+          <label className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)] mb-2">
             {TEXT.main.feedback.ratingLabel}
           </label>
           <div className="flex flex-col items-center space-y-2">

@@ -162,12 +162,12 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 p-2 rounded-full transition-all duration-200 flex items-center justify-center
                 ${
                   message.trim() && !disabled
-                    ? "bg-[var(--color-primary)] text-black shadow-md hover:bg-[var(--color-primaryHover)] transform hover:scale-105"
+                    ? "bg-[var(--color-primary)] text-[var(--color-surface)] shadow-md hover:bg-[var(--color-primaryHover)] transform hover:scale-105"
                     : "bg-[var(--color-surfaceHover)] text-[var(--color-border)] cursor-not-allowed"
                 }
               `}
             >
-              <span className="material-symbols-outlined text-[20px] text-black">
+                  <span className="material-symbols-outlined text-[20px]">
                 arrow_upward
               </span>
             </button>

@@ -40,17 +40,17 @@ const AuthLanding = () => {
         >
           <div className="z-10 text-center text-[var(--color-textPrimary)]">
             <svg
-              className="mx-auto h-12 w-auto text-[var(--color-primary)] mb-6"
+              className="mx-auto h-12 w-auto text-[var(--color-surface)] mb-6"
               fill="currentColor"
               viewBox="0 0 54 44"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M26.5816 43.3134L53.1633 0H39.8724L26.5816 26.5816L13.2908 0H0L26.5816 43.3134Z"></path>
             </svg>
-            <h2 className="text-3xl font-black tracking-tight text-[var(--color-textPrimary)] opacity-80 mb-4">
+            <h2 className="text-3xl font-black tracking-tight text-[var(--color-surface)] opacity-90 mb-4">
               Why You Must Log In?
             </h2>
-            <p className="text-base text-[var(--color-textPrimary)] opacity-60">
+            <p className="text-base text-[var(--color-surface)] opacity-80">
               Logging in allows you to save your chats and data, so you can continue
               your conversations anytime, without losing progress.
             </p>

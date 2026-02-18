@@ -1,4 +1,4 @@
- 
+# no detected version for this docker!
 
 services:
   # lightweight service that generates self-signed certs into a shared volume
