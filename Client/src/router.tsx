@@ -15,6 +15,7 @@ import MainPage from "./components/page/MainPage";
 import SettingsPage from "./components/page/SettingsPage";
 import ChatPage from "./components/page/ChatPage";
 import MapPage from "./components/page/MapPage";
+import AboutPage from "./components/page/AboutPage";
 
 // Auth Pages
 import AuthLanding from "./components/page/auth/AuthLanding";
@@ -69,6 +70,9 @@ export const AppRouter = () => {
 
         {/* Map Page */}
         <Route path="/map" element={<PageTransition><MapPage /></PageTransition>} />
+
+        {/* About Page */}
+        <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
 
         {/* Fallback to main page */}
         <Route path="*" element={<Navigate to="/" replace />} />

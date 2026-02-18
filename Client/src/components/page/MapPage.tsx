@@ -44,7 +44,7 @@ const MapPage = () => {
       : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
   return (
-    <div className="relative min-h-screen w-full bg-[var(--color-background)] overflow-hidden">
+    <div className="relative h-[calc(100vh-64px)] w-full bg-[var(--color-background)] overflow-hidden">
       {/* Fullscreen Map as background */}
       <div className="absolute inset-0 z-0">
         <MapContainer

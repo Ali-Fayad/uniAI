@@ -33,7 +33,7 @@ const ChatPage: React.FC = () => {
 
   return (
     <PageTransition>
-      <div className="flex h-screen">
+      <div className="flex h-[calc(100vh-64px)]">
         {/* Sidebar */}
         <motion.div 
           initial={{ x: -20, opacity: 0 }}
