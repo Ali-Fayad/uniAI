@@ -2,9 +2,11 @@ import axios, { AxiosError } from 'axios';
 import type { InternalAxiosRequestConfig } from 'axios';
 import { API_URL } from '../constants';
 import { Storage } from '../utils/Storage';
+import { handleHttpError } from '../utils/httpErrorHandler';
 
 /**
- * Create axios instance with base configuration
+ * SRP: this file is responsible only for creating and configuring the shared
+ * Axios instance.  Error-handling policy lives in httpErrorHandler.ts (OCP).
  */
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -15,59 +17,29 @@ const apiClient = axios.create({
 });
 
 /**
- * Request interceptor to add JWT token to headers
+ * Request interceptor – attach JWT bearer token when present.
  */
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = Storage.getToken();
-    
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
     return config;
   },
-  (error: AxiosError) => {
-    return Promise.reject(error);
-  }
+  (error: AxiosError) => Promise.reject(error),
 );
 
 /**
- * Response interceptor for error handling
+ * Response interceptor – delegate HTTP error handling to the dedicated module
+ * so this file stays closed for modification (OCP).
  */
 apiClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error: AxiosError) => {
-    // Handle 401 Unauthorized - clear storage and redirect to auth
-    if (error.response && error.response.status === 401) {
-      Storage.clearAll();
-      
-      // Only redirect if we're not already on the auth pages
-      const currentPath = window.location.pathname;
-      if (!currentPath.startsWith('/auth') && !currentPath.startsWith('/signin') && !currentPath.startsWith('/signup')) {
-        window.location.href = '/auth';
-      }
-    }
-    
-    // Handle other error status codes
-    if (error.response) {
-      if (error.response.status === 403) {
-        console.error('Access forbidden:', error.response.data);
-      }
-      
-      if (error.response.status === 404) {
-        console.error('Resource not found:', error.response.data);
-      }
-      
-      if (error.response.status >= 500) {
-        console.error('Server error:', error.response.data);
-      }
-    }
-    
+    handleHttpError(error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default apiClient;

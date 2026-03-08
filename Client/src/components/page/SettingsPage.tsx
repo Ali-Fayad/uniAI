@@ -2,114 +2,37 @@ import React, { useEffect, useState } from "react";
 import SettingsSection from "../settings/SettingsSection";
 import FormInput from "../settings/FormInput";
 import FormButton from "../settings/FormButton";
-import { Storage } from "../../utils/Storage";
-import { userService } from "../../services/user";
-import type { UpdateUserDto } from "../../types/dto";
 import { applyThemeByName, getSavedTheme } from "../../styles/themes";
 import type { ThemeName } from "../../styles/themes";
-
-// Reusable hook for scroll animations (copies behavior from MainPage)
-const useScrollAnimation = (delay = 0) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Initial state
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    // faster transition
-    el.style.transition = "opacity 300ms ease, transform 300ms ease";
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Animate in
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, delay);
-          } else {
-            // Reverse animation (hide) when scrolling up/away
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-          }
-        });
-      },
-      // lower threshold so element triggers sooner
-      { threshold: 0.05 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [delay]);
-
-  return ref;
-};
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { useUserProfile } from "../../hooks/useUserProfile";
 
 const AnimatedField: React.FC<{ children: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => {
-  const ref = useScrollAnimation(delay);
+  const ref = useScrollAnimation({ delay, duration: 300, threshold: 0.05 });
   return <div ref={ref}>{children}</div>;
 };
 
+/**
+ * DIP: SettingsPage depends on the useUserProfile hook abstraction, not the
+ * concrete userService or Storage.
+ * LSP: all auth data now flows through the hook, not raw sessionStorage calls.
+ * SRP: this component is responsible only for rendering settings UI and
+ * delegating data concerns to specialised hooks.
+ */
 const SettingsPage: React.FC = () => {
-  // Initialize state from storage to avoid "uncontrolled" error and unnecessary API calls
-  const [profile, setProfile] = useState(() => {
-    const stored = Storage.getUser();
-    return {
-      firstName: stored?.firstName || "",
-      lastName: stored?.lastName || "",
-      username: stored?.username || "",
-      email: stored?.email || "",
-      twoFactorEnabled: stored?.twoFactorEnabled || false,
-    };
-  });
+  const { profile, setProfile, isLoading, saveProfile, submitFeedback } = useUserProfile();
 
   const [feedback, setFeedback] = useState({
     rating: 0,
     comment: "",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-
   // Theme selection state
   const [selectedTheme, setSelectedTheme] = useState<ThemeName>(() => getSavedTheme());
 
   useEffect(() => {
-    // Ensure the currently saved theme is applied when this page mounts
     applyThemeByName(selectedTheme);
   }, [selectedTheme]);
-
-  // We rely on Storage data as primary source.
-  // Only fetch if storage is empty (rare if protected route)
-  useEffect(() => {
-    if (!Storage.getUser()) {
-      const loadUserData = async () => {
-        try {
-          const userData = await userService.getMe();
-          setProfile({
-            firstName: userData.firstName || "",
-            lastName: userData.lastName || "",
-            username: userData.username || "",
-            email: userData.email || "",
-            twoFactorEnabled: userData.isTwoFacAuth,
-          });
-
-          // Save to storage mapped correctly
-          Storage.setUser({
-            id: 0, // ID might be missing if not in token/response, but UserData requires it? Check DTO.
-            ...userData,
-            twoFactorEnabled: userData.isTwoFacAuth,
-          } as any); // Type assertion might be needed if DTOs don't perfectly align
-        } catch (error) {
-          console.error("Failed to fetch user data", error);
-        }
-      };
-      loadUserData();
-    }
-  }, []);
 
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -121,75 +44,14 @@ const SettingsPage: React.FC = () => {
 
   const handleProfileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const stored = Storage.getUser();
-      const updateDto: UpdateUserDto = {};
-      let hasChanges = false;
-
-      // Only include fields that have changed
-      if (profile.firstName !== (stored?.firstName || "")) {
-        updateDto.firstName = profile.firstName;
-        hasChanges = true;
-      }
-      if (profile.lastName !== (stored?.lastName || "")) {
-        updateDto.lastName = profile.lastName;
-        hasChanges = true;
-      }
-      if (profile.username !== (stored?.username || "")) {
-        updateDto.username = profile.username;
-        hasChanges = true;
-      }
-      if (profile.twoFactorEnabled !== (stored?.twoFactorEnabled || false)) {
-        updateDto.enableTwoFactor = profile.twoFactorEnabled;
-        hasChanges = true;
-      }
-
-      if (!hasChanges) {
-        console.log("No changes to save");
-        setIsLoading(false);
-        return;
-      }
-
-      const updatedUser = await userService.updateMe(updateDto);
-
-      // Update local state and storage
-      setProfile((prev) => ({
-        ...prev,
-        firstName: updatedUser.firstName || "",
-        lastName: updatedUser.lastName || "",
-        username: updatedUser.username || "",
-      }));
-
-      const currentStorage = Storage.getUser();
-      if (currentStorage) {
-        Storage.setUser({
-          ...currentStorage,
-          firstName: updatedUser.firstName,
-          lastName: updatedUser.lastName,
-          username: updatedUser.username,
-          twoFactorEnabled: updatedUser.isTwoFacAuth,
-        });
-      }
-
-      console.log("Profile updated successfully");
-    } catch (error) {
-      console.error("Failed to update profile", error);
-    } finally {
-      setIsLoading(false);
-    }
+    await saveProfile(profile);
   };
 
   const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const commentWithRating = `Rating: ${feedback.rating}/5. ${feedback.comment}`;
-      await userService.sendFeedback({
-        email: profile.email,
-        comment: commentWithRating,
-      });
+      await submitFeedback({ rating: feedback.rating, comment: feedback.comment });
       setFeedback({ rating: 0, comment: "" });
-      console.log("Feedback submitted successfully");
     } catch (error) {
       console.error("Failed to submit feedback", error);
     }

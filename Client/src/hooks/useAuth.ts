@@ -1,16 +1,16 @@
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useAuthState } from './useAuthState';
+import { useAuthActions } from './useAuthActions';
 
 /**
- * Custom hook to access auth context
- * Must be used within AuthProvider
+ * Convenience hook that combines useAuthState + useAuthActions.
+ * Existing consumers keep working without changes.
+ *
+ * Prefer the focused hooks for new code (ISP):
+ *   - useAuthState()   – read-only (user, isAuthenticated, isLoading)
+ *   - useAuthActions() – mutations  (login, logout, updateUser)
  */
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  
-  return context;
+  const state = useAuthState();
+  const actions = useAuthActions();
+  return { ...state, ...actions };
 };

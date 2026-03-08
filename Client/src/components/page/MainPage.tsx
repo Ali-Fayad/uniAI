@@ -2,46 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { isWebGLAvailable } from "../../utils/webgl";
 import LiquidEther from "../LiquidEther";
 
-// Reusable hook for scroll animations that reverse when scrolling up
-const useScrollAnimation = (delay = 0) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Initial state
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    el.style.transition = "opacity 500ms ease, transform 500ms ease";
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Animate in
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, delay);
-          } else {
-            // Reverse animation (hide) when scrolling up/away
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [delay]);
-
-  return ref;
-};
+/**
+ * SRP: evaluated once at module load — a pure capability check.
+ * Components read this value; the webgl module owns the detection logic.
+ */
+const webglSupported = isWebGLAvailable();
 
 // Simple Star Icon Component
 const StarIcon: React.FC<{ filled: boolean; onClick: () => void }> = ({
@@ -68,7 +37,7 @@ const Card: React.FC<{
   children: React.ReactNode;
   delay?: number;
 }> = ({ title, children, delay = 0 }) => {
-  const ref = useScrollAnimation(delay);
+  const ref = useScrollAnimation({ delay });
 
   return (
     <div
@@ -85,7 +54,7 @@ const AnimatedField: React.FC<{
   children: React.ReactNode;
   delay?: number;
 }> = ({ children, delay = 0 }) => {
-  const ref = useScrollAnimation(delay);
+  const ref = useScrollAnimation({ delay });
   return <div ref={ref}>{children}</div>;
 };
 
@@ -189,7 +158,7 @@ const Feedback: React.FC = () => {
 };
 
 const MainPage: React.FC = () => {
-  const introTextRef = useScrollAnimation(0);
+  const introTextRef = useScrollAnimation({ delay: 0 });
   const navigate = useNavigate();
   const { colors, themeName } = useTheme();
 
@@ -206,20 +175,22 @@ const MainPage: React.FC = () => {
     <div>
       {/* Hero Section */}
       <section className="relative flex min-h-[700px] items-center overflow-hidden bg-[var(--color-surface)] py-12">
-        {/* Liquid Background */}
-        <div className="absolute inset-0 z-0">
-          <LiquidEther
-            colors={fluidColors}
-            isViscous={true}
-            viscous={20}
-            mouseForce={30}
-            cursorSize={80}
-            autoDemo={true}
-            autoSpeed={0.3}
-            // Force re-mount on theme change to ensure colors update cleanly if hot-swap isn't perfect
-            key={themeName}
-          />
-        </div>
+        {/* Liquid Background — only mounted when WebGL is available (SRP: detection is in utils/webgl.ts) */}
+        {webglSupported && (
+          <div className="absolute inset-0 z-0">
+            <LiquidEther
+              colors={fluidColors}
+              isViscous={true}
+              viscous={20}
+              mouseForce={30}
+              cursorSize={80}
+              autoDemo={true}
+              autoSpeed={0.3}
+              // Force re-mount on theme change to ensure colors update cleanly if hot-swap isn't perfect
+              key={themeName}
+            />
+          </div>
+        )}
 
         {/* Content Overlay */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

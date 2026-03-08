@@ -1,106 +1,58 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { chatService } from "../../services/chat";
+import React, { useEffect, useRef } from "react";
+import { useChat } from "../../hooks/useChat";
+import { useAuthState } from "../../hooks/useAuthState";
 import ChatSidebar from "../chat/ChatSidebar";
 import ChatMessage from "../chat/ChatMessage";
 import ChatInput from "../chat/ChatInput";
 import LoadingSpinner from "../common/LoadingSpinner";
-import { AuthContext } from "../../context/AuthContext";
-import type { MessageResponseDto, SendMessageDto } from "../../types/dto";
 
+/**
+ * DIP: ChatPage no longer imports the concrete chatService.
+ * It depends on the useChat hook's interface so the data layer can be swapped
+ * (e.g. mocked in tests) without touching this component.
+ *
+ * ISP: uses useAuthState (read-only) instead of the full useAuth.
+ * LSP: replaced the unsafe useContext(AuthContext)! with the type-safe hook.
+ */
 const ChatPage: React.FC = () => {
-  const { user } = useContext(AuthContext)!;
-  const [currentChatId, setCurrentChatId] = useState<number | null>(null);
-  const [messages, setMessages] = useState<MessageResponseDto[]>([]);
-  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
-  const [isSendingMessage, setIsSendingMessage] = useState(false);
+  const { user } = useAuthState();
+  const {
+    messages,
+    currentChatId,
+    isLoadingMessages,
+    isSendingMessage,
+    selectChat,
+    loadMessages,
+    sendMessage,
+    clearMessages,
+  } = useChat();
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to bottom when messages change
+  // Scroll to bottom whenever messages update
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isSendingMessage]);
 
-  // Load messages when chat is selected
+  // Load messages whenever the selected chat changes
   useEffect(() => {
     if (currentChatId) {
       loadMessages(currentChatId);
-    } else {
-      setMessages([]);
     }
-  }, [currentChatId]);
+  }, [currentChatId, loadMessages]);
 
-  const loadMessages = async (chatId: number) => {
-    setIsLoadingMessages(true);
-    try {
-      const data = await chatService.getChatMessages(chatId);
-      setMessages(data);
-    } catch (error) {
-      console.error("Failed to load messages:", error);
-    } finally {
-      setIsLoadingMessages(false);
-    }
-  };
-
-  const handleNewChat = () => {
-    setCurrentChatId(null);
-    setMessages([]);
-  };
+  const handleNewChat = () => clearMessages();
 
   const handleSelectChat = (chatId: number) => {
-    if (chatId !== currentChatId) {
-      setCurrentChatId(chatId);
-    }
+    if (chatId !== currentChatId) selectChat(chatId);
   };
 
   const handleDeleteChat = (chatId: number) => {
-    if (chatId === currentChatId || chatId === -1) {
-      // Current chat was deleted or all chats deleted
-      setCurrentChatId(null);
-      setMessages([]);
-    }
+    if (chatId === currentChatId || chatId === -1) clearMessages();
   };
 
-  const handleSendMessage = async (content: string) => {
-    if (!content.trim()) return;
-
-    setIsSendingMessage(true);
-
-    // Optimistic update: Add user message immediately
-    const tempUserMessage: MessageResponseDto = {
-      messageId: Date.now(), // Temporary ID
-      chatId: currentChatId || 0,
-      senderId: user?.id || 1,
-      content: content,
-      timestamp: new Date().toISOString(),
-    };
-
-    setMessages((prev) => [...prev, tempUserMessage]);
-
-    try {
-      let targetChatId = currentChatId;
-
-      // If no chat exists, create one first
-      if (!targetChatId) {
-        const newChat = await chatService.createChat();
-        targetChatId = newChat.chatId;
-        setCurrentChatId(targetChatId);
-      }
-
-      const data: SendMessageDto = {
-        chatId: targetChatId,
-        content: content,
-      };
-
-      const response = await chatService.sendMessage(data);
-
-      // Add AI response to messages
-      setMessages((prev) => [...prev, response]);
-    } catch (error) {
-      console.error("Failed to send message:", error);
-      // Optionally remove the optimistic message or show error
-    } finally {
-      setIsSendingMessage(false);
-    }
+  const handleSendMessage = (content: string) => {
+    sendMessage(content, user?.id ?? 0);
   };
 
   return (
