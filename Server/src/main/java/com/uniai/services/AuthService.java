@@ -70,6 +70,7 @@ public class AuthService {
 
         // Convert User to DTO and generate token with full user data
         AuthenticationResponseDto responseDto = AuthenticationResponseBuilder
+
                 .getAuthenticationResponseDtoFromUser(user);
         return jwtUtil.generateToken(responseDto);
     }

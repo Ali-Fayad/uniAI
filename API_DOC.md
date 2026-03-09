@@ -21,6 +21,7 @@ This document lists available API endpoints, request/response DTOs, expected suc
 
 ## AuthController — `/api/auth`
 
+
 - POST `/api/auth/signup`
 
   - Request: `SignUpDto` { username, firstName, lastName, email, password }
