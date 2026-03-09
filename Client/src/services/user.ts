@@ -5,13 +5,16 @@ import type {
   UpdateUserDto,
   ChangePasswordDto,
   DeleteAccountDto,
+  FeedbackRequest,
 } from '../types/dto';
+import type { IUserService } from '../interfaces';
 
 /**
- * User service for user-related API calls
+ * User service for user-related API calls.
+ * Implements IUserService so callers can depend on the abstraction (DIP).
  */
 
-export const userService = {
+export const userService: IUserService = {
   /**
    * Get current user profile
    */
@@ -52,7 +55,7 @@ export const userService = {
   /**
    * Send feedback
    */
-  async sendFeedback(data: { email: string; comment: string }): Promise<void> {
+  async sendFeedback(data: FeedbackRequest): Promise<void> {
     await apiClient.post(ENDPOINTS.USER.FEEDBACK, data);
   },
 };

@@ -5,13 +5,13 @@
  * Separates concerns from ChatPage component.
  */
 
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { chatService } from "../services/chat";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "./useAuth";
 import type { MessageResponseDto, SendMessageDto } from "../types/dto";
 
 export const useChat = () => {
-  const { user } = useContext(AuthContext)!;
+  const { user } = useAuth();
   const [currentChatId, setCurrentChatId] = useState<number | null>(null);
   const [messages, setMessages] = useState<MessageResponseDto[]>([]);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);

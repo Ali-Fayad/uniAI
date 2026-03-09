@@ -7,12 +7,14 @@ import type {
   Chat,
   MessageResponse,
 } from '../types/dto';
+import type { IChatService } from '../interfaces';
 
 /**
- * Chat service for chat-related API calls
+ * Chat service for chat-related API calls.
+ * Implements IChatService so callers can depend on the abstraction (DIP).
  */
 
-export const chatService = {
+export const chatService: IChatService = {
   /**
    * Create a new chat
    */

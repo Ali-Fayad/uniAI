@@ -1,74 +1,26 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AuthCard } from "../../../components/AuthCard";
 import AuthHeading from "../../../components/auth/AuthHeading";
 import { StaggerContainer, staggerItemVariants } from "../../../components/animations";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import { authService } from "../../../services/auth";
-import { useAuth } from "../../../hooks/useAuth";
+import { useSignIn } from "../../../hooks/useSignIn";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
-import type { SignInDto } from "../../../types/dto";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
-
-    try {
-      const data: SignInDto = { email, password };
-      const response = await authService.signIn(data);
-
-      // Defensive: ensure token exists before attempting to use it
-      if (!response || !response.token) {
-        throw new Error('Sign in failed: missing token');
-      }
-
-      // Store token and user data
-      login(response.token);
-
-      // Redirect to chat page
-      navigate(ROUTES.CHAT);
-    } catch (err: unknown) {
-      if (err && typeof err === "object" && "response" in err) {
-        const axiosError = err as {
-          response?: { status?: number; data?: { message?: string } };
-        };
-
-        // Handle 202 status (verification required)
-        // 2FA flow: backend returns 401 when 2FA is required
-        if (axiosError.response?.status === 401) {
-          navigate(ROUTES.VERIFY_2FA, { state: { email } });
-          return;
-        }
-
-        // Email verification flow: backend returns 202
-        if (axiosError.response?.status === 202) {
-          navigate(ROUTES.VERIFY, { state: { email } });
-          return;
-        }
-
-        setError(
-          axiosError.response?.data?.message ||
-            TEXT.auth.signIn.errors.invalidCredentials
-        );
-      } else {
-        setError(TEXT.common.error);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    email,
+    password,
+    isLoading,
+    error,
+    showPassword,
+    setEmail,
+    setPassword,
+    setShowPassword,
+    handleLogin,
+  } = useSignIn();
 
   return (
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">

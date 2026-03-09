@@ -1,10 +1,12 @@
 import { STORAGE_KEYS } from '../constants';
 import type { UserData } from '../types/dto';
+import type { IStorageService } from '../interfaces';
 
 /**
- * Storage utility for managing authentication tokens and user data in sessionStorage
+ * Storage utility for managing authentication tokens and user data in sessionStorage.
+ * Implements IStorageService so consumers can depend on the abstraction (DIP).
  */
-class StorageService {
+class StorageService implements IStorageService {
   // Token management
   getToken(): string | null {
     return sessionStorage.getItem(STORAGE_KEYS.TOKEN);

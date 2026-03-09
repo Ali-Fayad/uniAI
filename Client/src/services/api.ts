@@ -2,9 +2,13 @@ import axios, { AxiosError } from 'axios';
 import type { InternalAxiosRequestConfig } from 'axios';
 import { API_URL } from '../constants';
 import { Storage } from '../utils/Storage';
-
+import { handleResponseError } from '../http/errorHandlers';
 /**
- * Create axios instance with base configuration
+ * Create axios instance with base configuration.
+ *
+ * api.ts is responsible only for creating and configuring the HTTP
+ * transport layer (base URL, timeout, headers, interceptors).
+ * Error-response policy lives in http/errorHandlers.ts (SRP).
  */
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -33,41 +37,11 @@ apiClient.interceptors.request.use(
 );
 
 /**
- * Response interceptor for error handling
+ * Response interceptor – delegates error policy to handleResponseError (SRP).
  */
 apiClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error: AxiosError) => {
-    // Handle 401 Unauthorized - clear storage and redirect to auth
-    if (error.response && error.response.status === 401) {
-      Storage.clearAll();
-      
-      // Only redirect if we're not already on the auth pages
-      const currentPath = window.location.pathname;
-      if (!currentPath.startsWith('/auth') && !currentPath.startsWith('/signin') && !currentPath.startsWith('/signup')) {
-        window.location.href = '/auth';
-      }
-    }
-    
-    // Handle other error status codes
-    if (error.response) {
-      if (error.response.status === 403) {
-        console.error('Access forbidden:', error.response.data);
-      }
-      
-      if (error.response.status === 404) {
-        console.error('Resource not found:', error.response.data);
-      }
-      
-      if (error.response.status >= 500) {
-        console.error('Server error:', error.response.data);
-      }
-    }
-    
-    return Promise.reject(error);
-  }
+  (response) => response,
+  (error: AxiosError) => handleResponseError(error)
 );
 
 export default apiClient;

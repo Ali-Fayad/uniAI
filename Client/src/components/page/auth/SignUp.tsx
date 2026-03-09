@@ -1,73 +1,36 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useAuth } from "../../../hooks/useAuth";
 import { AuthCard } from "../../../components/AuthCard";
 import AuthHeading from "../../../components/auth/AuthHeading";
 import { StaggerContainer, staggerItemVariants } from "../../../components/animations";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import { authService } from "../../../services/auth";
+import { useSignUp } from "../../../hooks/useSignUp";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
-import type { SignUpDto } from "../../../types/dto";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    // Validate password match
-    if (password !== confirmPassword) {
-      setError(TEXT.auth.signUp.errors.passwordMismatch);
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const data: SignUpDto = { username, firstName, lastName, email, password };
-      const response = await authService.signUp(data);
-
-      // If server returned a token, log in and redirect to chat
-      if (response?.token) {
-        login(response.token);
-        navigate(ROUTES.CHAT);
-        return;
-      }
-
-      // Otherwise (e.g. verification required), navigate to verification page
-      navigate(ROUTES.VERIFY, { state: { email } });
-    } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response?: { status?: number; data?: { message?: string } } };
-
-        // Handle 202 status (verification required)
-        if (axiosError.response?.status === 202) {
-          navigate(ROUTES.VERIFY, { state: { email } });
-          return;
-        }
-
-        setError(axiosError.response?.data?.message || TEXT.auth.signUp.errors.signUpFailed);
-      } else {
-        setError(TEXT.common.error);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    username,
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    isLoading,
+    error,
+    showPassword,
+    showConfirmPassword,
+    setUsername,
+    setFirstName,
+    setLastName,
+    setEmail,
+    setPassword,
+    setConfirmPassword,
+    setShowPassword,
+    setShowConfirmPassword,
+    handleSignup,
+  } = useSignUp();
 
   return (
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[var(--color-background)] py-12 px-4">

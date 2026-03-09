@@ -7,6 +7,7 @@ import { useFeedback } from "../../hooks/useFeedback";
 import { TEXT } from "../../constants/static";
 import { ROUTES } from "../../router";
 import LiquidEther from "../LiquidEther";
+import AnimatedField from "../common/AnimatedField";
 import { PageTransition, ScaleIn, SlideIn, StaggerContainer, staggerItemVariants, FadeIn } from "../animations";
 
 // Simple Star Icon Component
@@ -49,18 +50,6 @@ const Card: React.FC<{
 };
 
 /**
- * AnimatedField Component
- * Wrapper for scroll animations with fade-in effect
- */
-const AnimatedField: React.FC<{
-  children: React.ReactNode;
-  delay?: number;
-}> = ({ children, delay = 0 }) => {
-  const ref = useScrollAnimation({ delay, threshold: 0.15 });
-  return <div ref={ref}>{children}</div>;
-};
-
-/**
  * Feedback Component
  * Feedback form section with rating and comment
  */
@@ -71,7 +60,7 @@ const Feedback: React.FC = () => {
     <div className="max-w-2xl mx-auto p-6">
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* 1. Email Field */}
-        <AnimatedField delay={0}>
+        <AnimatedField delay={0} threshold={0.15}>
           <label
             className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
             htmlFor="email"
@@ -92,7 +81,7 @@ const Feedback: React.FC = () => {
         </AnimatedField>
 
         {/* 2. Rating Field */}
-        <AnimatedField delay={100}>
+        <AnimatedField delay={100} threshold={0.15}>
           <label className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)] mb-2">
             {TEXT.main.feedback.ratingLabel}
           </label>
@@ -115,7 +104,7 @@ const Feedback: React.FC = () => {
         </AnimatedField>
 
         {/* 3. Feedback Textarea */}
-        <AnimatedField delay={200}>
+        <AnimatedField delay={200} threshold={0.15}>
           <label
             className="block text-sm font-medium leading-6 text-[var(--color-textPrimary)]"
             htmlFor="feedback"
@@ -136,7 +125,7 @@ const Feedback: React.FC = () => {
         </AnimatedField>
 
         {/* 4. Submit Button */}
-        <AnimatedField delay={300}>
+        <AnimatedField delay={300} threshold={0.15}>
           <div className="flex justify-center">
             <button
               type="submit"

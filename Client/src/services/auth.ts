@@ -11,12 +11,14 @@ import type {
   MessageResponse,
   UrlResponse,
 } from '../types/dto';
+import type { IAuthService } from '../interfaces';
 
 /**
- * Authentication service for all auth-related API calls
+ * Authentication service for all auth-related API calls.
+ * Implements IAuthService so callers can depend on the abstraction (DIP).
  */
 
-export const authService = {
+export const authService: IAuthService = {
   /**
    * Sign up a new user
    */

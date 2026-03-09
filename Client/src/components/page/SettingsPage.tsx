@@ -2,26 +2,9 @@ import React from "react";
 import SettingsSection from "../settings/SettingsSection";
 import FormInput from "../settings/FormInput";
 import FormButton from "../settings/FormButton";
+import AnimatedField from "../common/AnimatedField";
 import { useSettings } from "../../hooks/useSettings";
-import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import { TEXT } from "../../constants/static";
-
-/**
- * AnimatedField Component
- * 
- * Wrapper component for scroll animations
- */
-const AnimatedField: React.FC<{ children: React.ReactNode; delay?: number }> = ({ 
-  children, 
-  delay = 0 
-}) => {
-  const ref = useScrollAnimation({
-    delay,
-    threshold: 0.05,
-    transition: "opacity 300ms ease, transform 300ms ease",
-  });
-  return <div ref={ref}>{children}</div>;
-};
 
 /**
  * SettingsPage Component
@@ -56,7 +39,7 @@ const SettingsPage: React.FC = () => {
           </div>
         </div>
 
-        <AnimatedField delay={0}>
+        <AnimatedField delay={0} threshold={0.05} transition="opacity 300ms ease, transform 300ms ease">
           <SettingsSection title={TEXT.settings.profile.title} icon="person">
             <form onSubmit={handleProfileSubmit}>
               <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
@@ -140,7 +123,7 @@ const SettingsPage: React.FC = () => {
           </SettingsSection>
         </AnimatedField>
 
-        <AnimatedField delay={50}>
+        <AnimatedField delay={50} threshold={0.05} transition="opacity 300ms ease, transform 300ms ease">
           <SettingsSection title={TEXT.settings.theme.title} icon="palette">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <label
@@ -224,7 +207,7 @@ const SettingsPage: React.FC = () => {
           </SettingsSection>
         </AnimatedField>
 
-        <AnimatedField delay={100}>
+        <AnimatedField delay={100} threshold={0.05} transition="opacity 300ms ease, transform 300ms ease">
           <SettingsSection title={TEXT.settings.feedback.title} icon="reviews">
             <p className="text-sm text-[var(--color-textSecondary)] mb-6">
               {TEXT.settings.feedback.description}
@@ -301,7 +284,7 @@ const SettingsPage: React.FC = () => {
           </SettingsSection>
         </AnimatedField>
 
-        <AnimatedField delay={150}>
+        <AnimatedField delay={150} threshold={0.05} transition="opacity 300ms ease, transform 300ms ease">
           <SettingsSection title={TEXT.settings.dangerZone.title} icon="warning">
             <p className="text-sm text-[var(--color-error)]/80 mb-6">
               {TEXT.settings.dangerZone.description}
