@@ -1,91 +1,120 @@
-services:
-  # lightweight service that generates self-signed certs into a shared volume
-  certs:
-    image: alpine:3.18
-    container_name: uniai_certs
-    volumes:
-      - certs:/etc/nginx/certs
-    command: sh -c "apk add --no-cache openssl >/dev/null 2>&1 || true; \
-      if [ ! -f /etc/nginx/certs/fullchain.pem ]; then mkdir -p /etc/nginx/certs && \
-      openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/certs/privkey.pem -out /etc/nginx/certs/fullchain.pem -subj '/CN=localhost'; fi; sleep 1"
+# ─────────────────────────────────────────────────────────────
+#  uniAI – single root compose file
+#  Run:  docker compose up --build
+#  Certs: run ./nginx/certs/generate.sh once before first boot
+# ─────────────────────────────────────────────────────────────
 
-  # Spring Boot app - dev mode: mounts source and runs mvn spring-boot:run
+services:
+
+  # ── PostgreSQL 17 ─────────────────────────────────────────
+  postgres:
+    image: postgres:17-alpine
+    container_name: uniai_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-uniai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-uniai}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./Server/db:/docker-entrypoint-initdb.d:ro   # runs init.sql on first boot
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-uniai}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - uniai_network
+
+  # ── Spring Boot backend ────────────────────────────────────
   app:
     build:
       context: ./Server
       dockerfile: server/Dockerfile
+      target: dev          # uses the dev stage (mvnw spring-boot:run + volume mount)
     container_name: uniai_app
+    env_file:
+      - .env
     volumes:
-      - ./Server/:/workspace:cached
+      - ./Server:/workspace:cached
       - ~/.m2:/root/.m2:rw
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
-      - MAIL_USERNAME
-      - MAIL_PASSWORD
-      - JWT_SECRET
-      - APP_BASE_URL=https://localhost
-    ports:
-      - "9090:9090"
+      SPRING_PROFILES_ACTIVE: dev
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      APP_BASE_URL: ${APP_BASE_URL:-https://localhost}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-uniai}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-uniai}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-password}
     depends_on:
-      - certs
+      postgres:
+        condition: service_healthy
     stdin_open: true
     tty: true
+    networks:
+      - uniai_network
 
-  # client-build: builds the React/Vite app and writes static files into Server/client/dist
+  # ── React/Vite – production build ─────────────────────────
   client-build:
-    image: node:18
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+      target: builder       # runs npm ci + npm run build; dist → client_dist volume
     container_name: uniai_client_builder
-    working_dir: /app
     volumes:
-      - ./Client:/app:cached
-      - ./Server/client/dist:/app/dist
-    environment:
-      - NODE_ENV=production
-    command: sh -c "npm ci && npm run build && cp -r dist/* /app/dist/ || true && chmod -R a+rX /app/dist || true"
+      - client_dist:/app/dist    # nginx reads from this shared volume
+    networks:
+      - uniai_network
 
-  # client-dev: run Vite dev server inside a container for frontend development
+  # ── React/Vite – hot-reload dev server ────────────────────
   client-dev:
-    image: node:20
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+      target: dev           # node:20-alpine Vite hot-reload server
     container_name: uniai_client_dev
-    working_dir: /app
     volumes:
       - ./Client:/app:cached
       - client_node_modules:/app/node_modules
     environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-    ports:
-      - "5173:5173"
-    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
     healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://localhost:5173 || exit 1"]
+      # Use 127.0.0.1 not localhost: inside alpine containers localhost resolves
+      # to ::1 (IPv6) but Vite only binds on IPv4 0.0.0.0:5173.
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:5173 || exit 1"]
       interval: 5s
       timeout: 3s
       retries: 10
       start_period: 15s
     stdin_open: true
     tty: true
+    networks:
+      - uniai_network
 
-
-  # nginx: TLS termination and reverse-proxy for /api -> app, serves client static from Server/client/dist or proxies to client-dev
+  # ── Nginx – TLS termination + reverse proxy ───────────────
   nginx:
     build:
       context: ./nginx
       dockerfile: Dockerfile
     container_name: uniai_nginx
     ports:
-      - "8443:443" # map 8443 on host to 443 in container
-      - "8080:80" # optional HTTP port
+      - "80:80"
+      - "443:443"
     volumes:
-      - certs:/etc/nginx/certs:ro
-      - ./Server/client/dist:/usr/share/nginx/html:ro
+      - ./nginx/certs:/etc/nginx/certs:ro   # populated by generate.sh
+      - client_dist:/usr/share/nginx/html:ro
     depends_on:
       - app
-      - certs
       - client-build
-      - client-dev
+    networks:
+      - uniai_network
 
 volumes:
-  certs:
-    driver: local
-  client_node_modules: {}
+  postgres_data:
+  client_dist:
+  client_node_modules:
+
+networks:
+  uniai_network:
+    driver: bridge

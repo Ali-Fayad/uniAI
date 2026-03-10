@@ -1,0 +1,8 @@
+target
+*.log
+.git
+.gitignore
+.env
+.vscode
+client/
+db/
