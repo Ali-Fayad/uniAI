@@ -21,6 +21,7 @@ echo "[certs] Generating self-signed certificate in $CERT_DIR …"
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout "$CERT_DIR/privkey.pem" \
   -out    "$CERT_DIR/fullchain.pem" \
-  -subj   "/C=LB/ST=Beirut/L=Beirut/O=uniAI/CN=localhost"
+  -subj   "/C=LB/ST=Beirut/L=Beirut/O=uniAI/CN=localhost" \
+  -addext "subjectAltName=DNS:localhost,IP:127.0.0.1"
 
 echo "[certs] Done.  privkey.pem + fullchain.pem created."

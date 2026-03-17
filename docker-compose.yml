@@ -30,7 +30,6 @@ services:
     build:
       context: ./Server
       dockerfile: server/Dockerfile
-      target: dev          # uses the dev stage (mvnw spring-boot:run + volume mount)
     container_name: uniai_app
     env_file:
       - .env
@@ -70,8 +69,7 @@ services:
   client-dev:
     build:
       context: ./Client
-      dockerfile: Dockerfile
-      target: dev           # node:20-alpine Vite hot-reload server
+      dockerfile: Dockerfile.dev
     container_name: uniai_client_dev
     volumes:
       - ./Client:/app:cached
@@ -79,6 +77,11 @@ services:
     environment:
       NODE_ENV: development
       CHOKIDAR_USEPOLLING: "true"
+      # Empty = same-origin: browser calls /api/... which nginx routes to the backend.
+      # Override with http://localhost:9090 for dev outside Docker.
+      VITE_API_URL: ""
+      # Vite proxy target: used when accessing Vite directly (bypassing nginx).
+      VITE_BACKEND_TARGET: "http://app:9090"
     healthcheck:
       # Use 127.0.0.1 not localhost: inside alpine containers localhost resolves
       # to ::1 (IPv6) but Vite only binds on IPv4 0.0.0.0:5173.
@@ -114,6 +117,7 @@ volumes:
   postgres_data:
   client_dist:
   client_node_modules:
+    name: uniai_client_node_modules
 
 networks:
   uniai_network:

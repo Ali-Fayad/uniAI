@@ -1,5 +1,6 @@
-// API Base URL - defaults to localhost, can be overridden via environment variable
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:9090';
+// API Base URL - empty string = same-origin (works through nginx in Docker).
+// Override with VITE_API_URL for local dev without Docker: http://localhost:9090
+export const API_URL: string = import.meta.env.VITE_API_URL ?? '';
 
 // API Endpoints
 export const ENDPOINTS = {
