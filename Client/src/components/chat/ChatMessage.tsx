@@ -1,27 +1,52 @@
 import React from "react";
+import { motion } from "framer-motion";
 import type { MessageResponseDto } from "../../types/dto";
 
 interface ChatMessageProps {
   message: MessageResponseDto;
   isAI: boolean;
+  index?: number;
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAI }) => {
+/**
+ * ChatMessage Component
+ * 
+ * Responsibilities:
+ * - Display individual chat message with animation
+ * - Slide up animation on appearance
+ * - Different styling for AI vs user messages
+ */
+const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAI, index = 0 }) => {
   return (
-    <div
-      className={`flex gap-3 mb-4 animate-fadeIn ${
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.3, 
+        delay: index * 0.05,
+        ease: "easeOut" 
+      }}
+      className={`flex gap-3 mb-4 ${
         isAI ? "justify-start" : "justify-end"
       }`}
     >
       {isAI && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-primary)] flex items-center justify-center">
+        <motion.div 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: index * 0.05 + 0.1, duration: 0.2 }}
+          className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-primary)] flex items-center justify-center"
+        >
           <span className="material-symbols-outlined text-[var(--color-background)] text-sm">
             smart_toy
           </span>
-        </div>
+        </motion.div>
       )}
 
-      <div
+      <motion.div
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: index * 0.05 + 0.15 }}
         className={`max-w-[70%] px-4 py-3 rounded-2xl shadow-sm ${
           isAI
             ? "bg-[var(--color-surface)] text-[var(--color-textPrimary)] rounded-tl-none"
@@ -37,16 +62,21 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAI }) => {
             minute: "2-digit",
           })}
         </p>
-      </div>
+      </motion.div>
 
       {!isAI && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-secondary)] flex items-center justify-center">
+        <motion.div 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: index * 0.05 + 0.1, duration: 0.2 }}
+          className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-secondary)] flex items-center justify-center"
+        >
           <span className="material-symbols-outlined text-[var(--color-background)] text-sm">
             person
           </span>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

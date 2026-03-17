@@ -1,187 +1,119 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { chatService } from "../../services/chat";
+import React from "react";
+import { motion } from "framer-motion";
+import { useChat } from "../../hooks/useChat";
+import { TEXT } from "../../constants/static";
 import ChatSidebar from "../chat/ChatSidebar";
 import ChatMessage from "../chat/ChatMessage";
 import ChatInput from "../chat/ChatInput";
+import TypingIndicator from "../chat/TypingIndicator";
 import LoadingSpinner from "../common/LoadingSpinner";
-import { AuthContext } from "../../context/AuthContext";
-import type { MessageResponseDto, SendMessageDto } from "../../types/dto";
+import { PageTransition, StaggerContainer, staggerItemVariants } from "../animations";
 
+/**
+ * ChatPage Component
+ * 
+ * Responsibilities:
+ * - Render chat interface layout
+ * - Compose chat components (sidebar, messages, input)
+ * 
+ * All business logic is encapsulated in useChat hook.
+ */
 const ChatPage: React.FC = () => {
-  const { user } = useContext(AuthContext)!;
-  const [currentChatId, setCurrentChatId] = useState<number | null>(null);
-  const [messages, setMessages] = useState<MessageResponseDto[]>([]);
-  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
-  const [isSendingMessage, setIsSendingMessage] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  // Scroll to bottom when messages change
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isSendingMessage]);
-
-  // Load messages when chat is selected
-  useEffect(() => {
-    if (currentChatId) {
-      loadMessages(currentChatId);
-    } else {
-      setMessages([]);
-    }
-  }, [currentChatId]);
-
-  const loadMessages = async (chatId: number) => {
-    setIsLoadingMessages(true);
-    try {
-      const data = await chatService.getChatMessages(chatId);
-      setMessages(data);
-    } catch (error) {
-      console.error("Failed to load messages:", error);
-    } finally {
-      setIsLoadingMessages(false);
-    }
-  };
-
-  const handleNewChat = () => {
-    setCurrentChatId(null);
-    setMessages([]);
-  };
-
-  const handleSelectChat = (chatId: number) => {
-    if (chatId !== currentChatId) {
-      setCurrentChatId(chatId);
-    }
-  };
-
-  const handleDeleteChat = (chatId: number) => {
-    if (chatId === currentChatId || chatId === -1) {
-      // Current chat was deleted or all chats deleted
-      setCurrentChatId(null);
-      setMessages([]);
-    }
-  };
-
-  const handleSendMessage = async (content: string) => {
-    if (!content.trim()) return;
-
-    setIsSendingMessage(true);
-
-    // Optimistic update: Add user message immediately
-    const tempUserMessage: MessageResponseDto = {
-      messageId: Date.now(), // Temporary ID
-      chatId: currentChatId || 0,
-      senderId: user?.id || 1,
-      content: content,
-      timestamp: new Date().toISOString(),
-    };
-
-    setMessages((prev) => [...prev, tempUserMessage]);
-
-    try {
-      let targetChatId = currentChatId;
-
-      // If no chat exists, create one first
-      if (!targetChatId) {
-        const newChat = await chatService.createChat();
-        targetChatId = newChat.chatId;
-        setCurrentChatId(targetChatId);
-      }
-
-      const data: SendMessageDto = {
-        chatId: targetChatId,
-        content: content,
-      };
-
-      const response = await chatService.sendMessage(data);
-
-      // Add AI response to messages
-      setMessages((prev) => [...prev, response]);
-    } catch (error) {
-      console.error("Failed to send message:", error);
-      // Optionally remove the optimistic message or show error
-    } finally {
-      setIsSendingMessage(false);
-    }
-  };
+  const {
+    currentChatId,
+    messages,
+    isLoadingMessages,
+    isSendingMessage,
+    messagesEndRef,
+    handleNewChat,
+    handleSelectChat,
+    handleDeleteChat,
+    handleSendMessage,
+  } = useChat();
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <ChatSidebar
-        selectedChatId={currentChatId}
-        onSelectChat={handleSelectChat}
-        onNewChat={handleNewChat}
-        onDeleteChat={handleDeleteChat}
-      />
-
-      {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col bg-[var(--color-background)] relative">
-        {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-6 pb-32">
-          {isLoadingMessages ? (
-            <div className="h-full flex items-center justify-center">
-              <LoadingSpinner text="Loading messages..." />
-            </div>
-          ) : (
-            <div className="max-w-4xl mx-auto">
-              {messages.length === 0 && !currentChatId ? (
-                <div className="flex flex-col items-center justify-center h-full py-20 opacity-50">
-                  <span className="material-symbols-outlined text-6xl mb-4 text-[var(--color-primary)]">
-                    chat_bubble_outline
-                  </span>
-                  <p className="text-xl font-medium">
-                    Start a new conversation
-                  </p>
-                </div>
-              ) : (
-                <>
-                  {messages.map((message) => (
-                    <ChatMessage
-                      key={message.messageId}
-                      message={message}
-                      isAI={message.senderId === 0}
-                    />
-                  ))}
-                  {isSendingMessage && (
-                    <div className="flex justify-start gap-3 mb-4 animate-fadeIn">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-primary)] flex items-center justify-center">
-                        <span className="material-symbols-outlined text-[var(--color-background)] text-sm">
-                          smart_toy
-                        </span>
-                      </div>
-                      <div className="bg-[var(--color-surface)] px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
-                        <div className="flex gap-1 items-center h-5">
-                          <span
-                            className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce"
-                            style={{ animationDelay: "0ms" }}
-                          ></span>
-                          <span
-                            className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce"
-                            style={{ animationDelay: "150ms" }}
-                          ></span>
-                          <span
-                            className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce"
-                            style={{ animationDelay: "300ms" }}
-                          ></span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-          )}
-        </div>
-
-        {/* Input Area - Fixed at bottom */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <ChatInput
-            onSendMessage={handleSendMessage}
-            disabled={isSendingMessage}
+    <PageTransition>
+      <div className="flex h-[calc(100vh-64px)]">
+        {/* Sidebar */}
+        <motion.div 
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="h-full"
+        >
+          <ChatSidebar
+            selectedChatId={currentChatId}
+            onSelectChat={handleSelectChat}
+            onNewChat={handleNewChat}
+            onDeleteChat={handleDeleteChat}
           />
-        </div>
+        </motion.div>
+
+        {/* Main Chat Area */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex-1 flex flex-col bg-[var(--color-background)] relative"
+        >
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto p-6 pb-32">
+            {isLoadingMessages ? (
+              <div className="h-full flex items-center justify-center">
+                <LoadingSpinner text={TEXT.chat.loading} />
+              </div>
+            ) : (
+              <div className="max-w-4xl mx-auto">
+                {messages.length === 0 && !currentChatId ? (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="flex flex-col items-center justify-center h-full py-20 opacity-50"
+                  >
+                    <span className="material-symbols-outlined text-6xl mb-4 text-[var(--color-primary)]">
+                      {TEXT.chat.emptyState.icon}
+                    </span>
+                    <p className="text-xl font-medium">
+                      {TEXT.chat.emptyState.message}
+                    </p>
+                  </motion.div>
+                ) : (
+                  <>
+                    <StaggerContainer staggerDelay={0.05} initialDelay={0}>
+                      {messages.map((message, index) => (
+                        <motion.div key={message.messageId} variants={staggerItemVariants}>
+                          <ChatMessage
+                            message={message}
+                            isAI={message.senderId === 0}
+                            index={index}
+                          />
+                        </motion.div>
+                      ))}
+                    </StaggerContainer>
+                    {isSendingMessage && <TypingIndicator />}
+                  </>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            )}
+          </div>
+
+          {/* Input Area - Fixed at bottom */}
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="absolute bottom-0 left-0 right-0"
+          >
+            <ChatInput
+              onSendMessage={handleSendMessage}
+              disabled={isSendingMessage}
+            />
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </PageTransition>
   );
 };
 

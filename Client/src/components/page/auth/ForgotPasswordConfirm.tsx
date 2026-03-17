@@ -4,6 +4,8 @@ import { AuthCard } from "../../../components/AuthCard";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { authService } from "../../../services/auth";
 import { useAuth } from "../../../hooks/useAuth";
+import { TEXT } from "../../../constants/static";
+import { ROUTES } from "../../../router";
 import type { RequestPasswordDto } from "../../../types/dto";
 
 const ForgotPasswordConfirm = () => {
@@ -30,7 +32,7 @@ const ForgotPasswordConfirm = () => {
     }
 
     if (newPassword !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(TEXT.auth.forgotPasswordConfirm.errors.passwordMismatch);
       return;
     }
 
@@ -45,13 +47,13 @@ const ForgotPasswordConfirm = () => {
       login(response.token);
 
       // Redirect to chat page
-      navigate('/chat');
+      navigate(ROUTES.CHAT);
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as { response?: { data?: { message?: string } } };
-        setError(axiosError.response?.data?.message || 'Failed to reset password. Please try again.');
+        setError(axiosError.response?.data?.message || TEXT.auth.forgotPasswordConfirm.errors.resetFailed);
       } else {
-        setError('An unexpected error occurred.');
+        setError(TEXT.common.error);
       }
     } finally {
       setIsLoading(false);
@@ -63,10 +65,10 @@ const ForgotPasswordConfirm = () => {
       <AuthCard>
         <div className="flex flex-col gap-2 mb-8 pt-8">
           <p className="text-[var(--color-textPrimary)] text-4xl font-black tracking-[-0.033em]">
-            Reset Password
+            {TEXT.auth.forgotPasswordConfirm.title}
           </p>
           <p className="text-[var(--color-textSecondary)]">
-            Enter the code and your new password.
+            {TEXT.auth.forgotPasswordConfirm.subtitle}
           </p>
         </div>
 
@@ -82,7 +84,7 @@ const ForgotPasswordConfirm = () => {
               <p className="text-[var(--color-textPrimary)] font-medium pb-2">Reset Code</p>
               <input
                 type="text"
-                placeholder="123456"
+                placeholder={TEXT.auth.verify.codePlaceholder}
                 value={code}
                 onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                 required
@@ -97,7 +99,7 @@ const ForgotPasswordConfirm = () => {
               <p className="text-[var(--color-textPrimary)] font-medium pb-2">New Password</p>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter new password"
+                placeholder={TEXT.auth.forgotPasswordConfirm.newPasswordPlaceholder}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
@@ -119,7 +121,7 @@ const ForgotPasswordConfirm = () => {
               <p className="text-[var(--color-textPrimary)] font-medium pb-2">Confirm Password</p>
               <input
                 type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirm new password"
+                placeholder={TEXT.auth.forgotPasswordConfirm.confirmPasswordPlaceholder}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -141,7 +143,7 @@ const ForgotPasswordConfirm = () => {
             disabled={isLoading}
             className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Resetting...' : 'Reset Password'}
+            {isLoading ? TEXT.auth.forgotPasswordConfirm.submitButtonLoading : TEXT.auth.forgotPasswordConfirm.submitButton}
           </button>
         </form>
 
@@ -150,7 +152,7 @@ const ForgotPasswordConfirm = () => {
           <button
             type="button"
             className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0 border-0"
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate(ROUTES.SIGN_IN)}
           >
             Sign in
           </button>

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -75,11 +76,14 @@ const ChatInput: React.FC<ChatInputProps> = ({
       </div>
 
       <div className="max-w-3xl mx-auto relative z-10">
-        <form
+        <motion.form
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.3 }}
           onSubmit={handleSubmit}
           className={`
             relative bg-[var(--color-surface)] rounded-[26px] shadow-lg border border-[var(--color-border)]
-            transition-all duration-200 focus-within:shadow-xl focus-within:border-[var(--color-primary)]/50
+            transition-all duration-200
             ${disabled ? "opacity-70 cursor-not-allowed" : ""}
           `}
         >
@@ -95,7 +99,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             placeholder="Message uniAI..."
             disabled={disabled}
             rows={1}
-            className="w-full bg-transparent border-none px-5 py-4 text-[var(--color-textPrimary)] placeholder-[var(--color-textSecondary)] focus:ring-0 resize-none min-h-[60px] max-h-[200px] scrollbar-thin scrollbar-thumb-[var(--color-border)]"
+            className="w-full bg-transparent border-none px-5 py-4 text-[var(--color-textPrimary)] placeholder-[var(--color-textSecondary)] focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none focus-visible:shadow-none focus-visible:border-[var(--color-border)] resize-none min-h-[60px] max-h-[200px] scrollbar-thin scrollbar-thumb-[var(--color-border)]"
             style={{ height: "60px" }}
           />
 
@@ -158,17 +162,17 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 p-2 rounded-full transition-all duration-200 flex items-center justify-center
                 ${
                   message.trim() && !disabled
-                    ? "bg-[var(--color-primary)] text-black shadow-md hover:bg-[var(--color-primaryHover)] transform hover:scale-105"
+                    ? "bg-[var(--color-primary)] text-[var(--color-surface)] shadow-md hover:bg-[var(--color-primaryHover)] transform hover:scale-105"
                     : "bg-[var(--color-surfaceHover)] text-[var(--color-border)] cursor-not-allowed"
                 }
               `}
             >
-              <span className="material-symbols-outlined text-[20px] text-black">
+                  <span className="material-symbols-outlined text-[20px]">
                 arrow_upward
               </span>
             </button>
           </div>
-        </form>
+        </motion.form>
 
         <p className="text-center text-[10px] text-[var(--color-textSecondary)] mt-3">
           AI can make mistakes. Check important info.

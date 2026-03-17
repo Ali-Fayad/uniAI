@@ -1,8 +1,5 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { chatService } from "../../services/chat";
-import { AuthContext } from "../../context/AuthContext";
-import type { Chat } from "../../types/dto";
+import React from "react";
+import { useChatSidebar } from "../../hooks/useChatSidebar";
 
 interface ChatSidebarProps {
   selectedChatId: number | null;
@@ -17,57 +14,19 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
   onNewChat,
   onDeleteChat,
 }) => {
-  const { user, logout } = useContext(AuthContext)!;
-  const navigate = useNavigate();
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const profileMenuRef = useRef<HTMLDivElement | null>(null);
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    loadChats();
-  }, [selectedChatId]); // Reload when selection changes (e.g. new chat created)
-
-  // Close profile menu on outside click
-  useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      if (!profileMenuRef.current) return;
-      if (
-        e.target instanceof Node &&
-        !profileMenuRef.current.contains(e.target)
-      ) {
-        setProfileMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("click", onDocClick);
-    return () => document.removeEventListener("click", onDocClick);
-  }, []);
-
-  const loadChats = async () => {
-    try {
-      const data = await chatService.getChats();
-      setChats(data);
-    } catch (error) {
-      console.error("Failed to load chats:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDeleteChat = async (chatId: number, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (confirm("Are you sure you want to delete this chat?")) {
-      try {
-        await chatService.deleteChat(chatId);
-        setChats(chats.filter((chat) => chat.id !== chatId));
-        onDeleteChat(chatId);
-      } catch (error) {
-        console.error("Failed to delete chat:", error);
-      }
-    }
-  };
+  const {
+    user,
+    chats,
+    isLoading,
+    isSidebarOpen,
+    profileMenuOpen,
+    profileMenuRef,
+    setIsSidebarOpen,
+    setProfileMenuOpen,
+    handleDeleteChat,
+    handleLogout,
+    handleNavigateSettings,
+  } = useChatSidebar(selectedChatId, onDeleteChat);
 
   return (
     <>
@@ -191,10 +150,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
                   <ul className="py-1">
                     <li>
                       <button
-                        onClick={() => {
-                          setProfileMenuOpen(false);
-                          navigate("/settings");
-                        }}
+                        onClick={handleNavigateSettings}
                         className="w-full text-left px-4 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                       >
                         Settings
@@ -202,11 +158,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
                     </li>
                     <li>
                       <button
-                        onClick={() => {
-                          setProfileMenuOpen(false);
-                          logout();
-                          navigate("/");
-                        }}
+                        onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-sm text-[var(--color-error)] hover:bg-[var(--color-elevatedSurface)]"
                       >
                         Logout

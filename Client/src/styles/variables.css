@@ -1,0 +1,8 @@
+:root {
+  --navbar-height: 64px;
+}
+
+/* Ensure body uses theme background variable if available */
+html, body, #root {
+  height: 100%;
+}

@@ -2,6 +2,17 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './LiquidEther.css';
 
+// Feature flag to disable the heavy WebGL liquid effect while keeping
+// the implementation in-place for later reuse. Toggle with the
+// exported helpers below (note: enabling at runtime requires remount).
+export let LIQUID_ETHER_ENABLED = false;
+export function enableLiquidEther() {
+  LIQUID_ETHER_ENABLED = true;
+}
+export function disableLiquidEther() {
+  LIQUID_ETHER_ENABLED = false;
+}
+
 interface LiquidEtherProps {
   mouseForce?: number;
   cursorSize?: number;
@@ -54,6 +65,7 @@ export default function LiquidEther({
   const resizeRafRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (!LIQUID_ETHER_ENABLED) return;
     if (!mountRef.current) return;
 
     function makePaletteTexture(stops: string[]) {
@@ -1188,6 +1200,7 @@ export default function LiquidEther({
   ]);
 
   useEffect(() => {
+    if (!LIQUID_ETHER_ENABLED) return;
     const webgl = webglRef.current;
     if (!webgl) return;
     const sim = webgl.output?.simulation;
@@ -1237,5 +1250,6 @@ export default function LiquidEther({
     autoRampDuration
   ]);
 
-  return <div ref={mountRef} className={`liquid-ether-container ${className || ''}`} style={style} />;
+  const disabledAttr = !LIQUID_ETHER_ENABLED ? { 'data-liquidether-disabled': 'true' } : {};
+  return <div ref={mountRef} {...disabledAttr} className={`liquid-ether-container ${className || ''}`} style={style} />;
 }

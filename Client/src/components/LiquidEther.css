@@ -5,3 +5,9 @@
   height: 100%;
   touch-action: none;
 }
+
+/* When disabled, keep a harmless placeholder and prevent pointer interactions */
+.liquid-ether-container[data-liquidether-disabled="true"] {
+  background: transparent !important;
+  pointer-events: none !important;
+}

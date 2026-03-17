@@ -1,0 +1,13 @@
+.navbar {
+  width: 100%;
+  top: 0;
+  position: sticky;
+}
+.container {
+  max-width: 1200px;
+}
+
+/* small helpers for mobile menu if extended later */
+.mobileMenu {
+  display: none;
+}
