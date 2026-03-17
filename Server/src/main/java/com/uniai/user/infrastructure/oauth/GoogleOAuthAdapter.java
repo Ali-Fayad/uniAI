@@ -9,6 +9,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.uniai.shared.exception.GoogleAuthException;
 import com.uniai.user.application.port.out.OAuthPort;
+import com.uniai.user.domain.builder.UserBuilder;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.UUID;
 
 /**
  * Google OAuth2 implementation of {@link OAuthPort}.
@@ -135,18 +135,9 @@ public class GoogleOAuthAdapter implements OAuthPort {
 
         return userRepository.findByEmail(email).orElseGet(() -> {
             String firstName = (String) payload.get("given_name");
-            String lastName = (String) payload.get("family_name");
+            String lastName  = (String) payload.get("family_name");
 
-            User newUser = User.builder()
-                    .email(email)
-                    .firstName(firstName)
-                    .lastName(lastName)
-                    .username(email)
-                    .password(UUID.randomUUID().toString())
-                    .isVerified(true)
-                    .isTwoFacAuth(false)
-                    .build();
-
+            User newUser = UserBuilder.forOAuth(firstName, lastName, email).build();
             return userRepository.save(newUser);
         });
     }

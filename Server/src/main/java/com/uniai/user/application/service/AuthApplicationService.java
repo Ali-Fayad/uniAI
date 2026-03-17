@@ -9,6 +9,8 @@ import com.uniai.user.application.dto.response.AuthResponseDto;
 import com.uniai.user.application.port.in.*;
 import com.uniai.user.application.port.out.NotificationPort;
 import com.uniai.user.application.port.out.OAuthPort;
+import com.uniai.user.domain.builder.UserBuilder;
+import com.uniai.user.domain.builder.VerifyCodeBuilder;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.model.VerifyCode;
 import com.uniai.user.domain.repository.UserRepository;
@@ -18,8 +20,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 /**
  * Application service for all authentication use cases.
@@ -62,12 +62,12 @@ public class AuthApplicationService implements
             throw new AlreadyExistsException("Username already exists");
         }
 
-        User user = User.builder()
-                .username(command.getUsername().toLowerCase())
-                .firstName(capitalize(command.getFirstName()))
-                .lastName(capitalize(command.getLastName()))
-                .email(command.getEmail().toLowerCase())
-                .password(passwordEncoder.encode(command.getPassword()))
+        User user = UserBuilder.forSignUp(
+                        command.getFirstName(),
+                        command.getLastName(),
+                        command.getUsername(),
+                        command.getEmail(),
+                        passwordEncoder.encode(command.getPassword()))
                 .build();
 
         userRepository.save(user);
@@ -181,11 +181,8 @@ public class AuthApplicationService implements
 
         verifyCodeRepository.deleteByEmailAndType(email, type);
 
-        VerifyCode verifyCode = VerifyCode.builder()
-                .email(email)
-                .code(code)
-                .type(type)
-                .expirationTime(LocalDateTime.now().plusMinutes(codeExpiryMinutes))
+        VerifyCode verifyCode = VerifyCodeBuilder.create(email, code, type)
+                .expiresInMinutes(codeExpiryMinutes)
                 .build();
 
         verifyCodeRepository.save(verifyCode);
@@ -225,10 +222,5 @@ public class AuthApplicationService implements
                 .isVerified(user.isVerified())
                 .isTwoFacAuth(user.isTwoFacAuth())
                 .build();
-    }
-
-    private static String capitalize(String str) {
-        if (str == null || str.isEmpty()) return str;
-        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 }

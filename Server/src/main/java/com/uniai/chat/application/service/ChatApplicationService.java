@@ -5,6 +5,8 @@ import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.port.in.*;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.domain.builder.ChatBuilder;
+import com.uniai.chat.domain.builder.MessageBuilder;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.ChatRepository;
@@ -48,7 +50,7 @@ public class ChatApplicationService implements
     @Transactional
     public ChatCreationResponseDto createChat(String email) {
         User user = getUser(email);
-        Chat chat = Chat.builder().user(user).build();
+        Chat chat = ChatBuilder.forUser(user).build();
         chatRepository.save(chat);
         return ChatCreationResponseDto.builder().chatId(chat.getId()).build();
     }
@@ -70,21 +72,11 @@ public class ChatApplicationService implements
 
         boolean isFirstMessage = (chat.getTitle() == null);
 
-        Message userMessage = Message.builder()
-                .chat(chat)
-                .senderId(user.getId())
-                .content(command.getContent())
-                .timestamp(LocalDateTime.now())
-                .build();
+        Message userMessage = MessageBuilder.userMessage(chat, user.getId(), command.getContent()).build();
         messageRepository.save(userMessage);
 
         String aiContent = aiServicePort.generateResponse(command.getContent());
-        Message aiMessage = Message.builder()
-                .chat(chat)
-                .senderId(0L)
-                .content(aiContent)
-                .timestamp(LocalDateTime.now())
-                .build();
+        Message aiMessage = MessageBuilder.aiMessage(chat, aiContent).build();
         messageRepository.save(aiMessage);
 
         if (isFirstMessage) {
