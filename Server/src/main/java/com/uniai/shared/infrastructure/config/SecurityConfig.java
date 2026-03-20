@@ -34,11 +34,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-      config.setAllowedOriginPatterns(List.of(
-        "http://172.22.0.*",     // Any IP in this subnet
-        "http://*.172.22.0.*",   // With any port
-        "http://client-dev:5173" // Your Docker service name
-        ));
+    config.setAllowedOriginPatterns(List.of(
+        "http://127.*",        // any 127.x.x.x (any port)
+        "http://127.*:*",      // explicit port wildcard (works with pattern matching)
+        "http://172.22.0.10:5173" // Client static IP
+      ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

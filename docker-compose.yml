@@ -93,7 +93,8 @@ services:
     stdin_open: true
     tty: true
     networks:
-      - uniai_network
+      uniai_network:
+        ipv4_address: 172.22.0.10
 
   # ── Nginx – TLS termination + reverse proxy ───────────────
   nginx:
@@ -122,3 +123,8 @@ volumes:
 networks:
   uniai_network:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/24
+          gateway: 172.22.0.1
