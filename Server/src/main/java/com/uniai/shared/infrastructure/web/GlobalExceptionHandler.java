@@ -83,4 +83,10 @@ public class GlobalExceptionHandler {
         logger.warn("JsonProcessingException: {}", ex.getMessage(), ex);
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
+
+    @ExceptionHandler({CVNotFoundException.class, SectionNotFoundException.class, UniversityNotFoundException.class})
+    public ResponseEntity<?> handleCvBuilderNotFound(Exception ex) {
+        logger.warn("NotFound: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
 }
