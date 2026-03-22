@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Command payload for upserting personal contact and profile information tied to the authenticated user.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

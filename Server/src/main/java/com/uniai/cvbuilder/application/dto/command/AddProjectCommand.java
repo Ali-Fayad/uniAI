@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Command payload for adding or updating a portfolio project entry on a CV.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

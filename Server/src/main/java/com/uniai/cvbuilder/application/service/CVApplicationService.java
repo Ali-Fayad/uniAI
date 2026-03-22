@@ -21,6 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Application service coordinating CV lifecycle operations, section CRUD, ownership checks,
+ * and mapping domain aggregates to response DTOs.
+ */
 @Service
 @RequiredArgsConstructor
 public class CVApplicationService implements CVUseCase {

@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Command payload for updating CV metadata such as name, template choice, and default status.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

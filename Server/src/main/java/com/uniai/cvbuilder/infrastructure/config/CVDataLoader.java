@@ -17,6 +17,9 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Application runner that seeds university reference data from the markdown table when available.
+ */
 @Component
 @RequiredArgsConstructor
 public class CVDataLoader implements ApplicationRunner {

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Command payload for creating a new CV shell with optional template selection and default flag.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO containing user-level contact and profile details merged into CV responses.
+ */
 @Data
 @Builder
 @AllArgsConstructor

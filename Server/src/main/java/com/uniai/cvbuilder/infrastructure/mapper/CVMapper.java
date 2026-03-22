@@ -6,6 +6,9 @@ import com.uniai.cvbuilder.domain.model.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Mapping utilities to convert CV domain aggregates and nested entities into response DTO graphs.
+ */
 public final class CVMapper {
 
     private CVMapper() {}

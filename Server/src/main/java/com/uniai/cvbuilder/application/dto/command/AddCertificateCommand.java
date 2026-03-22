@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * Command payload for attaching a certificate record to a CV. Validated by the controller
+ * before being handed to the CV application service.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Spring Data repository for language proficiency entries linked to CVs.
+ */
 @Repository
 public interface JpaLanguageRepository extends JpaRepository<Language, Long> {
 

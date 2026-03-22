@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * DTO representing a certificate section entry persisted for a CV.
+ */
 @Data
 @Builder
 @AllArgsConstructor

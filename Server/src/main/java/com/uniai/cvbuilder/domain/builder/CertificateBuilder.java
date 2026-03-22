@@ -4,6 +4,9 @@ import com.uniai.cvbuilder.domain.model.Certificate;
 
 import java.time.LocalDate;
 
+/**
+ * Fluent builder for constructing {@link Certificate} aggregates with optional certificate details.
+ */
 public final class CertificateBuilder {
 
     private final Certificate.CertificateBuilder builder;

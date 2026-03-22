@@ -5,6 +5,9 @@ import com.uniai.cvbuilder.domain.model.Skill;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Domain repository abstraction for skill entries maintained under CVs.
+ */
 public interface SkillRepository {
 
     Optional<Skill> findById(Long id);

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Spring Data repository for user personal info records.
+ */
 @Repository
 public interface JpaPersonalInfoRepository extends JpaRepository<PersonalInfo, Long> {
 

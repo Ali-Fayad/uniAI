@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * JPA entity representing the CV root aggregate that ties user ownership to all section data.
+ */
 @Entity
 @Table(name = "cvs")
 @Data

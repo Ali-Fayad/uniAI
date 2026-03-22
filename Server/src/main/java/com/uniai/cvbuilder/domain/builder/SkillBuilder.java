@@ -2,6 +2,9 @@ package com.uniai.cvbuilder.domain.builder;
 
 import com.uniai.cvbuilder.domain.model.Skill;
 
+/**
+ * Fluent builder for creating {@link Skill} aggregates with optional proficiency and ordering metadata.
+ */
 public final class SkillBuilder {
 
     private final Skill.SkillBuilder builder;

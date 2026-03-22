@@ -6,6 +6,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fluent builder for composing {@link Experience} aggregates, normalizing defaults for
+ * achievements and current status.
+ */
 public final class ExperienceBuilder {
 
     private final Experience.ExperienceBuilder builder;

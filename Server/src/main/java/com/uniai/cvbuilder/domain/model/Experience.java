@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * JPA entity representing a professional experience record stored under a CV.
+ */
 @Entity
 @Table(name = "experiences")
 @Data

@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * JPA entity representing an education section entry associated with a CV.
+ */
 @Entity
 @Table(name = "educations")
 @Data

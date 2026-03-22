@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Command payload for adding or reordering a skill entry within a CV.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

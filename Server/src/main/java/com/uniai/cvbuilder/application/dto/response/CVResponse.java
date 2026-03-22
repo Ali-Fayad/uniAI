@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Aggregated view model returned by CV endpoints, combining core CV metadata with all nested
+ * sections and personal info.
+ */
 @Data
 @Builder
 @AllArgsConstructor

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST controller for retrieving and updating authenticated users' personal information.
+ */
 @RestController
 @RequestMapping("/api/cv/personal-info")
 @RequiredArgsConstructor

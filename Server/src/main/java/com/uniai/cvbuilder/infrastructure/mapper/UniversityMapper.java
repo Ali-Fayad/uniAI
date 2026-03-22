@@ -3,6 +3,9 @@ package com.uniai.cvbuilder.infrastructure.mapper;
 import com.uniai.cvbuilder.application.dto.response.UniversityResponse;
 import com.uniai.cvbuilder.domain.model.University;
 
+/**
+ * Mapper for converting {@link University} entities to API response DTOs.
+ */
 public final class UniversityMapper {
 
     private UniversityMapper() {}

@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * JPA entity storing university and campus metadata used for education lookups and seeding.
+ */
 @Entity
 @Table(name = "universities")
 @Data

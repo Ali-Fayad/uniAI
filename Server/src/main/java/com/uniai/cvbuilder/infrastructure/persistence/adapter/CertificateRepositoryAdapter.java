@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * JPA-backed implementation of {@link CertificateRepository}.
+ */
 @Repository
 @RequiredArgsConstructor
 public class CertificateRepositoryAdapter implements CertificateRepository {

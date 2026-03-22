@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * JPA-backed implementation of {@link LanguageRepository}.
+ */
 @Repository
 @RequiredArgsConstructor
 public class LanguageRepositoryAdapter implements LanguageRepository {

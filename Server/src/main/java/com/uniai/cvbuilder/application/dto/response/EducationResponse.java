@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * DTO representing an education entry linked to a CV, including university reference and dates.
+ */
 @Data
 @Builder
 @AllArgsConstructor

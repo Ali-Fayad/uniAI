@@ -2,6 +2,9 @@ package com.uniai.cvbuilder.domain.builder;
 
 import com.uniai.cvbuilder.domain.model.Language;
 
+/**
+ * Fluent builder for constructing {@link Language} aggregates with optional proficiency levels.
+ */
 public final class LanguageBuilder {
 
     private final Language.LanguageBuilder builder;

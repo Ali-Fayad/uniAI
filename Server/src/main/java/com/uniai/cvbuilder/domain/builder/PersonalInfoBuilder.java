@@ -2,6 +2,9 @@ package com.uniai.cvbuilder.domain.builder;
 
 import com.uniai.cvbuilder.domain.model.PersonalInfo;
 
+/**
+ * Fluent builder for crafting {@link PersonalInfo} aggregates for a given user.
+ */
 public final class PersonalInfoBuilder {
 
     private final PersonalInfo.PersonalInfoBuilder builder;

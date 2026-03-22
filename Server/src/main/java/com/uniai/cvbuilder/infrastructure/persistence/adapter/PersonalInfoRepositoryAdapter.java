@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * JPA-backed implementation of {@link PersonalInfoRepository}.
+ */
 @Repository
 @RequiredArgsConstructor
 public class PersonalInfoRepositoryAdapter implements PersonalInfoRepository {

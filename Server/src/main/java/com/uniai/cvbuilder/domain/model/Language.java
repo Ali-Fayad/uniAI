@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * JPA entity representing a language proficiency entry for a CV.
+ */
 @Entity
 @Table(name = "languages")
 @Data

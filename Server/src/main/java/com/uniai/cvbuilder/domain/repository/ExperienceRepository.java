@@ -5,6 +5,9 @@ import com.uniai.cvbuilder.domain.model.Experience;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Domain repository abstraction for professional experience entries associated with CVs.
+ */
 public interface ExperienceRepository {
 
     Optional<Experience> findById(Long id);

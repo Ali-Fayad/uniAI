@@ -13,6 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Application service handling retrieval and updates of user personal information leveraged
+ * across generated CVs.
+ */
 @Service
 @RequiredArgsConstructor
 public class PersonalInfoApplicationService implements PersonalInfoUseCase {

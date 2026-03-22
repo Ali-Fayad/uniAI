@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * JPA entity holding user-level personal details reused across CVs.
+ */
 @Entity
 @Table(name = "personal_info")
 @Data

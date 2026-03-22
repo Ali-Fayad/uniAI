@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Spring Data repository for education entries linked to CVs.
+ */
 @Repository
 public interface JpaEducationRepository extends JpaRepository<Education, Long> {
 

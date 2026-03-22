@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Spring Data repository for certificate entries linked to CVs.
+ */
 @Repository
 public interface JpaCertificateRepository extends JpaRepository<Certificate, Long> {
 

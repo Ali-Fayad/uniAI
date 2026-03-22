@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO representing a skill entry on a CV, including optional proficiency level and ordering.
+ */
 @Data
 @Builder
 @AllArgsConstructor

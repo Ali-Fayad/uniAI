@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * JPA entity capturing certificate achievements linked to a CV.
+ */
 @Entity
 @Table(name = "certificates")
 @Data

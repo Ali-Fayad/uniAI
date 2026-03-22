@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * JPA entity representing a skill entry for a CV with optional proficiency and ordering.
+ */
 @Entity
 @Table(name = "skills")
 @Data

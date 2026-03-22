@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * DTO representing a project section entry persisted for a CV, including repo and live links.
+ */
 @Data
 @Builder
 @AllArgsConstructor

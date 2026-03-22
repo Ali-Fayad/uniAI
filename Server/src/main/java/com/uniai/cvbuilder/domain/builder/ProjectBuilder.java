@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fluent builder for assembling {@link Project} aggregates while handling optional links and technologies.
+ */
 public final class ProjectBuilder {
 
     private final Project.ProjectBuilder builder;

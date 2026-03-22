@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Application service that delegates to external API clients to fetch supplemental data such as
+ * popular skills and job positions.
+ */
 @Service
 @RequiredArgsConstructor
 public class ExternalApiApplicationService {

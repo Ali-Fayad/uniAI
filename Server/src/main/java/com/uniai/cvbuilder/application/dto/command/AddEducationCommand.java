@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * Command payload for adding or updating an education entry for a CV, including university,
+ * degree, dates, and optional notes.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

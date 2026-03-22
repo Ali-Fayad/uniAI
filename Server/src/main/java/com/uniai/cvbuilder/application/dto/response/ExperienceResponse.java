@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * DTO representing a professional experience entry attached to a CV, with optional achievements.
+ */
 @Data
 @Builder
 @AllArgsConstructor

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Spring Data repository for the CV aggregate.
+ */
 @Repository
 public interface JpaCVRepository extends JpaRepository<CV, Long> {
 

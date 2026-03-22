@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * HTTP client for retrieving popular skill tags from StackOverflow's public API.
+ */
 @Component
 @RequiredArgsConstructor
 public class SkillsApiClient {

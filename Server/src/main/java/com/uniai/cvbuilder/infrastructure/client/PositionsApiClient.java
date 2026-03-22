@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * HTTP client for retrieving popular job positions from the GitHub Jobs API.
+ */
 @Component
 @RequiredArgsConstructor
 public class PositionsApiClient {

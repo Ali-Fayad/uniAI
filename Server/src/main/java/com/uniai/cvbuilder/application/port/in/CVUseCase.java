@@ -5,6 +5,10 @@ import com.uniai.cvbuilder.application.dto.response.*;
 
 import java.util.List;
 
+/**
+ * Application boundary for all CV management operations, including CRUD on the CV shell and
+ * its nested sections.
+ */
 public interface CVUseCase {
 
     List<CVResponse> getUserCVs(String email);

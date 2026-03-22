@@ -5,6 +5,9 @@ import com.uniai.cvbuilder.domain.model.Project;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Domain repository abstraction for project entries linked to CVs.
+ */
 public interface ProjectRepository {
 
     Optional<Project> findById(Long id);

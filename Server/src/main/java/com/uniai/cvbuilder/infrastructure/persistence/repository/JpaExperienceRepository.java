@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Spring Data repository for professional experience entries linked to CVs.
+ */
 @Repository
 public interface JpaExperienceRepository extends JpaRepository<Experience, Long> {
 

@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Configuration providing shared HTTP client beans for external API calls.
+ */
 @Configuration
 public class ExternalApiConfig {
 

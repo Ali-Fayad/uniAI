@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * JPA entity representing a project entry for a CV, including optional links and technologies.
+ */
 @Entity
 @Table(name = "projects")
 @Data

@@ -4,6 +4,9 @@ import com.uniai.cvbuilder.domain.model.Education;
 
 import java.time.LocalDate;
 
+/**
+ * Fluent builder for assembling {@link Education} aggregates with university linkage and timing.
+ */
 public final class EducationBuilder {
 
     private final Education.EducationBuilder builder;

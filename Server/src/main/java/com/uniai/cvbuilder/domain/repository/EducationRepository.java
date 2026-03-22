@@ -5,6 +5,9 @@ import com.uniai.cvbuilder.domain.model.Education;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Domain repository abstraction for education section entries belonging to CVs.
+ */
 public interface EducationRepository {
 
     Optional<Education> findById(Long id);

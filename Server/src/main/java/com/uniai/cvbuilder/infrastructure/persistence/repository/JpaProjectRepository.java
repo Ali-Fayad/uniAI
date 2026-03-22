@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Spring Data repository for project entries linked to CVs.
+ */
 @Repository
 public interface JpaProjectRepository extends JpaRepository<Project, Long> {
 

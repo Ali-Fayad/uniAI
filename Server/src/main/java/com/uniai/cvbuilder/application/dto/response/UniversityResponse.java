@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * DTO exposing university metadata used when associating education entries with known campuses.
+ */
 @Data
 @Builder
 @AllArgsConstructor

@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Command payload for adding or updating a professional experience block for a CV, including
+ * role details, duration, and achievements.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

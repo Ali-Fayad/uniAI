@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Command payload for attaching a language proficiency entry to a CV.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller exposing CV CRUD operations, section management, and supporting lookup endpoints.
+ */
 @RestController
 @RequestMapping("/api/cv")
 @RequiredArgsConstructor

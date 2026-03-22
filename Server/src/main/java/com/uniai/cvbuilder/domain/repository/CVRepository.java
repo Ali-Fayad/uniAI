@@ -5,6 +5,9 @@ import com.uniai.cvbuilder.domain.model.CV;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Domain repository abstraction for persisting and retrieving CV aggregates and defaults.
+ */
 public interface CVRepository {
 
     Optional<CV> findById(Long id);
