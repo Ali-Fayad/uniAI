@@ -18,4 +18,5 @@ export interface IUserService {
   deleteAccount(data: DeleteAccountDto): Promise<void>;
   changePassword(data: ChangePasswordDto): Promise<void>;
   sendFeedback(data: FeedbackRequest): Promise<void>;
+  hasPersonalInfo(): Promise<boolean>;
 }

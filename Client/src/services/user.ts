@@ -58,4 +58,36 @@ export const userService: IUserService = {
   async sendFeedback(data: FeedbackRequest): Promise<void> {
     await apiClient.post(ENDPOINTS.USER.FEEDBACK, data);
   },
+
+  /**
+   * Check whether current user already has personal info
+   */
+  async hasPersonalInfo(): Promise<boolean> {
+    const response = await apiClient.get<{
+      phone?: string | null;
+      address?: string | null;
+      linkedin?: string | null;
+      github?: string | null;
+      portfolio?: string | null;
+      summary?: string | null;
+      jobTitle?: string | null;
+      company?: string | null;
+    }>(
+      ENDPOINTS.CV.PERSONAL_INFO
+    );
+
+    const info = response.data ?? {};
+    const fields = [
+      info.phone,
+      info.address,
+      info.linkedin,
+      info.github,
+      info.portfolio,
+      info.summary,
+      info.jobTitle,
+      info.company,
+    ];
+
+    return fields.some((value) => typeof value === 'string' && value.trim().length > 0);
+  },
 };

@@ -140,6 +140,15 @@ export const TEXT = {
       submitButtonLoading: "Verifying...",
       error: "Invalid verification code. Please try again.",
     },
+    welcome: {
+      title: "Welcome to uniAI",
+      subtitle: "Let’s complete your profile so we can personalize your experience.",
+      description:
+        "Adding your personal information helps tailor guidance, improve CV support, and make future recommendations more relevant.",
+      continueButton: "Continue",
+      remindLaterButton: "Remind Me Later",
+      checkingProfile: "Checking your profile...",
+    },
   },
 
   chat: {

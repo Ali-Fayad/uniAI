@@ -33,6 +33,11 @@ export const ENDPOINTS = {
     DELETE: (chatId: number) => `/api/chats/${chatId}`,
     DELETE_ALL: '/api/chats',
   },
+
+  // CV / Personal info endpoints
+  CV: {
+    PERSONAL_INFO: '/api/cv/personal-info',
+  },
 } as const;
 
 // Storage keys

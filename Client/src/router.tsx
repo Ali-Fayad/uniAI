@@ -26,6 +26,7 @@ import Verify2FA from "./components/page/auth/Verify2FA";
 import ForgotPassword from "./components/page/auth/ForgotPassword";
 import ForgotPasswordConfirm from "./components/page/auth/ForgotPasswordConfirm";
 import GoogleCallback from "./components/page/auth/GoogleCallback";
+import WelcomeOnboarding from "./components/page/auth/WelcomeOnboarding";
 
 /**
  * Application Router Component
@@ -65,6 +66,17 @@ export const AppRouter = () => {
           }
         />
 
+        <Route
+          path="/welcome"
+          element={
+            <ProtectedRoute>
+              <PageTransition>
+                <WelcomeOnboarding />
+              </PageTransition>
+            </ProtectedRoute>
+          }
+        />
+
         {/* Settings Page */}
         <Route path="/settings" element={<PageTransition><SettingsPage /></PageTransition>} />
 
@@ -94,6 +106,8 @@ export const ROUTES = {
   SIGN_UP: "/signup",
   VERIFY: "/verify",
   VERIFY_2FA: "/2fa/verify",
+  WELCOME: "/welcome",
+  PERSONAL_INFO: "/personal-info",
   FORGOT_PASSWORD: "/forgot-password",
   FORGOT_PASSWORD_CONFIRM: "/forgot-password/confirm",
   GOOGLE_CALLBACK: "/google/callback",

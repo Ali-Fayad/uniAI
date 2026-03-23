@@ -67,6 +67,7 @@ Client/src/
 - Follow existing naming conventions (PascalCase for components, camelCase for functions)
 - Check `components.json` for shadcn/ui components if available
  - Always use the same Framer Motion opening and closing animations for any newly added or modified frontend components; reuse the shared animations located in `Client/src/components/animations/` to ensure consistent motion across the app.
+ - Always analyze the general UI (colors, fonts, spacing) of the surrounding screens and reuse existing theme tokens and style choices from `Client/src/styles/` so new or modified components visually match the app's established style.
 
 ---
 

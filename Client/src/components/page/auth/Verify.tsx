@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthCard } from "../../../components/AuthCard";
 import { authService } from "../../../services/auth";
+import { userService } from "../../../services/user";
 import { useAuth } from "../../../hooks/useAuth";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
@@ -14,6 +15,8 @@ const Verify = () => {
   const [code, setCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const redirectTo =
+    (location.state as { redirectTo?: string } | null)?.redirectTo || ROUTES.CHAT;
 
   // Get email from navigation state
   const email = (location.state as { email?: string })?.email || "";
@@ -43,8 +46,22 @@ const Verify = () => {
 
       // Store token (AuthContext will extract user from token if not provided)
       login(response.token);
-      // Redirect to chat after successful verification
-      navigate(ROUTES.CHAT);
+
+      let personalInfoExists = false;
+      try {
+        personalInfoExists = await userService.hasPersonalInfo();
+      } catch {
+        personalInfoExists = false;
+      }
+
+      if (personalInfoExists) {
+        navigate(redirectTo, { replace: true });
+      } else {
+        navigate(ROUTES.WELCOME, {
+          replace: true,
+          state: { redirectTo },
+        });
+      }
     } catch (err: unknown) {
       if (err && typeof err === "object" && "response" in err) {
         const axiosError = err as {
