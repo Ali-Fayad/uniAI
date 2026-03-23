@@ -45,7 +45,7 @@ const WelcomeOnboarding = () => {
   const firstName = user?.firstName?.trim() || "there";
 
   const handleContinue = () => {
-    navigate(ROUTES.PERSONAL_INFO, { replace: true });
+    navigate(ROUTES.PERSONAL_INFO, { replace: true, state: { fromOnboarding: true } });
   };
 
   const handleRemindLater = () => {

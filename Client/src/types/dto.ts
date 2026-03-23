@@ -125,3 +125,67 @@ export interface Chat {
   updatedAt: string;
 }
 
+// ============================================================
+// CV / Personal Info DTOs
+// ============================================================
+
+export interface UniversityDto {
+  id: number;
+  name: string;
+  nameAr?: string;
+  acronym?: string;
+  latitude?: number;
+  longitude?: number;
+  campusName?: string;
+  campusType?: string;
+}
+
+export interface PersonalInfoEducationEntryDto {
+  id: string;
+  universityId?: number | null;
+  universityName: string;
+}
+
+export interface PersonalInfoSkillEntryDto {
+  id: string;
+  skillId: string;
+  name: string;
+}
+
+export interface PersonalInfoExperienceEntryDto {
+  id: string;
+  positionId: string;
+  position: string;
+  company: string;
+}
+
+export interface PersonalInfoResponseDto {
+  userId: number;
+  hasPersonalInfo?: boolean;
+  phone?: string | null;
+  address?: string | null;
+  linkedin?: string | null;
+  github?: string | null;
+  portfolio?: string | null;
+  summary?: string | null;
+  jobTitle?: string | null;
+  company?: string | null;
+  education?: PersonalInfoEducationEntryDto[];
+  skills?: PersonalInfoSkillEntryDto[];
+  experience?: PersonalInfoExperienceEntryDto[];
+}
+
+export interface UpdatePersonalInfoDto {
+  phone?: string;
+  address?: string;
+  linkedin?: string;
+  github?: string;
+  portfolio?: string;
+  summary?: string;
+  jobTitle?: string;
+  company?: string;
+  education?: PersonalInfoEducationEntryDto[];
+  skills?: PersonalInfoSkillEntryDto[];
+  experience?: PersonalInfoExperienceEntryDto[];
+}
+

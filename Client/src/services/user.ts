@@ -64,6 +64,7 @@ export const userService: IUserService = {
    */
   async hasPersonalInfo(): Promise<boolean> {
     const response = await apiClient.get<{
+      hasPersonalInfo?: boolean;
       phone?: string | null;
       address?: string | null;
       linkedin?: string | null;
@@ -77,6 +78,10 @@ export const userService: IUserService = {
     );
 
     const info = response.data ?? {};
+    if (typeof info.hasPersonalInfo === 'boolean') {
+      return info.hasPersonalInfo;
+    }
+
     const fields = [
       info.phone,
       info.address,

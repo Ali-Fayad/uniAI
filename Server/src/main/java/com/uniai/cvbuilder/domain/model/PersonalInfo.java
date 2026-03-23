@@ -37,6 +37,15 @@ public class PersonalInfo {
 
     private String company;
 
+    @Column(name = "education_json", columnDefinition = "TEXT")
+    private String educationJson;
+
+    @Column(name = "skills_json", columnDefinition = "TEXT")
+    private String skillsJson;
+
+    @Column(name = "experience_json", columnDefinition = "TEXT")
+    private String experienceJson;
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 

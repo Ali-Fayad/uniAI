@@ -16,6 +16,7 @@ import SettingsPage from "./components/page/SettingsPage";
 import ChatPage from "./components/page/ChatPage";
 import MapPage from "./components/page/MapPage";
 import AboutPage from "./components/page/AboutPage";
+import PersonalInfoPage from "./components/page/PersonalInfoPage";
 
 // Auth Pages
 import AuthLanding from "./components/page/auth/AuthLanding";
@@ -72,6 +73,17 @@ export const AppRouter = () => {
             <ProtectedRoute>
               <PageTransition>
                 <WelcomeOnboarding />
+              </PageTransition>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/personal-info"
+          element={
+            <ProtectedRoute>
+              <PageTransition>
+                <PersonalInfoPage />
               </PageTransition>
             </ProtectedRoute>
           }

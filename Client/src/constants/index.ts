@@ -37,6 +37,9 @@ export const ENDPOINTS = {
   // CV / Personal info endpoints
   CV: {
     PERSONAL_INFO: '/api/cv/personal-info',
+    UNIVERSITIES: '/api/cv/universities',
+    SKILLS: '/api/cv/skills',
+    POSITIONS: '/api/cv/positions',
   },
 } as const;
 

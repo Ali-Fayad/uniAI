@@ -6,12 +6,17 @@ import com.uniai.cvbuilder.application.port.in.PersonalInfoUseCase;
 import com.uniai.cvbuilder.domain.builder.PersonalInfoBuilder;
 import com.uniai.cvbuilder.domain.model.PersonalInfo;
 import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.shared.exception.EmailNotFoundException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Application service handling retrieval and updates of user personal
@@ -24,6 +29,7 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
 
     private final PersonalInfoRepository personalInfoRepository;
     private final UserRepository userRepository;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public PersonalInfoResponse getPersonalInfo(String email) {
@@ -55,6 +61,12 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             info.setJobTitle(command.getJobTitle());
         if (command.getCompany() != null)
             info.setCompany(command.getCompany());
+        if (command.getEducation() != null)
+            info.setEducationJson(toJson(command.getEducation()));
+        if (command.getSkills() != null)
+            info.setSkillsJson(toJson(command.getSkills()));
+        if (command.getExperience() != null)
+            info.setExperienceJson(toJson(command.getExperience()));
 
         personalInfoRepository.save(info);
         return toResponse(info, userId);
@@ -62,10 +74,49 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
 
     private PersonalInfoResponse toResponse(PersonalInfo info, Long userId) {
         if (info == null) {
-            return PersonalInfoResponse.builder().userId(userId).build();
+            return PersonalInfoResponse.builder()
+                .userId(userId)
+                .hasPersonalInfo(false)
+                .education(List.of())
+                .skills(List.of())
+                .experience(List.of())
+                .build();
         }
+
+        List<PersonalInfoResponse.EducationEntryResponse> education = fromJson(
+            info.getEducationJson(),
+            new TypeReference<>() {
+            },
+            List.of()
+        );
+        List<PersonalInfoResponse.SkillEntryResponse> skills = fromJson(
+            info.getSkillsJson(),
+            new TypeReference<>() {
+            },
+            List.of()
+        );
+        List<PersonalInfoResponse.ExperienceEntryResponse> experience = fromJson(
+            info.getExperienceJson(),
+            new TypeReference<>() {
+            },
+            List.of()
+        );
+
+        boolean hasPersonalInfo = hasText(info.getPhone())
+            || hasText(info.getAddress())
+            || hasText(info.getLinkedin())
+            || hasText(info.getGithub())
+            || hasText(info.getPortfolio())
+            || hasText(info.getSummary())
+            || hasText(info.getJobTitle())
+            || hasText(info.getCompany())
+            || !education.isEmpty()
+            || !skills.isEmpty()
+            || !experience.isEmpty();
+
         return PersonalInfoResponse.builder()
                 .userId(info.getUserId())
+            .hasPersonalInfo(hasPersonalInfo)
                 .phone(info.getPhone())
                 .address(info.getAddress())
                 .linkedin(info.getLinkedin())
@@ -74,7 +125,33 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
                 .summary(info.getSummary())
                 .jobTitle(info.getJobTitle())
                 .company(info.getCompany())
+                .education(education)
+                .skills(skills)
+                .experience(experience)
                 .build();
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
+    private String toJson(Object value) {
+        try {
+            return objectMapper.writeValueAsString(value);
+        } catch (JsonProcessingException ex) {
+            throw new IllegalArgumentException("Failed to serialize personal info list section", ex);
+        }
+    }
+
+    private <T> T fromJson(String value, TypeReference<T> typeReference, T fallback) {
+        if (value == null || value.isBlank()) {
+            return fallback;
+        }
+        try {
+            return objectMapper.readValue(value, typeReference);
+        } catch (JsonProcessingException ex) {
+            return fallback;
+        }
     }
 
     private Long getUserId(String email) {

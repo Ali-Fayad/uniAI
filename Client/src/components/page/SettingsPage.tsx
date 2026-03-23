@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import SettingsSection from "../settings/SettingsSection";
 import FormInput from "../settings/FormInput";
 import FormButton from "../settings/FormButton";
 import AnimatedField from "../common/AnimatedField";
 import { useSettings } from "../../hooks/useSettings";
 import { TEXT } from "../../constants/static";
+import { ROUTES } from "../../router";
 
 /**
  * SettingsPage Component
@@ -16,6 +18,8 @@ import { TEXT } from "../../constants/static";
  * All business logic is encapsulated in useSettings hook.
  */
 const SettingsPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const {
     profile,
     feedback,
@@ -108,6 +112,13 @@ const SettingsPage: React.FC = () => {
               </div>
 
               <div className="mt-8 flex justify-end gap-x-4">
+                <button
+                  type="button"
+                  onClick={() => navigate(ROUTES.PERSONAL_INFO, { state: { fromOnboarding: false } })}
+                  className="inline-flex items-center justify-center rounded-md border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
+                >
+                  Edit Personal Info
+                </button>
                 <FormButton variant="secondary" type="button">
                   {TEXT.common.cancel}
                 </FormButton>

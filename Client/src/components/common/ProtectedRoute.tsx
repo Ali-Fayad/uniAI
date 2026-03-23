@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import LoadingSpinner from './LoadingSpinner';
+import { ROUTES } from '../../router';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   // Redirect to auth page if not authenticated
   if (!isAuthenticated) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to={ROUTES.SIGN_IN} replace />;
   }
 
   // Render children if authenticated

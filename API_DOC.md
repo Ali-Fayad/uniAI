@@ -547,9 +547,9 @@ Common status codes for section operations:
 
 #### Lookup endpoints
 
-`GET /api/cv/skills` — returns `List<String>` of skill suggestions (200 OK)
+`GET /api/cv/skills` — returns `List<String>` of skill suggestions (200 OK, cached in backend)
 
-`GET /api/cv/positions` — returns `List<String>` of position suggestions (200 OK)
+`GET /api/cv/positions` — returns `List<String>` of position suggestions (200 OK, cached in backend)
 
 `GET /api/cv/universities` — returns `List<UniversityResponse>`
 
@@ -567,7 +567,24 @@ Common status codes for section operations:
 
 **Response:** 200 OK - `PersonalInfoResponse`
 
-Fields: userId, phone, address, linkedin, github, portfolio, summary, jobTitle, company
+Fields:
+
+- `userId` (number)
+- `hasPersonalInfo` (boolean) — indicates whether any profile data exists
+- `phone`, `address`, `linkedin`, `github`, `portfolio`, `summary`, `jobTitle`, `company` (string, optional)
+- `education` (array, optional):
+  - `id` (string)
+  - `universityId` (number, optional)
+  - `universityName` (string)
+- `skills` (array, optional):
+  - `id` (string)
+  - `skillId` (string)
+  - `name` (string)
+- `experience` (array, optional):
+  - `id` (string)
+  - `positionId` (string)
+  - `position` (string)
+  - `company` (string)
 
 ---
 
@@ -577,7 +594,15 @@ Fields: userId, phone, address, linkedin, github, portfolio, summary, jobTitle, 
 
 **Authentication:** JWT required
 
-**Request Body (UpdatePersonalInfoCommand):** phone, address, linkedin, github, portfolio, summary, jobTitle, company (all optional)
+**Request Body (UpdatePersonalInfoCommand):**
+
+- Scalars (all optional): `phone`, `address`, `linkedin`, `github`, `portfolio`, `summary`, `jobTitle`, `company`
+- List sections (all optional):
+  - `education`: array of `{ id, universityId, universityName }`
+  - `skills`: array of `{ id, skillId, name }`
+  - `experience`: array of `{ id, positionId, position, company }`
+
+If a list section is omitted in the payload, the existing stored value is kept.
 
 **Response:** 200 OK - updated `PersonalInfoResponse`
 
