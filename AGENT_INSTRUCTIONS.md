@@ -66,6 +66,7 @@ Client/src/
 - All new components must be responsive (mobile-first)
 - Follow existing naming conventions (PascalCase for components, camelCase for functions)
 - Check `components.json` for shadcn/ui components if available
+ - Always use the same Framer Motion opening and closing animations for any newly added or modified frontend components; reuse the shared animations located in `Client/src/components/animations/` to ensure consistent motion across the app.
 
 ---
 
