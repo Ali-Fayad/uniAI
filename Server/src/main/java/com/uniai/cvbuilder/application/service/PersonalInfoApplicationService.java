@@ -65,7 +65,6 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             return PersonalInfoResponse.builder().userId(userId).build();
         }
         return PersonalInfoResponse.builder()
-                .id(info.getId())
                 .userId(info.getUserId())
                 .phone(info.getPhone())
                 .address(info.getAddress())

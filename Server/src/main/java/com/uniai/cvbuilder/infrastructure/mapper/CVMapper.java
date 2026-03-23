@@ -46,7 +46,6 @@ public final class CVMapper {
             return null;
         }
         return PersonalInfoResponse.builder()
-                .id(personalInfo.getId())
                 .userId(personalInfo.getUserId())
                 .phone(personalInfo.getPhone())
                 .address(personalInfo.getAddress())

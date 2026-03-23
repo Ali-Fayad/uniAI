@@ -567,7 +567,7 @@ Common status codes for section operations:
 
 **Response:** 200 OK - `PersonalInfoResponse`
 
-Fields: id, userId, phone, address, linkedin, github, portfolio, summary, jobTitle, company
+Fields: userId, phone, address, linkedin, github, portfolio, summary, jobTitle, company
 
 ---
 

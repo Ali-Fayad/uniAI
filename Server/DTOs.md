@@ -56,3 +56,20 @@ Notes:
 - The server sends a `TokenResponse` which contains only the token string. The frontend should extract user information from the token when needed.
 - Verification-related requests use the field name `verificationCode` (not `code`). Update frontend DTOs and request payloads accordingly.
 
+## CV Builder DTOs
+
+- PersonalInfoResponse
+  - userId: Long
+  - phone: String
+  - address: String
+  - linkedin: String
+  - github: String
+  - portfolio: String
+  - summary: String
+  - jobTitle: String
+  - company: String
+
+Notes:
+- `PersonalInfoResponse` no longer contains an `id` field.
+- `userId` is the canonical identifier for personal info (one row max per user).
+

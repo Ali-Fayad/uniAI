@@ -13,8 +13,7 @@ CREATE TABLE IF NOT EXISTS universities (
 );
 
 CREATE TABLE IF NOT EXISTS personal_info (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL,
+    user_id BIGINT PRIMARY KEY,
     phone VARCHAR(100),
     address VARCHAR(255),
     linkedin VARCHAR(255),
@@ -24,8 +23,7 @@ CREATE TABLE IF NOT EXISTS personal_info (
     job_title VARCHAR(255),
     company VARCHAR(255),
     created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW(),
-    CONSTRAINT uq_personal_info_user UNIQUE (user_id)
+    updated_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS cvs (
