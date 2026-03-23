@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Application service handling retrieval and updates of user personal information leveraged
+ * Application service handling retrieval and updates of user personal
+ * information leveraged
  * across generated CVs.
  */
 @Service
@@ -38,14 +39,22 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
         PersonalInfo info = personalInfoRepository.findByUserId(userId)
                 .orElseGet(() -> PersonalInfoBuilder.forUser(userId).build());
 
-        if (command.getPhone() != null) info.setPhone(command.getPhone());
-        if (command.getAddress() != null) info.setAddress(command.getAddress());
-        if (command.getLinkedin() != null) info.setLinkedin(command.getLinkedin());
-        if (command.getGithub() != null) info.setGithub(command.getGithub());
-        if (command.getPortfolio() != null) info.setPortfolio(command.getPortfolio());
-        if (command.getSummary() != null) info.setSummary(command.getSummary());
-        if (command.getJobTitle() != null) info.setJobTitle(command.getJobTitle());
-        if (command.getCompany() != null) info.setCompany(command.getCompany());
+        if (command.getPhone() != null)
+            info.setPhone(command.getPhone());
+        if (command.getAddress() != null)
+            info.setAddress(command.getAddress());
+        if (command.getLinkedin() != null)
+            info.setLinkedin(command.getLinkedin());
+        if (command.getGithub() != null)
+            info.setGithub(command.getGithub());
+        if (command.getPortfolio() != null)
+            info.setPortfolio(command.getPortfolio());
+        if (command.getSummary() != null)
+            info.setSummary(command.getSummary());
+        if (command.getJobTitle() != null)
+            info.setJobTitle(command.getJobTitle());
+        if (command.getCompany() != null)
+            info.setCompany(command.getCompany());
 
         personalInfoRepository.save(info);
         return toResponse(info, userId);
