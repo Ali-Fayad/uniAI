@@ -1,0 +1,175 @@
+@startuml
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <b>x</b>
+!define foreign_key(x) <i>x</i>
+
+' Users
+table(users) {
+  * primary_key(id) : BIGINT
+  first_name : VARCHAR(255)
+  last_name : VARCHAR(255)
+  username : VARCHAR(50) <<unique, not null>>
+  email : VARCHAR(100) <<unique, not null>>
+  password : VARCHAR(100) <<not null>>
+  is_verified : BOOLEAN
+  is_two_fac_auth : BOOLEAN
+}
+
+table(verify_codes) {
+  * primary_key(id) : BIGINT
+  email : VARCHAR(255)
+  code : VARCHAR(255)
+  type : VARCHAR(255)
+  expiration_time : TIMESTAMP
+}
+
+table(chats) {
+  * primary_key(id) : BIGINT
+  foreign_key(user_id) : BIGINT <<not null>>
+  title : VARCHAR(255)
+  created_at : TIMESTAMP <<not null, updatable=false>>
+  updated_at : TIMESTAMP
+}
+
+table(messages) {
+  * primary_key(id) : BIGINT
+  foreign_key(chat_id) : BIGINT <<not null>>
+  sender_id : BIGINT <<not null>>
+  content : TEXT <<not null>>
+  timestamp : TIMESTAMP <<not null, updatable=false>>
+}
+
+table(feedbacks) {
+  * primary_key(id) : BIGINT
+  email : VARCHAR(255) <<not null>>
+  comment : TEXT <<not null>>
+}
+
+' CV Builder / Universities
+table(universities) {
+  * primary_key(id) : BIGINT
+  name : VARCHAR(255) <<not null>>
+  name_ar : VARCHAR(255)
+  acronym : VARCHAR(20)
+  latitude : DECIMAL(10,8)
+  longitude : DECIMAL(11,8)
+  campus_name : VARCHAR(255)
+  campus_type : VARCHAR(50)
+  created_at : TIMESTAMP
+  -- unique(name, campus_name) enforced by migration
+}
+
+table(personal_info) {
+  * primary_key(user_id) : BIGINT
+  phone : VARCHAR(100)
+  address : VARCHAR(255)
+  linkedin : VARCHAR(255)
+  github : VARCHAR(255)
+  portfolio : VARCHAR(255)
+  summary : TEXT
+  job_title : VARCHAR(255)
+  company : VARCHAR(255)
+  education_json : TEXT
+  skills_json : TEXT
+  experience_json : TEXT
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+table(cvs) {
+  * primary_key(id) : BIGINT
+  foreign_key(user_id) : BIGINT <<not null>>
+  cv_name : VARCHAR(255) <<not null>>
+  template : VARCHAR(255)
+  is_default : BOOLEAN
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+table(educations) {
+  * primary_key(id) : BIGINT
+  foreign_key(cv_id) : BIGINT <<not null>>
+  foreign_key(university_id) : BIGINT
+  degree : VARCHAR(255) <<not null>>
+  field_of_study : VARCHAR(255) <<not null>>
+  start_date : DATE <<not null>>
+  end_date : DATE
+  grade : VARCHAR(50)
+  description : TEXT
+}
+
+table(experiences) {
+  * primary_key(id) : BIGINT
+  foreign_key(cv_id) : BIGINT <<not null>>
+  position : VARCHAR(255) <<not null>>
+  company : VARCHAR(255) <<not null>>
+  location : VARCHAR(255)
+  start_date : DATE <<not null>>
+  end_date : DATE
+  is_current : BOOLEAN
+  description : TEXT
+}
+
+table(experience_achievements) {
+  * primary_key(id) : BIGINT
+  foreign_key(experience_id) : BIGINT <<not null>>
+  achievement : TEXT <<not null>>
+}
+
+table(skills) {
+  * primary_key(id) : BIGINT
+  foreign_key(cv_id) : BIGINT <<not null>>
+  name : VARCHAR(255) <<not null>>
+  level : VARCHAR(100)
+  skill_order : INTEGER
+}
+
+table(projects) {
+  * primary_key(id) : BIGINT
+  foreign_key(cv_id) : BIGINT <<not null>>
+  name : VARCHAR(255) <<not null>>
+  description : TEXT
+  github_url : VARCHAR(255)
+  live_url : VARCHAR(255)
+  start_date : DATE
+  end_date : DATE
+}
+
+table(project_technologies) {
+  * primary_key(id) : BIGINT
+  foreign_key(project_id) : BIGINT <<not null>>
+  technology : VARCHAR(255)
+}
+
+table(languages) {
+  * primary_key(id) : BIGINT
+  foreign_key(cv_id) : BIGINT <<not null>>
+  name : VARCHAR(255) <<not null>>
+  proficiency : VARCHAR(255)
+}
+
+table(certificates) {
+  * primary_key(id) : BIGINT
+  foreign_key(cv_id) : BIGINT <<not null>>
+  name : VARCHAR(255) <<not null>>
+  issuer : VARCHAR(255)
+  issued_date : DATE
+  credential_url : VARCHAR(255)
+}
+
+' Relationships / cardinality
+users ||--o{ cvs : "owns"
+users ||--|| personal_info : "has"
+users ||--o{ chats : "has many"
+chats ||--o{ messages : "has many"
+educations }o--|| universities : "references"
+educations }o--|| cvs : "belongs to"
+experiences }o--|| cvs : "belongs to"
+skills }o--|| cvs : "belongs to"
+projects }o--|| cvs : "belongs to"
+languages }o--|| cvs : "belongs to"
+certificates }o--|| cvs : "belongs to"
+experience_achievements }o--|| experiences : "belongs to"
+project_technologies }o--|| projects : "belongs to"
+
+@enduml

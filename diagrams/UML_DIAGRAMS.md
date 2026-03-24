@@ -14,6 +14,7 @@
    - [3.2 Feedback Submission](#32-feedback-submission-with-auth-check)
    - [3.3 Theme Change (No Auth)](#33-theme-change-no-auth)
    - [3.4 User ↔ AI Chat Interaction](#34-user--ai-chat-interaction)
+  4. [Database Schema](#4-database-schema)
 
 ---
 
@@ -525,6 +526,14 @@ note bottom of ChatService
 end note
 
 @enduml
+
+---
+
+## 4. Database Schema
+
+The database schema PlantUML diagram documents tables, columns, primary keys, foreign keys and cardinality for the main application models. See the diagram source: [diagrams/db_schema.puml](diagrams/db_schema.puml)
+
+You can render the diagram with PlantUML or in VS Code using a PlantUML extension.
 ```
 
 ---
