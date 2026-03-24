@@ -1,0 +1,93 @@
+-- Seed universities from UnisCoordinateTable.md
+-- Coordinates use the first lat/lng pair when multiple pairs are present.
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conname = 'unique_university_campus'
+          AND conrelid = 'universities'::regclass
+    ) THEN
+        ALTER TABLE universities
+            ADD CONSTRAINT unique_university_campus UNIQUE (name, campus_name);
+    END IF;
+END $$;
+
+INSERT INTO universities (name, acronym, campus_name, latitude, longitude, campus_type)
+VALUES
+('American University of Beirut', 'AUB', 'Main Campus', 33.89996, 35.48228, 'Main'),
+('American University of Beirut', 'AUB', 'Medical Center', 33.89484, 35.47920, 'Medical'),
+('American University of Beirut', 'AUB', 'AREC', 33.82000, 35.90000, 'Research'),
+('American University of Beirut', 'AUB', 'Marine Research', 34.25000, 35.66667, 'Research'),
+('Lebanese American University', 'LAU', 'Beirut Campus', 33.89304, 35.47788, 'Main'),
+('Lebanese American University', 'LAU', 'Byblos Campus', 34.11995, 35.64900, 'Main'),
+('Université Saint-Joseph', 'USJ', 'Campus des Sciences Médicales', 33.89111, 35.50833, 'Medical'),
+('Université Saint-Joseph', 'USJ', 'Campus des Sciences Humaines', 33.88333, 35.51667, 'Humanities'),
+('Université Saint-Joseph', 'USJ', 'Campus de l''Innovation', 33.90000, 35.50000, 'Innovation'),
+('Université Saint-Joseph', 'USJ', 'Campus des Sciences et Tech', 33.88333, 35.53333, 'Sciences'),
+('Lebanese University', 'UL', 'Hadath Campus', 33.82927, 35.52027, 'Main'),
+('Lebanese University', 'UL', 'Beirut Campus', 33.87500, 35.50972, 'Downtown'),
+('Lebanese University', 'UL', 'Fanar Campus', 33.87917, 35.54028, 'Sciences'),
+('Lebanese University', 'UL', 'Tripoli Campus', 34.44028, 35.84306, 'North'),
+('Lebanese University', 'UL', 'Saida Campus', 33.56111, 35.37778, 'South'),
+('Lebanese University', 'UL', 'Zahle Campus', 33.83333, 35.90000, 'Beqaa'),
+('Notre Dame University', 'NDU', 'Zouk Mosbeh Campus', 33.95176, 35.61375, 'Main'),
+('Notre Dame University', 'NDU', 'Metn Campus', 33.90000, 35.60000, 'Branch'),
+('Notre Dame University', 'NDU', 'Shouf Campus', 33.70000, 35.55000, 'Branch'),
+('Holy Spirit University of Kaslik', 'USEK', 'Kaslik Campus', 33.98286, 35.61873, 'Main'),
+('Holy Spirit University of Kaslik', 'USEK', 'Chekka Campus', 34.31667, 35.73333, 'Agriculture'),
+('University of Balamand', 'UOB', 'Kelhat Campus', 34.36611, 35.78222, 'Main'),
+('University of Balamand', 'UOB', 'Tripoli Campus', 34.44167, 35.84167, 'Medical'),
+('Beirut Arab University', 'BAU', 'Beirut Campus', 33.87192, 35.49599, 'Main'),
+('Beirut Arab University', 'BAU', 'Debbieh Campus', 33.50000, 35.41667, 'Branch'),
+('Beirut Arab University', 'BAU', 'Tripoli Campus', 34.43750, 35.83500, 'Branch'),
+('Lebanese International University', 'LIU', 'Khiara Campus', 33.84220, 35.83940, 'Main'),
+('Lebanese International University', 'LIU', 'Beirut Campus', 33.88194, 35.51389, 'Branch'),
+('Lebanese International University', 'LIU', 'Saida Campus', 33.56111, 35.37778, 'Branch'),
+('Lebanese International University', 'LIU', 'Tripoli Campus', 34.43889, 35.84444, 'Branch'),
+('Lebanese International University', 'LIU', 'Jdeideh Campus', 33.89583, 35.55833, 'Branch'),
+('Lebanese International University', 'LIU', 'Nabatieh Campus', 33.37917, 35.48889, 'Branch'),
+('Lebanese International University', 'LIU', 'Rayak Campus', 33.85000, 35.85000, 'Branch'),
+('Antonine University', 'UA', 'Hadath Campus', 33.86496, 35.98406, 'Main'),
+('Antonine University', 'UA', 'Zahle Campus', 33.83333, 35.90000, 'Branch'),
+('Antonine University', 'UA', 'Mejdlaya Campus', 34.26667, 35.80000, 'Branch'),
+('Haigazian University', 'HU', 'Main Campus', 33.88500, 35.51250, 'Main'),
+('American University of Science and Technology', 'AUST', 'Beirut Campus', 33.88694, 35.51833, 'Main'),
+('American University of Science and Technology', 'AUST', 'Jdeideh Campus', 33.89611, 35.55833, 'Branch'),
+('American University of Science and Technology', 'AUST', 'Baabda Campus', 33.83333, 35.53333, 'Branch'),
+('American University of Science and Technology', 'AUST', 'Tripoli Campus', 34.44028, 35.84306, 'Branch'),
+('American University of Science and Technology', 'AUST', 'Saida Campus', 33.56111, 35.37778, 'Branch'),
+('American University of Science and Technology', 'AUST', 'Zahle Campus', 33.83333, 35.90000, 'Branch'),
+('Arts, Sciences and Technology University', 'AUL', 'Beirut Campus', 33.88611, 35.47917, 'Main'),
+('Arts, Sciences and Technology University', 'AUL', 'Tripoli Campus', 34.43333, 35.84028, 'Branch'),
+('Arts, Sciences and Technology University', 'AUL', 'Jbeil Campus', 34.11944, 35.65000, 'Branch'),
+('Al-Kafaàt University', 'AKU', 'Daoura Campus', 33.85833, 35.53056, 'Main'),
+('Al-Kafaàt University', 'AKU', 'Saida Campus', 33.56250, 35.37500, 'Branch'),
+('Modern University for Business and Science', 'MUBS', 'Beirut Campus', 33.86944, 35.49722, 'Main'),
+('Modern University for Business and Science', 'MUBS', 'Damour Campus', 33.73333, 35.46667, 'Branch'),
+('Modern University for Business and Science', 'MUBS', 'Jbeil Campus', 34.12083, 35.64722, 'Branch'),
+('Arab Open University', 'AOU', 'Beirut Branch', 33.88611, 35.51389, 'Main'),
+('Arab Open University', 'AOU', 'Tripoli Branch', 34.43889, 35.84444, 'Branch'),
+('Arab Open University', 'AOU', 'Saida Branch', 33.56250, 35.37639, 'Branch'),
+('Arab Open University', 'AOU', 'Zahle Branch', 33.83472, 35.90139, 'Branch'),
+('Middle East University', 'MEU', 'Main Campus', 33.86667, 35.51667, 'Main'),
+('Jinan University', 'JU', 'Main Campus', 34.43333, 35.83333, 'Main'),
+('Rafik Hariri University', 'RHU', 'Main Campus', 33.73333, 35.46667, 'Main'),
+('Phoenicia University', 'PU', 'Main Campus', 33.83333, 35.90000, 'Main'),
+('Al Maaref University', 'MU', 'Main Campus', 34.43333, 35.83333, 'Main'),
+('Lebanese Canadian University', 'LCU', 'Main Campus', 33.90833, 35.60000, 'Main'),
+('Lebanese German University', 'LGU', 'Main Campus', 33.98333, 35.63333, 'Main'),
+('Université La Sagesse', 'ULS', 'Main Campus', 33.86667, 35.53333, 'Main'),
+('University of Sciences & Arts in Lebanon', 'USAL', 'Main Campus', 33.88333, 35.51667, 'Main'),
+('Makassed University of Beirut', 'MUB', 'Main', 33.87547522593765, 35.503418396857775, 'Main'),
+('Beirut Islamic University', 'BIU', 'Main', 33.78281919417326, 35.47489173044939, 'Main'),
+('Cnam Lebanon', 'CNAM', 'Main', 33.868825406472816, 35.49388111220156, 'Main'),
+('Lebanese National Conservatory', 'LNC', 'Main', 33.87705941054412, 35.539928796857744, 'Main'),
+('American University of Culture & Education', 'AUCE', 'Main', 33.37789140264962, 35.497548337318236, 'Main'),
+('American University of Technology', 'AUOT', 'Main', 33.26340144652922, 35.22722509928538, 'Main'),
+('Global University', 'GU', 'Main', 33.89066253666021, 35.4968953373345, 'Main'),
+('Tripoli University Institute', 'TUI', 'Main', 34.421097427831604, 35.85232582756325, NULL),
+('Académie Libanaise des Beaux-Arts', 'ALBA', 'Main Campus', 33.89217, 35.49312, 'Main'),
+('Ecole Supérieure des Affaires', 'ESA', 'Main Campus', 33.89812, 35.49408, 'Business')
+ON CONFLICT (name, campus_name) DO NOTHING;
