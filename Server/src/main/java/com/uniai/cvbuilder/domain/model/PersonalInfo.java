@@ -43,6 +43,9 @@ public class PersonalInfo {
     @Column(name = "skills_json", columnDefinition = "TEXT")
     private String skillsJson;
 
+    @Column(name = "languages_json", columnDefinition = "TEXT")
+    private String languagesJson;
+
     @Column(name = "experience_json", columnDefinition = "TEXT")
     private String experienceJson;
 

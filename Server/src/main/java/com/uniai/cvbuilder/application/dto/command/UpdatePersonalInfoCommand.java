@@ -25,6 +25,7 @@ public class UpdatePersonalInfoCommand {
 
     private List<EducationEntryCommand> education;
     private List<SkillEntryCommand> skills;
+    private List<LanguageEntryCommand> languages;
     private List<ExperienceEntryCommand> experience;
 
     @Data
@@ -42,6 +43,15 @@ public class UpdatePersonalInfoCommand {
     public static class SkillEntryCommand {
         private String id;
         private String skillId;
+        private String name;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LanguageEntryCommand {
+        private String id;
+        private String languageId;
         private String name;
     }
 

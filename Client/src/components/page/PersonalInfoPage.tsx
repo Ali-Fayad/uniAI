@@ -5,6 +5,7 @@ import { ROUTES } from '../../router';
 import type {
   PersonalInfoEducationEntryDto,
   PersonalInfoExperienceEntryDto,
+  PersonalInfoLanguageEntryDto,
   PersonalInfoResponseDto,
   PersonalInfoSkillEntryDto,
   UniversityDto,
@@ -66,6 +67,7 @@ const PersonalInfoPage = () => {
 
   const [education, setEducation] = useState<PersonalInfoEducationEntryDto[]>([]);
   const [skills, setSkills] = useState<PersonalInfoSkillEntryDto[]>([]);
+  const [languages, setLanguages] = useState<PersonalInfoLanguageEntryDto[]>([]);
   const [experience, setExperience] = useState<PersonalInfoExperienceEntryDto[]>([]);
 
   const [initialSnapshot, setInitialSnapshot] = useState('');
@@ -79,6 +81,10 @@ const PersonalInfoPage = () => {
   const [skillSuggestions, setSkillSuggestions] = useState<string[]>([]);
   const [isSkillsLoading, setIsSkillsLoading] = useState(false);
 
+  const [languageQuery, setLanguageQuery] = useState('');
+  const [languageSuggestions, setLanguageSuggestions] = useState<string[]>([]);
+  const [isLanguagesLoading, setIsLanguagesLoading] = useState(false);
+
   const [positionQuery, setPositionQuery] = useState('');
   const [positionSuggestions, setPositionSuggestions] = useState<string[]>([]);
   const [isPositionsLoading, setIsPositionsLoading] = useState(false);
@@ -90,6 +96,9 @@ const PersonalInfoPage = () => {
   const [editingSkillId, setEditingSkillId] = useState<string | null>(null);
   const [editingSkillValue, setEditingSkillValue] = useState('');
 
+  const [editingLanguageId, setEditingLanguageId] = useState<string | null>(null);
+  const [editingLanguageValue, setEditingLanguageValue] = useState('');
+
   const [editingExperienceId, setEditingExperienceId] = useState<string | null>(null);
   const [editingExperiencePosition, setEditingExperiencePosition] = useState('');
   const [editingExperienceCompany, setEditingExperienceCompany] = useState('');
@@ -100,9 +109,10 @@ const PersonalInfoPage = () => {
         form,
         education,
         skills,
+        languages,
         experience,
       }),
-    [education, experience, form, skills]
+    [education, experience, form, languages, skills]
   );
 
   const isDirty = initialSnapshot.length > 0 && snapshot !== initialSnapshot;
@@ -117,6 +127,12 @@ const PersonalInfoPage = () => {
     const mappedSkills = (data.skills ?? []).map((item) => ({
       id: item.id || createClientId(),
       skillId: item.skillId || normalizeOptionId('skill', item.name),
+      name: item.name || '',
+    }));
+
+    const mappedLanguages = (data.languages ?? []).map((item) => ({
+      id: item.id || createClientId(),
+      languageId: item.languageId || normalizeOptionId('language', item.name),
       name: item.name || '',
     }));
 
@@ -141,6 +157,7 @@ const PersonalInfoPage = () => {
     setForm(nextForm);
     setEducation(mappedEducation);
     setSkills(mappedSkills);
+    setLanguages(mappedLanguages);
     setExperience(mappedExperience);
 
     setInitialSnapshot(
@@ -148,6 +165,7 @@ const PersonalInfoPage = () => {
         form: nextForm,
         education: mappedEducation,
         skills: mappedSkills,
+        languages: mappedLanguages,
         experience: mappedExperience,
       })
     );
@@ -234,8 +252,9 @@ const PersonalInfoPage = () => {
     const timeout = setTimeout(async () => {
       setIsSkillsLoading(true);
       try {
-        const allSkills = await cvService.getSkills();
+        const allSkills = await cvService.getSkills(query);
         const filtered = allSkills
+          .map((item) => item.name)
           .filter((item) => item.toLowerCase().includes(query))
           .slice(0, 8);
         setSkillSuggestions(filtered);
@@ -248,6 +267,32 @@ const PersonalInfoPage = () => {
 
     return () => clearTimeout(timeout);
   }, [skillQuery]);
+
+  useEffect(() => {
+    const query = languageQuery.trim().toLowerCase();
+    if (!query) {
+      setLanguageSuggestions([]);
+      return;
+    }
+
+    const timeout = setTimeout(async () => {
+      setIsLanguagesLoading(true);
+      try {
+        const allLanguages = await cvService.getLanguages(query);
+        const filtered = allLanguages
+          .map((item) => item.name)
+          .filter((item) => item.toLowerCase().includes(query))
+          .slice(0, 8);
+        setLanguageSuggestions(filtered);
+      } catch {
+        setLanguageSuggestions([]);
+      } finally {
+        setIsLanguagesLoading(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [languageQuery]);
 
   useEffect(() => {
     const query = positionQuery.trim().toLowerCase();
@@ -329,6 +374,26 @@ const PersonalInfoPage = () => {
     setSkillSuggestions([]);
   };
 
+  const addLanguage = () => {
+    const value = languageQuery.trim();
+    if (!value) {
+      return;
+    }
+
+    const languageId = normalizeOptionId('language', value);
+    setLanguages((prev) => [
+      ...prev,
+      {
+        id: `${languageId}-${createClientId()}`,
+        languageId,
+        name: value,
+      },
+    ]);
+
+    setLanguageQuery('');
+    setLanguageSuggestions([]);
+  };
+
   const addExperience = () => {
     const position = positionQuery.trim();
     const company = experienceCompany.trim();
@@ -361,6 +426,7 @@ const PersonalInfoPage = () => {
         ...form,
         education,
         skills,
+        languages,
         experience,
       });
 
@@ -729,6 +795,138 @@ const PersonalInfoPage = () => {
                   <button
                     type="button"
                     onClick={() => setSkills((prev) => prev.filter((entry) => entry.id !== item.id))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+          <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Languages</h2>
+          <div className="relative flex flex-col sm:flex-row gap-3">
+            <input
+              value={languageQuery}
+              onChange={(e) => setLanguageQuery(e.target.value)}
+              placeholder="Type a language"
+              className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+            />
+            <button
+              type="button"
+              onClick={addLanguage}
+              className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+            >
+              Add
+            </button>
+            {(isLanguagesLoading || languageSuggestions.length > 0) && (
+              <div className="absolute top-11 left-0 right-0 sm:right-24 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+                {isLanguagesLoading ? (
+                  <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
+                ) : (
+                  languageSuggestions.map((language) => (
+                    <button
+                      key={language}
+                      type="button"
+                      onClick={() => {
+                        setLanguageQuery(language);
+                        setLanguageSuggestions([]);
+                      }}
+                      className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
+                    >
+                      {language}
+                    </button>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {languages.map((item) => (
+              <span key={item.id} className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3 py-1 text-sm text-[var(--color-textPrimary)]">
+                {item.name}
+                <button
+                  type="button"
+                  onClick={() => setLanguages((prev) => prev.filter((entry) => entry.id !== item.id))}
+                  className="text-[var(--color-textSecondary)] hover:text-[var(--color-textPrimary)]"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+
+          <div className="space-y-2">
+            {languages.map((item, index) => (
+              <div key={`language-row-${item.id}`} className="flex flex-col sm:flex-row sm:items-center gap-2 rounded-md border border-[var(--color-border)] p-3">
+                {editingLanguageId === item.id ? (
+                  <input
+                    value={editingLanguageValue}
+                    onChange={(e) => setEditingLanguageValue(e.target.value)}
+                    className="flex-1 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                  />
+                ) : (
+                  <span className="flex-1 text-[var(--color-textPrimary)]">{item.name}</span>
+                )}
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => index > 0 && setLanguages((prev) => moveItem(prev, index, index - 1))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => index < languages.length - 1 && setLanguages((prev) => moveItem(prev, index, index + 1))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    ↓
+                  </button>
+                  {editingLanguageId === item.id ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextValue = editingLanguageValue.trim();
+                        if (nextValue) {
+                          setLanguages((prev) =>
+                            prev.map((entry) =>
+                              entry.id === item.id
+                                ? {
+                                    ...entry,
+                                    name: nextValue,
+                                    languageId: normalizeOptionId('language', nextValue),
+                                  }
+                                : entry
+                            )
+                          );
+                        }
+                        setEditingLanguageId(null);
+                        setEditingLanguageValue('');
+                      }}
+                      className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingLanguageId(item.id);
+                        setEditingLanguageValue(item.name);
+                      }}
+                      className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setLanguages((prev) => prev.filter((entry) => entry.id !== item.id))}
                     className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
                   >
                     Delete

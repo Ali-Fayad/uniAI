@@ -27,6 +27,7 @@ public class PersonalInfoResponse {
     private String company;
     private List<EducationEntryResponse> education;
     private List<SkillEntryResponse> skills;
+    private List<LanguageEntryResponse> languages;
     private List<ExperienceEntryResponse> experience;
 
     @Data
@@ -46,6 +47,16 @@ public class PersonalInfoResponse {
     public static class SkillEntryResponse {
         private String id;
         private String skillId;
+        private String name;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LanguageEntryResponse {
+        private String id;
+        private String languageId;
         private String name;
     }
 

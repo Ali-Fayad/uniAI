@@ -11,6 +11,7 @@ This document lists all REST endpoints provided by the uniAI backend. Authentica
 - Flow: `POST /api/auth/signin` or `POST /api/auth/signup` returns a JWT token. Include the token on protected requests using the `Authorization: Bearer <token>` header.
 - Public endpoints: All `/api/auth/**` routes.
 - Protected endpoints: All other `/api/**` routes (JWT required). No role-based restrictions detected in the codebase.
+- Health endpoint: `GET /actuator/health` is public for runtime/compose checks.
 
 ## Error responses
 
@@ -409,6 +410,42 @@ Errors:
 [
   { "id": 1, "name": "English", "code": "en", "nativeName": "English" },
   { "id": 2, "name": "Arabic", "code": "ar", "nativeName": "العربية" }
+]
+```
+
+#### `GET /api/positions`
+
+**Description:** Return positions from local database (synced from external API on startup and daily schedule).
+
+**Authentication:** JWT required
+
+**Query Parameters:**
+- `search` (string, optional) - case-insensitive partial match by position name
+
+**Response:** 200 OK
+
+```json
+[
+  { "id": 1, "name": "Software Engineer" },
+  { "id": 2, "name": "Product Manager" }
+]
+```
+
+#### `GET /api/universities`
+
+**Description:** Return universities from local database.
+
+**Authentication:** JWT required
+
+**Query Parameters:**
+- `search` (string, optional) - case-insensitive partial match by university name
+
+**Response:** 200 OK
+
+```json
+[
+  { "id": 1, "name": "American University of Beirut", "acronym": "AUB", "nameAr": "الجامعة الأمريكية في بيروت" },
+  { "id": 2, "name": "Lebanese University", "acronym": "LU", "nameAr": "الجامعة اللبنانية" }
 ]
 ```
 

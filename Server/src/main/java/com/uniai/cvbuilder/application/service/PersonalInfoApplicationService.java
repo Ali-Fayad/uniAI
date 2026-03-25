@@ -65,6 +65,8 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             info.setEducationJson(toJson(command.getEducation()));
         if (command.getSkills() != null)
             info.setSkillsJson(toJson(command.getSkills()));
+        if (command.getLanguages() != null)
+            info.setLanguagesJson(toJson(command.getLanguages()));
         if (command.getExperience() != null)
             info.setExperienceJson(toJson(command.getExperience()));
 
@@ -95,6 +97,12 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             },
             List.of()
         );
+        List<PersonalInfoResponse.LanguageEntryResponse> languages = fromJson(
+            info.getLanguagesJson(),
+            new TypeReference<>() {
+            },
+            List.of()
+        );
         List<PersonalInfoResponse.ExperienceEntryResponse> experience = fromJson(
             info.getExperienceJson(),
             new TypeReference<>() {
@@ -112,6 +120,7 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             || hasText(info.getCompany())
             || !education.isEmpty()
             || !skills.isEmpty()
+            || !languages.isEmpty()
             || !experience.isEmpty();
 
         return PersonalInfoResponse.builder()
@@ -127,6 +136,7 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
                 .company(info.getCompany())
                 .education(education)
                 .skills(skills)
+                .languages(languages)
                 .experience(experience)
                 .build();
     }

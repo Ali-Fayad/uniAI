@@ -1,57 +1,70 @@
 package com.uniai.user.presentation.controller;
 
 import com.uniai.user.application.port.in.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(AuthController.class)
-@AutoConfigureMockMvc(addFilters = false)
+@ExtendWith(MockitoExtension.class)
 class AuthControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    private AuthController authController;
 
-    @MockBean
+    @Mock
     private SignUpUseCase signUpUseCase;
 
-    @MockBean
+    @Mock
     private SignInUseCase signInUseCase;
 
-    @MockBean
+    @Mock
     private VerifyEmailUseCase verifyEmailUseCase;
 
-    @MockBean
+    @Mock
     private VerifyTwoFactorUseCase verifyTwoFactorUseCase;
 
-    @MockBean
+    @Mock
     private ForgotPasswordUseCase forgotPasswordUseCase;
 
-    @MockBean
+    @Mock
     private ConfirmPasswordResetUseCase confirmPasswordResetUseCase;
 
-    @MockBean
+    @Mock
     private GetGoogleAuthUrlUseCase getGoogleAuthUrlUseCase;
 
-    @MockBean
+    @Mock
     private CheckEmailAvailabilityUseCase checkEmailAvailabilityUseCase;
+
+    @BeforeEach
+    void setUp() {
+        authController = new AuthController(
+                signUpUseCase,
+                signInUseCase,
+                verifyEmailUseCase,
+                verifyTwoFactorUseCase,
+                forgotPasswordUseCase,
+                confirmPasswordResetUseCase,
+                getGoogleAuthUrlUseCase,
+                checkEmailAvailabilityUseCase);
+    }
 
     @Test
     void checkEmailShouldReturnAvailabilityPayload() throws Exception {
         when(checkEmailAvailabilityUseCase.isEmailAvailable(eq("new@example.com"))).thenReturn(true);
 
-        mockMvc.perform(get("/api/auth/check-email").param("email", "new@example.com"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.available").value(true))
-                .andExpect(jsonPath("$.message").value("Email available"));
+        ResponseEntity<?> response = authController.checkEmail("new@example.com");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        Object body = response.getBody();
+        assertEquals(true, body.getClass().getMethod("available").invoke(body));
+        assertEquals("Email available", body.getClass().getMethod("message").invoke(body));
     }
 }

@@ -3,6 +3,7 @@ package com.uniai.cvbuilder.infrastructure.client;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,11 @@ import java.util.Map;
 public class SkillsApiClient {
 
     private static final Logger logger = LogManager.getLogger(SkillsApiClient.class);
-    private static final String SKILLS_URL = "https://api.stackexchange.com/2.3/tags?site=stackoverflow&pagesize=50&order=desc&sort=popular";
 
     private final RestTemplate restTemplate;
+
+    @Value("${app.external.skills.url:https://api.stackexchange.com/2.3/tags?site=stackoverflow&pagesize=50&order=desc&sort=popular}")
+    private String skillsApiUrl;
 
     public record SkillItem(String name, String category) {}
 
@@ -39,7 +42,7 @@ public class SkillsApiClient {
     public List<SkillItem> fetchSkillItems() {
         try {
             ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
-                    SKILLS_URL,
+                    skillsApiUrl,
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<>() {}

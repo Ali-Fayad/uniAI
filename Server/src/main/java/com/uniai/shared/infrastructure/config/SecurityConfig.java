@@ -58,6 +58,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/languages").authenticated()
+                    .requestMatchers(HttpMethod.GET, "/api/skills").authenticated()
+                    .requestMatchers(HttpMethod.GET, "/api/universities").authenticated()
+                    .requestMatchers(HttpMethod.GET, "/api/positions").authenticated()
+                    .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex
                     .authenticationEntryPoint((request, response, authException) ->

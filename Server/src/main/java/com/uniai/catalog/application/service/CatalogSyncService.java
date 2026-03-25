@@ -6,12 +6,10 @@ import com.uniai.catalog.infrastructure.persistence.repository.PositionCatalogJp
 import com.uniai.catalog.infrastructure.persistence.repository.SkillCatalogJpaRepository;
 import com.uniai.cvbuilder.infrastructure.client.PositionsApiClient;
 import com.uniai.cvbuilder.infrastructure.client.SkillsApiClient;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,13 +25,7 @@ public class CatalogSyncService {
     private final SkillCatalogJpaRepository skillRepository;
     private final PositionCatalogJpaRepository positionRepository;
 
-    @PostConstruct
-    public void initialSync() {
-        syncExternalCatalogs();
-    }
-
-    @Scheduled(fixedDelayString = "${app.sync.external.fixed-delay-ms:86400000}")
-    @CacheEvict(value = {"catalog-skills", "catalog-languages"}, allEntries = true)
+    @CacheEvict(value = {"catalog-skills", "catalog-languages", "catalog-positions", "catalog-universities"}, allEntries = true)
     public void syncExternalCatalogs() {
         syncSkills();
         syncPositions();

@@ -1,7 +1,9 @@
 import apiClient from './api';
 import { ENDPOINTS } from '../constants';
 import type {
+  LanguageCatalogDto,
   PersonalInfoResponseDto,
+  SkillCatalogDto,
   UpdatePersonalInfoDto,
   UniversityDto,
 } from '../types/dto';
@@ -26,8 +28,17 @@ export const cvService: ICVService = {
     return response.data;
   },
 
-  async getSkills(): Promise<string[]> {
-    const response = await apiClient.get<string[]>(ENDPOINTS.CV.SKILLS);
+  async getSkills(search?: string): Promise<SkillCatalogDto[]> {
+    const response = await apiClient.get<SkillCatalogDto[]>(ENDPOINTS.CATALOG.SKILLS, {
+      params: search?.trim() ? { search: search.trim() } : undefined,
+    });
+    return response.data;
+  },
+
+  async getLanguages(search?: string): Promise<LanguageCatalogDto[]> {
+    const response = await apiClient.get<LanguageCatalogDto[]>(ENDPOINTS.CATALOG.LANGUAGES, {
+      params: search?.trim() ? { search: search.trim() } : undefined,
+    });
     return response.data;
   },
 

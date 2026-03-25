@@ -3,6 +3,7 @@ package com.uniai.cvbuilder.infrastructure.client;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,16 @@ import java.util.Map;
 public class PositionsApiClient {
 
     private static final Logger logger = LogManager.getLogger(PositionsApiClient.class);
-    private static final String POSITIONS_URL = "https://jobs.github.com/positions.json";
 
     private final RestTemplate restTemplate;
+
+    @Value("${app.external.positions.url:https://jobs.github.com/positions.json}")
+    private String positionsApiUrl;
 
     public List<String> fetchPositions() {
         try {
             ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(
-                    POSITIONS_URL,
+                    positionsApiUrl,
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<>() {}

@@ -1,5 +1,7 @@
 import type {
+  LanguageCatalogDto,
   PersonalInfoResponseDto,
+  SkillCatalogDto,
   UpdatePersonalInfoDto,
   UniversityDto,
 } from '../types/dto';
@@ -13,6 +15,7 @@ export interface ICVService {
   getPersonalInfo(): Promise<PersonalInfoResponseDto>;
   updatePersonalInfo(data: UpdatePersonalInfoDto): Promise<PersonalInfoResponseDto>;
   getUniversities(): Promise<UniversityDto[]>;
-  getSkills(): Promise<string[]>;
+  getSkills(search?: string): Promise<SkillCatalogDto[]>;
+  getLanguages(search?: string): Promise<LanguageCatalogDto[]>;
   getPositions(): Promise<string[]>;
 }

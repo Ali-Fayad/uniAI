@@ -170,6 +170,12 @@ export interface PersonalInfoSkillEntryDto {
   name: string;
 }
 
+export interface PersonalInfoLanguageEntryDto {
+  id: string;
+  languageId: string;
+  name: string;
+}
+
 export interface PersonalInfoExperienceEntryDto {
   id: string;
   positionId: string;
@@ -190,6 +196,7 @@ export interface PersonalInfoResponseDto {
   company?: string | null;
   education?: PersonalInfoEducationEntryDto[];
   skills?: PersonalInfoSkillEntryDto[];
+  languages?: PersonalInfoLanguageEntryDto[];
   experience?: PersonalInfoExperienceEntryDto[];
 }
 
@@ -204,6 +211,7 @@ export interface UpdatePersonalInfoDto {
   company?: string;
   education?: PersonalInfoEducationEntryDto[];
   skills?: PersonalInfoSkillEntryDto[];
+  languages?: PersonalInfoLanguageEntryDto[];
   experience?: PersonalInfoExperienceEntryDto[];
 }
 
