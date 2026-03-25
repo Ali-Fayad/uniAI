@@ -59,6 +59,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated())
+                .exceptionHandling(ex -> ex
+                    .authenticationEntryPoint((request, response, authException) ->
+                        response.sendError(403, "Authentication required"))
+                    .accessDeniedHandler((request, response, accessDeniedException) ->
+                        response.sendError(403, "Authentication required")))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable());

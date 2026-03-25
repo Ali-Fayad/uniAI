@@ -7,8 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "feedbacks")
+@Table(name = "feedback")
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,9 +21,22 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String email;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @NotBlank
-    private String comment;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content;
+
+    private Integer rating;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 }

@@ -8,6 +8,7 @@ export const ENDPOINTS = {
   AUTH: {
     SIGNUP: '/api/auth/signup',
     SIGNIN: '/api/auth/signin',
+    CHECK_EMAIL: '/api/auth/check-email',
     VERIFY: '/api/auth/verify',
     VERIFY_2FA: '/api/auth/2fa/verify',
     FORGOT_PASSWORD: '/api/auth/forget-password',
@@ -21,7 +22,12 @@ export const ENDPOINTS = {
     UPDATE_ME: '/api/users/me',
     DELETE_ME: '/api/users/me',
     CHANGE_PASSWORD: '/api/users/change-password',
-    FEEDBACK: '/api/users/feedback',
+    FEEDBACK: '/api/feedback',
+  },
+
+  CATALOG: {
+    SKILLS: '/api/skills',
+    LANGUAGES: '/api/languages',
   },
 
   // Chat endpoints

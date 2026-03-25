@@ -1,175 +1,209 @@
 @startuml
-!define table(x) class x << (T,#FFAAAA) >>
-!define primary_key(x) <b>x</b>
-!define foreign_key(x) <i>x</i>
+hide circle
+skinparam linetype ortho
 
-' Users
-table(users) {
-  * primary_key(id) : BIGINT
-  first_name : VARCHAR(255)
-  last_name : VARCHAR(255)
-  username : VARCHAR(50) <<unique, not null>>
-  email : VARCHAR(100) <<unique, not null>>
-  password : VARCHAR(100) <<not null>>
-  is_verified : BOOLEAN
-  is_two_fac_auth : BOOLEAN
+entity "user" as user {
+  *id : BIGINT <<PK>>
+  --
+  username : VARCHAR <<UNIQUE>>
+  email : VARCHAR <<UNIQUE>>
+  password_hash : VARCHAR
+  enabled : BOOLEAN
+  created_at : DATETIME
+  updated_at : DATETIME
 }
 
-table(verify_codes) {
-  * primary_key(id) : BIGINT
-  email : VARCHAR(255)
-  code : VARCHAR(255)
-  type : VARCHAR(255)
-  expiration_time : TIMESTAMP
-}
-
-table(chats) {
-  * primary_key(id) : BIGINT
-  foreign_key(user_id) : BIGINT <<not null>>
-  title : VARCHAR(255)
-  created_at : TIMESTAMP <<not null, updatable=false>>
-  updated_at : TIMESTAMP
-}
-
-table(messages) {
-  * primary_key(id) : BIGINT
-  foreign_key(chat_id) : BIGINT <<not null>>
-  sender_id : BIGINT <<not null>>
-  content : TEXT <<not null>>
-  timestamp : TIMESTAMP <<not null, updatable=false>>
-}
-
-table(feedbacks) {
-  * primary_key(id) : BIGINT
-  email : VARCHAR(255) <<not null>>
-  comment : TEXT <<not null>>
-}
-
-' CV Builder / Universities
-table(universities) {
-  * primary_key(id) : BIGINT
-  name : VARCHAR(255) <<not null>>
-  name_ar : VARCHAR(255)
-  acronym : VARCHAR(20)
-  latitude : DECIMAL(10,8)
-  longitude : DECIMAL(11,8)
-  campus_name : VARCHAR(255)
-  campus_type : VARCHAR(50)
-  created_at : TIMESTAMP
-  -- unique(name, campus_name) enforced by migration
-}
-
-table(personal_info) {
-  * primary_key(user_id) : BIGINT
-  phone : VARCHAR(100)
-  address : VARCHAR(255)
-  linkedin : VARCHAR(255)
-  github : VARCHAR(255)
-  portfolio : VARCHAR(255)
+entity "personal_info" as personal_info {
+  *id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  first_name : VARCHAR
+  last_name : VARCHAR
+  phone : VARCHAR
+  address : VARCHAR
+  city : VARCHAR
+  country : VARCHAR
+  linkedin_url : VARCHAR
+  github_url : VARCHAR
+  portfolio_url : VARCHAR
   summary : TEXT
-  job_title : VARCHAR(255)
-  company : VARCHAR(255)
-  education_json : TEXT
-  skills_json : TEXT
-  experience_json : TEXT
-  created_at : TIMESTAMP
-  updated_at : TIMESTAMP
+  created_at : DATETIME
+  updated_at : DATETIME
 }
 
-table(cvs) {
-  * primary_key(id) : BIGINT
-  foreign_key(user_id) : BIGINT <<not null>>
-  cv_name : VARCHAR(255) <<not null>>
-  template : VARCHAR(255)
-  is_default : BOOLEAN
-  created_at : TIMESTAMP
-  updated_at : TIMESTAMP
+entity "verification_code" as verification_code {
+  *id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  code : VARCHAR
+  type : VARCHAR
+  expires_at : DATETIME
+  used : BOOLEAN
+  created_at : DATETIME
 }
 
-table(educations) {
-  * primary_key(id) : BIGINT
-  foreign_key(cv_id) : BIGINT <<not null>>
-  foreign_key(university_id) : BIGINT
-  degree : VARCHAR(255) <<not null>>
-  field_of_study : VARCHAR(255) <<not null>>
-  start_date : DATE <<not null>>
+entity "feedback" as feedback {
+  *id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  content : TEXT
+  rating : INT
+  created_at : DATETIME
+}
+
+entity "chat" as chat {
+  *id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  title : VARCHAR
+  created_at : DATETIME
+  updated_at : DATETIME
+}
+
+entity "message" as message {
+  *id : BIGINT <<PK>>
+  --
+  chat_id : BIGINT <<FK>>
+  sender_type : VARCHAR
+  content : TEXT
+  created_at : DATETIME
+}
+
+entity "cv" as cv {
+  *id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  personal_info_id : BIGINT <<FK>>
+  title : VARCHAR
+  template_name : VARCHAR
+  created_at : DATETIME
+  updated_at : DATETIME
+}
+
+entity "university" as university {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  country : VARCHAR
+  city : VARCHAR
+}
+
+entity "position" as position {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+}
+
+entity "skill" as skill {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  category : VARCHAR
+}
+
+entity "language" as language {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  code : VARCHAR
+}
+
+entity "education" as education {
+  *id : BIGINT <<PK>>
+  --
+  personal_info_id : BIGINT <<FK>>
+  university_id : BIGINT <<FK>>
+  degree : VARCHAR
+  field_of_study : VARCHAR
+  start_date : DATE
   end_date : DATE
-  grade : VARCHAR(50)
+  grade : VARCHAR
   description : TEXT
 }
 
-table(experiences) {
-  * primary_key(id) : BIGINT
-  foreign_key(cv_id) : BIGINT <<not null>>
-  position : VARCHAR(255) <<not null>>
-  company : VARCHAR(255) <<not null>>
-  location : VARCHAR(255)
-  start_date : DATE <<not null>>
+entity "experience" as experience {
+  *id : BIGINT <<PK>>
+  --
+  personal_info_id : BIGINT <<FK>>
+  position_id : BIGINT <<FK>>
+  company_name : VARCHAR
+  location : VARCHAR
+  start_date : DATE
   end_date : DATE
-  is_current : BOOLEAN
+  currently_working : BOOLEAN
   description : TEXT
 }
 
-table(experience_achievements) {
-  * primary_key(id) : BIGINT
-  foreign_key(experience_id) : BIGINT <<not null>>
-  achievement : TEXT <<not null>>
-}
-
-table(skills) {
-  * primary_key(id) : BIGINT
-  foreign_key(cv_id) : BIGINT <<not null>>
-  name : VARCHAR(255) <<not null>>
-  level : VARCHAR(100)
-  skill_order : INTEGER
-}
-
-table(projects) {
-  * primary_key(id) : BIGINT
-  foreign_key(cv_id) : BIGINT <<not null>>
-  name : VARCHAR(255) <<not null>>
+entity "project" as project {
+  *id : BIGINT <<PK>>
+  --
+  personal_info_id : BIGINT <<FK>>
+  name : VARCHAR
   description : TEXT
-  github_url : VARCHAR(255)
-  live_url : VARCHAR(255)
+  repository_url : VARCHAR
+  live_url : VARCHAR
   start_date : DATE
   end_date : DATE
 }
 
-table(project_technologies) {
-  * primary_key(id) : BIGINT
-  foreign_key(project_id) : BIGINT <<not null>>
-  technology : VARCHAR(255)
+entity "certificate" as certificate {
+  *id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  personal_info_id : BIGINT <<FK>>
+  name : VARCHAR
+  issuer : VARCHAR
+  issue_date : DATE
+  expiration_date : DATE
+  credential_id : VARCHAR
+  credential_url : VARCHAR
 }
 
-table(languages) {
-  * primary_key(id) : BIGINT
-  foreign_key(cv_id) : BIGINT <<not null>>
-  name : VARCHAR(255) <<not null>>
-  proficiency : VARCHAR(255)
+entity "personal_info_skill" as personal_info_skill {
+  *personal_info_id : BIGINT <<FK>>
+  *skill_id : BIGINT <<FK>>
+  --
+  level : VARCHAR
 }
 
-table(certificates) {
-  * primary_key(id) : BIGINT
-  foreign_key(cv_id) : BIGINT <<not null>>
-  name : VARCHAR(255) <<not null>>
-  issuer : VARCHAR(255)
-  issued_date : DATE
-  credential_url : VARCHAR(255)
+entity "personal_info_language" as personal_info_language {
+  *personal_info_id : BIGINT <<FK>>
+  *language_id : BIGINT <<FK>>
+  --
+  proficiency_level : VARCHAR
 }
 
-' Relationships / cardinality
-users ||--o{ cvs : "owns"
-users ||--|| personal_info : "has"
-users ||--o{ chats : "has many"
-chats ||--o{ messages : "has many"
-educations }o--|| universities : "references"
-educations }o--|| cvs : "belongs to"
-experiences }o--|| cvs : "belongs to"
-skills }o--|| cvs : "belongs to"
-projects }o--|| cvs : "belongs to"
-languages }o--|| cvs : "belongs to"
-certificates }o--|| cvs : "belongs to"
-experience_achievements }o--|| experiences : "belongs to"
-project_technologies }o--|| projects : "belongs to"
+entity "project_skill" as project_skill {
+  *project_id : BIGINT <<FK>>
+  *skill_id : BIGINT <<FK>>
+}
+
+user ||--o| personal_info : has
+user ||--o{ verification_code : owns
+user ||--o{ feedback : gives
+user ||--o{ chat : owns
+chat ||--o{ message : contains
+
+user ||--o{ cv : owns
+personal_info ||--o{ cv : used_by
+
+personal_info ||--o{ education : has
+university ||--o{ education : belongs_to
+
+personal_info ||--o{ experience : has
+position ||--o{ experience : used_in
+
+personal_info ||--o{ project : has
+project ||--o{ project_skill : uses
+skill ||--o{ project_skill : included_in
+
+personal_info ||--o{ personal_info_skill : has
+skill ||--o{ personal_info_skill : selected_in
+
+personal_info ||--o{ personal_info_language : knows
+language ||--o{ personal_info_language : selected_in
+
+user ||--o{ certificate : owns
+personal_info ||--o{ certificate : lists
 
 @enduml

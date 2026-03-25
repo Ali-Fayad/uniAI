@@ -76,9 +76,9 @@ public class EmailNotificationAdapter implements NotificationPort {
 
     private String typeToKey(VerificationCodeType type) {
         return switch (type) {
-            case VERIFY -> "verify";
-            case TWO_FACT_AUTH -> "two-factor";
-            case CHANGE_PASSWORD -> "change-password";
+            case REGISTRATION, EMAIL_CHANGE -> "verify";
+            case TWO_FA -> "two-factor";
+            case PASSWORD_RESET -> "change-password";
         };
     }
 }

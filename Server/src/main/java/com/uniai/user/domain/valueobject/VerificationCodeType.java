@@ -5,7 +5,8 @@ package com.uniai.user.domain.valueobject;
  * Email content per type is configured via EmailProperties.
  */
 public enum VerificationCodeType {
-    VERIFY,
-    TWO_FACT_AUTH,
-    CHANGE_PASSWORD
+    REGISTRATION,
+    PASSWORD_RESET,
+    EMAIL_CHANGE,
+    TWO_FA
 }

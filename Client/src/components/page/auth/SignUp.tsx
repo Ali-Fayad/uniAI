@@ -19,6 +19,10 @@ const SignUp = () => {
     confirmPassword,
     isLoading,
     error,
+    emailAvailabilityMessage,
+    isEmailAvailable,
+    isEmailChecking,
+    canSubmit,
     showPassword,
     showConfirmPassword,
     setUsername,
@@ -94,6 +98,22 @@ const SignUp = () => {
               required
               className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
             />
+            {email.trim().length > 0 && (
+              <motion.p
+                variants={staggerItemVariants}
+                className={`text-sm ${
+                  isEmailChecking
+                    ? 'text-[var(--color-textSecondary)]'
+                    : isEmailAvailable
+                      ? 'text-green-600'
+                      : 'text-red-600'
+                }`}
+              >
+                {isEmailChecking
+                  ? 'Checking email availability...'
+                  : `${isEmailAvailable ? '✅' : '❌'} ${emailAvailabilityMessage}`}
+              </motion.p>
+            )}
 
             {/* Password */}
             <motion.div variants={staggerItemVariants} className="relative">
@@ -139,7 +159,7 @@ const SignUp = () => {
             <motion.div variants={staggerItemVariants}>
               <motion.button
                 type="submit"
-                disabled={isLoading}
+                disabled={!canSubmit}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"

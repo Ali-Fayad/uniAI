@@ -11,9 +11,9 @@ import java.util.Optional;
  */
 public interface VerifyCodeRepository {
 
-    void deleteByEmailAndType(String email, VerificationCodeType type);
+    void deleteByUserIdAndType(Long userId, VerificationCodeType type);
 
-    Optional<VerifyCode> findTopByEmailAndType(String email, VerificationCodeType type);
+    Optional<VerifyCode> findTopByUserIdAndType(Long userId, VerificationCodeType type);
 
     VerifyCode save(VerifyCode verifyCode);
 

@@ -26,6 +26,7 @@ public class AuthController {
     private final ForgotPasswordUseCase forgotPasswordUseCase;
     private final ConfirmPasswordResetUseCase confirmPasswordResetUseCase;
     private final GetGoogleAuthUrlUseCase getGoogleAuthUrlUseCase;
+    private final CheckEmailAvailabilityUseCase checkEmailAvailabilityUseCase;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpCommand command) {
@@ -71,6 +72,13 @@ public class AuthController {
         return ResponseEntity.ok(new UrlResponse(url));
     }
 
+    @GetMapping("/check-email")
+    public ResponseEntity<CheckEmailResponse> checkEmail(@RequestParam String email) {
+        boolean available = checkEmailAvailabilityUseCase.isEmailAvailable(email);
+        String message = available ? "Email available" : "Email already in use";
+        return ResponseEntity.ok(new CheckEmailResponse(available, message));
+    }
+
     // -------------------------------------------------------------------------
     // Records for request/response bodies
     // -------------------------------------------------------------------------
@@ -78,6 +86,7 @@ public class AuthController {
     private record TokenResponse(String token) {}
     private record MessageResponse(String message) {}
     private record UrlResponse(String url) {}
+    private record CheckEmailResponse(boolean available, String message) {}
     private record ForgotPasswordRequest(String email) {}
 
     private record GoogleAuthUrlRequest(

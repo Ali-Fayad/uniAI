@@ -1,6 +1,7 @@
 package com.uniai.user.application.dto.command;
 
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,10 @@ public class UpdateUserCommand {
 
     @Size(max = 100)
     private String lastName;
+
+    @Email
+    @Size(max = 100)
+    private String email;
 
     private Boolean enableTwoFactor;
 }

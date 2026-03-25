@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface VerifyCodeJpaRepository extends JpaRepository<VerifyCode, Long> {
-    void deleteByEmailAndType(String email, VerificationCodeType type);
-    Optional<VerifyCode> findTopByEmailAndTypeOrderByExpirationTimeDesc(String email, VerificationCodeType type);
+    void deleteByUserIdAndType(Long userId, VerificationCodeType type);
+    Optional<VerifyCode> findTopByUserIdAndTypeOrderByCreatedAtDesc(Long userId, VerificationCodeType type);
 }

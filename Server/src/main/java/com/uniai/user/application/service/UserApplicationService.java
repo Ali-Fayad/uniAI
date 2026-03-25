@@ -62,6 +62,16 @@ public class UserApplicationService implements
             }
         }
 
+        if (command.getEmail() != null && !command.getEmail().isBlank()) {
+            String requestedEmail = command.getEmail().toLowerCase();
+            if (!requestedEmail.equals(user.getEmail())) {
+                if (userRepository.existsByEmail(requestedEmail)) {
+                    throw new AlreadyExistsException("Email already registered");
+                }
+                user.setEmail(requestedEmail);
+            }
+        }
+
         if (command.getFirstName() != null) {
             user.setFirstName(command.getFirstName());
         }

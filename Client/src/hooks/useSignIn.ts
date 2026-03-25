@@ -8,7 +8,7 @@
  */
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { authService } from '../services/auth';
 import { useAuth } from './useAuth';
 import { TEXT } from '../constants/static';
@@ -29,7 +29,10 @@ export interface UseSignInReturn {
 
 export const useSignIn = (): UseSignInReturn => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
+
+  const returnTo = new URLSearchParams(location.search).get('returnTo');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,7 +54,7 @@ export const useSignIn = (): UseSignInReturn => {
       }
 
       login(response.token);
-      navigate(ROUTES.CHAT);
+      navigate(returnTo || ROUTES.CHAT);
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as {

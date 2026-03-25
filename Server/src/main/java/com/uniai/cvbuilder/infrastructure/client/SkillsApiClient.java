@@ -25,7 +25,18 @@ public class SkillsApiClient {
 
     private final RestTemplate restTemplate;
 
+    public record SkillItem(String name, String category) {}
+
     public List<String> fetchSkills() {
+        List<SkillItem> items = fetchSkillItems();
+        List<String> names = new ArrayList<>(items.size());
+        for (SkillItem item : items) {
+            names.add(item.name());
+        }
+        return names;
+    }
+
+    public List<SkillItem> fetchSkillItems() {
         try {
             ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
                     SKILLS_URL,
@@ -39,12 +50,14 @@ public class SkillsApiClient {
             }
             Object items = body.get("items");
             if (items instanceof List<?> itemList) {
-                List<String> result = new ArrayList<>();
+                List<SkillItem> result = new ArrayList<>();
                 for (Object item : itemList) {
                     if (item instanceof Map<?, ?> map && map.containsKey("name")) {
                         Object name = map.get("name");
                         if (name != null) {
-                            result.add(name.toString());
+                            Object category = map.get("category");
+                            String categoryValue = category == null ? "General" : category.toString();
+                            result.add(new SkillItem(name.toString(), categoryValue));
                         }
                     }
                 }

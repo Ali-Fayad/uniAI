@@ -34,7 +34,8 @@ public class AuthApplicationService implements
         VerifyTwoFactorUseCase,
         ForgotPasswordUseCase,
         ConfirmPasswordResetUseCase,
-        GetGoogleAuthUrlUseCase {
+    GetGoogleAuthUrlUseCase,
+    CheckEmailAvailabilityUseCase {
 
     private final UserRepository userRepository;
     private final VerifyCodeRepository verifyCodeRepository;
@@ -56,7 +57,7 @@ public class AuthApplicationService implements
     @Override
     public String signUp(SignUpCommand command) {
         if (userRepository.existsByEmail(command.getEmail().toLowerCase())) {
-            throw new AlreadyExistsException("Email already exists");
+            throw new AlreadyExistsException("Email already registered");
         }
         if (userRepository.existsByUsername(command.getUsername().toLowerCase())) {
             throw new AlreadyExistsException("Username already exists");
@@ -73,7 +74,7 @@ public class AuthApplicationService implements
         userRepository.save(user);
 
         if (!user.isVerified()) {
-            sendVerificationCode(user.getEmail(), VerificationCodeType.VERIFY);
+            sendVerificationCode(user, VerificationCodeType.REGISTRATION);
             throw new VerificationNeededException("A verification code was sent — check your email!");
         }
 
@@ -94,12 +95,12 @@ public class AuthApplicationService implements
         }
 
         if (!user.isVerified()) {
-            sendVerificationCode(user.getEmail(), VerificationCodeType.VERIFY);
+            sendVerificationCode(user, VerificationCodeType.REGISTRATION);
             throw new VerificationNeededException("A verification code was sent — check your email!");
         }
 
         if (user.isTwoFacAuth()) {
-            sendVerificationCode(user.getEmail(), VerificationCodeType.TWO_FACT_AUTH);
+            sendVerificationCode(user, VerificationCodeType.TWO_FA);
             throw new UnauthorizedAccessException("Two-factor authentication code sent to email");
         }
 
@@ -115,7 +116,7 @@ public class AuthApplicationService implements
         User user = verifyCodeAndGetUser(
                 command.getEmail().toLowerCase(),
                 command.getVerificationCode(),
-                VerificationCodeType.VERIFY);
+            VerificationCodeType.REGISTRATION);
         return jwtUtil.generateToken(toPayload(user));
     }
 
@@ -128,7 +129,7 @@ public class AuthApplicationService implements
         User user = verifyCodeAndGetUser(
                 command.getEmail().toLowerCase(),
                 command.getVerificationCode(),
-                VerificationCodeType.TWO_FACT_AUTH);
+            VerificationCodeType.TWO_FA);
         return jwtUtil.generateToken(toPayload(user));
     }
 
@@ -138,9 +139,9 @@ public class AuthApplicationService implements
 
     @Override
     public void forgotPassword(String email) {
-        userRepository.findByEmail(email.toLowerCase())
+        User user = userRepository.findByEmail(email.toLowerCase())
                 .orElseThrow(InvalidEmailOrPassword::new);
-        sendVerificationCode(email.toLowerCase(), VerificationCodeType.CHANGE_PASSWORD);
+        sendVerificationCode(user, VerificationCodeType.PASSWORD_RESET);
     }
 
     // -------------------------------------------------------------------------
@@ -152,7 +153,7 @@ public class AuthApplicationService implements
         User user = verifyCodeAndGetUser(
                 command.getEmail().toLowerCase(),
                 command.getVerificationCode(),
-                VerificationCodeType.CHANGE_PASSWORD);
+            VerificationCodeType.PASSWORD_RESET);
 
         user.setPassword(passwordEncoder.encode(command.getNewPassword()));
         userRepository.save(user);
@@ -169,6 +170,11 @@ public class AuthApplicationService implements
         return oAuthPort.buildAuthorizationUrl(overrideRedirectUri, state);
     }
 
+    @Override
+    public boolean isEmailAvailable(String email) {
+        return !userRepository.existsByEmail(email.toLowerCase());
+    }
+
     // -------------------------------------------------------------------------
     // Shared helpers
     // -------------------------------------------------------------------------
@@ -176,40 +182,42 @@ public class AuthApplicationService implements
     /**
      * Generates an OTP code, persists it, and dispatches the notification email.
      */
-    private void sendVerificationCode(String email, VerificationCodeType type) {
+    private void sendVerificationCode(User user, VerificationCodeType type) {
         String code = EmailUtil.generateVerificationCode(codeLength);
 
-        verifyCodeRepository.deleteByEmailAndType(email, type);
+        verifyCodeRepository.deleteByUserIdAndType(user.getId(), type);
 
-        VerifyCode verifyCode = VerifyCodeBuilder.create(email, code, type)
+        VerifyCode verifyCode = VerifyCodeBuilder.create(user.getId(), code, type)
                 .expiresInMinutes(codeExpiryMinutes)
                 .build();
 
         verifyCodeRepository.save(verifyCode);
-        notificationPort.sendVerificationEmail(email, type, code);
+        notificationPort.sendVerificationEmail(user.getEmail(), type, code);
     }
 
     /**
      * Validates an OTP code and returns the associated user.
-     * Also marks the user as verified when the type is VERIFY.
+        * Also marks the user as verified when the type is REGISTRATION.
      */
     private User verifyCodeAndGetUser(String email, String code, VerificationCodeType type) {
-        VerifyCode stored = verifyCodeRepository.findTopByEmailAndType(email, type)
-                .orElseThrow(InvalidVerificationCodeException::new);
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(InvalidVerificationCodeException::new);
 
-        if (EmailUtil.isExpired(stored.getExpirationTime()) || !stored.getCode().equals(code)) {
+        VerifyCode stored = verifyCodeRepository.findTopByUserIdAndType(user.getId(), type)
+            .filter(v -> !v.isUsed())
+            .orElseThrow(InvalidVerificationCodeException::new);
+
+        if (EmailUtil.isExpired(stored.getExpiresAt()) || !stored.getCode().equals(code)) {
             throw new InvalidVerificationCodeException();
         }
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(InvalidVerificationCodeException::new);
-
-        if (type == VerificationCodeType.VERIFY) {
+        if (type == VerificationCodeType.REGISTRATION) {
             user.setVerified(true);
             userRepository.save(user);
         }
 
-        verifyCodeRepository.delete(stored);
+        stored.setUsed(true);
+        verifyCodeRepository.save(stored);
         return user;
     }
 

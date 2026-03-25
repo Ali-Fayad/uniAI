@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "verify_codes")
+@Table(name = "verification_code")
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,18 +21,37 @@ public class VerifyCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
+    @Column(nullable = false)
     private String code;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private VerificationCodeType type;
 
-    private LocalDateTime expirationTime;
+    @Column(name = "expires_at", nullable = false)
+    private LocalDateTime expiresAt;
 
-    public void saveCode(String email, String code, VerificationCodeType type) {
-        this.email = email;
+    @Column(nullable = false)
+    private boolean used;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
+    public void saveCode(Long userId, String code, VerificationCodeType type) {
+        this.userId = userId;
         this.code = code;
         this.type = type;
-        this.expirationTime = LocalDateTime.now().plusMinutes(15);
+        this.expiresAt = LocalDateTime.now().plusMinutes(15);
+        this.used = false;
     }
 }

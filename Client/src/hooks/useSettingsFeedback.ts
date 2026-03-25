@@ -7,8 +7,9 @@
  */
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { userService } from '../services/user';
-import { Storage } from '../utils/Storage';
+import { ROUTES } from '../router';
 
 export interface FeedbackState {
   rating: number;
@@ -22,17 +23,25 @@ export interface UseSettingsFeedbackReturn {
 }
 
 export const useSettingsFeedback = (): UseSettingsFeedbackReturn => {
+  const navigate = useNavigate();
   const [feedback, setFeedback] = useState<FeedbackState>({ rating: 0, comment: '' });
 
   const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const email = Storage.getUser()?.email ?? '';
-      const commentWithRating = `Rating: ${feedback.rating}/5. ${feedback.comment}`;
-      await userService.sendFeedback({ email, comment: commentWithRating });
+      await userService.sendFeedback({
+        rating: feedback.rating > 0 ? feedback.rating : undefined,
+        content: feedback.comment,
+      });
       setFeedback({ rating: 0, comment: '' });
       console.log('Feedback submitted successfully');
-    } catch (error) {
+    } catch (error: any) {
+      if (error?.response?.status === 403) {
+        alert('Please log in to submit feedback');
+        const returnTo = encodeURIComponent(window.location.pathname);
+        navigate(`${ROUTES.AUTH}?returnTo=${returnTo}`);
+        return;
+      }
       console.error('Failed to submit feedback', error);
     }
   };

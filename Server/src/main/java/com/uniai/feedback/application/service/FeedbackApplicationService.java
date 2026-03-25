@@ -5,7 +5,6 @@ import com.uniai.feedback.application.port.in.SubmitFeedbackUseCase;
 import com.uniai.feedback.domain.model.Feedback;
 import com.uniai.feedback.domain.repository.FeedbackRepository;
 import com.uniai.shared.exception.FeedbackNotValidException;
-import com.uniai.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +16,24 @@ import org.springframework.stereotype.Service;
 public class FeedbackApplicationService implements SubmitFeedbackUseCase {
 
     private final FeedbackRepository feedbackRepository;
-    private final UserRepository userRepository;
 
     @Override
-    public void submitFeedback(SubmitFeedbackCommand command) {
-        if (!userRepository.existsByEmail(command.getEmail())
-                || command.getComment() == null
-                || command.getComment().isBlank()) {
+    public void submitFeedback(Long userId, SubmitFeedbackCommand command) {
+        if (userId == null
+                || command.getContent() == null
+                || command.getContent().isBlank()) {
             throw new FeedbackNotValidException("Feedback is not valid");
         }
 
+        Integer rating = command.getRating();
+        if (rating != null && (rating < 1 || rating > 5)) {
+            throw new FeedbackNotValidException("Feedback rating must be between 1 and 5");
+        }
+
         Feedback feedback = Feedback.builder()
-                .email(command.getEmail())
-                .comment(command.getComment())
+                .userId(userId)
+                .content(command.getContent())
+                .rating(rating)
                 .build();
 
         feedbackRepository.save(feedback);

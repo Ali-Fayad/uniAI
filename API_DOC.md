@@ -69,7 +69,38 @@ token	string	JWT token
 
 Errors:
 - 400 Bad Request: validation errors or InvalidEmailOrPassword
-- 409 Conflict: AlreadyExistsException
+- 409 Conflict: `Email already registered` or username conflict
+
+---
+
+#### `GET /api/auth/check-email?email=...`
+
+**Description:** Check if an email is available for registration.
+
+**Authentication:** Not required
+
+**Query Parameters:**
+- `email` (string, required)
+
+**Response:**
+
+200 OK:
+
+```json
+{
+  "available": true,
+  "message": "Email available"
+}
+```
+
+When unavailable:
+
+```json
+{
+  "available": false,
+  "message": "Email already in use"
+}
+```
 
 ---
 
@@ -263,15 +294,16 @@ Errors: 401 Unauthorized
   "username": "jdoe",
   "firstName": "John",
   "lastName": "Doe",
+  "email": "john@example.com",
   "enableTwoFactor": true
 }
 ```
 
-Fields: `username` (2-50), `firstName` (max 100), `lastName` (max 100), `enableTwoFactor` (boolean)
+Fields: `username` (2-50), `firstName` (max 100), `lastName` (max 100), `email` (valid email, max 100), `enableTwoFactor` (boolean)
 
 **Response:** 200 OK - `AuthResponseDto` (same schema as `GET /api/users/me`)
 
-Errors: 400 validation, 401 Unauthorized
+Errors: 400 validation, 401 Unauthorized, 409 Conflict (`Email already registered`)
 
 ---
 
@@ -311,6 +343,74 @@ Constraints: `newPassword` min length 8
 **Response:** 200 OK (empty body)
 
 Errors: 400 validation, 401 Unauthorized
+
+---
+
+### Feedback Module
+
+#### `POST /api/feedback`
+
+**Description:** Submit feedback for the authenticated user.
+
+**Authentication:** JWT required
+
+**Request Body:**
+```json
+{
+  "rating": 5,
+  "content": "Great experience overall"
+}
+```
+
+Fields:
+- `rating` (integer, optional, 1..5)
+- `content` (string, required, non-empty)
+
+**Response:** 200 OK (empty body)
+
+Errors:
+- 400 Bad Request (`FeedbackNotValidException`)
+- 403 Forbidden (`Authentication required`) when token is missing or invalid
+
+---
+
+### Catalog Module
+
+#### `GET /api/skills`
+
+**Description:** Return skills from local database (synced from external API).
+
+**Authentication:** JWT required
+
+**Query Parameters:**
+- `search` (string, optional) - case-insensitive partial match by skill name
+
+**Response:** 200 OK
+
+```json
+[
+  { "id": 1, "name": "java", "category": "Programming" },
+  { "id": 2, "name": "ux-design", "category": "Design" }
+]
+```
+
+#### `GET /api/languages`
+
+**Description:** Return static seeded languages from local database.
+
+**Authentication:** JWT required
+
+**Query Parameters:**
+- `search` (string, optional) - case-insensitive partial match by `name` or `nativeName`
+
+**Response:** 200 OK
+
+```json
+[
+  { "id": 1, "name": "English", "code": "en", "nativeName": "English" },
+  { "id": 2, "name": "Arabic", "code": "ar", "nativeName": "العربية" }
+]
+```
 
 ---
 

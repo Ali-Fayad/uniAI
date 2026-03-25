@@ -10,6 +10,7 @@ import type {
   TokenResponse,
   MessageResponse,
   UrlResponse,
+  CheckEmailResponse,
 } from '../types/dto';
 import type { IAuthService } from '../interfaces';
 
@@ -131,6 +132,17 @@ export const authService: IAuthService = {
     const response = await apiClient.post<UrlResponse>(
       ENDPOINTS.AUTH.GOOGLE_URL,
       data || {}
+    );
+    return response.data;
+  },
+
+  /**
+   * Check whether an email is available for registration.
+   */
+  async checkEmailAvailability(email: string): Promise<CheckEmailResponse> {
+    const response = await apiClient.get<CheckEmailResponse>(
+      ENDPOINTS.AUTH.CHECK_EMAIL,
+      { params: { email } }
     );
     return response.data;
   },

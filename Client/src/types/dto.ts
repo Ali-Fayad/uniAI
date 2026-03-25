@@ -60,6 +60,11 @@ export interface UrlResponse {
   url: string;
 }
 
+export interface CheckEmailResponse {
+  available: boolean;
+  message: string;
+}
+
 // ============================================================
 // User DTOs
 // ============================================================
@@ -83,8 +88,21 @@ export interface UpdateUserDto {
 }
 
 export interface FeedbackRequest {
-  email: string;
-  comment: string;
+  rating?: number;
+  content: string;
+}
+
+export interface SkillCatalogDto {
+  id: number;
+  name: string;
+  category?: string;
+}
+
+export interface LanguageCatalogDto {
+  id: number;
+  name: string;
+  code: string;
+  nativeName?: string;
 }
 
 export interface ChangePasswordDto {

@@ -19,13 +19,13 @@ public class VerifyCodeRepositoryAdapter implements VerifyCodeRepository {
     private final VerifyCodeJpaRepository jpaRepository;
 
     @Override
-    public void deleteByEmailAndType(String email, VerificationCodeType type) {
-        jpaRepository.deleteByEmailAndType(email, type);
+    public void deleteByUserIdAndType(Long userId, VerificationCodeType type) {
+        jpaRepository.deleteByUserIdAndType(userId, type);
     }
 
     @Override
-    public Optional<VerifyCode> findTopByEmailAndType(String email, VerificationCodeType type) {
-        return jpaRepository.findTopByEmailAndTypeOrderByExpirationTimeDesc(email, type);
+    public Optional<VerifyCode> findTopByUserIdAndType(Long userId, VerificationCodeType type) {
+        return jpaRepository.findTopByUserIdAndTypeOrderByCreatedAtDesc(userId, type);
     }
 
     @Override

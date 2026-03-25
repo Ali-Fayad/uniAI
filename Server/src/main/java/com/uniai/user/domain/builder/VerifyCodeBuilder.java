@@ -19,7 +19,7 @@ public final class VerifyCodeBuilder {
 
     public static final int DEFAULT_EXPIRY_MINUTES = 15;
 
-    private String               email;
+    private Long                 userId;
     private String               code;
     private VerificationCodeType type;
     private int                  expiryMinutes = DEFAULT_EXPIRY_MINUTES;
@@ -30,9 +30,9 @@ public final class VerifyCodeBuilder {
     // Entry point
     // -------------------------------------------------------------------------
 
-    public static VerifyCodeBuilder create(String email, String code, VerificationCodeType type) {
+    public static VerifyCodeBuilder create(Long userId, String code, VerificationCodeType type) {
         VerifyCodeBuilder b = new VerifyCodeBuilder();
-        b.email = email;
+        b.userId = userId;
         b.code  = code;
         b.type  = type;
         return b;
@@ -54,10 +54,11 @@ public final class VerifyCodeBuilder {
 
     public VerifyCode build() {
         return VerifyCode.builder()
-                .email(email)
+                .userId(userId)
                 .code(code)
                 .type(type)
-                .expirationTime(LocalDateTime.now().plusMinutes(expiryMinutes))
+                .expiresAt(LocalDateTime.now().plusMinutes(expiryMinutes))
+                .used(false)
                 .build();
     }
 }

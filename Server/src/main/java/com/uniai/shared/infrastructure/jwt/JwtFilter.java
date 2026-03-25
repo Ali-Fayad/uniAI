@@ -36,19 +36,19 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = authHeader.substring(7);
 
         if (!jwtUtil.validateToken(token)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Authentication required");
             return;
         }
 
         JwtTokenPayload payload = jwtUtil.getPayloadFromToken(token);
 
         if (payload.getUsername() == null || payload.getUsername().isBlank()) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Cannot extract user from token");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Authentication required");
             return;
         }
 
         if (!payload.isVerified()) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User is not verified");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Authentication required");
             return;
         }
 

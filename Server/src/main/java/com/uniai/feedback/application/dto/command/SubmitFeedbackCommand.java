@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubmitFeedbackCommand {
-    private String email;
-    private String comment;
+    private Integer rating;
+    private String content;
 }

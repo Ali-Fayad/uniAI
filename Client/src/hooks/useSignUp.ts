@@ -6,7 +6,7 @@
  * is responsible only for rendering (SRP).
  */
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/auth';
 import { useAuth } from './useAuth';
@@ -23,6 +23,10 @@ export interface UseSignUpReturn {
   confirmPassword: string;
   isLoading: boolean;
   error: string;
+  emailAvailabilityMessage: string;
+  isEmailAvailable: boolean;
+  isEmailChecking: boolean;
+  canSubmit: boolean;
   showPassword: boolean;
   showConfirmPassword: boolean;
   setUsername: (v: string) => void;
@@ -48,8 +52,57 @@ export const useSignUp = (): UseSignUpReturn => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [emailAvailabilityMessage, setEmailAvailabilityMessage] = useState('');
+  const [isEmailAvailable, setIsEmailAvailable] = useState(false);
+  const [isEmailChecking, setIsEmailChecking] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const normalizedEmail = useMemo(() => email.trim().toLowerCase(), [email]);
+
+  const isEmailFormatValid = useMemo(() => {
+    if (!normalizedEmail) {
+      return false;
+    }
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
+  }, [normalizedEmail]);
+
+  useEffect(() => {
+    if (!normalizedEmail) {
+      setEmailAvailabilityMessage('');
+      setIsEmailAvailable(false);
+      setIsEmailChecking(false);
+      return;
+    }
+
+    if (!isEmailFormatValid) {
+      setEmailAvailabilityMessage('Please enter a valid email address');
+      setIsEmailAvailable(false);
+      setIsEmailChecking(false);
+      return;
+    }
+
+    setIsEmailChecking(true);
+
+    const timeout = setTimeout(async () => {
+      try {
+        const response = await authService.checkEmailAvailability(normalizedEmail);
+        setIsEmailAvailable(response.available);
+        setEmailAvailabilityMessage(response.message);
+      } catch {
+        setIsEmailAvailable(false);
+        setEmailAvailabilityMessage('Unable to validate email right now');
+      } finally {
+        setIsEmailChecking(false);
+      }
+    }, 350);
+
+    return () => clearTimeout(timeout);
+  }, [normalizedEmail, isEmailFormatValid]);
+
+  const canSubmit = useMemo(() => {
+    return !isLoading && !isEmailChecking && isEmailFormatValid && isEmailAvailable;
+  }, [isLoading, isEmailChecking, isEmailFormatValid, isEmailAvailable]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +110,11 @@ export const useSignUp = (): UseSignUpReturn => {
 
     if (password !== confirmPassword) {
       setError(TEXT.auth.signUp.errors.passwordMismatch);
+      return;
+    }
+
+    if (!isEmailAvailable) {
+      setError('Email already in use');
       return;
     }
 
@@ -105,6 +163,10 @@ export const useSignUp = (): UseSignUpReturn => {
     confirmPassword,
     isLoading,
     error,
+    emailAvailabilityMessage,
+    isEmailAvailable,
+    isEmailChecking,
+    canSubmit,
     showPassword,
     showConfirmPassword,
     setUsername,
