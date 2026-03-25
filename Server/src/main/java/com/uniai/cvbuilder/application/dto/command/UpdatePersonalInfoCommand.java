@@ -27,6 +27,8 @@ public class UpdatePersonalInfoCommand {
     private List<SkillEntryCommand> skills;
     private List<LanguageEntryCommand> languages;
     private List<ExperienceEntryCommand> experience;
+    private List<ProjectEntryCommand> projects;
+    private List<CertificateEntryCommand> certificates;
 
     @Data
     @NoArgsConstructor
@@ -63,5 +65,26 @@ public class UpdatePersonalInfoCommand {
         private String positionId;
         private String position;
         private String company;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProjectEntryCommand {
+        private String id;
+        private String name;
+        private String description;
+        private String repositoryUrl;
+        private String liveUrl;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CertificateEntryCommand {
+        private String id;
+        private String name;
+        private String issuer;
+        private String credentialUrl;
     }
 }

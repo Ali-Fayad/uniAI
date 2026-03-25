@@ -28,6 +28,8 @@ export const ENDPOINTS = {
   CATALOG: {
     SKILLS: '/api/skills',
     LANGUAGES: '/api/languages',
+    POSITIONS: '/api/positions',
+    UNIVERSITIES: '/api/universities',
   },
 
   // Chat endpoints

@@ -105,6 +105,18 @@ export interface LanguageCatalogDto {
   nativeName?: string;
 }
 
+export interface PositionCatalogDto {
+  id: number;
+  name: string;
+}
+
+export interface UniversityCatalogDto {
+  id: number;
+  name: string;
+  acronym?: string;
+  nameAr?: string;
+}
+
 export interface ChangePasswordDto {
   currentPassword: string;
   newPassword: string;
@@ -183,6 +195,21 @@ export interface PersonalInfoExperienceEntryDto {
   company: string;
 }
 
+export interface PersonalInfoProjectEntryDto {
+  id: string;
+  name: string;
+  description?: string;
+  repositoryUrl?: string;
+  liveUrl?: string;
+}
+
+export interface PersonalInfoCertificateEntryDto {
+  id: string;
+  name: string;
+  issuer?: string;
+  credentialUrl?: string;
+}
+
 export interface PersonalInfoResponseDto {
   userId: number;
   hasPersonalInfo?: boolean;
@@ -198,6 +225,8 @@ export interface PersonalInfoResponseDto {
   skills?: PersonalInfoSkillEntryDto[];
   languages?: PersonalInfoLanguageEntryDto[];
   experience?: PersonalInfoExperienceEntryDto[];
+  projects?: PersonalInfoProjectEntryDto[];
+  certificates?: PersonalInfoCertificateEntryDto[];
 }
 
 export interface UpdatePersonalInfoDto {
@@ -213,5 +242,7 @@ export interface UpdatePersonalInfoDto {
   skills?: PersonalInfoSkillEntryDto[];
   languages?: PersonalInfoLanguageEntryDto[];
   experience?: PersonalInfoExperienceEntryDto[];
+  projects?: PersonalInfoProjectEntryDto[];
+  certificates?: PersonalInfoCertificateEntryDto[];
 }
 

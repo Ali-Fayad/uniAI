@@ -69,6 +69,10 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             info.setLanguagesJson(toJson(command.getLanguages()));
         if (command.getExperience() != null)
             info.setExperienceJson(toJson(command.getExperience()));
+        if (command.getProjects() != null)
+            info.setProjectsJson(toJson(command.getProjects()));
+        if (command.getCertificates() != null)
+            info.setCertificatesJson(toJson(command.getCertificates()));
 
         personalInfoRepository.save(info);
         return toResponse(info, userId);
@@ -81,7 +85,10 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
                 .hasPersonalInfo(false)
                 .education(List.of())
                 .skills(List.of())
+                .languages(List.of())
                 .experience(List.of())
+                .projects(List.of())
+                .certificates(List.of())
                 .build();
         }
 
@@ -109,6 +116,18 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             },
             List.of()
         );
+        List<PersonalInfoResponse.ProjectEntryResponse> projects = fromJson(
+            info.getProjectsJson(),
+            new TypeReference<>() {
+            },
+            List.of()
+        );
+        List<PersonalInfoResponse.CertificateEntryResponse> certificates = fromJson(
+            info.getCertificatesJson(),
+            new TypeReference<>() {
+            },
+            List.of()
+        );
 
         boolean hasPersonalInfo = hasText(info.getPhone())
             || hasText(info.getAddress())
@@ -121,7 +140,9 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
             || !education.isEmpty()
             || !skills.isEmpty()
             || !languages.isEmpty()
-            || !experience.isEmpty();
+            || !experience.isEmpty()
+            || !projects.isEmpty()
+            || !certificates.isEmpty();
 
         return PersonalInfoResponse.builder()
                 .userId(info.getUserId())
@@ -138,6 +159,8 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
                 .skills(skills)
                 .languages(languages)
                 .experience(experience)
+                .projects(projects)
+                .certificates(certificates)
                 .build();
     }
 

@@ -25,8 +25,11 @@ public class PersonalInfo {
 
     private String phone;
     private String address;
+    @Column(name = "linkedin_url")
     private String linkedin;
+    @Column(name = "github_url")
     private String github;
+    @Column(name = "portfolio_url")
     private String portfolio;
 
     @Column(length = 2000)
@@ -48,6 +51,12 @@ public class PersonalInfo {
 
     @Column(name = "experience_json", columnDefinition = "TEXT")
     private String experienceJson;
+
+    @Column(name = "projects_json", columnDefinition = "TEXT")
+    private String projectsJson;
+
+    @Column(name = "certificates_json", columnDefinition = "TEXT")
+    private String certificatesJson;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

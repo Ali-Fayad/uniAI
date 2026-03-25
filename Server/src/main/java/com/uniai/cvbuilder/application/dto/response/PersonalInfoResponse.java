@@ -29,6 +29,8 @@ public class PersonalInfoResponse {
     private List<SkillEntryResponse> skills;
     private List<LanguageEntryResponse> languages;
     private List<ExperienceEntryResponse> experience;
+    private List<ProjectEntryResponse> projects;
+    private List<CertificateEntryResponse> certificates;
 
     @Data
     @Builder
@@ -69,5 +71,28 @@ public class PersonalInfoResponse {
         private String positionId;
         private String position;
         private String company;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProjectEntryResponse {
+        private String id;
+        private String name;
+        private String description;
+        private String repositoryUrl;
+        private String liveUrl;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CertificateEntryResponse {
+        private String id;
+        private String name;
+        private String issuer;
+        private String credentialUrl;
     }
 }

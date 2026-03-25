@@ -3,13 +3,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { cvService } from '../../services/cv';
 import { ROUTES } from '../../router';
 import type {
+  PersonalInfoCertificateEntryDto,
   PersonalInfoEducationEntryDto,
   PersonalInfoExperienceEntryDto,
   PersonalInfoLanguageEntryDto,
+  PersonalInfoProjectEntryDto,
   PersonalInfoResponseDto,
   PersonalInfoSkillEntryDto,
-  UniversityDto,
 } from '../../types/dto';
+import { useLanguages } from '../../hooks/useLanguages';
+import { usePositions } from '../../hooks/usePositions';
+import { useSkills } from '../../hooks/useSkills';
+import { useUniversities } from '../../hooks/useUniversities';
 import LoadingSpinner from '../common/LoadingSpinner';
 
 type PersonalInfoLocationState = {
@@ -69,26 +74,32 @@ const PersonalInfoPage = () => {
   const [skills, setSkills] = useState<PersonalInfoSkillEntryDto[]>([]);
   const [languages, setLanguages] = useState<PersonalInfoLanguageEntryDto[]>([]);
   const [experience, setExperience] = useState<PersonalInfoExperienceEntryDto[]>([]);
+  const [projects, setProjects] = useState<PersonalInfoProjectEntryDto[]>([]);
+  const [certificates, setCertificates] = useState<PersonalInfoCertificateEntryDto[]>([]);
 
   const [initialSnapshot, setInitialSnapshot] = useState('');
 
   const [universityQuery, setUniversityQuery] = useState('');
-  const [universitySuggestions, setUniversitySuggestions] = useState<UniversityDto[]>([]);
-  const [isUniversitiesLoading, setIsUniversitiesLoading] = useState(false);
   const [selectedUniversityId, setSelectedUniversityId] = useState<number | null>(null);
 
   const [skillQuery, setSkillQuery] = useState('');
-  const [skillSuggestions, setSkillSuggestions] = useState<string[]>([]);
-  const [isSkillsLoading, setIsSkillsLoading] = useState(false);
+  const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
 
   const [languageQuery, setLanguageQuery] = useState('');
-  const [languageSuggestions, setLanguageSuggestions] = useState<string[]>([]);
-  const [isLanguagesLoading, setIsLanguagesLoading] = useState(false);
+  const [selectedLanguageId, setSelectedLanguageId] = useState<number | null>(null);
 
   const [positionQuery, setPositionQuery] = useState('');
-  const [positionSuggestions, setPositionSuggestions] = useState<string[]>([]);
-  const [isPositionsLoading, setIsPositionsLoading] = useState(false);
+  const [selectedPositionId, setSelectedPositionId] = useState<number | null>(null);
   const [experienceCompany, setExperienceCompany] = useState('');
+
+  const [projectName, setProjectName] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
+  const [projectRepositoryUrl, setProjectRepositoryUrl] = useState('');
+  const [projectLiveUrl, setProjectLiveUrl] = useState('');
+
+  const [certificateName, setCertificateName] = useState('');
+  const [certificateIssuer, setCertificateIssuer] = useState('');
+  const [certificateCredentialUrl, setCertificateCredentialUrl] = useState('');
 
   const [editingEducationId, setEditingEducationId] = useState<string | null>(null);
   const [editingEducationValue, setEditingEducationValue] = useState('');
@@ -103,6 +114,19 @@ const PersonalInfoPage = () => {
   const [editingExperiencePosition, setEditingExperiencePosition] = useState('');
   const [editingExperienceCompany, setEditingExperienceCompany] = useState('');
 
+  const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
+  const [editingProjectName, setEditingProjectName] = useState('');
+  const [editingProjectDescription, setEditingProjectDescription] = useState('');
+
+  const [editingCertificateId, setEditingCertificateId] = useState<string | null>(null);
+  const [editingCertificateName, setEditingCertificateName] = useState('');
+  const [editingCertificateIssuer, setEditingCertificateIssuer] = useState('');
+
+  const { items: universitySuggestions, isLoading: isUniversitiesLoading } = useUniversities(universityQuery);
+  const { items: skillSuggestions, isLoading: isSkillsLoading } = useSkills(skillQuery);
+  const { items: languageSuggestions, isLoading: isLanguagesLoading } = useLanguages(languageQuery);
+  const { items: positionSuggestions, isLoading: isPositionsLoading } = usePositions(positionQuery);
+
   const snapshot = useMemo(
     () =>
       JSON.stringify({
@@ -111,8 +135,10 @@ const PersonalInfoPage = () => {
         skills,
         languages,
         experience,
+        projects,
+        certificates,
       }),
-    [education, experience, form, languages, skills]
+    [certificates, education, experience, form, languages, projects, skills]
   );
 
   const isDirty = initialSnapshot.length > 0 && snapshot !== initialSnapshot;
@@ -138,9 +164,24 @@ const PersonalInfoPage = () => {
 
     const mappedExperience = (data.experience ?? []).map((item) => ({
       id: item.id || createClientId(),
-      positionId: item.positionId || normalizeOptionId('position', item.position),
+      positionId: item.positionId || createClientId(),
       position: item.position || '',
       company: item.company || '',
+    }));
+
+    const mappedProjects = (data.projects ?? []).map((item) => ({
+      id: item.id || createClientId(),
+      name: item.name || '',
+      description: item.description || '',
+      repositoryUrl: item.repositoryUrl || '',
+      liveUrl: item.liveUrl || '',
+    }));
+
+    const mappedCertificates = (data.certificates ?? []).map((item) => ({
+      id: item.id || createClientId(),
+      name: item.name || '',
+      issuer: item.issuer || '',
+      credentialUrl: item.credentialUrl || '',
     }));
 
     const nextForm: BasicFormState = {
@@ -159,6 +200,8 @@ const PersonalInfoPage = () => {
     setSkills(mappedSkills);
     setLanguages(mappedLanguages);
     setExperience(mappedExperience);
+    setProjects(mappedProjects);
+    setCertificates(mappedCertificates);
 
     setInitialSnapshot(
       JSON.stringify({
@@ -167,6 +210,8 @@ const PersonalInfoPage = () => {
         skills: mappedSkills,
         languages: mappedLanguages,
         experience: mappedExperience,
+        projects: mappedProjects,
+        certificates: mappedCertificates,
       })
     );
   };
@@ -212,113 +257,6 @@ const PersonalInfoPage = () => {
     };
   }, [isDirty]);
 
-  useEffect(() => {
-    const query = universityQuery.trim().toLowerCase();
-    if (!query) {
-      setUniversitySuggestions([]);
-      return;
-    }
-
-    const timeout = setTimeout(async () => {
-      setIsUniversitiesLoading(true);
-      try {
-        const allUniversities = await cvService.getUniversities();
-        const filtered = allUniversities
-          .filter((item) => {
-            const name = item.name?.toLowerCase() ?? '';
-            const acronym = item.acronym?.toLowerCase() ?? '';
-            const campusName = item.campusName?.toLowerCase() ?? '';
-            return name.includes(query) || acronym.includes(query) || campusName.includes(query);
-          })
-          .slice(0, 8);
-        setUniversitySuggestions(filtered);
-      } catch {
-        setUniversitySuggestions([]);
-      } finally {
-        setIsUniversitiesLoading(false);
-      }
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [universityQuery]);
-
-  useEffect(() => {
-    const query = skillQuery.trim().toLowerCase();
-    if (!query) {
-      setSkillSuggestions([]);
-      return;
-    }
-
-    const timeout = setTimeout(async () => {
-      setIsSkillsLoading(true);
-      try {
-        const allSkills = await cvService.getSkills(query);
-        const filtered = allSkills
-          .map((item) => item.name)
-          .filter((item) => item.toLowerCase().includes(query))
-          .slice(0, 8);
-        setSkillSuggestions(filtered);
-      } catch {
-        setSkillSuggestions([]);
-      } finally {
-        setIsSkillsLoading(false);
-      }
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [skillQuery]);
-
-  useEffect(() => {
-    const query = languageQuery.trim().toLowerCase();
-    if (!query) {
-      setLanguageSuggestions([]);
-      return;
-    }
-
-    const timeout = setTimeout(async () => {
-      setIsLanguagesLoading(true);
-      try {
-        const allLanguages = await cvService.getLanguages(query);
-        const filtered = allLanguages
-          .map((item) => item.name)
-          .filter((item) => item.toLowerCase().includes(query))
-          .slice(0, 8);
-        setLanguageSuggestions(filtered);
-      } catch {
-        setLanguageSuggestions([]);
-      } finally {
-        setIsLanguagesLoading(false);
-      }
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [languageQuery]);
-
-  useEffect(() => {
-    const query = positionQuery.trim().toLowerCase();
-    if (!query) {
-      setPositionSuggestions([]);
-      return;
-    }
-
-    const timeout = setTimeout(async () => {
-      setIsPositionsLoading(true);
-      try {
-        const allPositions = await cvService.getPositions();
-        const filtered = allPositions
-          .filter((item) => item.toLowerCase().includes(query))
-          .slice(0, 8);
-        setPositionSuggestions(filtered);
-      } catch {
-        setPositionSuggestions([]);
-      } finally {
-        setIsPositionsLoading(false);
-      }
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [positionQuery]);
-
   const setField = (field: keyof BasicFormState, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
@@ -332,13 +270,12 @@ const PersonalInfoPage = () => {
 
   const addEducation = () => {
     const value = universityQuery.trim();
-    if (!value) {
+    if (!value || selectedUniversityId === null) {
+      setError('Please pick a university from the list before adding.');
       return;
     }
 
-    const id = selectedUniversityId
-      ? `uni-${selectedUniversityId}`
-      : `edu-${normalizeOptionId('custom', value)}-${createClientId()}`;
+    const id = `uni-${selectedUniversityId}-${createClientId()}`;
 
     setEducation((prev) => [
       ...prev,
@@ -351,16 +288,16 @@ const PersonalInfoPage = () => {
 
     setUniversityQuery('');
     setSelectedUniversityId(null);
-    setUniversitySuggestions([]);
+    setError(null);
   };
 
   const addSkill = () => {
     const value = skillQuery.trim();
-    if (!value) {
+    if (!value || selectedSkillId === null) {
+      setError('Please pick a skill from the catalog list before adding.');
       return;
     }
-
-    const skillId = normalizeOptionId('skill', value);
+    const skillId = String(selectedSkillId);
     setSkills((prev) => [
       ...prev,
       {
@@ -371,16 +308,17 @@ const PersonalInfoPage = () => {
     ]);
 
     setSkillQuery('');
-    setSkillSuggestions([]);
+    setSelectedSkillId(null);
+    setError(null);
   };
 
   const addLanguage = () => {
     const value = languageQuery.trim();
-    if (!value) {
+    if (!value || selectedLanguageId === null) {
+      setError('Please pick a language from the catalog list before adding.');
       return;
     }
-
-    const languageId = normalizeOptionId('language', value);
+    const languageId = String(selectedLanguageId);
     setLanguages((prev) => [
       ...prev,
       {
@@ -391,17 +329,19 @@ const PersonalInfoPage = () => {
     ]);
 
     setLanguageQuery('');
-    setLanguageSuggestions([]);
+    setSelectedLanguageId(null);
+    setError(null);
   };
 
   const addExperience = () => {
     const position = positionQuery.trim();
     const company = experienceCompany.trim();
-    if (!position) {
+    if (!position || selectedPositionId === null) {
+      setError('Please pick a position from the catalog list before adding.');
       return;
     }
 
-    const positionId = normalizeOptionId('position', position);
+    const positionId = String(selectedPositionId);
     setExperience((prev) => [
       ...prev,
       {
@@ -414,10 +354,99 @@ const PersonalInfoPage = () => {
 
     setPositionQuery('');
     setExperienceCompany('');
-    setPositionSuggestions([]);
+    setSelectedPositionId(null);
+    setError(null);
+  };
+
+  const addProject = () => {
+    const name = projectName.trim();
+    if (!name) {
+      setError('Project name is required.');
+      return;
+    }
+
+    setProjects((prev) => [
+      ...prev,
+      {
+        id: createClientId(),
+        name,
+        description: projectDescription.trim(),
+        repositoryUrl: projectRepositoryUrl.trim(),
+        liveUrl: projectLiveUrl.trim(),
+      },
+    ]);
+
+    setProjectName('');
+    setProjectDescription('');
+    setProjectRepositoryUrl('');
+    setProjectLiveUrl('');
+    setError(null);
+  };
+
+  const addCertificate = () => {
+    const name = certificateName.trim();
+    if (!name) {
+      setError('Certificate name is required.');
+      return;
+    }
+
+    setCertificates((prev) => [
+      ...prev,
+      {
+        id: createClientId(),
+        name,
+        issuer: certificateIssuer.trim(),
+        credentialUrl: certificateCredentialUrl.trim(),
+      },
+    ]);
+
+    setCertificateName('');
+    setCertificateIssuer('');
+    setCertificateCredentialUrl('');
+    setError(null);
+  };
+
+  const validateBeforeSave = () => {
+    const invalidEducation = education.some((item) => !item.universityName.trim() || !item.universityId);
+    if (invalidEducation) {
+      return 'Education entries must include a selected university.';
+    }
+
+    const invalidSkills = skills.some((item) => !item.name.trim() || !item.skillId);
+    if (invalidSkills) {
+      return 'Skills entries must include a selected skill.';
+    }
+
+    const invalidLanguages = languages.some((item) => !item.name.trim() || !item.languageId);
+    if (invalidLanguages) {
+      return 'Language entries must include a selected language.';
+    }
+
+    const invalidExperience = experience.some((item) => !item.position.trim() || !item.positionId);
+    if (invalidExperience) {
+      return 'Experience entries must include a selected position.';
+    }
+
+    const invalidProjects = projects.some((item) => !item.name.trim());
+    if (invalidProjects) {
+      return 'Project name is required for every project entry.';
+    }
+
+    const invalidCertificates = certificates.some((item) => !item.name.trim());
+    if (invalidCertificates) {
+      return 'Certificate name is required for every certificate entry.';
+    }
+
+    return null;
   };
 
   const saveChanges = async () => {
+    const validationError = validateBeforeSave();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setIsSaving(true);
     setError(null);
 
@@ -428,6 +457,8 @@ const PersonalInfoPage = () => {
         skills,
         languages,
         experience,
+        projects,
+        certificates,
       });
 
       applyResponseToState(response);
@@ -571,11 +602,11 @@ const PersonalInfoPage = () => {
                       onClick={() => {
                         setUniversityQuery(uni.name);
                         setSelectedUniversityId(uni.id);
-                        setUniversitySuggestions([]);
+                        setError(null);
                       }}
                       className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                     >
-                      {uni.name}
+                      {uni.name}{uni.acronym ? ` (${uni.acronym})` : ''}
                     </button>
                   ))
                 )}
@@ -678,7 +709,10 @@ const PersonalInfoPage = () => {
           <div className="relative flex flex-col sm:flex-row gap-3">
             <input
               value={skillQuery}
-              onChange={(e) => setSkillQuery(e.target.value)}
+              onChange={(e) => {
+                setSkillQuery(e.target.value);
+                setSelectedSkillId(null);
+              }}
               placeholder="Type a skill"
               className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
             />
@@ -696,15 +730,15 @@ const PersonalInfoPage = () => {
                 ) : (
                   skillSuggestions.map((skill) => (
                     <button
-                      key={skill}
+                      key={skill.id}
                       type="button"
                       onClick={() => {
-                        setSkillQuery(skill);
-                        setSkillSuggestions([]);
+                        setSkillQuery(skill.name);
+                        setSelectedSkillId(skill.id);
                       }}
                       className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                     >
-                      {skill}
+                      {skill.name}
                     </button>
                   ))
                 )}
@@ -810,7 +844,10 @@ const PersonalInfoPage = () => {
           <div className="relative flex flex-col sm:flex-row gap-3">
             <input
               value={languageQuery}
-              onChange={(e) => setLanguageQuery(e.target.value)}
+              onChange={(e) => {
+                setLanguageQuery(e.target.value);
+                setSelectedLanguageId(null);
+              }}
               placeholder="Type a language"
               className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
             />
@@ -828,15 +865,15 @@ const PersonalInfoPage = () => {
                 ) : (
                   languageSuggestions.map((language) => (
                     <button
-                      key={language}
+                      key={language.id}
                       type="button"
                       onClick={() => {
-                        setLanguageQuery(language);
-                        setLanguageSuggestions([]);
+                        setLanguageQuery(language.name);
+                        setSelectedLanguageId(language.id);
                       }}
                       className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                     >
-                      {language}
+                      {language.name}
                     </button>
                   ))
                 )}
@@ -943,7 +980,10 @@ const PersonalInfoPage = () => {
             <div className="sm:col-span-2 relative">
               <input
                 value={positionQuery}
-                onChange={(e) => setPositionQuery(e.target.value)}
+                onChange={(e) => {
+                  setPositionQuery(e.target.value);
+                  setSelectedPositionId(null);
+                }}
                 placeholder="Type a position"
                 className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
               />
@@ -954,15 +994,15 @@ const PersonalInfoPage = () => {
                   ) : (
                     positionSuggestions.map((position) => (
                       <button
-                        key={position}
+                        key={position.id}
                         type="button"
                         onClick={() => {
-                          setPositionQuery(position);
-                          setPositionSuggestions([]);
+                          setPositionQuery(position.name);
+                          setSelectedPositionId(position.id);
                         }}
                         className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                       >
-                        {position}
+                        {position.name}
                       </button>
                     ))
                   )}
@@ -1089,14 +1129,271 @@ const PersonalInfoPage = () => {
           </div>
         </section>
 
+        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+          <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Projects</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+              placeholder="Project name"
+              className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+            />
+            <input
+              value={projectRepositoryUrl}
+              onChange={(e) => setProjectRepositoryUrl(e.target.value)}
+              placeholder="Repository URL"
+              className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+            />
+            <input
+              value={projectLiveUrl}
+              onChange={(e) => setProjectLiveUrl(e.target.value)}
+              placeholder="Live URL"
+              className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+            />
+            <button
+              type="button"
+              onClick={addProject}
+              className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+            >
+              Add Project
+            </button>
+          </div>
+          <textarea
+            value={projectDescription}
+            onChange={(e) => setProjectDescription(e.target.value)}
+            placeholder="Project description"
+            rows={3}
+            className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          />
+
+          <div className="space-y-2">
+            {projects.map((item, index) => (
+              <div key={item.id} className="rounded-md border border-[var(--color-border)] p-3 space-y-2">
+                {editingProjectId === item.id ? (
+                  <>
+                    <input
+                      value={editingProjectName}
+                      onChange={(e) => setEditingProjectName(e.target.value)}
+                      className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                    />
+                    <textarea
+                      value={editingProjectDescription}
+                      onChange={(e) => setEditingProjectDescription(e.target.value)}
+                      rows={2}
+                      className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p className="text-[var(--color-textPrimary)] font-medium">{item.name}</p>
+                    {item.description && <p className="text-sm text-[var(--color-textSecondary)]">{item.description}</p>}
+                  </>
+                )}
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => index > 0 && setProjects((prev) => moveItem(prev, index, index - 1))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => index < projects.length - 1 && setProjects((prev) => moveItem(prev, index, index + 1))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    ↓
+                  </button>
+                  {editingProjectId === item.id ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextName = editingProjectName.trim();
+                        if (!nextName) {
+                          return;
+                        }
+                        setProjects((prev) =>
+                          prev.map((entry) =>
+                            entry.id === item.id
+                              ? {
+                                  ...entry,
+                                  name: nextName,
+                                  description: editingProjectDescription.trim(),
+                                }
+                              : entry
+                          )
+                        );
+                        setEditingProjectId(null);
+                        setEditingProjectName('');
+                        setEditingProjectDescription('');
+                      }}
+                      className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingProjectId(item.id);
+                        setEditingProjectName(item.name);
+                        setEditingProjectDescription(item.description ?? '');
+                      }}
+                      className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setProjects((prev) => prev.filter((entry) => entry.id !== item.id))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+          <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Certificates</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input
+              value={certificateName}
+              onChange={(e) => setCertificateName(e.target.value)}
+              placeholder="Certificate name"
+              className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+            />
+            <input
+              value={certificateIssuer}
+              onChange={(e) => setCertificateIssuer(e.target.value)}
+              placeholder="Issuer"
+              className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+            />
+            <input
+              value={certificateCredentialUrl}
+              onChange={(e) => setCertificateCredentialUrl(e.target.value)}
+              placeholder="Credential URL"
+              className="sm:col-span-1 w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+            />
+            <button
+              type="button"
+              onClick={addCertificate}
+              className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+            >
+              Add Certificate
+            </button>
+          </div>
+
+          <div className="space-y-2">
+            {certificates.map((item, index) => (
+              <div key={item.id} className="rounded-md border border-[var(--color-border)] p-3 space-y-2">
+                {editingCertificateId === item.id ? (
+                  <>
+                    <input
+                      value={editingCertificateName}
+                      onChange={(e) => setEditingCertificateName(e.target.value)}
+                      className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                    />
+                    <input
+                      value={editingCertificateIssuer}
+                      onChange={(e) => setEditingCertificateIssuer(e.target.value)}
+                      className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                    />
+                  </>
+                ) : (
+                  <p className="text-[var(--color-textPrimary)]">
+                    {item.name}{item.issuer ? ` · ${item.issuer}` : ''}
+                  </p>
+                )}
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => index > 0 && setCertificates((prev) => moveItem(prev, index, index - 1))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => index < certificates.length - 1 && setCertificates((prev) => moveItem(prev, index, index + 1))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    ↓
+                  </button>
+                  {editingCertificateId === item.id ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextName = editingCertificateName.trim();
+                        if (!nextName) {
+                          return;
+                        }
+                        setCertificates((prev) =>
+                          prev.map((entry) =>
+                            entry.id === item.id
+                              ? {
+                                  ...entry,
+                                  name: nextName,
+                                  issuer: editingCertificateIssuer.trim(),
+                                }
+                              : entry
+                          )
+                        );
+                        setEditingCertificateId(null);
+                        setEditingCertificateName('');
+                        setEditingCertificateIssuer('');
+                      }}
+                      className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingCertificateId(item.id);
+                        setEditingCertificateName(item.name);
+                        setEditingCertificateIssuer(item.issuer ?? '');
+                      }}
+                      className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setCertificates((prev) => prev.filter((entry) => entry.id !== item.id))}
+                    className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pb-8">
-          <button
-            type="button"
-            onClick={() => confirmNavigationIfDirty(ROUTES.SETTINGS)}
-            className="rounded-md border border-[var(--color-border)] px-4 py-2 text-[var(--color-textPrimary)]"
-          >
-            Back to Settings
-          </button>
+          {fromOnboarding ? (
+            <button
+              type="button"
+              onClick={() => confirmNavigationIfDirty(ROUTES.CHAT)}
+              className="rounded-md border border-[var(--color-border)] px-4 py-2 text-[var(--color-textPrimary)]"
+            >
+              Skip for now
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => confirmNavigationIfDirty(ROUTES.SETTINGS)}
+              className="rounded-md border border-[var(--color-border)] px-4 py-2 text-[var(--color-textPrimary)]"
+            >
+              Back to Settings
+            </button>
+          )}
           <button
             type="button"
             onClick={saveChanges}

@@ -2,10 +2,11 @@ import apiClient from './api';
 import { ENDPOINTS } from '../constants';
 import type {
   LanguageCatalogDto,
+  PositionCatalogDto,
   PersonalInfoResponseDto,
   SkillCatalogDto,
   UpdatePersonalInfoDto,
-  UniversityDto,
+  UniversityCatalogDto,
 } from '../types/dto';
 import type { ICVService } from '../interfaces';
 
@@ -23,8 +24,10 @@ export const cvService: ICVService = {
     return response.data;
   },
 
-  async getUniversities(): Promise<UniversityDto[]> {
-    const response = await apiClient.get<UniversityDto[]>(ENDPOINTS.CV.UNIVERSITIES);
+  async getUniversities(search?: string): Promise<UniversityCatalogDto[]> {
+    const response = await apiClient.get<UniversityCatalogDto[]>(ENDPOINTS.CATALOG.UNIVERSITIES, {
+      params: search?.trim() ? { search: search.trim() } : undefined,
+    });
     return response.data;
   },
 
@@ -42,8 +45,10 @@ export const cvService: ICVService = {
     return response.data;
   },
 
-  async getPositions(): Promise<string[]> {
-    const response = await apiClient.get<string[]>(ENDPOINTS.CV.POSITIONS);
+  async getPositions(search?: string): Promise<PositionCatalogDto[]> {
+    const response = await apiClient.get<PositionCatalogDto[]>(ENDPOINTS.CATALOG.POSITIONS, {
+      params: search?.trim() ? { search: search.trim() } : undefined,
+    });
     return response.data;
   },
 };
