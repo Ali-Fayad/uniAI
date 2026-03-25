@@ -4,6 +4,9 @@ import { AuthCard } from "../../../components/AuthCard";
 import AuthHeading from "../../../components/auth/AuthHeading";
 import { StaggerContainer, staggerItemVariants } from "../../../components/animations";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { ImSpinner } from 'react-icons/im';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { AiOutlineWarning } from 'react-icons/ai';
 import { useSignUp } from "../../../hooks/useSignUp";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
@@ -20,8 +23,7 @@ const SignUp = () => {
     isLoading,
     error,
     emailAvailabilityMessage,
-    isEmailAvailable,
-    isEmailChecking,
+    emailCheckStatus,
     canSubmit,
     showPassword,
     showConfirmPassword,
@@ -89,31 +91,77 @@ const SignUp = () => {
             </motion.div>
 
             {/* Email */}
-            <motion.input
+            <motion.div variants={staggerItemVariants} className="relative group">
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                aria-describedby="email-check-status"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] pr-14 text-[var(--color-textPrimary)]"
+              />
+
+              {emailCheckStatus !== 'idle' && (
+                <span className="absolute inset-y-0 right-4 flex items-center">
+                  {emailCheckStatus === 'checking' && (
+                    <span
+                      role="status"
+                      aria-label="Checking availability"
+                      tabIndex={0}
+                      className="text-[var(--color-primary)] animate-spin"
+                    >
+                      <ImSpinner size={18} />
+                    </span>
+                  )}
+                  {emailCheckStatus === 'available' && (
+                    <span
+                      role="img"
+                      aria-label="Email is available"
+                      tabIndex={0}
+                      className="text-green-700"
+                    >
+                      <FaCheckCircle size={18} />
+                    </span>
+                  )}
+                  {(emailCheckStatus === 'unavailable' || emailCheckStatus === 'error') && (
+                    <span
+                      role="img"
+                      aria-label="Email unavailable"
+                      tabIndex={0}
+                      className="text-red-700"
+                    >
+                      <FaTimesCircle size={18} />
+                    </span>
+                  )}
+                  {emailCheckStatus === 'invalid' && (
+                    <span
+                      role="img"
+                      aria-label="Invalid email format"
+                      tabIndex={0}
+                      className="text-amber-700"
+                    >
+                      <AiOutlineWarning size={19} />
+                    </span>
+                  )}
+                </span>
+              )}
+
+              {emailAvailabilityMessage && emailCheckStatus !== 'idle' && (
+                <div className="pointer-events-none absolute right-0 top-[calc(100%+6px)] z-20 whitespace-nowrap rounded-md bg-[var(--color-elevatedSurface)] border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-textPrimary)] opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
+                  {emailCheckStatus === 'checking' ? 'Checking availability...' : emailAvailabilityMessage}
+                </div>
+              )}
+            </motion.div>
+
+            <motion.p
+              id="email-check-status"
               variants={staggerItemVariants}
-              type="email"
-              placeholder={TEXT.auth.signUp.emailPlaceholder}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
-            />
-            {email.trim().length > 0 && (
-              <motion.p
-                variants={staggerItemVariants}
-                className={`text-sm ${
-                  isEmailChecking
-                    ? 'text-[var(--color-textSecondary)]'
-                    : isEmailAvailable
-                      ? 'text-green-600'
-                      : 'text-red-600'
-                }`}
-              >
-                {isEmailChecking
-                  ? 'Checking email availability...'
-                  : `${isEmailAvailable ? '✅' : '❌'} ${emailAvailabilityMessage}`}
-              </motion.p>
-            )}
+              aria-live="polite"
+              className="sr-only"
+            >
+              {emailAvailabilityMessage}
+            </motion.p>
 
             {/* Password */}
             <motion.div variants={staggerItemVariants} className="relative">

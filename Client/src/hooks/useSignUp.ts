@@ -6,13 +6,15 @@
  * is responsible only for rendering (SRP).
  */
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/auth';
 import { useAuth } from './useAuth';
+import { useEmailCheck } from './useEmailCheck';
 import { TEXT } from '../constants/static';
 import { ROUTES } from '../router';
 import type { SignUpDto } from '../types/dto';
+import type { EmailCheckStatus } from './useEmailCheck';
 
 export interface UseSignUpReturn {
   username: string;
@@ -26,6 +28,7 @@ export interface UseSignUpReturn {
   emailAvailabilityMessage: string;
   isEmailAvailable: boolean;
   isEmailChecking: boolean;
+  emailCheckStatus: EmailCheckStatus;
   canSubmit: boolean;
   showPassword: boolean;
   showConfirmPassword: boolean;
@@ -52,53 +55,17 @@ export const useSignUp = (): UseSignUpReturn => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [emailAvailabilityMessage, setEmailAvailabilityMessage] = useState('');
-  const [isEmailAvailable, setIsEmailAvailable] = useState(false);
-  const [isEmailChecking, setIsEmailChecking] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const normalizedEmail = useMemo(() => email.trim().toLowerCase(), [email]);
+  const {
+    status: emailCheckStatus,
+    message: emailAvailabilityMessage,
+    isFormatValid: isEmailFormatValid,
+  } = useEmailCheck(email, 400);
 
-  const isEmailFormatValid = useMemo(() => {
-    if (!normalizedEmail) {
-      return false;
-    }
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
-  }, [normalizedEmail]);
-
-  useEffect(() => {
-    if (!normalizedEmail) {
-      setEmailAvailabilityMessage('');
-      setIsEmailAvailable(false);
-      setIsEmailChecking(false);
-      return;
-    }
-
-    if (!isEmailFormatValid) {
-      setEmailAvailabilityMessage('Please enter a valid email address');
-      setIsEmailAvailable(false);
-      setIsEmailChecking(false);
-      return;
-    }
-
-    setIsEmailChecking(true);
-
-    const timeout = setTimeout(async () => {
-      try {
-        const response = await authService.checkEmailAvailability(normalizedEmail);
-        setIsEmailAvailable(response.available);
-        setEmailAvailabilityMessage(response.message);
-      } catch {
-        setIsEmailAvailable(false);
-        setEmailAvailabilityMessage('Unable to validate email right now');
-      } finally {
-        setIsEmailChecking(false);
-      }
-    }, 350);
-
-    return () => clearTimeout(timeout);
-  }, [normalizedEmail, isEmailFormatValid]);
+  const isEmailChecking = emailCheckStatus === 'checking';
+  const isEmailAvailable = emailCheckStatus === 'available';
 
   const canSubmit = useMemo(() => {
     return !isLoading && !isEmailChecking && isEmailFormatValid && isEmailAvailable;
@@ -166,6 +133,7 @@ export const useSignUp = (): UseSignUpReturn => {
     emailAvailabilityMessage,
     isEmailAvailable,
     isEmailChecking,
+    emailCheckStatus,
     canSubmit,
     showPassword,
     showConfirmPassword,
