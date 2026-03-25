@@ -17,5 +17,5 @@ COPY src ./src
 # Expose Spring Boot port
 EXPOSE 9090
 
-# Run Spring Boot via Maven wrapper
-CMD ["./mvnw", "spring-boot:run"]
+# Run Spring Boot via Maven wrapper (clean first to avoid stale Flyway resources in target/classes)
+CMD ["./mvnw", "clean", "spring-boot:run"]

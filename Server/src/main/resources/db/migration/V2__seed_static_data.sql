@@ -1,20 +1,28 @@
--- Seed universities from UnisCoordinateTable.md
--- Coordinates use the first lat/lng pair when multiple pairs are present.
+-- Seed static catalog data.
+-- Keeps reference data separated from schema evolution.
 
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1
-        FROM pg_constraint
-        WHERE conname = 'unique_university_campus'
-          AND conrelid = 'universities'::regclass
-    ) THEN
-        ALTER TABLE universities
-            ADD CONSTRAINT unique_university_campus UNIQUE (name, campus_name);
-    END IF;
-END $$;
+INSERT INTO language (name, code, native_name)
+VALUES
+('English', 'en', 'English'),
+('Arabic', 'ar', 'العربية'),
+('French', 'fr', 'Français'),
+('Spanish', 'es', 'Español'),
+('German', 'de', 'Deutsch'),
+('Italian', 'it', 'Italiano'),
+('Turkish', 'tr', 'Türkçe'),
+('Armenian', 'hy', 'Հայերեն'),
+('Russian', 'ru', 'Русский'),
+('Chinese', 'zh', '中文'),
+('Japanese', 'ja', '日本語'),
+('Portuguese', 'pt', 'Português'),
+('Greek', 'el', 'Ελληνικά'),
+('Swedish', 'sv', 'Svenska'),
+('Dutch', 'nl', 'Nederlands')
+ON CONFLICT (code) DO UPDATE
+SET name = EXCLUDED.name,
+    native_name = EXCLUDED.native_name;
 
-INSERT INTO universities (name, acronym, campus_name, latitude, longitude, campus_type)
+INSERT INTO university (name, acronym, campus_name, latitude, longitude, campus_type)
 VALUES
 ('American University of Beirut', 'AUB', 'Main Campus', 33.89996, 35.48228, 'Main'),
 ('American University of Beirut', 'AUB', 'Medical Center', 33.89484, 35.47920, 'Medical'),
