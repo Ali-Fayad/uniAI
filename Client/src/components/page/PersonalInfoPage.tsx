@@ -506,7 +506,7 @@ const PersonalInfoPage = () => {
           </div>
         )}
 
-        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+        <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
           <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Basic Information</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
@@ -536,7 +536,7 @@ const PersonalInfoPage = () => {
           </div>
         </section>
 
-        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+        <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
           <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Social & Web</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <input
@@ -560,7 +560,7 @@ const PersonalInfoPage = () => {
           </div>
         </section>
 
-        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+        <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
           <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Bio</h2>
           <textarea
             value={form.summary}
@@ -571,7 +571,7 @@ const PersonalInfoPage = () => {
           />
         </section>
 
-        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+        <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
           <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Education</h2>
           <div className="relative flex flex-col sm:flex-row gap-3">
             <input
@@ -704,7 +704,7 @@ const PersonalInfoPage = () => {
           </div>
         </section>
 
-        <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
+        <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4">
           <h2 className="text-xl font-semibold text-[var(--color-textPrimary)]">Skills</h2>
           <div className="relative flex flex-col sm:flex-row gap-3">
             <input

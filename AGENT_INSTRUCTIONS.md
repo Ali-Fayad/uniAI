@@ -14,10 +14,17 @@ Always follow SOLID principles:
 ### Documentation
 Always add documentation:
 
-- JavaDoc for all public methods and classes
-- Explain why not just what
-- Include `@param`, `@return`, `@throws` tags
-- Keep `API_DOC.md` in project root updated with any API changes
+Always add documentation across the whole project (not only the backend):
+
+- **Backend:** JavaDoc for all public methods and classes; explain why not just what.
+- **Frontend:** Document public components, pages, hooks, services, and any non-trivial UI behaviors. Update `Client/README.md` or add `FRONTEND_DOC.md` for larger features. Include usage examples and accessibility notes when relevant.
+- **Infrastructure & Configuration:** Document `Dockerfile`s, `docker-compose.yml`, `nginx/` configs, certificate generation, environment variables, and deployment steps. Prefer `infrastructure/README.md` or a root `README.md` section for infra notes.
+- **API:** Keep `API_DOC.md` in the project root updated for any endpoint, request/response, status code, or authentication changes.
+- **Database & Migrations:** For each migration in `Server/src/main/resources/db/migration/`, add a short rationale and any required rollout/migration steps (e.g., data backfills, downtime considerations) either inline in the migration SQL as a comment or in `API_DOC.md` / `migrations.md`.
+- **Config Files:** When changing critical config files (application properties, Tailwind config, TypeScript config, CI/CD), document what changed, why, and how to validate the change.
+- **Minimal Contents:** For every public-facing change include: what changed, why, where to look, and a short "how to test" checklist.
+
+Documentation MUST be added when creating or updating code, configs, infra, or docs. Follow these lightweight conventions so reviewers and future maintainers can quickly understand the change.
 
 ### Ask Questions
 If anything is unclear or you need to add new conditions, ask. Don’t assume.
@@ -68,6 +75,10 @@ Client/src/
 - Check `components.json` for shadcn/ui components if available
  - Always use the same Framer Motion opening and closing animations for any newly added or modified frontend components; reuse the shared animations located in `Client/src/components/animations/` to ensure consistent motion across the app.
  - Always analyze the general UI (colors, fonts, spacing) of the surrounding screens and reuse existing theme tokens and style choices from `Client/src/styles/` so new or modified components visually match the app's established style.
+
+#### **UI Consistency Rules**
+- **Card Border-Radius:** All card-like components must use `rounded-3xl` border-radius (the Auth Card value). Do not introduce new radius values for cards; prefer existing tokens/classes instead.
+- **Reference:** When creating new card components, reference the `AuthCard` component for sizing and border-radius consistency.
 
 ---
 
