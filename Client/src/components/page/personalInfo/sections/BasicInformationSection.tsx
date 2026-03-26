@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { FaUser } from 'react-icons/fa';
 import type { BasicFormState } from '../personalInfoTypes';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 
@@ -22,6 +23,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
   return (
     <PersonalInfoSectionCard
       title="Basic Information"
+      icon={<FaUser className="h-5 w-5" aria-hidden="true" />}
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

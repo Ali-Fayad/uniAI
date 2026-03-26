@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { FaBriefcase } from 'react-icons/fa';
 import type { PersonalInfoExperienceEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { moveItem, normalizeOptionId } from '../personalInfoUtils';
@@ -59,6 +60,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   return (
     <PersonalInfoSectionCard
       title="Experience"
+      icon={<FaBriefcase className="h-5 w-5" aria-hidden="true" />}
       className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">

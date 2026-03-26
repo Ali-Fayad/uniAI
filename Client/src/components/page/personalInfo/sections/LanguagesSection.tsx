@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { FaLanguage } from 'react-icons/fa';
 import type { PersonalInfoLanguageEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { createClientId, moveItem, normalizeOptionId } from '../personalInfoUtils';
@@ -50,6 +51,7 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
   return (
     <PersonalInfoSectionCard
       title="Languages"
+      icon={<FaLanguage className="h-5 w-5" aria-hidden="true" />}
       className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
       <div className="relative flex flex-col sm:flex-row gap-3">

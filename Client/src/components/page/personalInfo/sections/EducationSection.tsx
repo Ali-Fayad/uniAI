@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { FaGraduationCap } from 'react-icons/fa';
 import type { PersonalInfoEducationEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { createClientId, moveItem } from '../personalInfoUtils';
@@ -53,6 +54,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
   return (
     <PersonalInfoSectionCard
       title="Education"
+      icon={<FaGraduationCap className="h-5 w-5" aria-hidden="true" />}
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
       <div className="relative flex flex-col sm:flex-row gap-3">

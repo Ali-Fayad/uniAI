@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { FaFolderOpen } from 'react-icons/fa';
 import type { PersonalInfoProjectEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { moveItem } from '../personalInfoUtils';
@@ -58,6 +59,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   return (
     <PersonalInfoSectionCard
       title="Projects"
+      icon={<FaFolderOpen className="h-5 w-5" aria-hidden="true" />}
       className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

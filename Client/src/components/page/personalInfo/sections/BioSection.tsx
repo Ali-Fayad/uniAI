@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { FaPencilAlt } from 'react-icons/fa';
 import type { BasicFormState } from '../personalInfoTypes';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 
@@ -22,6 +23,7 @@ const BioSection: React.FC<BioSectionProps> = ({ form, setField }) => {
   return (
     <PersonalInfoSectionCard
       title="Bio"
+      icon={<FaPencilAlt className="h-5 w-5" aria-hidden="true" />}
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
       <textarea
