@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/auth';
 import { useAuth } from './useAuth';
 import { useEmailCheck } from './useEmailCheck';
+import { useUsernameCheck } from './useUsernameCheck';
 import { TEXT } from '../constants/static';
 import { ROUTES } from '../router';
 import type { SignUpDto } from '../types/dto';
@@ -25,6 +26,10 @@ export interface UseSignUpReturn {
   confirmPassword: string;
   isLoading: boolean;
   error: string;
+  usernameAvailabilityMessage: string;
+  isUsernameAvailable: boolean;
+  isUsernameChecking: boolean;
+  usernameCheckStatus: EmailCheckStatus;
   emailAvailabilityMessage: string;
   isEmailAvailable: boolean;
   isEmailChecking: boolean;
@@ -59,17 +64,41 @@ export const useSignUp = (): UseSignUpReturn => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
+    status: usernameCheckStatus,
+    message: usernameAvailabilityMessage,
+    isFormatValid: isUsernameFormatValid,
+  } = useUsernameCheck(username, 400);
+
+  const {
     status: emailCheckStatus,
     message: emailAvailabilityMessage,
     isFormatValid: isEmailFormatValid,
   } = useEmailCheck(email, 400);
 
+  const isUsernameChecking = usernameCheckStatus === 'checking';
+  const isUsernameAvailable = usernameCheckStatus === 'available';
   const isEmailChecking = emailCheckStatus === 'checking';
   const isEmailAvailable = emailCheckStatus === 'available';
 
   const canSubmit = useMemo(() => {
-    return !isLoading && !isEmailChecking && isEmailFormatValid && isEmailAvailable;
-  }, [isLoading, isEmailChecking, isEmailFormatValid, isEmailAvailable]);
+    return (
+      !isLoading &&
+      !isUsernameChecking &&
+      !isEmailChecking &&
+      isUsernameFormatValid &&
+      isEmailFormatValid &&
+      isUsernameAvailable &&
+      isEmailAvailable
+    );
+  }, [
+    isLoading,
+    isUsernameChecking,
+    isEmailChecking,
+    isUsernameFormatValid,
+    isEmailFormatValid,
+    isUsernameAvailable,
+    isEmailAvailable,
+  ]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,6 +106,11 @@ export const useSignUp = (): UseSignUpReturn => {
 
     if (password !== confirmPassword) {
       setError(TEXT.auth.signUp.errors.passwordMismatch);
+      return;
+    }
+
+    if (!isUsernameAvailable) {
+      setError('Username already in use');
       return;
     }
 
@@ -130,6 +164,10 @@ export const useSignUp = (): UseSignUpReturn => {
     confirmPassword,
     isLoading,
     error,
+    usernameAvailabilityMessage,
+    isUsernameAvailable,
+    isUsernameChecking,
+    usernameCheckStatus,
     emailAvailabilityMessage,
     isEmailAvailable,
     isEmailChecking,

@@ -65,6 +65,11 @@ export interface CheckEmailResponse {
   message: string;
 }
 
+export interface CheckUsernameResponse {
+  available: boolean;
+  message: string;
+}
+
 // ============================================================
 // User DTOs
 // ============================================================

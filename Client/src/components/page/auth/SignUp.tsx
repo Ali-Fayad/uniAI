@@ -22,6 +22,8 @@ const SignUp = () => {
     confirmPassword,
     isLoading,
     error,
+    usernameAvailabilityMessage,
+    usernameCheckStatus,
     emailAvailabilityMessage,
     emailCheckStatus,
     canSubmit,
@@ -60,15 +62,77 @@ const SignUp = () => {
             )}
 
             {/* Username */}
-            <motion.input
+            <motion.div variants={staggerItemVariants} className="relative group">
+              <input
+                type="text"
+                placeholder={TEXT.auth.signUp.usernamePlaceholder}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                aria-describedby="username-check-status"
+                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] pr-14 text-[var(--color-textPrimary)]"
+              />
+
+              {usernameCheckStatus !== 'idle' && (
+                <span className="absolute inset-y-0 right-4 flex items-center">
+                  {usernameCheckStatus === 'checking' && (
+                    <span
+                      role="status"
+                      aria-label="Checking availability"
+                      tabIndex={0}
+                      className="text-[var(--color-primary)] animate-spin"
+                    >
+                      <ImSpinner size={18} />
+                    </span>
+                  )}
+                  {usernameCheckStatus === 'available' && (
+                    <span
+                      role="img"
+                      aria-label="Username is available"
+                      tabIndex={0}
+                      className="text-green-700"
+                    >
+                      <FaCheckCircle size={18} />
+                    </span>
+                  )}
+                  {(usernameCheckStatus === 'unavailable' || usernameCheckStatus === 'error') && (
+                    <span
+                      role="img"
+                      aria-label="Username unavailable"
+                      tabIndex={0}
+                      className="text-red-700"
+                    >
+                      <FaTimesCircle size={18} />
+                    </span>
+                  )}
+                  {usernameCheckStatus === 'invalid' && (
+                    <span
+                      role="img"
+                      aria-label="Invalid username format"
+                      tabIndex={0}
+                      className="text-amber-700"
+                    >
+                      <AiOutlineWarning size={19} />
+                    </span>
+                  )}
+                </span>
+              )}
+
+              {usernameAvailabilityMessage && usernameCheckStatus !== 'idle' && (
+                <div className="pointer-events-none absolute right-0 top-[calc(100%+6px)] z-20 whitespace-nowrap rounded-md bg-[var(--color-elevatedSurface)] border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-textPrimary)] opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
+                  {usernameCheckStatus === 'checking' ? 'Checking availability...' : usernameAvailabilityMessage}
+                </div>
+              )}
+            </motion.div>
+
+            <motion.p
+              id="username-check-status"
               variants={staggerItemVariants}
-              type="text"
-              placeholder={TEXT.auth.signUp.usernamePlaceholder}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
-            />
+              aria-live="polite"
+              className="sr-only"
+            >
+              {usernameAvailabilityMessage}
+            </motion.p>
 
             {/* Name fields */}
             <motion.div variants={staggerItemVariants} className="grid grid-cols-2 gap-4">

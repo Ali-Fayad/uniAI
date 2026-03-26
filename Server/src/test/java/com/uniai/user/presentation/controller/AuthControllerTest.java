@@ -42,6 +42,9 @@ class AuthControllerTest {
     @Mock
     private CheckEmailAvailabilityUseCase checkEmailAvailabilityUseCase;
 
+    @Mock
+    private CheckUsernameAvailabilityUseCase checkUsernameAvailabilityUseCase;
+
     @BeforeEach
     void setUp() {
         authController = new AuthController(
@@ -52,7 +55,8 @@ class AuthControllerTest {
                 forgotPasswordUseCase,
                 confirmPasswordResetUseCase,
                 getGoogleAuthUrlUseCase,
-                checkEmailAvailabilityUseCase);
+                checkEmailAvailabilityUseCase,
+                checkUsernameAvailabilityUseCase);
     }
 
     @Test
@@ -66,5 +70,18 @@ class AuthControllerTest {
         Object body = response.getBody();
         assertEquals(true, body.getClass().getMethod("available").invoke(body));
         assertEquals("Email available", body.getClass().getMethod("message").invoke(body));
+    }
+
+    @Test
+    void checkUsernameShouldReturnAvailabilityPayload() throws Exception {
+        when(checkUsernameAvailabilityUseCase.isUsernameAvailable(eq("new_username"))).thenReturn(true);
+
+        ResponseEntity<?> response = authController.checkUsername("new_username");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        Object body = response.getBody();
+        assertEquals(true, body.getClass().getMethod("available").invoke(body));
+        assertEquals("Username available", body.getClass().getMethod("message").invoke(body));
     }
 }

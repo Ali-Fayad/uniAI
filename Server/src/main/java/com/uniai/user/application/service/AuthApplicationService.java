@@ -35,7 +35,8 @@ public class AuthApplicationService implements
         ForgotPasswordUseCase,
         ConfirmPasswordResetUseCase,
     GetGoogleAuthUrlUseCase,
-    CheckEmailAvailabilityUseCase {
+    CheckEmailAvailabilityUseCase,
+    CheckUsernameAvailabilityUseCase {
 
     private final UserRepository userRepository;
     private final VerifyCodeRepository verifyCodeRepository;
@@ -173,6 +174,11 @@ public class AuthApplicationService implements
     @Override
     public boolean isEmailAvailable(String email) {
         return !userRepository.existsByEmail(email.toLowerCase());
+    }
+
+    @Override
+    public boolean isUsernameAvailable(String username) {
+        return !userRepository.existsByUsername(username.toLowerCase());
     }
 
     // -------------------------------------------------------------------------

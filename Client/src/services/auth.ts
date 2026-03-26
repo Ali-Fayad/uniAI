@@ -11,6 +11,7 @@ import type {
   MessageResponse,
   UrlResponse,
   CheckEmailResponse,
+  CheckUsernameResponse,
 } from '../types/dto';
 import type { IAuthService } from '../interfaces';
 
@@ -143,6 +144,17 @@ export const authService: IAuthService = {
     const response = await apiClient.get<CheckEmailResponse>(
       ENDPOINTS.AUTH.CHECK_EMAIL,
       { params: { email } }
+    );
+    return response.data;
+  },
+
+  /**
+   * Check whether a username is available for registration.
+   */
+  async checkUsernameAvailability(username: string): Promise<CheckUsernameResponse> {
+    const response = await apiClient.get<CheckUsernameResponse>(
+      ENDPOINTS.AUTH.CHECK_USERNAME,
+      { params: { username } }
     );
     return response.data;
   },

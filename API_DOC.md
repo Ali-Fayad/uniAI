@@ -105,6 +105,37 @@ When unavailable:
 
 ---
 
+#### `GET /api/auth/check-username?username=...`
+
+**Description:** Check if a username is available for registration.
+
+**Authentication:** Not required
+
+**Query Parameters:**
+- `username` (string, required)
+
+**Response:**
+
+200 OK:
+
+```json
+{
+  "available": true,
+  "message": "Username available"
+}
+```
+
+When unavailable:
+
+```json
+{
+  "available": false,
+  "message": "Username already in use"
+}
+```
+
+---
+
 #### `POST /api/auth/signin`
 
 **Description:** Authenticate a user and return a JWT.
