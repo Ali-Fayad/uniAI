@@ -1,205 +1,279 @@
-# 📋 uniAI Agent Instructions
+# 🧠 Agent Instructions
 
-## General Rules
+You are acting as a senior software engineer working on this project.
 
-### SOLID Principles
-Always follow SOLID principles:
-
-- **Single Responsibility:** Each class has one job
-- **Open/Closed:** Open for extension, closed for modification
-- **Liskov Substitution:** Subtypes must be substitutable for base types
-- **Interface Segregation:** Small, focused interfaces
-- **Dependency Inversion:** Depend on abstractions, not concretions
-
-### Documentation
-Always add documentation:
-
-Always add documentation across the whole project (not only the backend):
-
-- **Backend:** JavaDoc for all public methods and classes; explain why not just what.
-- **Frontend:** Document public components, pages, hooks, services, and any non-trivial UI behaviors. Update `Client/README.md` or add `FRONTEND_DOC.md` for larger features. Include usage examples and accessibility notes when relevant.
-- **Infrastructure & Configuration:** Document `Dockerfile`s, `docker-compose.yml`, `nginx/` configs, certificate generation, environment variables, and deployment steps. Prefer `infrastructure/README.md` or a root `README.md` section for infra notes.
-- **API:** Keep `API_DOC.md` in the project root updated for any endpoint, request/response, status code, or authentication changes.
-- **Database & Migrations:** For each migration in `Server/src/main/resources/db/migration/`, add a short rationale and any required rollout/migration steps (e.g., data backfills, downtime considerations) either inline in the migration SQL as a comment or in `API_DOC.md` / `migrations.md`.
-- **Config Files:** When changing critical config files (application properties, Tailwind config, TypeScript config, CI/CD), document what changed, why, and how to validate the change.
-- **Minimal Contents:** For every public-facing change include: what changed, why, where to look, and a short "how to test" checklist.
-
-Documentation MUST be added when creating or updating code, configs, infra, or docs. Follow these lightweight conventions so reviewers and future maintainers can quickly understand the change.
-
-### Ask Questions
-If anything is unclear or you need to add new conditions, ask. Don’t assume.
+Your role is NOT only to write code, but to:
+- enforce clean architecture
+- maintain consistency
+- improve code quality
+- avoid technical debt
+- document decisions clearly
 
 ---
 
-## Frontend Rules
+## 🌍 Language Rule (MANDATORY)
 
-### Project Structure
-Follow existing structure exactly:
-
-```text
-Client/src/
-├── components/         # Shared components
-│   ├── animations/     # Framer Motion animations (FadeIn, SlideIn, etc.)
-│   ├── auth/           # Auth-specific components
-│   ├── chat/           # Chat components
-│   ├── common/         # Shared UI components
-│   ├── layout/         # Layout components (Navbar, etc.)
-│   ├── page/           # Page components
-│   │   ├── auth/       # Auth pages (SignIn, SignUp, Verify, etc.)
-│   │   └── *.tsx       # MainPage, ChatPage, MapPage, SettingsPage, AboutPage
-│   └── settings/       # Settings components
-├── constants/          # Constants and static data
-├── context/            # React context (AuthContext, etc.)
-├── data/               # Static data files (universities.ts)
-├── hooks/              # Custom hooks (useAuth, useChat, useTheme, etc.)
-├── http/               # HTTP error handlers
-├── interfaces/         # TypeScript interfaces (IAuthService, IChatService, etc.)
-├── lib/                # Utility libraries
-├── services/           # API services (api.ts, auth.ts, chat.ts, user.ts)
-├── styles/             # Global styles (chat.css, themes.ts, variables.css)
-├── types/              # TypeScript types (dto.ts)
-├── utils/              # Utility functions (JwtDecode, Storage, webgl.ts)
-├── App.tsx
-├── index.css
-├── main.tsx
-└── router.tsx
-```
-
-### UI Rules
-
-- Only use TailwindCSS for styling - no other CSS libraries without permission
-- No inline styles unless absolutely necessary
-- Use existing design system (colors, spacing, typography) from theme
-- All new components must be responsive (mobile-first)
-- Follow existing naming conventions (PascalCase for components, camelCase for functions)
-- Check `components.json` for shadcn/ui components if available
- - Always use the same Framer Motion opening and closing animations for any newly added or modified frontend components; reuse the shared animations located in `Client/src/components/animations/` to ensure consistent motion across the app.
- - Always analyze the general UI (colors, fonts, spacing) of the surrounding screens and reuse existing theme tokens and style choices from `Client/src/styles/` so new or modified components visually match the app's established style.
-
-#### **UI Consistency Rules**
-- **Card Border-Radius:** All card-like components must use `rounded-3xl` border-radius (the Auth Card value). Do not introduce new radius values for cards; prefer existing tokens/classes instead.
-- **Reference:** When creating new card components, reference the `AuthCard` component for sizing and border-radius consistency.
+- All code, comments, documentation, and naming MUST be in English
+- Use simple, clear, professional wording
+- Avoid unnecessary complexity in explanations
 
 ---
 
-## Backend Rules
+## 🧩 General Rules
 
-### Architecture: DDD + Hexagonal
-Follow the exact structure from existing modules:
-
-```text
-Server/src/main/java/com/uniai/[feature-name]/
-├── application/
-│   ├── dto/
-│   │   ├── command/     # Request DTOs (CreateXxxCommand, UpdateXxxCommand)
-│   │   └── response/    # Response DTOs (XxxResponse)
-│   ├── port/
-│   │   └── in/          # Input ports (interfaces for use cases)
-│   └── service/         # Application services (orchestration)
-├── domain/
-│   ├── builder/         # Domain builders (for complex object construction)
-│   ├── model/           # Domain entities
-│   ├── repository/      # Repository interfaces
-│   └── valueobject/     # Value objects (if needed)
-├── infrastructure/
-│   ├── client/          # External API clients
-│   ├── config/          # Configuration classes
-│   ├── mapper/          # Map between domain and JPA entities
-│   └── persistence/     # JPA repositories and adapters
-│       ├── adapter/     # Repository implementations
-│       └── repository/  # Spring Data JPA interfaces
-└── presentation/
-    └── controller/      # REST controllers
-```
-
-### Existing Modules to Reference
-
-- `chat/` - Chat feature (reference for DDD structure)
-- `cvbuilder/` - CV Builder feature (new, follow this pattern)
-- `feedback/` - Feedback feature
-- `user/` - User authentication
-- `shared/` - Shared utilities (exceptions, config, JWT, email)
-
-### Key Patterns
-
-- Domain models should not have JPA annotations (separate JPA entities in infrastructure)
-- Repositories are interfaces in domain, implemented in infrastructure
-- DTOs are immutable (use builders or record classes)
-- Validation on command DTOs using `@Valid` annotations
-- Authentication: Use `@RequestAttribute Long userId` in controllers to get current user
-- Exceptions: Add new exceptions to `shared/exception/` and handle in `GlobalExceptionHandler.java`
+- Follow existing project structure and patterns
+- Prefer consistency over personal preference
+- Do NOT assume — ask only when ambiguity affects:
+  - business logic
+  - architecture
+  - security/authentication
+  - dependencies
+  - database schema
+  - API contracts
+- For minor ambiguity → make the safest consistent decision and explain it briefly
 
 ---
 
-## API Documentation Rule
+## 🧠 Decision-Making Rule
 
-EVERY time you:
+Do not stop for minor ambiguity.
 
-- Create a new endpoint
-- Update an existing endpoint
-- Change request/response body
-- Change HTTP status codes
-- Change authentication requirements
+If the task can be completed safely using:
+- existing architecture
+- naming conventions
+- project patterns
 
-You MUST update `API_DOC.md` in the project root with the changes.
+→ proceed and document your reasoning briefly.
 
-## DTO Rule
-
-EVERY time you:
-
-- Create a new DTO
-- Update fields in a DTO
-- Add validation annotations
-
-You MUST update `API_DOC.md` with the new/updated schema.
+Ask ONLY when ambiguity impacts:
+- behavior
+- architecture direction
+- security
+- external dependencies
+- persistence or API contracts
 
 ---
 
-## Database Rules
+## 📦 Refactor Integration Rule
 
-### Migration Files
+When extracting or refactoring code:
 
-- Location: `Server/src/main/resources/db/migration/`
-- Naming: `V{version}__description.sql`
-- Example: `V1__create_cvbuilder_tables.sql`, `V2__personal_info_use_user_id_pk.sql`
+- ALWAYS integrate the new component/hook into the actual flow
+- REMOVE the old replaced code
+- ENSURE no duplicate logic remains
+- VERIFY that new files are actually used
 
-### Existing Tables
-
-- `universities` - University data from `UnisCoordinateTable.md`
-- `personal_info` - User profile data (`user_id` as PK)
-- `cv` - CV metadata
-- `education`, `experience`, `skill`, `project`, `language`, `certificate` - CV sections
-
-### Data Files
-
-| File | Location | Purpose |
-|------|----------|---------|
-| `API_DOC.md` | Root | All API documentation |
-| `UnisCoordinateTable.md` | Root | University coordinates data |
-| `externalAPI.md` | Root | External API documentation |
-| `universities.ts` | `Client/src/data/` | Frontend university data |
-| `application.properties` | `Server/src/main/resources/` | Backend configuration |
+Do NOT create files that are not used.
 
 ---
 
-## Before You Ask
+## 🧱 Frontend Rules (React + TypeScript)
 
-Check these first:
+### Page Architecture Rule
 
-- Does my code follow SOLID principles?
-- Is documentation complete (JavaDoc + `API_DOC.md`)?
-- Does frontend code follow the existing structure?
-- Does backend code follow DDD + Hexagonal?
-- Is `API_DOC.md` updated with any endpoint changes?
-- Are new exceptions added to `shared/exception/`?
-- Are new constants added to appropriate files?
+All files in: Client/src/components/page/
 
-## Ask When
+must follow:
 
-- You need to add a new library/dependency
-- You’re unsure about the architecture placement of new code
-- You need to add new validation rules
-- You’re unsure about authentication requirements
-- You need to change existing patterns
-- Anything is ambiguous or unclear
-- You need to modify existing files in ways that might affect other features
+- Pages = composition layer ONLY
+- Pages:
+  - compose components
+  - manage layout
+  - orchestrate flow
+  - MUST NOT contain heavy logic
+  - MUST NOT mix responsibilities
+
+If a page is complex:
+- extract sections
+- extract reusable components
+- extract hooks
+
+---
+
+### Component Rule
+
+Each component must:
+- have a single responsibility (SRP)
+- be reusable when possible
+- avoid mixing logic and UI
+- be readable and predictable
+
+---
+
+### Hook Rule
+
+Use `use*` ONLY for real React hooks.
+
+A valid hook:
+- uses React hooks (`useState`, `useEffect`, etc.)
+- manages state, side effects, or lifecycle
+- has a focused responsibility
+
+Do NOT use `use*` for:
+- pure functions
+- validation (if not state-dependent)
+- mapping
+- formatting
+- constants
+
+---
+
+### Hook Architecture Rule
+
+Avoid creating "God Hooks".
+
+If a hook grows too complex:
+- split it into smaller hooks by responsibility
+
+Example:
+- form state
+- API interactions
+- validation
+- UI state
+- dirty tracking
+
+A controller hook may compose multiple smaller hooks.
+
+---
+
+### Separation of Concerns
+
+- UI → components
+- state & lifecycle → hooks
+- API calls → services
+- helpers → utils
+- types → types files
+
+Do NOT mix these responsibilities.
+
+---
+
+### Naming Conventions
+
+- Components → PascalCase
+- Hooks → useSomething
+- Files → match component/hook name
+
+Avoid vague naming:
+- data
+- stuff
+- thing
+- handleSomething
+
+---
+
+## 🧾 Documentation Rule
+
+Documentation is REQUIRED for non-trivial changes.
+
+Documentation should explain:
+- what changed
+- why it changed
+- where logic is located
+- how to verify it
+- any side effects or risks
+
+Avoid unnecessary documentation for trivial edits.
+
+---
+
+## 💬 Inline Comments Rule (HIGH PRIORITY)
+
+Inline comments are REQUIRED when they add value.
+
+Use inline comments to explain:
+- non-obvious logic
+- business rules
+- reasoning behind decisions
+- state transitions
+- edge cases
+- temporary workarounds (with context)
+
+Good example:
+```ts
+// Keep dirty state in sync after saving
+// to prevent unnecessary navigation warnings
+
+Bad example:
+// set name
+// setName(name);
+
+## 🧱 Backend Rules (Spring Boot + DDD + Hexagonal)
+
+Follow:
+- Domain-Driven Design (DDD)
+- Hexagonal Architecture (Ports & Adapters)
+
+### Structure
+
+The backend must be structured into:
+
+- domain
+- application
+- infrastructure
+- presentation
+
+---
+
+### Domain Rules
+
+- Domain must be independent of frameworks
+- Entities and value objects must be pure
+- No persistence logic in domain
+
+---
+
+### Application Rules
+
+- Use cases define business logic
+- Ports define boundaries
+- DTOs separate domain from external layers
+
+---
+
+### Infrastructure Rules
+
+- Implements external systems (DB, APIs, etc.)
+- Adapters connect to ports
+- No business logic here
+
+---
+
+### Presentation Rules
+
+- Controllers handle HTTP
+- No business logic inside controllers
+
+---
+
+## 🚫 Forbidden Practices
+
+- No duplicated logic
+- No unused files
+- No dead code
+- No commented-out legacy code
+- No mixing unrelated responsibilities
+- No creating abstractions without purpose
+
+---
+
+## ✅ Validation Rule
+
+Before completing any task:
+
+- Ensure code compiles
+- Ensure imports are correct
+- Ensure no unused code remains
+- Ensure architecture is improved (not degraded)
+
+If validation tools exist (build, typecheck, lint):
+→ use them
+
+---
+
+## 🧠 Final Behavior
+
+- Think like a senior engineer
+- Prefer clarity over cleverness
+- Prefer maintainability over speed
+- Always leave the codebase cleaner than you found it
