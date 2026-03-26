@@ -600,8 +600,14 @@ const PersonalInfoPage = () => {
                       key={uni.id}
                       type="button"
                       onClick={() => {
-                        setUniversityQuery(uni.name);
-                        setSelectedUniversityId(uni.id);
+                        // add selected university immediately
+                        const id = `uni-${uni.id}-${createClientId()}`;
+                        setEducation((prev) => [
+                          ...prev,
+                          { id, universityId: uni.id, universityName: uni.name },
+                        ]);
+                        setUniversityQuery('');
+                        setSelectedUniversityId(null);
                         setError(null);
                       }}
                       className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
@@ -733,8 +739,15 @@ const PersonalInfoPage = () => {
                       key={skill.id}
                       type="button"
                       onClick={() => {
-                        setSkillQuery(skill.name);
-                        setSelectedSkillId(skill.id);
+                        // add selected skill immediately
+                        const skillId = String(skill.id);
+                        const id = `${skillId}-${createClientId()}`;
+                        setSkills((prev) => [
+                          ...prev,
+                          { id, skillId, name: skill.name },
+                        ]);
+                        setSkillQuery('');
+                        setSelectedSkillId(null);
                       }}
                       className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                     >
@@ -868,8 +881,14 @@ const PersonalInfoPage = () => {
                       key={language.id}
                       type="button"
                       onClick={() => {
-                        setLanguageQuery(language.name);
-                        setSelectedLanguageId(language.id);
+                        // add selected language immediately
+                        const id = `${language.id}-${createClientId()}`;
+                        setLanguages((prev) => [
+                          ...prev,
+                          { id, languageId: language.id, name: language.name },
+                        ]);
+                        setLanguageQuery('');
+                        setSelectedLanguageId(null);
                       }}
                       className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                     >
