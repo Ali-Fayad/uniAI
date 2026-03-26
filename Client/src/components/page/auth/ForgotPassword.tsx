@@ -4,6 +4,7 @@ import { AuthCard } from "../../../components/AuthCard";
 import { authService } from "../../../services/auth";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
+import AnimatedInput from "../../../components/common/AnimatedInput";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -60,17 +61,13 @@ const ForgotPassword = () => {
           )}
 
           <div className="flex flex-col">
-            <label className="flex flex-col w-full">
-              <p className="text-[var(--color-textPrimary)] font-medium pb-2">{TEXT.auth.forgotPassword.emailLabel}</p>
-              <input
-                type="email"
-                placeholder={TEXT.auth.forgotPassword.emailPlaceholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
-              />
-            </label>
+            <AnimatedInput
+              type="email"
+              label={TEXT.auth.forgotPassword.emailLabel}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
 
           <button

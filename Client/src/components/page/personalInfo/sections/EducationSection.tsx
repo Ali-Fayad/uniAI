@@ -14,6 +14,7 @@ import { FaGraduationCap } from 'react-icons/fa';
 import type { PersonalInfoEducationEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { createClientId, moveItem } from '../personalInfoUtils';
+import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface EducationSectionProps {
   education: PersonalInfoEducationEntryDto[];
@@ -57,50 +58,51 @@ const EducationSection: React.FC<EducationSectionProps> = ({
       icon={<FaGraduationCap className="h-5 w-5" aria-hidden="true" />}
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
-      <div className="relative flex flex-col sm:flex-row gap-3">
-        <input
+      <div className="relative flex flex-col sm:flex-row gap-3 items-start">
+        <AnimatedInput
           value={universityQuery}
           onChange={(e) => {
             setUniversityQuery(e.target.value);
             setSelectedUniversityId(null);
           }}
-          placeholder="Type university"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
-        />
+          label="Type university"
+          containerClassName="flex-1"
+        >
+          {(isUniversitiesLoading || universitySuggestions.length > 0) && (
+            <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+              {isUniversitiesLoading ? (
+                <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
+              ) : (
+                universitySuggestions.map((uni) => (
+                  <button
+                    key={uni.id}
+                    type="button"
+                    onClick={() => {
+                      const id = `uni-${uni.id}-${createClientId()}`;
+                      setEducation((prev) => [
+                        ...prev,
+                        { id, universityId: uni.id, universityName: uni.name },
+                      ]);
+                      setUniversityQuery('');
+                      setSelectedUniversityId(null);
+                      setError(null);
+                    }}
+                    className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
+                  >
+                    {uni.name}{uni.acronym ? ` (${uni.acronym})` : ''}
+                  </button>
+                ))
+              )}
+            </div>
+          )}
+        </AnimatedInput>
         <button
           type="button"
           onClick={addEducation}
-          className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+          className="h-14 rounded-xl bg-[var(--color-primary)] px-6 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
         >
           Add
         </button>
-        {(isUniversitiesLoading || universitySuggestions.length > 0) && (
-          <div className="absolute top-11 left-0 right-0 sm:right-24 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
-            {isUniversitiesLoading ? (
-              <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
-            ) : (
-              universitySuggestions.map((uni) => (
-                <button
-                  key={uni.id}
-                  type="button"
-                  onClick={() => {
-                    const id = `uni-${uni.id}-${createClientId()}`;
-                    setEducation((prev) => [
-                      ...prev,
-                      { id, universityId: uni.id, universityName: uni.name },
-                    ]);
-                    setUniversityQuery('');
-                    setSelectedUniversityId(null);
-                    setError(null);
-                  }}
-                  className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
-                >
-                  {uni.name}{uni.acronym ? ` (${uni.acronym})` : ''}
-                </button>
-              ))
-            )}
-          </div>
-        )}
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -128,10 +130,11 @@ const EducationSection: React.FC<EducationSectionProps> = ({
             className="flex flex-col sm:flex-row sm:items-center gap-2 rounded-md border border-[var(--color-border)] p-3"
           >
             {editingEducationId === item.id ? (
-              <input
+              <AnimatedInput
                 value={editingEducationValue}
                 onChange={(e) => setEditingEducationValue(e.target.value)}
-                className="flex-1 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                label="University"
+                containerClassName="flex-1"
               />
             ) : (
               <span className="flex-1 text-[var(--color-textPrimary)]">{item.universityName}</span>

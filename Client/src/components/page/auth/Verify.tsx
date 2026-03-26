@@ -7,6 +7,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
 import type { VerifyDto } from "../../../types/dto";
+import AnimatedInput from "../../../components/common/AnimatedInput";
 
 const Verify = () => {
   const location = useLocation();
@@ -111,23 +112,21 @@ const Verify = () => {
           )}
 
           <div className="flex flex-col">
-            <label className="flex flex-col w-full">
-              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Code</p>
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[A-Za-z0-9]{6}"
-                autoComplete="one-time-code"
-                placeholder={TEXT.auth.verify.codePlaceholder}
-                value={code}
-                onChange={(e) =>
-                  setCode(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))
-                }
-                required
-                maxLength={6}
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] tracking-widest text-lg"
-              />
-            </label>
+            <AnimatedInput
+              type="text"
+              label="Code"
+              inputMode="numeric"
+              pattern="[A-Za-z0-9]{6}"
+              autoComplete="one-time-code"
+              placeholder={TEXT.auth.verify.codePlaceholder}
+              value={code}
+              onChange={(e) =>
+                setCode(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))
+              }
+              required
+              maxLength={6}
+              className="tracking-widest text-lg"
+            />
           </div>
 
           <button

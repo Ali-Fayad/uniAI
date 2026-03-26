@@ -10,6 +10,7 @@ import { AiOutlineWarning } from 'react-icons/ai';
 import { useSignUp } from "../../../hooks/useSignUp";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
+import AnimatedInput from "../../../components/common/AnimatedInput";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -63,66 +64,66 @@ const SignUp = () => {
 
             {/* Username */}
             <motion.div variants={staggerItemVariants} className="relative group">
-              <input
+              <AnimatedInput
                 type="text"
-                placeholder={TEXT.auth.signUp.usernamePlaceholder}
+                label={TEXT.auth.signUp.usernamePlaceholder}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 aria-describedby="username-check-status"
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] pr-14 text-[var(--color-textPrimary)]"
-              />
+                className="pr-14"
+              >
+                {usernameCheckStatus !== 'idle' && (
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center pointer-events-none">
+                    {usernameCheckStatus === 'checking' && (
+                      <span
+                        role="status"
+                        aria-label="Checking availability"
+                        tabIndex={0}
+                        className="text-[var(--color-primary)] animate-spin"
+                      >
+                        <ImSpinner size={18} />
+                      </span>
+                    )}
+                    {usernameCheckStatus === 'available' && (
+                      <span
+                        role="img"
+                        aria-label="Username is available"
+                        tabIndex={0}
+                        className="text-green-700"
+                      >
+                        <FaCheckCircle size={18} />
+                      </span>
+                    )}
+                    {(usernameCheckStatus === 'unavailable' || usernameCheckStatus === 'error') && (
+                      <span
+                        role="img"
+                        aria-label="Username unavailable"
+                        tabIndex={0}
+                        className="text-red-700"
+                      >
+                        <FaTimesCircle size={18} />
+                      </span>
+                    )}
+                    {usernameCheckStatus === 'invalid' && (
+                      <span
+                        role="img"
+                        aria-label="Invalid username format"
+                        tabIndex={0}
+                        className="text-amber-700"
+                      >
+                        <AiOutlineWarning size={19} />
+                      </span>
+                    )}
+                  </span>
+                )}
 
-              {usernameCheckStatus !== 'idle' && (
-                <span className="absolute inset-y-0 right-4 flex items-center">
-                  {usernameCheckStatus === 'checking' && (
-                    <span
-                      role="status"
-                      aria-label="Checking availability"
-                      tabIndex={0}
-                      className="text-[var(--color-primary)] animate-spin"
-                    >
-                      <ImSpinner size={18} />
-                    </span>
-                  )}
-                  {usernameCheckStatus === 'available' && (
-                    <span
-                      role="img"
-                      aria-label="Username is available"
-                      tabIndex={0}
-                      className="text-green-700"
-                    >
-                      <FaCheckCircle size={18} />
-                    </span>
-                  )}
-                  {(usernameCheckStatus === 'unavailable' || usernameCheckStatus === 'error') && (
-                    <span
-                      role="img"
-                      aria-label="Username unavailable"
-                      tabIndex={0}
-                      className="text-red-700"
-                    >
-                      <FaTimesCircle size={18} />
-                    </span>
-                  )}
-                  {usernameCheckStatus === 'invalid' && (
-                    <span
-                      role="img"
-                      aria-label="Invalid username format"
-                      tabIndex={0}
-                      className="text-amber-700"
-                    >
-                      <AiOutlineWarning size={19} />
-                    </span>
-                  )}
-                </span>
-              )}
-
-              {usernameAvailabilityMessage && usernameCheckStatus !== 'idle' && (
-                <div className="pointer-events-none absolute right-0 top-[calc(100%+6px)] z-20 whitespace-nowrap rounded-md bg-[var(--color-elevatedSurface)] border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-textPrimary)] opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
-                  {usernameCheckStatus === 'checking' ? 'Checking availability...' : usernameAvailabilityMessage}
-                </div>
-              )}
+                {usernameAvailabilityMessage && usernameCheckStatus !== 'idle' && (
+                  <div className="pointer-events-none absolute right-0 top-[calc(100%+6px)] z-20 whitespace-nowrap rounded-md bg-[var(--color-elevatedSurface)] border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-textPrimary)] opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
+                    {usernameCheckStatus === 'checking' ? 'Checking availability...' : usernameAvailabilityMessage}
+                  </div>
+                )}
+              </AnimatedInput>
             </motion.div>
 
             <motion.p
@@ -136,86 +137,84 @@ const SignUp = () => {
 
             {/* Name fields */}
             <motion.div variants={staggerItemVariants} className="grid grid-cols-2 gap-4">
-              <input
+              <AnimatedInput
                 type="text"
-                placeholder={TEXT.auth.signUp.firstNamePlaceholder}
+                label={TEXT.auth.signUp.firstNamePlaceholder}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
               />
-              <input
+              <AnimatedInput
                 type="text"
-                placeholder={TEXT.auth.signUp.lastNamePlaceholder}
+                label={TEXT.auth.signUp.lastNamePlaceholder}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
               />
             </motion.div>
 
             {/* Email */}
             <motion.div variants={staggerItemVariants} className="relative group">
-              <input
+              <AnimatedInput
                 type="email"
-                placeholder="Email address"
+                label="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 aria-describedby="email-check-status"
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] pr-14 text-[var(--color-textPrimary)]"
-              />
+                className="pr-14"
+              >
+                {emailCheckStatus !== 'idle' && (
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center pointer-events-none">
+                    {emailCheckStatus === 'checking' && (
+                      <span
+                        role="status"
+                        aria-label="Checking availability"
+                        tabIndex={0}
+                        className="text-[var(--color-primary)] animate-spin"
+                      >
+                        <ImSpinner size={18} />
+                      </span>
+                    )}
+                    {emailCheckStatus === 'available' && (
+                      <span
+                        role="img"
+                        aria-label="Email is available"
+                        tabIndex={0}
+                        className="text-green-700"
+                      >
+                        <FaCheckCircle size={18} />
+                      </span>
+                    )}
+                    {(emailCheckStatus === 'unavailable' || emailCheckStatus === 'error') && (
+                      <span
+                        role="img"
+                        aria-label="Email unavailable"
+                        tabIndex={0}
+                        className="text-red-700"
+                      >
+                        <FaTimesCircle size={18} />
+                      </span>
+                    )}
+                    {emailCheckStatus === 'invalid' && (
+                      <span
+                        role="img"
+                        aria-label="Invalid email format"
+                        tabIndex={0}
+                        className="text-amber-700"
+                      >
+                        <AiOutlineWarning size={19} />
+                      </span>
+                    )}
+                  </span>
+                )}
 
-              {emailCheckStatus !== 'idle' && (
-                <span className="absolute inset-y-0 right-4 flex items-center">
-                  {emailCheckStatus === 'checking' && (
-                    <span
-                      role="status"
-                      aria-label="Checking availability"
-                      tabIndex={0}
-                      className="text-[var(--color-primary)] animate-spin"
-                    >
-                      <ImSpinner size={18} />
-                    </span>
-                  )}
-                  {emailCheckStatus === 'available' && (
-                    <span
-                      role="img"
-                      aria-label="Email is available"
-                      tabIndex={0}
-                      className="text-green-700"
-                    >
-                      <FaCheckCircle size={18} />
-                    </span>
-                  )}
-                  {(emailCheckStatus === 'unavailable' || emailCheckStatus === 'error') && (
-                    <span
-                      role="img"
-                      aria-label="Email unavailable"
-                      tabIndex={0}
-                      className="text-red-700"
-                    >
-                      <FaTimesCircle size={18} />
-                    </span>
-                  )}
-                  {emailCheckStatus === 'invalid' && (
-                    <span
-                      role="img"
-                      aria-label="Invalid email format"
-                      tabIndex={0}
-                      className="text-amber-700"
-                    >
-                      <AiOutlineWarning size={19} />
-                    </span>
-                  )}
-                </span>
-              )}
-
-              {emailAvailabilityMessage && emailCheckStatus !== 'idle' && (
-                <div className="pointer-events-none absolute right-0 top-[calc(100%+6px)] z-20 whitespace-nowrap rounded-md bg-[var(--color-elevatedSurface)] border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-textPrimary)] opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
-                  {emailCheckStatus === 'checking' ? 'Checking availability...' : emailAvailabilityMessage}
-                </div>
-              )}
+                {emailAvailabilityMessage && emailCheckStatus !== 'idle' && (
+                  <div className="pointer-events-none absolute right-0 top-[calc(100%+6px)] z-20 whitespace-nowrap rounded-md bg-[var(--color-elevatedSurface)] border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-textPrimary)] opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
+                    {emailCheckStatus === 'checking' ? 'Checking availability...' : emailAvailabilityMessage}
+                  </div>
+                )}
+              </AnimatedInput>
             </motion.div>
 
             <motion.p
@@ -229,42 +228,44 @@ const SignUp = () => {
 
             {/* Password */}
             <motion.div variants={staggerItemVariants} className="relative">
-              <input
+              <AnimatedInput
                 type={showPassword ? "text" : "password"}
-                placeholder={TEXT.auth.signUp.passwordPlaceholder}
+                label={TEXT.auth.signUp.passwordPlaceholder}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={8}
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
+                className="pr-14"
               >
-                {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
+                >
+                  {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
+                </button>
+              </AnimatedInput>
             </motion.div>
 
             {/* Confirm Password */}
             <motion.div variants={staggerItemVariants} className="relative">
-              <input
+              <AnimatedInput
                 type={showConfirmPassword ? "text" : "password"}
-                placeholder={TEXT.auth.signUp.confirmPasswordPlaceholder}
+                label={TEXT.auth.signUp.confirmPasswordPlaceholder}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 minLength={8}
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
+                className="pr-14"
               >
-                {showConfirmPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-primaryVariant)] hover:text-[var(--color-primary)] bg-transparent p-0 border-0 transition-colors"
+                >
+                  {showConfirmPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
+                </button>
+              </AnimatedInput>
             </motion.div>
 
             {/* Create Account button */}

@@ -14,6 +14,7 @@ import { FaCode } from 'react-icons/fa';
 import type { PersonalInfoSkillEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { createClientId, moveItem, normalizeOptionId } from '../personalInfoUtils';
+import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface SkillsSectionProps {
   skills: PersonalInfoSkillEntryDto[];
@@ -54,25 +55,18 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
       icon={<FaCode className="h-5 w-5" aria-hidden="true" />}
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
-      <div className="relative flex flex-col sm:flex-row gap-3">
-        <input
+      <div className="relative flex flex-col sm:flex-row gap-3 items-start">
+        <AnimatedInput
           value={skillQuery}
           onChange={(e) => {
             setSkillQuery(e.target.value);
             setSelectedSkillId(null);
           }}
-          placeholder="Type a skill"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
-        />
-        <button
-          type="button"
-          onClick={addSkill}
-          className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+          label="Type a skill"
+          containerClassName="flex-1"
         >
-          Add
-        </button>
         {(isSkillsLoading || skillSuggestions.length > 0) && (
-          <div className="absolute top-11 left-0 right-0 sm:right-24 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+          <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
             {isSkillsLoading ? (
               <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
             ) : (
@@ -95,6 +89,14 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
             )}
           </div>
         )}
+        </AnimatedInput>
+        <button
+          type="button"
+          onClick={addSkill}
+          className="h-14 rounded-xl bg-[var(--color-primary)] px-6 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
+        >
+          Add
+        </button>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -122,10 +124,11 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
             className="flex flex-col sm:flex-row sm:items-center gap-2 rounded-md border border-[var(--color-border)] p-3"
           >
             {editingSkillId === item.id ? (
-              <input
+              <AnimatedInput
                 value={editingSkillValue}
                 onChange={(e) => setEditingSkillValue(e.target.value)}
-                className="flex-1 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                label="Skill name"
+                containerClassName="flex-1"
               />
             ) : (
               <span className="flex-1 text-[var(--color-textPrimary)]">{item.name}</span>

@@ -8,6 +8,9 @@ import { useSignIn } from "../../../hooks/useSignIn";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
 
+import AnimatedInput from "../../../components/common/AnimatedInput";
+import { Link } from "react-router-dom";
+
 const SignIn = () => {
   const navigate = useNavigate();
   const {
@@ -45,25 +48,19 @@ const SignIn = () => {
 
             {/* EMAIL FIELD */}
             <motion.div variants={staggerItemVariants} className="flex flex-col">
-              <label className="flex flex-col w-full pb-2">
-                <p className="text-[var(--color-textPrimary)] font-medium pb-2">{TEXT.auth.signIn.emailLabel}</p>
-                <input
-                  type="email"
-                  placeholder={TEXT.auth.signIn.emailPlaceholder}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)]"
-                />
-              </label>
+              <AnimatedInput
+                type="email"
+                label={TEXT.auth.signIn.emailLabel}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </motion.div>
 
             {/* PASSWORD FIELD */}
             <motion.div variants={staggerItemVariants} className="flex flex-col w-full">
-              {/* Label + Forgot Password */}
-              <div className="flex justify-between items-center pb-2">
-                <p className="text-[var(--color-textPrimary)] font-medium">{TEXT.auth.signIn.passwordLabel}</p>
-
+              {/* Forgot Password Link */}
+              <div className="flex justify-end pb-2">
                 <button
                   type="button"
                   onClick={() => navigate(ROUTES.FORGOT_PASSWORD)}
@@ -74,16 +71,14 @@ const SignIn = () => {
               </div>
 
               {/* Input + Toggle Icon */}
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder={TEXT.auth.signIn.passwordPlaceholder}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] pr-14"
-                />
-
+              <AnimatedInput
+                type={showPassword ? "text" : "password"}
+                label={TEXT.auth.signIn.passwordLabel}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="pr-14"
+              >
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -91,7 +86,7 @@ const SignIn = () => {
                 >
                   {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
                 </button>
-              </div>
+              </AnimatedInput>
             </motion.div>
 
             {/* SIGN IN BUTTON */}

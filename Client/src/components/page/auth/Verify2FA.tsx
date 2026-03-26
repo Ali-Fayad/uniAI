@@ -6,6 +6,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
 import type { VerifyDto } from "../../../types/dto";
+import AnimatedInput from "../../../components/common/AnimatedInput";
 
 const Verify2FA = () => {
   const navigate = useNavigate();
@@ -74,18 +75,16 @@ const Verify2FA = () => {
           )}
 
           <div className="flex flex-col">
-            <label className="flex flex-col w-full">
-              <p className="text-[var(--color-textPrimary)] font-medium pb-2">Code</p>
-              <input
-                type="text"
-                placeholder={TEXT.auth.verify2FA.codePlaceholder}
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                required
-                maxLength={128}
-                className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] text-lg"
-              />
-            </label>
+            <AnimatedInput
+              type="text"
+              label="Code"
+              placeholder={TEXT.auth.verify2FA.codePlaceholder}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              required
+              maxLength={128}
+              className="text-lg"
+            />
           </div>
 
           <button

@@ -14,6 +14,7 @@ import { FaBriefcase } from 'react-icons/fa';
 import type { PersonalInfoExperienceEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { moveItem, normalizeOptionId } from '../personalInfoUtils';
+import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface ExperienceSectionProps {
   experience: PersonalInfoExperienceEntryDto[];
@@ -63,19 +64,18 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       icon={<FaBriefcase className="h-5 w-5" aria-hidden="true" />}
       className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-        <div className="sm:col-span-2 relative">
-          <input
-            value={positionQuery}
-            onChange={(e) => {
-              setPositionQuery(e.target.value);
-              setSelectedPositionId(null);
-            }}
-            placeholder="Type a position"
-            className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
-          />
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-start">
+        <AnimatedInput
+          value={positionQuery}
+          onChange={(e) => {
+            setPositionQuery(e.target.value);
+            setSelectedPositionId(null);
+          }}
+          label="Type a position"
+          containerClassName="sm:col-span-2"
+        >
           {(isPositionsLoading || positionSuggestions.length > 0) && (
-            <div className="absolute top-11 left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+            <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
               {isPositionsLoading ? (
                 <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
               ) : (
@@ -95,17 +95,17 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               )}
             </div>
           )}
-        </div>
-        <input
+        </AnimatedInput>
+        <AnimatedInput
           value={experienceCompany}
           onChange={(e) => setExperienceCompany(e.target.value)}
-          placeholder="Company"
-          className="sm:col-span-2 w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Company"
+          containerClassName="sm:col-span-2"
         />
         <button
           type="button"
           onClick={addExperience}
-          className="sm:col-span-1 rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+          className="sm:col-span-1 h-14 rounded-xl bg-[var(--color-primary)] px-4 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
         >
           Add
         </button>
@@ -137,15 +137,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           >
             {editingExperienceId === item.id ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <input
+                <AnimatedInput
                   value={editingExperiencePosition}
                   onChange={(e) => setEditingExperiencePosition(e.target.value)}
-                  className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                  label="Position"
                 />
-                <input
+                <AnimatedInput
                   value={editingExperienceCompany}
                   onChange={(e) => setEditingExperienceCompany(e.target.value)}
-                  className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                  label="Company"
                 />
               </div>
             ) : (

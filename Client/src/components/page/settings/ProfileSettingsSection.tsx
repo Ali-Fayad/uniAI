@@ -11,10 +11,10 @@
 
 import React from 'react';
 import SettingsSection from '../../settings/SettingsSection';
-import FormInput from '../../settings/FormInput';
 import FormButton from '../../settings/FormButton';
 import { TEXT } from '../../../constants/static';
 import type { ProfileState } from '../../../hooks/useProfileSettings';
+import AnimatedInput from '../../common/AnimatedInput';
 
 export interface ProfileSettingsSectionProps {
   profile: ProfileState;
@@ -34,7 +34,7 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
       <form onSubmit={onProfileSubmit}>
         <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
           <div className="sm:col-span-3">
-            <FormInput
+            <AnimatedInput
               id="first-name"
               name="firstName"
               label={TEXT.settings.profile.firstName}
@@ -43,7 +43,7 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
             />
           </div>
           <div className="sm:col-span-3">
-            <FormInput
+            <AnimatedInput
               id="last-name"
               name="lastName"
               label={TEXT.settings.profile.lastName}
@@ -52,7 +52,7 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
             />
           </div>
           <div className="sm:col-span-4">
-            <FormInput
+            <AnimatedInput
               id="username"
               name="username"
               label={TEXT.settings.profile.username}
@@ -62,7 +62,7 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
             />
           </div>
           <div className="sm:col-span-4">
-            <FormInput
+            <AnimatedInput
               id="email"
               name="email"
               label={TEXT.settings.profile.email}

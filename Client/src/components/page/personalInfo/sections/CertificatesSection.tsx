@@ -14,6 +14,7 @@ import { FaCertificate } from 'react-icons/fa';
 import type { PersonalInfoCertificateEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { moveItem } from '../personalInfoUtils';
+import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface CertificatesSectionProps {
   certificateName: string;
@@ -58,29 +59,27 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
       icon={<FaCertificate className="h-5 w-5" aria-hidden="true" />}
       className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <input
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
+        <AnimatedInput
           value={certificateName}
           onChange={(e) => setCertificateName(e.target.value)}
-          placeholder="Certificate name"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Certificate name"
         />
-        <input
+        <AnimatedInput
           value={certificateIssuer}
           onChange={(e) => setCertificateIssuer(e.target.value)}
-          placeholder="Issuer"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Issuer"
         />
-        <input
+        <AnimatedInput
           value={certificateCredentialUrl}
           onChange={(e) => setCertificateCredentialUrl(e.target.value)}
-          placeholder="Credential URL"
-          className="sm:col-span-1 w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Credential URL"
+          containerClassName="sm:col-span-1"
         />
         <button
           type="button"
           onClick={addCertificate}
-          className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+          className="h-14 rounded-xl bg-[var(--color-primary)] px-4 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
         >
           Add Certificate
         </button>
@@ -91,15 +90,15 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
           <div key={item.id} className="rounded-md border border-[var(--color-border)] p-3 space-y-2">
             {editingCertificateId === item.id ? (
               <>
-                <input
+                <AnimatedInput
                   value={editingCertificateName}
                   onChange={(e) => setEditingCertificateName(e.target.value)}
-                  className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                  label="Certificate name"
                 />
-                <input
+                <AnimatedInput
                   value={editingCertificateIssuer}
                   onChange={(e) => setEditingCertificateIssuer(e.target.value)}
-                  className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                  label="Issuer"
                 />
               </>
             ) : (

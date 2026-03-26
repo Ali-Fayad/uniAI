@@ -13,6 +13,7 @@ import React from 'react';
 import { FaLink } from 'react-icons/fa';
 import type { BasicFormState } from '../personalInfoTypes';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
+import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface SocialWebSectionProps {
   form: BasicFormState;
@@ -27,23 +28,20 @@ const SocialWebSection: React.FC<SocialWebSectionProps> = ({ form, setField }) =
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <input
+        <AnimatedInput
           value={form.linkedin}
           onChange={(e) => setField('linkedin', e.target.value)}
-          placeholder="LinkedIn URL"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="LinkedIn URL"
         />
-        <input
+        <AnimatedInput
           value={form.github}
           onChange={(e) => setField('github', e.target.value)}
-          placeholder="GitHub URL"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="GitHub URL"
         />
-        <input
+        <AnimatedInput
           value={form.portfolio}
           onChange={(e) => setField('portfolio', e.target.value)}
-          placeholder="Portfolio URL"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Portfolio URL"
         />
       </div>
     </PersonalInfoSectionCard>

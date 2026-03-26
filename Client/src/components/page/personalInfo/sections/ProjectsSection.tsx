@@ -14,6 +14,8 @@ import { FaFolderOpen } from 'react-icons/fa';
 import type { PersonalInfoProjectEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { moveItem } from '../personalInfoUtils';
+import AnimatedInput from '../../../common/AnimatedInput';
+import AnimatedTextarea from '../../../common/AnimatedTextarea';
 
 export interface ProjectsSectionProps {
   projectName: string;
@@ -62,39 +64,35 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       icon={<FaFolderOpen className="h-5 w-5" aria-hidden="true" />}
       className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <input
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
+        <AnimatedInput
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
-          placeholder="Project name"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Project name"
         />
-        <input
+        <AnimatedInput
           value={projectRepositoryUrl}
           onChange={(e) => setProjectRepositoryUrl(e.target.value)}
-          placeholder="Repository URL"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Repository URL"
         />
-        <input
+        <AnimatedInput
           value={projectLiveUrl}
           onChange={(e) => setProjectLiveUrl(e.target.value)}
-          placeholder="Live URL"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+          label="Live URL"
         />
         <button
           type="button"
           onClick={addProject}
-          className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+          className="h-14 rounded-xl bg-[var(--color-primary)] px-4 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
         >
           Add Project
         </button>
       </div>
-      <textarea
+      <AnimatedTextarea
         value={projectDescription}
         onChange={(e) => setProjectDescription(e.target.value)}
-        placeholder="Project description"
+        label="Project description"
         rows={3}
-        className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
       />
 
       <div className="space-y-2">
@@ -102,16 +100,16 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           <div key={item.id} className="rounded-md border border-[var(--color-border)] p-3 space-y-2">
             {editingProjectId === item.id ? (
               <>
-                <input
+                <AnimatedInput
                   value={editingProjectName}
                   onChange={(e) => setEditingProjectName(e.target.value)}
-                  className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                  label="Project name"
                 />
-                <textarea
+                <AnimatedTextarea
                   value={editingProjectDescription}
                   onChange={(e) => setEditingProjectDescription(e.target.value)}
                   rows={2}
-                  className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+                  label="Description"
                 />
               </>
             ) : (

@@ -13,6 +13,7 @@ import React from 'react';
 import { FaPencilAlt } from 'react-icons/fa';
 import type { BasicFormState } from '../personalInfoTypes';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
+import AnimatedTextarea from '../../../common/AnimatedTextarea';
 
 export interface BioSectionProps {
   form: BasicFormState;
@@ -26,12 +27,12 @@ const BioSection: React.FC<BioSectionProps> = ({ form, setField }) => {
       icon={<FaPencilAlt className="h-5 w-5" aria-hidden="true" />}
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
     >
-      <textarea
+      <AnimatedTextarea
+        label="Short summary"
         value={form.summary}
         onChange={(e) => setField('summary', e.target.value)}
-        placeholder="Short summary"
         rows={5}
-        className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
+        className="w-full"
       />
     </PersonalInfoSectionCard>
   );
