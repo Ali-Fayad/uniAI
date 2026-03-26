@@ -10,11 +10,13 @@ interface FadeInProps {
 
 /**
  * FadeIn Animation Component
- * 
- * Responsibilities:
- * - Apply fade-in animation to any child element
- * - Support customizable delay and duration
- * - Respect reduced motion preferences
+ *
+ * Responsibility:
+ * - Apply a fade-in animation to child content
+ *
+ * Does NOT:
+ * - Fetch data
+ * - Perform API calls
  */
 const FadeIn = ({ 
   children, 

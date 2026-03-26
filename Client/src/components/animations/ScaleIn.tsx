@@ -11,11 +11,13 @@ interface ScaleInProps {
 
 /**
  * ScaleIn Animation Component
- * 
- * Responsibilities:
- * - Apply scale animation to child elements
- * - Support customizable delay, duration, and initial scale
- * - Respect reduced motion preferences
+ *
+ * Responsibility:
+ * - Apply a scale-in animation to child content
+ *
+ * Does NOT:
+ * - Fetch data
+ * - Perform API calls
  */
 const ScaleIn = ({ 
   children, 

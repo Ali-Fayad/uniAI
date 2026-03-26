@@ -1,6 +1,14 @@
+/**
+ * FormButton
+ *
+ * Responsible for rendering a styled button with a small set of variants.
+ *
+ * Does NOT contain navigation logic and does NOT perform API calls.
+ */
+
 import React from "react";
 
-type Props = {
+type FormButtonProps = {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "danger" | "ghost";
   type?: "button" | "submit" | "reset";
@@ -8,7 +16,7 @@ type Props = {
   className?: string;
 };
 
-const variantClass: Record<string, string> = {
+const variantClass: Record<NonNullable<FormButtonProps["variant"]>, string> = {
   primary:
     "rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--color-primaryVariant)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focusRing)]",
   secondary:
@@ -19,7 +27,7 @@ const variantClass: Record<string, string> = {
     "rounded-full bg-transparent px-5 py-2.5 text-sm font-semibold text-[var(--color-textPrimary)] shadow-sm",
 };
 
-const FormButton: React.FC<Props> = ({
+const FormButton: React.FC<FormButtonProps> = ({
   children,
   variant = "primary",
   type = "button",

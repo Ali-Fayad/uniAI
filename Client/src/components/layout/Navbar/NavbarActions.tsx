@@ -4,6 +4,14 @@ import { FiLogOut } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../router';
 
+/**
+ * NavbarActions
+ *
+ * Responsible for rendering authenticated-only navbar actions.
+ *
+ * Does NOT fetch user data and does NOT perform API calls.
+ */
+
 const NavbarActions: React.FC = () => {
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();

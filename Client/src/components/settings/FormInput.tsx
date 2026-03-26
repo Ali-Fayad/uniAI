@@ -1,6 +1,14 @@
+/**
+ * FormInput
+ *
+ * Responsible for rendering a labeled text input with optional prefix.
+ *
+ * Does NOT own form state and does NOT perform validation or API calls.
+ */
+
 import React from "react";
 
-type Props = {
+type FormInputProps = {
   id: string;
   label: string;
   name?: string;
@@ -12,7 +20,7 @@ type Props = {
   disabled?: boolean;
 };
 
-const FormInput: React.FC<Props> = ({
+const FormInput: React.FC<FormInputProps> = ({
   id,
   label,
   name,
@@ -34,9 +42,7 @@ const FormInput: React.FC<Props> = ({
         </label>
         <div className="mt-2">
           <div
-            className={`flex rounded-md shadow-sm ring-1 ring-inset ring-[var(--color-border)] focus-within:ring-2 focus-within:ring-inset focus-within:ring-[var(--color-primary)] ${
-              disabled ? "bg-[var(--color-background)]" : "bg-[var(--color-background)]"
-            }`}
+            className="flex rounded-md bg-[var(--color-background)] shadow-sm ring-1 ring-inset ring-[var(--color-border)] focus-within:ring-2 focus-within:ring-inset focus-within:ring-[var(--color-primary)]"
           >
             <span className="flex select-none items-center pl-3 text-[var(--color-textSecondary)] sm:text-sm">
               {prefix}

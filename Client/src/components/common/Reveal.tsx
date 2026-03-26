@@ -1,4 +1,11 @@
-// src/components/common/Reveal.tsx
+/**
+ * Reveal
+ *
+ * Responsible for revealing its children with a scroll-into-view animation.
+ *
+ * Does NOT control page routing and does NOT perform API calls.
+ */
+
 import React, { useEffect, useRef } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 

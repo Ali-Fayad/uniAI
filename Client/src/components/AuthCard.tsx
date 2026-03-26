@@ -8,11 +8,15 @@ interface AuthCardProps {
 
 /**
  * AuthCard Component
- * 
- * Responsibilities:
- * - Animated container for auth forms
- * - Smooth layout transitions when content changes
- * - Back button with entrance/exit animation
+ *
+ * Responsibility:
+ * - Provide an animated container for auth flows
+ * - Render a contextual back button for auth navigation
+ * - Animate content transitions when route changes
+ *
+ * Does NOT:
+ * - Perform authentication API calls
+ * - Own auth business logic
  */
 export const AuthCard: React.FC<AuthCardProps> = ({ children }) => {
   const navigate = useNavigate();

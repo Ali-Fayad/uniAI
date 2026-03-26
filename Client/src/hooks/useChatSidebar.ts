@@ -11,6 +11,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { chatService } from '../services/chat';
 import { useAuth } from './useAuth';
+import { useOnClickOutside } from './useOnClickOutside';
 import type { Chat } from '../types/dto';
 
 export interface UseChatSidebarReturn {
@@ -57,20 +58,10 @@ export const useChatSidebar = (
   }, [selectedChatId]);
 
   /** Close the profile menu when the user clicks outside it. */
-  useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      if (
-        profileMenuRef.current &&
-        e.target instanceof Node &&
-        !profileMenuRef.current.contains(e.target)
-      ) {
-        setProfileMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('click', onDocClick);
-    return () => document.removeEventListener('click', onDocClick);
-  }, []);
+  useOnClickOutside(profileMenuRef, () => setProfileMenuOpen(false), {
+    eventType: 'click',
+    enabled: profileMenuOpen,
+  });
 
   const handleDeleteChat = async (chatId: number, e: React.MouseEvent) => {
     e.stopPropagation();

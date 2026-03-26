@@ -6,7 +6,11 @@ interface LoadingSpinnerProps {
 }
 
 /**
- * LoadingSpinner component for showing loading states
+ * LoadingSpinner
+ *
+ * Responsible for rendering a consistent loading indicator with optional text.
+ *
+ * Does NOT handle data fetching and does NOT perform any API calls.
  */
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'medium',

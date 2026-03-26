@@ -7,6 +7,15 @@ type Props = {
   className?: string;
 };
 
+/**
+ * SettingsSection
+ *
+ * Responsible for rendering a card-like settings section wrapper with a title
+ * and optional icon.
+ *
+ * Does NOT own settings state and does NOT perform API calls.
+ */
+
 const SettingsSection: React.FC<Props> = ({
   title,
   icon,

@@ -19,6 +19,8 @@ interface AnimatedFieldProps {
  *
  * Callers can override threshold/transition to match local needs, keeping
  * the component open for extension without modifying it (OCP).
+ *
+ * Does NOT fetch data and does NOT perform any API calls.
  */
 const AnimatedField: React.FC<AnimatedFieldProps> = ({
   children,

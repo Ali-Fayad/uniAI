@@ -7,11 +7,13 @@ interface AuthHeadingProps {
 
 /**
  * AuthHeading Component
- * 
- * Responsibilities:
- * - Animated heading for auth forms
- * - Smooth transitions between different auth states
- * - Text slides and fades during transitions
+ *
+ * Responsibility:
+ * - Render an animated title/subtitle block for auth flows
+ *
+ * Does NOT:
+ * - Manage authentication state
+ * - Perform API calls
  */
 const AuthHeading = ({ title, subtitle }: AuthHeadingProps) => {
   return (

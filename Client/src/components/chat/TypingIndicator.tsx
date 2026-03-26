@@ -2,11 +2,13 @@ import { motion } from 'framer-motion';
 
 /**
  * TypingIndicator Component
- * 
- * Responsibilities:
- * - Display animated typing indicator during AI response
- * - Bouncing dots animation
- * - Consistent with chat message styling
+ *
+ * Responsibility:
+ * - Display an animated typing indicator bubble
+ *
+ * Does NOT:
+ * - Determine typing state
+ * - Perform API calls
  */
 const TypingIndicator = () => {
   const dotVariants = {

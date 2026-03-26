@@ -11,14 +11,13 @@ interface StaggerContainerProps {
 
 /**
  * StaggerContainer Animation Component
- * 
- * Responsibilities:
- * - Stagger animation of child elements
- * - Support customizable stagger delay between children
- * - Respect reduced motion preferences
- * 
- * Usage:
- * Wrap direct children with motion components that use variants
+ *
+ * Responsibility:
+ * - Provide a container variants wrapper for staggered child animations
+ *
+ * Does NOT:
+ * - Fetch data
+ * - Perform API calls
  */
 const StaggerContainer = ({ 
   children, 

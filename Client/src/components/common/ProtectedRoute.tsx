@@ -9,7 +9,11 @@ interface ProtectedRouteProps {
 }
 
 /**
- * ProtectedRoute component to guard routes that require authentication
+ * ProtectedRoute
+ *
+ * Responsible for guarding routes that require authentication.
+ *
+ * Does NOT perform authentication itself and does NOT perform API calls.
  */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();

@@ -10,11 +10,14 @@ interface ChatMessageProps {
 
 /**
  * ChatMessage Component
- * 
- * Responsibilities:
- * - Display individual chat message with animation
- * - Slide up animation on appearance
- * - Different styling for AI vs user messages
+ *
+ * Responsibility:
+ * - Render a single chat message bubble
+ * - Apply entry animation and AI/user styling
+ *
+ * Does NOT:
+ * - Fetch messages
+ * - Perform API calls
  */
 const ChatMessage: React.FC<ChatMessageProps> = ({ message, isAI, index = 0 }) => {
   return (

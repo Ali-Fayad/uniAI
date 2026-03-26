@@ -9,14 +9,13 @@ interface PageTransitionProps {
 
 /**
  * PageTransition Animation Component
- * 
- * Responsibilities:
- * - Apply consistent page enter/exit transitions
- * - Fade and slide animation for smooth page changes
- * - Respect reduced motion preferences
- * 
- * Usage:
- * Wrap each route's page component with PageTransition
+ *
+ * Responsibility:
+ * - Apply a consistent page enter/exit transition wrapper
+ *
+ * Does NOT:
+ * - Fetch data
+ * - Perform API calls
  */
 const PageTransition = ({ children, className = "" }: PageTransitionProps) => {
   const pageVariants: Variants = {

@@ -15,6 +15,7 @@ lerna-debug.log*
 
 # Frontend
 Client/node_modules/
+Client/node_modules_root_owned/
 
 # Backend (if exists)
 node_modules/

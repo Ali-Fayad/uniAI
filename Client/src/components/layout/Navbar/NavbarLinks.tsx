@@ -2,6 +2,14 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../router';
 
+/**
+ * NavbarLinks
+ *
+ * Responsible for rendering the primary navigation links.
+ *
+ * Does NOT contain authorization logic and does NOT perform API calls.
+ */
+
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive ? 'text-[var(--color-primary)]' : 'text-[var(--color-textSecondary)] hover:text-[var(--color-primary)]'}`;
 

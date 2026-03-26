@@ -14,11 +14,13 @@ interface SlideInProps {
 
 /**
  * SlideIn Animation Component
- * 
- * Responsibilities:
- * - Slide elements in from specified direction
- * - Support customizable delay, duration, and distance
- * - Respect reduced motion preferences
+ *
+ * Responsibility:
+ * - Apply a directional slide-in animation to child content
+ *
+ * Does NOT:
+ * - Fetch data
+ * - Perform API calls
  */
 const SlideIn = ({ 
   children, 

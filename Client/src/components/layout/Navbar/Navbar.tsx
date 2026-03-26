@@ -1,14 +1,18 @@
+/**
+ * Navbar
+ *
+ * Responsible for rendering the top navigation shell (branding, links, actions).
+ *
+ * Does NOT own authentication state and does NOT perform API calls.
+ */
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import NavbarLinks from './NavbarLinks';
 import NavbarActions from './NavbarActions';
 
-interface NavbarProps {
-  // If parent wants to override auth state handling it can pass handlers
-}
-
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar: React.FC = () => {
   return (
     <header className={`${styles.navbar} bg-[var(--color-surface)] border-b border-[var(--color-border)] z-50`}
       style={{ height: 'var(--navbar-height)' }}
