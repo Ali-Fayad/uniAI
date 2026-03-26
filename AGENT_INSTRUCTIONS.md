@@ -261,13 +261,14 @@ The backend must be structured into:
 
 Before completing any task:
 
+- Ensure both frontend and backend are validated when changes impact either side
 - Ensure code compiles
 - Ensure imports are correct
 - Ensure no unused code remains
 - Ensure architecture is improved (not degraded)
 
 If validation tools exist (build, typecheck, lint):
-→ use them
+→ run them for BOTH frontend and backend when applicable
 
 ---
 
@@ -276,4 +277,3 @@ If validation tools exist (build, typecheck, lint):
 - Think like a senior engineer
 - Prefer clarity over cleverness
 - Prefer maintainability over speed
-- Always leave the codebase cleaner than you found it
