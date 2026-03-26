@@ -94,20 +94,22 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
     updatePhone(phoneCode, val);
   };
 
+  // UI Refinement: Removed external text headers ("Contact", "Location", etc.) 
+  // and replaced them with icons to the left of inputs for a cleaner, unified layout.
   return (
     <PersonalInfoSectionCard
       title="Basic Information"
       icon={<FaUser className="h-5 w-5" aria-hidden="true" />}
       className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-6"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
-        
+      <div className="grid grid-cols-1 gap-6">
+
         {/* Phone Split: Area Code + Number */}
-        <div className="sm:col-span-1 flex items-start gap-3">
+        <div className="flex items-start gap-3">
           <FaPhone className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
           <div className="flex-1 w-full">
             <div className="flex gap-2">
-              <div className="w-1/3 min-w-[80px]">
+              <div className="min-w-[80px] w-1/4 max-w-[120px]">
                  <AnimatedInput
                     value={phoneCode}
                     onChange={handleCodeChange}
@@ -131,7 +133,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
         </div>
 
         {/* Address Row with Icon */}
-        <div className="col-span-1 sm:col-span-2 flex items-start gap-3">
+        <div className="flex items-start gap-3">
            <FaMapMarkerAlt className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
            <div className="flex-1">
               <AnimatedInput
@@ -144,7 +146,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
         </div>
 
         {/* Working Checkbox */}
-        <div className="col-span-1 sm:col-span-2 flex items-center gap-3 py-2 pl-8">
+        <div className="flex items-center gap-3 py-2 pl-8">
           <input
             id="is-working-checkbox"
             type="checkbox"
@@ -160,7 +162,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
         {/* Job Fields */}
         {isWorking && (
           <>
-            <div className="sm:col-span-1 flex items-start gap-3">
+            <div className="flex items-start gap-3">
                <FaBriefcase className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
                <div className="flex-1">
                   <AnimatedInput
@@ -178,7 +180,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
                </div>
             </div>
 
-            <div className="sm:col-span-1 flex items-start gap-3">
+            <div className="flex items-start gap-3">
                <FaBuilding className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
                <div className="flex-1">
                   <AnimatedInput
