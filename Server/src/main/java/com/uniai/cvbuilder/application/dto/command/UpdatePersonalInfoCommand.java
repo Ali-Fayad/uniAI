@@ -1,5 +1,6 @@
 package com.uniai.cvbuilder.application.dto.command;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UpdatePersonalInfoCommand {
 
+    @Pattern(regexp = "^\\+\\d+ \\d+$", message = "Phone must be in format '+{countryCode} {number}' (e.g. +1 234567890)")
     private String phone;
     private String address;
     private String linkedin;

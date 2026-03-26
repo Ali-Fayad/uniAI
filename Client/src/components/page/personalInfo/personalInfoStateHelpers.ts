@@ -104,6 +104,10 @@ export const personalInfoStateToSnapshot = (state: PersonalInfoState): string =>
 };
 
 export const validatePersonalInfoState = (state: PersonalInfoState): string | null => {
+  if (state.form.phone && !isValidPhoneNumber(state.form.phone)) {
+    return "Phone number invalid. Must be in format '+TotalDigits RegionDigits' (e.g. +1 5551234567)";
+  }
+
   const invalidEducation = state.education.some((item) => !item.universityName.trim() || !item.universityId);
   if (invalidEducation) {
     return 'Education entries must include a selected university.';
