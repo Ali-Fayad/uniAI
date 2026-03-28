@@ -1,0 +1,129 @@
+[
+  { "name": "Software Engineer" },
+  { "name": "Software Developer" },
+  { "name": "Backend Developer" },
+  { "name": "Frontend Developer" },
+  { "name": "Full Stack Developer" },
+  { "name": "Web Developer" },
+  { "name": "Mobile Developer" },
+  { "name": "Android Developer" },
+  { "name": "iOS Developer" },
+  { "name": "Flutter Developer" },
+  { "name": "React Developer" },
+  { "name": "Angular Developer" },
+  { "name": "Vue.js Developer" },
+
+  { "name": "Java Developer" },
+  { "name": "Spring Boot Developer" },
+  { "name": "C++ Developer" },
+  { "name": "Python Developer" },
+  { "name": "Node.js Developer" },
+  { "name": "PHP Developer" },
+  { "name": "Go Developer" },
+  { "name": "Rust Developer" },
+  { "name": "Kotlin Developer" },
+  { "name": "Swift Developer" },
+
+  { "name": "Game Developer" },
+  { "name": "Unity Developer" },
+  { "name": "Unreal Engine Developer" },
+
+  { "name": "DevOps Engineer" },
+  { "name": "Site Reliability Engineer" },
+  { "name": "Cloud Engineer" },
+  { "name": "Cloud Architect" },
+  { "name": "Infrastructure Engineer" },
+  { "name": "Platform Engineer" },
+
+  { "name": "QA Engineer" },
+  { "name": "Software Tester" },
+  { "name": "Automation Test Engineer" },
+  { "name": "Manual QA Tester" },
+
+  { "name": "Data Engineer" },
+  { "name": "Data Analyst" },
+  { "name": "Data Scientist" },
+  { "name": "Machine Learning Engineer" },
+  { "name": "AI Engineer" },
+  { "name": "Deep Learning Engineer" },
+  { "name": "Computer Vision Engineer" },
+  { "name": "NLP Engineer" },
+
+  { "name": "Cybersecurity Engineer" },
+  { "name": "Security Analyst" },
+  { "name": "Application Security Engineer" },
+  { "name": "Penetration Tester" },
+
+  { "name": "Database Administrator" },
+  { "name": "Database Engineer" },
+  { "name": "SQL Developer" },
+  { "name": "NoSQL Engineer" },
+
+  { "name": "Embedded Systems Engineer" },
+  { "name": "Firmware Engineer" },
+  { "name": "IoT Developer" },
+
+  { "name": "Blockchain Developer" },
+  { "name": "Smart Contract Developer" },
+  { "name": "Web3 Developer" },
+
+  { "name": "AR Developer" },
+  { "name": "VR Developer" },
+
+  { "name": "UI Developer" },
+  { "name": "UX Engineer" },
+  { "name": "Frontend UI Engineer" },
+
+  { "name": "Technical Lead" },
+  { "name": "Engineering Manager" },
+  { "name": "Software Architect" },
+  { "name": "Solution Architect" },
+  { "name": "System Architect" },
+
+  { "name": "Microservices Engineer" },
+  { "name": "API Developer" },
+  { "name": "Integration Engineer" },
+
+  { "name": "Build Engineer" },
+  { "name": "Release Engineer" },
+
+  { "name": "Support Engineer" },
+  { "name": "Application Support Engineer" },
+
+  { "name": "Research Engineer" },
+  { "name": "R&D Engineer" },
+
+  { "name": "Automation Engineer" },
+  { "name": "Test Automation Engineer" },
+
+  { "name": "Big Data Engineer" },
+  { "name": "Hadoop Developer" },
+  { "name": "Spark Developer" },
+
+  { "name": "ETL Developer" },
+  { "name": "BI Developer" },
+
+  { "name": "Robotics Engineer" },
+  { "name": "Autonomous Systems Engineer" },
+
+  { "name": "Game Engine Developer" },
+  { "name": "Graphics Engineer" },
+
+  { "name": "Accessibility Engineer" },
+  { "name": "Performance Engineer" },
+
+  { "name": "DevSecOps Engineer" },
+  { "name": "Security Engineer" },
+
+  { "name": "CRM Developer" },
+  { "name": "ERP Developer" },
+
+  { "name": "Salesforce Developer" },
+  { "name": "SAP Developer" },
+
+  { "name": "WordPress Developer" },
+  { "name": "Shopify Developer" },
+
+  { "name": "Low-Code Developer" },
+  { "name": "No-Code Developer" }
+]
