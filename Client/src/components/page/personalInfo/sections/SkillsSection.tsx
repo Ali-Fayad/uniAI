@@ -9,7 +9,8 @@
  * - Persist personal info
  */
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 import { FaCode } from 'react-icons/fa';
 import type { PersonalInfoSkillEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
@@ -49,24 +50,30 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
   editingSkillValue,
   setEditingSkillValue,
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(containerRef, () => setIsDropdownOpen(false));
+
   return (
     <PersonalInfoSectionCard
       title="Skills"
       icon={<FaCode className="h-5 w-5" aria-hidden="true" />}
-      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-4"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
-      <div className="relative flex flex-col sm:flex-row gap-3 items-start">
+      <div ref={containerRef} className="relative flex flex-col sm:flex-row gap-3 items-start">
         <AnimatedInput
           value={skillQuery}
+          onFocus={() => setIsDropdownOpen(true)}
           onChange={(e) => {
+            setIsDropdownOpen(true);
             setSkillQuery(e.target.value);
             setSelectedSkillId(null);
           }}
           label="Type a skill"
           containerClassName="flex-1"
         >
-        {(isSkillsLoading || skillSuggestions.length > 0) && (
-          <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+        {isDropdownOpen && (isSkillsLoading || skillSuggestions.length > 0) && (
+          <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
             {isSkillsLoading ? (
               <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
             ) : (
@@ -117,7 +124,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
         ))}
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
         {skills.map((item, index) => (
           <div
             key={`skill-row-${item.id}`}

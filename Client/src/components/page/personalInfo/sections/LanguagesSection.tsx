@@ -9,7 +9,8 @@
  * - Persist personal info
  */
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 import { FaLanguage } from 'react-icons/fa';
 import type { PersonalInfoLanguageEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
@@ -48,16 +49,22 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
   editingLanguageValue,
   setEditingLanguageValue,
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(containerRef, () => setIsDropdownOpen(false));
+
   return (
     <PersonalInfoSectionCard
       title="Languages"
       icon={<FaLanguage className="h-5 w-5" aria-hidden="true" />}
-      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-4"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
-      <div className="relative flex flex-col sm:flex-row gap-3">
+      <div ref={containerRef} className="relative flex flex-col sm:flex-row gap-3">
         <input
           value={languageQuery}
+          onFocus={() => setIsDropdownOpen(true)}
           onChange={(e) => {
+            setIsDropdownOpen(true);
             setLanguageQuery(e.target.value);
             setSelectedLanguageId(null);
           }}
@@ -71,8 +78,8 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
         >
           Add
         </button>
-        {(isLanguagesLoading || languageSuggestions.length > 0) && (
-          <div className="absolute top-11 left-0 right-0 sm:right-24 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+        {isDropdownOpen && (isLanguagesLoading || languageSuggestions.length > 0) && (
+          <div className="absolute top-11 left-0 right-0 sm:right-24 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
             {isLanguagesLoading ? (
               <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
             ) : (
@@ -115,7 +122,7 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
         ))}
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
         {languages.map((item, index) => (
           <div
             key={`language-row-${item.id}`}

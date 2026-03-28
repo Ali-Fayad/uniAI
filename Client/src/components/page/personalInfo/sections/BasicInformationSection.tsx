@@ -100,7 +100,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
     <PersonalInfoSectionCard
       title="Basic Information"
       icon={<FaUser className="h-5 w-5" aria-hidden="true" />}
-      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-6"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-6"
     >
       <div className="grid grid-cols-1 gap-6">
 

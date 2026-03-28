@@ -9,7 +9,8 @@
  * - Persist personal info
  */
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 import { FaBriefcase } from 'react-icons/fa';
 import type { PersonalInfoExperienceEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
@@ -58,24 +59,30 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   editingExperienceCompany,
   setEditingExperienceCompany,
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(containerRef, () => setIsDropdownOpen(false));
+
   return (
     <PersonalInfoSectionCard
       title="Experience"
       icon={<FaBriefcase className="h-5 w-5" aria-hidden="true" />}
-      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-4"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-start">
         <AnimatedInput
           value={positionQuery}
+          onFocus={() => setIsDropdownOpen(true)}
           onChange={(e) => {
+            setIsDropdownOpen(true);
             setPositionQuery(e.target.value);
             setSelectedPositionId(null);
           }}
           label="Type a position"
           containerClassName="sm:col-span-2"
         >
-          {(isPositionsLoading || positionSuggestions.length > 0) && (
-            <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+          {isDropdownOpen && (isPositionsLoading || positionSuggestions.length > 0) && (
+            <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
               {isPositionsLoading ? (
                 <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
               ) : (
@@ -129,7 +136,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         ))}
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
         {experience.map((item, index) => (
           <div
             key={`exp-row-${item.id}`}

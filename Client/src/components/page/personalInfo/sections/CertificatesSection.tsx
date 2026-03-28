@@ -57,7 +57,7 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
     <PersonalInfoSectionCard
       title="Certificates"
       icon={<FaCertificate className="h-5 w-5" aria-hidden="true" />}
-      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-4"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
         <AnimatedInput
@@ -85,7 +85,7 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
         </button>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
         {certificates.map((item, index) => (
           <div key={item.id} className="rounded-md border border-[var(--color-border)] p-3 space-y-2">
             {editingCertificateId === item.id ? (

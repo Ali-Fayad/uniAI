@@ -9,7 +9,8 @@
  * - Persist personal info
  */
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 import { FaGraduationCap } from 'react-icons/fa';
 import type { PersonalInfoEducationEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
@@ -52,24 +53,30 @@ const EducationSection: React.FC<EducationSectionProps> = ({
   editingEducationValue,
   setEditingEducationValue,
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(containerRef, () => setIsDropdownOpen(false));
+
   return (
     <PersonalInfoSectionCard
       title="Education"
       icon={<FaGraduationCap className="h-5 w-5" aria-hidden="true" />}
-      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-4"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
-      <div className="relative flex flex-col sm:flex-row gap-3 items-start">
+      <div ref={containerRef} className="relative flex flex-col sm:flex-row gap-3 items-start">
         <AnimatedInput
           value={universityQuery}
+          onFocus={() => setIsDropdownOpen(true)}
           onChange={(e) => {
+            setIsDropdownOpen(true);
             setUniversityQuery(e.target.value);
             setSelectedUniversityId(null);
           }}
           label="Type university"
           containerClassName="flex-1"
         >
-          {(isUniversitiesLoading || universitySuggestions.length > 0) && (
-            <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-56 overflow-auto">
+          {isDropdownOpen && (isUniversitiesLoading || universitySuggestions.length > 0) && (
+            <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
               {isUniversitiesLoading ? (
                 <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
               ) : (
@@ -123,7 +130,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
         ))}
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
         {education.map((item, index) => (
           <div
             key={`row-${item.id}`}
