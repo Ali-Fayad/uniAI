@@ -14,7 +14,7 @@ import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 import { FaLanguage } from 'react-icons/fa';
 import type { PersonalInfoLanguageEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
-import { createClientId, moveItem, normalizeOptionId } from '../personalInfoUtils';
+import { createClientId } from '../personalInfoUtils';
 
 export interface LanguagesSectionProps {
   languages: PersonalInfoLanguageEntryDto[];
@@ -29,10 +29,6 @@ export interface LanguagesSectionProps {
 
   addLanguage: () => void;
 
-  editingLanguageId: string | null;
-  setEditingLanguageId: React.Dispatch<React.SetStateAction<string | null>>;
-  editingLanguageValue: string;
-  setEditingLanguageValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const LanguagesSection: React.FC<LanguagesSectionProps> = ({
@@ -44,10 +40,6 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
   isLanguagesLoading,
   languageSuggestions,
   addLanguage,
-  editingLanguageId,
-  setEditingLanguageId,
-  editingLanguageValue,
-  setEditingLanguageValue,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -122,85 +114,6 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
         ))}
       </div>
 
-      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
-        {languages.map((item, index) => (
-          <div
-            key={`language-row-${item.id}`}
-            className="flex flex-col sm:flex-row sm:items-center gap-2 rounded-md border border-[var(--color-border)] p-3"
-          >
-            {editingLanguageId === item.id ? (
-              <input
-                value={editingLanguageValue}
-                onChange={(e) => setEditingLanguageValue(e.target.value)}
-                className="flex-1 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
-              />
-            ) : (
-              <span className="flex-1 text-[var(--color-textPrimary)]">{item.name}</span>
-            )}
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => index > 0 && setLanguages((prev) => moveItem(prev, index, index - 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↑
-              </button>
-              <button
-                type="button"
-                onClick={() => index < languages.length - 1 && setLanguages((prev) => moveItem(prev, index, index + 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↓
-              </button>
-              {editingLanguageId === item.id ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const nextValue = editingLanguageValue.trim();
-                    if (nextValue) {
-                      setLanguages((prev) =>
-                        prev.map((entry) =>
-                          entry.id === item.id
-                            ? {
-                                ...entry,
-                                name: nextValue,
-                                languageId: normalizeOptionId('language', nextValue),
-                              }
-                            : entry,
-                        ),
-                      );
-                    }
-                    setEditingLanguageId(null);
-                    setEditingLanguageValue('');
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Save
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingLanguageId(item.id);
-                    setEditingLanguageValue(item.name);
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Edit
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setLanguages((prev) => prev.filter((entry) => entry.id !== item.id))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
     </PersonalInfoSectionCard>
   );
 };

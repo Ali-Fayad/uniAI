@@ -14,7 +14,7 @@ import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 import { FaGraduationCap } from 'react-icons/fa';
 import type { PersonalInfoEducationEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
-import { createClientId, moveItem } from '../personalInfoUtils';
+import { createClientId } from '../personalInfoUtils';
 import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface EducationSectionProps {
@@ -32,10 +32,6 @@ export interface EducationSectionProps {
   addEducation: () => void;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 
-  editingEducationId: string | null;
-  setEditingEducationId: React.Dispatch<React.SetStateAction<string | null>>;
-  editingEducationValue: string;
-  setEditingEducationValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const EducationSection: React.FC<EducationSectionProps> = ({
@@ -48,10 +44,6 @@ const EducationSection: React.FC<EducationSectionProps> = ({
   universitySuggestions,
   addEducation,
   setError,
-  editingEducationId,
-  setEditingEducationId,
-  editingEducationValue,
-  setEditingEducationValue,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -130,83 +122,6 @@ const EducationSection: React.FC<EducationSectionProps> = ({
         ))}
       </div>
 
-      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
-        {education.map((item, index) => (
-          <div
-            key={`row-${item.id}`}
-            className="flex flex-col sm:flex-row sm:items-center gap-2 rounded-md border border-[var(--color-border)] p-3"
-          >
-            {editingEducationId === item.id ? (
-              <AnimatedInput
-                value={editingEducationValue}
-                onChange={(e) => setEditingEducationValue(e.target.value)}
-                label="University"
-                containerClassName="flex-1"
-              />
-            ) : (
-              <span className="flex-1 text-[var(--color-textPrimary)]">{item.universityName}</span>
-            )}
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => index > 0 && setEducation((prev) => moveItem(prev, index, index - 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↑
-              </button>
-              <button
-                type="button"
-                onClick={() => index < education.length - 1 && setEducation((prev) => moveItem(prev, index, index + 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↓
-              </button>
-              {editingEducationId === item.id ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEducation((prev) =>
-                      prev.map((entry) =>
-                        entry.id === item.id
-                          ? {
-                              ...entry,
-                              universityName: editingEducationValue.trim() || entry.universityName,
-                              universityId: null,
-                            }
-                          : entry,
-                      ),
-                    );
-                    setEditingEducationId(null);
-                    setEditingEducationValue('');
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Save
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingEducationId(item.id);
-                    setEditingEducationValue(item.universityName);
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Edit
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setEducation((prev) => prev.filter((entry) => entry.id !== item.id))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
     </PersonalInfoSectionCard>
   );
 };

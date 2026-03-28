@@ -14,7 +14,6 @@ import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 import { FaBriefcase } from 'react-icons/fa';
 import type { PersonalInfoExperienceEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
-import { moveItem, normalizeOptionId } from '../personalInfoUtils';
 import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface ExperienceSectionProps {
@@ -33,12 +32,6 @@ export interface ExperienceSectionProps {
 
   addExperience: () => void;
 
-  editingExperienceId: string | null;
-  setEditingExperienceId: React.Dispatch<React.SetStateAction<string | null>>;
-  editingExperiencePosition: string;
-  setEditingExperiencePosition: React.Dispatch<React.SetStateAction<string>>;
-  editingExperienceCompany: string;
-  setEditingExperienceCompany: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
@@ -52,12 +45,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   isPositionsLoading,
   positionSuggestions,
   addExperience,
-  editingExperienceId,
-  setEditingExperienceId,
-  editingExperiencePosition,
-  setEditingExperiencePosition,
-  editingExperienceCompany,
-  setEditingExperienceCompany,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -136,97 +123,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         ))}
       </div>
 
-      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
-        {experience.map((item, index) => (
-          <div
-            key={`exp-row-${item.id}`}
-            className="flex flex-col gap-2 rounded-md border border-[var(--color-border)] p-3"
-          >
-            {editingExperienceId === item.id ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <AnimatedInput
-                  value={editingExperiencePosition}
-                  onChange={(e) => setEditingExperiencePosition(e.target.value)}
-                  label="Position"
-                />
-                <AnimatedInput
-                  value={editingExperienceCompany}
-                  onChange={(e) => setEditingExperienceCompany(e.target.value)}
-                  label="Company"
-                />
-              </div>
-            ) : (
-              <span className="text-[var(--color-textPrimary)]">
-                {item.position}{item.company ? ` · ${item.company}` : ''}
-              </span>
-            )}
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => index > 0 && setExperience((prev) => moveItem(prev, index, index - 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↑
-              </button>
-              <button
-                type="button"
-                onClick={() => index < experience.length - 1 && setExperience((prev) => moveItem(prev, index, index + 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↓
-              </button>
-              {editingExperienceId === item.id ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const nextPosition = editingExperiencePosition.trim();
-                    if (nextPosition) {
-                      setExperience((prev) =>
-                        prev.map((entry) =>
-                          entry.id === item.id
-                            ? {
-                                ...entry,
-                                position: nextPosition,
-                                company: editingExperienceCompany.trim(),
-                                positionId: normalizeOptionId('position', nextPosition),
-                              }
-                            : entry,
-                        ),
-                      );
-                    }
-                    setEditingExperienceId(null);
-                    setEditingExperiencePosition('');
-                    setEditingExperienceCompany('');
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Save
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingExperienceId(item.id);
-                    setEditingExperiencePosition(item.position);
-                    setEditingExperienceCompany(item.company);
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Edit
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setExperience((prev) => prev.filter((entry) => entry.id !== item.id))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
     </PersonalInfoSectionCard>
   );
 };

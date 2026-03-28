@@ -13,7 +13,6 @@ import React from 'react';
 import { FaCertificate } from 'react-icons/fa';
 import type { PersonalInfoCertificateEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
-import { moveItem } from '../personalInfoUtils';
 import AnimatedInput from '../../../common/AnimatedInput';
 
 export interface CertificatesSectionProps {
@@ -28,12 +27,6 @@ export interface CertificatesSectionProps {
   certificates: PersonalInfoCertificateEntryDto[];
   setCertificates: React.Dispatch<React.SetStateAction<PersonalInfoCertificateEntryDto[]>>;
 
-  editingCertificateId: string | null;
-  setEditingCertificateId: React.Dispatch<React.SetStateAction<string | null>>;
-  editingCertificateName: string;
-  setEditingCertificateName: React.Dispatch<React.SetStateAction<string>>;
-  editingCertificateIssuer: string;
-  setEditingCertificateIssuer: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CertificatesSection: React.FC<CertificatesSectionProps> = ({
@@ -46,12 +39,6 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
   addCertificate,
   certificates,
   setCertificates,
-  editingCertificateId,
-  setEditingCertificateId,
-  editingCertificateName,
-  setEditingCertificateName,
-  editingCertificateIssuer,
-  setEditingCertificateIssuer,
 }) => {
   return (
     <PersonalInfoSectionCard
@@ -85,91 +72,21 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
         </button>
       </div>
 
-      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
-        {certificates.map((item, index) => (
-          <div key={item.id} className="rounded-md border border-[var(--color-border)] p-3 space-y-2">
-            {editingCertificateId === item.id ? (
-              <>
-                <AnimatedInput
-                  value={editingCertificateName}
-                  onChange={(e) => setEditingCertificateName(e.target.value)}
-                  label="Certificate name"
-                />
-                <AnimatedInput
-                  value={editingCertificateIssuer}
-                  onChange={(e) => setEditingCertificateIssuer(e.target.value)}
-                  label="Issuer"
-                />
-              </>
-            ) : (
-              <p className="text-[var(--color-textPrimary)]">
-                {item.name}{item.issuer ? ` · ${item.issuer}` : ''}
-              </p>
-            )}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => index > 0 && setCertificates((prev) => moveItem(prev, index, index - 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↑
-              </button>
-              <button
-                type="button"
-                onClick={() => index < certificates.length - 1 && setCertificates((prev) => moveItem(prev, index, index + 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↓
-              </button>
-              {editingCertificateId === item.id ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const nextName = editingCertificateName.trim();
-                    if (!nextName) {
-                      return;
-                    }
-                    setCertificates((prev) =>
-                      prev.map((entry) =>
-                        entry.id === item.id
-                          ? {
-                              ...entry,
-                              name: nextName,
-                              issuer: editingCertificateIssuer.trim(),
-                            }
-                          : entry,
-                      ),
-                    );
-                    setEditingCertificateId(null);
-                    setEditingCertificateName('');
-                    setEditingCertificateIssuer('');
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Save
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingCertificateId(item.id);
-                    setEditingCertificateName(item.name);
-                    setEditingCertificateIssuer(item.issuer ?? '');
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Edit
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setCertificates((prev) => prev.filter((entry) => entry.id !== item.id))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
+      <div className="flex flex-wrap gap-2 mt-4">
+        {certificates.map((item) => (
+          <span
+            key={item.id}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3 py-1 text-sm text-[var(--color-textPrimary)]"
+          >
+            {item.name}{item.issuer ? ` · ${item.issuer}` : ''}
+            <button
+              type="button"
+              onClick={() => setCertificates((prev) => prev.filter((entry) => entry.id !== item.id))}
+              className="text-[var(--color-textSecondary)] hover:text-[var(--color-textPrimary)]"
+            >
+              ×
+            </button>
+          </span>
         ))}
       </div>
     </PersonalInfoSectionCard>

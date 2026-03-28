@@ -75,10 +75,6 @@ const PersonalInfoPageShell: React.FC<PersonalInfoPageShellProps> = ({ controlle
           universitySuggestions={controller.universitySuggestions}
           addEducation={controller.addEducation}
           setError={controller.setError}
-          editingEducationId={controller.editingEducationId}
-          setEditingEducationId={controller.setEditingEducationId}
-          editingEducationValue={controller.editingEducationValue}
-          setEditingEducationValue={controller.setEditingEducationValue}
         />
 
         <SkillsSection
@@ -90,10 +86,6 @@ const PersonalInfoPageShell: React.FC<PersonalInfoPageShellProps> = ({ controlle
           isSkillsLoading={controller.isSkillsLoading}
           skillSuggestions={controller.skillSuggestions}
           addSkill={controller.addSkill}
-          editingSkillId={controller.editingSkillId}
-          setEditingSkillId={controller.setEditingSkillId}
-          editingSkillValue={controller.editingSkillValue}
-          setEditingSkillValue={controller.setEditingSkillValue}
         />
 
         <LanguagesSection
@@ -105,10 +97,6 @@ const PersonalInfoPageShell: React.FC<PersonalInfoPageShellProps> = ({ controlle
           isLanguagesLoading={controller.isLanguagesLoading}
           languageSuggestions={controller.languageSuggestions}
           addLanguage={controller.addLanguage}
-          editingLanguageId={controller.editingLanguageId}
-          setEditingLanguageId={controller.setEditingLanguageId}
-          editingLanguageValue={controller.editingLanguageValue}
-          setEditingLanguageValue={controller.setEditingLanguageValue}
         />
 
         <ExperienceSection
@@ -122,12 +110,6 @@ const PersonalInfoPageShell: React.FC<PersonalInfoPageShellProps> = ({ controlle
           isPositionsLoading={controller.isPositionsLoading}
           positionSuggestions={controller.positionSuggestions}
           addExperience={controller.addExperience}
-          editingExperienceId={controller.editingExperienceId}
-          setEditingExperienceId={controller.setEditingExperienceId}
-          editingExperiencePosition={controller.editingExperiencePosition}
-          setEditingExperiencePosition={controller.setEditingExperiencePosition}
-          editingExperienceCompany={controller.editingExperienceCompany}
-          setEditingExperienceCompany={controller.setEditingExperienceCompany}
         />
 
         <ProjectsSection
@@ -142,12 +124,6 @@ const PersonalInfoPageShell: React.FC<PersonalInfoPageShellProps> = ({ controlle
           addProject={controller.addProject}
           projects={controller.projects}
           setProjects={controller.setProjects}
-          editingProjectId={controller.editingProjectId}
-          setEditingProjectId={controller.setEditingProjectId}
-          editingProjectName={controller.editingProjectName}
-          setEditingProjectName={controller.setEditingProjectName}
-          editingProjectDescription={controller.editingProjectDescription}
-          setEditingProjectDescription={controller.setEditingProjectDescription}
         />
 
         <CertificatesSection
@@ -160,12 +136,6 @@ const PersonalInfoPageShell: React.FC<PersonalInfoPageShellProps> = ({ controlle
           addCertificate={controller.addCertificate}
           certificates={controller.certificates}
           setCertificates={controller.setCertificates}
-          editingCertificateId={controller.editingCertificateId}
-          setEditingCertificateId={controller.setEditingCertificateId}
-          editingCertificateName={controller.editingCertificateName}
-          setEditingCertificateName={controller.setEditingCertificateName}
-          editingCertificateIssuer={controller.editingCertificateIssuer}
-          setEditingCertificateIssuer={controller.setEditingCertificateIssuer}
         />
 
         <PersonalInfoFooterActions

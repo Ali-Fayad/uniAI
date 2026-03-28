@@ -13,7 +13,6 @@ import React from 'react';
 import { FaFolderOpen } from 'react-icons/fa';
 import type { PersonalInfoProjectEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
-import { moveItem } from '../personalInfoUtils';
 import AnimatedInput from '../../../common/AnimatedInput';
 import AnimatedTextarea from '../../../common/AnimatedTextarea';
 
@@ -31,12 +30,6 @@ export interface ProjectsSectionProps {
   projects: PersonalInfoProjectEntryDto[];
   setProjects: React.Dispatch<React.SetStateAction<PersonalInfoProjectEntryDto[]>>;
 
-  editingProjectId: string | null;
-  setEditingProjectId: React.Dispatch<React.SetStateAction<string | null>>;
-  editingProjectName: string;
-  setEditingProjectName: React.Dispatch<React.SetStateAction<string>>;
-  editingProjectDescription: string;
-  setEditingProjectDescription: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({
@@ -51,12 +44,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   addProject,
   projects,
   setProjects,
-  editingProjectId,
-  setEditingProjectId,
-  editingProjectName,
-  setEditingProjectName,
-  editingProjectDescription,
-  setEditingProjectDescription,
 }) => {
   return (
     <PersonalInfoSectionCard
@@ -95,93 +82,21 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         rows={3}
       />
 
-      <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2 overflow-x-hidden">
-        {projects.map((item, index) => (
-          <div key={item.id} className="rounded-md border border-[var(--color-border)] p-3 space-y-2">
-            {editingProjectId === item.id ? (
-              <>
-                <AnimatedInput
-                  value={editingProjectName}
-                  onChange={(e) => setEditingProjectName(e.target.value)}
-                  label="Project name"
-                />
-                <AnimatedTextarea
-                  value={editingProjectDescription}
-                  onChange={(e) => setEditingProjectDescription(e.target.value)}
-                  rows={2}
-                  label="Description"
-                />
-              </>
-            ) : (
-              <>
-                <p className="text-[var(--color-textPrimary)] font-medium">{item.name}</p>
-                {item.description && <p className="text-sm text-[var(--color-textSecondary)]">{item.description}</p>}
-              </>
-            )}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => index > 0 && setProjects((prev) => moveItem(prev, index, index - 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↑
-              </button>
-              <button
-                type="button"
-                onClick={() => index < projects.length - 1 && setProjects((prev) => moveItem(prev, index, index + 1))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                ↓
-              </button>
-              {editingProjectId === item.id ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const nextName = editingProjectName.trim();
-                    if (!nextName) {
-                      return;
-                    }
-                    setProjects((prev) =>
-                      prev.map((entry) =>
-                        entry.id === item.id
-                          ? {
-                              ...entry,
-                              name: nextName,
-                              description: editingProjectDescription.trim(),
-                            }
-                          : entry,
-                      ),
-                    );
-                    setEditingProjectId(null);
-                    setEditingProjectName('');
-                    setEditingProjectDescription('');
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Save
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingProjectId(item.id);
-                    setEditingProjectName(item.name);
-                    setEditingProjectDescription(item.description ?? '');
-                  }}
-                  className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-                >
-                  Edit
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setProjects((prev) => prev.filter((entry) => entry.id !== item.id))}
-                className="rounded-md border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-textPrimary)]"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
+      <div className="flex flex-wrap gap-2 mt-4">
+        {projects.map((item) => (
+          <span
+            key={item.id}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3 py-1 text-sm text-[var(--color-textPrimary)]"
+          >
+            {item.name}
+            <button
+              type="button"
+              onClick={() => setProjects((prev) => prev.filter((entry) => entry.id !== item.id))}
+              className="text-[var(--color-textSecondary)] hover:text-[var(--color-textPrimary)]"
+            >
+              ×
+            </button>
+          </span>
         ))}
       </div>
     </PersonalInfoSectionCard>
