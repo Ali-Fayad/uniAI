@@ -162,6 +162,30 @@ Avoid vague naming:
 
 ---
 
+### Icon Theming Rule
+
+- Use theme tokens for icon colors; avoid hardcoded Tailwind gray classes (e.g. `text-gray-400`).
+- Prefer semantic theme variables such as `text-[var(--color-textPrimary)]` so icons adapt to light/dark themes and custom themes.
+- Header and inline icons inside components should follow the same themed color pattern to maintain visual consistency.
+- Brand icons that must keep official colors are allowed, but mark them explicitly in a short comment and limit their use to places where brand color is important (e.g., social buttons).
+- When updating icons, run a quick grep for `text-gray-` and a full frontend build to validate visual and type correctness.
+
+Example:
+
+Use:
+
+```tsx
+<FaPhone className="h-5 w-5 text-[var(--color-textPrimary)]" aria-hidden="true" />
+```
+
+Avoid:
+
+```tsx
+<FaPhone className="h-5 w-5 text-gray-400" aria-hidden="true" />
+```
+
+---
+
 ## 🧾 Documentation Rule
 
 Documentation is REQUIRED for non-trivial changes.
