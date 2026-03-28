@@ -118,7 +118,7 @@ const Verify = () => {
               inputMode="numeric"
               pattern="[A-Za-z0-9]{6}"
               autoComplete="one-time-code"
-              placeholder={TEXT.auth.verify.codePlaceholder}
+              
               value={code}
               onChange={(e) =>
                 setCode(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))

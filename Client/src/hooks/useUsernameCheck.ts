@@ -15,13 +15,9 @@ interface UseUsernameCheckResult {
 export const useUsernameCheck = (username: string, debounceMs = 400): UseUsernameCheckResult => {
   const normalizedUsername = useMemo(() => username.trim().toLowerCase(), [username]);
 
-  const isFormatValid = useMemo(() => {
-    if (!normalizedUsername) {
-      return false;
-    }
-    // Backend accepts 2..50 chars; we keep the client format simple and predictable.
-    return /^[a-zA-Z0-9._-]{2,50}$/.test(normalizedUsername);
-  }, [normalizedUsername]);
+  // We no longer perform client-side "mock" format validation here.
+  // Availability and any format rules are enforced by the backend.
+  const isFormatValid = useMemo(() => normalizedUsername !== '', [normalizedUsername]);
 
   const [status, setStatus] = useState<EmailCheckStatus>('idle');
   const [message, setMessage] = useState('');
@@ -33,11 +29,7 @@ export const useUsernameCheck = (username: string, debounceMs = 400): UseUsernam
       return;
     }
 
-    if (!isFormatValid) {
-      setStatus('invalid');
-      setMessage('Invalid username format');
-      return;
-    }
+    // Always attempt an availability check when user has typed a username.
 
     setStatus('checking');
     setMessage('Checking availability...');
@@ -59,7 +51,7 @@ export const useUsernameCheck = (username: string, debounceMs = 400): UseUsernam
     }, debounceMs);
 
     return () => clearTimeout(timeout);
-  }, [debounceMs, isFormatValid, normalizedUsername]);
+  }, [debounceMs, normalizedUsername]);
 
   return {
     status,

@@ -52,7 +52,7 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
     <PersonalInfoSectionCard
       title="Languages"
       icon={<FaLanguage className="h-5 w-5" aria-hidden="true" />}
-      className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-4"
     >
       <div className="relative flex flex-col sm:flex-row gap-3">
         <input

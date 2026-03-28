@@ -26,7 +26,7 @@ const SocialWebSection: React.FC<SocialWebSectionProps> = ({ form, setField }) =
     <PersonalInfoSectionCard
       title="Social & Web"
       icon={<FaLink className="h-5 w-5" aria-hidden="true" />}
-      className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-6"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-6"
     >
       <div className="grid grid-cols-1 gap-6">
         {/* Use theme token so icon color adapts consistently across all active themes */}
@@ -37,7 +37,7 @@ const SocialWebSection: React.FC<SocialWebSectionProps> = ({ form, setField }) =
               value={form.linkedin}
               onChange={(e) => setField('linkedin', e.target.value)}
               label="LinkedIn URL"
-              placeholder="https://linkedin.com/in/username"
+              
             />
           </div>
         </div>
@@ -50,20 +50,20 @@ const SocialWebSection: React.FC<SocialWebSectionProps> = ({ form, setField }) =
               value={form.github}
               onChange={(e) => setField('github', e.target.value)}
               label="GitHub URL"
-              placeholder="https://github.com/username"
+              
             />
           </div>
         </div>
 
         {/* Portfolio - Generic Icon */}
         <div className="flex items-start gap-3">
-          <FaGlobe className="mt-4 text-gray-400 text-xl shrink-0" aria-hidden="true" />
+          <FaGlobe className="mt-4 text-[var(--color-textPrimary)] text-xl shrink-0" aria-hidden="true" />
           <div className="flex-1">
             <AnimatedInput
               value={form.portfolio}
               onChange={(e) => setField('portfolio', e.target.value)}
               label="Portfolio URL"
-              placeholder="https://myportfolio.com"
+              
             />
           </div>
         </div>

@@ -53,7 +53,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
     <PersonalInfoSectionCard
       title="Skills"
       icon={<FaCode className="h-5 w-5" aria-hidden="true" />}
-      className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-4"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-4"
     >
       <div className="relative flex flex-col sm:flex-row gap-3 items-start">
         <AnimatedInput

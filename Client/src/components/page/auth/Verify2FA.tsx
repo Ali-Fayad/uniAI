@@ -78,7 +78,7 @@ const Verify2FA = () => {
             <AnimatedInput
               type="text"
               label="Code"
-              placeholder={TEXT.auth.verify2FA.codePlaceholder}
+              
               value={code}
               onChange={(e) => setCode(e.target.value)}
               required

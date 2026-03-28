@@ -11,6 +11,7 @@
  * - Perform API calls
  */
 
+import { isValidPhoneNumber } from "../../../lib/utils";
 import type {
   PersonalInfoCertificateEntryDto,
   PersonalInfoEducationEntryDto,

@@ -100,13 +100,13 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
     <PersonalInfoSectionCard
       title="Basic Information"
       icon={<FaUser className="h-5 w-5" aria-hidden="true" />}
-      className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 space-y-6"
+      className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm overflow-hidden p-5 sm:p-6 space-y-6"
     >
       <div className="grid grid-cols-1 gap-6">
 
         {/* Phone Split: Area Code + Number */}
         <div className="flex items-start gap-3">
-          <FaPhone className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
+          <FaPhone className="mt-4 text-[var(--color-textPrimary)] text-lg shrink-0" aria-hidden="true" />
           <div className="flex-1 w-full">
             <div className="flex gap-2">
               <div className="min-w-[80px] w-1/4 max-w-[120px]">
@@ -114,7 +114,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
                     value={phoneCode}
                     onChange={handleCodeChange}
                     label="Code"
-                    placeholder="+1"
+                    
                   />
               </div>
               <div className="flex-1">
@@ -122,7 +122,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
                     value={phoneNumber}
                     onChange={handleNumberChange}
                     label="Number"
-                    placeholder="1234567890"
+                    
                   />
               </div>
             </div>
@@ -134,7 +134,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
 
         {/* Address Row with Icon */}
         <div className="flex items-start gap-3">
-           <FaMapMarkerAlt className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
+           <FaMapMarkerAlt className="mt-4 text-[var(--color-textPrimary)] text-lg shrink-0" aria-hidden="true" />
            <div className="flex-1">
               <AnimatedInput
                 value={form.address}
@@ -163,7 +163,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
         {isWorking && (
           <>
             <div className="flex items-start gap-3">
-               <FaBriefcase className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
+               <FaBriefcase className="mt-4 text-[var(--color-textPrimary)] text-lg shrink-0" aria-hidden="true" />
                <div className="flex-1">
                   <AnimatedInput
                     value={form.jobTitle}
@@ -181,7 +181,7 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
             </div>
 
             <div className="flex items-start gap-3">
-               <FaBuilding className="mt-4 text-gray-400 text-lg shrink-0" aria-hidden="true" />
+               <FaBuilding className="mt-4 text-[var(--color-textPrimary)] text-lg shrink-0" aria-hidden="true" />
                <div className="flex-1">
                   <AnimatedInput
                     value={form.company}

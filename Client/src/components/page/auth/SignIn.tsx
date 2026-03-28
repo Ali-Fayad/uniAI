@@ -9,7 +9,6 @@ import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
 
 import AnimatedInput from "../../../components/common/AnimatedInput";
-import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const navigate = useNavigate();

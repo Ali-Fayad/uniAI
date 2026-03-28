@@ -56,7 +56,7 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
               id="username"
               name="username"
               label={TEXT.settings.profile.username}
-              placeholder={TEXT.settings.profile.usernamePlaceholder}
+              
               value={profile.username}
               onChange={onProfileChange}
             />
