@@ -80,6 +80,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                     setSkills((prev) => [...prev, { id, skillId, name: skill.name }]);
                     setSkillQuery('');
                     setSelectedSkillId(null);
+                    setIsDropdownOpen(false);
                   }}
                   className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                 >

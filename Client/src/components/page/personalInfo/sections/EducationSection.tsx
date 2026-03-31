@@ -86,6 +86,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                       setUniversityQuery('');
                       setSelectedUniversityId(null);
                       setError(null);
+                      setIsDropdownOpen(false);
                     }}
                     className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                   >

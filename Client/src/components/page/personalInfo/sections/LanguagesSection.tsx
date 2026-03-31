@@ -79,8 +79,7 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
                     const id = `${languageId}-${createClientId()}`;
                     setLanguages((prev) => [...prev, { id, languageId, name: language.name }]);
                     setLanguageQuery('');
-                    setSelectedLanguageId(null);
-                  }}
+                    setSelectedLanguageId(null);                      setIsDropdownOpen(false);                  }}
                   className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                 >
                   {language.name}

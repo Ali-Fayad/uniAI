@@ -81,6 +81,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                     onClick={() => {
                       setPositionQuery(position.name);
                       setSelectedPositionId(position.id);
+                      setIsDropdownOpen(false);
                     }}
                     className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
                   >

@@ -66,7 +66,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <AnimatedInput
           value={projectLiveUrl}
           onChange={(e) => setProjectLiveUrl(e.target.value)}
-          label="Live URL"
+          label="Live URL (optional)"
         />
         <FormButton
           variant="primary"
