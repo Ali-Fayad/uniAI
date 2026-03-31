@@ -16,6 +16,7 @@ import type { PersonalInfoEducationEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { createClientId } from '../personalInfoUtils';
 import AnimatedInput from '../../../common/AnimatedInput';
+import FormButton from '../../../settings/FormButton';
 
 export interface EducationSectionProps {
   education: PersonalInfoEducationEntryDto[];
@@ -95,13 +96,14 @@ const EducationSection: React.FC<EducationSectionProps> = ({
             </div>
           )}
         </AnimatedInput>
-        <button
+        <FormButton
+          variant="primary"
           type="button"
           onClick={addEducation}
-          className="h-14 rounded-xl bg-[var(--color-primary)] px-6 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
+          className="h-14 px-6 shrink-0"
         >
           Add
-        </button>
+        </FormButton>
       </div>
 
       <div className="flex flex-wrap gap-2">

@@ -15,6 +15,7 @@ import type { PersonalInfoProjectEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import AnimatedInput from '../../../common/AnimatedInput';
 import AnimatedTextarea from '../../../common/AnimatedTextarea';
+import FormButton from '../../../settings/FormButton';
 
 export interface ProjectsSectionProps {
   projectName: string;
@@ -67,13 +68,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           onChange={(e) => setProjectLiveUrl(e.target.value)}
           label="Live URL"
         />
-        <button
+        <FormButton
+          variant="primary"
           type="button"
           onClick={addProject}
-          className="h-14 rounded-xl bg-[var(--color-primary)] px-4 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
+          className="h-14 px-4 shrink-0 sm:col-span-2 md:col-span-1"
         >
           Add Project
-        </button>
+        </FormButton>
       </div>
       <AnimatedTextarea
         value={projectDescription}

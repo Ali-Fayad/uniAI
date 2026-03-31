@@ -14,6 +14,7 @@ import { FaCertificate } from 'react-icons/fa';
 import type { PersonalInfoCertificateEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import AnimatedInput from '../../../common/AnimatedInput';
+import FormButton from '../../../settings/FormButton';
 
 export interface CertificatesSectionProps {
   certificateName: string;
@@ -63,13 +64,14 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
           label="Credential URL"
           containerClassName="sm:col-span-1"
         />
-        <button
+        <FormButton
+          variant="primary"
           type="button"
           onClick={addCertificate}
-          className="h-14 rounded-xl bg-[var(--color-primary)] px-4 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
+          className="h-14 px-4 shrink-0 sm:col-span-2 md:col-span-1"
         >
           Add Certificate
-        </button>
+        </FormButton>
       </div>
 
       <div className="flex flex-wrap gap-2 mt-4">

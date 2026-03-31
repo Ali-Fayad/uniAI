@@ -101,13 +101,13 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
           <FormButton variant="secondary" type="button">
             {TEXT.common.cancel}
           </FormButton>
-          <button
+          <FormButton
+            variant="primary"
             type="submit"
-            className="inline-flex items-center justify-center rounded-md bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
             {isLoading ? TEXT.settings.profile.saveButtonLoading : TEXT.settings.profile.saveButton}
-          </button>
+          </FormButton>
         </div>
       </form>
     </SettingsSection>

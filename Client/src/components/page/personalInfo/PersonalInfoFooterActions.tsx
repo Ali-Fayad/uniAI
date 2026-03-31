@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import FormButton from '../../settings/FormButton';
 
 export interface PersonalInfoFooterActionsProps {
   fromOnboarding: boolean;
@@ -31,30 +32,30 @@ const PersonalInfoFooterActions: React.FC<PersonalInfoFooterActionsProps> = ({
   return (
     <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pb-8">
       {fromOnboarding ? (
-        <button
+        <FormButton
+          variant="secondary"
           type="button"
           onClick={onSkip}
-          className="rounded-md border border-[var(--color-border)] px-4 py-2 text-[var(--color-textPrimary)]"
         >
           Skip for now
-        </button>
+        </FormButton>
       ) : (
-        <button
+        <FormButton
+          variant="secondary"
           type="button"
           onClick={onBack}
-          className="rounded-md border border-[var(--color-border)] px-4 py-2 text-[var(--color-textPrimary)]"
         >
           Back to Settings
-        </button>
+        </FormButton>
       )}
-      <button
+      <FormButton
+        variant="primary"
         type="button"
         onClick={onSave}
         disabled={!isDirty || isSaving}
-        className="rounded-md bg-[var(--color-primary)] px-5 py-2 font-semibold text-[var(--color-background)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSaving ? 'Saving...' : 'Save Changes'}
-      </button>
+      </FormButton>
     </div>
   );
 };

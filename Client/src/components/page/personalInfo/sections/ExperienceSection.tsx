@@ -15,6 +15,7 @@ import { FaBriefcase } from 'react-icons/fa';
 import type { PersonalInfoExperienceEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import AnimatedInput from '../../../common/AnimatedInput';
+import FormButton from '../../../settings/FormButton';
 
 export interface ExperienceSectionProps {
   experience: PersonalInfoExperienceEntryDto[];
@@ -96,13 +97,14 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           label="Company"
           containerClassName="sm:col-span-2"
         />
-        <button
+        <FormButton
+          variant="primary"
           type="button"
           onClick={addExperience}
-          className="sm:col-span-1 h-14 rounded-xl bg-[var(--color-primary)] px-4 text-[var(--color-background)] font-medium hover:bg-[var(--color-primaryVariant)] transition-colors"
+          className="sm:col-span-1 h-14 px-4 shrink-0"
         >
           Add
-        </button>
+        </FormButton>
       </div>
 
       <div className="flex flex-wrap gap-2">

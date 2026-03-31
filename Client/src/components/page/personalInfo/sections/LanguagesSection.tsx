@@ -15,6 +15,8 @@ import { FaLanguage } from 'react-icons/fa';
 import type { PersonalInfoLanguageEntryDto } from '../../../../types/dto';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import { createClientId } from '../personalInfoUtils';
+import AnimatedInput from '../../../common/AnimatedInput';
+import FormButton from '../../../settings/FormButton';
 
 export interface LanguagesSectionProps {
   languages: PersonalInfoLanguageEntryDto[];
@@ -51,8 +53,8 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
       icon={<FaLanguage className="h-5 w-5" aria-hidden="true" />}
       className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
-      <div ref={containerRef} className="relative flex flex-col sm:flex-row gap-3">
-        <input
+      <div ref={containerRef} className="relative flex flex-col sm:flex-row gap-3 items-start">
+        <AnimatedInput
           value={languageQuery}
           onFocus={() => setIsDropdownOpen(true)}
           onChange={(e) => {
@@ -60,18 +62,11 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
             setLanguageQuery(e.target.value);
             setSelectedLanguageId(null);
           }}
-          placeholder="Type a language"
-          className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-[var(--color-textPrimary)]"
-        />
-        <button
-          type="button"
-          onClick={addLanguage}
-          className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-background)] font-medium"
+          label="Type a language"
+          containerClassName="flex-1"
         >
-          Add
-        </button>
         {isDropdownOpen && (isLanguagesLoading || languageSuggestions.length > 0) && (
-          <div className="absolute top-11 left-0 right-0 sm:right-24 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
+          <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto sm:right-24">
             {isLanguagesLoading ? (
               <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
             ) : (
@@ -94,6 +89,15 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({
             )}
           </div>
         )}
+        </AnimatedInput>
+        <FormButton
+          variant="primary"
+          type="button"
+          onClick={addLanguage}
+          className="h-14 px-6 shrink-0"
+        >
+          Add
+        </FormButton>
       </div>
 
       <div className="flex flex-wrap gap-2">
