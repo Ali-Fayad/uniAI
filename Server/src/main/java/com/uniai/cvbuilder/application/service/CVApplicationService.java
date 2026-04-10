@@ -9,6 +9,7 @@ import com.uniai.cvbuilder.domain.repository.*;
 import com.uniai.cvbuilder.infrastructure.mapper.CVMapper;
 import com.uniai.cvbuilder.infrastructure.mapper.UniversityMapper;
 import com.uniai.shared.exception.CVNotFoundException;
+import com.uniai.shared.exception.CVTemplateNotFoundException;
 import com.uniai.shared.exception.EmailNotFoundException;
 import com.uniai.shared.exception.SectionNotFoundException;
 import com.uniai.shared.exception.UnauthorizedAccessException;
@@ -37,8 +38,46 @@ public class CVApplicationService implements CVUseCase {
     private final LanguageRepository languageRepository;
     private final CertificateRepository certificateRepository;
     private final PersonalInfoRepository personalInfoRepository;
+        private final CVTemplateRepository cvTemplateRepository;
     private final UniversityRepository universityRepository;
     private final UserRepository userRepository;
+
+        private static final List<String> DEFAULT_SECTIONS_ORDER = List.of(
+            "education",
+            "experience",
+            "skills",
+            "languages",
+            "projects",
+            "certificates"
+        );
+
+        @Override
+        public List<CVTemplateResponse> getTemplates() {
+        return cvTemplateRepository.findAllActive().stream()
+            .map(template -> CVTemplateResponse.builder()
+                .id(template.getId())
+                .name(template.getName())
+                .description(template.getDescription())
+                .thumbnailUrl(template.getThumbnailUrl())
+                .componentName(template.getComponentName())
+                .isActive(template.isActive())
+                .build())
+            .toList();
+        }
+
+        @Override
+        public CVTemplateResponse getTemplate(Long templateId) {
+        CVTemplate template = cvTemplateRepository.findById(templateId)
+            .orElseThrow(CVTemplateNotFoundException::new);
+        return CVTemplateResponse.builder()
+            .id(template.getId())
+            .name(template.getName())
+            .description(template.getDescription())
+            .thumbnailUrl(template.getThumbnailUrl())
+            .componentName(template.getComponentName())
+            .isActive(template.isActive())
+            .build();
+        }
 
     @Override
     public List<CVResponse> getUserCVs(String email) {
@@ -67,8 +106,12 @@ public class CVApplicationService implements CVUseCase {
             unsetExistingDefault(userId, null);
         }
 
+        CVTemplate selectedTemplate = resolveTemplateForCreate(command);
+
         CV cv = CVBuilder.newCv(userId, command.getCvName())
-                .template(command.getTemplate())
+            .templateId(selectedTemplate != null ? selectedTemplate.getId() : null)
+            .template(selectedTemplate != null ? selectedTemplate.getComponentName() : command.getTemplate())
+            .sectionsOrder(normalizeSectionsOrder(command.getSectionsOrder()))
                 .isDefault(makeDefault)
                 .build();
         cvRepository.save(cv);
@@ -87,7 +130,16 @@ public class CVApplicationService implements CVUseCase {
             cv.setCvName(command.getCvName());
         }
         if (command.getTemplate() != null) {
-            cv.setTemplate(command.getTemplate());
+            CVTemplate template = resolveTemplate(command.getTemplateId(), command.getTemplate());
+            cv.setTemplateId(template != null ? template.getId() : null);
+            cv.setTemplate(template != null ? template.getComponentName() : command.getTemplate());
+        } else if (command.getTemplateId() != null) {
+            CVTemplate template = resolveTemplate(command.getTemplateId(), null);
+            cv.setTemplateId(template != null ? template.getId() : null);
+            cv.setTemplate(template != null ? template.getComponentName() : null);
+        }
+        if (command.getSectionsOrder() != null && !command.getSectionsOrder().isEmpty()) {
+            cv.setSectionsOrder(normalizeSectionsOrder(command.getSectionsOrder()));
         }
         if (command.getIsDefault() != null) {
             if (command.getIsDefault()) {
@@ -410,13 +462,50 @@ public class CVApplicationService implements CVUseCase {
     }
 
     private CVResponse mapCv(CV cv, PersonalInfo personalInfo) {
+        CVTemplate template = cv.getTemplateId() == null ? null : cvTemplateRepository.findById(cv.getTemplateId()).orElse(null);
         List<Education> educations = educationRepository.findByCvId(cv.getId());
         List<Experience> experiences = experienceRepository.findByCvId(cv.getId());
         List<Skill> skills = skillRepository.findByCvId(cv.getId());
         List<Project> projects = projectRepository.findByCvId(cv.getId());
         List<Language> languages = languageRepository.findByCvId(cv.getId());
         List<Certificate> certificates = certificateRepository.findByCvId(cv.getId());
-        return CVMapper.toResponse(cv, personalInfo, educations, experiences, skills, projects, languages, certificates);
+        return CVMapper.toResponse(cv, template, personalInfo, educations, experiences, skills, projects, languages, certificates);
+    }
+
+    private CVTemplate resolveTemplateForCreate(CreateCVCommand command) {
+        CVTemplate template = resolveTemplate(command.getTemplateId(), command.getTemplate());
+        if (template != null) {
+            return template;
+        }
+        Optional<CVTemplate> modernTemplate = cvTemplateRepository.findActiveByComponentName("ModernTemplate");
+        if (modernTemplate.isPresent()) {
+            return modernTemplate.get();
+        }
+        return cvTemplateRepository.findAllActive().stream().findFirst().orElse(null);
+    }
+
+    private CVTemplate resolveTemplate(Long templateId, String componentName) {
+        if (templateId != null) {
+            return cvTemplateRepository.findById(templateId)
+                    .filter(CVTemplate::isActive)
+                    .orElseThrow(CVTemplateNotFoundException::new);
+        }
+        if (componentName != null && !componentName.isBlank()) {
+            return cvTemplateRepository.findActiveByComponentName(componentName)
+                    .orElseThrow(CVTemplateNotFoundException::new);
+        }
+        return null;
+    }
+
+    private List<String> normalizeSectionsOrder(List<String> sectionsOrder) {
+        if (sectionsOrder == null || sectionsOrder.isEmpty()) {
+            return DEFAULT_SECTIONS_ORDER;
+        }
+        return sectionsOrder.stream()
+                .filter(section -> section != null && !section.isBlank())
+                .map(String::trim)
+                .distinct()
+                .toList();
     }
 
     private Long getUserId(String email) {

@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface CVUseCase {
 
+    List<CVTemplateResponse> getTemplates();
+
+    CVTemplateResponse getTemplate(Long templateId);
+
     List<CVResponse> getUserCVs(String email);
 
     CVResponse getCV(String email, Long cvId);

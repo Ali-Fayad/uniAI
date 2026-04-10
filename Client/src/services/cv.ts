@@ -1,10 +1,14 @@
 import apiClient from './api';
 import { ENDPOINTS } from '../constants';
 import type {
+  CreateCVDto,
+  CVDto,
+  CVTemplateDto,
   LanguageCatalogDto,
   PositionCatalogDto,
   PersonalInfoResponseDto,
   SkillCatalogDto,
+  UpdateCVDto,
   UpdatePersonalInfoDto,
   UniversityCatalogDto,
 } from '../types/dto';
@@ -50,5 +54,39 @@ export const cvService: ICVService = {
       params: search?.trim() ? { search: search.trim() } : undefined,
     });
     return response.data;
+  },
+
+  async getTemplates(): Promise<CVTemplateDto[]> {
+    const response = await apiClient.get<CVTemplateDto[]>(ENDPOINTS.CV.TEMPLATES);
+    return response.data;
+  },
+
+  async getTemplate(templateId: number): Promise<CVTemplateDto> {
+    const response = await apiClient.get<CVTemplateDto>(ENDPOINTS.CV.TEMPLATE_BY_ID(templateId));
+    return response.data;
+  },
+
+  async getCVs(): Promise<CVDto[]> {
+    const response = await apiClient.get<CVDto[]>(ENDPOINTS.CV.BASE);
+    return response.data;
+  },
+
+  async getCV(cvId: number): Promise<CVDto> {
+    const response = await apiClient.get<CVDto>(ENDPOINTS.CV.CV_BY_ID(cvId));
+    return response.data;
+  },
+
+  async createCV(data: CreateCVDto): Promise<CVDto> {
+    const response = await apiClient.post<CVDto>(ENDPOINTS.CV.BASE, data);
+    return response.data;
+  },
+
+  async updateCV(cvId: number, data: UpdateCVDto): Promise<CVDto> {
+    const response = await apiClient.put<CVDto>(ENDPOINTS.CV.CV_BY_ID(cvId), data);
+    return response.data;
+  },
+
+  async deleteCV(cvId: number): Promise<void> {
+    await apiClient.delete(ENDPOINTS.CV.CV_BY_ID(cvId));
   },
 };

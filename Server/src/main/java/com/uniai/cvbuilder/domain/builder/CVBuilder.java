@@ -2,6 +2,8 @@ package com.uniai.cvbuilder.domain.builder;
 
 import com.uniai.cvbuilder.domain.model.CV;
 
+import java.util.List;
+
 /**
  * Builder facade for {@link CV} with named factory methods for clarity.
  */
@@ -22,6 +24,16 @@ public final class CVBuilder {
 
     public CVBuilder template(String template) {
         builder.template(template);
+        return this;
+    }
+
+    public CVBuilder templateId(Long templateId) {
+        builder.templateId(templateId);
+        return this;
+    }
+
+    public CVBuilder sectionsOrder(List<String> sectionsOrder) {
+        builder.sectionsOrder(sectionsOrder);
         return this;
     }
 

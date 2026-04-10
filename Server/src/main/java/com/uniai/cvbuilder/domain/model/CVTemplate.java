@@ -1,47 +1,42 @@
 package com.uniai.cvbuilder.domain.model;
 
 import jakarta.persistence.*;
-import com.uniai.cvbuilder.infrastructure.persistence.converter.StringListJsonConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
- * JPA entity representing the CV root aggregate that ties user ownership to all section data.
+ * JPA entity representing user-selectable CV templates managed by persistence.
  */
 @Entity
-@Table(name = "cvs")
+@Table(name = "cv_templates")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CV {
+public class CVTemplate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @Column(nullable = false)
+    private String name;
 
-    @Column(name = "cv_name", nullable = false)
-    private String cvName;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    private String template;
+    @Column(name = "thumbnail_url")
+    private String thumbnailUrl;
 
-    @Column(name = "template_id")
-    private Long templateId;
+    @Column(name = "component_name", nullable = false, unique = true)
+    private String componentName;
 
-    @Convert(converter = StringListJsonConverter.class)
-    @Column(name = "sections_order", columnDefinition = "jsonb", nullable = false)
-    private List<String> sectionsOrder;
-
-    @Column(name = "is_default", nullable = false)
-    private boolean isDefault;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

@@ -39,6 +39,7 @@ export function extractUserFromToken(token: string): UserData | null {
       firstName: payload.firstName as string || '',
       lastName: payload.lastName as string || '',
       email: payload.email as string || payload.sub as string || '',
+      isVerified: payload.isVerified as boolean,
       role: payload.role as string,
       username: (payload.username as string) || (payload.preferred_username as string) || '',
       twoFactorEnabled: payload.twoFactorEnabled as boolean,

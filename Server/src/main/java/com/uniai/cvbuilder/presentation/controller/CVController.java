@@ -25,6 +25,16 @@ public class CVController {
     private final CVUseCase cvUseCase;
     private final ExternalApiApplicationService externalApiApplicationService;
 
+    @GetMapping("/templates")
+    public ResponseEntity<List<CVTemplateResponse>> getTemplates() {
+        return ResponseEntity.ok(cvUseCase.getTemplates());
+    }
+
+    @GetMapping("/templates/{id}")
+    public ResponseEntity<CVTemplateResponse> getTemplate(@PathVariable Long id) {
+        return ResponseEntity.ok(cvUseCase.getTemplate(id));
+    }
+
     @GetMapping
     public ResponseEntity<List<CVResponse>> getCvs() {
         String email = jwtFacade.getAuthenticatedUserEmail();

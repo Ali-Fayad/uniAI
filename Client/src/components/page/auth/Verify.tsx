@@ -66,10 +66,16 @@ const Verify = () => {
     } catch (err: unknown) {
       if (err && typeof err === "object" && "response" in err) {
         const axiosError = err as {
-          response?: { data?: { message?: string } };
+          response?: { data?: { message?: string } | string };
         };
+
+        const backendMessage =
+          typeof axiosError.response?.data === 'string'
+            ? axiosError.response.data
+            : axiosError.response?.data?.message;
+
         setError(
-          axiosError.response?.data?.message ||
+          backendMessage ||
             TEXT.auth.verify.error
         );
       } else {

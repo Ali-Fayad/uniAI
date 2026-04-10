@@ -15,6 +15,7 @@ public final class CVMapper {
 
     public static CVResponse toResponse(
             CV cv,
+            CVTemplate template,
             PersonalInfo personalInfo,
             List<Education> educations,
             List<Experience> experiences,
@@ -27,7 +28,11 @@ public final class CVMapper {
                 .id(cv.getId())
                 .userId(cv.getUserId())
                 .cvName(cv.getCvName())
+                .templateId(cv.getTemplateId())
+                .templateName(template != null ? template.getName() : null)
+                .templateComponentName(template != null ? template.getComponentName() : cv.getTemplate())
                 .template(cv.getTemplate())
+                .sectionsOrder(cv.getSectionsOrder())
                 .isDefault(cv.isDefault())
                 .createdAt(cv.getCreatedAt())
                 .updatedAt(cv.getUpdatedAt())

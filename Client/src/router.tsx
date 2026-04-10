@@ -17,6 +17,8 @@ import ChatPage from "./components/page/ChatPage";
 import MapPage from "./components/page/MapPage";
 import AboutPage from "./components/page/AboutPage";
 import PersonalInfoPage from "./components/page/PersonalInfoPage";
+import CVBuilderPage from "./components/page/CVBuilderPage";
+import CVListPage from "./components/page/CVListPage";
 
 // Auth Pages
 import AuthLanding from "./components/page/auth/AuthLanding";
@@ -89,6 +91,39 @@ export const AppRouter = () => {
           }
         />
 
+        <Route
+          path="/cvs"
+          element={
+            <ProtectedRoute>
+              <PageTransition>
+                <CVListPage />
+              </PageTransition>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/cv-builder"
+          element={
+            <ProtectedRoute>
+              <PageTransition>
+                <CVBuilderPage />
+              </PageTransition>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/cv-builder/:cvId"
+          element={
+            <ProtectedRoute>
+              <PageTransition>
+                <CVBuilderPage />
+              </PageTransition>
+            </ProtectedRoute>
+          }
+        />
+
         {/* Settings Page */}
         <Route path="/settings" element={<PageTransition><SettingsPage /></PageTransition>} />
 
@@ -120,6 +155,8 @@ export const ROUTES = {
   VERIFY_2FA: "/2fa/verify",
   WELCOME: "/welcome",
   PERSONAL_INFO: "/personal-info",
+  CVS: "/cvs",
+  CV_BUILDER: "/cv-builder",
   FORGOT_PASSWORD: "/forgot-password",
   FORGOT_PASSWORD_CONFIRM: "/forgot-password/confirm",
   GOOGLE_CALLBACK: "/google/callback",

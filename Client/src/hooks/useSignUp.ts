@@ -16,6 +16,7 @@ import { TEXT } from '../constants/static';
 import { ROUTES } from '../router';
 import type { SignUpDto } from '../types/dto';
 import type { EmailCheckStatus } from './useEmailCheck';
+import { decodeJwt } from '../utils/JwtDecode';
 
 export interface UseSignUpReturn {
   username: string;
@@ -126,8 +127,16 @@ export const useSignUp = (): UseSignUpReturn => {
       const response = await authService.signUp(data);
 
       if (response?.token) {
-        login(response.token);
-        navigate(ROUTES.CHAT);
+        const payload = decodeJwt(response.token);
+        const isVerified = payload?.isVerified === true;
+
+        if (isVerified) {
+          login(response.token);
+          navigate(ROUTES.CHAT);
+          return;
+        }
+
+        navigate(ROUTES.VERIFY, { state: { email } });
         return;
       }
 

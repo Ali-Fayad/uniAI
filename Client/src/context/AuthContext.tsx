@@ -29,12 +29,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const token = Storage.getToken();
       const storedUser = Storage.getUser();
 
-      if (token && storedUser) {
+      if (token && storedUser && storedUser.isVerified !== false) {
         setUser(storedUser);
       } else if (token) {
         // Try to extract user from token if not in storage
         const extractedUser = extractUserFromToken(token);
-        if (extractedUser) {
+        if (extractedUser && extractedUser.isVerified !== false) {
           setUser(extractedUser);
           Storage.setUser(extractedUser);
         } else {
@@ -55,10 +55,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     // Use provided user data or extract from token
     const userToStore = userData || extractUserFromToken(token);
     
-    if (userToStore) {
+    if (userToStore && userToStore.isVerified !== false) {
       Storage.setUser(userToStore);
       setUser(userToStore);
+      return;
     }
+
+    Storage.removeUser();
+    setUser(null);
   };
 
   const logout = () => {
@@ -73,7 +77,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const value: AuthContextType = {
     user,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user && user.isVerified !== false,
     isLoading,
     login,
     logout,

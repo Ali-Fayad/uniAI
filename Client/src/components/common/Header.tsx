@@ -46,6 +46,11 @@ const Header: React.FC = () => {
                 isActive={isActivePath(ROUTES.CHAT)}
                 onClick={() => goTo(ROUTES.CHAT)}
               />
+              <HeaderNavButton
+                label="CVs"
+                isActive={isActivePath(ROUTES.CVS) || isActivePath(ROUTES.CV_BUILDER)}
+                onClick={() => goTo(ROUTES.CVS)}
+              />
             </div>
           )}
 

@@ -20,7 +20,11 @@ public class CVResponse {
     private Long id;
     private Long userId;
     private String cvName;
+    private Long templateId;
+    private String templateName;
+    private String templateComponentName;
     private String template;
+    private List<String> sectionsOrder;
     private boolean isDefault;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

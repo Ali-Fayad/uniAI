@@ -45,6 +45,10 @@ export const ENDPOINTS = {
 
   // CV / Personal info endpoints
   CV: {
+    BASE: '/api/cv',
+    CV_BY_ID: (cvId: number) => `/api/cv/${cvId}`,
+    TEMPLATES: '/api/cv/templates',
+    TEMPLATE_BY_ID: (templateId: number) => `/api/cv/templates/${templateId}`,
     PERSONAL_INFO: '/api/cv/personal-info',
     UNIVERSITIES: '/api/cv/universities',
     SKILLS: '/api/cv/skills',

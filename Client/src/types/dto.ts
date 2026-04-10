@@ -80,6 +80,7 @@ export interface UserData {
   lastName: string;
   username: string;
   email: string;
+  isVerified?: boolean;
   role?: string;
   twoFactorEnabled?: boolean;
   provider?: string;
@@ -249,5 +250,51 @@ export interface UpdatePersonalInfoDto {
   experience?: PersonalInfoExperienceEntryDto[];
   projects?: PersonalInfoProjectEntryDto[];
   certificates?: PersonalInfoCertificateEntryDto[];
+}
+
+export type CVSectionKey =
+  | 'education'
+  | 'experience'
+  | 'skills'
+  | 'languages'
+  | 'projects'
+  | 'certificates';
+
+export interface CVTemplateDto {
+  id: number;
+  name: string;
+  description?: string | null;
+  thumbnailUrl?: string | null;
+  componentName: string;
+  isActive: boolean;
+}
+
+export interface CVDto {
+  id: number;
+  userId: number;
+  cvName: string;
+  templateId?: number | null;
+  templateName?: string | null;
+  templateComponentName?: string | null;
+  template?: string | null;
+  sectionsOrder?: CVSectionKey[];
+  isDefault: boolean;
+  createdAt: string;
+  updatedAt: string;
+  personalInfo?: PersonalInfoResponseDto | null;
+}
+
+export interface CreateCVDto {
+  cvName: string;
+  templateId: number;
+  sectionsOrder: CVSectionKey[];
+  isDefault?: boolean;
+}
+
+export interface UpdateCVDto {
+  cvName?: string;
+  templateId?: number;
+  sectionsOrder?: CVSectionKey[];
+  isDefault?: boolean;
 }
 

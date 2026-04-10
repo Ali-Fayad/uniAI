@@ -24,8 +24,10 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = Storage.getToken();
+    const requestUrl = config.url ?? '';
+    const isAuthRequest = requestUrl.startsWith('/api/auth');
     
-    if (token && config.headers) {
+    if (token && config.headers && !isAuthRequest) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     

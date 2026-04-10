@@ -603,6 +603,39 @@ Errors: 401 Unauthorized
 
 All CV endpoints require JWT authentication.
 
+#### `GET /api/cv/templates`
+
+**Description:** List all active CV templates available for user selection.
+
+**Authentication:** JWT required
+
+**Response:** 200 OK - `List<CVTemplateResponse>`
+
+`CVTemplateResponse` fields:
+
+- `id` (number)
+- `name` (string)
+- `description` (string, optional)
+- `thumbnailUrl` (string, optional)
+- `componentName` (string)
+- `isActive` (boolean)
+
+---
+
+#### `GET /api/cv/templates/{id}`
+
+**Description:** Get details for a specific CV template.
+
+**Authentication:** JWT required
+
+**Path Parameters:** `id` (integer, required)
+
+**Response:** 200 OK - `CVTemplateResponse`
+
+Errors: 404 CVTemplateNotFoundException, 401 Unauthorized
+
+---
+
 #### `GET /api/cv`
 
 **Description:** List CVs for the authenticated user.
@@ -637,17 +670,27 @@ Errors: 404 CVNotFoundException, 401 Unauthorized
 ```json
 {
   "cvName": "My CV",
-  "template": "modern",
+  "templateId": 1,
+  "sectionsOrder": ["education", "experience", "skills", "languages", "projects", "certificates"],
   "isDefault": false
 }
 ```
 
 Field	Type	Required	Description
 cvName	string	Yes	Name for the CV
-template	string	No	Template key
+templateId	number	No	Selected template id (defaults to Modern when omitted)
+sectionsOrder	array[string]	No	Ordered list of enabled sections
 isDefault	boolean	No	Make this CV the user's default
 
 **Response:** 201 Created - `CVResponse`
+
+`CVResponse` now includes:
+
+- `templateId` (number, nullable)
+- `templateName` (string, nullable)
+- `templateComponentName` (string, nullable)
+- `sectionsOrder` (array[string])
+- existing nested section/personal-info payloads remain unchanged
 
 Errors: 400 validation, 401 Unauthorized
 
@@ -659,7 +702,7 @@ Errors: 400 validation, 401 Unauthorized
 
 **Authentication:** JWT required
 
-**Request Body (UpdateCVCommand):** fields: `cvName`, `template`, `isDefault` (all optional)
+**Request Body (UpdateCVCommand):** fields: `cvName`, `templateId`, `template` (legacy compatibility), `sectionsOrder`, `isDefault` (all optional)
 
 **Response:** 200 OK - `CVResponse`
 

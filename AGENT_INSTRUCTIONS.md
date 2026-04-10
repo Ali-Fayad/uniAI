@@ -146,6 +146,16 @@ A controller hook may compose multiple smaller hooks.
 
 Do NOT mix these responsibilities.
 
+### CV Template Pattern
+
+For CV template rendering:
+
+- Keep template components inside `Client/src/components/page/cvBuilder/templates/`
+- Keep template selection/loading logic in a dedicated registry file (`templateRegistry.ts`)
+- Prefer dynamic/lazy imports for template components to avoid increasing the main bundle
+- Templates must be presentational and receive data via typed props
+- Builder page logic stays in controller hooks; shell/page files compose UI only
+
 ---
 
 ### Naming Conventions
