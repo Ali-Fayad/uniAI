@@ -1,10 +1,12 @@
 package com.uniai.cvbuilder.infrastructure.config;
 
-import com.uniai.cvbuilder.infrastructure.web.ProfileCompletionInterceptor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.uniai.cvbuilder.infrastructure.web.ProfileCompletionInterceptor;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor

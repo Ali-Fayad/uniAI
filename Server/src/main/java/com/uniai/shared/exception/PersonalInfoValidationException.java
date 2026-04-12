@@ -1,8 +1,8 @@
 package com.uniai.shared.exception;
 
-import lombok.Getter;
-
 import java.util.List;
+
+import lombok.Getter;
 
 @Getter
 public class PersonalInfoValidationException extends RuntimeException {

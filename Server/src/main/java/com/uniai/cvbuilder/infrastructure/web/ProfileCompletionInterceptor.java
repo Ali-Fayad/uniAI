@@ -1,5 +1,8 @@
 package com.uniai.cvbuilder.infrastructure.web;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
 import com.uniai.cvbuilder.domain.model.PersonalInfo;
 import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
 import com.uniai.shared.exception.EmailNotFoundException;
@@ -7,11 +10,10 @@ import com.uniai.shared.exception.PersonalInfoGoneException;
 import com.uniai.shared.infrastructure.jwt.JwtFacade;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 @RequiredArgsConstructor

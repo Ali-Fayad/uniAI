@@ -1,22 +1,24 @@
 package com.uniai.cvbuilder.application.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.cvbuilder.application.dto.command.UpdatePersonalInfoCommand;
 import com.uniai.cvbuilder.application.dto.response.PersonalInfoResponse;
 import com.uniai.cvbuilder.application.port.in.PersonalInfoUseCase;
 import com.uniai.cvbuilder.domain.builder.PersonalInfoBuilder;
 import com.uniai.cvbuilder.domain.model.PersonalInfo;
 import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.shared.exception.EmailNotFoundException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Application service handling retrieval and updates of user personal

@@ -1,11 +1,11 @@
 package com.uniai.cvbuilder.application.dto.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  * DTO containing user-level contact and profile details merged into CV responses.
