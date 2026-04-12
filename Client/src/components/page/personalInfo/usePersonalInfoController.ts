@@ -30,6 +30,7 @@ import { useSkills } from '../../../hooks/useSkills';
 import { useUniversities } from '../../../hooks/useUniversities';
 import type { BasicFormState } from './personalInfoTypes';
 import { mapPersonalInfoResponseToState, validatePersonalInfoState } from './personalInfoStateHelpers';
+import { useNotification } from '../../../hooks/useNotification';
 import { usePersonalInfoAddActions } from './usePersonalInfoAddActions';
 import { usePersonalInfoDirtyTracking } from './usePersonalInfoDirtyTracking';
 import { usePersonalInfoDraftState } from './usePersonalInfoDraftState';
@@ -132,6 +133,7 @@ export interface UsePersonalInfoControllerReturn {
 
 export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoControllerArgs): UsePersonalInfoControllerReturn => {
   const navigate = useNavigate();
+  const { showNotification } = useNotification();
 
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -275,6 +277,17 @@ export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoCon
     if (validation.error) {
       setError(validation.error);
       setMissingFields(validation.missingFields);
+      
+      const message = validation.missingFields.length > 0
+        ? `Missing required fields: ${validation.missingFields.map(f => f.charAt(0).toUpperCase() + f.slice(1)).join(', ')}`
+        : validation.error;
+        
+      showNotification({
+        type: 'error',
+        message: message,
+        duration: 5000,
+        showCloseButton: true
+      });
       return;
     }
     setMissingFields([]);
@@ -315,12 +328,20 @@ export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoCon
 
       if (fromOnboarding) {
         navigate(ROUTES.CHAT, { replace: true });
+        showNotification({ type: 'success', message: 'Profile completed successfully!' });
         return;
       }
 
       setSaveToast('Personal info updated successfully.');
+      showNotification({ type: 'success', message: 'Personal info updated successfully.' });
     } catch {
       setError('Failed to save your personal information. Please try again.');
+      showNotification({
+        type: 'error',
+        message: 'Failed to save your personal information. Please try again.',
+        duration: 5000,
+        showCloseButton: true
+      });
     } finally {
       setIsSaving(false);
     }

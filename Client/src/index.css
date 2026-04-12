@@ -250,3 +250,8 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes shrinkWidth {
+  from { width: 100%; }
+  to { width: 0%; }
+}

@@ -311,3 +311,13 @@ If validation tools exist (build, typecheck, lint):
 - Think like a senior engineer
 - Prefer clarity over cleverness
 - Prefer maintainability over speed- Personal info validation requires phone, address, summary, and skills before any other CV operations.
+
+### Global Notification System
+- **Pattern**: `useNotification` context hook located in `src/hooks/useNotification.ts`.
+- **Component**: `NotificationProvider`, `NotificationContainer`, and `Notification` inside `src/components/common/Notification/`.
+- **Usage**:
+  ```ts
+  const { showNotification } = useNotification();
+  showNotification({ type: "success" | "error" | "warning" | "info", message: "..." });
+  ```
+- **Rules**: Use global notifications for general app events (successful saves, unhandled errors). For field-specific validation, continue using inline error text below the input field.

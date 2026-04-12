@@ -1,4 +1,5 @@
 import { AuthProvider } from "./context/AuthContext";
+import { NotificationProvider } from "./components/common/Notification/NotificationProvider";
 import Header from "./components/common/Header";
 import { AppRouter } from "./router";
 
@@ -15,13 +16,15 @@ import { AppRouter } from "./router";
 const App = () => {
   return (
     <AuthProvider>
-      <div className="min-h-screen flex flex-col bg-custom-light">
-        <Header />
+      <NotificationProvider>
+        <div className="min-h-screen flex flex-col bg-custom-light">
+          <Header />
 
-        <div className="flex-grow">
-          <AppRouter />
+          <div className="flex-grow">
+            <AppRouter />
+          </div>
         </div>
-      </div>
+      </NotificationProvider>
     </AuthProvider>
   );
 };
