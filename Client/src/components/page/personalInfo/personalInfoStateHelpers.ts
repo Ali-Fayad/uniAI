@@ -136,11 +136,15 @@ export const validatePersonalInfoState = (state: PersonalInfoState): ValidationR
     };
   }
 
-  if (state.form.phone && !isValidPhoneNumber(state.form.phone)) {
-    return {
-      error: "Phone number invalid. Must be in format '+TotalDigits RegionDigits' (e.g. +1 5551234567)",
-      missingFields: [],
-    };
+  if (state.form.phone) {
+    const rawPhone = state.form.phone.trim();
+    const phoneForFormatValidation = rawPhone.startsWith('+') ? rawPhone : `+${rawPhone}`;
+    if (!isValidPhoneNumber(phoneForFormatValidation)) {
+      return {
+        error: "Phone number invalid. Format: +{Code} {Number} (e.g. +1 5551234567)",
+        missingFields: [],
+      };
+    }
   }
 
   const invalidEducation = state.education.some((item) => !item.universityName.trim() || !item.universityId);
