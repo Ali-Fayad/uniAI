@@ -112,8 +112,15 @@ public class CVApplicationService implements CVUseCase {
             .templateId(selectedTemplate != null ? selectedTemplate.getId() : null)
             .template(selectedTemplate != null ? selectedTemplate.getComponentName() : command.getTemplate())
             .sectionsOrder(normalizeSectionsOrder(command.getSectionsOrder()))
-                .isDefault(makeDefault)
-                .build();
+            .isDefault(makeDefault)
+            .build();
+            
+        if (command.getSelectedItems() != null) {
+            cv.setSelectedItems(mapDtoToSelectedItems(command.getSelectedItems()));
+        } else {
+            cv.setSelectedItems(new SelectedItems());
+        }
+        
         cvRepository.save(cv);
 
         PersonalInfo personalInfo = personalInfoRepository.findByUserId(userId).orElse(null);
@@ -148,6 +155,10 @@ public class CVApplicationService implements CVUseCase {
             } else {
                 cv.setDefault(false);
             }
+        }
+        
+        if (command.getSelectedItems() != null) {
+            cv.setSelectedItems(mapDtoToSelectedItems(command.getSelectedItems()));
         }
 
         cvRepository.save(cv);
@@ -511,5 +522,17 @@ public class CVApplicationService implements CVUseCase {
     private Long getUserId(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(EmailNotFoundException::new);
         return user.getId();
+    }
+
+    private com.uniai.cvbuilder.domain.model.SelectedItems mapDtoToSelectedItems(com.uniai.cvbuilder.application.dto.SelectedItemsDto dto) {
+        if (dto == null) return new com.uniai.cvbuilder.domain.model.SelectedItems();
+        return com.uniai.cvbuilder.domain.model.SelectedItems.builder()
+                .skillIds(dto.getSkillIds() != null ? dto.getSkillIds() : List.of())
+                .languageIds(dto.getLanguageIds() != null ? dto.getLanguageIds() : List.of())
+                .educationIds(dto.getEducationIds() != null ? dto.getEducationIds() : List.of())
+                .experienceIds(dto.getExperienceIds() != null ? dto.getExperienceIds() : List.of())
+                .projectIds(dto.getProjectIds() != null ? dto.getProjectIds() : List.of())
+                .certificateIds(dto.getCertificateIds() != null ? dto.getCertificateIds() : List.of())
+                .build();
     }
 }

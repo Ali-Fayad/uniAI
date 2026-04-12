@@ -33,6 +33,7 @@ public final class CVMapper {
                 .templateComponentName(template != null ? template.getComponentName() : cv.getTemplate())
                 .template(cv.getTemplate())
                 .sectionsOrder(cv.getSectionsOrder())
+                .selectedItems(mapSelectedItems(cv.getSelectedItems()))
                 .isDefault(cv.isDefault())
                 .createdAt(cv.getCreatedAt())
                 .updatedAt(cv.getUpdatedAt())
@@ -60,6 +61,20 @@ public final class CVMapper {
                 .summary(personalInfo.getSummary())
                 .jobTitle(personalInfo.getJobTitle())
                 .company(personalInfo.getCompany())
+                .build();
+    }
+
+    public static com.uniai.cvbuilder.application.dto.SelectedItemsDto mapSelectedItems(SelectedItems selectedItems) {
+        if (selectedItems == null) {
+            return null;
+        }
+        return com.uniai.cvbuilder.application.dto.SelectedItemsDto.builder()
+                .skillIds(selectedItems.getSkillIds() != null ? selectedItems.getSkillIds() : List.of())
+                .languageIds(selectedItems.getLanguageIds() != null ? selectedItems.getLanguageIds() : List.of())
+                .educationIds(selectedItems.getEducationIds() != null ? selectedItems.getEducationIds() : List.of())
+                .experienceIds(selectedItems.getExperienceIds() != null ? selectedItems.getExperienceIds() : List.of())
+                .projectIds(selectedItems.getProjectIds() != null ? selectedItems.getProjectIds() : List.of())
+                .certificateIds(selectedItems.getCertificateIds() != null ? selectedItems.getCertificateIds() : List.of())
                 .build();
     }
 

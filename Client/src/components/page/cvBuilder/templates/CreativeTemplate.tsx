@@ -1,8 +1,8 @@
 import type { CVTemplateComponentProps } from './templateTypes';
 import { getContactItems, getDisplayName, getSectionData } from './templateHelpers';
 
-const CreativeTemplate = ({ personalInfo, sectionOrder }: CVTemplateComponentProps) => {
-  const sections = getSectionData(personalInfo, sectionOrder);
+const CreativeTemplate = ({ personalInfo, sectionOrder, selectedItems }: CVTemplateComponentProps) => {
+  const sections = getSectionData(personalInfo, sectionOrder, selectedItems);
   const contactItems = getContactItems(personalInfo);
 
   return (

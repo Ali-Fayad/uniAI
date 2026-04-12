@@ -1,8 +1,8 @@
 import type { CVTemplateComponentProps } from './templateTypes';
 import { getContactItems, getDisplayName, getSectionData } from './templateHelpers';
 
-const TechnicalTemplate = ({ personalInfo, sectionOrder }: CVTemplateComponentProps) => {
-  const sections = getSectionData(personalInfo, sectionOrder);
+const TechnicalTemplate = ({ personalInfo, sectionOrder, selectedItems }: CVTemplateComponentProps) => {
+  const sections = getSectionData(personalInfo, sectionOrder, selectedItems);
   const contactItems = getContactItems(personalInfo);
   const skills = sections.find((section) => section.key === 'skills');
   const otherSections = sections.filter((section) => section.key !== 'skills');

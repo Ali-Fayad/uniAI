@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import {
   closestCenter,
   DndContext,
@@ -18,6 +18,8 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical } from 'lucide-react';
 import LoadingSpinner from '../../common/LoadingSpinner';
+import { SectionItemSelector } from './SectionItemSelector';
+import { AddItemModal } from './AddItemModal';
 import { getTemplateComponent } from './templates/templateRegistry';
 import { CV_SECTION_OPTIONS } from './cvBuilderSections';
 import type { UseCVBuilderControllerReturn } from './useCVBuilderController';
@@ -69,6 +71,7 @@ const SortableSectionItem = ({ section, enabled, onToggle }: SortableSectionItem
 };
 
 const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
+  const [addItemModalSection, setAddItemModalSection] = useState<CVSectionKey | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 6 } }),
@@ -142,7 +145,7 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
 
             <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-3 sm:p-6">
               <Suspense fallback={<div className="text-sm text-[var(--color-textSecondary)]">Loading template preview...</div>}>
-                <TemplatePreview personalInfo={controller.personalInfo} sectionOrder={controller.selectedSectionsOrder} />
+                <TemplatePreview personalInfo={controller.personalInfo} sectionOrder={controller.selectedSectionsOrder} selectedItems={controller.selectedItems} />
               </Suspense>
             </div>
           </section>
@@ -208,6 +211,24 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
           </div>
         </div>
       </div>
+      {addItemModalSection && (
+        <AddItemModal
+          sectionKey={addItemModalSection}
+          onClose={() => setAddItemModalSection(null)}
+          onAdded={async () => {
+            await controller.refreshPersonalInfo();
+          }}
+        />
+      )}
+      {addItemModalSection && (
+        <AddItemModal
+          sectionKey={addItemModalSection}
+          onClose={() => setAddItemModalSection(null)}
+          onAdded={async () => {
+            await controller.refreshPersonalInfo();
+          }}
+        />
+      )}
     </main>
   );
 };
