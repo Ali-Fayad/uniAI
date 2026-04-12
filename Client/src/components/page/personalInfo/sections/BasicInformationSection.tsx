@@ -30,30 +30,36 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
   // Local state for split phone inputs to ensure smooth typing
   // We initialize from the prop, but manage updates locally before syncing up
   const [phoneCode, setPhoneCode] = useState(() => {
-    const parts = form.phone ? form.phone.split(' ') : [];
+    const raw = form.phone ?? '';
+    const normalized = raw.startsWith('+') ? raw.slice(1) : raw;
+    const parts = normalized ? normalized.split(' ') : [];
     return parts.length > 0 ? parts[0] : '';
   });
   
   const [phoneNumber, setPhoneNumber] = useState(() => {
-    const parts = form.phone ? form.phone.split(' ') : [];
+    const raw = form.phone ?? '';
+    const normalized = raw.startsWith('+') ? raw.slice(1) : raw;
+    const parts = normalized ? normalized.split(' ') : [];
     return parts.length > 1 ? parts.slice(1).join(' ') : '';
   });
 
   // Sync from prop to local state (e.g. on initial load or reset)
-  useEffect(() => {
-    const parts = form.phone ? form.phone.split(' ') : [];
-    const derivedCode = parts.length > 0 ? parts[0] : '';
-    const derivedNumber = parts.length > 1 ? parts.slice(1).join(' ') : '';
-    
-    // Only update if completely different to avoid cursor jumps
-    if (`${phoneCode} ${phoneNumber}` !== form.phone) {
+    useEffect(() => {
+     const raw = form.phone ?? '';
+     const normalized = raw.startsWith('+') ? raw.slice(1) : raw;
+     const parts = normalized ? normalized.split(' ') : [];
+     const derivedCode = parts.length > 0 ? parts[0] : '';
+     const derivedNumber = parts.length > 1 ? parts.slice(1).join(' ') : '';
+
+     // Only update if completely different to avoid cursor jumps
+     if (`${phoneCode} ${phoneNumber}` !== (normalized || '')) {
        // Only if the prop is truthy and valid-ish, otherwise we keep local
        if (form.phone && form.phone.trim() !== '') {
-          setPhoneCode(derivedCode);
-          setPhoneNumber(derivedNumber);
+         setPhoneCode(derivedCode);
+         setPhoneNumber(derivedNumber);
        }
-    }
-  }, [form.phone]);
+     }
+    }, [form.phone]);
 
   // Sync isWorking with form data (handles async data loading)
   useEffect(() => {
@@ -74,24 +80,29 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
     const combined = `${code} ${num}`.trim();
     setField('phone', combined);
     
-    // Validate combined format
-    if (combined && !isValidPhoneNumber(combined)) {
-      setPhoneError("Format: +{Code} {Number}");
+    // Validate combined format by ensuring + is present for validation
+    const phoneForValidation = combined ? `+${combined}` : '';
+    if (phoneForValidation && !isValidPhoneNumber(phoneForValidation)) {
+      setPhoneError('Format: +{Code} {Number}');
     } else {
       setPhoneError(null);
     }
   };
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setPhoneCode(val);
-    updatePhone(val, phoneNumber);
+    // Accept digits only, ignore other chars including +
+    const raw = e.target.value || '';
+    const digits = raw.replace(/\D/g, '');
+    setPhoneCode(digits);
+    updatePhone(digits, phoneNumber);
   };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setPhoneNumber(val);
-    updatePhone(phoneCode, val);
+    // Accept digits only; ignore non-digit characters
+    const raw = e.target.value || '';
+    const digits = raw.replace(/\D/g, '');
+    setPhoneNumber(digits);
+    updatePhone(phoneCode, digits);
   };
 
   // UI Refinement: Removed external text headers ("Contact", "Location", etc.) 
@@ -109,20 +120,22 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
           <FaPhone className="mt-4 text-[var(--color-textPrimary)] text-lg shrink-0" aria-hidden="true" />
           <div className="flex-1 w-full">
             <div className="flex gap-2">
-              <div className="min-w-[80px] w-1/4 max-w-[120px]">
-                 <AnimatedInput
-                    value={phoneCode}
-                    onChange={handleCodeChange}
-                    label="Code"
-                    
-                  />
-              </div>
+                <div className="min-w-[80px] w-1/4 max-w-[120px]">
+                   <AnimatedInput
+                      value={phoneCode}
+                      onChange={handleCodeChange}
+                      label="Code"
+                      startAdornment={"+"}
+                      inputMode="numeric"
+                      className="!text-[var(--color-textPrimary)]"
+                    />
+                </div>
               <div className="flex-1">
                   <AnimatedInput
                     value={phoneNumber}
                     onChange={handleNumberChange}
                     label="Number"
-                    
+                    inputMode="numeric"
                   />
               </div>
             </div>
