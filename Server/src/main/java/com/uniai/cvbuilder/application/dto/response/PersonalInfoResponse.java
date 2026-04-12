@@ -17,6 +17,7 @@ import java.util.List;
 public class PersonalInfoResponse {
     private Long userId;
     private boolean hasPersonalInfo;
+    private boolean isFilled;
     private String phone;
     private String address;
     private String linkedin;

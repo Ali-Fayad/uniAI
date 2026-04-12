@@ -1,0 +1,1 @@
+ALTER TABLE personal_info ADD COLUMN is_filled BOOLEAN DEFAULT FALSE;

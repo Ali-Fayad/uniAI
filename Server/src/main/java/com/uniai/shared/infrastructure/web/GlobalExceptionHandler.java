@@ -98,4 +98,23 @@ public class GlobalExceptionHandler {
         logger.warn("NotFound: {}", ex.getMessage(), ex);
         return ResponseEntity.status(404).body(ex.getMessage());
     }
+
+    @ExceptionHandler(PersonalInfoValidationException.class)
+    public ResponseEntity<?> handlePersonalInfoValidationException(PersonalInfoValidationException ex) {
+        logger.warn("PersonalInfoValidationException: {}", ex.getMessage(), ex);
+        java.util.Map<String, Object> response = new java.util.HashMap<>();
+        response.put("error", "Validation failed");
+        response.put("missingFields", ex.getMissingFields());
+        response.put("message", ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(PersonalInfoGoneException.class)
+    public ResponseEntity<?> handlePersonalInfoGoneException(Exception ex) {
+        logger.warn("PersonalInfoGoneException: {}", ex.getMessage(), ex);
+        java.util.Map<String, Object> response = new java.util.HashMap<>();
+        response.put("error", "Profile Incomplete");
+        response.put("message", ex.getMessage());
+        return ResponseEntity.status(410).body(response);
+    }
 }

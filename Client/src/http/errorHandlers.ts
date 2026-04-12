@@ -49,6 +49,14 @@ export function handleResponseError(error: AxiosError): never {
     }
   }
 
+  if (status === 410) {
+    console.error('Profile incomplete:', error.response?.data);
+    const currentPath = window.location.pathname;
+    if (!currentPath.startsWith('/personal-info')) {
+      window.location.href = '/personal-info';
+    }
+  }
+
   if (status === 404) {
     console.error('Resource not found:', error.response?.data);
   }

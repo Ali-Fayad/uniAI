@@ -47,6 +47,7 @@ export interface UsePersonalInfoControllerReturn {
   isSaving: boolean;
   isDirty: boolean;
   error: string | null;
+  missingFields: string[];
   saveToast: string | null;
 
   form: BasicFormState;
@@ -136,6 +137,7 @@ export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoCon
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saveToast, setSaveToast] = useState<string | null>(null);
+  const [missingFields, setMissingFields] = useState<string[]>([]);
 
   const { form, setForm, setField } = usePersonalInfoFormState();
   const {
@@ -269,11 +271,13 @@ export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoCon
   };
 
   const saveChanges = async () => {
-    const validationError = validatePersonalInfoState(personalInfoState);
-    if (validationError) {
-      setError(validationError);
+    const validation = validatePersonalInfoState(personalInfoState);
+    if (validation.error) {
+      setError(validation.error);
+      setMissingFields(validation.missingFields);
       return;
     }
+    setMissingFields([]);
 
     setIsSaving(true);
     setError(null);
@@ -311,6 +315,7 @@ export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoCon
     isSaving,
     isDirty,
     error,
+    missingFields,
     saveToast,
 
     form,

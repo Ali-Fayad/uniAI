@@ -219,6 +219,7 @@ export interface PersonalInfoCertificateEntryDto {
 export interface PersonalInfoResponseDto {
   userId: number;
   hasPersonalInfo?: boolean;
+  isFilled: boolean;
   phone?: string | null;
   address?: string | null;
   linkedin?: string | null;
@@ -234,6 +235,12 @@ export interface PersonalInfoResponseDto {
   projects?: PersonalInfoProjectEntryDto[];
   certificates?: PersonalInfoCertificateEntryDto[];
 }
+
+export interface PersonalInfoStatusDto {
+  isFilled: boolean;
+  missingFields: string[];
+}
+
 
 export interface UpdatePersonalInfoDto {
   phone?: string;

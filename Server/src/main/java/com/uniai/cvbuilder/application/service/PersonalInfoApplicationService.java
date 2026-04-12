@@ -45,6 +45,26 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
         PersonalInfo info = personalInfoRepository.findByUserId(userId)
                 .orElseGet(() -> PersonalInfoBuilder.forUser(userId).build());
 
+        // Validate required fields for isFilled status
+        java.util.List<String> missingFields = new java.util.ArrayList<>();
+        
+        if (!hasText(command.getPhone())) {
+            missingFields.add("phone");
+        }
+        if (!hasText(command.getAddress())) {
+            missingFields.add("address");
+        }
+        if (!hasText(command.getSummary())) {
+            missingFields.add("summary");
+        }
+        if (command.getSkills() == null || command.getSkills().isEmpty()) {
+            missingFields.add("skills");
+        }
+        
+        if (!missingFields.isEmpty()) {
+            throw new com.uniai.shared.exception.PersonalInfoValidationException(missingFields);
+        }
+
         if (command.getPhone() != null)
             info.setPhone(command.getPhone());
         if (command.getAddress() != null)
@@ -74,6 +94,7 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
         if (command.getCertificates() != null)
             info.setCertificatesJson(toJson(command.getCertificates()));
 
+        info.setIsFilled(true);
         personalInfoRepository.save(info);
         return toResponse(info, userId);
     }
@@ -147,6 +168,7 @@ public class PersonalInfoApplicationService implements PersonalInfoUseCase {
         return PersonalInfoResponse.builder()
                 .userId(info.getUserId())
             .hasPersonalInfo(hasPersonalInfo)
+                .isFilled(Boolean.TRUE.equals(info.getIsFilled()))
                 .phone(info.getPhone())
                 .address(info.getAddress())
                 .linkedin(info.getLinkedin())

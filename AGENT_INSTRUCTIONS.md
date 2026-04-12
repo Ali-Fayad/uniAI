@@ -310,4 +310,4 @@ If validation tools exist (build, typecheck, lint):
 
 - Think like a senior engineer
 - Prefer clarity over cleverness
-- Prefer maintainability over speed
+- Prefer maintainability over speed- Personal info validation requires phone, address, summary, and skills before any other CV operations.

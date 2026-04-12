@@ -5,6 +5,7 @@ import type {
   LanguageCatalogDto,
   PositionCatalogDto,
   PersonalInfoResponseDto,
+  PersonalInfoStatusDto,
   SkillCatalogDto,
   UpdateCVDto,
   UpdatePersonalInfoDto,
@@ -17,6 +18,7 @@ import type {
  * Abstraction for personal info and CV-support lookup endpoints.
  */
 export interface ICVService {
+  getPersonalInfoStatus(): Promise<PersonalInfoStatusDto>;
   getPersonalInfo(): Promise<PersonalInfoResponseDto>;
   updatePersonalInfo(data: UpdatePersonalInfoDto): Promise<PersonalInfoResponseDto>;
   getUniversities(search?: string): Promise<UniversityCatalogDto[]>;

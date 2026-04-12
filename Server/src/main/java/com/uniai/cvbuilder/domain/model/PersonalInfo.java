@@ -58,6 +58,9 @@ public class PersonalInfo {
     @Column(name = "certificates_json", columnDefinition = "TEXT")
     private String certificatesJson;
 
+    @Column(name = "is_filled")
+    private Boolean isFilled;
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 

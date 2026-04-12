@@ -7,6 +7,7 @@ import type {
   LanguageCatalogDto,
   PositionCatalogDto,
   PersonalInfoResponseDto,
+  PersonalInfoStatusDto,
   SkillCatalogDto,
   UpdateCVDto,
   UpdatePersonalInfoDto,
@@ -18,6 +19,11 @@ import type { ICVService } from '../interfaces';
  * CV service for personal profile information and CV lookup endpoints.
  */
 export const cvService: ICVService = {
+  async getPersonalInfoStatus(): Promise<PersonalInfoStatusDto> {
+    const response = await apiClient.get<PersonalInfoStatusDto>(`${ENDPOINTS.CV.PERSONAL_INFO}/status`);
+    return response.data;
+  },
+
   async getPersonalInfo(): Promise<PersonalInfoResponseDto> {
     const response = await apiClient.get<PersonalInfoResponseDto>(ENDPOINTS.CV.PERSONAL_INFO);
     return response.data;

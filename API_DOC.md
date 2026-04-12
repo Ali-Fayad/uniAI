@@ -851,3 +851,5 @@ If you'd like, I can:
 
 - Add example curl requests for the most common flows (signup/signin/use token).
 - Generate OpenAPI (Swagger) YAML from these DTOs and controllers.
+## CV Access Validation
+All CV endpoints (except /api/cv/personal-info) return `410 Gone` if the user has not completed their profile.
