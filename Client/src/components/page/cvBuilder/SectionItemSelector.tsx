@@ -1,4 +1,5 @@
 import type { CVSectionKey, PersonalInfoResponseDto, SelectedItemsDto, ItemsOrderDto } from '../../../types/dto';
+import { FaPlus } from 'react-icons/fa';
 import SortableItemList from './SortableItemList';
 
 interface SectionItemSelectorProps {
@@ -82,8 +83,9 @@ export const SectionItemSelector = ({
           type="button"
           onClick={() => onAddNew(sectionKey)}
           className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+          title={`Add new ${sectionKey}`}
         >
-          + Add New {sectionKey}
+          <FaPlus />
         </button>
       </div>
     );
@@ -97,8 +99,9 @@ export const SectionItemSelector = ({
           type="button"
           onClick={() => onAddNew(sectionKey)}
           className="text-xs font-medium text-[var(--color-primary)] hover:underline"
+          title={`Add new ${sectionKey}`}
         >
-          + Add New
+          <FaPlus />
         </button>
       </div>
       <div className="flex flex-col gap-1 max-h-[400px] overflow-y-auto pr-1">
