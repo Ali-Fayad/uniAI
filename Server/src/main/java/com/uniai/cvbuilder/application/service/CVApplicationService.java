@@ -1,11 +1,56 @@
 package com.uniai.cvbuilder.application.service;
 
-import com.uniai.cvbuilder.application.dto.command.*;
-import com.uniai.cvbuilder.application.dto.response.*;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.uniai.cvbuilder.application.dto.command.AddCertificateCommand;
+import com.uniai.cvbuilder.application.dto.command.AddEducationCommand;
+import com.uniai.cvbuilder.application.dto.command.AddExperienceCommand;
+import com.uniai.cvbuilder.application.dto.command.AddLanguageCommand;
+import com.uniai.cvbuilder.application.dto.command.AddProjectCommand;
+import com.uniai.cvbuilder.application.dto.command.AddSkillCommand;
+import com.uniai.cvbuilder.application.dto.command.CreateCVCommand;
+import com.uniai.cvbuilder.application.dto.command.UpdateCVCommand;
+import com.uniai.cvbuilder.application.dto.response.CVResponse;
+import com.uniai.cvbuilder.application.dto.response.CVTemplateResponse;
+import com.uniai.cvbuilder.application.dto.response.CertificateResponse;
+import com.uniai.cvbuilder.application.dto.response.EducationResponse;
+import com.uniai.cvbuilder.application.dto.response.ExperienceResponse;
+import com.uniai.cvbuilder.application.dto.response.LanguageResponse;
+import com.uniai.cvbuilder.application.dto.response.ProjectResponse;
+import com.uniai.cvbuilder.application.dto.response.SkillResponse;
+import com.uniai.cvbuilder.application.dto.response.UniversityResponse;
 import com.uniai.cvbuilder.application.port.in.CVUseCase;
-import com.uniai.cvbuilder.domain.builder.*;
-import com.uniai.cvbuilder.domain.model.*;
-import com.uniai.cvbuilder.domain.repository.*;
+import com.uniai.cvbuilder.domain.builder.CVBuilder;
+import com.uniai.cvbuilder.domain.builder.CertificateBuilder;
+import com.uniai.cvbuilder.domain.builder.EducationBuilder;
+import com.uniai.cvbuilder.domain.builder.ExperienceBuilder;
+import com.uniai.cvbuilder.domain.builder.LanguageBuilder;
+import com.uniai.cvbuilder.domain.builder.ProjectBuilder;
+import com.uniai.cvbuilder.domain.builder.SkillBuilder;
+import com.uniai.cvbuilder.domain.model.CV;
+import com.uniai.cvbuilder.domain.model.CVTemplate;
+import com.uniai.cvbuilder.domain.model.Certificate;
+import com.uniai.cvbuilder.domain.model.Education;
+import com.uniai.cvbuilder.domain.model.Experience;
+import com.uniai.cvbuilder.domain.model.Language;
+import com.uniai.cvbuilder.domain.model.PersonalInfo;
+import com.uniai.cvbuilder.domain.model.Project;
+import com.uniai.cvbuilder.domain.model.SelectedItems;
+import com.uniai.cvbuilder.domain.model.Skill;
+import com.uniai.cvbuilder.domain.repository.CVRepository;
+import com.uniai.cvbuilder.domain.repository.CVTemplateRepository;
+import com.uniai.cvbuilder.domain.repository.CertificateRepository;
+import com.uniai.cvbuilder.domain.repository.EducationRepository;
+import com.uniai.cvbuilder.domain.repository.ExperienceRepository;
+import com.uniai.cvbuilder.domain.repository.LanguageRepository;
+import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
+import com.uniai.cvbuilder.domain.repository.ProjectRepository;
+import com.uniai.cvbuilder.domain.repository.SkillRepository;
+import com.uniai.cvbuilder.domain.repository.UniversityRepository;
 import com.uniai.cvbuilder.infrastructure.mapper.CVMapper;
 import com.uniai.cvbuilder.infrastructure.mapper.UniversityMapper;
 import com.uniai.shared.exception.CVNotFoundException;
@@ -15,12 +60,8 @@ import com.uniai.shared.exception.SectionNotFoundException;
 import com.uniai.shared.exception.UnauthorizedAccessException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Application service coordinating CV lifecycle operations, section CRUD, ownership checks,

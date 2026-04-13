@@ -1,14 +1,23 @@
 package com.uniai.cvbuilder.domain.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.uniai.cvbuilder.infrastructure.persistence.converter.StringListJsonConverter;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * JPA entity representing the CV root aggregate that ties user ownership to all section data.

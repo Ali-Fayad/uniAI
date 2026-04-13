@@ -1,10 +1,10 @@
 package com.uniai.cvbuilder.application.dto.command;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  * Command payload for updating CV metadata such as name, template choice, and default status.

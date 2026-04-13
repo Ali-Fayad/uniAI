@@ -1,10 +1,26 @@
 package com.uniai.cvbuilder.infrastructure.mapper;
 
-import com.uniai.cvbuilder.application.dto.response.*;
-import com.uniai.cvbuilder.domain.model.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.uniai.cvbuilder.application.dto.response.CVResponse;
+import com.uniai.cvbuilder.application.dto.response.CertificateResponse;
+import com.uniai.cvbuilder.application.dto.response.EducationResponse;
+import com.uniai.cvbuilder.application.dto.response.ExperienceResponse;
+import com.uniai.cvbuilder.application.dto.response.LanguageResponse;
+import com.uniai.cvbuilder.application.dto.response.PersonalInfoResponse;
+import com.uniai.cvbuilder.application.dto.response.ProjectResponse;
+import com.uniai.cvbuilder.application.dto.response.SkillResponse;
+import com.uniai.cvbuilder.domain.model.CV;
+import com.uniai.cvbuilder.domain.model.CVTemplate;
+import com.uniai.cvbuilder.domain.model.Certificate;
+import com.uniai.cvbuilder.domain.model.Education;
+import com.uniai.cvbuilder.domain.model.Experience;
+import com.uniai.cvbuilder.domain.model.Language;
+import com.uniai.cvbuilder.domain.model.PersonalInfo;
+import com.uniai.cvbuilder.domain.model.Project;
+import com.uniai.cvbuilder.domain.model.SelectedItems;
+import com.uniai.cvbuilder.domain.model.Skill;
 
 /**
  * Mapping utilities to convert CV domain aggregates and nested entities into response DTO graphs.

@@ -1,12 +1,12 @@
 package com.uniai.cvbuilder.application.dto.response;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Aggregated view model returned by CV endpoints, combining core CV metadata with all nested
