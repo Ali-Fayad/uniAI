@@ -53,6 +53,10 @@ public class CV {
     @Column(name = "selected_items", columnDefinition = "jsonb")
     private SelectedItems selectedItems;
 
+    @Convert(converter = com.uniai.cvbuilder.infrastructure.persistence.converter.ItemsOrderJsonConverter.class)
+    @Column(name = "items_order", columnDefinition = "jsonb")
+    private ItemsOrder itemsOrder;
+
     @Column(name = "is_default", nullable = false)
     private boolean isDefault;
 

@@ -26,6 +26,7 @@ public class CVResponse {
     private String template;
     private List<String> sectionsOrder;
     private com.uniai.cvbuilder.application.dto.SelectedItemsDto selectedItems;
+    private com.uniai.cvbuilder.application.dto.ItemsOrderDto itemsOrder;
     private boolean isDefault;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -19,5 +19,6 @@ public class UpdateCVCommand {
     private String template;
     private List<String> sectionsOrder;
     private com.uniai.cvbuilder.application.dto.SelectedItemsDto selectedItems;
+    private com.uniai.cvbuilder.application.dto.ItemsOrderDto itemsOrder;
     private Boolean isDefault;
 }

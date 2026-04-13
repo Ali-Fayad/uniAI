@@ -162,6 +162,12 @@ public class CVApplicationService implements CVUseCase {
             cv.setSelectedItems(new SelectedItems());
         }
         
+        if (command.getItemsOrder() != null) {
+            cv.setItemsOrder(mapDtoToItemsOrder(command.getItemsOrder()));
+        } else {
+            cv.setItemsOrder(new ItemsOrder());
+        }
+        
         cvRepository.save(cv);
 
         PersonalInfo personalInfo = personalInfoRepository.findByUserId(userId).orElse(null);
@@ -200,6 +206,10 @@ public class CVApplicationService implements CVUseCase {
         
         if (command.getSelectedItems() != null) {
             cv.setSelectedItems(mapDtoToSelectedItems(command.getSelectedItems()));
+        }
+        
+        if (command.getItemsOrder() != null) {
+            cv.setItemsOrder(mapDtoToItemsOrder(command.getItemsOrder()));
         }
 
         cvRepository.save(cv);
@@ -568,6 +578,18 @@ public class CVApplicationService implements CVUseCase {
     private com.uniai.cvbuilder.domain.model.SelectedItems mapDtoToSelectedItems(com.uniai.cvbuilder.application.dto.SelectedItemsDto dto) {
         if (dto == null) return new com.uniai.cvbuilder.domain.model.SelectedItems();
         return com.uniai.cvbuilder.domain.model.SelectedItems.builder()
+                .skillIds(dto.getSkillIds() != null ? dto.getSkillIds() : List.of())
+                .languageIds(dto.getLanguageIds() != null ? dto.getLanguageIds() : List.of())
+                .educationIds(dto.getEducationIds() != null ? dto.getEducationIds() : List.of())
+                .experienceIds(dto.getExperienceIds() != null ? dto.getExperienceIds() : List.of())
+                .projectIds(dto.getProjectIds() != null ? dto.getProjectIds() : List.of())
+                .certificateIds(dto.getCertificateIds() != null ? dto.getCertificateIds() : List.of())
+                .build();
+    }
+
+    private com.uniai.cvbuilder.domain.model.ItemsOrder mapDtoToItemsOrder(com.uniai.cvbuilder.application.dto.ItemsOrderDto dto) {
+        if (dto == null) return new com.uniai.cvbuilder.domain.model.ItemsOrder();
+        return com.uniai.cvbuilder.domain.model.ItemsOrder.builder()
                 .skillIds(dto.getSkillIds() != null ? dto.getSkillIds() : List.of())
                 .languageIds(dto.getLanguageIds() != null ? dto.getLanguageIds() : List.of())
                 .educationIds(dto.getEducationIds() != null ? dto.getEducationIds() : List.of())

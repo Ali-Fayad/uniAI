@@ -50,6 +50,7 @@ public final class CVMapper {
                 .template(cv.getTemplate())
                 .sectionsOrder(cv.getSectionsOrder())
                 .selectedItems(mapSelectedItems(cv.getSelectedItems()))
+                .itemsOrder(mapItemsOrder(cv.getItemsOrder()))
                 .isDefault(cv.isDefault())
                 .createdAt(cv.getCreatedAt())
                 .updatedAt(cv.getUpdatedAt())
@@ -91,6 +92,20 @@ public final class CVMapper {
                 .experienceIds(selectedItems.getExperienceIds() != null ? selectedItems.getExperienceIds() : List.of())
                 .projectIds(selectedItems.getProjectIds() != null ? selectedItems.getProjectIds() : List.of())
                 .certificateIds(selectedItems.getCertificateIds() != null ? selectedItems.getCertificateIds() : List.of())
+                .build();
+    }
+
+    public static com.uniai.cvbuilder.application.dto.ItemsOrderDto mapItemsOrder(com.uniai.cvbuilder.domain.model.ItemsOrder itemsOrder) {
+        if (itemsOrder == null) {
+            return null;
+        }
+        return com.uniai.cvbuilder.application.dto.ItemsOrderDto.builder()
+                .skillIds(itemsOrder.getSkillIds() != null ? itemsOrder.getSkillIds() : List.of())
+                .languageIds(itemsOrder.getLanguageIds() != null ? itemsOrder.getLanguageIds() : List.of())
+                .educationIds(itemsOrder.getEducationIds() != null ? itemsOrder.getEducationIds() : List.of())
+                .experienceIds(itemsOrder.getExperienceIds() != null ? itemsOrder.getExperienceIds() : List.of())
+                .projectIds(itemsOrder.getProjectIds() != null ? itemsOrder.getProjectIds() : List.of())
+                .certificateIds(itemsOrder.getCertificateIds() != null ? itemsOrder.getCertificateIds() : List.of())
                 .build();
     }
 
