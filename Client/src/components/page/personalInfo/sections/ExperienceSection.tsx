@@ -57,7 +57,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       icon={<FaBriefcase className="h-5 w-5" aria-hidden="true" />}
       className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-start">
+      <div ref={containerRef} className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-start relative">
         <AnimatedInput
           value={positionQuery}
           onFocus={() => setIsDropdownOpen(true)}

@@ -9,13 +9,14 @@
  * - Own navigation logic
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaUser, FaPhone, FaMapMarkerAlt, FaBriefcase, FaBuilding } from 'react-icons/fa';
 import type { BasicFormState } from '../personalInfoTypes';
 import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
 import AnimatedInput from '../../../common/AnimatedInput';
 import { usePositions } from '../../../../hooks/usePositions';
 import { isValidPhoneNumber } from '../../../../lib/utils';
+import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
 
 export interface BasicInformationSectionProps {
   form: BasicFormState;
@@ -24,8 +25,12 @@ export interface BasicInformationSectionProps {
 
 const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form, setField }) => {
   const [isWorking, setIsWorking] = useState(!!form.jobTitle || !!form.company);
-  const { items: positions } = usePositions(form.jobTitle);
+  const { items: positions, isLoading: isPositionsLoading } = usePositions(form.jobTitle);
   const [phoneError, setPhoneError] = useState<string | null>(null);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(containerRef, () => setIsDropdownOpen(false));
 
   // Local state for split phone inputs to ensure smooth typing
   // We initialize from the prop, but manage updates locally before syncing up
@@ -175,21 +180,41 @@ const BasicInformationSection: React.FC<BasicInformationSectionProps> = ({ form,
         {/* Job Fields */}
         {isWorking && (
           <>
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 relative" ref={containerRef}>
                <FaBriefcase className="mt-4 text-[var(--color-textPrimary)] text-lg shrink-0" aria-hidden="true" />
                <div className="flex-1">
                   <AnimatedInput
                     value={form.jobTitle}
-                    onChange={(e) => setField('jobTitle', e.target.value)}
+                    onFocus={() => setIsDropdownOpen(true)}
+                    onChange={(e) => {
+                      setIsDropdownOpen(true);
+                      setField('jobTitle', e.target.value);
+                    }}
                     label="Job Title"
-                    list="positions-list"
                     autoComplete="off"
-                  />
-                  <datalist id="positions-list">
-                    {positions.map((pos) => (
-                      <option key={pos.id} value={pos.name} />
-                    ))}
-                  </datalist>
+                  >
+                    {isDropdownOpen && (isPositionsLoading || positions.length > 0) && (
+                      <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
+                        {isPositionsLoading ? (
+                          <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
+                        ) : (
+                          positions.map((pos) => (
+                            <button
+                              key={pos.id}
+                              type="button"
+                              onClick={() => {
+                                setField('jobTitle', pos.name);
+                                setIsDropdownOpen(false);
+                              }}
+                              className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
+                            >
+                              {pos.name}
+                            </button>
+                          ))
+                        )}
+                      </div>
+                    )}
+                  </AnimatedInput>
                </div>
             </div>
 

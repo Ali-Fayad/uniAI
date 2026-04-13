@@ -48,15 +48,6 @@ const getInitialSelectedItems = (): SelectedItemsDto => ({
   certificateIds: [],
 });
 
-const getInitialSelectedItems = (): SelectedItemsDto => ({
-  skillIds: [],
-  languageIds: [],
-  educationIds: [],
-  experienceIds: [],
-  projectIds: [],
-  certificateIds: [],
-});
-
 const moveItem = <T,>(array: T[], fromIndex: number, toIndex: number): T[] => {
   const updated = [...array];
   const [moved] = updated.splice(fromIndex, 1);
@@ -78,7 +69,6 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
   const [sectionEnabled, setSectionEnabled] = useState<Record<CVSectionKey, boolean>>(getInitialEnabledSections);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfoResponseDto | null>(null);
   const [selectedItems, setSelectedItems] = useState<SelectedItemsDto>(getInitialSelectedItems());
-  const [selectedItems, setSelectedItems] = useState<SelectedItemsDto>(getInitialSelectedItems());
 
   useEffect(() => {
     const loadData = async () => {
@@ -92,18 +82,6 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
 
         const modernTemplate = templateList.find((template) => template.componentName === 'ModernTemplate');
         setSelectedTemplateId(modernTemplate?.id ?? templateList[0]?.id ?? null);
-
-        if (!cvId && info) {
-          setSelectedItems({
-            skillIds: info.skills?.map(s => s.id) || [],
-            languageIds: info.languages?.map(l => l.id) || [],
-            educationIds: info.education?.map(e => e.id) || [],
-            experienceIds: info.experience?.map(e => e.id) || [],
-            projectIds: info.projects?.map(p => p.id) || [],
-            certificateIds: info.certificates?.map(c => c.id) || [],
-          });
-        }
-
 
         if (!cvId && info) {
           setSelectedItems({
@@ -138,13 +116,7 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
           if (cv.selectedItems) {
             setSelectedItems(cv.selectedItems);
           } else {
-            // Auto-select all by default if newly loading?
-          }
-
-          if (cv.selectedItems) {
-            setSelectedItems(cv.selectedItems);
-          } else {
-            // Auto-select all by default if newly loading?
+            // Keep existing selectedItems state if none persisted for this CV
           }
 
           if (cv.templateId) {
@@ -184,58 +156,7 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
   };
 
 
-  const toggleItem = (sectionKey: CVSectionKey, itemId: string) => {
-    setSelectedItems((prev) => {
-      const next = { ...prev };
-      let ids: string[] = [];
-      switch (sectionKey) {
-        case 'education': ids = next.educationIds || []; break;
-        case 'experience': ids = next.experienceIds || []; break;
-        case 'skills': ids = next.skillIds || []; break;
-        case 'languages': ids = next.languageIds || []; break;
-        case 'projects': ids = next.projectIds || []; break;
-        case 'certificates': ids = next.certificateIds || []; break;
-      }
-      
-      const newIds = ids.includes(itemId) 
-        ? ids.filter(id => id !== itemId)
-        : [...ids, itemId];
-        
-      switch (sectionKey) {
-        case 'education': next.educationIds = newIds; break;
-        case 'experience': next.experienceIds = newIds; break;
-        case 'skills': next.skillIds = newIds; break;
-        case 'languages': next.languageIds = newIds; break;
-        case 'projects': next.projectIds = newIds; break;
-        case 'certificates': next.certificateIds = newIds; break;
-      }
-      return next;
-    });
-  };
-
-  const refreshPersonalInfo = async () => {
-    const info = await cvService.getPersonalInfo();
-    setPersonalInfo(info);
-    
-    // Automatically select newly added items
-    setSelectedItems((prev) => {
-      const selected = { ...prev };
-      const selectNew = (existingIds: string[] = [], items: any[] = []) => {
-        const itemIds = items.map(item => item.id);
-        const newIds = itemIds.filter(id => !existingIds.includes(id));
-        return [...existingIds, ...newIds];
-      };
-      
-      selected.educationIds = selectNew(selected.educationIds, info.education);
-      selected.experienceIds = selectNew(selected.experienceIds, info.experience);
-      selected.skillIds = selectNew(selected.skillIds, info.skills);
-      selected.languageIds = selectNew(selected.languageIds, info.languages);
-      selected.projectIds = selectNew(selected.projectIds, info.projects);
-      selected.certificateIds = selectNew(selected.certificateIds, info.certificates);
-      
-      return selected;
-    });
-  };
+  // Duplicate toggleItem/refreshPersonalInfo removed (definitions exist above)
 
 
   const toggleItem = (sectionKey: CVSectionKey, itemId: string) => {
@@ -329,14 +250,12 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
           templateId: selectedTemplateId,
           sectionsOrder: selectedSectionsOrder,
           selectedItems,
-          selectedItems,
         });
       } else {
         const created = await cvService.createCV({
           cvName,
           templateId: selectedTemplateId,
           sectionsOrder: selectedSectionsOrder,
-          selectedItems,
           selectedItems,
         });
         navigate(`${ROUTES.CV_BUILDER}/${created.id}`, { replace: true });
@@ -365,9 +284,6 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
     sectionEnabled,
     toggleSection,
     reorderSections,
-    selectedItems,
-    toggleItem,
-    refreshPersonalInfo,
     selectedItems,
     toggleItem,
     refreshPersonalInfo,

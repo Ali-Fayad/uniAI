@@ -141,7 +141,7 @@ export const validatePersonalInfoState = (state: PersonalInfoState): ValidationR
     const phoneForFormatValidation = rawPhone.startsWith('+') ? rawPhone : `+${rawPhone}`;
     if (!isValidPhoneNumber(phoneForFormatValidation)) {
       return {
-        error: "Phone number invalid. Format: +{Code} {Number} (e.g. +1 5551234567)",
+        error: "Phone number invalid.",
         missingFields: [],
       };
     }
