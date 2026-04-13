@@ -30,7 +30,7 @@ const Header: React.FC = () => {
   } = useHeaderController();
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--color-surface)] shadow-sm border-b border-[var(--color-border)]" style={{ height: '64px' }}>
+    <header className="sticky top-0 z-50 bg-[var(--color-surface)] shadow-sm border-b border-[var(--color-border)] print:hidden" style={{ height: '64px' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="relative flex h-full items-center justify-center">
           {/* Left Navigation - 2 buttons (only when authenticated) */}

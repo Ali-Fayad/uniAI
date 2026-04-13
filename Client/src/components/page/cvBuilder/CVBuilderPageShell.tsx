@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useState } from "react";
 import {
   closestCenter,
   DndContext,
@@ -8,22 +8,22 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { GripVertical } from 'lucide-react';
-import LoadingSpinner from '../../common/LoadingSpinner';
-import { SectionItemSelector } from './SectionItemSelector';
-import { AddItemModal } from './AddItemModal';
-import { getTemplateComponent } from './templates/templateRegistry';
-import { CV_SECTION_OPTIONS } from './cvBuilderSections';
-import type { UseCVBuilderControllerReturn } from './useCVBuilderController';
-import type { CVSectionKey } from '../../../types/dto';
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { GripVertical } from "lucide-react";
+import LoadingSpinner from "../../common/LoadingSpinner";
+import { SectionItemSelector } from "./SectionItemSelector";
+import { AddItemModal } from "./AddItemModal";
+import { getTemplateComponent } from "./templates/templateRegistry";
+import { CV_SECTION_OPTIONS } from "./cvBuilderSections";
+import type { UseCVBuilderControllerReturn } from "./useCVBuilderController";
+import type { CVSectionKey } from "../../../types/dto";
 
 interface CVBuilderPageShellProps {
   controller: UseCVBuilderControllerReturn;
@@ -35,8 +35,13 @@ interface SortableSectionItemProps {
   onToggle: (section: CVSectionKey) => void;
 }
 
-const SortableSectionItem = ({ section, enabled, onToggle }: SortableSectionItemProps) => {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: section.key });
+const SortableSectionItem = ({
+  section,
+  enabled,
+  onToggle,
+}: SortableSectionItemProps) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: section.key });
 
   return (
     <li
@@ -71,11 +76,16 @@ const SortableSectionItem = ({ section, enabled, onToggle }: SortableSectionItem
 };
 
 const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
-  const [addItemModalSection, setAddItemModalSection] = useState<CVSectionKey | null>(null);
+  const [addItemModalSection, setAddItemModalSection] =
+    useState<CVSectionKey | null>(null);
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 6 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 120, tolerance: 6 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   const onDragEnd = (event: DragEndEvent) => {
@@ -85,7 +95,9 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
     controller.reorderSections(String(event.active.id), String(event.over.id));
   };
 
-  const TemplatePreview = getTemplateComponent(controller.selectedTemplateComponentName);
+  const TemplatePreview = getTemplateComponent(
+    controller.selectedTemplateComponentName,
+  );
 
   if (controller.isLoading) {
     return (
@@ -96,31 +108,47 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
   }
 
   return (
-    <main className="min-h-[calc(100vh-64px)] bg-[var(--color-background)] px-3 py-4 sm:px-6 sm:py-6">
-      <div className="mx-auto max-w-[1600px] space-y-4">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold text-[var(--color-textPrimary)]">CV Builder</h1>
+    <main className="min-h-[calc(100vh-64px)] bg-[var(--color-background)] px-3 py-4 sm:px-6 sm:py-6 print:p-0 print:bg-white">
+      <div className="mx-auto max-w-[1600px] space-y-4 print:m-0 print:max-w-none print:space-y-0">
+        <div className="flex flex-col gap-2 print:hidden">
+          <h1 className="text-3xl font-bold text-[var(--color-textPrimary)]">
+            CV Builder
+          </h1>
           <p className="text-sm text-[var(--color-textSecondary)]">
-            Select a template, choose your sections, and reorder them with drag and drop.
+            Select a template, choose your sections, and reorder them with drag
+            and drop.
           </p>
         </div>
 
         {controller.error && (
-          <div className="rounded-md border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-textPrimary)]">
+          <div className="rounded-md border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-textPrimary)] print:hidden">
             {controller.error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-4 xl:grid-cols-[280px_1fr_320px]">
-          <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
-            <h2 className="text-base font-semibold text-[var(--color-textPrimary)]">Sections</h2>
-            <p className="mt-1 text-xs text-[var(--color-textSecondary)]">Toggle and reorder sections for this CV.</p>
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-[280px_1fr_320px] print:block print:gap-0">
+          <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 print:hidden">
+            <h2 className="text-base font-semibold text-[var(--color-textPrimary)]">
+              Sections
+            </h2>
+            <p className="mt-1 text-xs text-[var(--color-textSecondary)]">
+              Toggle and reorder sections for this CV.
+            </p>
 
-            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-              <SortableContext items={controller.sectionOrder} strategy={verticalListSortingStrategy}>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={onDragEnd}
+            >
+              <SortableContext
+                items={controller.sectionOrder}
+                strategy={verticalListSortingStrategy}
+              >
                 <ul className="mt-4 space-y-2">
                   {controller.sectionOrder.map((sectionKey) => {
-                    const section = CV_SECTION_OPTIONS.find((item) => item.key === sectionKey);
+                    const section = CV_SECTION_OPTIONS.find(
+                      (item) => item.key === sectionKey,
+                    );
                     if (!section) {
                       return null;
                     }
@@ -153,20 +181,41 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
             </DndContext>
           </section>
 
-          <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
-            <h2 className="text-base font-semibold text-[var(--color-textPrimary)]">Live Preview</h2>
-            <p className="mt-1 text-xs text-[var(--color-textSecondary)]">Preview updates in real-time.</p>
+          <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 print:m-0 print:border-none print:bg-white print:p-0 flex flex-col overflow-hidden max-w-full">
+            <h2 className="text-base font-semibold text-[var(--color-textPrimary)] print:hidden">
+              Live Preview
+            </h2>
+            <p className="mt-1 text-xs text-[var(--color-textSecondary)] print:hidden">
+              Preview updates in real-time.
+            </p>
 
-            <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-3 sm:p-6">
-              <Suspense fallback={<div className="text-sm text-[var(--color-textSecondary)]">Loading template preview...</div>}>
-                <TemplatePreview personalInfo={controller.personalInfo} sectionOrder={controller.selectedSectionsOrder} selectedItems={controller.selectedItems} itemsOrder={controller.itemsOrder} />
-              </Suspense>
+            <div className="mt-4 flex-1 overflow-x-auto pb-4 print:m-0 print:overflow-visible print:pb-0">
+              <div className="mx-auto bg-[var(--color-surface)] rounded-lg shadow-md print:shadow-none cv-a4-preview-container print:rounded-none print:bg-white">
+                <Suspense
+                  fallback={
+                    <div className="p-4 text-sm text-[var(--color-textSecondary)] print:hidden">
+                      Loading template preview...
+                    </div>
+                  }
+                >
+                  <TemplatePreview
+                    personalInfo={controller.personalInfo}
+                    sectionOrder={controller.selectedSectionsOrder}
+                    selectedItems={controller.selectedItems}
+                    itemsOrder={controller.itemsOrder}
+                  />
+                </Suspense>
+              </div>
             </div>
           </section>
 
-          <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
-            <h2 className="text-base font-semibold text-[var(--color-textPrimary)]">Templates</h2>
-            <p className="mt-1 text-xs text-[var(--color-textSecondary)]">Choose the style for this CV.</p>
+          <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 print:hidden">
+            <h2 className="text-base font-semibold text-[var(--color-textPrimary)]">
+              Templates
+            </h2>
+            <p className="mt-1 text-xs text-[var(--color-textSecondary)]">
+              Choose the style for this CV.
+            </p>
 
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1">
               {controller.templates.map((template) => {
@@ -179,14 +228,16 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
                     onClick={() => controller.selectTemplate(template.id)}
                     className={`rounded-lg border p-3 text-left transition-colors ${
                       selected
-                        ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
-                        : 'border-[var(--color-border)] bg-[var(--color-background)] hover:border-[var(--color-primary)]/60'
+                        ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10"
+                        : "border-[var(--color-border)] bg-[var(--color-background)] hover:border-[var(--color-primary)]/60"
                     }`}
                   >
                     <div className="h-16 w-full rounded-md border border-[var(--color-border)] bg-[var(--color-elevatedSurface)]" />
-                    <p className="mt-2 text-sm font-semibold text-[var(--color-textPrimary)]">{template.name}</p>
+                    <p className="mt-2 text-sm font-semibold text-[var(--color-textPrimary)]">
+                      {template.name}
+                    </p>
                     <p className="mt-1 text-xs text-[var(--color-textSecondary)] line-clamp-2">
-                      {template.description || 'No description provided.'}
+                      {template.description || "No description provided."}
                     </p>
                   </button>
                 );
@@ -195,7 +246,7 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
           </section>
         </div>
 
-        <div className="sticky bottom-0 z-20 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-3 sm:p-4">
+        <div className="sticky bottom-0 z-20 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-3 sm:p-4 print:hidden">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <input
               type="text"
@@ -212,7 +263,11 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
                 disabled={controller.isSaving}
                 className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-[var(--color-background)] disabled:opacity-70"
               >
-                {controller.isSaving ? 'Saving...' : controller.isEditing ? 'Save CV' : 'Create CV'}
+                {controller.isSaving
+                  ? "Saving..."
+                  : controller.isEditing
+                    ? "Save CV"
+                    : "Create CV"}
               </button>
               <button
                 type="button"

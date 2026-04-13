@@ -1,3 +1,5 @@
+@import './styles/print.css';
+
 /* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;

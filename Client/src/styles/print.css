@@ -1,0 +1,61 @@
+/* Print styles for CV Builder A4 generation */
+
+/* CV Preview Container (Screen & Print) */
+.cv-a4-preview-container {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 10mm;
+  margin: 0 auto;
+}
+
+.cv-a4-preview-container > article {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media print {
+  /* Set A4 paper size and reset margins to allow browser to handle pages smoothly */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Reset Next.js/React wrapper backgrounds */
+  #root,
+  .print-page-wrapper {
+    background: white !important;
+  }
+
+  /* Target the preview container directly to strip out its constraints */
+  .cv-a4-preview-container {
+    padding: 10mm !important;
+    box-shadow: none !important;
+    /* Enforce light theme on the A4 page regardless of system theme for print */
+    --color-background: #ffffff;
+    --color-surface: #ffffff;
+    --color-elevatedSurface: #ffffff;
+    --color-textPrimary: #000000;
+    --color-textSecondary: #333333;
+    --color-border: #e5e7eb;
+  }
+
+  /* Prevent sections from splitting mid-way across pages */
+  .cv-a4-preview-container section,
+  .cv-a4-preview-container article > div > section,
+  .cv-a4-preview-container article > header {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-before: auto;
+  }
+}
