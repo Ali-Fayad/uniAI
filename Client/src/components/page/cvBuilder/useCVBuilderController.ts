@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cvService } from '../../../services/cv';
 import { ROUTES } from '../../../router';
-import type { CVSectionKey, CVTemplateDto, PersonalInfoResponseDto, SelectedItemsDto } from '../../../types/dto';
+import type { CVSectionKey, CVTemplateDto, PersonalInfoResponseDto, SelectedItemsDto, ItemsOrderDto } from '../../../types/dto';
 import { DEFAULT_CV_SECTIONS_ORDER } from './cvBuilderSections';
 
 export interface UseCVBuilderControllerReturn {
@@ -22,6 +22,8 @@ export interface UseCVBuilderControllerReturn {
 
   selectedItems: SelectedItemsDto;
   toggleItem: (sectionKey: CVSectionKey, itemId: string) => void;
+  itemsOrder: ItemsOrderDto;
+  updateItemsOrder: (sectionKey: CVSectionKey, newOrder: string[]) => void;
   refreshPersonalInfo: () => Promise<void>;
   personalInfo: PersonalInfoResponseDto | null;
   selectedTemplateComponentName: string;
@@ -40,6 +42,15 @@ const getInitialEnabledSections = (): Record<CVSectionKey, boolean> => ({
 });
 
 const getInitialSelectedItems = (): SelectedItemsDto => ({
+  skillIds: [],
+  languageIds: [],
+  educationIds: [],
+  experienceIds: [],
+  projectIds: [],
+  certificateIds: [],
+});
+
+const getInitialItemsOrder = (): ItemsOrderDto => ({
   skillIds: [],
   languageIds: [],
   educationIds: [],
@@ -69,6 +80,7 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
   const [sectionEnabled, setSectionEnabled] = useState<Record<CVSectionKey, boolean>>(getInitialEnabledSections);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfoResponseDto | null>(null);
   const [selectedItems, setSelectedItems] = useState<SelectedItemsDto>(getInitialSelectedItems());
+  const [itemsOrder, setItemsOrder] = useState<ItemsOrderDto>(getInitialItemsOrder());
 
   useEffect(() => {
     const loadData = async () => {
@@ -117,6 +129,10 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
             setSelectedItems(cv.selectedItems);
           } else {
             // Keep existing selectedItems state if none persisted for this CV
+          }
+
+          if (cv.itemsOrder) {
+            setItemsOrder(cv.itemsOrder);
           }
 
           if (cv.templateId) {
@@ -188,6 +204,21 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
     });
   };
 
+  const updateItemsOrder = (sectionKey: CVSectionKey, newOrder: string[]) => {
+    setItemsOrder((prev) => {
+      const next = { ...prev };
+      switch (sectionKey) {
+        case 'education': next.educationIds = newOrder; break;
+        case 'experience': next.experienceIds = newOrder; break;
+        case 'skills': next.skillIds = newOrder; break;
+        case 'languages': next.languageIds = newOrder; break;
+        case 'projects': next.projectIds = newOrder; break;
+        case 'certificates': next.certificateIds = newOrder; break;
+      }
+      return next;
+    });
+  };
+
   const refreshPersonalInfo = async () => {
     const info = await cvService.getPersonalInfo();
     setPersonalInfo(info);
@@ -209,6 +240,25 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
       selected.certificateIds = selectNew(selected.certificateIds, info.certificates);
       
       return selected;
+    });
+
+    // Also append new items to the end of itemsOrder
+    setItemsOrder((prevOrder) => {
+      const nextOrder = { ...prevOrder };
+      const appendNew = (existingOrder: string[] = [], items: any[] = []) => {
+        const itemIds = items.map(item => item.id);
+        const newIds = itemIds.filter(id => !existingOrder.includes(id));
+        return [...existingOrder, ...newIds];
+      };
+
+      nextOrder.educationIds = appendNew(nextOrder.educationIds, info.education);
+      nextOrder.experienceIds = appendNew(nextOrder.experienceIds, info.experience);
+      nextOrder.skillIds = appendNew(nextOrder.skillIds, info.skills);
+      nextOrder.languageIds = appendNew(nextOrder.languageIds, info.languages);
+      nextOrder.projectIds = appendNew(nextOrder.projectIds, info.projects);
+      nextOrder.certificateIds = appendNew(nextOrder.certificateIds, info.certificates);
+
+      return nextOrder;
     });
   };
 
@@ -250,6 +300,7 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
           templateId: selectedTemplateId,
           sectionsOrder: selectedSectionsOrder,
           selectedItems,
+          itemsOrder,
         });
       } else {
         const created = await cvService.createCV({
@@ -257,6 +308,7 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
           templateId: selectedTemplateId,
           sectionsOrder: selectedSectionsOrder,
           selectedItems,
+          itemsOrder,
         });
         navigate(`${ROUTES.CV_BUILDER}/${created.id}`, { replace: true });
       }
@@ -286,6 +338,8 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
     reorderSections,
     selectedItems,
     toggleItem,
+    itemsOrder,
+    updateItemsOrder,
     refreshPersonalInfo,
     selectedSectionsOrder,
     personalInfo,

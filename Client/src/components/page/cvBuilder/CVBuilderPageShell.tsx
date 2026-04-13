@@ -126,12 +126,26 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
                     }
 
                     return (
-                      <SortableSectionItem
-                        key={section.key}
-                        section={section}
-                        enabled={controller.sectionEnabled[section.key]}
-                        onToggle={controller.toggleSection}
-                      />
+                      <div key={section.key} className="flex flex-col gap-2">
+                        <SortableSectionItem
+                          section={section}
+                          enabled={controller.sectionEnabled[section.key]}
+                          onToggle={controller.toggleSection}
+                        />
+                        {controller.sectionEnabled[section.key] && (
+                          <div className="pl-10 pb-2">
+                            <SectionItemSelector
+                              sectionKey={section.key}
+                              personalInfo={controller.personalInfo}
+                              selectedItems={controller.selectedItems}
+                              itemsOrder={controller.itemsOrder}
+                              onToggleItem={controller.toggleItem}
+                              onReorderItems={controller.updateItemsOrder}
+                              onAddNew={setAddItemModalSection}
+                            />
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </ul>
@@ -145,7 +159,7 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
 
             <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-3 sm:p-6">
               <Suspense fallback={<div className="text-sm text-[var(--color-textSecondary)]">Loading template preview...</div>}>
-                <TemplatePreview personalInfo={controller.personalInfo} sectionOrder={controller.selectedSectionsOrder} selectedItems={controller.selectedItems} />
+                <TemplatePreview personalInfo={controller.personalInfo} sectionOrder={controller.selectedSectionsOrder} selectedItems={controller.selectedItems} itemsOrder={controller.itemsOrder} />
               </Suspense>
             </div>
           </section>

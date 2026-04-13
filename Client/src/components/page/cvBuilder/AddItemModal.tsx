@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import type { CVSectionKey } from '../../../types/dto';
-import { usePersonalInfoController } from '../personalInfo/usePersonalInfoController';
 
 // We could reuse the internal form components from personalInfo, but for speed 
 // and encapsulation, we'll just refer user to the Personal Info page for now or open it. 

@@ -285,6 +285,15 @@ export interface SelectedItemsDto {
   certificateIds?: string[];
 }
 
+export interface ItemsOrderDto {
+  skillIds?: string[];
+  languageIds?: string[];
+  educationIds?: string[];
+  experienceIds?: string[];
+  projectIds?: string[];
+  certificateIds?: string[];
+}
+
 export interface CVDto {
   id: number;
   userId: number;
@@ -295,6 +304,7 @@ export interface CVDto {
   template?: string | null;
   sectionsOrder?: CVSectionKey[];
   selectedItems?: SelectedItemsDto;
+  itemsOrder?: ItemsOrderDto;
   isDefault: boolean;
   createdAt: string;
   updatedAt: string;
@@ -306,6 +316,7 @@ export interface CreateCVDto {
   templateId: number;
   sectionsOrder: CVSectionKey[];
   selectedItems?: SelectedItemsDto;
+  itemsOrder?: ItemsOrderDto;
   isDefault?: boolean;
 }
 
@@ -314,6 +325,7 @@ export interface UpdateCVDto {
   templateId?: number;
   sectionsOrder?: CVSectionKey[];
   selectedItems?: SelectedItemsDto;
+  itemsOrder?: ItemsOrderDto;
   isDefault?: boolean;
 }
 

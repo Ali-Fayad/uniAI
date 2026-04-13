@@ -1,11 +1,13 @@
-import { Check } from 'lucide-react';
-import type { CVSectionKey, PersonalInfoResponseDto, SelectedItemsDto } from '../../../types/dto';
+import type { CVSectionKey, PersonalInfoResponseDto, SelectedItemsDto, ItemsOrderDto } from '../../../types/dto';
+import SortableItemList from './SortableItemList';
 
 interface SectionItemSelectorProps {
   sectionKey: CVSectionKey;
   personalInfo: PersonalInfoResponseDto | null;
   selectedItems: SelectedItemsDto;
+  itemsOrder: ItemsOrderDto;
   onToggleItem: (sectionKey: CVSectionKey, itemId: string) => void;
+  onReorderItems: (sectionKey: CVSectionKey, newOrder: string[]) => void;
   onAddNew: (sectionKey: CVSectionKey) => void;
 }
 
@@ -13,7 +15,9 @@ export const SectionItemSelector = ({
   sectionKey,
   personalInfo,
   selectedItems,
+  itemsOrder,
   onToggleItem,
+  onReorderItems,
   onAddNew,
 }: SectionItemSelectorProps) => {
   if (!personalInfo) return null;
@@ -54,8 +58,21 @@ export const SectionItemSelector = ({
     }
   };
 
+  const getOrderForSection = (): string[] => {
+    switch (sectionKey) {
+      case 'education': return itemsOrder.educationIds || [];
+      case 'experience': return itemsOrder.experienceIds || [];
+      case 'skills': return itemsOrder.skillIds || [];
+      case 'languages': return itemsOrder.languageIds || [];
+      case 'projects': return itemsOrder.projectIds || [];
+      case 'certificates': return itemsOrder.certificateIds || [];
+      default: return [];
+    }
+  };
+
   const items = getItemsForSection();
   const selectedIds = getSelectedIdsForSection();
+  const orderIds = getOrderForSection();
 
   if (items.length === 0) {
     return (
@@ -84,23 +101,15 @@ export const SectionItemSelector = ({
           + Add New
         </button>
       </div>
-      <div className="flex flex-col gap-1 max-h-48 overflow-y-auto pr-1">
-        {items.map((item: any) => {
-          const isSelected = selectedIds.includes(item.id);
-          return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => onToggleItem(sectionKey, item.id)}
-              className={`flex items-center gap-3 p-2 rounded-md transition-colors text-left ${isSelected ? 'bg-[var(--color-primary)]/10 text-[var(--color-textPrimary)]' : 'hover:bg-[var(--color-surfaceHover)] text-[var(--color-textSecondary)]'}`}
-            >
-              <div className={`flex items-center justify-center w-4 h-4 rounded border ${isSelected ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-white' : 'border-[var(--color-border)]'}`}>
-                {isSelected && <Check className="w-3 h-3" />}
-              </div>
-              <span className="text-sm truncate leading-tight">{getDisplayLabel(item)}</span>
-            </button>
-          );
-        })}
+      <div className="flex flex-col gap-1 max-h-[400px] overflow-y-auto pr-1">
+        <SortableItemList
+          items={items}
+          itemsOrder={orderIds}
+          selectedItemIds={selectedIds}
+          onToggle={(id, _checked) => onToggleItem(sectionKey, id)}
+          onReorder={(newOrder) => onReorderItems(sectionKey, newOrder)}
+          getLabel={getDisplayLabel}
+        />
       </div>
     </div>
   );
