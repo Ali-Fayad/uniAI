@@ -180,18 +180,26 @@ export interface PersonalInfoEducationEntryDto {
   id: string;
   universityId?: number | null;
   universityName: string;
+  degree?: string;
+  fieldOfStudy?: string;
+  startDate?: string;
+  endDate?: string;
+  grade?: string;
+  description?: string;
 }
 
 export interface PersonalInfoSkillEntryDto {
   id: string;
   skillId: string;
   name: string;
+  level?: string;
 }
 
 export interface PersonalInfoLanguageEntryDto {
   id: string;
   languageId: string;
   name: string;
+  proficiency?: string;
 }
 
 export interface PersonalInfoExperienceEntryDto {
@@ -199,6 +207,11 @@ export interface PersonalInfoExperienceEntryDto {
   positionId: string;
   position: string;
   company: string;
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  currentlyWorking?: boolean;
+  description?: string;
 }
 
 export interface PersonalInfoProjectEntryDto {
@@ -207,12 +220,16 @@ export interface PersonalInfoProjectEntryDto {
   description?: string;
   repositoryUrl?: string;
   liveUrl?: string;
+  startDate?: string;
+  endDate?: string;
+  technologies?: string[];
 }
 
 export interface PersonalInfoCertificateEntryDto {
   id: string;
   name: string;
   issuer?: string;
+  date?: string;
   credentialUrl?: string;
 }
 
@@ -241,7 +258,6 @@ export interface PersonalInfoStatusDto {
   missingFields: string[];
 }
 
-
 export interface UpdatePersonalInfoDto {
   phone?: string;
   address?: string;
@@ -260,12 +276,12 @@ export interface UpdatePersonalInfoDto {
 }
 
 export type CVSectionKey =
-  | 'education'
-  | 'experience'
-  | 'skills'
-  | 'languages'
-  | 'projects'
-  | 'certificates';
+  | "education"
+  | "experience"
+  | "skills"
+  | "languages"
+  | "projects"
+  | "certificates";
 
 export interface CVTemplateDto {
   id: number;
@@ -328,4 +344,3 @@ export interface UpdateCVDto {
   itemsOrder?: ItemsOrderDto;
   isDefault?: boolean;
 }
-
