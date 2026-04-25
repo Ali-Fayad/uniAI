@@ -2,6 +2,7 @@ package com.uniai.chat.application.service;
 
 import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
+import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.port.in.*;
 import com.uniai.chat.application.port.out.AiServicePort;
@@ -93,9 +94,12 @@ public class ChatApplicationService implements
     // -------------------------------------------------------------------------
 
     @Override
-    public List<Chat> getUserChats(String email) {
+    public List<ChatSummaryResponseDto> getUserChats(String email) {
         User user = getUser(email);
-        return chatRepository.findByUserUsernameOrderByUpdatedAtDesc(user.getUsername());
+        return chatRepository.findByUserUsernameOrderByUpdatedAtDesc(user.getUsername())
+                .stream()
+                .map(this::toSummaryDto)
+                .toList();
     }
 
     // -------------------------------------------------------------------------
@@ -183,6 +187,15 @@ public class ChatApplicationService implements
                 .senderId(message.getSenderId())
                 .content(message.getContent())
                 .timestamp(message.getTimestamp())
+                .build();
+    }
+
+    private ChatSummaryResponseDto toSummaryDto(Chat chat) {
+        return ChatSummaryResponseDto.builder()
+                .id(chat.getId())
+                .title(chat.getTitle())
+                .createdAt(chat.getCreatedAt())
+                .updatedAt(chat.getUpdatedAt())
                 .build();
     }
 }

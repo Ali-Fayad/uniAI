@@ -155,7 +155,6 @@ export interface MessageResponseDto {
 
 export interface Chat {
   id: number;
-  user: UserData;
   title: string | null;
   createdAt: string;
   updatedAt: string;

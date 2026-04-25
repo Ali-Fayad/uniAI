@@ -1,9 +1,9 @@
 package com.uniai.chat.application.port.in;
 
-import com.uniai.chat.domain.model.Chat;
-
 import java.util.List;
 
+import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
+
 public interface GetUserChatsUseCase {
-    List<Chat> getUserChats(String email);
+    List<ChatSummaryResponseDto> getUserChats(String email);
 }

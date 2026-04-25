@@ -36,6 +36,7 @@ import com.uniai.cvbuilder.domain.model.CVTemplate;
 import com.uniai.cvbuilder.domain.model.Certificate;
 import com.uniai.cvbuilder.domain.model.Education;
 import com.uniai.cvbuilder.domain.model.Experience;
+import com.uniai.cvbuilder.domain.model.ItemsOrder;
 import com.uniai.cvbuilder.domain.model.Language;
 import com.uniai.cvbuilder.domain.model.PersonalInfo;
 import com.uniai.cvbuilder.domain.model.Project;

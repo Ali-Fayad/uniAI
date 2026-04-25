@@ -1,0 +1,2 @@
+ALTER TABLE cvs
+ADD COLUMN IF NOT EXISTS items_order JSONB;

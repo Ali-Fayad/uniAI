@@ -8,6 +8,7 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import PublicRoute from "./components/common/PublicRoute";
 import { PageTransition } from "./components/animations";
 
 // Page Components
@@ -48,9 +49,32 @@ export const AppRouter = () => {
         <Route path="/" element={<MainPage />} />
 
         {/* Auth Routes */}
-        <Route path="/auth" element={<PageTransition><AuthLanding /></PageTransition>} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/auth"
+          element={
+            <PublicRoute>
+              <PageTransition>
+                <AuthLanding />
+              </PageTransition>
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <PublicRoute>
+              <SignIn />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <SignUp />
+            </PublicRoute>
+          }
+        />
         <Route path="/verify" element={<PageTransition><Verify /></PageTransition>} />
         <Route path="/2fa/verify" element={<PageTransition><Verify2FA /></PageTransition>} />
         <Route path="/forgot-password" element={<PageTransition><ForgotPassword /></PageTransition>} />

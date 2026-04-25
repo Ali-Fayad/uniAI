@@ -2,9 +2,9 @@ package com.uniai.chat.presentation.controller;
 
 import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
+import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.port.in.*;
-import com.uniai.chat.domain.model.Chat;
 import com.uniai.shared.infrastructure.jwt.JwtFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class ChatController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Chat>> getUserChats() {
+    public ResponseEntity<List<ChatSummaryResponseDto>> getUserChats() {
         String email = jwtFacade.getAuthenticatedUserEmail();
         return ResponseEntity.ok(getUserChatsUseCase.getUserChats(email));
     }
