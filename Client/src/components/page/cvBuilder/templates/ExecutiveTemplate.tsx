@@ -1,34 +1,58 @@
-import type { CVTemplateComponentProps } from './templateTypes';
+import { ResumeHeader, ResumeItem, ResumePage, ResumeSection, SkillList } from './ResumePrimitives';
+import type { CVTemplateComponentProps, CVTemplatePalette } from './templateTypes';
+import { mergePalette } from './templateTypes';
 import { getContactItems, getDisplayName, getSectionData } from './templateHelpers';
 
-const ExecutiveTemplate = ({ personalInfo, sectionOrder, selectedItems , itemsOrder }: CVTemplateComponentProps) => {
+const defaultPalette: CVTemplatePalette = {
+  paper: '#fbfbf8',
+  ink: '#172033',
+  muted: '#5b6472',
+  accent: '#9a6a16',
+  accentSoft: '#f3ead7',
+  rule: '#d8d2c4',
+};
+
+const ExecutiveTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+  const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Inter, Arial, sans-serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
-  const contactItems = getContactItems(personalInfo);
+  const sidebarSections = sections.filter((section) => section.key === 'skills' || section.key === 'languages' || section.key === 'certificates');
+  const mainSections = sections.filter((section) => !sidebarSections.includes(section));
 
   return (
-    <article className="mx-auto max-w-3xl border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-textPrimary)]">
-      <header className="bg-[var(--color-elevatedSurface)] px-8 py-6">
-        <h3 className="text-3xl font-bold">{getDisplayName()}</h3>
-        {personalInfo?.jobTitle && <p className="mt-1 text-sm text-[var(--color-textSecondary)]">{personalInfo.jobTitle}</p>}
-        {personalInfo?.company && <p className="text-sm text-[var(--color-textSecondary)]">{personalInfo.company}</p>}
-        {contactItems.length > 0 && <p className="mt-2 text-xs text-[var(--color-textSecondary)]">{contactItems.join(' • ')}</p>}
-      </header>
-
-      <div className="space-y-5 px-8 py-6">
-        {sections.map((section) => (
-          <section key={section.key}>
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">{section.title}</h4>
-            <ul className="mt-2 space-y-1 text-sm">
-              {section.items.map((item, index) => (
-                <li key={`${section.key}-${index}`} className="rounded-md bg-[var(--color-background)] px-3 py-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+    <ResumePage theme={theme} className="p-[18mm]">
+      <div className="border-b-4 pb-5" style={{ borderColor: theme.palette.accent }}>
+        <ResumeHeader
+          name={getDisplayName()}
+          title={personalInfo?.jobTitle}
+          company={personalInfo?.company}
+          summary={personalInfo?.summary}
+          contactItems={getContactItems(personalInfo)}
+          theme={theme}
+        />
       </div>
-    </article>
+
+      <div className="mt-7 grid grid-cols-[1fr_52mm] gap-9">
+        <div className="space-y-5">
+          {mainSections.map((section) => (
+            <ResumeSection key={section.key} section={section} theme={theme} variant="ruled">
+              <div className="space-y-4">
+                {section.items.map((item) => (
+                  <ResumeItem key={item.id} item={item} theme={theme} />
+                ))}
+              </div>
+            </ResumeSection>
+          ))}
+        </div>
+
+        <aside className="space-y-5 border-l pl-5" style={{ borderColor: theme.palette.rule }}>
+          {sidebarSections.map((section) => (
+            <ResumeSection key={section.key} section={section} theme={theme} variant="compact">
+              <SkillList items={section.items} theme={theme} variant="plain" />
+            </ResumeSection>
+          ))}
+        </aside>
+      </div>
+    </ResumePage>
   );
 };
 

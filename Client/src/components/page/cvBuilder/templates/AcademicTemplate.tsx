@@ -1,40 +1,63 @@
-import type { CVTemplateComponentProps } from './templateTypes';
+import { ResumeHeader, ResumeItem, ResumePage, ResumeSection, SkillList } from './ResumePrimitives';
+import type { CVTemplateComponentProps, CVTemplatePalette } from './templateTypes';
+import { mergePalette } from './templateTypes';
 import { getContactItems, getDisplayName, getSectionData } from './templateHelpers';
 
-const AcademicTemplate = ({ personalInfo, sectionOrder, selectedItems , itemsOrder }: CVTemplateComponentProps) => {
+const defaultPalette: CVTemplatePalette = {
+  paper: '#ffffff',
+  ink: '#202124',
+  muted: '#5f6368',
+  accent: '#174ea6',
+  accentSoft: '#e8f0fe',
+  rule: '#cfd8dc',
+};
+
+const AcademicTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+  const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Merriweather, Georgia, Times New Roman, serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
-  const contactItems = getContactItems(personalInfo);
 
   return (
-    <article className="mx-auto max-w-3xl bg-[var(--color-surface)] p-8 text-[var(--color-textPrimary)]">
-      <header>
-        <h3 className="text-2xl font-bold">{getDisplayName()}</h3>
-        {personalInfo?.jobTitle && <p className="mt-1 text-sm text-[var(--color-textSecondary)]">{personalInfo.jobTitle}</p>}
-        {contactItems.length > 0 && <p className="mt-2 text-xs text-[var(--color-textSecondary)]">{contactItems.join(' • ')}</p>}
-      </header>
-
-      {personalInfo?.summary && (
-        <section className="mt-5">
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">Research Summary</h4>
-          <p className="mt-2 text-sm text-[var(--color-textSecondary)]">{personalInfo.summary}</p>
-        </section>
-      )}
-
-      <div className="mt-5 space-y-4">
-        {sections.map((section) => (
-          <section key={section.key}>
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">{section.title}</h4>
-            <ul className="mt-2 space-y-1 text-sm">
-              {section.items.map((item, index) => (
-                <li key={`${section.key}-${index}`} className="border-l-2 border-[var(--color-border)] pl-3">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+    <ResumePage theme={theme} className="p-[18mm]">
+      <div className="border-b pb-4" style={{ borderColor: theme.palette.rule }}>
+        <ResumeHeader
+          name={getDisplayName()}
+          title={personalInfo?.jobTitle}
+          company={personalInfo?.company}
+          summary={personalInfo?.summary}
+          contactItems={getContactItems(personalInfo)}
+          theme={theme}
+          compact
+        />
       </div>
-    </article>
+
+      <div className="mt-5 grid grid-cols-[40mm_1fr] gap-8">
+        <aside className="space-y-5">
+          {sections
+            .filter((section) => section.key === 'skills' || section.key === 'languages' || section.key === 'certificates')
+            .map((section) => (
+              <ResumeSection key={section.key} section={section} theme={theme} variant="compact">
+                <SkillList items={section.items} theme={theme} variant="plain" />
+              </ResumeSection>
+            ))}
+        </aside>
+
+        <div className="space-y-5">
+          {sections
+            .filter((section) => section.key !== 'skills' && section.key !== 'languages' && section.key !== 'certificates')
+            .map((section) => (
+              <ResumeSection key={section.key} section={section} theme={theme} variant="ruled">
+                <div className="space-y-3">
+                  {section.items.map((item) => (
+                    <div key={item.id} className="border-l-2 pl-3" style={{ borderColor: theme.palette.accentSoft }}>
+                      <ResumeItem item={item} theme={theme} />
+                    </div>
+                  ))}
+                </div>
+              </ResumeSection>
+            ))}
+        </div>
+      </div>
+    </ResumePage>
   );
 };
 

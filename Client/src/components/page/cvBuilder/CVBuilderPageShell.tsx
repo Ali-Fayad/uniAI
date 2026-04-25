@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, createElement, useState } from "react";
 import {
   closestCenter,
   DndContext,
@@ -20,10 +20,11 @@ import { GripVertical } from "lucide-react";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { SectionItemSelector } from "./SectionItemSelector";
 import { AddItemModal } from "./AddItemModal";
-import { getTemplateComponent } from "./templates/templateRegistry";
+import { getTemplateComponent, getTemplatePreviewConfig } from "./templates/templateRegistry";
 import { CV_SECTION_OPTIONS } from "./cvBuilderSections";
 import type { UseCVBuilderControllerReturn } from "./useCVBuilderController";
 import type { CVSectionKey } from "../../../types/dto";
+import type { TemplatePreviewConfig } from "./templates/templateRegistry";
 
 interface CVBuilderPageShellProps {
   controller: UseCVBuilderControllerReturn;
@@ -75,6 +76,43 @@ const SortableSectionItem = ({
   );
 };
 
+const TemplateCardPreview = ({ config }: { config: TemplatePreviewConfig }) => {
+  const { palette, layout } = config;
+  const sidebarWidth = layout === "sidebar" ? "34%" : layout === "academic" || layout === "executive" ? "24%" : "0";
+
+  return (
+    <div
+      className="h-20 w-full overflow-hidden rounded-md border p-2 shadow-sm"
+      style={{ backgroundColor: palette.paper, borderColor: palette.rule }}
+    >
+      <div className="flex h-full gap-2">
+        {sidebarWidth !== "0" && (
+          <div
+            className="h-full rounded-sm p-1"
+            style={{
+              width: sidebarWidth,
+              backgroundColor: layout === "sidebar" ? palette.sidebar ?? palette.accent : palette.accentSoft,
+            }}
+          >
+            <div className="mb-1 h-1.5 rounded-sm" style={{ backgroundColor: layout === "sidebar" ? palette.sidebarInk : palette.accent }} />
+            <div className="h-1 w-2/3 rounded-sm" style={{ backgroundColor: layout === "sidebar" ? palette.sidebarInk : palette.muted, opacity: 0.75 }} />
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <div className="h-2.5 w-3/5 rounded-sm" style={{ backgroundColor: palette.ink }} />
+          <div className="mt-1 h-1.5 w-2/5 rounded-sm" style={{ backgroundColor: palette.accent }} />
+          <div className="mt-2 h-px w-full" style={{ backgroundColor: palette.rule }} />
+          <div className={layout === "compact" || layout === "technical" ? "mt-2 grid grid-cols-2 gap-1" : "mt-2 space-y-1.5"}>
+            <div className="h-1.5 rounded-sm" style={{ backgroundColor: palette.muted, opacity: 0.55 }} />
+            <div className="h-1.5 rounded-sm" style={{ backgroundColor: palette.muted, opacity: 0.45 }} />
+            {layout !== "compact" && <div className="h-1.5 w-4/5 rounded-sm" style={{ backgroundColor: palette.muted, opacity: 0.35 }} />}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
   const [addItemModalSection, setAddItemModalSection] =
     useState<CVSectionKey | null>(null);
@@ -94,10 +132,6 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
     }
     controller.reorderSections(String(event.active.id), String(event.over.id));
   };
-
-  const TemplatePreview = getTemplateComponent(
-    controller.selectedTemplateComponentName,
-  );
 
   if (controller.isLoading) {
     return (
@@ -198,12 +232,12 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
                     </div>
                   }
                 >
-                  <TemplatePreview
-                    personalInfo={controller.personalInfo}
-                    sectionOrder={controller.selectedSectionsOrder}
-                    selectedItems={controller.selectedItems}
-                    itemsOrder={controller.itemsOrder}
-                  />
+                  {createElement(getTemplateComponent(controller.selectedTemplateComponentName), {
+                    personalInfo: controller.personalInfo,
+                    sectionOrder: controller.selectedSectionsOrder,
+                    selectedItems: controller.selectedItems,
+                    itemsOrder: controller.itemsOrder,
+                  })}
                 </Suspense>
               </div>
             </div>
@@ -220,6 +254,7 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1">
               {controller.templates.map((template) => {
                 const selected = template.id === controller.selectedTemplateId;
+                const previewConfig = getTemplatePreviewConfig(template.componentName);
 
                 return (
                   <button
@@ -232,7 +267,7 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
                         : "border-[var(--color-border)] bg-[var(--color-background)] hover:border-[var(--color-primary)]/60"
                     }`}
                   >
-                    <div className="h-16 w-full rounded-md border border-[var(--color-border)] bg-[var(--color-elevatedSurface)]" />
+                    <TemplateCardPreview config={previewConfig} />
                     <p className="mt-2 text-sm font-semibold text-[var(--color-textPrimary)]">
                       {template.name}
                     </p>
@@ -280,15 +315,6 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
           </div>
         </div>
       </div>
-      {addItemModalSection && (
-        <AddItemModal
-          sectionKey={addItemModalSection}
-          onClose={() => setAddItemModalSection(null)}
-          onAdded={async () => {
-            await controller.refreshPersonalInfo();
-          }}
-        />
-      )}
       {addItemModalSection && (
         <AddItemModal
           sectionKey={addItemModalSection}

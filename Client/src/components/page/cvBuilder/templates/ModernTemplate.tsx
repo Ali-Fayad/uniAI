@@ -1,33 +1,46 @@
-import type { CVTemplateComponentProps } from './templateTypes';
+import { ResumeHeader, ResumePage, ResumeSection, SkillList } from './ResumePrimitives';
+import type { CVTemplateComponentProps, CVTemplatePalette } from './templateTypes';
+import { mergePalette } from './templateTypes';
 import { getContactItems, getDisplayName, getSectionData } from './templateHelpers';
 
-const ModernTemplate = ({ personalInfo, sectionOrder, selectedItems , itemsOrder }: CVTemplateComponentProps) => {
+const defaultPalette: CVTemplatePalette = {
+  paper: '#ffffff',
+  ink: '#1f2933',
+  muted: '#667085',
+  accent: '#2563eb',
+  accentSoft: '#dbeafe',
+  rule: '#d9e2ec',
+};
+
+const ModernTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+  const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Inter, Arial, sans-serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
   const contactItems = getContactItems(personalInfo);
+  const skillSection = sections.find((section) => section.key === 'skills');
+  const mainSections = sections.filter((section) => section.key !== 'skills');
 
   return (
-    <article className="mx-auto max-w-3xl bg-[var(--color-surface)] p-8 text-[var(--color-textPrimary)]">
-      <header className="border-b border-[var(--color-border)] pb-5">
-        <h3 className="text-3xl font-bold">{getDisplayName()}</h3>
-        {personalInfo?.jobTitle && <p className="mt-2 text-sm text-[var(--color-textSecondary)]">{personalInfo.jobTitle}</p>}
-        {contactItems.length > 0 && <p className="mt-2 text-xs text-[var(--color-textSecondary)]">{contactItems.join(' • ')}</p>}
-      </header>
+    <ResumePage theme={theme} className="p-[18mm]">
+      <ResumeHeader
+        name={getDisplayName()}
+        title={personalInfo?.jobTitle}
+        company={personalInfo?.company}
+        summary={personalInfo?.summary}
+        contactItems={contactItems}
+        theme={theme}
+      />
 
-      {personalInfo?.summary && <p className="mt-5 text-sm leading-6 text-[var(--color-textSecondary)]">{personalInfo.summary}</p>}
-
-      <div className="mt-6 space-y-5">
-        {sections.map((section) => (
-          <section key={section.key}>
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">{section.title}</h4>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--color-textPrimary)]">
-              {section.items.map((item, index) => (
-                <li key={`${section.key}-${index}`}>{item}</li>
-              ))}
-            </ul>
-          </section>
+      <div className="mt-7 space-y-5">
+        {skillSection && (
+          <ResumeSection section={skillSection} theme={theme}>
+            <SkillList items={skillSection.items} theme={theme} />
+          </ResumeSection>
+        )}
+        {mainSections.map((section) => (
+          <ResumeSection key={section.key} section={section} theme={theme} />
         ))}
       </div>
-    </article>
+    </ResumePage>
   );
 };
 

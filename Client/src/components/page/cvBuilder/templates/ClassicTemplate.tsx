@@ -1,31 +1,43 @@
-import type { CVTemplateComponentProps } from './templateTypes';
+import { ResumeHeader, ResumePage, ResumeSection, SkillList } from './ResumePrimitives';
+import type { CVTemplateComponentProps, CVTemplatePalette } from './templateTypes';
+import { mergePalette } from './templateTypes';
 import { getContactItems, getDisplayName, getSectionData } from './templateHelpers';
 
-const ClassicTemplate = ({ personalInfo, sectionOrder, selectedItems , itemsOrder }: CVTemplateComponentProps) => {
+const defaultPalette: CVTemplatePalette = {
+  paper: '#fffdf8',
+  ink: '#1f1a17',
+  muted: '#6f6259',
+  accent: '#7a3415',
+  accentSoft: '#f6e7d8',
+  rule: '#d9c6b8',
+};
+
+const ClassicTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+  const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Georgia, Times New Roman, serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
-  const contactItems = getContactItems(personalInfo);
 
   return (
-    <article className="mx-auto max-w-3xl bg-[var(--color-surface)] p-8 text-[var(--color-textPrimary)]" style={{ fontFamily: 'Georgia, Times New Roman, serif' }}>
-      <header className="text-center">
-        <h3 className="text-3xl font-semibold">{getDisplayName()}</h3>
-        {personalInfo?.jobTitle && <p className="mt-1 text-sm">{personalInfo.jobTitle}</p>}
-        {contactItems.length > 0 && <p className="mt-2 text-xs text-[var(--color-textSecondary)]">{contactItems.join(' | ')}</p>}
-      </header>
+    <ResumePage theme={theme} className="p-[19mm]">
+      <ResumeHeader
+        name={getDisplayName()}
+        title={personalInfo?.jobTitle}
+        company={personalInfo?.company}
+        summary={personalInfo?.summary}
+        contactItems={getContactItems(personalInfo)}
+        theme={theme}
+        align="center"
+      />
 
       <div className="mt-6 space-y-5">
         {sections.map((section) => (
-          <section key={section.key}>
-            <h4 className="border-b border-[var(--color-border)] pb-1 text-sm font-semibold uppercase tracking-wide">{section.title}</h4>
-            <ul className="mt-2 space-y-1 text-sm">
-              {section.items.map((item, index) => (
-                <li key={`${section.key}-${index}`}>{item}</li>
-              ))}
-            </ul>
-          </section>
+          <ResumeSection key={section.key} section={section} theme={theme} variant="ruled">
+            {section.key === 'skills' || section.key === 'languages' ? (
+              <SkillList items={section.items} theme={theme} variant="plain" />
+            ) : undefined}
+          </ResumeSection>
         ))}
       </div>
-    </article>
+    </ResumePage>
   );
 };
 

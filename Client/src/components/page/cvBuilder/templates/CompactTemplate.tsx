@@ -1,33 +1,43 @@
-import type { CVTemplateComponentProps } from './templateTypes';
+import { ResumeHeader, ResumePage, ResumeSection, SkillList } from './ResumePrimitives';
+import type { CVTemplateComponentProps, CVTemplatePalette } from './templateTypes';
+import { mergePalette } from './templateTypes';
 import { getContactItems, getDisplayName, getSectionData } from './templateHelpers';
 
-const CompactTemplate = ({ personalInfo, sectionOrder, selectedItems , itemsOrder }: CVTemplateComponentProps) => {
+const defaultPalette: CVTemplatePalette = {
+  paper: '#ffffff',
+  ink: '#111827',
+  muted: '#6b7280',
+  accent: '#4f46e5',
+  accentSoft: '#e0e7ff',
+  rule: '#e5e7eb',
+};
+
+const CompactTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+  const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Arial, Helvetica, sans-serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
-  const contactItems = getContactItems(personalInfo);
 
   return (
-    <article className="mx-auto max-w-3xl bg-[var(--color-surface)] p-5 text-[var(--color-textPrimary)]">
-      <header>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="text-2xl font-bold">{getDisplayName()}</h3>
-          {personalInfo?.jobTitle && <p className="text-sm text-[var(--color-textSecondary)]">{personalInfo.jobTitle}</p>}
-        </div>
-        {contactItems.length > 0 && <p className="mt-1 text-xs text-[var(--color-textSecondary)]">{contactItems.join(' • ')}</p>}
-      </header>
+    <ResumePage theme={theme} className="p-[13mm] text-[12px]">
+      <ResumeHeader
+        name={getDisplayName()}
+        title={personalInfo?.jobTitle}
+        company={personalInfo?.company}
+        summary={personalInfo?.summary}
+        contactItems={getContactItems(personalInfo)}
+        theme={theme}
+        compact
+      />
 
-      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-4">
         {sections.map((section) => (
-          <section key={section.key} className="rounded-md border border-[var(--color-border)] p-2">
-            <h4 className="text-xs font-semibold uppercase tracking-wide text-[var(--color-primary)]">{section.title}</h4>
-            <ul className="mt-1 space-y-1 text-xs">
-              {section.items.map((item, index) => (
-                <li key={`${section.key}-${index}`}>{item}</li>
-              ))}
-            </ul>
-          </section>
+          <ResumeSection key={section.key} section={section} theme={theme} variant="compact">
+            {section.key === 'skills' || section.key === 'languages' ? (
+              <SkillList items={section.items} theme={theme} variant="plain" />
+            ) : undefined}
+          </ResumeSection>
         ))}
       </div>
-    </article>
+    </ResumePage>
   );
 };
 
