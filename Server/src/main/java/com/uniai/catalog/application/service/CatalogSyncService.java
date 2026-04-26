@@ -2,8 +2,8 @@ package com.uniai.catalog.application.service;
 
 import com.uniai.catalog.domain.model.PositionCatalog;
 import com.uniai.catalog.domain.model.SkillCatalog;
-import com.uniai.catalog.infrastructure.persistence.repository.PositionCatalogJpaRepository;
-import com.uniai.catalog.infrastructure.persistence.repository.SkillCatalogJpaRepository;
+import com.uniai.catalog.domain.repository.PositionCatalogRepository;
+import com.uniai.catalog.domain.repository.SkillCatalogRepository;
 import com.uniai.cvbuilder.infrastructure.client.PositionsApiClient;
 import com.uniai.cvbuilder.infrastructure.client.SkillsApiClient;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,8 @@ public class CatalogSyncService {
 
     private final SkillsApiClient skillsApiClient;
     private final PositionsApiClient positionsApiClient;
-    private final SkillCatalogJpaRepository skillRepository;
-    private final PositionCatalogJpaRepository positionRepository;
+    private final SkillCatalogRepository skillRepository;
+    private final PositionCatalogRepository positionRepository;
 
     @CacheEvict(value = {"catalog-skills", "catalog-languages", "catalog-positions", "catalog-universities"}, allEntries = true)
     public void syncExternalCatalogs() {

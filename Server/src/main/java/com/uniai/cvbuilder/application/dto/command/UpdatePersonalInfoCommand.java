@@ -39,6 +39,12 @@ public class UpdatePersonalInfoCommand {
         private String id;
         private Long universityId;
         private String universityName;
+        private String degree;
+        private String fieldOfStudy;
+        private String startDate;
+        private String endDate;
+        private String grade;
+        private String description;
     }
 
     @Data
@@ -48,6 +54,7 @@ public class UpdatePersonalInfoCommand {
         private String id;
         private String skillId;
         private String name;
+        private String level;
     }
 
     @Data
@@ -57,6 +64,7 @@ public class UpdatePersonalInfoCommand {
         private String id;
         private String languageId;
         private String name;
+        private String proficiency;
     }
 
     @Data
@@ -67,6 +75,11 @@ public class UpdatePersonalInfoCommand {
         private String positionId;
         private String position;
         private String company;
+        private String location;
+        private String startDate;
+        private String endDate;
+        private Boolean currentlyWorking;
+        private String description;
     }
 
     @Data
@@ -78,6 +91,9 @@ public class UpdatePersonalInfoCommand {
         private String description;
         private String repositoryUrl;
         private String liveUrl;
+        private String startDate;
+        private String endDate;
+        private List<String> technologies;
     }
 
     @Data
@@ -87,6 +103,7 @@ public class UpdatePersonalInfoCommand {
         private String id;
         private String name;
         private String issuer;
+        private String date;
         private String credentialUrl;
     }
 }

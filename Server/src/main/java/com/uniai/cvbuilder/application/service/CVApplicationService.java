@@ -23,6 +23,9 @@ import com.uniai.cvbuilder.application.dto.response.LanguageResponse;
 import com.uniai.cvbuilder.application.dto.response.ProjectResponse;
 import com.uniai.cvbuilder.application.dto.response.SkillResponse;
 import com.uniai.cvbuilder.application.dto.response.UniversityResponse;
+import com.uniai.cvbuilder.application.mapper.CVMapper;
+import com.uniai.cvbuilder.application.mapper.CVSelectionMapper;
+import com.uniai.cvbuilder.application.mapper.UniversityMapper;
 import com.uniai.cvbuilder.application.port.in.CVUseCase;
 import com.uniai.cvbuilder.domain.builder.CVBuilder;
 import com.uniai.cvbuilder.domain.builder.CertificateBuilder;
@@ -52,8 +55,6 @@ import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
 import com.uniai.cvbuilder.domain.repository.ProjectRepository;
 import com.uniai.cvbuilder.domain.repository.SkillRepository;
 import com.uniai.cvbuilder.domain.repository.UniversityRepository;
-import com.uniai.cvbuilder.infrastructure.mapper.CVMapper;
-import com.uniai.cvbuilder.infrastructure.mapper.UniversityMapper;
 import com.uniai.shared.exception.CVNotFoundException;
 import com.uniai.shared.exception.CVTemplateNotFoundException;
 import com.uniai.shared.exception.EmailNotFoundException;
@@ -80,21 +81,14 @@ public class CVApplicationService implements CVUseCase {
     private final LanguageRepository languageRepository;
     private final CertificateRepository certificateRepository;
     private final PersonalInfoRepository personalInfoRepository;
-        private final CVTemplateRepository cvTemplateRepository;
+    private final CVTemplateRepository cvTemplateRepository;
     private final UniversityRepository universityRepository;
     private final UserRepository userRepository;
+    private final CVTemplateResolver templateResolver;
+    private final CVSectionOrderPolicy sectionOrderPolicy;
 
-        private static final List<String> DEFAULT_SECTIONS_ORDER = List.of(
-            "education",
-            "experience",
-            "skills",
-            "languages",
-            "projects",
-            "certificates"
-        );
-
-        @Override
-        public List<CVTemplateResponse> getTemplates() {
+    @Override
+    public List<CVTemplateResponse> getTemplates() {
         return cvTemplateRepository.findAllActive().stream()
             .map(template -> CVTemplateResponse.builder()
                 .id(template.getId())
@@ -105,10 +99,10 @@ public class CVApplicationService implements CVUseCase {
                 .isActive(template.isActive())
                 .build())
             .toList();
-        }
+    }
 
-        @Override
-        public CVTemplateResponse getTemplate(Long templateId) {
+    @Override
+    public CVTemplateResponse getTemplate(Long templateId) {
         CVTemplate template = cvTemplateRepository.findById(templateId)
             .orElseThrow(CVTemplateNotFoundException::new);
         return CVTemplateResponse.builder()
@@ -119,7 +113,7 @@ public class CVApplicationService implements CVUseCase {
             .componentName(template.getComponentName())
             .isActive(template.isActive())
             .build();
-        }
+    }
 
     @Override
     public List<CVResponse> getUserCVs(String email) {
@@ -148,23 +142,23 @@ public class CVApplicationService implements CVUseCase {
             unsetExistingDefault(userId, null);
         }
 
-        CVTemplate selectedTemplate = resolveTemplateForCreate(command);
+        CVTemplate selectedTemplate = templateResolver.resolveForCreate(command);
 
         CV cv = CVBuilder.newCv(userId, command.getCvName())
             .templateId(selectedTemplate != null ? selectedTemplate.getId() : null)
             .template(selectedTemplate != null ? selectedTemplate.getComponentName() : command.getTemplate())
-            .sectionsOrder(normalizeSectionsOrder(command.getSectionsOrder()))
+            .sectionsOrder(sectionOrderPolicy.normalize(command.getSectionsOrder()))
             .isDefault(makeDefault)
             .build();
             
         if (command.getSelectedItems() != null) {
-            cv.setSelectedItems(mapDtoToSelectedItems(command.getSelectedItems()));
+            cv.setSelectedItems(CVSelectionMapper.toSelectedItems(command.getSelectedItems()));
         } else {
             cv.setSelectedItems(new SelectedItems());
         }
         
         if (command.getItemsOrder() != null) {
-            cv.setItemsOrder(mapDtoToItemsOrder(command.getItemsOrder()));
+            cv.setItemsOrder(CVSelectionMapper.toItemsOrder(command.getItemsOrder()));
         } else {
             cv.setItemsOrder(new ItemsOrder());
         }
@@ -185,16 +179,16 @@ public class CVApplicationService implements CVUseCase {
             cv.setCvName(command.getCvName());
         }
         if (command.getTemplate() != null) {
-            CVTemplate template = resolveTemplate(command.getTemplateId(), command.getTemplate());
+            CVTemplate template = templateResolver.resolve(command.getTemplateId(), command.getTemplate());
             cv.setTemplateId(template != null ? template.getId() : null);
             cv.setTemplate(template != null ? template.getComponentName() : command.getTemplate());
         } else if (command.getTemplateId() != null) {
-            CVTemplate template = resolveTemplate(command.getTemplateId(), null);
+            CVTemplate template = templateResolver.resolve(command.getTemplateId(), null);
             cv.setTemplateId(template != null ? template.getId() : null);
             cv.setTemplate(template != null ? template.getComponentName() : null);
         }
         if (command.getSectionsOrder() != null && !command.getSectionsOrder().isEmpty()) {
-            cv.setSectionsOrder(normalizeSectionsOrder(command.getSectionsOrder()));
+            cv.setSectionsOrder(sectionOrderPolicy.normalize(command.getSectionsOrder()));
         }
         if (command.getIsDefault() != null) {
             if (command.getIsDefault()) {
@@ -206,11 +200,11 @@ public class CVApplicationService implements CVUseCase {
         }
         
         if (command.getSelectedItems() != null) {
-            cv.setSelectedItems(mapDtoToSelectedItems(command.getSelectedItems()));
+            cv.setSelectedItems(CVSelectionMapper.toSelectedItems(command.getSelectedItems()));
         }
         
         if (command.getItemsOrder() != null) {
-            cv.setItemsOrder(mapDtoToItemsOrder(command.getItemsOrder()));
+            cv.setItemsOrder(CVSelectionMapper.toItemsOrder(command.getItemsOrder()));
         }
 
         cvRepository.save(cv);
@@ -535,68 +529,8 @@ public class CVApplicationService implements CVUseCase {
         return CVMapper.toResponse(cv, template, personalInfo, educations, experiences, skills, projects, languages, certificates);
     }
 
-    private CVTemplate resolveTemplateForCreate(CreateCVCommand command) {
-        CVTemplate template = resolveTemplate(command.getTemplateId(), command.getTemplate());
-        if (template != null) {
-            return template;
-        }
-        Optional<CVTemplate> modernTemplate = cvTemplateRepository.findActiveByComponentName("ModernTemplate");
-        if (modernTemplate.isPresent()) {
-            return modernTemplate.get();
-        }
-        return cvTemplateRepository.findAllActive().stream().findFirst().orElse(null);
-    }
-
-    private CVTemplate resolveTemplate(Long templateId, String componentName) {
-        if (templateId != null) {
-            return cvTemplateRepository.findById(templateId)
-                    .filter(CVTemplate::isActive)
-                    .orElseThrow(CVTemplateNotFoundException::new);
-        }
-        if (componentName != null && !componentName.isBlank()) {
-            return cvTemplateRepository.findActiveByComponentName(componentName)
-                    .orElseThrow(CVTemplateNotFoundException::new);
-        }
-        return null;
-    }
-
-    private List<String> normalizeSectionsOrder(List<String> sectionsOrder) {
-        if (sectionsOrder == null || sectionsOrder.isEmpty()) {
-            return DEFAULT_SECTIONS_ORDER;
-        }
-        return sectionsOrder.stream()
-                .filter(section -> section != null && !section.isBlank())
-                .map(String::trim)
-                .distinct()
-                .toList();
-    }
-
     private Long getUserId(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(EmailNotFoundException::new);
         return user.getId();
-    }
-
-    private com.uniai.cvbuilder.domain.model.SelectedItems mapDtoToSelectedItems(com.uniai.cvbuilder.application.dto.SelectedItemsDto dto) {
-        if (dto == null) return new com.uniai.cvbuilder.domain.model.SelectedItems();
-        return com.uniai.cvbuilder.domain.model.SelectedItems.builder()
-                .skillIds(dto.getSkillIds() != null ? dto.getSkillIds() : List.of())
-                .languageIds(dto.getLanguageIds() != null ? dto.getLanguageIds() : List.of())
-                .educationIds(dto.getEducationIds() != null ? dto.getEducationIds() : List.of())
-                .experienceIds(dto.getExperienceIds() != null ? dto.getExperienceIds() : List.of())
-                .projectIds(dto.getProjectIds() != null ? dto.getProjectIds() : List.of())
-                .certificateIds(dto.getCertificateIds() != null ? dto.getCertificateIds() : List.of())
-                .build();
-    }
-
-    private com.uniai.cvbuilder.domain.model.ItemsOrder mapDtoToItemsOrder(com.uniai.cvbuilder.application.dto.ItemsOrderDto dto) {
-        if (dto == null) return new com.uniai.cvbuilder.domain.model.ItemsOrder();
-        return com.uniai.cvbuilder.domain.model.ItemsOrder.builder()
-                .skillIds(dto.getSkillIds() != null ? dto.getSkillIds() : List.of())
-                .languageIds(dto.getLanguageIds() != null ? dto.getLanguageIds() : List.of())
-                .educationIds(dto.getEducationIds() != null ? dto.getEducationIds() : List.of())
-                .experienceIds(dto.getExperienceIds() != null ? dto.getExperienceIds() : List.of())
-                .projectIds(dto.getProjectIds() != null ? dto.getProjectIds() : List.of())
-                .certificateIds(dto.getCertificateIds() != null ? dto.getCertificateIds() : List.of())
-                .build();
     }
 }

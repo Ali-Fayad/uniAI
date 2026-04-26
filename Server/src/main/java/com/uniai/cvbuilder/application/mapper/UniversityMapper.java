@@ -1,4 +1,4 @@
-package com.uniai.cvbuilder.infrastructure.mapper;
+package com.uniai.cvbuilder.application.mapper;
 
 import com.uniai.cvbuilder.application.dto.response.UniversityResponse;
 import com.uniai.cvbuilder.domain.model.University;

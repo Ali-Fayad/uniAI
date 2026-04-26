@@ -36,6 +36,7 @@ import { usePersonalInfoDirtyTracking } from './usePersonalInfoDirtyTracking';
 import { usePersonalInfoDraftState } from './usePersonalInfoDraftState';
 import { usePersonalInfoEntriesState } from './usePersonalInfoEntriesState';
 import { usePersonalInfoFormState } from './usePersonalInfoFormState';
+import { mapPersonalInfoStateToUpdateDto } from './personalInfoApiMapper';
 
 export interface UsePersonalInfoControllerArgs {
   fromOnboarding: boolean;
@@ -296,31 +297,7 @@ export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoCon
     setError(null);
 
     try {
-      // Ensure phone sent to API always contains leading '+' and only digits
-      const sanitizePhoneForApi = (phone?: string | null) => {
-        if (!phone) return undefined;
-        let s = phone.trim();
-        // Remove leading plus if present, we'll add it back
-        if (s.startsWith('+')) s = s.slice(1);
-        // Keep only digits and spaces
-        s = s.replace(/[^0-9 ]+/g, '').trim();
-        if (!s) return undefined;
-        const parts = s.split(/\s+/);
-        const code = parts[0] || '';
-        const number = parts.slice(1).join(' ');
-        return code ? `+${code}${number ? ' ' + number : ''}` : `+${s}`;
-      };
-
-      const payload = {
-        ...form,
-        phone: sanitizePhoneForApi(form.phone),
-        education,
-        skills,
-        languages,
-        experience,
-        projects,
-        certificates,
-      };
+      const payload = mapPersonalInfoStateToUpdateDto(personalInfoState);
 
       const response = await cvService.updatePersonalInfo(payload);
 

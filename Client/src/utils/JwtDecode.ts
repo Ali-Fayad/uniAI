@@ -1,4 +1,5 @@
 import type { UserData } from '../types/dto';
+import { mapJwtPayloadToUserData } from '../services/mappers/authMapper';
 
 /**
  * Decode a JWT token payload without verifying the signature
@@ -32,19 +33,7 @@ export function extractUserFromToken(token: string): UserData | null {
   if (!payload) return null;
 
   try {
-    // Extract user data from JWT payload
-    // Adjust field names based on your backend's JWT structure
-    return {
-      id: payload.id as number || payload.userId as number,
-      firstName: payload.firstName as string || '',
-      lastName: payload.lastName as string || '',
-      email: payload.email as string || payload.sub as string || '',
-      isVerified: payload.isVerified as boolean,
-      role: payload.role as string,
-      username: (payload.username as string) || (payload.preferred_username as string) || '',
-      twoFactorEnabled: payload.twoFactorEnabled as boolean,
-      provider: payload.provider as string,
-    };
+    return mapJwtPayloadToUserData(payload);
   } catch (error) {
     console.error('Failed to extract user from token:', error);
     return null;

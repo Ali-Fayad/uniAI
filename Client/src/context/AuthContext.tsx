@@ -1,8 +1,11 @@
 import { createContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Storage } from '../utils/Storage';
 import { extractUserFromToken } from '../utils/JwtDecode';
 import type { UserData } from '../types/dto';
+import { NAVIGATION_REQUEST_EVENT } from '../events/navigationEvents';
+import type { NavigationRequest } from '../events/navigationEvents';
 
 interface AuthContextType {
   user: UserData | null;
@@ -20,6 +23,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,6 +52,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     initAuth();
   }, []);
+
+  useEffect(() => {
+    const handleNavigationRequest = (event: Event) => {
+      const { path, clearAuth } = (event as CustomEvent<NavigationRequest>).detail;
+      if (clearAuth) {
+        Storage.clearAll();
+        setUser(null);
+      }
+      navigate(path);
+    };
+
+    window.addEventListener(NAVIGATION_REQUEST_EVENT, handleNavigationRequest);
+    return () => window.removeEventListener(NAVIGATION_REQUEST_EVENT, handleNavigationRequest);
+  }, [navigate]);
 
   const login = (token: string, userData?: UserData) => {
     Storage.setToken(token);

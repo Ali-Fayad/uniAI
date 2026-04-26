@@ -4,6 +4,14 @@ import { cvService } from '../../../services/cv';
 import { ROUTES } from '../../../router';
 import type { CVSectionKey, CVTemplateDto, PersonalInfoResponseDto, SelectedItemsDto, ItemsOrderDto } from '../../../types/dto';
 import { DEFAULT_CV_SECTIONS_ORDER } from './cvBuilderSections';
+import {
+  appendNewPersonalInfoItems,
+  buildSelectedItemsFromPersonalInfo,
+  getInitialItemsOrder,
+  getInitialSelectedItems,
+  toggleSelectedItem,
+  updateSectionItemsOrder,
+} from './cvSelectionState';
 
 export interface UseCVBuilderControllerReturn {
   isLoading: boolean;
@@ -39,24 +47,6 @@ const getInitialEnabledSections = (): Record<CVSectionKey, boolean> => ({
   languages: true,
   projects: true,
   certificates: true,
-});
-
-const getInitialSelectedItems = (): SelectedItemsDto => ({
-  skillIds: [],
-  languageIds: [],
-  educationIds: [],
-  experienceIds: [],
-  projectIds: [],
-  certificateIds: [],
-});
-
-const getInitialItemsOrder = (): ItemsOrderDto => ({
-  skillIds: [],
-  languageIds: [],
-  educationIds: [],
-  experienceIds: [],
-  projectIds: [],
-  certificateIds: [],
 });
 
 const moveItem = <T,>(array: T[], fromIndex: number, toIndex: number): T[] => {
@@ -96,14 +86,7 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
         setSelectedTemplateId(modernTemplate?.id ?? templateList[0]?.id ?? null);
 
         if (!cvId && info) {
-          setSelectedItems({
-            skillIds: info.skills?.map(s => s.id) || [],
-            languageIds: info.languages?.map(l => l.id) || [],
-            educationIds: info.education?.map(e => e.id) || [],
-            experienceIds: info.experience?.map(e => e.id) || [],
-            projectIds: info.projects?.map(p => p.id) || [],
-            certificateIds: info.certificates?.map(c => c.id) || [],
-          });
+          setSelectedItems(buildSelectedItemsFromPersonalInfo(info));
         }
 
 
@@ -171,95 +154,20 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
     }));
   };
 
-
-  // Duplicate toggleItem/refreshPersonalInfo removed (definitions exist above)
-
-
   const toggleItem = (sectionKey: CVSectionKey, itemId: string) => {
-    setSelectedItems((prev) => {
-      const next = { ...prev };
-      let ids: string[] = [];
-      switch (sectionKey) {
-        case 'education': ids = next.educationIds || []; break;
-        case 'experience': ids = next.experienceIds || []; break;
-        case 'skills': ids = next.skillIds || []; break;
-        case 'languages': ids = next.languageIds || []; break;
-        case 'projects': ids = next.projectIds || []; break;
-        case 'certificates': ids = next.certificateIds || []; break;
-      }
-      
-      const newIds = ids.includes(itemId) 
-        ? ids.filter(id => id !== itemId)
-        : [...ids, itemId];
-        
-      switch (sectionKey) {
-        case 'education': next.educationIds = newIds; break;
-        case 'experience': next.experienceIds = newIds; break;
-        case 'skills': next.skillIds = newIds; break;
-        case 'languages': next.languageIds = newIds; break;
-        case 'projects': next.projectIds = newIds; break;
-        case 'certificates': next.certificateIds = newIds; break;
-      }
-      return next;
-    });
+    setSelectedItems((prev) => toggleSelectedItem(prev, sectionKey, itemId));
   };
 
   const updateItemsOrder = (sectionKey: CVSectionKey, newOrder: string[]) => {
-    setItemsOrder((prev) => {
-      const next = { ...prev };
-      switch (sectionKey) {
-        case 'education': next.educationIds = newOrder; break;
-        case 'experience': next.experienceIds = newOrder; break;
-        case 'skills': next.skillIds = newOrder; break;
-        case 'languages': next.languageIds = newOrder; break;
-        case 'projects': next.projectIds = newOrder; break;
-        case 'certificates': next.certificateIds = newOrder; break;
-      }
-      return next;
-    });
+    setItemsOrder((prev) => updateSectionItemsOrder(prev, sectionKey, newOrder));
   };
 
   const refreshPersonalInfo = async () => {
     const info = await cvService.getPersonalInfo();
     setPersonalInfo(info);
     
-    // Automatically select newly added items
-    setSelectedItems((prev) => {
-      const selected = { ...prev };
-      const selectNew = (existingIds: string[] = [], items: any[] = []) => {
-        const itemIds = items.map(item => item.id);
-        const newIds = itemIds.filter(id => !existingIds.includes(id));
-        return [...existingIds, ...newIds];
-      };
-      
-      selected.educationIds = selectNew(selected.educationIds, info.education);
-      selected.experienceIds = selectNew(selected.experienceIds, info.experience);
-      selected.skillIds = selectNew(selected.skillIds, info.skills);
-      selected.languageIds = selectNew(selected.languageIds, info.languages);
-      selected.projectIds = selectNew(selected.projectIds, info.projects);
-      selected.certificateIds = selectNew(selected.certificateIds, info.certificates);
-      
-      return selected;
-    });
-
-    // Also append new items to the end of itemsOrder
-    setItemsOrder((prevOrder) => {
-      const nextOrder = { ...prevOrder };
-      const appendNew = (existingOrder: string[] = [], items: any[] = []) => {
-        const itemIds = items.map(item => item.id);
-        const newIds = itemIds.filter(id => !existingOrder.includes(id));
-        return [...existingOrder, ...newIds];
-      };
-
-      nextOrder.educationIds = appendNew(nextOrder.educationIds, info.education);
-      nextOrder.experienceIds = appendNew(nextOrder.experienceIds, info.experience);
-      nextOrder.skillIds = appendNew(nextOrder.skillIds, info.skills);
-      nextOrder.languageIds = appendNew(nextOrder.languageIds, info.languages);
-      nextOrder.projectIds = appendNew(nextOrder.projectIds, info.projects);
-      nextOrder.certificateIds = appendNew(nextOrder.certificateIds, info.certificates);
-
-      return nextOrder;
-    });
+    setSelectedItems((prev) => appendNewPersonalInfoItems(prev, info));
+    setItemsOrder((prevOrder) => appendNewPersonalInfoItems(prevOrder, info));
   };
 
   const reorderSections = (activeId: string, overId: string) => {

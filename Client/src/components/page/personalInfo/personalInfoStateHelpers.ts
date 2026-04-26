@@ -40,12 +40,6 @@ export interface ValidationResult {
   missingFields: string[];
 }
 
-
-export interface ValidationResult {
-  error: string | null;
-  missingFields: string[];
-}
-
 export const createEmptyPersonalInfoFormState = (): BasicFormState => ({
   phone: '',
   address: '',
@@ -62,18 +56,26 @@ export const mapPersonalInfoResponseToState = (data: PersonalInfoResponseDto): P
     id: item.id || createClientId(),
     universityId: item.universityId ?? null,
     universityName: item.universityName ?? '',
+    degree: item.degree ?? '',
+    fieldOfStudy: item.fieldOfStudy ?? '',
+    startDate: item.startDate ?? '',
+    endDate: item.endDate ?? '',
+    grade: item.grade ?? '',
+    description: item.description ?? '',
   }));
 
   const skills = (data.skills ?? []).map((item) => ({
     id: item.id || createClientId(),
     skillId: item.skillId || normalizeOptionId('skill', item.name),
     name: item.name || '',
+    level: item.level ?? '',
   }));
 
   const languages = (data.languages ?? []).map((item) => ({
     id: item.id || createClientId(),
     languageId: item.languageId || normalizeOptionId('language', item.name),
     name: item.name || '',
+    proficiency: item.proficiency ?? '',
   }));
 
   const experience = (data.experience ?? []).map((item) => ({
@@ -81,6 +83,11 @@ export const mapPersonalInfoResponseToState = (data: PersonalInfoResponseDto): P
     positionId: item.positionId || createClientId(),
     position: item.position || '',
     company: item.company || '',
+    location: item.location ?? '',
+    startDate: item.startDate ?? '',
+    endDate: item.endDate ?? '',
+    currentlyWorking: item.currentlyWorking ?? false,
+    description: item.description ?? '',
   }));
 
   const projects = (data.projects ?? []).map((item) => ({
@@ -89,12 +96,16 @@ export const mapPersonalInfoResponseToState = (data: PersonalInfoResponseDto): P
     description: item.description || '',
     repositoryUrl: item.repositoryUrl || '',
     liveUrl: item.liveUrl || '',
+    startDate: item.startDate ?? '',
+    endDate: item.endDate ?? '',
+    technologies: item.technologies ?? [],
   }));
 
   const certificates = (data.certificates ?? []).map((item) => ({
     id: item.id || createClientId(),
     name: item.name || '',
     issuer: item.issuer || '',
+    date: item.date ?? '',
     credentialUrl: item.credentialUrl || '',
   }));
 

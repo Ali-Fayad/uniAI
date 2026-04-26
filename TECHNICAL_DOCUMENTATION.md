@@ -50,12 +50,19 @@ Browser
 
 ### Current backend architecture style
 
-The backend is organized by bounded context and each context follows a DDD/hexagonal package layout:
+The backend is organized by bounded context and each context follows a pragmatic Spring-style DDD/hexagonal package layout:
 
 - `domain`: entities, builders, repositories
 - `application`: DTOs, use-case ports, application services
 - `infrastructure`: JPA adapters, config, external clients, converters
 - `presentation`: REST controllers
+
+Pragmatic architecture decision:
+
+- Domain model classes are currently also JPA entities.
+- Repository ports and infrastructure adapters are still used to keep application services decoupled from Spring Data where practical.
+- The project intentionally does not maintain separate persistence entities for every aggregate at this stage, to avoid unnecessary mapping and churn.
+- Application-level mappers live under application packages when application services use them.
 
 Main backend modules:
 
@@ -803,4 +810,3 @@ This feature should be documented as partial, not complete.
 - Frontend map data is static and separate from backend catalog data
 - The current nginx config favors the Vite dev server over serving the built frontend volume
 - Several security-sensitive defaults exist in `application.properties` and should be overridden in real environments
-

@@ -1,4 +1,5 @@
 import apiClient from './api';
+import type { AxiosResponse } from 'axios';
 import { ENDPOINTS } from '../constants';
 import type {
   SignUpDto,
@@ -14,6 +15,15 @@ import type {
   CheckUsernameResponse,
 } from '../types/dto';
 import type { IAuthService } from '../interfaces';
+
+interface AuthServiceError extends Error {
+  response: AxiosResponse<TokenResponse>;
+}
+
+const createAuthServiceError = (
+  message: string,
+  response: AxiosResponse<TokenResponse>,
+): AuthServiceError => Object.assign(new Error(message), { response });
 
 /**
  * Authentication service for all auth-related API calls.
@@ -44,34 +54,21 @@ export const authService: IAuthService = {
       { validateStatus: () => true }
     );
 
-    // Log HTTP status for sign-in (kept in service per request)
-    try {
-      console.log('authService.signIn - HTTP status:', response.status);
-    } catch (err) {
-      // best-effort logging; swallow errors
-    }
-
     // 202 => verification needed (email verification)
     if (response.status === 202) {
-      const err: any = new Error('Verification needed');
-      err.response = response;
-      throw err;
+      throw createAuthServiceError('Verification needed', response);
     }
 
     // 401 => indicates 2FA required for this API (per backend contract)
     if (response.status === 401) {
-      const err: any = new Error('Two-factor authentication required');
-      err.response = response;
-      throw err;
+      throw createAuthServiceError('Two-factor authentication required', response);
     }
 
     // If response is not successful (4xx/5xx) and not one of the
     // special-handled statuses above, surface an error so callers
     // don't try to use an absent `token` field.
     if (response.status >= 400) {
-      const err: any = new Error('Sign in failed');
-      err.response = response;
-      throw err;
+      throw createAuthServiceError('Sign in failed', response);
     }
 
     return response.data;

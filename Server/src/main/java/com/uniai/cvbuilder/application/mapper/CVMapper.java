@@ -1,4 +1,4 @@
-package com.uniai.cvbuilder.infrastructure.mapper;
+package com.uniai.cvbuilder.application.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

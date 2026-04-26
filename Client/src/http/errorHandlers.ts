@@ -1,5 +1,6 @@
 import type { AxiosError } from 'axios';
 import { Storage } from '../utils/Storage';
+import { requestNavigation } from '../events/navigationEvents';
 
 /**
  * handleResponseError
@@ -28,7 +29,7 @@ export function handleResponseError(error: AxiosError): never {
       !currentPath.startsWith('/signin') &&
       !currentPath.startsWith('/signup')
     ) {
-      window.location.href = '/auth';
+      requestNavigation({ path: '/auth', reason: 'auth-required', clearAuth: true });
     }
   }
 
@@ -44,7 +45,7 @@ export function handleResponseError(error: AxiosError): never {
       Storage.clearAll();
       const currentPath = window.location.pathname;
       if (!currentPath.startsWith('/auth') && !currentPath.startsWith('/signin') && !currentPath.startsWith('/signup')) {
-        window.location.href = '/auth';
+        requestNavigation({ path: '/auth', reason: 'auth-required', clearAuth: true });
       }
     }
   }
@@ -53,7 +54,7 @@ export function handleResponseError(error: AxiosError): never {
     console.error('Profile incomplete:', error.response?.data);
     const currentPath = window.location.pathname;
     if (!currentPath.startsWith('/personal-info')) {
-      window.location.href = '/personal-info';
+      requestNavigation({ path: '/personal-info', reason: 'profile-incomplete' });
     }
   }
 

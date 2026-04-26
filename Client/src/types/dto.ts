@@ -75,12 +75,13 @@ export interface CheckUsernameResponse {
 // ============================================================
 
 export interface UserData {
-  id: number;
+  id?: number;
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   isVerified?: boolean;
+  isTwoFacAuth?: boolean;
   role?: string;
   twoFactorEnabled?: boolean;
   provider?: string;
