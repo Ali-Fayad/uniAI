@@ -16,7 +16,9 @@ import {
 export interface UseCVBuilderControllerReturn {
   isLoading: boolean;
   isSaving: boolean;
+  isExporting: boolean;
   error: string | null;
+  exportError: string | null;
   cvName: string;
   setCvName: (name: string) => void;
   templates: CVTemplateDto[];
@@ -37,7 +39,7 @@ export interface UseCVBuilderControllerReturn {
   selectedTemplateComponentName: string;
   isEditing: boolean;
   save: () => Promise<void>;
-  downloadPdf: () => void;
+  downloadPdf: () => Promise<void>;
 }
 
 const getInitialEnabledSections = (): Record<CVSectionKey, boolean> => ({
@@ -56,6 +58,50 @@ const moveItem = <T,>(array: T[], fromIndex: number, toIndex: number): T[] => {
   return updated;
 };
 
+const sanitizePdfFileName = (value: string) =>
+  `${value}`
+    .replace(/[\\/:*?"<>|]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\.+$/, '') || 'CV';
+
+const waitForNextFrame = () => new Promise<void>((resolve) => {
+  window.requestAnimationFrame(() => resolve());
+});
+
+const waitForExportContent = async (selector: string, timeoutMs = 2000) => {
+  const startedAt = window.performance.now();
+
+  while (window.performance.now() - startedAt < timeoutMs) {
+    const element = document.querySelector(selector);
+    if (element instanceof HTMLElement) {
+      return element;
+    }
+
+    await waitForNextFrame();
+  }
+
+  throw new Error('Export surface is not ready.');
+};
+
+type Html2PdfOptions = {
+  filename?: string;
+  margin?: number | [number, number] | [number, number, number, number];
+  image?: {
+    type?: 'jpeg' | 'png' | 'webp';
+    quality?: number;
+  };
+  html2canvas?: object;
+  jsPDF?: {
+    unit?: string;
+    format?: string | [number, number];
+    orientation?: 'portrait' | 'landscape';
+  };
+  pagebreak: {
+    mode: Array<'avoid-all' | 'css' | 'legacy'>;
+  };
+};
+
 export const useCVBuilderController = (
   cvId: number | null,
   isProfileComplete = true,
@@ -64,7 +110,9 @@ export const useCVBuilderController = (
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [exportError, setExportError] = useState<string | null>(null);
 
   const [cvName, setCvName] = useState('My CV');
   const [templates, setTemplates] = useState<CVTemplateDto[]>([]);
@@ -235,14 +283,61 @@ export const useCVBuilderController = (
     }
   };
 
-  const downloadPdf = () => {
-    window.print();
+  const downloadPdf = async () => {
+    if (isExporting) {
+      return;
+    }
+
+    setIsExporting(true);
+    setExportError(null);
+
+    try {
+      await waitForNextFrame();
+      await waitForNextFrame();
+
+      const exportRoot = await waitForExportContent('#cv-export-surface article');
+
+      const html2pdfModule = await import('html2pdf.js');
+      const html2pdf = html2pdfModule.default;
+      const fileName = `${sanitizePdfFileName(cvName)}.pdf`;
+      const exportOptions: Html2PdfOptions = {
+        filename: fileName,
+        margin: [8, 8, 10, 8],
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#ffffff',
+          scrollX: 0,
+          scrollY: 0,
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'portrait',
+        },
+        pagebreak: {
+          mode: ['css', 'legacy', 'avoid-all'],
+        },
+      };
+
+      await html2pdf()
+        .set(exportOptions)
+        .from(exportRoot)
+        .save();
+    } catch {
+      setExportError('Failed to generate PDF. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   return {
     isLoading,
     isSaving,
+    isExporting,
     error,
+    exportError,
     cvName,
     setCvName,
     templates,

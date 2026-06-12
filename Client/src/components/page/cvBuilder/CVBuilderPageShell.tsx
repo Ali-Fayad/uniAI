@@ -20,6 +20,7 @@ import { GripVertical } from "lucide-react";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { SectionItemSelector } from "./SectionItemSelector";
 import { AddItemModal } from "./AddItemModal";
+import CVExportSurface from "./CVExportSurface";
 import { getTemplateComponent, getTemplatePreviewConfig } from "./templates/templateRegistry";
 import { CV_SECTION_OPTIONS } from "./cvBuilderSections";
 import type { UseCVBuilderControllerReturn } from "./useCVBuilderController";
@@ -157,6 +158,12 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
         {controller.error && (
           <div className="rounded-md border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-textPrimary)] print:hidden">
             {controller.error}
+          </div>
+        )}
+
+        {controller.exportError && (
+          <div className="rounded-md border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-textPrimary)] print:hidden">
+            {controller.exportError}
           </div>
         )}
 
@@ -306,15 +313,23 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
               </button>
               <button
                 type="button"
-                onClick={controller.downloadPdf}
-                className="rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-2 text-sm font-semibold text-[var(--color-textPrimary)]"
+                onClick={() => void controller.downloadPdf()}
+                disabled={controller.isExporting}
+                className="rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-2 text-sm font-semibold text-[var(--color-textPrimary)] disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Print CV
+                {controller.isExporting ? "Generating PDF..." : "Download PDF"}
               </button>
             </div>
           </div>
         </div>
       </div>
+      <CVExportSurface
+        templateComponentName={controller.selectedTemplateComponentName}
+        personalInfo={controller.personalInfo}
+        sectionOrder={controller.selectedSectionsOrder}
+        selectedItems={controller.selectedItems}
+        itemsOrder={controller.itemsOrder}
+      />
       {addItemModalSection && (
         <AddItemModal
           sectionKey={addItemModalSection}
