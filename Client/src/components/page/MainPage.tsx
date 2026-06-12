@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTheme } from "../../hooks/useTheme";
+import { useAuth } from "../../hooks/useAuth";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import { useFeedback } from "../../hooks/useFeedback";
 import { TEXT } from "../../constants/static";
@@ -151,6 +152,7 @@ const Feedback: React.FC = () => {
  */
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const { colors, themeName } = useTheme();
 
   // Map theme colors to LiquidEther palette
@@ -214,7 +216,7 @@ const MainPage: React.FC = () => {
           {/* Try Now Button */}
           <SlideIn direction="up" delay={0.3} className="text-center mb-16">
             <button
-              onClick={() => navigate(ROUTES.CHAT)}
+              onClick={() => navigate(isAuthenticated ? ROUTES.CHAT : ROUTES.AUTH)}
               className="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-[var(--color-primary)] text-[var(--color-background)] text-lg font-bold leading-normal tracking-[0.015em] hover:bg-[var(--color-primaryVariant)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
             >
               <span className="truncate">{TEXT.main.tryNow}</span>
