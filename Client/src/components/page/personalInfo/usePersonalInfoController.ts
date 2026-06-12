@@ -40,6 +40,7 @@ import { mapPersonalInfoStateToUpdateDto } from './personalInfoApiMapper';
 
 export interface UsePersonalInfoControllerArgs {
   fromOnboarding: boolean;
+  returnTo: string | null;
 }
 
 export interface UsePersonalInfoControllerReturn {
@@ -132,9 +133,31 @@ export interface UsePersonalInfoControllerReturn {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoControllerArgs): UsePersonalInfoControllerReturn => {
+const resolveInternalReturnTo = (returnTo: string | null): string | null => {
+  if (!returnTo) {
+    return null;
+  }
+
+  try {
+    const url = new URL(returnTo, window.location.origin);
+    if (url.origin !== window.location.origin) {
+      return null;
+    }
+
+    if (!url.pathname.startsWith('/') || url.pathname.startsWith('//')) {
+      return null;
+    }
+
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return null;
+  }
+};
+
+export const usePersonalInfoController = ({ fromOnboarding, returnTo }: UsePersonalInfoControllerArgs): UsePersonalInfoControllerReturn => {
   const navigate = useNavigate();
   const { showNotification } = useNotification();
+  const safeReturnTo = resolveInternalReturnTo(returnTo);
 
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -302,6 +325,12 @@ export const usePersonalInfoController = ({ fromOnboarding }: UsePersonalInfoCon
       const response = await cvService.updatePersonalInfo(payload);
 
       applyResponseToState(response);
+
+      if (safeReturnTo) {
+        navigate(safeReturnTo, { replace: true });
+        showNotification({ type: 'success', message: 'Profile completed successfully!' });
+        return;
+      }
 
       if (fromOnboarding) {
         navigate(ROUTES.CHAT, { replace: true });

@@ -7,7 +7,7 @@ import { ProfileIncompleteBanner } from '../common/ProfileIncompleteBanner';
 const CVBuilderPage = () => {
   const { cvId } = useParams<{ cvId: string }>();
   const { isChecking, isFilled } = useProfileCompleteCheck();
-  const controller = useCVBuilderController(cvId ? Number(cvId) : null);
+  const controller = useCVBuilderController(cvId ? Number(cvId) : null, !isChecking && isFilled);
 
   if (isChecking) return null;
   if (!isFilled) return <ProfileIncompleteBanner />;

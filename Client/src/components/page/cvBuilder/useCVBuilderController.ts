@@ -56,7 +56,10 @@ const moveItem = <T,>(array: T[], fromIndex: number, toIndex: number): T[] => {
   return updated;
 };
 
-export const useCVBuilderController = (cvId: number | null): UseCVBuilderControllerReturn => {
+export const useCVBuilderController = (
+  cvId: number | null,
+  isProfileComplete = true,
+): UseCVBuilderControllerReturn => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -73,6 +76,11 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
   const [itemsOrder, setItemsOrder] = useState<ItemsOrderDto>(getInitialItemsOrder());
 
   useEffect(() => {
+    if (!isProfileComplete) {
+      setIsLoading(false);
+      return;
+    }
+
     const loadData = async () => {
       setIsLoading(true);
       setError(null);
@@ -135,7 +143,7 @@ export const useCVBuilderController = (cvId: number | null): UseCVBuilderControl
     };
 
     void loadData();
-  }, [cvId]);
+  }, [cvId, isProfileComplete]);
 
   const selectedSectionsOrder = useMemo(
     () => sectionOrder.filter((section) => sectionEnabled[section]),

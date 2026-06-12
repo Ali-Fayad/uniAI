@@ -9,8 +9,9 @@ type PersonalInfoLocationState = {
 const PersonalInfoPage = () => {
   const location = useLocation();
   const fromOnboarding = Boolean((location.state as PersonalInfoLocationState | null)?.fromOnboarding);
+  const returnTo = new URLSearchParams(location.search).get('returnTo');
 
-  const controller = usePersonalInfoController({ fromOnboarding });
+  const controller = usePersonalInfoController({ fromOnboarding, returnTo });
 
   return <PersonalInfoPageShell controller={controller} />;
 };

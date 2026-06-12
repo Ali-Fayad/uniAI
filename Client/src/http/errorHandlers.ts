@@ -54,7 +54,10 @@ export function handleResponseError(error: AxiosError): never {
     console.error('Profile incomplete:', error.response?.data);
     const currentPath = window.location.pathname;
     if (!currentPath.startsWith('/personal-info')) {
-      requestNavigation({ path: '/personal-info', reason: 'profile-incomplete' });
+      requestNavigation({
+        path: `/personal-info?returnTo=${encodeURIComponent(currentPath)}`,
+        reason: 'profile-incomplete',
+      });
     }
   }
 
