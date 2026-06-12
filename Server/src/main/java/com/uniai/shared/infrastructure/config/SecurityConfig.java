@@ -34,14 +34,16 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOriginPatterns(List.of(
-                "http://127.*", // any 127.x.x.x (any port)
-                "http://127.*:*", // explicit port wildcard (works with pattern matching)
-                "http://172.22.0.10:5173", // Client static IP
-                "http://172.*", // any 127.x.x.x (any port)
-                "http://172.*:*" // explicit port wildcard (works with pattern matching)
-                
-        ));
+        // config.setAllowedOriginPatterns(List.of(
+        //         "http://localhost:*",
+        //         "http://127.0.0.1:*",
+        //         "http://192.168.*:*",
+        //         "http://172.*:*"
+        // ));
+
+        // TODO: Restrict CORS origins before production deployment.
+        // Temporary configuration for local development and network testing.
+        config.setAllowedOriginPatterns(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
