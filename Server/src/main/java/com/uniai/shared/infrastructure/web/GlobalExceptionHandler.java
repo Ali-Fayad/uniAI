@@ -72,6 +72,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body(ex.getMessage());
     }
 
+    @ExceptionHandler(CVAccessDeniedException.class)
+    public ResponseEntity<?> handleCVAccessDeniedException(Exception ex) {
+        logger.warn("CVAccessDeniedException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(403).body(ex.getMessage());
+    }
+
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<?> handleIllegalStateException(Exception ex) {
         logger.warn("IllegalStateException: {}", ex.getMessage(), ex);

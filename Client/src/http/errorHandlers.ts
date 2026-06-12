@@ -14,11 +14,11 @@ import { requestNavigation } from '../events/navigationEvents';
  */
 export function handleResponseError(error: AxiosError): never {
   const status = error.response?.status;
-  const requestUrl = error.config?.url ?? '';
   const bodyMessage =
     typeof error.response?.data === 'string'
       ? error.response?.data
       : (error.response?.data as { message?: string } | undefined)?.message;
+  const isAuthRequiredMessage = bodyMessage === 'Authentication required';
 
   if (status === 401) {
     Storage.clearAll();
@@ -36,12 +36,7 @@ export function handleResponseError(error: AxiosError): never {
   if (status === 403) {
     console.error('Access forbidden:', error.response?.data);
 
-    const isAuthIssue =
-      requestUrl.startsWith('/api/cv') ||
-      requestUrl.startsWith('/api/users') ||
-      bodyMessage === 'Authentication required';
-
-    if (isAuthIssue) {
+    if (isAuthRequiredMessage) {
       Storage.clearAll();
       const currentPath = window.location.pathname;
       if (!currentPath.startsWith('/auth') && !currentPath.startsWith('/signin') && !currentPath.startsWith('/signup')) {

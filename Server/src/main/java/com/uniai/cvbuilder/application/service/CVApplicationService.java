@@ -56,10 +56,10 @@ import com.uniai.cvbuilder.domain.repository.ProjectRepository;
 import com.uniai.cvbuilder.domain.repository.SkillRepository;
 import com.uniai.cvbuilder.domain.repository.UniversityRepository;
 import com.uniai.shared.exception.CVNotFoundException;
+import com.uniai.shared.exception.CVAccessDeniedException;
 import com.uniai.shared.exception.CVTemplateNotFoundException;
 import com.uniai.shared.exception.EmailNotFoundException;
 import com.uniai.shared.exception.SectionNotFoundException;
-import com.uniai.shared.exception.UnauthorizedAccessException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 
@@ -504,7 +504,7 @@ public class CVApplicationService implements CVUseCase {
 
     private void validateOwnership(CV cv, Long userId) {
         if (!cv.getUserId().equals(userId)) {
-            throw new UnauthorizedAccessException("You do not have permission to access this CV");
+            throw new CVAccessDeniedException("You do not have permission to access this CV");
         }
     }
 

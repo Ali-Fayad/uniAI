@@ -3,10 +3,7 @@ package com.uniai.cvbuilder.domain.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.uniai.cvbuilder.infrastructure.persistence.converter.StringListJsonConverter;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
  * JPA entity representing the CV root aggregate that ties user ownership to all section data.
@@ -45,15 +44,15 @@ public class CV {
     @Column(name = "template_id")
     private Long templateId;
 
-    @Convert(converter = StringListJsonConverter.class)
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "sections_order", columnDefinition = "jsonb", nullable = false)
     private List<String> sectionsOrder;
 
-    @Convert(converter = com.uniai.cvbuilder.infrastructure.persistence.converter.SelectedItemsJsonConverter.class)
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "selected_items", columnDefinition = "jsonb")
     private SelectedItems selectedItems;
 
-    @Convert(converter = com.uniai.cvbuilder.infrastructure.persistence.converter.ItemsOrderJsonConverter.class)
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "items_order", columnDefinition = "jsonb")
     private ItemsOrder itemsOrder;
 
