@@ -73,6 +73,18 @@ export interface UsePersonalInfoControllerReturn {
   setUniversityQuery: React.Dispatch<React.SetStateAction<string>>;
   selectedUniversityId: number | null;
   setSelectedUniversityId: React.Dispatch<React.SetStateAction<number | null>>;
+  educationDegree: string;
+  setEducationDegree: React.Dispatch<React.SetStateAction<string>>;
+  educationFieldOfStudy: string;
+  setEducationFieldOfStudy: React.Dispatch<React.SetStateAction<string>>;
+  educationStartDate: string;
+  setEducationStartDate: React.Dispatch<React.SetStateAction<string>>;
+  educationEndDate: string;
+  setEducationEndDate: React.Dispatch<React.SetStateAction<string>>;
+  educationGrade: string;
+  setEducationGrade: React.Dispatch<React.SetStateAction<string>>;
+  educationDescription: string;
+  setEducationDescription: React.Dispatch<React.SetStateAction<string>>;
   universitySuggestions: Array<{ id: number; name: string; acronym?: string | null }>;
   isUniversitiesLoading: boolean;
 
@@ -248,6 +260,18 @@ export const usePersonalInfoController = ({ fromOnboarding, returnTo }: UsePerso
     setUniversityQuery: drafts.setUniversityQuery,
     selectedUniversityId: drafts.selectedUniversityId,
     setSelectedUniversityId: drafts.setSelectedUniversityId,
+    educationDegree: drafts.educationDegree,
+    setEducationDegree: drafts.setEducationDegree,
+    educationFieldOfStudy: drafts.educationFieldOfStudy,
+    setEducationFieldOfStudy: drafts.setEducationFieldOfStudy,
+    educationStartDate: drafts.educationStartDate,
+    setEducationStartDate: drafts.setEducationStartDate,
+    educationEndDate: drafts.educationEndDate,
+    setEducationEndDate: drafts.setEducationEndDate,
+    educationGrade: drafts.educationGrade,
+    setEducationGrade: drafts.setEducationGrade,
+    educationDescription: drafts.educationDescription,
+    setEducationDescription: drafts.setEducationDescription,
     setEducation,
 
     skillQuery: drafts.skillQuery,
@@ -383,6 +407,18 @@ export const usePersonalInfoController = ({ fromOnboarding, returnTo }: UsePerso
     setUniversityQuery: drafts.setUniversityQuery,
     selectedUniversityId: drafts.selectedUniversityId,
     setSelectedUniversityId: drafts.setSelectedUniversityId,
+    educationDegree: drafts.educationDegree,
+    setEducationDegree: drafts.setEducationDegree,
+    educationFieldOfStudy: drafts.educationFieldOfStudy,
+    setEducationFieldOfStudy: drafts.setEducationFieldOfStudy,
+    educationStartDate: drafts.educationStartDate,
+    setEducationStartDate: drafts.setEducationStartDate,
+    educationEndDate: drafts.educationEndDate,
+    setEducationEndDate: drafts.setEducationEndDate,
+    educationGrade: drafts.educationGrade,
+    setEducationGrade: drafts.setEducationGrade,
+    educationDescription: drafts.educationDescription,
+    setEducationDescription: drafts.setEducationDescription,
     universitySuggestions,
     isUniversitiesLoading,
 

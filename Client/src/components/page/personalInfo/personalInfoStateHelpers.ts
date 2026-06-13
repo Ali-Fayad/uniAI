@@ -40,6 +40,18 @@ export interface ValidationResult {
   missingFields: string[];
 }
 
+export const formatEducationLabel = (item: Pick<PersonalInfoEducationEntryDto, 'degree' | 'fieldOfStudy' | 'universityName'>) => {
+  const degree = item.degree?.trim();
+  const fieldOfStudy = item.fieldOfStudy?.trim();
+  const universityName = item.universityName?.trim();
+
+  const title = [degree, fieldOfStudy].filter(Boolean).join(' - ');
+  if (title && universityName) return `${title} at ${universityName}`;
+  if (title) return title;
+  if (universityName) return universityName;
+  return 'Education item';
+};
+
 export const createEmptyPersonalInfoFormState = (): BasicFormState => ({
   phone: '',
   address: '',

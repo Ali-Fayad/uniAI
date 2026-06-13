@@ -1,6 +1,7 @@
 import type { CVSectionKey, PersonalInfoResponseDto, SelectedItemsDto, ItemsOrderDto } from '../../../types/dto';
 import { FaPlus } from 'react-icons/fa';
 import SortableItemList from './SortableItemList';
+import { formatEducationLabel } from '../personalInfo/personalInfoStateHelpers';
 
 interface SectionItemSelectorProps {
   sectionKey: CVSectionKey;
@@ -37,7 +38,7 @@ export const SectionItemSelector = ({
 
   const getDisplayLabel = (item: any) => {
     switch (sectionKey) {
-      case 'education': return `${item.degree} at ${item.universityName}`;
+      case 'education': return formatEducationLabel(item);
       case 'experience': return `${item.position} at ${item.company}`;
       case 'skills': return item.name;
       case 'languages': return item.name;

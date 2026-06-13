@@ -28,6 +28,18 @@ export interface UsePersonalInfoAddActionsArgs {
   setUniversityQuery: React.Dispatch<React.SetStateAction<string>>;
   selectedUniversityId: number | null;
   setSelectedUniversityId: React.Dispatch<React.SetStateAction<number | null>>;
+  educationDegree: string;
+  setEducationDegree: React.Dispatch<React.SetStateAction<string>>;
+  educationFieldOfStudy: string;
+  setEducationFieldOfStudy: React.Dispatch<React.SetStateAction<string>>;
+  educationStartDate: string;
+  setEducationStartDate: React.Dispatch<React.SetStateAction<string>>;
+  educationEndDate: string;
+  setEducationEndDate: React.Dispatch<React.SetStateAction<string>>;
+  educationGrade: string;
+  setEducationGrade: React.Dispatch<React.SetStateAction<string>>;
+  educationDescription: string;
+  setEducationDescription: React.Dispatch<React.SetStateAction<string>>;
   setEducation: React.Dispatch<React.SetStateAction<PersonalInfoEducationEntryDto[]>>;
 
   skillQuery: string;
@@ -81,8 +93,17 @@ export interface UsePersonalInfoAddActionsReturn {
 export const usePersonalInfoAddActions = (args: UsePersonalInfoAddActionsArgs): UsePersonalInfoAddActionsReturn => {
   const addEducation = useCallback(() => {
     const value = args.universityQuery.trim();
+    const degree = args.educationDegree.trim();
+    const fieldOfStudy = args.educationFieldOfStudy.trim();
+    const startDate = args.educationStartDate.trim();
+
     if (!value || args.selectedUniversityId === null) {
       args.setError('Please pick a university from the list before adding.');
+      return;
+    }
+
+    if (!degree || !fieldOfStudy || !startDate) {
+      args.setError('University, degree, field of study, and start date are required.');
       return;
     }
 
@@ -94,11 +115,23 @@ export const usePersonalInfoAddActions = (args: UsePersonalInfoAddActionsArgs): 
         id,
         universityId: args.selectedUniversityId,
         universityName: value,
+        degree,
+        fieldOfStudy,
+        startDate,
+        endDate: args.educationEndDate.trim(),
+        grade: args.educationGrade.trim(),
+        description: args.educationDescription.trim(),
       },
     ]);
 
     args.setUniversityQuery('');
     args.setSelectedUniversityId(null);
+    args.setEducationDegree('');
+    args.setEducationFieldOfStudy('');
+    args.setEducationStartDate('');
+    args.setEducationEndDate('');
+    args.setEducationGrade('');
+    args.setEducationDescription('');
     args.setError(null);
   }, [args]);
 

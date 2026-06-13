@@ -16,6 +16,18 @@ export interface UsePersonalInfoDraftStateReturn {
   setUniversityQuery: React.Dispatch<React.SetStateAction<string>>;
   selectedUniversityId: number | null;
   setSelectedUniversityId: React.Dispatch<React.SetStateAction<number | null>>;
+  educationDegree: string;
+  setEducationDegree: React.Dispatch<React.SetStateAction<string>>;
+  educationFieldOfStudy: string;
+  setEducationFieldOfStudy: React.Dispatch<React.SetStateAction<string>>;
+  educationStartDate: string;
+  setEducationStartDate: React.Dispatch<React.SetStateAction<string>>;
+  educationEndDate: string;
+  setEducationEndDate: React.Dispatch<React.SetStateAction<string>>;
+  educationGrade: string;
+  setEducationGrade: React.Dispatch<React.SetStateAction<string>>;
+  educationDescription: string;
+  setEducationDescription: React.Dispatch<React.SetStateAction<string>>;
 
   skillQuery: string;
   setSkillQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -60,6 +72,12 @@ export interface UsePersonalInfoDraftStateReturn {
 export const usePersonalInfoDraftState = (): UsePersonalInfoDraftStateReturn => {
   const [universityQuery, setUniversityQuery] = useState('');
   const [selectedUniversityId, setSelectedUniversityId] = useState<number | null>(null);
+  const [educationDegree, setEducationDegree] = useState('');
+  const [educationFieldOfStudy, setEducationFieldOfStudy] = useState('');
+  const [educationStartDate, setEducationStartDate] = useState('');
+  const [educationEndDate, setEducationEndDate] = useState('');
+  const [educationGrade, setEducationGrade] = useState('');
+  const [educationDescription, setEducationDescription] = useState('');
 
   const [skillQuery, setSkillQuery] = useState('');
   const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
@@ -91,6 +109,18 @@ export const usePersonalInfoDraftState = (): UsePersonalInfoDraftStateReturn => 
     setUniversityQuery,
     selectedUniversityId,
     setSelectedUniversityId,
+    educationDegree,
+    setEducationDegree,
+    educationFieldOfStudy,
+    setEducationFieldOfStudy,
+    educationStartDate,
+    setEducationStartDate,
+    educationEndDate,
+    setEducationEndDate,
+    educationGrade,
+    setEducationGrade,
+    educationDescription,
+    setEducationDescription,
 
     skillQuery,
     setSkillQuery,

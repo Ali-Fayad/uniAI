@@ -116,7 +116,7 @@ export const AddItemModal = ({
       case "languages":
         return !!formData.name;
       case "education":
-        return !!formData.universityName;
+        return !!formData.universityName && !!formData.degree && !!formData.fieldOfStudy && !!formData.startDate;
       case "experience":
         return !!formData.position;
       case "projects":
