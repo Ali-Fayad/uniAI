@@ -31,6 +31,8 @@ services:
       context: ./Server
       dockerfile: server/Dockerfile
     container_name: uniai_app
+    ports:
+      - "9090:9090"
     env_file:
       - .env
     volumes:
