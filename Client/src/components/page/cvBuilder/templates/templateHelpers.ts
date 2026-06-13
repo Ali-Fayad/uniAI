@@ -75,7 +75,8 @@ const getOrderedItems = <T extends { id: string }>(
   });
 };
 
-export const getDisplayName = () => 'Your Name';
+export const getDisplayName = (displayName?: string | null) =>
+  displayName?.trim() || 'Your Name';
 
 export const getContactItems = (personalInfo: PersonalInfoResponseDto | null): string[] => {
   if (!personalInfo) {

@@ -5,6 +5,7 @@ import type { CVSectionKey, ItemsOrderDto, PersonalInfoResponseDto, SelectedItem
 interface CVExportSurfaceProps {
   templateComponentName: string;
   personalInfo: PersonalInfoResponseDto | null;
+  displayName: string;
   sectionOrder: CVSectionKey[];
   selectedItems: SelectedItemsDto;
   itemsOrder: ItemsOrderDto;
@@ -17,6 +18,7 @@ interface CVExportSurfaceProps {
 const CVExportSurface = ({
   templateComponentName,
   personalInfo,
+  displayName,
   sectionOrder,
   selectedItems,
   itemsOrder,
@@ -36,6 +38,7 @@ const CVExportSurface = ({
       <Suspense fallback={null}>
         {createElement(TemplateComponent, {
           personalInfo,
+          displayName,
           sectionOrder,
           selectedItems,
           itemsOrder,

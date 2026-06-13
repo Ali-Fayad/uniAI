@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
 import { cvService } from '../../../services/cv';
 import { ROUTES } from '../../../router';
 import type { CVSectionKey, CVTemplateDto, PersonalInfoResponseDto, SelectedItemsDto, ItemsOrderDto } from '../../../types/dto';
@@ -36,6 +37,7 @@ export interface UseCVBuilderControllerReturn {
   updateItemsOrder: (sectionKey: CVSectionKey, newOrder: string[]) => void;
   refreshPersonalInfo: () => Promise<void>;
   personalInfo: PersonalInfoResponseDto | null;
+  displayName: string;
   selectedTemplateComponentName: string;
   isEditing: boolean;
   save: () => Promise<void>;
@@ -107,6 +109,7 @@ export const useCVBuilderController = (
   isProfileComplete = true,
 ): UseCVBuilderControllerReturn => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -202,6 +205,11 @@ export const useCVBuilderController = (
     const template = templates.find((item) => item.id === selectedTemplateId);
     return template?.componentName ?? 'ModernTemplate';
   }, [selectedTemplateId, templates]);
+
+  const displayName = useMemo(() => {
+    const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(' ').trim();
+    return fullName || user?.username || user?.email?.split('@')[0] || 'Your Name';
+  }, [user?.email, user?.firstName, user?.lastName, user?.username]);
 
   const toggleSection = (section: CVSectionKey) => {
     setSectionEnabled((previous) => ({
@@ -354,6 +362,7 @@ export const useCVBuilderController = (
     refreshPersonalInfo,
     selectedSectionsOrder,
     personalInfo,
+    displayName,
     selectedTemplateComponentName,
     isEditing: Boolean(cvId),
     save,

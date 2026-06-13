@@ -13,6 +13,7 @@ export interface CVTemplatePalette {
 
 export interface CVTemplateComponentProps {
   personalInfo: PersonalInfoResponseDto | null;
+  displayName: string;
   sectionOrder: CVSectionKey[];
   selectedItems?: SelectedItemsDto;
   itemsOrder?: ItemsOrderDto;

@@ -241,6 +241,7 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
                 >
                   {createElement(getTemplateComponent(controller.selectedTemplateComponentName), {
                     personalInfo: controller.personalInfo,
+                    displayName: controller.displayName,
                     sectionOrder: controller.selectedSectionsOrder,
                     selectedItems: controller.selectedItems,
                     itemsOrder: controller.itemsOrder,
@@ -326,6 +327,7 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
       <CVExportSurface
         templateComponentName={controller.selectedTemplateComponentName}
         personalInfo={controller.personalInfo}
+        displayName={controller.displayName}
         sectionOrder={controller.selectedSectionsOrder}
         selectedItems={controller.selectedItems}
         itemsOrder={controller.itemsOrder}

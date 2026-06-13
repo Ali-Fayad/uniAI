@@ -12,7 +12,7 @@ const defaultPalette: CVTemplatePalette = {
   rule: '#d9e2ec',
 };
 
-const ModernTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+const ModernTemplate = ({ personalInfo, displayName, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
   const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Inter, Arial, sans-serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
   const contactItems = getContactItems(personalInfo);
@@ -22,7 +22,7 @@ const ModernTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder,
   return (
     <ResumePage theme={theme} className="p-[18mm]">
       <ResumeHeader
-        name={getDisplayName()}
+        name={getDisplayName(displayName)}
         title={personalInfo?.jobTitle}
         company={personalInfo?.company}
         summary={personalInfo?.summary}

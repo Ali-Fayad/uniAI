@@ -12,7 +12,7 @@ const defaultPalette: CVTemplatePalette = {
   rule: '#d8d2c4',
 };
 
-const ExecutiveTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+const ExecutiveTemplate = ({ personalInfo, displayName, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
   const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Inter, Arial, sans-serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
   const sidebarSections = sections.filter((section) => section.key === 'skills' || section.key === 'languages' || section.key === 'certificates');
@@ -22,7 +22,7 @@ const ExecutiveTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrd
     <ResumePage theme={theme} className="p-[18mm]">
       <div className="border-b-4 pb-5" style={{ borderColor: theme.palette.accent }}>
         <ResumeHeader
-          name={getDisplayName()}
+          name={getDisplayName(displayName)}
           title={personalInfo?.jobTitle}
           company={personalInfo?.company}
           summary={personalInfo?.summary}

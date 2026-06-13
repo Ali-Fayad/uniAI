@@ -14,7 +14,7 @@ const defaultPalette: CVTemplatePalette = {
   sidebarInk: '#f8fafc',
 };
 
-const CreativeTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+const CreativeTemplate = ({ personalInfo, displayName, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
   const mergedPalette = mergePalette(defaultPalette, palette);
   const theme = { palette: mergedPalette, fontFamily: 'Inter, Arial, sans-serif' };
   const sidebarTheme = {
@@ -37,7 +37,7 @@ const CreativeTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrde
     <ResumePage theme={theme} className="grid grid-cols-[58mm_1fr] overflow-hidden">
       <aside className="p-[12mm] text-[12px]" style={{ backgroundColor: sidebarTheme.palette.paper, color: sidebarTheme.palette.ink }}>
         <h3 className="text-[28px] font-semibold leading-tight" style={{ color: sidebarTheme.palette.ink }}>
-          {getDisplayName()}
+          {getDisplayName(displayName)}
         </h3>
         {personalInfo?.jobTitle && (
           <p className="mt-2 text-[11px] font-semibold uppercase" style={{ color: sidebarTheme.palette.accent, letterSpacing: '0.12em' }}>

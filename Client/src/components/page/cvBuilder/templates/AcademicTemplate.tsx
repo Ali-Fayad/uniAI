@@ -12,7 +12,7 @@ const defaultPalette: CVTemplatePalette = {
   rule: '#cfd8dc',
 };
 
-const AcademicTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+const AcademicTemplate = ({ personalInfo, displayName, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
   const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Merriweather, Georgia, Times New Roman, serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
 
@@ -20,7 +20,7 @@ const AcademicTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrde
     <ResumePage theme={theme} className="p-[18mm]">
       <div className="border-b pb-4" style={{ borderColor: theme.palette.rule }}>
         <ResumeHeader
-          name={getDisplayName()}
+          name={getDisplayName(displayName)}
           title={personalInfo?.jobTitle}
           company={personalInfo?.company}
           summary={personalInfo?.summary}

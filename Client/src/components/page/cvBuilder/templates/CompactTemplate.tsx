@@ -12,14 +12,14 @@ const defaultPalette: CVTemplatePalette = {
   rule: '#e5e7eb',
 };
 
-const CompactTemplate = ({ personalInfo, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
+const CompactTemplate = ({ personalInfo, displayName, sectionOrder, selectedItems, itemsOrder, palette }: CVTemplateComponentProps) => {
   const theme = { palette: mergePalette(defaultPalette, palette), fontFamily: 'Arial, Helvetica, sans-serif' };
   const sections = getSectionData(personalInfo, sectionOrder, selectedItems, itemsOrder);
 
   return (
     <ResumePage theme={theme} className="p-[13mm] text-[12px]">
       <ResumeHeader
-        name={getDisplayName()}
+        name={getDisplayName(displayName)}
         title={personalInfo?.jobTitle}
         company={personalInfo?.company}
         summary={personalInfo?.summary}
