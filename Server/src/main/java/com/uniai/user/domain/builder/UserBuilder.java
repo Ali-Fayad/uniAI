@@ -1,6 +1,7 @@
 package com.uniai.user.domain.builder;
 
 import com.uniai.user.domain.model.User;
+import com.uniai.user.domain.valueobject.UserRole;
 
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public final class UserBuilder {
     private String  username;
     private String  email;
     private String  encodedPassword;
+    private UserRole role = UserRole.USER;
     private boolean isVerified;
     private boolean isTwoFacAuth;
 
@@ -52,6 +54,7 @@ public final class UserBuilder {
         b.username        = username.toLowerCase();
         b.email           = email.toLowerCase();
         b.encodedPassword = encodedPassword;
+        b.role            = UserRole.USER;
         b.isVerified      = false;
         b.isTwoFacAuth    = false;
         return b;
@@ -73,6 +76,7 @@ public final class UserBuilder {
         b.username        = email;
         b.email           = email;
         b.encodedPassword = UUID.randomUUID().toString();
+        b.role            = UserRole.USER;
         b.isVerified      = true;
         b.isTwoFacAuth    = false;
         return b;
@@ -88,6 +92,12 @@ public final class UserBuilder {
         return this;
     }
 
+    /** Overrides the default user role. Null falls back to USER. */
+    public UserBuilder role(UserRole role) {
+        this.role = role == null ? UserRole.USER : role;
+        return this;
+    }
+
     // -------------------------------------------------------------------------
     // Terminal
     // -------------------------------------------------------------------------
@@ -99,6 +109,7 @@ public final class UserBuilder {
                 .username(username)
                 .email(email)
                 .password(encodedPassword)
+                .role(role == null ? UserRole.USER : role)
                 .isVerified(isVerified)
                 .isTwoFacAuth(isTwoFacAuth)
                 .build();

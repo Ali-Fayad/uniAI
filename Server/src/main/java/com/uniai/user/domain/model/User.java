@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.uniai.user.domain.valueobject.UserRole;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +34,11 @@ public class User {
     @Column(nullable = false)
     @Size(min = 8, max = 100)
     private String password;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role = UserRole.USER;
 
     private boolean isVerified;
     private boolean isTwoFacAuth;
