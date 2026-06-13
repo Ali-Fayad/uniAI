@@ -39,6 +39,8 @@ export interface GoogleAuthUrlRequestDto {
 // Response DTOs
 // ============================================================
 
+export type UserRole = 'USER' | 'ADMIN';
+
 export interface TokenResponse {
   token: string; // server returns only { token }
 }
@@ -48,6 +50,7 @@ export interface AuthenticationResponseDto {
   firstName: string;
   lastName: string;
   email: string;
+  role: UserRole;
   isVerified: boolean;
   isTwoFacAuth: boolean;
 }
@@ -82,7 +85,7 @@ export interface UserData {
   email: string;
   isVerified?: boolean;
   isTwoFacAuth?: boolean;
-  role?: string;
+  role?: UserRole;
   twoFactorEnabled?: boolean;
   provider?: string;
 }

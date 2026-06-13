@@ -241,6 +241,7 @@ public class AuthApplicationService implements
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .role(user.getRole() == null ? UserRole.USER.name() : user.getRole().name())
                 .isVerified(user.isVerified())
                 .isTwoFacAuth(user.isTwoFacAuth())
                 .build();

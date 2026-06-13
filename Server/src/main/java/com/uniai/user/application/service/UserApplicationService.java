@@ -131,6 +131,7 @@ public class UserApplicationService implements
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail().toLowerCase())
+                .role(user.getRole() == null ? "USER" : user.getRole().name())
                 .isVerified(user.isVerified())
                 .isTwoFacAuth(user.isTwoFacAuth())
                 .build();

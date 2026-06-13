@@ -18,6 +18,7 @@ public class JwtTokenPayload {
     private String firstName;
     private String lastName;
     private String email;
+    private String role;
 
     @Builder.Default
     private boolean isVerified = false;

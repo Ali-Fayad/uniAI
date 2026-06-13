@@ -18,6 +18,8 @@ import java.util.Map;
  */
 public final class JwtTokenHelper {
 
+    private static final String DEFAULT_ROLE = "USER";
+
     private JwtTokenHelper() {
         // utility
     }
@@ -41,17 +43,20 @@ public final class JwtTokenHelper {
         claims.put("firstName", payload.getFirstName());
         claims.put("lastName", payload.getLastName());
         claims.put("email", payload.getEmail());
+        claims.put("role", normalizeRole(payload.getRole()));
         claims.put("isVerified", payload.isVerified());
         claims.put("isTwoFacAuth", payload.isTwoFacAuth());
         return claims;
     }
 
     public static JwtTokenPayload payloadFromClaims(Claims claims) {
+        String role = normalizeRole(claims.get("role", String.class));
         return JwtTokenPayload.builder()
                 .username(claims.get("username", String.class))
                 .firstName(claims.get("firstName", String.class))
                 .lastName(claims.get("lastName", String.class))
                 .email(claims.get("email", String.class))
+                .role(role)
                 .isVerified(Boolean.TRUE.equals(claims.get("isVerified", Boolean.class)))
                 .isTwoFacAuth(Boolean.TRUE.equals(claims.get("isTwoFacAuth", Boolean.class)))
                 .build();
@@ -93,5 +98,12 @@ public final class JwtTokenHelper {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    private static String normalizeRole(String role) {
+        if ("ADMIN".equals(role)) {
+            return "ADMIN";
+        }
+        return DEFAULT_ROLE;
     }
 }
