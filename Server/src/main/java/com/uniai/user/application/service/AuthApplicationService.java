@@ -15,11 +15,13 @@ import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.model.VerifyCode;
 import com.uniai.user.domain.repository.UserRepository;
 import com.uniai.user.domain.repository.VerifyCodeRepository;
+import com.uniai.user.domain.valueobject.UserRole;
 import com.uniai.user.domain.valueobject.VerificationCodeType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Application service for all authentication use cases.
@@ -56,6 +58,7 @@ public class AuthApplicationService implements
     // -------------------------------------------------------------------------
 
     @Override
+    @Transactional
     public String signUp(SignUpCommand command) {
         if (userRepository.existsByEmail(command.getEmail().toLowerCase())) {
             throw new AlreadyExistsException("Email already registered");
@@ -64,12 +67,17 @@ public class AuthApplicationService implements
             throw new AlreadyExistsException("Username already exists");
         }
 
+        boolean isFirstUser = userRepository.count() == 0;
+        UserRole role = isFirstUser ? UserRole.ADMIN : UserRole.USER;
+        // The first registered account bootstraps admin access; later accounts default to USER.
+        // Role is decided server-side and is never accepted from the signup request.
         User user = UserBuilder.forSignUp(
                         command.getFirstName(),
                         command.getLastName(),
                         command.getUsername(),
                         command.getEmail(),
                         passwordEncoder.encode(command.getPassword()))
+                .role(role)
                 .build();
 
         userRepository.save(user);

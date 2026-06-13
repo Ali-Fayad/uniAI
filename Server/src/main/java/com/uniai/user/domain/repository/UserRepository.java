@@ -28,4 +28,6 @@ public interface UserRepository {
     boolean deleteByUsername(String username);
 
     List<User> findAll();
+
+    long count();
 }
