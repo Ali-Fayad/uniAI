@@ -60,6 +60,16 @@ export interface UsePersonalInfoAddActionsArgs {
   setSelectedPositionId: React.Dispatch<React.SetStateAction<number | null>>;
   experienceCompany: string;
   setExperienceCompany: React.Dispatch<React.SetStateAction<string>>;
+  experienceLocation: string;
+  setExperienceLocation: React.Dispatch<React.SetStateAction<string>>;
+  experienceStartDate: string;
+  setExperienceStartDate: React.Dispatch<React.SetStateAction<string>>;
+  experienceEndDate: string;
+  setExperienceEndDate: React.Dispatch<React.SetStateAction<string>>;
+  experienceCurrentlyWorking: boolean;
+  setExperienceCurrentlyWorking: React.Dispatch<React.SetStateAction<boolean>>;
+  experienceDescription: string;
+  setExperienceDescription: React.Dispatch<React.SetStateAction<string>>;
   setExperience: React.Dispatch<React.SetStateAction<PersonalInfoExperienceEntryDto[]>>;
 
   projectName: string;
@@ -182,9 +192,23 @@ export const usePersonalInfoAddActions = (args: UsePersonalInfoAddActionsArgs): 
   const addExperience = useCallback(() => {
     const position = args.positionQuery.trim();
     const company = args.experienceCompany.trim();
+    const location = args.experienceLocation.trim();
+    const startDate = args.experienceStartDate.trim();
+    const endDate = args.experienceCurrentlyWorking ? '' : args.experienceEndDate.trim();
+    const description = args.experienceDescription.trim();
 
     if (!position || args.selectedPositionId === null) {
       args.setError('Please pick a position from the catalog list before adding.');
+      return;
+    }
+
+    if (!company || !startDate) {
+      args.setError('Position, company, and start date are required.');
+      return;
+    }
+
+    if (!args.experienceCurrentlyWorking && endDate && startDate > endDate) {
+      args.setError('Experience end date must be on or after the start date.');
       return;
     }
 
@@ -197,11 +221,21 @@ export const usePersonalInfoAddActions = (args: UsePersonalInfoAddActionsArgs): 
         positionId,
         position,
         company,
+        location,
+        startDate,
+        endDate: args.experienceCurrentlyWorking ? '' : endDate,
+        currentlyWorking: args.experienceCurrentlyWorking,
+        description,
       },
     ]);
 
     args.setPositionQuery('');
     args.setExperienceCompany('');
+    args.setExperienceLocation('');
+    args.setExperienceStartDate('');
+    args.setExperienceEndDate('');
+    args.setExperienceCurrentlyWorking(false);
+    args.setExperienceDescription('');
     args.setSelectedPositionId(null);
     args.setError(null);
   }, [args]);

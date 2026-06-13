@@ -45,6 +45,16 @@ export interface UsePersonalInfoDraftStateReturn {
   setSelectedPositionId: React.Dispatch<React.SetStateAction<number | null>>;
   experienceCompany: string;
   setExperienceCompany: React.Dispatch<React.SetStateAction<string>>;
+  experienceLocation: string;
+  setExperienceLocation: React.Dispatch<React.SetStateAction<string>>;
+  experienceStartDate: string;
+  setExperienceStartDate: React.Dispatch<React.SetStateAction<string>>;
+  experienceEndDate: string;
+  setExperienceEndDate: React.Dispatch<React.SetStateAction<string>>;
+  experienceCurrentlyWorking: boolean;
+  setExperienceCurrentlyWorking: React.Dispatch<React.SetStateAction<boolean>>;
+  experienceDescription: string;
+  setExperienceDescription: React.Dispatch<React.SetStateAction<string>>;
 
   projectName: string;
   setProjectName: React.Dispatch<React.SetStateAction<string>>;
@@ -88,6 +98,11 @@ export const usePersonalInfoDraftState = (): UsePersonalInfoDraftStateReturn => 
   const [positionQuery, setPositionQuery] = useState('');
   const [selectedPositionId, setSelectedPositionId] = useState<number | null>(null);
   const [experienceCompany, setExperienceCompany] = useState('');
+  const [experienceLocation, setExperienceLocation] = useState('');
+  const [experienceStartDate, setExperienceStartDate] = useState('');
+  const [experienceEndDate, setExperienceEndDate] = useState('');
+  const [experienceCurrentlyWorking, setExperienceCurrentlyWorking] = useState(false);
+  const [experienceDescription, setExperienceDescription] = useState('');
 
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
@@ -138,6 +153,16 @@ export const usePersonalInfoDraftState = (): UsePersonalInfoDraftStateReturn => 
     setSelectedPositionId,
     experienceCompany,
     setExperienceCompany,
+    experienceLocation,
+    setExperienceLocation,
+    experienceStartDate,
+    setExperienceStartDate,
+    experienceEndDate,
+    setExperienceEndDate,
+    experienceCurrentlyWorking,
+    setExperienceCurrentlyWorking,
+    experienceDescription,
+    setExperienceDescription,
 
     projectName,
     setProjectName,

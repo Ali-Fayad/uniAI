@@ -52,6 +52,8 @@ export const formatEducationLabel = (item: Pick<PersonalInfoEducationEntryDto, '
   return 'Education item';
 };
 
+const isEndDateBeforeStartDate = (startDate: string, endDate: string) => startDate.trim() > endDate.trim();
+
 export const createEmptyPersonalInfoFormState = (): BasicFormState => ({
   phone: '',
   address: '',
@@ -194,10 +196,30 @@ export const validatePersonalInfoState = (state: PersonalInfoState): ValidationR
     };
   }
 
-  const invalidExperience = state.experience.some((item) => !item.position.trim() || !item.positionId);
+  const invalidExperience = state.experience.some((item) => {
+    const position = item.position?.trim();
+    const company = item.company?.trim();
+    const startDate = item.startDate?.trim();
+    const endDate = item.endDate?.trim();
+    const currentlyWorking = item.currentlyWorking ?? false;
+
+    if (!position || !company || !startDate || !item.positionId) {
+      return true;
+    }
+
+    if (currentlyWorking) {
+      return false;
+    }
+
+    if (endDate && isEndDateBeforeStartDate(startDate, endDate)) {
+      return true;
+    }
+
+    return false;
+  });
   if (invalidExperience) {
     return {
-      error: 'Experience entries must include a selected position.',
+      error: 'Experience entries must include a selected position, company, and start date.',
       missingFields: [],
     };
   }

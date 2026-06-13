@@ -108,6 +108,16 @@ export interface UsePersonalInfoControllerReturn {
   setSelectedPositionId: React.Dispatch<React.SetStateAction<number | null>>;
   experienceCompany: string;
   setExperienceCompany: React.Dispatch<React.SetStateAction<string>>;
+  experienceLocation: string;
+  setExperienceLocation: React.Dispatch<React.SetStateAction<string>>;
+  experienceStartDate: string;
+  setExperienceStartDate: React.Dispatch<React.SetStateAction<string>>;
+  experienceEndDate: string;
+  setExperienceEndDate: React.Dispatch<React.SetStateAction<string>>;
+  experienceCurrentlyWorking: boolean;
+  setExperienceCurrentlyWorking: React.Dispatch<React.SetStateAction<boolean>>;
+  experienceDescription: string;
+  setExperienceDescription: React.Dispatch<React.SetStateAction<string>>;
   positionSuggestions: Array<{ id: number; name: string }>;
   isPositionsLoading: boolean;
 
@@ -292,6 +302,16 @@ export const usePersonalInfoController = ({ fromOnboarding, returnTo }: UsePerso
     setSelectedPositionId: drafts.setSelectedPositionId,
     experienceCompany: drafts.experienceCompany,
     setExperienceCompany: drafts.setExperienceCompany,
+    experienceLocation: drafts.experienceLocation,
+    setExperienceLocation: drafts.setExperienceLocation,
+    experienceStartDate: drafts.experienceStartDate,
+    setExperienceStartDate: drafts.setExperienceStartDate,
+    experienceEndDate: drafts.experienceEndDate,
+    setExperienceEndDate: drafts.setExperienceEndDate,
+    experienceCurrentlyWorking: drafts.experienceCurrentlyWorking,
+    setExperienceCurrentlyWorking: drafts.setExperienceCurrentlyWorking,
+    experienceDescription: drafts.experienceDescription,
+    setExperienceDescription: drafts.setExperienceDescription,
     setExperience,
 
     projectName: drafts.projectName,
@@ -442,6 +462,16 @@ export const usePersonalInfoController = ({ fromOnboarding, returnTo }: UsePerso
     setSelectedPositionId: drafts.setSelectedPositionId,
     experienceCompany: drafts.experienceCompany,
     setExperienceCompany: drafts.setExperienceCompany,
+    experienceLocation: drafts.experienceLocation,
+    setExperienceLocation: drafts.setExperienceLocation,
+    experienceStartDate: drafts.experienceStartDate,
+    setExperienceStartDate: drafts.setExperienceStartDate,
+    experienceEndDate: drafts.experienceEndDate,
+    setExperienceEndDate: drafts.setExperienceEndDate,
+    experienceCurrentlyWorking: drafts.experienceCurrentlyWorking,
+    setExperienceCurrentlyWorking: drafts.setExperienceCurrentlyWorking,
+    experienceDescription: drafts.experienceDescription,
+    setExperienceDescription: drafts.setExperienceDescription,
     positionSuggestions,
     isPositionsLoading,
 
