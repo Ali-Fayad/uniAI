@@ -14,6 +14,7 @@ export interface ThemeColors {
   background: string;
   surface: string;
   elevatedSurface?: string;
+  authPanel: string;
   // Text
   textPrimary: string;
   textSecondary: string;
@@ -47,6 +48,7 @@ export const light: ThemeColors = {
   background: "#f7f7f7", // matches index.html background-light
   surface: "#ffffff",
   elevatedSurface: "#f8fafb",
+  authPanel: "#FBF3D1",
 
   textPrimary: "#151514", // used in labels/headings
   textSecondary: "#6b7280", // gray-500
@@ -78,6 +80,7 @@ export const dark: ThemeColors = {
   background: "#150050", // Second color: Background
   surface: "#3F0071", // Third color: Component backgrounds
   elevatedSurface: "#2A0048", // Darker than surface for sidebar items
+  authPanel: "#3F0071",
 
   textPrimary: "#FB2576", // Last color: Font text
   textSecondary: "#E0E0E0", // Light gray for readability on purple
@@ -109,6 +112,7 @@ export const future: ThemeColors = {
   background: "#0f1724",
   surface: "#0b1220",
   elevatedSurface: "#071028",
+  authPanel: "#071028",
 
   textPrimary: "#e6eef8",
   textSecondary: "#9aa6b2",

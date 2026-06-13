@@ -45,10 +45,10 @@ const AnimatedInput: React.FC<AnimatedInputProps> = ({
 
           <label
             htmlFor={inputId}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-textSecondary)] 
             transition-all duration-200 pointer-events-none px-1 bg-[var(--color-surface)]
-            peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-gray-400
-            peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-gray-400"
+            peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-xs peer-focus:text-[var(--color-primary)]
+            peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-[var(--color-textSecondary)]"
           >
             {label}
           </label>
