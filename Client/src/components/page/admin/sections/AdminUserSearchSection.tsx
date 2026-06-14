@@ -135,6 +135,8 @@ const AdminUserSearchSection = ({ id, labelledBy }: AdminUserSearchSectionProps)
         <SelectedUserDialog
           user={controller.selectedUser}
           onClose={controller.handleCloseSelectedUser}
+          onUserUpdated={controller.handleUserUpdated}
+          onUserDeleted={controller.handleUserDeleted}
         />
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { adminService } from '../../../../services/admin';
-import type { AdminUserSearchResponse } from '../../../../types/dto';
+import type { AdminUserDetailsResponse, AdminUserSearchResponse } from '../../../../types/dto';
 
 export interface UseAdminUserSearchControllerReturn {
   emailQuery: string;
@@ -14,6 +14,8 @@ export interface UseAdminUserSearchControllerReturn {
   handleSearch: () => Promise<void>;
   handleSelectUser: (user: AdminUserSearchResponse) => void;
   handleCloseSelectedUser: () => void;
+  handleUserUpdated: (updatedUser: AdminUserDetailsResponse) => void;
+  handleUserDeleted: (userId: number) => void;
 }
 
 const MIN_SEARCH_LENGTH = 3;
@@ -70,6 +72,25 @@ export const useAdminUserSearchController = (): UseAdminUserSearchControllerRetu
     setSelectedUser(null);
   }, []);
 
+  const handleUserUpdated = useCallback((updatedUser: AdminUserDetailsResponse) => {
+    const nextUser: AdminUserSearchResponse = {
+      id: updatedUser.id,
+      email: updatedUser.email,
+      username: updatedUser.username,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      role: updatedUser.role,
+    };
+
+    setResults((prev) => prev.map((user) => (user.id === updatedUser.id ? nextUser : user)));
+    setSelectedUser((prev) => (prev?.id === updatedUser.id ? nextUser : prev));
+  }, []);
+
+  const handleUserDeleted = useCallback((userId: number) => {
+    setResults((prev) => prev.filter((user) => user.id !== userId));
+    setSelectedUser((prev) => (prev?.id === userId ? null : prev));
+  }, []);
+
   return {
     emailQuery,
     setEmailQuery,
@@ -82,5 +103,7 @@ export const useAdminUserSearchController = (): UseAdminUserSearchControllerRetu
     handleSearch,
     handleSelectUser,
     handleCloseSelectedUser,
+    handleUserUpdated,
+    handleUserDeleted,
   };
 };

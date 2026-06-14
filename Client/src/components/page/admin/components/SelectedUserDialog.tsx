@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import LoadingSpinner from '../../../common/LoadingSpinner';
 import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
@@ -9,17 +9,25 @@ import SelectedUserStatisticsTab from './SelectedUserStatisticsTab';
 import SelectedUserPersonalInfoTab from './SelectedUserPersonalInfoTab';
 import SelectedUserFeedbackTab from './SelectedUserFeedbackTab';
 import { useSelectedUserDialogController } from './useSelectedUserDialogController';
+import AdminUserDeleteConfirmDialog from './AdminUserDeleteConfirmDialog';
 
 interface SelectedUserDialogProps {
   user: AdminUserSearchResponse | null;
   onClose: () => void;
+  onUserUpdated: (updatedUser: import('../../../../types/dto').AdminUserDetailsResponse) => void;
+  onUserDeleted: (userId: number) => void;
 }
 
 const tabPlaceholderId = (tab: SelectedUserTab) => selectedUserTabPanelId(tab);
 
-const SelectedUserDialog = ({ user, onClose }: SelectedUserDialogProps) => {
+const SelectedUserDialog = ({ user, onClose, onUserUpdated, onUserDeleted }: SelectedUserDialogProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
-  const controller = useSelectedUserDialogController(user);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const controller = useSelectedUserDialogController({
+    selectedUser: user,
+    onUserUpdated,
+    onUserDeleted,
+  });
 
   useOnClickOutside(panelRef, () => onClose(), { enabled: !!user });
 
@@ -43,6 +51,9 @@ const SelectedUserDialog = ({ user, onClose }: SelectedUserDialogProps) => {
   if (!user) {
     return null;
   }
+
+  const currentRole = controller.userDetails?.role ?? user.role;
+  const roleActionLabel = currentRole === 'ADMIN' ? 'Demote to User' : 'Promote to Admin';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
@@ -149,9 +160,72 @@ const SelectedUserDialog = ({ user, onClose }: SelectedUserDialogProps) => {
                   />
                 </section>
               )}
+
+              <div className="flex flex-col gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-[var(--color-textPrimary)]">Manage User</p>
+                  <p className="text-sm text-[var(--color-textSecondary)]">
+                    Promote, demote, or delete this account.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const success = await controller.toggleUserRole();
+                      if (success) {
+                        controller.clearRoleActionError();
+                      }
+                    }}
+                    disabled={controller.isRoleUpdating || controller.isDeleting}
+                    className="inline-flex items-center justify-center rounded-xl bg-[var(--color-primary)] px-4 py-2.5 text-sm font-semibold text-[var(--color-background)] transition-colors hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {controller.isRoleUpdating ? 'Updating...' : roleActionLabel}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      controller.clearDeleteError();
+                      setIsDeleteConfirmOpen(true);
+                    }}
+                    disabled={controller.isRoleUpdating || controller.isDeleting}
+                    className="inline-flex items-center justify-center rounded-xl border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-2.5 text-sm font-semibold text-[var(--color-error)] transition-colors hover:bg-[var(--color-error)]/15 disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    Delete User
+                  </button>
+                </div>
+              </div>
+
+              {controller.roleActionError && (
+                <div
+                  role="alert"
+                  className="rounded-2xl border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-3 text-sm text-[var(--color-textPrimary)]"
+                >
+                  {controller.roleActionError}
+                </div>
+              )}
             </div>
           )}
         </div>
+
+        <AdminUserDeleteConfirmDialog
+          open={isDeleteConfirmOpen}
+          userLabel={controller.userDetails?.username ?? user.username}
+          isLoading={controller.isDeleting}
+          error={controller.deleteError}
+          onCancel={() => {
+            setIsDeleteConfirmOpen(false);
+            controller.clearDeleteError();
+          }}
+          onConfirm={async () => {
+            const success = await controller.deleteUser();
+            if (success) {
+              setIsDeleteConfirmOpen(false);
+            }
+          }}
+        />
       </div>
     </div>
   );

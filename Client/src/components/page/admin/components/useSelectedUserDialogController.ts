@@ -1,12 +1,36 @@
 import { useCallback, useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
 import { adminService } from '../../../../services/admin';
+import { useNotification } from '../../../../hooks/useNotification';
 import type {
   AdminUserDetailsResponse,
   AdminUserFeedbackResponse,
   AdminUserPersonalInfoResponse,
   AdminUserSearchResponse,
+  UserRole,
 } from '../../../../types/dto';
 import type { SelectedUserTab } from './SelectedUserTabs';
+
+type AdminActionKind = 'role' | 'delete';
+
+const getFriendlyAdminActionError = (error: unknown, action: AdminActionKind) => {
+  if (isAxiosError(error)) {
+    const status = error.response?.status;
+    if (status === 403) {
+      return action === 'role'
+        ? 'You cannot demote yourself.'
+        : 'You cannot delete your own account.';
+    }
+    if (status === 409) {
+      return 'At least one admin must remain.';
+    }
+    if (status === 404) {
+      return 'This user no longer exists.';
+    }
+  }
+
+  return 'Something went wrong. Please try again.';
+};
 
 export interface UseSelectedUserDialogControllerReturn {
   userDetails: AdminUserDetailsResponse | null;
@@ -20,11 +44,27 @@ export interface UseSelectedUserDialogControllerReturn {
   feedback: AdminUserFeedbackResponse[];
   feedbackLoading: boolean;
   feedbackError: string | null;
+  isRoleUpdating: boolean;
+  roleActionError: string | null;
+  isDeleting: boolean;
+  deleteError: string | null;
+  clearRoleActionError: () => void;
+  clearDeleteError: () => void;
+  toggleUserRole: () => Promise<boolean>;
+  deleteUser: () => Promise<boolean>;
+}
+
+interface UseSelectedUserDialogControllerArgs {
+  selectedUser: AdminUserSearchResponse | null;
+  onUserUpdated: (updatedUser: AdminUserDetailsResponse) => void;
+  onUserDeleted: (userId: number) => void;
 }
 
 export const useSelectedUserDialogController = (
-  selectedUser: AdminUserSearchResponse | null,
+  { selectedUser, onUserUpdated, onUserDeleted }: UseSelectedUserDialogControllerArgs,
 ): UseSelectedUserDialogControllerReturn => {
+  const { showNotification } = useNotification();
+
   const [userDetails, setUserDetails] = useState<AdminUserDetailsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -39,6 +79,11 @@ export const useSelectedUserDialogController = (
   const [feedbackLoading, setFeedbackLoading] = useState(false);
   const [feedbackError, setFeedbackError] = useState<string | null>(null);
   const [hasLoadedFeedback, setHasLoadedFeedback] = useState(false);
+
+  const [isRoleUpdating, setIsRoleUpdating] = useState(false);
+  const [roleActionError, setRoleActionError] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const selectedUserId = selectedUser?.id ?? null;
 
@@ -83,7 +128,7 @@ export const useSelectedUserDialogController = (
   }, [selectedUserId]);
 
   useEffect(() => {
-    if (!selectedUser) {
+    if (selectedUserId === null) {
       setUserDetails(null);
       setIsLoading(false);
       setError(null);
@@ -96,6 +141,10 @@ export const useSelectedUserDialogController = (
       setFeedbackLoading(false);
       setFeedbackError(null);
       setHasLoadedFeedback(false);
+      setIsRoleUpdating(false);
+      setRoleActionError(null);
+      setIsDeleting(false);
+      setDeleteError(null);
       return;
     }
 
@@ -107,7 +156,7 @@ export const useSelectedUserDialogController = (
       setActiveTab('statistics');
 
       try {
-        const data = await adminService.getUserDetails(selectedUser.id);
+        const data = await adminService.getUserDetails(selectedUserId);
         if (!isActive) {
           return;
         }
@@ -130,7 +179,7 @@ export const useSelectedUserDialogController = (
     return () => {
       isActive = false;
     };
-  }, [selectedUser]);
+  }, [selectedUserId]);
 
   useEffect(() => {
     if (selectedUserId === null) {
@@ -155,6 +204,64 @@ export const useSelectedUserDialogController = (
     selectedUserId,
   ]);
 
+  const toggleUserRole = useCallback(async () => {
+    if (!userDetails) {
+      return false;
+    }
+
+    const targetRole: UserRole = userDetails.role === 'ADMIN' ? 'USER' : 'ADMIN';
+    setIsRoleUpdating(true);
+    setRoleActionError(null);
+
+    try {
+      const updatedUser = await adminService.updateUserRole(userDetails.id, targetRole);
+      setUserDetails(updatedUser);
+      onUserUpdated(updatedUser);
+      showNotification({
+        type: 'success',
+        message: `${updatedUser.username} updated to ${updatedUser.role === 'ADMIN' ? 'Admin' : 'User'}.`,
+      });
+      return true;
+    } catch (error) {
+      setRoleActionError(getFriendlyAdminActionError(error, 'role'));
+      return false;
+    } finally {
+      setIsRoleUpdating(false);
+    }
+  }, [onUserUpdated, showNotification, userDetails]);
+
+  const deleteUser = useCallback(async () => {
+    if (!userDetails) {
+      return false;
+    }
+
+    setIsDeleting(true);
+    setDeleteError(null);
+
+    try {
+      await adminService.deleteUser(userDetails.id);
+      onUserDeleted(userDetails.id);
+      showNotification({
+        type: 'success',
+        message: `${userDetails.username} deleted successfully.`,
+      });
+      return true;
+    } catch (error) {
+      setDeleteError(getFriendlyAdminActionError(error, 'delete'));
+      return false;
+    } finally {
+      setIsDeleting(false);
+    }
+  }, [onUserDeleted, showNotification, userDetails]);
+
+  const clearRoleActionError = useCallback(() => {
+    setRoleActionError(null);
+  }, []);
+
+  const clearDeleteError = useCallback(() => {
+    setDeleteError(null);
+  }, []);
+
   return {
     userDetails,
     isLoading,
@@ -167,5 +274,13 @@ export const useSelectedUserDialogController = (
     feedback,
     feedbackLoading,
     feedbackError,
+    isRoleUpdating,
+    roleActionError,
+    isDeleting,
+    deleteError,
+    clearRoleActionError,
+    clearDeleteError,
+    toggleUserRole,
+    deleteUser,
   };
 };
