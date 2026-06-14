@@ -482,6 +482,24 @@ Keep logic in hooks, not page components.
 - Run frontend build
 - Run backend build
 
+# RESEND-Veri
+## Frontend Role Awareness
+
+### Goal
+Allow frontend to understand roles.
+
+### Scope
+- Decode role from JWT
+- Store role in AuthContext
+- Create AdminRoute or requiredRole support
+
+### Deliverables
+- AuthContext update
+- Route guard update
+
+### Validation
+- Non-admin cannot access admin pages
+
 ---
 
 # Future Enhancements Not V1
