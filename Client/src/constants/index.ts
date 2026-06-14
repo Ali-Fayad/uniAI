@@ -54,6 +54,22 @@ export const ENDPOINTS = {
     SKILLS: '/api/cv/skills',
     POSITIONS: '/api/cv/positions',
   },
+
+  // Admin endpoints
+  ADMIN: {
+    OVERVIEW: '/api/admin/overview',
+    USERS: {
+      SEARCH: '/api/admin/users/search',
+      BY_ID: (userId: number) => `/api/admin/users/${userId}`,
+      PERSONAL_INFO: (userId: number) => `/api/admin/users/${userId}/personal-info`,
+      FEEDBACK: (userId: number) => `/api/admin/users/${userId}/feedback`,
+      ROLE: (userId: number) => `/api/admin/users/${userId}/role`,
+    },
+    FEEDBACK: {
+      LIST: '/api/admin/feedback',
+      BY_ID: (feedbackId: number) => `/api/admin/feedback/${feedbackId}`,
+    },
+  },
 } as const;
 
 // Storage keys

@@ -41,6 +41,61 @@ export interface GoogleAuthUrlRequestDto {
 
 export type UserRole = 'USER' | 'ADMIN';
 
+export interface AdminOverviewResponse {
+  totalUsers: number;
+  totalChats: number;
+  totalMessages: number;
+  totalFeedback: number;
+  averageChatsPerUser: number;
+  averageMessagesPerChat: number;
+  averageMessagesPerUser: number;
+}
+
+export interface AdminUserSearchResponse {
+  id: number;
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  role: UserRole;
+}
+
+export interface AdminUserDetailsResponse {
+  id: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: UserRole;
+  isVerified: boolean;
+  isTwoFacAuth: boolean;
+  chatCount: number;
+  messageCount: number;
+  averageMessagesPerChat: number;
+  cvCount: number;
+}
+
+export interface AdminUserFeedbackResponse {
+  id: number;
+  rating: number | null;
+  content: string;
+  createdAt: string;
+}
+
+export interface AdminFeedbackResponse {
+  id: number;
+  userId: number;
+  rating: number | null;
+  content: string;
+  createdAt: string;
+}
+
+export interface UpdateAdminUserRoleRequest {
+  role: UserRole;
+}
+
+export type AdminUserPersonalInfoResponse = PersonalInfoResponseDto;
+
 export interface TokenResponse {
   token: string; // server returns only { token }
 }
