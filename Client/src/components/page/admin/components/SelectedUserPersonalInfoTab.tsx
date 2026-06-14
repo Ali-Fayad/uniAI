@@ -2,6 +2,7 @@ import type { AdminUserPersonalInfoResponse } from '../../../../types/dto';
 import LoadingSpinner from '../../../common/LoadingSpinner';
 import PersonalInfoSectionCard from '../../personalInfo/PersonalInfoSectionCard';
 import { formatEducationLabel } from '../../personalInfo/personalInfoStateHelpers';
+import { getSafeExternalUrl } from '../utils/safeAdminLinks';
 
 interface SelectedUserPersonalInfoTabProps {
   personalInfo: AdminUserPersonalInfoResponse | null;
@@ -15,6 +16,29 @@ const fieldValue = (value?: string | null) => (hasText(value) ? value : '—');
 
 const joinList = (values: Array<string | undefined | null>) =>
   values.filter((value): value is string => hasText(value)).join(' · ');
+
+const renderExternalLink = (value?: string | null) => {
+  const safeUrl = getSafeExternalUrl(value);
+
+  if (!safeUrl.display) {
+    return <p className="mt-1 text-sm text-[var(--color-textPrimary)]">—</p>;
+  }
+
+  if (safeUrl.href) {
+    return (
+      <a
+        href={safeUrl.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-1 break-all text-sm text-[var(--color-primary)] hover:underline"
+      >
+        {safeUrl.display}
+      </a>
+    );
+  }
+
+  return <p className="mt-1 break-all text-sm text-[var(--color-textPrimary)]">{safeUrl.display}</p>;
+};
 
 const SelectedUserPersonalInfoTab = ({
   personalInfo,
@@ -93,50 +117,17 @@ const SelectedUserPersonalInfoTab = ({
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-textSecondary)]">LinkedIn</p>
-            {hasText(personalInfo.linkedin) ? (
-              <a
-                href={personalInfo.linkedin ?? '#'}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-1 break-all text-sm text-[var(--color-primary)] hover:underline"
-              >
-                {personalInfo.linkedin}
-              </a>
-            ) : (
-              <p className="mt-1 text-sm text-[var(--color-textPrimary)]">—</p>
-            )}
+            {renderExternalLink(personalInfo.linkedin)}
           </div>
           <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-textSecondary)]">GitHub</p>
-            {hasText(personalInfo.github) ? (
-              <a
-                href={personalInfo.github ?? '#'}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-1 break-all text-sm text-[var(--color-primary)] hover:underline"
-              >
-                {personalInfo.github}
-              </a>
-            ) : (
-              <p className="mt-1 text-sm text-[var(--color-textPrimary)]">—</p>
-            )}
+            {renderExternalLink(personalInfo.github)}
           </div>
         </div>
 
         <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-textSecondary)]">Portfolio</p>
-          {hasText(personalInfo.portfolio) ? (
-            <a
-              href={personalInfo.portfolio ?? '#'}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-1 break-all text-sm text-[var(--color-primary)] hover:underline"
-            >
-              {personalInfo.portfolio}
-            </a>
-          ) : (
-            <p className="mt-1 text-sm text-[var(--color-textPrimary)]">—</p>
-          )}
+          {renderExternalLink(personalInfo.portfolio)}
         </div>
 
         <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
@@ -255,26 +246,30 @@ const SelectedUserPersonalInfoTab = ({
                   </p>
                 )}
                 <div className="mt-2 flex flex-wrap gap-3 text-sm">
-                  {hasText(item.repositoryUrl) && (
+                  {getSafeExternalUrl(item.repositoryUrl).href ? (
                     <a
-                      href={item.repositoryUrl ?? '#'}
+                      href={getSafeExternalUrl(item.repositoryUrl).href ?? '#'}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="text-[var(--color-primary)] hover:underline"
                     >
                       Repository
                     </a>
-                  )}
-                  {hasText(item.liveUrl) && (
+                  ) : hasText(item.repositoryUrl) ? (
+                    <span className="break-all text-[var(--color-textPrimary)]">{item.repositoryUrl}</span>
+                  ) : null}
+                  {getSafeExternalUrl(item.liveUrl).href ? (
                     <a
-                      href={item.liveUrl ?? '#'}
+                      href={getSafeExternalUrl(item.liveUrl).href ?? '#'}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="text-[var(--color-primary)] hover:underline"
                     >
                       Live
                     </a>
-                  )}
+                  ) : hasText(item.liveUrl) ? (
+                    <span className="break-all text-[var(--color-textPrimary)]">{item.liveUrl}</span>
+                  ) : null}
                 </div>
               </div>
             ))}
@@ -294,16 +289,20 @@ const SelectedUserPersonalInfoTab = ({
                 <p className="mt-1 text-sm text-[var(--color-textSecondary)]">
                   {joinList([item.issuer, item.date])}
                 </p>
-                {hasText(item.credentialUrl) && (
+                {getSafeExternalUrl(item.credentialUrl).href ? (
                   <a
-                    href={item.credentialUrl ?? '#'}
+                    href={getSafeExternalUrl(item.credentialUrl).href ?? '#'}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="mt-2 inline-block text-sm text-[var(--color-primary)] hover:underline"
                   >
                     Credential
                   </a>
-                )}
+                ) : hasText(item.credentialUrl) ? (
+                  <span className="mt-2 block break-all text-sm text-[var(--color-textPrimary)]">
+                    {item.credentialUrl}
+                  </span>
+                ) : null}
               </div>
             ))}
           </div>

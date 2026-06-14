@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import LoadingSpinner from '../../../common/LoadingSpinner';
 import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
@@ -28,6 +28,10 @@ const SelectedUserDialog = ({ user, onClose, onUserUpdated, onUserDeleted }: Sel
     onUserUpdated,
     onUserDeleted,
   });
+
+  useEffect(() => {
+    setIsDeleteConfirmOpen(false);
+  }, [user?.id]);
 
   useOnClickOutside(panelRef, () => onClose(), { enabled: !!user });
 

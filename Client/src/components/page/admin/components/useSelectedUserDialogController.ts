@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { adminService } from '../../../../services/admin';
 import { useNotification } from '../../../../hooks/useNotification';
@@ -86,65 +86,86 @@ export const useSelectedUserDialogController = (
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const selectedUserId = selectedUser?.id ?? null;
+  const currentUserIdRef = useRef<number | null>(null);
+  const requestVersionRef = useRef(0);
 
-  const loadPersonalInfo = useCallback(async () => {
-    if (selectedUserId === null) {
-      return;
-    }
+  const resetDialogState = useCallback(() => {
+    setUserDetails(null);
+    setIsLoading(false);
+    setError(null);
+    setActiveTab('statistics');
+    setPersonalInfo(null);
+    setPersonalInfoLoading(false);
+    setPersonalInfoError(null);
+    setHasLoadedPersonalInfo(false);
+    setFeedback([]);
+    setFeedbackLoading(false);
+    setFeedbackError(null);
+    setHasLoadedFeedback(false);
+    setIsRoleUpdating(false);
+    setRoleActionError(null);
+    setIsDeleting(false);
+    setDeleteError(null);
+  }, []);
 
+  const loadPersonalInfo = useCallback(async (userId: number, requestVersion: number) => {
     setPersonalInfoLoading(true);
     setPersonalInfoError(null);
 
     try {
-      const data = await adminService.getUserPersonalInfo(selectedUserId);
+      const data = await adminService.getUserPersonalInfo(userId);
+      if (requestVersionRef.current !== requestVersion || currentUserIdRef.current !== userId) {
+        return;
+      }
       setPersonalInfo(data);
     } catch {
+      if (requestVersionRef.current !== requestVersion || currentUserIdRef.current !== userId) {
+        return;
+      }
       setPersonalInfo(null);
       setPersonalInfoError('Unable to load personal information right now. Please try again.');
     } finally {
+      if (requestVersionRef.current !== requestVersion || currentUserIdRef.current !== userId) {
+        return;
+      }
       setPersonalInfoLoading(false);
       setHasLoadedPersonalInfo(true);
     }
-  }, [selectedUserId]);
+  }, []);
 
-  const loadFeedback = useCallback(async () => {
-    if (selectedUserId === null) {
-      return;
-    }
-
+  const loadFeedback = useCallback(async (userId: number, requestVersion: number) => {
     setFeedbackLoading(true);
     setFeedbackError(null);
 
     try {
-      const data = await adminService.getUserFeedback(selectedUserId);
+      const data = await adminService.getUserFeedback(userId);
+      if (requestVersionRef.current !== requestVersion || currentUserIdRef.current !== userId) {
+        return;
+      }
       setFeedback(data);
     } catch {
+      if (requestVersionRef.current !== requestVersion || currentUserIdRef.current !== userId) {
+        return;
+      }
       setFeedback([]);
       setFeedbackError('Unable to load feedback right now. Please try again.');
     } finally {
+      if (requestVersionRef.current !== requestVersion || currentUserIdRef.current !== userId) {
+        return;
+      }
       setFeedbackLoading(false);
       setHasLoadedFeedback(true);
     }
-  }, [selectedUserId]);
+  }, []);
 
   useEffect(() => {
+    requestVersionRef.current += 1;
+    const requestVersion = requestVersionRef.current;
+
+    currentUserIdRef.current = selectedUserId;
+    resetDialogState();
+
     if (selectedUserId === null) {
-      setUserDetails(null);
-      setIsLoading(false);
-      setError(null);
-      setActiveTab('statistics');
-      setPersonalInfo(null);
-      setPersonalInfoLoading(false);
-      setPersonalInfoError(null);
-      setHasLoadedPersonalInfo(false);
-      setFeedback([]);
-      setFeedbackLoading(false);
-      setFeedbackError(null);
-      setHasLoadedFeedback(false);
-      setIsRoleUpdating(false);
-      setRoleActionError(null);
-      setIsDeleting(false);
-      setDeleteError(null);
       return;
     }
 
@@ -153,24 +174,24 @@ export const useSelectedUserDialogController = (
     const loadDetails = async () => {
       setIsLoading(true);
       setError(null);
-      setActiveTab('statistics');
 
       try {
         const data = await adminService.getUserDetails(selectedUserId);
-        if (!isActive) {
+        if (!isActive || requestVersionRef.current !== requestVersion || currentUserIdRef.current !== selectedUserId) {
           return;
         }
         setUserDetails(data);
       } catch {
-        if (!isActive) {
+        if (!isActive || requestVersionRef.current !== requestVersion || currentUserIdRef.current !== selectedUserId) {
           return;
         }
         setUserDetails(null);
         setError('Unable to load user details right now. Please try again.');
       } finally {
-        if (isActive) {
-          setIsLoading(false);
+        if (!isActive || requestVersionRef.current !== requestVersion || currentUserIdRef.current !== selectedUserId) {
+          return;
         }
+        setIsLoading(false);
       }
     };
 
@@ -179,19 +200,21 @@ export const useSelectedUserDialogController = (
     return () => {
       isActive = false;
     };
-  }, [selectedUserId]);
+  }, [resetDialogState, selectedUserId]);
 
   useEffect(() => {
     if (selectedUserId === null) {
       return;
     }
 
+    const requestVersion = requestVersionRef.current;
+
     if (activeTab === 'personal-info' && !hasLoadedPersonalInfo && !personalInfoLoading) {
-      void loadPersonalInfo();
+      void loadPersonalInfo(selectedUserId, requestVersion);
     }
 
     if (activeTab === 'feedback' && !hasLoadedFeedback && !feedbackLoading) {
-      void loadFeedback();
+      void loadFeedback(selectedUserId, requestVersion);
     }
   }, [
     activeTab,
@@ -215,6 +238,9 @@ export const useSelectedUserDialogController = (
 
     try {
       const updatedUser = await adminService.updateUserRole(userDetails.id, targetRole);
+      if (currentUserIdRef.current !== updatedUser.id) {
+        return false;
+      }
       setUserDetails(updatedUser);
       onUserUpdated(updatedUser);
       showNotification({

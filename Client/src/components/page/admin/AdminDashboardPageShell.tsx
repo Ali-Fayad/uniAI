@@ -34,6 +34,10 @@ const AdminDashboardPageShell = ({ controller }: AdminDashboardPageShellProps) =
             <AdminStatisticsSection
               id={adminDashboardTabPanelId('statistics')}
               labelledBy={adminDashboardTabButtonId('statistics')}
+              overview={controller.overview}
+              isLoading={controller.isOverviewLoading}
+              error={controller.overviewError}
+              onRetry={controller.refreshOverview}
             />
           )}
 
