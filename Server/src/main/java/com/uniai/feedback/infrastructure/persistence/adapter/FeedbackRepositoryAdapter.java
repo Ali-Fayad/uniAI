@@ -6,6 +6,8 @@ import com.uniai.feedback.infrastructure.persistence.repository.FeedbackJpaRepos
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * JPA-backed implementation of the domain {@link FeedbackRepository} interface.
  */
@@ -23,5 +25,10 @@ public class FeedbackRepositoryAdapter implements FeedbackRepository {
     @Override
     public long count() {
         return jpaRepository.count();
+    }
+
+    @Override
+    public List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId) {
+        return jpaRepository.findByUserIdOrderByCreatedAtDesc(userId);
     }
 }

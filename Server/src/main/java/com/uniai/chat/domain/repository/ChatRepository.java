@@ -24,4 +24,6 @@ public interface ChatRepository {
     void deleteAll(List<Chat> chats);
 
     long count();
+
+    long countByUserId(Long userId);
 }

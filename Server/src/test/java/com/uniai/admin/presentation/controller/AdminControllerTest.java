@@ -1,11 +1,19 @@
 package com.uniai.admin.presentation.controller;
 
 import com.uniai.admin.application.dto.response.AdminOverviewResponse;
+import com.uniai.admin.application.dto.response.AdminUserDetailsResponse;
+import com.uniai.admin.application.dto.response.AdminUserFeedbackResponse;
+import com.uniai.admin.application.dto.response.AdminUserSearchResponse;
 import com.uniai.admin.application.service.AdminApplicationService;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.ChatRepository;
 import com.uniai.chat.domain.repository.MessageRepository;
+import com.uniai.cvbuilder.application.dto.response.PersonalInfoResponse;
+import com.uniai.cvbuilder.domain.model.CV;
+import com.uniai.cvbuilder.domain.model.PersonalInfo;
+import com.uniai.cvbuilder.domain.repository.CVRepository;
+import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
 import com.uniai.feedback.domain.model.Feedback;
 import com.uniai.feedback.domain.repository.FeedbackRepository;
 import com.uniai.user.domain.model.User;
@@ -16,17 +24,14 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class AdminControllerTest {
 
     @Test
     void healthShouldReturnAdminAccessGrantedMessage() {
-        AdminController controller = new AdminController(new AdminApplicationService(
-                new StaticUserRepository(0),
-                new StaticChatRepository(0),
-                new StaticMessageRepository(0),
-                new StaticFeedbackRepository(0)
-        ));
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        AdminController controller = new AdminController(service);
 
         AdminController.AdminHealthResponse response = controller.health().getBody();
 
@@ -45,89 +50,210 @@ class AdminControllerTest {
                 .averageMessagesPerUser(3.0)
                 .build();
 
-        AdminController controller = new AdminController(new StubAdminApplicationService(expected));
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        service.overview = expected;
 
-        assertEquals(expected, controller.overview().getBody());
+        AdminController controller = new AdminController(service);
+
+        assertSame(expected, controller.overview().getBody());
+    }
+
+    @Test
+    void searchUsersShouldDelegateToApplicationService() {
+        List<AdminUserSearchResponse> expected = List.of(
+                AdminUserSearchResponse.builder()
+                        .id(1L)
+                        .email("alice@example.com")
+                        .username("alice")
+                        .firstName("Alice")
+                        .lastName("Anderson")
+                        .role("ADMIN")
+                        .build()
+        );
+
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        service.searchResults = expected;
+
+        AdminController controller = new AdminController(service);
+
+        assertSame(expected, controller.searchUsers("alice").getBody());
+        assertEquals("alice", service.lastEmail);
+    }
+
+    @Test
+    void getUserDetailsShouldDelegateToApplicationService() {
+        AdminUserDetailsResponse expected = AdminUserDetailsResponse.builder()
+                .id(7L)
+                .username("zoe")
+                .firstName("Zoe")
+                .lastName("Zimmer")
+                .email("zoe@example.com")
+                .role("USER")
+                .isVerified(true)
+                .isTwoFacAuth(false)
+                .chatCount(1L)
+                .messageCount(2L)
+                .averageMessagesPerChat(2.0)
+                .cvCount(1L)
+                .build();
+
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        service.details = expected;
+
+        AdminController controller = new AdminController(service);
+
+        assertSame(expected, controller.getUserDetails(7L).getBody());
+        assertEquals(7L, service.lastUserId);
+    }
+
+    @Test
+    void getUserPersonalInfoShouldDelegateToApplicationService() {
+        PersonalInfoResponse expected = PersonalInfoResponse.builder()
+                .userId(7L)
+                .hasPersonalInfo(true)
+                .isFilled(true)
+                .education(List.of())
+                .skills(List.of())
+                .languages(List.of())
+                .experience(List.of())
+                .projects(List.of())
+                .certificates(List.of())
+                .build();
+
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        service.personalInfo = expected;
+
+        AdminController controller = new AdminController(service);
+
+        assertSame(expected, controller.getUserPersonalInfo(7L).getBody());
+        assertEquals(7L, service.lastUserId);
+    }
+
+    @Test
+    void getUserFeedbackShouldDelegateToApplicationService() {
+        List<AdminUserFeedbackResponse> expected = List.of(
+                AdminUserFeedbackResponse.builder()
+                        .id(1L)
+                        .rating(5)
+                        .content("Great")
+                        .createdAt(java.time.LocalDateTime.parse("2026-01-01T10:00:00"))
+                        .build()
+        );
+
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        service.feedback = expected;
+
+        AdminController controller = new AdminController(service);
+
+        assertSame(expected, controller.getUserFeedback(7L).getBody());
+        assertEquals(7L, service.lastUserId);
     }
 
     private static final class StubAdminApplicationService extends AdminApplicationService {
-        private final AdminOverviewResponse overview;
+        private AdminOverviewResponse overview = AdminOverviewResponse.builder().build();
+        private List<AdminUserSearchResponse> searchResults = List.of();
+        private AdminUserDetailsResponse details = AdminUserDetailsResponse.builder().build();
+        private PersonalInfoResponse personalInfo = PersonalInfoResponse.builder().build();
+        private List<AdminUserFeedbackResponse> feedback = List.of();
+        private String lastEmail;
+        private Long lastUserId;
 
-        private StubAdminApplicationService(AdminOverviewResponse overview) {
-            super(new StaticUserRepository(0), new StaticChatRepository(0), new StaticMessageRepository(0), new StaticFeedbackRepository(0));
-            this.overview = overview;
+        private StubAdminApplicationService() {
+            super(new NoopUserRepository(), new NoopChatRepository(), new NoopMessageRepository(),
+                    new NoopFeedbackRepository(), new NoopCVRepository(), new NoopPersonalInfoRepository());
+        }
+
+        @Override
+        public String getHealthMessage() {
+            return "Admin access granted";
         }
 
         @Override
         public AdminOverviewResponse getOverview() {
             return overview;
         }
-    }
 
-    private static final class StaticUserRepository implements UserRepository {
-        private final long count;
-
-        private StaticUserRepository(long count) {
-            this.count = count;
+        @Override
+        public List<AdminUserSearchResponse> searchUsersByEmail(String email) {
+            lastEmail = email;
+            return searchResults;
         }
 
-        @Override public Optional<User> findByEmail(String email) { throw unsupported(); }
-        @Override public Optional<User> findByUsername(String username) { throw unsupported(); }
-        @Override public boolean existsByEmail(String email) { throw unsupported(); }
-        @Override public boolean existsByUsername(String username) { throw unsupported(); }
-        @Override public User save(User user) { throw unsupported(); }
-        @Override public void delete(User user) { throw unsupported(); }
-        @Override public boolean deleteByEmail(String email) { throw unsupported(); }
-        @Override public boolean deleteByUsername(String username) { throw unsupported(); }
-        @Override public List<User> findAll() { throw unsupported(); }
-        @Override public long count() { return count; }
-    }
-
-    private static final class StaticChatRepository implements ChatRepository {
-        private final long count;
-
-        private StaticChatRepository(long count) {
-            this.count = count;
+        @Override
+        public AdminUserDetailsResponse getUserDetails(Long userId) {
+            lastUserId = userId;
+            return details;
         }
 
-        @Override public Optional<Chat> findById(Long id) { throw unsupported(); }
-        @Override public List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username) { throw unsupported(); }
-        @Override public String findTitleById(Long chatId) { throw unsupported(); }
-        @Override public Chat save(Chat chat) { throw unsupported(); }
-        @Override public void delete(Chat chat) { throw unsupported(); }
-        @Override public void deleteAll(List<Chat> chats) { throw unsupported(); }
-        @Override public long count() { return count; }
-    }
-
-    private static final class StaticMessageRepository implements MessageRepository {
-        private final long count;
-
-        private StaticMessageRepository(long count) {
-            this.count = count;
+        @Override
+        public PersonalInfoResponse getUserPersonalInfo(Long userId) {
+            lastUserId = userId;
+            return personalInfo;
         }
 
-        @Override public List<Message> findByChatIdOrderByTimestampAsc(Long chatId) { throw unsupported(); }
-        @Override public List<Message> findTop10ByChatIdOrderByTimestampDesc(Long chatId) { throw unsupported(); }
-        @Override public void deleteByChatId(Long chatId) { throw unsupported(); }
-        @Override public void deleteByChatIdIn(List<Long> chatIds) { throw unsupported(); }
-        @Override public long countByChatId(Long chatId) { throw unsupported(); }
-        @Override public long count() { return count; }
-        @Override public boolean existsByChatId(Long chatId) { throw unsupported(); }
-        @Override public Message save(Message message) { throw unsupported(); }
-    }
-
-    private static final class StaticFeedbackRepository implements FeedbackRepository {
-        private final long count;
-
-        private StaticFeedbackRepository(long count) {
-            this.count = count;
+        @Override
+        public List<AdminUserFeedbackResponse> getUserFeedback(Long userId) {
+            lastUserId = userId;
+            return feedback;
         }
-
-        @Override public Feedback save(Feedback feedback) { throw unsupported(); }
-        @Override public long count() { return count; }
     }
 
-    private static UnsupportedOperationException unsupported() {
-        return new UnsupportedOperationException("Not used in this test");
+    private static final class NoopUserRepository implements UserRepository {
+        @Override public Optional<User> findById(Long id) { return Optional.empty(); }
+        @Override public Optional<User> findByEmail(String email) { return Optional.empty(); }
+        @Override public Optional<User> findByUsername(String username) { return Optional.empty(); }
+        @Override public boolean existsByEmail(String email) { return false; }
+        @Override public boolean existsByUsername(String username) { return false; }
+        @Override public User save(User user) { return user; }
+        @Override public void delete(User user) {}
+        @Override public boolean deleteByEmail(String email) { return false; }
+        @Override public boolean deleteByUsername(String username) { return false; }
+        @Override public List<User> findAll() { return List.of(); }
+        @Override public List<User> searchByEmail(String email) { return List.of(); }
+        @Override public long count() { return 0L; }
+    }
+
+    private static final class NoopChatRepository implements ChatRepository {
+        @Override public Optional<Chat> findById(Long id) { return Optional.empty(); }
+        @Override public List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username) { return List.of(); }
+        @Override public String findTitleById(Long chatId) { return null; }
+        @Override public Chat save(Chat chat) { return chat; }
+        @Override public void delete(Chat chat) {}
+        @Override public void deleteAll(List<Chat> chats) {}
+        @Override public long count() { return 0L; }
+        @Override public long countByUserId(Long userId) { return 0L; }
+    }
+
+    private static final class NoopMessageRepository implements MessageRepository {
+        @Override public List<Message> findByChatIdOrderByTimestampAsc(Long chatId) { return List.of(); }
+        @Override public List<Message> findTop10ByChatIdOrderByTimestampDesc(Long chatId) { return List.of(); }
+        @Override public void deleteByChatId(Long chatId) {}
+        @Override public void deleteByChatIdIn(List<Long> chatIds) {}
+        @Override public long countByChatId(Long chatId) { return 0L; }
+        @Override public long count() { return 0L; }
+        @Override public long countByUserId(Long userId) { return 0L; }
+        @Override public boolean existsByChatId(Long chatId) { return false; }
+        @Override public Message save(Message message) { return message; }
+    }
+
+    private static final class NoopFeedbackRepository implements FeedbackRepository {
+        @Override public Feedback save(Feedback feedback) { return feedback; }
+        @Override public long count() { return 0L; }
+        @Override public List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId) { return List.of(); }
+    }
+
+    private static final class NoopCVRepository implements CVRepository {
+        @Override public Optional<CV> findById(Long id) { return Optional.empty(); }
+        @Override public List<CV> findByUserId(Long userId) { return List.of(); }
+        @Override public Optional<CV> findDefaultByUserId(Long userId) { return Optional.empty(); }
+        @Override public long countByUserId(Long userId) { return 0L; }
+        @Override public CV save(CV cv) { return cv; }
+        @Override public void delete(CV cv) {}
+        @Override public void deleteById(Long id) {}
+    }
+
+    private static final class NoopPersonalInfoRepository implements PersonalInfoRepository {
+        @Override public Optional<PersonalInfo> findByUserId(Long userId) { return Optional.empty(); }
+        @Override public PersonalInfo save(PersonalInfo personalInfo) { return personalInfo; }
     }
 }

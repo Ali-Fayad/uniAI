@@ -29,6 +29,9 @@ public interface MessageJpaRepository extends JpaRepository<Message, Long> {
     @Query("SELECT COUNT(m) FROM Message m WHERE m.chat.id = :chatId")
     long countByChatId(@Param("chatId") Long chatId);
 
+    @Query("SELECT COUNT(m) FROM Message m WHERE m.chat.user.id = :userId")
+    long countByUserId(@Param("userId") Long userId);
+
     @Query("SELECT COUNT(m) > 0 FROM Message m WHERE m.chat.id = :chatId")
     boolean existsByChatId(@Param("chatId") Long chatId);
 }

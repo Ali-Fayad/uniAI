@@ -20,6 +20,11 @@ public class UserRepositoryAdapter implements UserRepository {
     private final UserJpaRepository jpaRepository;
 
     @Override
+    public Optional<User> findById(Long id) {
+        return jpaRepository.findById(id);
+    }
+
+    @Override
     public Optional<User> findByEmail(String email) {
         return jpaRepository.findByEmail(email);
     }
@@ -62,6 +67,11 @@ public class UserRepositoryAdapter implements UserRepository {
     @Override
     public List<User> findAll() {
         return jpaRepository.findAll();
+    }
+
+    @Override
+    public List<User> searchByEmail(String email) {
+        return jpaRepository.searchByEmail(email);
     }
 
     @Override

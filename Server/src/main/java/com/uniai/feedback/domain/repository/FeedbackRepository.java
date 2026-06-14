@@ -11,4 +11,6 @@ public interface FeedbackRepository {
     Feedback save(Feedback feedback);
 
     long count();
+
+    java.util.List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId);
 }

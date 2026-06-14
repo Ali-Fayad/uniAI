@@ -11,6 +11,8 @@ import java.util.Optional;
  */
 public interface UserRepository {
 
+    Optional<User> findById(Long id);
+
     Optional<User> findByEmail(String email);
 
     Optional<User> findByUsername(String username);
@@ -28,6 +30,8 @@ public interface UserRepository {
     boolean deleteByUsername(String username);
 
     List<User> findAll();
+
+    List<User> searchByEmail(String email);
 
     long count();
 }

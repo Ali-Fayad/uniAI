@@ -34,6 +34,11 @@ public class CVRepositoryAdapter implements CVRepository {
     }
 
     @Override
+    public long countByUserId(Long userId) {
+        return jpaRepository.countByUserId(userId);
+    }
+
+    @Override
     public CV save(CV cv) {
         return jpaRepository.save(cv);
     }

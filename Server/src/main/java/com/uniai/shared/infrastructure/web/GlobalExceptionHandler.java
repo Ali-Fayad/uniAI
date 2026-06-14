@@ -48,6 +48,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handleUserNotFoundException(Exception ex) {
+        logger.warn("UserNotFoundException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+
     @ExceptionHandler(GoogleAuthException.class)
     public ResponseEntity<?> handleGoogleAuthException(Exception ex) {
         logger.warn("GoogleAuthException: {}", ex.getMessage(), ex);

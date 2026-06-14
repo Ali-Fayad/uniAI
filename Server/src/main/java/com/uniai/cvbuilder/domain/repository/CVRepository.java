@@ -16,6 +16,8 @@ public interface CVRepository {
 
     Optional<CV> findDefaultByUserId(Long userId);
 
+    long countByUserId(Long userId);
+
     CV save(CV cv);
 
     void delete(CV cv);

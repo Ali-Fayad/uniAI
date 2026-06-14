@@ -16,4 +16,6 @@ public interface JpaCVRepository extends JpaRepository<CV, Long> {
     List<CV> findByUserId(Long userId);
 
     Optional<CV> findFirstByUserIdAndIsDefaultTrue(Long userId);
+
+    long countByUserId(Long userId);
 }

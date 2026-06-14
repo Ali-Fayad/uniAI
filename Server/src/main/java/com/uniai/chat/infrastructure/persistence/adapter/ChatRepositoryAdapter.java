@@ -52,4 +52,9 @@ public class ChatRepositoryAdapter implements ChatRepository {
     public long count() {
         return jpaRepository.count();
     }
+
+    @Override
+    public long countByUserId(Long userId) {
+        return jpaRepository.countByUserId(userId);
+    }
 }

@@ -22,6 +22,8 @@ public interface MessageRepository {
 
     long count();
 
+    long countByUserId(Long userId);
+
     boolean existsByChatId(Long chatId);
 
     Message save(Message message);
