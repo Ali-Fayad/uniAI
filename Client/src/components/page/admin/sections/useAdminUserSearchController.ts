@@ -13,6 +13,7 @@ export interface UseAdminUserSearchControllerReturn {
   hasSearched: boolean;
   handleSearch: () => Promise<void>;
   handleSelectUser: (user: AdminUserSearchResponse) => void;
+  handleCloseSelectedUser: () => void;
 }
 
 const MIN_SEARCH_LENGTH = 3;
@@ -65,6 +66,10 @@ export const useAdminUserSearchController = (): UseAdminUserSearchControllerRetu
     setSelectedUser(user);
   }, []);
 
+  const handleCloseSelectedUser = useCallback(() => {
+    setSelectedUser(null);
+  }, []);
+
   return {
     emailQuery,
     setEmailQuery,
@@ -76,5 +81,6 @@ export const useAdminUserSearchController = (): UseAdminUserSearchControllerRetu
     hasSearched,
     handleSearch,
     handleSelectUser,
+    handleCloseSelectedUser,
   };
 };

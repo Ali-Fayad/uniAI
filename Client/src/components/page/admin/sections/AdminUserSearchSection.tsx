@@ -1,6 +1,7 @@
 import type { FormEvent } from 'react';
 import LoadingSpinner from '../../../common/LoadingSpinner';
 import UserRoleBadge from '../components/UserRoleBadge';
+import SelectedUserDialog from '../components/SelectedUserDialog';
 import { useAdminUserSearchController } from './useAdminUserSearchController';
 
 interface AdminUserSearchSectionProps {
@@ -131,16 +132,10 @@ const AdminUserSearchSection = ({ id, labelledBy }: AdminUserSearchSectionProps)
           </div>
         )}
 
-        {controller.selectedUser && (
-          <div className="rounded-2xl border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/10 px-4 py-4">
-            <p className="text-sm font-semibold text-[var(--color-textPrimary)]">
-              Selected user details dialog will be implemented in ADMIN-DASHBOARD-014B.
-            </p>
-            <p className="mt-1 text-sm text-[var(--color-textSecondary)]">
-              {controller.selectedUser.email} · {controller.selectedUser.firstName} {controller.selectedUser.lastName}
-            </p>
-          </div>
-        )}
+        <SelectedUserDialog
+          user={controller.selectedUser}
+          onClose={controller.handleCloseSelectedUser}
+        />
       </div>
     </section>
   );
