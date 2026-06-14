@@ -6,6 +6,8 @@ import type { AdminUserSearchResponse } from '../../../../types/dto';
 import UserRoleBadge from './UserRoleBadge';
 import SelectedUserTabs, { selectedUserTabButtonId, selectedUserTabPanelId, type SelectedUserTab } from './SelectedUserTabs';
 import SelectedUserStatisticsTab from './SelectedUserStatisticsTab';
+import SelectedUserPersonalInfoTab from './SelectedUserPersonalInfoTab';
+import SelectedUserFeedbackTab from './SelectedUserFeedbackTab';
 import { useSelectedUserDialogController } from './useSelectedUserDialogController';
 
 interface SelectedUserDialogProps {
@@ -123,9 +125,13 @@ const SelectedUserDialog = ({ user, onClose }: SelectedUserDialogProps) => {
                   id={tabPlaceholderId('personal-info')}
                   role="tabpanel"
                   aria-labelledby={selectedUserTabButtonId('personal-info')}
-                  className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-6 text-sm text-[var(--color-textSecondary)]"
+                  className="space-y-4"
                 >
-                  Implemented in ADMIN-DASHBOARD-014C
+                  <SelectedUserPersonalInfoTab
+                    personalInfo={controller.personalInfo}
+                    isLoading={controller.personalInfoLoading}
+                    error={controller.personalInfoError}
+                  />
                 </section>
               )}
 
@@ -134,9 +140,13 @@ const SelectedUserDialog = ({ user, onClose }: SelectedUserDialogProps) => {
                   id={tabPlaceholderId('feedback')}
                   role="tabpanel"
                   aria-labelledby={selectedUserTabButtonId('feedback')}
-                  className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-6 text-sm text-[var(--color-textSecondary)]"
+                  className="space-y-4"
                 >
-                  Implemented in ADMIN-DASHBOARD-014C
+                  <SelectedUserFeedbackTab
+                    feedback={controller.feedback}
+                    isLoading={controller.feedbackLoading}
+                    error={controller.feedbackError}
+                  />
                 </section>
               )}
             </div>
