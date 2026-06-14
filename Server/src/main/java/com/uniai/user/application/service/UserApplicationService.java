@@ -11,6 +11,7 @@ import com.uniai.user.application.port.in.DeleteUserUseCase;
 import com.uniai.user.application.port.in.GetCurrentUserUseCase;
 import com.uniai.user.application.port.in.UpdateUserUseCase;
 import com.uniai.user.domain.model.User;
+import com.uniai.feedback.domain.repository.FeedbackRepository;
 import com.uniai.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +30,7 @@ public class UserApplicationService implements
         ChangePasswordUseCase {
 
     private final UserRepository userRepository;
+    private final FeedbackRepository feedbackRepository;
     private final PasswordEncoder passwordEncoder;
 
     // -------------------------------------------------------------------------
@@ -100,6 +102,7 @@ public class UserApplicationService implements
             throw new InvalidEmailOrPassword();
         }
 
+        feedbackRepository.deleteByUserId(user.getId());
         userRepository.delete(user);
     }
 
