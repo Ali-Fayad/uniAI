@@ -9,4 +9,6 @@ import com.uniai.feedback.domain.model.Feedback;
 public interface FeedbackRepository {
 
     Feedback save(Feedback feedback);
+
+    long count();
 }

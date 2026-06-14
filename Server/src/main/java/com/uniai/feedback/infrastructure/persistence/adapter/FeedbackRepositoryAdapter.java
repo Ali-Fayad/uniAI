@@ -19,4 +19,9 @@ public class FeedbackRepositoryAdapter implements FeedbackRepository {
     public Feedback save(Feedback feedback) {
         return jpaRepository.save(feedback);
     }
+
+    @Override
+    public long count() {
+        return jpaRepository.count();
+    }
 }

@@ -20,6 +20,8 @@ public interface MessageRepository {
 
     long countByChatId(Long chatId);
 
+    long count();
+
     boolean existsByChatId(Long chatId);
 
     Message save(Message message);

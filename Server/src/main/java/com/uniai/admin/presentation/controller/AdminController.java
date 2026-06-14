@@ -1,5 +1,6 @@
 package com.uniai.admin.presentation.controller;
 
+import com.uniai.admin.application.dto.response.AdminOverviewResponse;
 import com.uniai.admin.application.service.AdminApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,11 @@ public class AdminController {
     @GetMapping("/health")
     public ResponseEntity<AdminHealthResponse> health() {
         return ResponseEntity.ok(new AdminHealthResponse(adminApplicationService.getHealthMessage()));
+    }
+
+    @GetMapping("/overview")
+    public ResponseEntity<AdminOverviewResponse> overview() {
+        return ResponseEntity.ok(adminApplicationService.getOverview());
     }
 
     public record AdminHealthResponse(String message) {}

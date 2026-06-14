@@ -47,4 +47,9 @@ public class ChatRepositoryAdapter implements ChatRepository {
     public void deleteAll(List<Chat> chats) {
         jpaRepository.deleteAll(chats);
     }
+
+    @Override
+    public long count() {
+        return jpaRepository.count();
+    }
 }

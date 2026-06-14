@@ -1,7 +1,6 @@
-package com.uniai.admin.presentation.controller;
+package com.uniai.admin.application.service;
 
 import com.uniai.admin.application.dto.response.AdminOverviewResponse;
-import com.uniai.admin.application.service.AdminApplicationService;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.ChatRepository;
@@ -17,57 +16,52 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AdminControllerTest {
+class AdminApplicationServiceTest {
 
     @Test
-    void healthShouldReturnAdminAccessGrantedMessage() {
-        AdminController controller = new AdminController(new AdminApplicationService(
-                new StaticUserRepository(0),
-                new StaticChatRepository(0),
-                new StaticMessageRepository(0),
-                new StaticFeedbackRepository(0)
-        ));
+    void getOverviewShouldReturnZerosForEmptyDatabase() {
+        AdminApplicationService service = new AdminApplicationService(
+                new CountingUserRepository(0),
+                new CountingChatRepository(0),
+                new CountingMessageRepository(0),
+                new CountingFeedbackRepository(0)
+        );
 
-        AdminController.AdminHealthResponse response = controller.health().getBody();
+        AdminOverviewResponse response = service.getOverview();
 
-        assertEquals("Admin access granted", response.message());
+        assertEquals(0L, response.getTotalUsers());
+        assertEquals(0L, response.getTotalChats());
+        assertEquals(0L, response.getTotalMessages());
+        assertEquals(0L, response.getTotalFeedback());
+        assertEquals(0.0, response.getAverageChatsPerUser());
+        assertEquals(0.0, response.getAverageMessagesPerChat());
+        assertEquals(0.0, response.getAverageMessagesPerUser());
     }
 
     @Test
-    void overviewShouldDelegateToApplicationService() {
-        AdminOverviewResponse expected = AdminOverviewResponse.builder()
-                .totalUsers(1)
-                .totalChats(2)
-                .totalMessages(3)
-                .totalFeedback(4)
-                .averageChatsPerUser(2.0)
-                .averageMessagesPerChat(1.5)
-                .averageMessagesPerUser(3.0)
-                .build();
+    void getOverviewShouldCalculateAggregatesFromCounts() {
+        AdminApplicationService service = new AdminApplicationService(
+                new CountingUserRepository(12),
+                new CountingChatRepository(34),
+                new CountingMessageRepository(198),
+                new CountingFeedbackRepository(5)
+        );
 
-        AdminController controller = new AdminController(new StubAdminApplicationService(expected));
+        AdminOverviewResponse response = service.getOverview();
 
-        assertEquals(expected, controller.overview().getBody());
+        assertEquals(12L, response.getTotalUsers());
+        assertEquals(34L, response.getTotalChats());
+        assertEquals(198L, response.getTotalMessages());
+        assertEquals(5L, response.getTotalFeedback());
+        assertEquals(34d / 12d, response.getAverageChatsPerUser());
+        assertEquals(198d / 34d, response.getAverageMessagesPerChat());
+        assertEquals(198d / 12d, response.getAverageMessagesPerUser());
     }
 
-    private static final class StubAdminApplicationService extends AdminApplicationService {
-        private final AdminOverviewResponse overview;
-
-        private StubAdminApplicationService(AdminOverviewResponse overview) {
-            super(new StaticUserRepository(0), new StaticChatRepository(0), new StaticMessageRepository(0), new StaticFeedbackRepository(0));
-            this.overview = overview;
-        }
-
-        @Override
-        public AdminOverviewResponse getOverview() {
-            return overview;
-        }
-    }
-
-    private static final class StaticUserRepository implements UserRepository {
+    private static final class CountingUserRepository implements UserRepository {
         private final long count;
 
-        private StaticUserRepository(long count) {
+        private CountingUserRepository(long count) {
             this.count = count;
         }
 
@@ -83,10 +77,10 @@ class AdminControllerTest {
         @Override public long count() { return count; }
     }
 
-    private static final class StaticChatRepository implements ChatRepository {
+    private static final class CountingChatRepository implements ChatRepository {
         private final long count;
 
-        private StaticChatRepository(long count) {
+        private CountingChatRepository(long count) {
             this.count = count;
         }
 
@@ -99,10 +93,10 @@ class AdminControllerTest {
         @Override public long count() { return count; }
     }
 
-    private static final class StaticMessageRepository implements MessageRepository {
+    private static final class CountingMessageRepository implements MessageRepository {
         private final long count;
 
-        private StaticMessageRepository(long count) {
+        private CountingMessageRepository(long count) {
             this.count = count;
         }
 
@@ -116,10 +110,10 @@ class AdminControllerTest {
         @Override public Message save(Message message) { throw unsupported(); }
     }
 
-    private static final class StaticFeedbackRepository implements FeedbackRepository {
+    private static final class CountingFeedbackRepository implements FeedbackRepository {
         private final long count;
 
-        private StaticFeedbackRepository(long count) {
+        private CountingFeedbackRepository(long count) {
             this.count = count;
         }
 

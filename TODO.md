@@ -1,401 +1,401 @@
-# Admin Dashboard TODO
+  # Admin Dashboard TODO
 
-## Goal
+  ## Goal
 
-Build a secure admin system for uniAI that allows administrators to monitor platform usage, manage users, review feedback, and view application analytics.
+  Build a secure admin system for uniAI that allows administrators to monitor platform usage, manage users, review feedback, and view application analytics.
 
-The implementation should follow the existing project architecture:
+  The implementation should follow the existing project architecture:
 
-- Backend: Spring Boot + DDD + Hexagonal
-- Frontend: React + TypeScript
-- Authentication: JWT
-- Authorization: Role-based (USER / ADMIN)
+  - Backend: Spring Boot + DDD + Hexagonal
+  - Frontend: React + TypeScript
+  - Authentication: JWT
+  - Authorization: Role-based (USER / ADMIN)
 
-The admin dashboard should remain simple, operational, and maintainable.
+  The admin dashboard should remain simple, operational, and maintainable.
 
----
+  ---
 
-# ADMIN-DASHBOARD-002
-## Role Foundation
+  # ADMIN-DASHBOARD-002
+  ## Role Foundation
 
-### Goal
-Introduce user roles into the system.
+  ### Goal
+  Introduce user roles into the system.
 
-### Scope
-- Create UserRole enum:
-  - USER
-  - ADMIN
-- Add role column to users table
-- Add role field to User domain model
-- Default role = USER
-- Backfill existing users
+  ### Scope
+  - Create UserRole enum:
+    - USER
+    - ADMIN
+  - Add role column to users table
+  - Add role field to User domain model
+  - Default role = USER
+  - Backfill existing users
 
-### Deliverables
-- Flyway migration
-- User entity update
-- User builder update
+  ### Deliverables
+  - Flyway migration
+  - User entity update
+  - User builder update
 
-### Notes
-No JWT changes.
-No admin APIs.
-No frontend changes.
+  ### Notes
+  No JWT changes.
+  No admin APIs.
+  No frontend changes.
 
----
+  ---
 
-# ADMIN-DASHBOARD-003
-## First Admin Bootstrap
+  # ADMIN-DASHBOARD-003
+  ## First Admin Bootstrap
 
-### Goal
-Automatically create the first administrator.
+  ### Goal
+  Automatically create the first administrator.
 
-### Rules
-- First registered account becomes ADMIN
-- Every later account becomes USER
+  ### Rules
+  - First registered account becomes ADMIN
+  - Every later account becomes USER
 
-### Scope
-- Update signup flow
-- Add user count check
-- Keep logic inside application service
+  ### Scope
+  - Update signup flow
+  - Add user count check
+  - Keep logic inside application service
 
-### Notes
-No JWT changes.
-No security changes.
+  ### Notes
+  No JWT changes.
+  No security changes.
 
----
+  ---
 
-# ADMIN-DASHBOARD-004
-## JWT Role Support
+  # ADMIN-DASHBOARD-004
+  ## JWT Role Support
 
-### Goal
-Expose user role through authentication tokens.
+  ### Goal
+  Expose user role through authentication tokens.
 
-### Scope
-- Add role claim to JWT
-- Add role to JwtTokenPayload
-- Parse role from token
-- Support old tokens when possible
+  ### Scope
+  - Add role claim to JWT
+  - Add role to JwtTokenPayload
+  - Parse role from token
+  - Support old tokens when possible
 
-### Deliverables
-- JWT generation update
-- JWT parsing update
+  ### Deliverables
+  - JWT generation update
+  - JWT parsing update
 
-### Notes
-No route protection yet.
+  ### Notes
+  No route protection yet.
 
----
+  ---
 
-# ADMIN-DASHBOARD-005
-## Admin Authorization
+  # ADMIN-DASHBOARD-005
+  ## Admin Authorization
 
-### Goal
-Protect admin endpoints.
+  ### Goal
+  Protect admin endpoints.
 
-### Scope
-- Convert role claim into Spring Security authorities
-- Introduce:
-  - ROLE_USER
-  - ROLE_ADMIN
-- Protect:
-  - /api/admin/**
+  ### Scope
+  - Convert role claim into Spring Security authorities
+  - Introduce:
+    - ROLE_USER
+    - ROLE_ADMIN
+  - Protect:
+    - /api/admin/**
 
-### Deliverables
-- SecurityConfig update
-- Authority mapping update
+  ### Deliverables
+  - SecurityConfig update
+  - Authority mapping update
 
-### Validation
-- USER receives 403
-- ADMIN receives 200
+  ### Validation
+  - USER receives 403
+  - ADMIN receives 200
 
----
+  ---
 
-# ADMIN-DASHBOARD-006
-## Frontend Role Awareness
+  # ADMIN-DASHBOARD-006
+  ## Frontend Role Awareness
 
-### Goal
-Allow frontend to understand roles.
+  ### Goal
+  Allow frontend to understand roles.
 
-### Scope
-- Decode role from JWT
-- Store role in AuthContext
-- Create AdminRoute or requiredRole support
+  ### Scope
+  - Decode role from JWT
+  - Store role in AuthContext
+  - Create AdminRoute or requiredRole support
 
-### Deliverables
-- AuthContext update
-- Route guard update
+  ### Deliverables
+  - AuthContext update
+  - Route guard update
 
-### Validation
-- Non-admin cannot access admin pages
+  ### Validation
+  - Non-admin cannot access admin pages
 
----
+  ---
 
-# ADMIN-DASHBOARD-007
-## Admin Overview Backend API
+  # ADMIN-DASHBOARD-007
+  ## Admin Overview Backend API
 
-### Goal
-Provide dashboard statistics.
+  ### Goal
+  Provide dashboard statistics.
 
-### Endpoint
-GET /api/admin/overview
+  ### Endpoint
+  GET /api/admin/overview
 
-### Response
-- totalUsers
-- totalChats
-- totalMessages
-- totalFeedback
-- averageChatsPerUser
-- averageMessagesPerChat
-- averageMessagesPerUser
+  ### Response
+  - totalUsers
+  - totalChats
+  - totalMessages
+  - totalFeedback
+  - averageChatsPerUser
+  - averageMessagesPerChat
+  - averageMessagesPerUser
 
-### Notes
-Read-only API.
+  ### Notes
+  Read-only API.
 
----
+  ---
 
-# ADMIN-DASHBOARD-008
-## Admin Users Backend API
+  # ADMIN-DASHBOARD-008
+  ## Admin Users Backend API
 
-### Goal
-Allow admins to view platform users.
+  ### Goal
+  Allow admins to view platform users.
 
-### Endpoint
-GET /api/admin/users
+  ### Endpoint
+  GET /api/admin/users
 
-### Features
-- Pagination if needed
-- Search by:
+  ### Features
+  - Pagination if needed
+  - Search by:
+    - username
+    - email
+    - name
+
+  ### Response
+  - id
   - username
+  - firstName
+  - lastName
   - email
-  - name
+  - role
+  - isVerified
+  - isTwoFacAuth
 
-### Response
-- id
-- username
-- firstName
-- lastName
-- email
-- role
-- isVerified
-- isTwoFacAuth
+  ### Notes
+  Read-only API.
 
-### Notes
-Read-only API.
+  ---
 
----
+  # ADMIN-DASHBOARD-009
+  ## Admin Role Management API
 
-# ADMIN-DASHBOARD-009
-## Admin Role Management API
+  ### Goal
+  Allow admins to promote/demote users.
 
-### Goal
-Allow admins to promote/demote users.
+  ### Endpoint
+  PATCH /api/admin/users/{userId}/role
 
-### Endpoint
-PATCH /api/admin/users/{userId}/role
+  ### Rules
+  - ADMIN only
+  - Prevent removing last admin
+  - Prevent accidental self-demotion
 
-### Rules
-- ADMIN only
-- Prevent removing last admin
-- Prevent accidental self-demotion
+  ### Request
+  {
+    "role": "ADMIN"
+  }
 
-### Request
-{
-  "role": "ADMIN"
-}
+  or
 
-or
+  {
+    "role": "USER"
+  }
 
-{
-  "role": "USER"
-}
+  ---
 
----
+  # ADMIN-DASHBOARD-010
+  ## Admin User Deletion API
 
-# ADMIN-DASHBOARD-010
-## Admin User Deletion API
+  ### Goal
+  Allow admins to remove users.
 
-### Goal
-Allow admins to remove users.
+  ### Endpoint
+  DELETE /api/admin/users/{userId}
 
-### Endpoint
-DELETE /api/admin/users/{userId}
+  ### Rules
+  - ADMIN only
+  - Prevent self-delete
+  - Prevent deleting last admin
 
-### Rules
-- ADMIN only
-- Prevent self-delete
-- Prevent deleting last admin
+  ### Investigation Required
+  Check cleanup behavior for:
+  - personal_info
+  - cvs
+  - cv sections
+  - chats
+  - messages
+  - verification codes
+  - feedback
 
-### Investigation Required
-Check cleanup behavior for:
-- personal_info
-- cvs
-- cv sections
-- chats
-- messages
-- verification codes
-- feedback
+  ### Notes
+  Feedback currently appears to be the highest risk area for orphaned records.
 
-### Notes
-Feedback currently appears to be the highest risk area for orphaned records.
+  ---
 
----
+  # ADMIN-DASHBOARD-011
+  ## Admin Feedback Backend API
 
-# ADMIN-DASHBOARD-011
-## Admin Feedback Backend API
+  ### Goal
+  Allow admins to review feedback.
 
-### Goal
-Allow admins to review feedback.
+  ### Endpoints
 
-### Endpoints
+  GET /api/admin/feedback
 
-GET /api/admin/feedback
+  DELETE /api/admin/feedback/{feedbackId}
 
-DELETE /api/admin/feedback/{feedbackId}
+  ### Response
+  - id
+  - userId
+  - email
+  - rating
+  - content/comment
+  - createdDate
 
-### Response
-- id
-- userId
-- email
-- rating
-- content/comment
-- createdDate
+  ---
 
----
+  # ADMIN-DASHBOARD-012
+  ## Admin Service Layer (Frontend)
 
-# ADMIN-DASHBOARD-012
-## Admin Service Layer (Frontend)
+  ### Goal
+  Create frontend integration layer.
 
-### Goal
-Create frontend integration layer.
+  ### Scope
+  Create:
+  - adminService.ts
 
-### Scope
-Create:
-- adminService.ts
+  Add DTOs:
+  - AdminOverviewResponse
+  - AdminUserResponse
+  - AdminFeedbackResponse
+  - AdminChatAnalyticsResponse
 
-Add DTOs:
-- AdminOverviewResponse
-- AdminUserResponse
-- AdminFeedbackResponse
-- AdminChatAnalyticsResponse
+  ### Notes
+  No UI yet.
 
-### Notes
-No UI yet.
+  ---
 
----
+  # ADMIN-DASHBOARD-013
+  ## Admin Dashboard Page
 
-# ADMIN-DASHBOARD-013
-## Admin Dashboard Page
+  ### Goal
+  Create admin landing page.
 
-### Goal
-Create admin landing page.
+  ### Route
+  /admin
 
-### Route
-/admin
+  ### Sections
+  - Overview cards
+  - Quick stats
+  - Recent activity
 
-### Sections
-- Overview cards
-- Quick stats
-- Recent activity
+  ### Layout
+  Follow existing uniAI theme and page architecture.
 
-### Layout
-Follow existing uniAI theme and page architecture.
+  ### Notes
+  Page = composition only.
+  Logic belongs in controller hooks.
 
-### Notes
-Page = composition only.
-Logic belongs in controller hooks.
+  ---
 
----
+  # ADMIN-DASHBOARD-014
+  ## Admin Users UI
 
-# ADMIN-DASHBOARD-014
-## Admin Users UI
+  ### Goal
+  Manage users visually.
 
-### Goal
-Manage users visually.
+  ### Features
+  - User table
+  - Search
+  - Role badge
+  - Promote/Demote
+  - Delete user
 
-### Features
-- User table
-- Search
-- Role badge
-- Promote/Demote
-- Delete user
+  ### Notes
+  Reuse existing table and card patterns when possible.
 
-### Notes
-Reuse existing table and card patterns when possible.
+  ---
 
----
+  # ADMIN-DASHBOARD-015
+  ## Admin Feedback UI
 
-# ADMIN-DASHBOARD-015
-## Admin Feedback UI
+  ### Goal
+  Manage platform feedback.
 
-### Goal
-Manage platform feedback.
+  ### Features
+  - Feedback table
+  - Rating display
+  - User/email display
+  - Delete feedback
 
-### Features
-- Feedback table
-- Rating display
-- User/email display
-- Delete feedback
+  ### Notes
+  Simple moderation interface.
 
-### Notes
-Simple moderation interface.
+  ---
 
----
+  # ADMIN-DASHBOARD-016
+  ## Admin Analytics UI
 
-# ADMIN-DASHBOARD-016
-## Admin Analytics UI
+  ### Goal
+  Visualize platform activity.
 
-### Goal
-Visualize platform activity.
+  ### Metrics
+  - Average chats per user
+  - Average messages per chat
+  - Average messages per user
+  - Most active users
+  - Empty chats count
 
-### Metrics
-- Average chats per user
-- Average messages per chat
-- Average messages per user
-- Most active users
-- Empty chats count
+  ### Notes
+  Start with cards/tables.
+  Charts are optional.
 
-### Notes
-Start with cards/tables.
-Charts are optional.
+  ---
 
----
+  # ADMIN-DASHBOARD-017
+  ## Hardening & Validation
 
-# ADMIN-DASHBOARD-017
-## Hardening & Validation
+  ### Backend Validation
+  - First user becomes ADMIN
+  - Later users become USER
+  - JWT contains role
+  - USER receives 403 on admin endpoints
+  - ADMIN can access admin endpoints
+  - Last admin protection works
+  - User deletion cleanup works
 
-### Backend Validation
-- First user becomes ADMIN
-- Later users become USER
-- JWT contains role
-- USER receives 403 on admin endpoints
-- ADMIN can access admin endpoints
-- Last admin protection works
-- User deletion cleanup works
+  ### Frontend Validation
+  - Admin route protection works
+  - Non-admin users redirected safely
+  - 403 does not destroy valid sessions
+  - Empty states render correctly
+  - Loading/error states handled
 
-### Frontend Validation
-- Admin route protection works
-- Non-admin users redirected safely
-- 403 does not destroy valid sessions
-- Empty states render correctly
-- Loading/error states handled
+  ### Cleanup
+  - Remove dead code
+  - Remove duplicate logic
+  - Verify imports
+  - Run frontend build
+  - Run backend build
 
-### Cleanup
-- Remove dead code
-- Remove duplicate logic
-- Verify imports
-- Run frontend build
-- Run backend build
+  ---
 
----
+  # Future Enhancements (Not V1)
 
-# Future Enhancements (Not V1)
-
-## Optional
-- Admin action audit log
-- Announcement system
-- User suspension
-- Chat inspection tools
-- Catalog management
-- University management
-- Analytics charts
-- Email campaign tools
-- Support tooling
-- AI-powered admin insights
+  ## Optional
+  - Admin action audit log
+  - Announcement system
+  - User suspension
+  - Chat inspection tools
+  - Catalog management
+  - University management
+  - Analytics charts
+  - Email campaign tools
+  - Support tooling
+  - AI-powered admin insights

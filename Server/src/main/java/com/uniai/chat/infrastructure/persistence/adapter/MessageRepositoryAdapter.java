@@ -43,6 +43,11 @@ public class MessageRepositoryAdapter implements MessageRepository {
     }
 
     @Override
+    public long count() {
+        return jpaRepository.count();
+    }
+
+    @Override
     public boolean existsByChatId(Long chatId) {
         return jpaRepository.existsByChatId(chatId);
     }
