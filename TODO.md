@@ -128,274 +128,372 @@
 
   ---
 
-  # ADMIN-DASHBOARD-007
-  ## Admin Overview Backend API
-
-  ### Goal
-  Provide dashboard statistics.
-
-  ### Endpoint
-  GET /api/admin/overview
+# ADMIN-DASHBOARD-007
+## Admin Overview Backend API
+
+### Status
+Implemented.
+
+### Endpoint
+GET /api/admin/overview
 
-  ### Response
-  - totalUsers
-  - totalChats
-  - totalMessages
-  - totalFeedback
-  - averageChatsPerUser
-  - averageMessagesPerChat
-  - averageMessagesPerUser
+### Response
+- totalUsers
+- totalChats
+- totalMessages
+- totalFeedback
+- averageChatsPerUser
+- averageMessagesPerChat
+- averageMessagesPerUser
 
-  ### Notes
-  Read-only API.
+### Notes
+Read-only API.
+Frontend can map these fixed fields into flexible stat cards.
+Do not refactor this unless statistics become dynamic later.
 
-  ---
+### Commit
+feat(admin): add overview statistics endpoint
 
-  # ADMIN-DASHBOARD-008
-  ## Admin Users Backend API
+---
 
-  ### Goal
-  Allow admins to view platform users.
+# ADMIN-DASHBOARD-008
+## Admin User Lookup Backend API
 
-  ### Endpoint
-  GET /api/admin/users
+### Goal
+Allow admins to search for a user by email and load selected user details on demand.
 
-  ### Features
-  - Pagination if needed
-  - Search by:
-    - username
-    - email
-    - name
+### Endpoints
 
-  ### Response
-  - id
-  - username
-  - firstName
-  - lastName
-  - email
-  - role
-  - isVerified
-  - isTwoFacAuth
+GET /api/admin/users/search?email=
+
+GET /api/admin/users/{userId}
+
+GET /api/admin/users/{userId}/personal-info
+
+GET /api/admin/users/{userId}/feedback
+
+### Search Behavior
+- Search by email only
+- Prefer partial email search for UX
+- Return lightweight results only
 
-  ### Notes
-  Read-only API.
+### Search Response
+- id
+- email
+- username
+- firstName
+- lastName
+- role
 
-  ---
+### User Details Response
+- id
+- username
+- firstName
+- lastName
+- email
+- role
+- isVerified
+- isTwoFacAuth
+- chatCount
+- messageCount
+- averageMessagesPerChat
+- cvCount
 
-  # ADMIN-DASHBOARD-009
-  ## Admin Role Management API
+### Personal Info Response
+- Load only when admin opens the Personal Info tab
+- Reuse or map existing personal-info DTO safely
 
-  ### Goal
-  Allow admins to promote/demote users.
+### Feedback Response
+- Load only when admin opens the Feedback tab
+- Return feedback submitted by the selected user
 
-  ### Endpoint
-  PATCH /api/admin/users/{userId}/role
+### Notes
+Read-only API.
+Use lightweight DTOs and lazy-loaded detail endpoints.
+Do not use Flyweight.
 
-  ### Rules
-  - ADMIN only
-  - Prevent removing last admin
-  - Prevent accidental self-demotion
+---
 
-  ### Request
-  {
-    "role": "ADMIN"
-  }
+# ADMIN-DASHBOARD-009
+## Admin Role Management API
 
-  or
+### Goal
+Allow admins to promote/demote users from the selected user dialog.
 
-  {
-    "role": "USER"
-  }
+### Endpoint
+PATCH /api/admin/users/{userId}/role
 
-  ---
+### Rules
+- ADMIN only
+- Prevent removing last admin
+- Prevent accidental self-demotion
 
-  # ADMIN-DASHBOARD-010
-  ## Admin User Deletion API
+### Request
+{
+  "role": "ADMIN"
+}
+
+or
+
+{
+  "role": "USER"
+}
+
+### Notes
+Used from the selected user dialog actions.
+
+---
 
-  ### Goal
-  Allow admins to remove users.
+# ADMIN-DASHBOARD-010
+## Admin User Deletion API
 
-  ### Endpoint
-  DELETE /api/admin/users/{userId}
+### Goal
+Allow admins to delete a selected user from the user dialog.
 
-  ### Rules
-  - ADMIN only
-  - Prevent self-delete
-  - Prevent deleting last admin
+### Endpoint
+DELETE /api/admin/users/{userId}
 
-  ### Investigation Required
-  Check cleanup behavior for:
-  - personal_info
-  - cvs
-  - cv sections
-  - chats
-  - messages
-  - verification codes
-  - feedback
+### Rules
+- ADMIN only
+- Prevent self-delete
+- Prevent deleting last admin
+- Confirm cleanup behavior before implementation
 
-  ### Notes
-  Feedback currently appears to be the highest risk area for orphaned records.
+### Investigation Required
+Check cleanup behavior for:
+- personal_info
+- cvs
+- cv sections
+- chats
+- messages
+- verification codes
+- feedback
 
-  ---
+### Notes
+This task should be investigated carefully.
+Use GPT-5.5 if needed.
 
-  # ADMIN-DASHBOARD-011
-  ## Admin Feedback Backend API
+---
 
-  ### Goal
-  Allow admins to review feedback.
+# ADMIN-DASHBOARD-011
+## Admin Feedback Backend API
 
-  ### Endpoints
+### Goal
+Support feedback viewing in both:
+- global admin feedback view later
+- selected user dialog feedback tab
 
-  GET /api/admin/feedback
+### Endpoints
 
-  DELETE /api/admin/feedback/{feedbackId}
+GET /api/admin/feedback
 
-  ### Response
-  - id
-  - userId
-  - email
-  - rating
-  - content/comment
-  - createdDate
+GET /api/admin/users/{userId}/feedback
 
-  ---
+DELETE /api/admin/feedback/{feedbackId}
 
-  # ADMIN-DASHBOARD-012
-  ## Admin Service Layer (Frontend)
+### Response
+- id
+- userId
+- email if available
+- rating
+- content/comment
+- createdDate
 
-  ### Goal
-  Create frontend integration layer.
+### Notes
+The per-user feedback endpoint is needed for the selected user dialog.
+The global feedback endpoint can be used later for moderation.
 
-  ### Scope
-  Create:
-  - adminService.ts
+---
 
-  Add DTOs:
-  - AdminOverviewResponse
-  - AdminUserResponse
-  - AdminFeedbackResponse
-  - AdminChatAnalyticsResponse
+# ADMIN-DASHBOARD-012
+## Admin Service Layer Frontend
 
-  ### Notes
-  No UI yet.
+### Goal
+Create frontend API integration for the admin dashboard.
 
-  ---
+### Scope
+Create:
+- adminService.ts
 
-  # ADMIN-DASHBOARD-013
-  ## Admin Dashboard Page
-
-  ### Goal
-  Create admin landing page.
-
-  ### Route
-  /admin
-
-  ### Sections
-  - Overview cards
-  - Quick stats
-  - Recent activity
-
-  ### Layout
-  Follow existing uniAI theme and page architecture.
-
-  ### Notes
-  Page = composition only.
-  Logic belongs in controller hooks.
-
-  ---
-
-  # ADMIN-DASHBOARD-014
-  ## Admin Users UI
-
-  ### Goal
-  Manage users visually.
-
-  ### Features
-  - User table
-  - Search
-  - Role badge
-  - Promote/Demote
-  - Delete user
-
-  ### Notes
-  Reuse existing table and card patterns when possible.
-
-  ---
-
-  # ADMIN-DASHBOARD-015
-  ## Admin Feedback UI
-
-  ### Goal
-  Manage platform feedback.
-
-  ### Features
-  - Feedback table
-  - Rating display
-  - User/email display
-  - Delete feedback
-
-  ### Notes
-  Simple moderation interface.
-
-  ---
-
-  # ADMIN-DASHBOARD-016
-  ## Admin Analytics UI
-
-  ### Goal
-  Visualize platform activity.
-
-  ### Metrics
-  - Average chats per user
-  - Average messages per chat
-  - Average messages per user
-  - Most active users
-  - Empty chats count
-
-  ### Notes
-  Start with cards/tables.
-  Charts are optional.
-
-  ---
-
-  # ADMIN-DASHBOARD-017
-  ## Hardening & Validation
-
-  ### Backend Validation
-  - First user becomes ADMIN
-  - Later users become USER
-  - JWT contains role
-  - USER receives 403 on admin endpoints
-  - ADMIN can access admin endpoints
-  - Last admin protection works
-  - User deletion cleanup works
-
-  ### Frontend Validation
-  - Admin route protection works
-  - Non-admin users redirected safely
-  - 403 does not destroy valid sessions
-  - Empty states render correctly
-  - Loading/error states handled
-
-  ### Cleanup
-  - Remove dead code
-  - Remove duplicate logic
-  - Verify imports
-  - Run frontend build
-  - Run backend build
-
-  ---
-
-  # Future Enhancements (Not V1)
-
-  ## Optional
-  - Admin action audit log
-  - Announcement system
-  - User suspension
-  - Chat inspection tools
-  - Catalog management
-  - University management
-  - Analytics charts
-  - Email campaign tools
-  - Support tooling
-  - AI-powered admin insights
+Add DTOs:
+- AdminOverviewResponse
+- AdminStatCardResponse
+- AdminUserSearchResult
+- AdminUserDetailsResponse
+- AdminUserPersonalInfoResponse
+- AdminUserFeedbackResponse
+- AdminFeedbackResponse
+
+Add API functions:
+- getOverview()
+- searchUsersByEmail(email)
+- getUserDetails(userId)
+- getUserPersonalInfo(userId)
+- getUserFeedback(userId)
+- updateUserRole(userId, role)
+- deleteUser(userId)
+- getFeedback()
+- deleteFeedback(feedbackId)
+
+### Notes
+No UI yet.
+
+---
+
+# ADMIN-DASHBOARD-013
+## Admin Dashboard Page Shell
+
+### Goal
+Create the main admin dashboard page structure.
+
+### Route
+/admin
+
+### Main Tabs
+1. Statistics
+2. User Search
+
+### Layout
+- Keep page as composition layer only
+- Logic belongs in controller hooks
+- Follow existing uniAI theme
+
+### Notes
+Do not implement all user actions here.
+This task creates structure only.
+
+---
+
+# ADMIN-DASHBOARD-014
+## Admin Statistics Tab UI
+
+### Goal
+Render dashboard statistics in the main Statistics tab.
+
+### Features
+- Stat cards
+- Loading state
+- Empty state
+- Error state
+- Flexible rendering based on statistic card definitions
+
+### Notes
+Design should allow adding new statistics later without rewriting the whole UI.
+
+---
+
+# ADMIN-DASHBOARD-015
+## Admin User Search UI
+
+### Goal
+Allow admins to search users by email and select a user.
+
+### Features
+- Email search input
+- Search button
+- Search results list
+- Empty state
+- Loading state
+- Open selected user dialog
+
+### Notes
+Do not show all users by default.
+Search-first flow only.
+
+---
+
+# ADMIN-DASHBOARD-016
+## Selected User Dialog UI
+
+### Goal
+Show selected user details in a dialog with internal tabs.
+
+### Dialog Tabs
+1. Statistics
+2. Personal Info
+3. Feedback
+
+### Statistics Tab
+- username
+- firstName
+- lastName
+- email
+- role
+- verified status
+- 2FA status
+- chatCount
+- messageCount
+- averageMessagesPerChat
+- cvCount
+
+### Personal Info Tab
+- Load only when tab is opened
+- Show profile/personal-info fields
+- Loading/error/empty states
+
+### Feedback Tab
+- Load only when tab is opened
+- Show user feedback list
+- Allow feedback delete if already supported
+
+### Dialog Actions
+- Promote/Demote user
+- Delete user
+- Close
+
+### Notes
+Do not load personal info and feedback until needed.
+Keep logic in hooks, not page components.
+
+---
+
+# ADMIN-DASHBOARD-017
+## Hardening & Validation
+
+### Backend Validation
+- First user becomes ADMIN
+- Later users become USER
+- JWT contains role
+- USER receives 403 on admin endpoints
+- ADMIN can access admin endpoints
+- Last admin protection works
+- User deletion cleanup works
+- User lookup by email works
+- Selected user details stats are correct
+- Personal info loads only from admin endpoint
+- User feedback loads correctly
+
+### Frontend Validation
+- Admin route protection works
+- Non-admin users redirected safely
+- Admin button visible only for ADMIN
+- Statistics tab loads correctly
+- User email search works
+- Selected user dialog opens correctly
+- Dialog tabs lazy-load data correctly
+- 403 does not destroy valid sessions
+- Empty states render correctly
+- Loading/error states handled
+
+### Cleanup
+- Remove dead code
+- Remove duplicate logic
+- Verify imports
+- Run frontend build
+- Run backend build
+
+---
+
+# Future Enhancements Not V1
+
+## Optional
+- Admin action audit log
+- Announcement system
+- User suspension
+- Chat inspection tools
+- Catalog management
+- University management
+- Analytics charts
+- Email campaign tools
+- Support tooling
+- AI-powered admin insights
