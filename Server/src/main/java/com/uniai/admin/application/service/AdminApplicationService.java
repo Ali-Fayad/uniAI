@@ -15,11 +15,15 @@ import com.uniai.cvbuilder.domain.repository.CVRepository;
 import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
 import com.uniai.feedback.domain.model.Feedback;
 import com.uniai.feedback.domain.repository.FeedbackRepository;
+import com.uniai.shared.exception.LastAdminProtectionException;
+import com.uniai.shared.exception.SelfDeleteNotAllowedException;
 import com.uniai.shared.exception.UserNotFoundException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
+import com.uniai.user.domain.valueobject.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -109,6 +113,26 @@ public class AdminApplicationService {
         return feedbackRepository.findByUserIdOrderByCreatedAtDesc(userId).stream()
                 .map(this::toFeedbackResponse)
                 .toList();
+    }
+
+    @Transactional
+    public void deleteUser(String actorEmail, Long userId) {
+        User actor = userRepository.findByEmail(actorEmail).orElseThrow(UserNotFoundException::new);
+        User target = getRequiredUser(userId);
+
+        if (actor.getId() != null && actor.getId().equals(target.getId())) {
+            throw new SelfDeleteNotAllowedException();
+        }
+
+        if (target.getRole() == UserRole.ADMIN) {
+            long adminCount = userRepository.countByRole(UserRole.ADMIN);
+            if (adminCount <= 1) {
+                throw new LastAdminProtectionException();
+            }
+        }
+
+        feedbackRepository.deleteByUserId(target.getId());
+        userRepository.delete(target);
     }
 
     private AdminUserSearchResponse toSearchResponse(User user) {

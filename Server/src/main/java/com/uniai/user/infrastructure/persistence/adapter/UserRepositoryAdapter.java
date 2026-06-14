@@ -2,6 +2,7 @@ package com.uniai.user.infrastructure.persistence.adapter;
 
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
+import com.uniai.user.domain.valueobject.UserRole;
 import com.uniai.user.infrastructure.persistence.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -77,5 +78,10 @@ public class UserRepositoryAdapter implements UserRepository {
     @Override
     public long count() {
         return jpaRepository.count();
+    }
+
+    @Override
+    public long countByRole(UserRole role) {
+        return jpaRepository.countByRole(role);
     }
 }

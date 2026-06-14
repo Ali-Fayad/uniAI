@@ -19,6 +19,8 @@ public interface UserJpaRepository extends JpaRepository<User, Long> {
     boolean deleteByEmail(String email);
     boolean deleteByUsername(String username);
 
+    long countByRole(com.uniai.user.domain.valueobject.UserRole role);
+
     @Query("SELECT u FROM User u WHERE LOWER(u.email) LIKE LOWER(CONCAT('%', :email, '%')) ORDER BY u.email ASC")
     List<User> searchByEmail(@Param("email") String email);
 }

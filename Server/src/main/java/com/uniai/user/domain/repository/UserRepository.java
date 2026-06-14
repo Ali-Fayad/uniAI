@@ -1,6 +1,7 @@
 package com.uniai.user.domain.repository;
 
 import com.uniai.user.domain.model.User;
+import com.uniai.user.domain.valueobject.UserRole;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,4 +35,6 @@ public interface UserRepository {
     List<User> searchByEmail(String email);
 
     long count();
+
+    long countByRole(UserRole role);
 }

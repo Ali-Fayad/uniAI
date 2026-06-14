@@ -6,10 +6,12 @@ import com.uniai.admin.application.dto.response.AdminUserFeedbackResponse;
 import com.uniai.admin.application.dto.response.AdminUserSearchResponse;
 import com.uniai.admin.application.service.AdminApplicationService;
 import com.uniai.cvbuilder.application.dto.response.PersonalInfoResponse;
+import com.uniai.shared.infrastructure.jwt.JwtFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
 
+    private final JwtFacade jwtFacade;
     private final AdminApplicationService adminApplicationService;
 
     @GetMapping("/health")
@@ -55,6 +58,13 @@ public class AdminController {
     @GetMapping("/users/{userId}/feedback")
     public ResponseEntity<List<AdminUserFeedbackResponse>> getUserFeedback(@PathVariable Long userId) {
         return ResponseEntity.ok(adminApplicationService.getUserFeedback(userId));
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        String email = jwtFacade.getAuthenticatedUserEmail();
+        adminApplicationService.deleteUser(email, userId);
+        return ResponseEntity.noContent().build();
     }
 
     public record AdminHealthResponse(String message) {}

@@ -31,4 +31,9 @@ public class FeedbackRepositoryAdapter implements FeedbackRepository {
     public List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId) {
         return jpaRepository.findByUserIdOrderByCreatedAtDesc(userId);
     }
+
+    @Override
+    public void deleteByUserId(Long userId) {
+        jpaRepository.deleteByUserId(userId);
+    }
 }

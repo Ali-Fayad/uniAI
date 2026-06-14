@@ -13,4 +13,6 @@ public interface FeedbackRepository {
     long count();
 
     java.util.List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId);
+
+    void deleteByUserId(Long userId);
 }

@@ -54,6 +54,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
+    @ExceptionHandler(SelfDeleteNotAllowedException.class)
+    public ResponseEntity<?> handleSelfDeleteNotAllowedException(Exception ex) {
+        logger.warn("SelfDeleteNotAllowedException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(403).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(LastAdminProtectionException.class)
+    public ResponseEntity<?> handleLastAdminProtectionException(Exception ex) {
+        logger.warn("LastAdminProtectionException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(409).body(ex.getMessage());
+    }
+
     @ExceptionHandler(GoogleAuthException.class)
     public ResponseEntity<?> handleGoogleAuthException(Exception ex) {
         logger.warn("GoogleAuthException: {}", ex.getMessage(), ex);

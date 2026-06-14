@@ -16,6 +16,7 @@ import com.uniai.cvbuilder.domain.repository.CVRepository;
 import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
 import com.uniai.feedback.domain.model.Feedback;
 import com.uniai.feedback.domain.repository.FeedbackRepository;
+import com.uniai.shared.infrastructure.jwt.JwtFacade;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class AdminControllerTest {
     @Test
     void healthShouldReturnAdminAccessGrantedMessage() {
         StubAdminApplicationService service = new StubAdminApplicationService();
-        AdminController controller = new AdminController(service);
+        AdminController controller = new AdminController(new StubJwtFacade("alice@example.com"), service);
 
         AdminController.AdminHealthResponse response = controller.health().getBody();
 
@@ -53,7 +54,7 @@ class AdminControllerTest {
         StubAdminApplicationService service = new StubAdminApplicationService();
         service.overview = expected;
 
-        AdminController controller = new AdminController(service);
+        AdminController controller = new AdminController(new StubJwtFacade("alice@example.com"), service);
 
         assertSame(expected, controller.overview().getBody());
     }
@@ -74,7 +75,7 @@ class AdminControllerTest {
         StubAdminApplicationService service = new StubAdminApplicationService();
         service.searchResults = expected;
 
-        AdminController controller = new AdminController(service);
+        AdminController controller = new AdminController(new StubJwtFacade("alice@example.com"), service);
 
         assertSame(expected, controller.searchUsers("alice").getBody());
         assertEquals("alice", service.lastEmail);
@@ -100,7 +101,7 @@ class AdminControllerTest {
         StubAdminApplicationService service = new StubAdminApplicationService();
         service.details = expected;
 
-        AdminController controller = new AdminController(service);
+        AdminController controller = new AdminController(new StubJwtFacade("alice@example.com"), service);
 
         assertSame(expected, controller.getUserDetails(7L).getBody());
         assertEquals(7L, service.lastUserId);
@@ -123,7 +124,7 @@ class AdminControllerTest {
         StubAdminApplicationService service = new StubAdminApplicationService();
         service.personalInfo = expected;
 
-        AdminController controller = new AdminController(service);
+        AdminController controller = new AdminController(new StubJwtFacade("alice@example.com"), service);
 
         assertSame(expected, controller.getUserPersonalInfo(7L).getBody());
         assertEquals(7L, service.lastUserId);
@@ -143,10 +144,20 @@ class AdminControllerTest {
         StubAdminApplicationService service = new StubAdminApplicationService();
         service.feedback = expected;
 
-        AdminController controller = new AdminController(service);
+        AdminController controller = new AdminController(new StubJwtFacade("alice@example.com"), service);
 
         assertSame(expected, controller.getUserFeedback(7L).getBody());
         assertEquals(7L, service.lastUserId);
+    }
+
+    @Test
+    void deleteUserShouldDelegateToApplicationServiceAndReturnNoContent() {
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        AdminController controller = new AdminController(new StubJwtFacade("admin@example.com"), service);
+
+        assertEquals(204, controller.deleteUser(77L).getStatusCode().value());
+        assertEquals("admin@example.com", service.deletedEmail);
+        assertEquals(77L, service.deletedUserId);
     }
 
     private static final class StubAdminApplicationService extends AdminApplicationService {
@@ -157,6 +168,8 @@ class AdminControllerTest {
         private List<AdminUserFeedbackResponse> feedback = List.of();
         private String lastEmail;
         private Long lastUserId;
+        private String deletedEmail;
+        private Long deletedUserId;
 
         private StubAdminApplicationService() {
             super(new NoopUserRepository(), new NoopChatRepository(), new NoopMessageRepository(),
@@ -196,6 +209,25 @@ class AdminControllerTest {
             lastUserId = userId;
             return feedback;
         }
+
+        @Override
+        public void deleteUser(String actorEmail, Long userId) {
+            deletedEmail = actorEmail;
+            deletedUserId = userId;
+        }
+    }
+
+    private static final class StubJwtFacade extends JwtFacade {
+        private final String email;
+
+        private StubJwtFacade(String email) {
+            this.email = email;
+        }
+
+        @Override
+        public String getAuthenticatedUserEmail() {
+            return email;
+        }
     }
 
     private static final class NoopUserRepository implements UserRepository {
@@ -211,6 +243,7 @@ class AdminControllerTest {
         @Override public List<User> findAll() { return List.of(); }
         @Override public List<User> searchByEmail(String email) { return List.of(); }
         @Override public long count() { return 0L; }
+        @Override public long countByRole(com.uniai.user.domain.valueobject.UserRole role) { return 0L; }
     }
 
     private static final class NoopChatRepository implements ChatRepository {
@@ -240,6 +273,7 @@ class AdminControllerTest {
         @Override public Feedback save(Feedback feedback) { return feedback; }
         @Override public long count() { return 0L; }
         @Override public List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId) { return List.of(); }
+        @Override public void deleteByUserId(Long userId) {}
     }
 
     private static final class NoopCVRepository implements CVRepository {

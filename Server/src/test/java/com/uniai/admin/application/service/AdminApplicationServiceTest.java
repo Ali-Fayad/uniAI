@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -117,6 +118,67 @@ class AdminApplicationServiceTest {
         TestContext context = sampleContext();
 
         assertThrows(UserNotFoundException.class, () -> context.service.getUserDetails(999L));
+    }
+
+    @Test
+    void deleteUserShouldDeleteUserAndFeedbackForRegularUser() {
+        TestContext context = sampleContext();
+
+        context.service.deleteUser("alice@example.com", 2L);
+
+        assertEquals(List.of(2L), context.feedbackRepository.deletedUserIds);
+        assertEquals(List.of("feedback:2", "user:2"), context.operations);
+        assertThrows(UserNotFoundException.class, () -> context.service.getUserDetails(2L));
+    }
+
+    @Test
+    void deleteAdminShouldSucceedWhenAnotherAdminExists() {
+        TestContext context = sampleContext();
+        context.users.put(3L, user(3L, "carol@example.com", "carol", "Carol", "Clark", UserRole.ADMIN));
+        context.feedback.add(feedback(30L, 3L, "Admin feedback", LocalDateTime.parse("2026-01-03T10:00:00")));
+
+        context.service.deleteUser("alice@example.com", 3L);
+
+        assertEquals(1L, context.userRepository.countByRoleCalls.get());
+        assertThrows(UserNotFoundException.class, () -> context.service.getUserDetails(3L));
+    }
+
+    @Test
+    void deleteSelfShouldBeForbidden() {
+        TestContext context = sampleContext();
+
+        assertThrows(com.uniai.shared.exception.SelfDeleteNotAllowedException.class,
+                () -> context.service.deleteUser("alice@example.com", 1L));
+        assertEquals(List.of(), context.operations);
+    }
+
+    @Test
+    void deleteLastAdminShouldBeBlocked() {
+        TestContext context = sampleContext();
+
+        assertThrows(com.uniai.shared.exception.LastAdminProtectionException.class,
+                () -> context.service.deleteUser("bob@example.com", 1L));
+        assertEquals(1L, context.userRepository.countByRoleCalls.get());
+        assertEquals(List.of(), context.operations);
+    }
+
+    @Test
+    void deleteMissingUserShouldThrow() {
+        TestContext context = sampleContext();
+
+        assertThrows(UserNotFoundException.class, () -> context.service.deleteUser("alice@example.com", 999L));
+    }
+
+    @Test
+    void deleteUserShouldInvokeFeedbackCleanupBeforeUserDeletion() {
+        TestContext context = sampleContext();
+        context.users.put(4L, user(4L, "dave@example.com", "dave", "Dave", "Doe", UserRole.USER));
+        context.feedback.add(feedback(40L, 4L, "Cleanup", LocalDateTime.parse("2026-01-04T10:00:00")));
+
+        context.service.deleteUser("alice@example.com", 4L);
+
+        assertEquals(List.of("feedback:4", "user:4"), context.operations);
+        assertEquals(List.of(4L), context.feedbackRepository.deletedUserIds);
     }
 
     private static TestContext sampleContext() {
@@ -221,24 +283,27 @@ class AdminApplicationServiceTest {
         private final List<Feedback> feedback = new ArrayList<>();
         private final List<CV> cvs = new ArrayList<>();
         private final Map<Long, PersonalInfo> personalInfos = new HashMap<>();
+        private final List<String> operations = new ArrayList<>();
+
+        private final InMemoryUserRepository userRepository = new InMemoryUserRepository();
+        private final InMemoryChatRepository chatRepository = new InMemoryChatRepository();
+        private final InMemoryMessageRepository messageRepository = new InMemoryMessageRepository();
+        private final InMemoryFeedbackRepository feedbackRepository = new InMemoryFeedbackRepository();
+        private final InMemoryCVRepository cvRepository = new InMemoryCVRepository();
+        private final InMemoryPersonalInfoRepository personalInfoRepository = new InMemoryPersonalInfoRepository();
 
         private final AdminApplicationService service = new AdminApplicationService(
-                new InMemoryUserRepository(),
-                new InMemoryChatRepository(),
-                new InMemoryMessageRepository(),
-                new InMemoryFeedbackRepository(),
-                new InMemoryCVRepository(),
-                new InMemoryPersonalInfoRepository()
+                userRepository,
+                chatRepository,
+                messageRepository,
+                feedbackRepository,
+                cvRepository,
+                personalInfoRepository
         );
 
-        private final UserRepository userRepository = new InMemoryUserRepository();
-        private final ChatRepository chatRepository = new InMemoryChatRepository();
-        private final MessageRepository messageRepository = new InMemoryMessageRepository();
-        private final FeedbackRepository feedbackRepository = new InMemoryFeedbackRepository();
-        private final CVRepository cvRepository = new InMemoryCVRepository();
-        private final PersonalInfoRepository personalInfoRepository = new InMemoryPersonalInfoRepository();
-
         private final class InMemoryUserRepository implements UserRepository {
+            private final AtomicInteger countByRoleCalls = new AtomicInteger();
+
             @Override
             public Optional<User> findById(Long id) {
                 return Optional.ofNullable(users.get(id));
@@ -283,6 +348,7 @@ class AdminApplicationServiceTest {
             @Override
             public void delete(User user) {
                 if (user != null) {
+                    operations.add("user:" + user.getId());
                     users.remove(user.getId());
                 }
             }
@@ -323,6 +389,14 @@ class AdminApplicationServiceTest {
             @Override
             public long count() {
                 return users.size();
+            }
+
+            @Override
+            public long countByRole(UserRole role) {
+                countByRoleCalls.incrementAndGet();
+                return users.values().stream()
+                        .filter(user -> user.getRole() == role)
+                        .count();
             }
         }
 
@@ -456,6 +530,15 @@ class AdminApplicationServiceTest {
                         .sorted(Comparator.comparing(Feedback::getCreatedAt).reversed())
                         .toList();
             }
+
+            @Override
+            public void deleteByUserId(Long userId) {
+                operations.add("feedback:" + userId);
+                deletedUserIds.add(userId);
+                feedback.removeIf(item -> userId.equals(item.getUserId()));
+            }
+
+            private final List<Long> deletedUserIds = new ArrayList<>();
         }
 
         private final class InMemoryCVRepository implements CVRepository {
