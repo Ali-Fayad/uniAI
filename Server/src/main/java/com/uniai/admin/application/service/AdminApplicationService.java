@@ -17,6 +17,7 @@ import com.uniai.feedback.domain.model.Feedback;
 import com.uniai.feedback.domain.repository.FeedbackRepository;
 import com.uniai.shared.exception.LastAdminProtectionException;
 import com.uniai.shared.exception.SelfDeleteNotAllowedException;
+import com.uniai.shared.exception.SelfDemotionNotAllowedException;
 import com.uniai.shared.exception.UserNotFoundException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
@@ -133,6 +134,31 @@ public class AdminApplicationService {
 
         feedbackRepository.deleteByUserId(target.getId());
         userRepository.delete(target);
+    }
+
+    @Transactional
+    public AdminUserDetailsResponse updateUserRole(String actorEmail, Long userId, UserRole requestedRole) {
+        User actor = userRepository.findByEmail(actorEmail).orElseThrow(UserNotFoundException::new);
+        User target = getRequiredUser(userId);
+
+        if (actor.getId() != null && actor.getId().equals(target.getId()) && target.getRole() != requestedRole) {
+            throw new SelfDemotionNotAllowedException();
+        }
+
+        if (target.getRole() == requestedRole) {
+            return getUserDetails(userId);
+        }
+
+        if (target.getRole() == UserRole.ADMIN && requestedRole == UserRole.USER) {
+            long adminCount = userRepository.countByRole(UserRole.ADMIN);
+            if (adminCount <= 1) {
+                throw new LastAdminProtectionException();
+            }
+        }
+
+        target.setRole(requestedRole);
+        userRepository.save(target);
+        return getUserDetails(userId);
     }
 
     private AdminUserSearchResponse toSearchResponse(User user) {

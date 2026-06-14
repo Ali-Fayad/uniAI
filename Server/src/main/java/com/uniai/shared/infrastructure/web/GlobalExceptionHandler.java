@@ -60,6 +60,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(403).body(ex.getMessage());
     }
 
+    @ExceptionHandler(SelfDemotionNotAllowedException.class)
+    public ResponseEntity<?> handleSelfDemotionNotAllowedException(Exception ex) {
+        logger.warn("SelfDemotionNotAllowedException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(403).body(ex.getMessage());
+    }
+
     @ExceptionHandler(LastAdminProtectionException.class)
     public ResponseEntity<?> handleLastAdminProtectionException(Exception ex) {
         logger.warn("LastAdminProtectionException: {}", ex.getMessage(), ex);

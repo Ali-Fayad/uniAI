@@ -181,6 +181,55 @@ class AdminApplicationServiceTest {
         assertEquals(List.of(4L), context.feedbackRepository.deletedUserIds);
     }
 
+    @Test
+    void updateUserRoleShouldPromoteUserToAdmin() {
+        TestContext context = sampleContext();
+
+        AdminUserDetailsResponse response = context.service.updateUserRole("alice@example.com", 2L, UserRole.ADMIN);
+
+        assertEquals(UserRole.ADMIN.name(), response.getRole());
+        assertEquals(UserRole.ADMIN, context.users.get(2L).getRole());
+    }
+
+    @Test
+    void updateUserRoleShouldDemoteAdminWhenAnotherAdminExists() {
+        TestContext context = sampleContext();
+        context.users.put(4L, user(4L, "carol@example.com", "carol", "Carol", "Clark", UserRole.ADMIN));
+
+        AdminUserDetailsResponse response = context.service.updateUserRole("alice@example.com", 4L, UserRole.USER);
+
+        assertEquals(UserRole.USER.name(), response.getRole());
+        assertEquals(UserRole.USER, context.users.get(4L).getRole());
+        assertEquals(1, context.userRepository.countByRoleCalls.get());
+    }
+
+    @Test
+    void updateUserRoleShouldBeIdempotentForDuplicateRole() {
+        TestContext context = sampleContext();
+
+        AdminUserDetailsResponse response = context.service.updateUserRole("alice@example.com", 2L, UserRole.USER);
+
+        assertEquals(UserRole.USER.name(), response.getRole());
+        assertEquals(0, context.userRepository.countByRoleCalls.get());
+    }
+
+    @Test
+    void updateUserRoleShouldBlockSelfDemotion() {
+        TestContext context = sampleContext();
+
+        assertThrows(com.uniai.shared.exception.SelfDemotionNotAllowedException.class,
+                () -> context.service.updateUserRole("alice@example.com", 1L, UserRole.USER));
+    }
+
+    @Test
+    void updateUserRoleShouldBlockLastAdminDemotion() {
+        TestContext context = sampleContext();
+
+        assertThrows(com.uniai.shared.exception.LastAdminProtectionException.class,
+                () -> context.service.updateUserRole("bob@example.com", 1L, UserRole.USER));
+        assertEquals(1, context.userRepository.countByRoleCalls.get());
+    }
+
     private static TestContext sampleContext() {
         TestContext context = new TestContext();
 

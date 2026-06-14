@@ -1,5 +1,6 @@
 package com.uniai.admin.presentation.controller;
 
+import com.uniai.admin.application.dto.command.UpdateAdminUserRoleCommand;
 import com.uniai.admin.application.dto.response.AdminOverviewResponse;
 import com.uniai.admin.application.dto.response.AdminUserDetailsResponse;
 import com.uniai.admin.application.dto.response.AdminUserFeedbackResponse;
@@ -19,6 +20,7 @@ import com.uniai.feedback.domain.repository.FeedbackRepository;
 import com.uniai.shared.infrastructure.jwt.JwtFacade;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
+import com.uniai.user.domain.valueobject.UserRole;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -160,6 +162,24 @@ class AdminControllerTest {
         assertEquals(77L, service.deletedUserId);
     }
 
+    @Test
+    void updateUserRoleShouldDelegateToApplicationServiceAndReturnUpdatedDetails() {
+        AdminUserDetailsResponse expected = AdminUserDetailsResponse.builder()
+                .id(77L)
+                .role("ADMIN")
+                .build();
+
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        service.updatedDetails = expected;
+
+        AdminController controller = new AdminController(new StubJwtFacade("admin@example.com"), service);
+
+        assertSame(expected, controller.updateUserRole(77L, new UpdateAdminUserRoleCommand(UserRole.ADMIN)).getBody());
+        assertEquals("admin@example.com", service.updatedEmail);
+        assertEquals(77L, service.updatedUserId);
+        assertEquals(UserRole.ADMIN, service.updatedRole);
+    }
+
     private static final class StubAdminApplicationService extends AdminApplicationService {
         private AdminOverviewResponse overview = AdminOverviewResponse.builder().build();
         private List<AdminUserSearchResponse> searchResults = List.of();
@@ -170,6 +190,10 @@ class AdminControllerTest {
         private Long lastUserId;
         private String deletedEmail;
         private Long deletedUserId;
+        private String updatedEmail;
+        private Long updatedUserId;
+        private UserRole updatedRole;
+        private AdminUserDetailsResponse updatedDetails = AdminUserDetailsResponse.builder().build();
 
         private StubAdminApplicationService() {
             super(new NoopUserRepository(), new NoopChatRepository(), new NoopMessageRepository(),
@@ -214,6 +238,14 @@ class AdminControllerTest {
         public void deleteUser(String actorEmail, Long userId) {
             deletedEmail = actorEmail;
             deletedUserId = userId;
+        }
+
+        @Override
+        public AdminUserDetailsResponse updateUserRole(String actorEmail, Long userId, UserRole role) {
+            updatedEmail = actorEmail;
+            updatedUserId = userId;
+            updatedRole = role;
+            return updatedDetails;
         }
     }
 
