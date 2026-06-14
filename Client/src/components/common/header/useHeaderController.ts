@@ -19,6 +19,7 @@ import { ROUTES } from "../../../router";
 
 export interface UseHeaderControllerReturn {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   themeName: string;
   isActivePath: (path: string) => boolean;
   goTo: (path: string) => void;
@@ -29,7 +30,7 @@ export interface UseHeaderControllerReturn {
 export const useHeaderController = (): UseHeaderControllerReturn => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
   const { themeName } = useTheme();
 
   const isActivePath = useCallback((path: string) => location.pathname === path, [location.pathname]);
@@ -48,6 +49,7 @@ export const useHeaderController = (): UseHeaderControllerReturn => {
 
   return {
     isAuthenticated,
+    isAdmin: user?.role === "ADMIN",
     themeName,
     isActivePath,
     goTo,

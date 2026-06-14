@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../router';
+import { useAuth } from '../../../hooks/useAuth';
 
 /**
  * NavbarLinks
@@ -14,6 +15,9 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
   `px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive ? 'text-[var(--color-primary)]' : 'text-[var(--color-textSecondary)] hover:text-[var(--color-primary)]'}`;
 
 const NavbarLinks: React.FC = () => {
+  const { user, isAuthenticated } = useAuth();
+  const isAdmin = isAuthenticated && user?.role === 'ADMIN';
+
   return (
     <div className="flex items-center gap-2">
       <NavLink to={ROUTES.MAP} className={linkClass}>
@@ -28,6 +32,11 @@ const NavbarLinks: React.FC = () => {
       <NavLink to={ROUTES.ABOUT} className={linkClass}>
         About Us
       </NavLink>
+      {isAdmin && (
+        <NavLink to={ROUTES.ADMIN} className={linkClass}>
+          Admin
+        </NavLink>
+      )}
     </div>
   );
 };

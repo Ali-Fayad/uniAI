@@ -22,6 +22,7 @@ import { useHeaderController } from "./header/useHeaderController";
 const Header: React.FC = () => {
   const {
     isAuthenticated,
+    isAdmin,
     themeName,
     isActivePath,
     goTo,
@@ -51,6 +52,13 @@ const Header: React.FC = () => {
                 isActive={isActivePath(ROUTES.CVS) || isActivePath(ROUTES.CV_BUILDER)}
                 onClick={() => goTo(ROUTES.CVS)}
               />
+              {isAdmin && (
+                <HeaderNavButton
+                  label="Admin"
+                  isActive={isActivePath(ROUTES.ADMIN)}
+                  onClick={() => goTo(ROUTES.ADMIN)}
+                />
+              )}
             </div>
           )}
 

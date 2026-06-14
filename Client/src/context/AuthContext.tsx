@@ -32,12 +32,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const initAuth = () => {
       const token = Storage.getToken();
       const storedUser = Storage.getUser();
+      const extractedUser = token ? extractUserFromToken(token) : null;
 
       if (token && storedUser && storedUser.isVerified !== false) {
-        setUser(storedUser);
+        const userToRestore =
+          storedUser.role || !extractedUser?.role
+            ? storedUser
+            : { ...storedUser, role: extractedUser.role };
+        setUser(userToRestore);
+        if (!storedUser.role && extractedUser?.role) {
+          Storage.setUser(userToRestore);
+        }
       } else if (token) {
-        // Try to extract user from token if not in storage
-        const extractedUser = extractUserFromToken(token);
         if (extractedUser && extractedUser.isVerified !== false) {
           setUser(extractedUser);
           Storage.setUser(extractedUser);

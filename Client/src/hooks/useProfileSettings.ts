@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import { Storage } from '../utils/Storage';
 import { userService } from '../services/user';
 import type { UpdateUserDto } from '../types/dto';
+import { useAuth } from './useAuth';
 
 export interface ProfileState {
   firstName: string;
@@ -27,6 +28,7 @@ export interface UseProfileSettingsReturn {
 }
 
 export const useProfileSettings = (): UseProfileSettingsReturn => {
+  const { user, updateUser } = useAuth();
   const [profile, setProfile] = useState<ProfileState>(() => {
     const stored = Storage.getUser();
     return {
@@ -42,7 +44,10 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
 
   /** Fetch from API if storage has no user data. */
   useEffect(() => {
-    if (!Storage.getUser()) {
+    const stored = Storage.getUser();
+    const preservedRole = stored?.role ?? user?.role;
+
+    if (!stored) {
       (async () => {
         try {
           const userData = await userService.getMe();
@@ -60,6 +65,16 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
             lastName: userData.lastName,
             username: userData.username,
             email: userData.email,
+            role: userData.role ?? preservedRole,
+            twoFactorEnabled: userData.isTwoFacAuth,
+          });
+          updateUser({
+            id: 0,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            username: userData.username,
+            email: userData.email,
+            role: userData.role ?? preservedRole,
             twoFactorEnabled: userData.isTwoFacAuth,
           });
         } catch (error) {
@@ -119,13 +134,16 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
 
       const currentStorage = Storage.getUser();
       if (currentStorage) {
-        Storage.setUser({
+        const nextUser = {
           ...currentStorage,
           firstName: updated.firstName,
           lastName: updated.lastName,
           username: updated.username,
+          role: updated.role ?? currentStorage.role ?? user?.role,
           twoFactorEnabled: updated.isTwoFacAuth,
-        });
+        };
+        Storage.setUser(nextUser);
+        updateUser(nextUser);
       }
 
       console.log('Profile updated successfully');

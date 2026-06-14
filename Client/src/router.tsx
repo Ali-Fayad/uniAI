@@ -20,6 +20,8 @@ import AboutPage from "./components/page/AboutPage";
 import PersonalInfoPage from "./components/page/PersonalInfoPage";
 import CVBuilderPage from "./components/page/CVBuilderPage";
 import CVListPage from "./components/page/CVListPage";
+import AdminDashboardPage from "./components/page/admin/AdminDashboardPage";
+import ForbiddenPage from "./components/page/ForbiddenPage";
 
 // Auth Pages
 import AuthLanding from "./components/page/auth/AuthLanding";
@@ -148,6 +150,26 @@ export const AppRouter = () => {
           }
         />
 
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requiredRole="ADMIN">
+              <PageTransition>
+                <AdminDashboardPage />
+              </PageTransition>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/forbidden"
+          element={
+            <PageTransition>
+              <ForbiddenPage />
+            </PageTransition>
+          }
+        />
+
         {/* Settings Page */}
         <Route path="/settings" element={<PageTransition><SettingsPage /></PageTransition>} />
 
@@ -185,6 +207,8 @@ export const ROUTES = {
   FORGOT_PASSWORD_CONFIRM: "/forgot-password/confirm",
   GOOGLE_CALLBACK: "/google/callback",
   CHAT: "/chat",
+  ADMIN: "/admin",
+  FORBIDDEN: "/forbidden",
   SETTINGS: "/settings",
   MAP: "/map",
   ABOUT: "/about",
