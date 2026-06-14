@@ -1,6 +1,7 @@
 package com.uniai.admin.presentation.controller;
 
 import com.uniai.admin.application.dto.command.UpdateAdminUserRoleCommand;
+import com.uniai.admin.application.dto.response.AdminFeedbackResponse;
 import com.uniai.admin.application.dto.response.AdminOverviewResponse;
 import com.uniai.admin.application.dto.response.AdminUserDetailsResponse;
 import com.uniai.admin.application.dto.response.AdminUserFeedbackResponse;
@@ -180,12 +181,42 @@ class AdminControllerTest {
         assertEquals(UserRole.ADMIN, service.updatedRole);
     }
 
+    @Test
+    void getFeedbackShouldDelegateToApplicationService() {
+        List<AdminFeedbackResponse> expected = List.of(
+                AdminFeedbackResponse.builder()
+                        .id(1L)
+                        .userId(9L)
+                        .rating(5)
+                        .content("Great")
+                        .createdAt(java.time.LocalDateTime.parse("2026-01-02T10:00:00"))
+                        .build()
+        );
+
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        service.allFeedback = expected;
+
+        AdminController controller = new AdminController(new StubJwtFacade("admin@example.com"), service);
+
+        assertSame(expected, controller.getFeedback().getBody());
+    }
+
+    @Test
+    void deleteFeedbackShouldDelegateToApplicationServiceAndReturnNoContent() {
+        StubAdminApplicationService service = new StubAdminApplicationService();
+        AdminController controller = new AdminController(new StubJwtFacade("admin@example.com"), service);
+
+        assertEquals(204, controller.deleteFeedback(88L).getStatusCode().value());
+        assertEquals(88L, service.deletedFeedbackId);
+    }
+
     private static final class StubAdminApplicationService extends AdminApplicationService {
         private AdminOverviewResponse overview = AdminOverviewResponse.builder().build();
         private List<AdminUserSearchResponse> searchResults = List.of();
         private AdminUserDetailsResponse details = AdminUserDetailsResponse.builder().build();
         private PersonalInfoResponse personalInfo = PersonalInfoResponse.builder().build();
         private List<AdminUserFeedbackResponse> feedback = List.of();
+        private List<AdminFeedbackResponse> allFeedback = List.of();
         private String lastEmail;
         private Long lastUserId;
         private String deletedEmail;
@@ -194,6 +225,7 @@ class AdminControllerTest {
         private Long updatedUserId;
         private UserRole updatedRole;
         private AdminUserDetailsResponse updatedDetails = AdminUserDetailsResponse.builder().build();
+        private Long deletedFeedbackId;
 
         private StubAdminApplicationService() {
             super(new NoopUserRepository(), new NoopChatRepository(), new NoopMessageRepository(),
@@ -235,9 +267,19 @@ class AdminControllerTest {
         }
 
         @Override
+        public List<AdminFeedbackResponse> getFeedback() {
+            return allFeedback;
+        }
+
+        @Override
         public void deleteUser(String actorEmail, Long userId) {
             deletedEmail = actorEmail;
             deletedUserId = userId;
+        }
+
+        @Override
+        public void deleteFeedback(Long feedbackId) {
+            deletedFeedbackId = feedbackId;
         }
 
         @Override
@@ -305,7 +347,10 @@ class AdminControllerTest {
         @Override public Feedback save(Feedback feedback) { return feedback; }
         @Override public long count() { return 0L; }
         @Override public List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId) { return List.of(); }
+        @Override public List<Feedback> findAllByOrderByCreatedAtDesc() { return List.of(); }
+        @Override public Optional<Feedback> findById(Long id) { return Optional.empty(); }
         @Override public void deleteByUserId(Long userId) {}
+        @Override public void deleteById(Long id) {}
     }
 
     private static final class NoopCVRepository implements CVRepository {

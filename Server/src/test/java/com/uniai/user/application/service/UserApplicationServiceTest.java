@@ -102,11 +102,14 @@ class UserApplicationServiceTest {
             @Override public Feedback save(Feedback feedbackItem) { feedback.add(feedbackItem); return feedbackItem; }
             @Override public long count() { return feedback.size(); }
             @Override public List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId) { return List.of(); }
+            @Override public List<Feedback> findAllByOrderByCreatedAtDesc() { return List.of(); }
+            @Override public Optional<Feedback> findById(Long id) { return Optional.empty(); }
             @Override public void deleteByUserId(Long userId) {
                 operations.add("feedback:" + userId);
                 deletedUserIds.add(userId);
                 feedback.removeIf(item -> userId.equals(item.getUserId()));
             }
+            @Override public void deleteById(Long id) {}
             private final List<Long> deletedUserIds = new ArrayList<>();
         }
 

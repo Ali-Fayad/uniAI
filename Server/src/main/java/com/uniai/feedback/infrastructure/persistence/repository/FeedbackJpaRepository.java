@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface FeedbackJpaRepository extends JpaRepository<Feedback, Long> {
     List<Feedback> findByUserIdOrderByCreatedAtDesc(Long userId);
+    List<Feedback> findAllByOrderByCreatedAtDesc();
+    java.util.Optional<Feedback> findById(Long id);
 
     @Modifying
     @Query("DELETE FROM Feedback f WHERE f.userId = :userId")

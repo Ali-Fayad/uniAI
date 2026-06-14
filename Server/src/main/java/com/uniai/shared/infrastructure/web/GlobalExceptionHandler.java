@@ -54,6 +54,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
+    @ExceptionHandler(FeedbackNotFoundException.class)
+    public ResponseEntity<?> handleFeedbackNotFoundException(Exception ex) {
+        logger.warn("FeedbackNotFoundException: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+
     @ExceptionHandler(SelfDeleteNotAllowedException.class)
     public ResponseEntity<?> handleSelfDeleteNotAllowedException(Exception ex) {
         logger.warn("SelfDeleteNotAllowedException: {}", ex.getMessage(), ex);

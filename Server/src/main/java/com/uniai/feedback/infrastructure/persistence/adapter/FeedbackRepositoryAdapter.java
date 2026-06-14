@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JPA-backed implementation of the domain {@link FeedbackRepository} interface.
@@ -33,7 +34,22 @@ public class FeedbackRepositoryAdapter implements FeedbackRepository {
     }
 
     @Override
+    public List<Feedback> findAllByOrderByCreatedAtDesc() {
+        return jpaRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Override
+    public Optional<Feedback> findById(Long id) {
+        return jpaRepository.findById(id);
+    }
+
+    @Override
     public void deleteByUserId(Long userId) {
         jpaRepository.deleteByUserId(userId);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        jpaRepository.deleteById(id);
     }
 }

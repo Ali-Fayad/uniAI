@@ -1,5 +1,6 @@
 package com.uniai.admin.presentation.controller;
 
+import com.uniai.admin.application.dto.response.AdminFeedbackResponse;
 import com.uniai.admin.application.dto.command.UpdateAdminUserRoleCommand;
 import com.uniai.admin.application.dto.response.AdminOverviewResponse;
 import com.uniai.admin.application.dto.response.AdminUserDetailsResponse;
@@ -64,10 +65,21 @@ public class AdminController {
         return ResponseEntity.ok(adminApplicationService.getUserFeedback(userId));
     }
 
+    @GetMapping("/feedback")
+    public ResponseEntity<List<AdminFeedbackResponse>> getFeedback() {
+        return ResponseEntity.ok(adminApplicationService.getFeedback());
+    }
+
     @DeleteMapping("/users/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         String email = jwtFacade.getAuthenticatedUserEmail();
         adminApplicationService.deleteUser(email, userId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/feedback/{feedbackId}")
+    public ResponseEntity<Void> deleteFeedback(@PathVariable Long feedbackId) {
+        adminApplicationService.deleteFeedback(feedbackId);
         return ResponseEntity.noContent().build();
     }
 

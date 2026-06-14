@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.admin.application.dto.response.AdminOverviewResponse;
+import com.uniai.admin.application.dto.response.AdminFeedbackResponse;
 import com.uniai.admin.application.dto.response.AdminUserDetailsResponse;
 import com.uniai.admin.application.dto.response.AdminUserFeedbackResponse;
 import com.uniai.admin.application.dto.response.AdminUserSearchResponse;
@@ -15,6 +16,7 @@ import com.uniai.cvbuilder.domain.repository.CVRepository;
 import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
 import com.uniai.feedback.domain.model.Feedback;
 import com.uniai.feedback.domain.repository.FeedbackRepository;
+import com.uniai.shared.exception.FeedbackNotFoundException;
 import com.uniai.shared.exception.LastAdminProtectionException;
 import com.uniai.shared.exception.SelfDeleteNotAllowedException;
 import com.uniai.shared.exception.SelfDemotionNotAllowedException;
@@ -116,6 +118,12 @@ public class AdminApplicationService {
                 .toList();
     }
 
+    public List<AdminFeedbackResponse> getFeedback() {
+        return feedbackRepository.findAllByOrderByCreatedAtDesc().stream()
+                .map(this::toAdminFeedbackResponse)
+                .toList();
+    }
+
     @Transactional
     public void deleteUser(String actorEmail, Long userId) {
         User actor = userRepository.findByEmail(actorEmail).orElseThrow(UserNotFoundException::new);
@@ -134,6 +142,12 @@ public class AdminApplicationService {
 
         feedbackRepository.deleteByUserId(target.getId());
         userRepository.delete(target);
+    }
+
+    @Transactional
+    public void deleteFeedback(Long feedbackId) {
+        Feedback feedback = feedbackRepository.findById(feedbackId).orElseThrow(FeedbackNotFoundException::new);
+        feedbackRepository.deleteById(feedback.getId());
     }
 
     @Transactional
@@ -175,6 +189,16 @@ public class AdminApplicationService {
     private AdminUserFeedbackResponse toFeedbackResponse(Feedback feedback) {
         return AdminUserFeedbackResponse.builder()
                 .id(feedback.getId())
+                .rating(feedback.getRating())
+                .content(feedback.getContent())
+                .createdAt(feedback.getCreatedAt())
+                .build();
+    }
+
+    private AdminFeedbackResponse toAdminFeedbackResponse(Feedback feedback) {
+        return AdminFeedbackResponse.builder()
+                .id(feedback.getId())
+                .userId(feedback.getUserId())
                 .rating(feedback.getRating())
                 .content(feedback.getContent())
                 .createdAt(feedback.getCreatedAt())

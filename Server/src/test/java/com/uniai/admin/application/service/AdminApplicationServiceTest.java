@@ -3,6 +3,7 @@ package com.uniai.admin.application.service;
 import com.uniai.admin.application.dto.response.AdminUserDetailsResponse;
 import com.uniai.admin.application.dto.response.AdminUserFeedbackResponse;
 import com.uniai.admin.application.dto.response.AdminUserSearchResponse;
+import com.uniai.admin.application.dto.response.AdminFeedbackResponse;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.ChatRepository;
@@ -14,6 +15,7 @@ import com.uniai.cvbuilder.domain.repository.CVRepository;
 import com.uniai.cvbuilder.domain.repository.PersonalInfoRepository;
 import com.uniai.feedback.domain.model.Feedback;
 import com.uniai.feedback.domain.repository.FeedbackRepository;
+import com.uniai.shared.exception.FeedbackNotFoundException;
 import com.uniai.shared.exception.UserNotFoundException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
@@ -114,6 +116,20 @@ class AdminApplicationServiceTest {
     }
 
     @Test
+    void getFeedbackShouldReturnAllFeedbackNewestFirst() {
+        TestContext context = sampleContext();
+        context.feedback.add(feedback(30L, 2L, "Third", LocalDateTime.parse("2026-01-03T10:00:00")));
+
+        List<AdminFeedbackResponse> responses = context.service.getFeedback();
+
+        assertEquals(3, responses.size());
+        assertEquals(30L, responses.get(0).getId());
+        assertEquals(20L, responses.get(1).getId());
+        assertEquals(10L, responses.get(2).getId());
+        assertEquals(2L, responses.get(0).getUserId());
+    }
+
+    @Test
     void getUserDetailsShouldThrowWhenUserDoesNotExist() {
         TestContext context = sampleContext();
 
@@ -167,6 +183,22 @@ class AdminApplicationServiceTest {
         TestContext context = sampleContext();
 
         assertThrows(UserNotFoundException.class, () -> context.service.deleteUser("alice@example.com", 999L));
+    }
+
+    @Test
+    void deleteFeedbackShouldRemoveExistingFeedback() {
+        TestContext context = sampleContext();
+
+        context.service.deleteFeedback(10L);
+
+        assertEquals(List.of(10L), context.feedbackRepository.deletedFeedbackIds);
+    }
+
+    @Test
+    void deleteFeedbackShouldThrowWhenMissing() {
+        TestContext context = sampleContext();
+
+        assertThrows(FeedbackNotFoundException.class, () -> context.service.deleteFeedback(999L));
     }
 
     @Test
@@ -581,13 +613,33 @@ class AdminApplicationServiceTest {
             }
 
             @Override
+            public List<Feedback> findAllByOrderByCreatedAtDesc() {
+                return feedback.stream()
+                        .sorted(Comparator.comparing(Feedback::getCreatedAt).reversed())
+                        .toList();
+            }
+
+            @Override
+            public Optional<Feedback> findById(Long id) {
+                return feedback.stream().filter(item -> id.equals(item.getId())).findFirst();
+            }
+
+            @Override
             public void deleteByUserId(Long userId) {
                 operations.add("feedback:" + userId);
                 deletedUserIds.add(userId);
                 feedback.removeIf(item -> userId.equals(item.getUserId()));
             }
 
+            @Override
+            public void deleteById(Long id) {
+                operations.add("feedback-delete:" + id);
+                deletedFeedbackIds.add(id);
+                feedback.removeIf(item -> id.equals(item.getId()));
+            }
+
             private final List<Long> deletedUserIds = new ArrayList<>();
+            private final List<Long> deletedFeedbackIds = new ArrayList<>();
         }
 
         private final class InMemoryCVRepository implements CVRepository {
