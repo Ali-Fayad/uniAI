@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import javax.crypto.SecretKey;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 /**
  * Low-level JWT token builder and parser.
@@ -31,10 +33,14 @@ public final class JwtTokenHelper {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 payload,
                 null,
-                Collections.emptyList()
+                buildAuthorities(payload.getRole())
         );
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         return authToken;
+    }
+
+    public static List<SimpleGrantedAuthority> buildAuthorities(String role) {
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + normalizeRole(role)));
     }
 
     public static Map<String, Object> buildClaims(JwtTokenPayload payload) {

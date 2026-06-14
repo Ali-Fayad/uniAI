@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -71,7 +72,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // Store the email (lowercase) as principal for easy retrieval via JwtFacade
         UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(
-                payload.getEmail().toLowerCase(),
+                payload.getEmail().toLowerCase(Locale.ROOT),
                 authToken.getCredentials(),
                 authToken.getAuthorities()
         );

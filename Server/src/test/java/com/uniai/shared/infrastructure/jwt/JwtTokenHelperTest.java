@@ -3,6 +3,7 @@ package com.uniai.shared.infrastructure.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Map;
 
@@ -58,5 +59,19 @@ class JwtTokenHelperTest {
         JwtTokenPayload payload = JwtTokenHelper.payloadFromClaims(claims);
 
         assertEquals("USER", payload.getRole());
+    }
+
+    @Test
+    void buildAuthoritiesShouldMapAdminRole() {
+        assertEquals(
+                java.util.List.of(new SimpleGrantedAuthority("ROLE_ADMIN")),
+                JwtTokenHelper.buildAuthorities("ADMIN"));
+    }
+
+    @Test
+    void buildAuthoritiesShouldDefaultUnknownRoleToUser() {
+        assertEquals(
+                java.util.List.of(new SimpleGrantedAuthority("ROLE_USER")),
+                JwtTokenHelper.buildAuthorities("SUPERADMIN"));
     }
 }

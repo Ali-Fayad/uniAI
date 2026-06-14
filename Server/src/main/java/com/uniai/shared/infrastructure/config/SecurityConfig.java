@@ -63,17 +63,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/languages").authenticated()
-                    .requestMatchers(HttpMethod.GET, "/api/skills").authenticated()
-                    .requestMatchers(HttpMethod.GET, "/api/universities").authenticated()
-                    .requestMatchers(HttpMethod.GET, "/api/positions").authenticated()
-                    .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/languages").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/skills").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/universities").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/positions").authenticated()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex
-                    .authenticationEntryPoint((request, response, authException) ->
-                        response.sendError(403, "Authentication required"))
-                    .accessDeniedHandler((request, response, accessDeniedException) ->
-                        response.sendError(403, "Authentication required")))
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.sendError(403, "Authentication required"))
+                        .accessDeniedHandler((request, response, accessDeniedException) ->
+                                response.sendError(403, "Authentication required")))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable());
