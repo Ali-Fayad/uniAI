@@ -2,8 +2,7 @@
  * useHeaderController
  *
  * Responsibility:
- * - Own navigation/theme/auth actions needed by the app header.
- * - Provide current route context for active-state rendering.
+ * - Own branding, theme, and auth actions needed by the app header.
  *
  * Does NOT:
  * - Render UI
@@ -11,7 +10,7 @@
  */
 
 import { useCallback } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTheme } from "../../../hooks/useTheme";
 import { applyThemeByName } from "../../../styles/themes";
@@ -19,23 +18,18 @@ import { ROUTES } from "../../../router";
 
 export interface UseHeaderControllerReturn {
   isAuthenticated: boolean;
-  isAdmin: boolean;
   themeName: string;
-  isActivePath: (path: string) => boolean;
-  goTo: (path: string) => void;
+  goHome: () => void;
   logoutAndGoHome: () => void;
   toggleTheme: () => void;
 }
 
 export const useHeaderController = (): UseHeaderControllerReturn => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { themeName } = useTheme();
 
-  const isActivePath = useCallback((path: string) => location.pathname === path, [location.pathname]);
-
-  const goTo = useCallback((path: string) => navigate(path), [navigate]);
+  const goHome = useCallback(() => navigate(ROUTES.HOME), [navigate]);
 
   const logoutAndGoHome = useCallback(() => {
     logout();
@@ -49,10 +43,8 @@ export const useHeaderController = (): UseHeaderControllerReturn => {
 
   return {
     isAuthenticated,
-    isAdmin: user?.role === "ADMIN",
     themeName,
-    isActivePath,
-    goTo,
+    goHome,
     logoutAndGoHome,
     toggleTheme,
   };
