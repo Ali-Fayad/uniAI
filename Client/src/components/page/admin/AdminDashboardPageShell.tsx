@@ -1,7 +1,5 @@
 import type { UseAdminDashboardControllerReturn } from './useAdminDashboardController';
-import AdminDashboardTabs, { adminDashboardTabButtonId, adminDashboardTabPanelId } from './AdminDashboardTabs';
-import AdminStatisticsSection from './sections/AdminStatisticsSection';
-import AdminUserSearchSection from './sections/AdminUserSearchSection';
+import AdminDashboardTabs from './AdminDashboardTabs';
 
 interface AdminDashboardPageShellProps {
   controller: UseAdminDashboardControllerReturn;
@@ -29,24 +27,8 @@ const AdminDashboardPageShell = ({ controller }: AdminDashboardPageShellProps) =
           onTabChange={controller.setActiveTab}
         />
 
-        <div className="space-y-4">
-          {controller.activeTab === 'statistics' && (
-            <AdminStatisticsSection
-              id={adminDashboardTabPanelId('statistics')}
-              labelledBy={adminDashboardTabButtonId('statistics')}
-              overview={controller.overview}
-              isLoading={controller.isOverviewLoading}
-              error={controller.overviewError}
-              onRetry={controller.refreshOverview}
-            />
-          )}
-
-          {controller.activeTab === 'user-search' && (
-            <AdminUserSearchSection
-              id={adminDashboardTabPanelId('user-search')}
-              labelledBy={adminDashboardTabButtonId('user-search')}
-            />
-          )}
+        <div className="w-full min-w-0 space-y-4">
+          {controller.activeTabDefinition.renderContent(controller)}
         </div>
       </div>
     </main>
