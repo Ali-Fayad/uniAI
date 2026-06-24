@@ -1,5 +1,6 @@
 import type { UseAdminDashboardControllerReturn } from './useAdminDashboardController';
 import AdminDashboardTabs from './AdminDashboardTabs';
+import { AnimatedContent } from '../../animations';
 
 interface AdminDashboardPageShellProps {
   controller: UseAdminDashboardControllerReturn;
@@ -27,9 +28,14 @@ const AdminDashboardPageShell = ({ controller }: AdminDashboardPageShellProps) =
           onTabChange={controller.setActiveTab}
         />
 
-        <div className="w-full min-w-0 space-y-4">
+        <AnimatedContent
+          activeKey={controller.activeTab}
+          className="w-full min-w-0 space-y-4"
+          duration={0.2}
+          yOffset={8}
+        >
           {controller.activeTabDefinition.renderContent(controller)}
-        </div>
+        </AnimatedContent>
       </div>
     </main>
   );

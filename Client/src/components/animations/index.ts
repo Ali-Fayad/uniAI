@@ -9,3 +9,4 @@ export { default as SlideIn } from './SlideIn';
 export { default as ScaleIn } from './ScaleIn';
 export { default as StaggerContainer, staggerItemVariants } from './StaggerContainer';
 export { default as PageTransition } from './PageTransition';
+export { default as AnimatedContent } from './AnimatedContent';

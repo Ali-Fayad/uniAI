@@ -5,7 +5,6 @@
 # ─────────────────────────────────────────────────────────────
 
 services:
-
   # ── PostgreSQL 17 ─────────────────────────────────────────
   postgres:
     image: postgres:17-alpine
@@ -16,7 +15,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-uniai}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./Server/db:/docker-entrypoint-initdb.d:ro   # runs init.sql on first boot
+      - ./Server/db:/docker-entrypoint-initdb.d:ro # runs init.sql on first boot
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-uniai}"]
       interval: 10s
@@ -54,16 +53,16 @@ services:
     tty: true
     networks:
       - uniai_network
-
   # ── React/Vite – production build ─────────────────────────
   client-build:
     build:
       context: ./Client
       dockerfile: Dockerfile
-      target: builder       # runs npm ci + npm run build; dist → client_dist volume
+      target: builder
     container_name: uniai_client_builder
     volumes:
-      - client_dist:/app/dist    # nginx reads from this shared volume
+      - client_dist:/client_dist
+    command: sh -c "rm -rf /client_dist/* && cp -r /app/dist/* /client_dist/"
     networks:
       - uniai_network
 
@@ -74,7 +73,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: uniai_client_dev
     ports:
-      - "5173:5173"   # Vite dev server
+      - "5173:5173" # Vite dev server
     volumes:
       - ./Client:/app:cached
       - client_node_modules:/app/node_modules
@@ -110,7 +109,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/certs:/etc/nginx/certs:ro   # populated by generate.sh
+      - ./nginx/certs:/etc/nginx/certs:ro # populated by generate.sh
       - client_dist:/usr/share/nginx/html:ro
     depends_on:
       - app
