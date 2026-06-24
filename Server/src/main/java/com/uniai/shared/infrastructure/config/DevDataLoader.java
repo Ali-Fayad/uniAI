@@ -2,6 +2,7 @@ package com.uniai.shared.infrastructure.config;
 
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
+import com.uniai.user.domain.valueobject.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -30,6 +31,7 @@ public class DevDataLoader implements CommandLineRunner {
         user.setPassword(passwordEncoder.encode("password"));
         user.setVerified(true);
         user.setTwoFacAuth(false);
+        user.setRole(UserRole.ADMIN);
 
         userRepository.save(user);
     }
