@@ -4,6 +4,7 @@ import com.uniai.user.application.dto.command.RequestPasswordCommand;
 import com.uniai.user.application.dto.command.SignInCommand;
 import com.uniai.user.application.dto.command.SignUpCommand;
 import com.uniai.user.application.dto.command.VerifyCommand;
+import com.uniai.user.application.dto.command.EmailRequestCommand;
 import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.in.*;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final SignUpUseCase signUpUseCase;
+    private final ResendVerificationCodeUseCase resendVerificationCodeUseCase;
     private final SignInUseCase signInUseCase;
     private final VerifyEmailUseCase verifyEmailUseCase;
     private final VerifyTwoFactorUseCase verifyTwoFactorUseCase;
@@ -35,6 +37,12 @@ public class AuthController {
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpCommand command) {
         SignUpResultDto result = signUpUseCase.signUp(command);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(result.message());
+    }
+
+    @PostMapping("/verify/resend")
+    public ResponseEntity<?> resendVerificationCode(@Valid @RequestBody EmailRequestCommand command) {
+        String message = resendVerificationCodeUseCase.resendVerificationCode(command);
+        return ResponseEntity.ok(new MessageResponse(message));
     }
 
     @PostMapping("/signin")

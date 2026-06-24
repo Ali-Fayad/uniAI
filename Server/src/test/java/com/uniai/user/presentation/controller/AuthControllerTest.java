@@ -1,6 +1,7 @@
 package com.uniai.user.presentation.controller;
 
 import com.uniai.user.application.dto.command.SignUpCommand;
+import com.uniai.user.application.dto.command.EmailRequestCommand;
 import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.in.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,9 @@ class AuthControllerTest {
 
     @Mock
     private SignUpUseCase signUpUseCase;
+
+    @Mock
+    private ResendVerificationCodeUseCase resendVerificationCodeUseCase;
 
     @Mock
     private SignInUseCase signInUseCase;
@@ -52,6 +56,7 @@ class AuthControllerTest {
     void setUp() {
         authController = new AuthController(
                 signUpUseCase,
+                resendVerificationCodeUseCase,
                 signInUseCase,
                 verifyEmailUseCase,
                 verifyTwoFactorUseCase,
@@ -72,6 +77,20 @@ class AuthControllerTest {
 
         assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
         assertEquals("A verification code was sent — check your email!", response.getBody());
+    }
+
+    @Test
+    void resendVerificationCodeShouldReturnMessagePayload() throws Exception {
+        when(resendVerificationCodeUseCase.resendVerificationCode(any())).thenReturn(
+                "If verification is needed, a new code will be sent shortly."
+        );
+
+        ResponseEntity<?> response = authController.resendVerificationCode(new EmailRequestCommand("fresh@example.com"));
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        Object body = response.getBody();
+        assertEquals("If verification is needed, a new code will be sent shortly.",
+                body.getClass().getMethod("message").invoke(body));
     }
 
     @Test

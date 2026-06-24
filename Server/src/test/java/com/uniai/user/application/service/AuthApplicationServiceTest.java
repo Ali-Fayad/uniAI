@@ -1,7 +1,9 @@
 package com.uniai.user.application.service;
 
 import com.uniai.shared.exception.AlreadyExistsException;
+import com.uniai.shared.exception.VerificationCodeRateLimitException;
 import com.uniai.shared.infrastructure.jwt.JwtUtil;
+import com.uniai.user.application.dto.command.EmailRequestCommand;
 import com.uniai.user.application.dto.command.SignUpCommand;
 import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.out.NotificationPort;
@@ -109,7 +111,7 @@ class AuthApplicationServiceTest {
         org.junit.jupiter.api.Assertions.assertEquals(UserRole.ADMIN, userCaptor.getValue().getRole());
         assertTrue(result.verificationRequired());
         assertEquals("A verification code was sent — check your email!", result.message());
-        verify(verifyCodeRepository).deleteByUserIdAndType(eq(1L), eq(VerificationCodeType.REGISTRATION));
+        verify(verifyCodeRepository).markByUserIdAndTypeUsed(eq(1L), eq(VerificationCodeType.REGISTRATION));
         verify(verifyCodeRepository).save(any(VerifyCode.class));
         verify(notificationPort).sendVerificationEmail(eq("alice@example.com"), eq(VerificationCodeType.REGISTRATION), org.mockito.ArgumentMatchers.anyString());
         verifyNoInteractions(jwtUtil);
@@ -144,9 +146,112 @@ class AuthApplicationServiceTest {
         org.junit.jupiter.api.Assertions.assertEquals(UserRole.USER, userCaptor.getValue().getRole());
         assertTrue(result.verificationRequired());
         assertEquals("A verification code was sent — check your email!", result.message());
-        verify(verifyCodeRepository).deleteByUserIdAndType(eq(2L), eq(VerificationCodeType.REGISTRATION));
+        verify(verifyCodeRepository).markByUserIdAndTypeUsed(eq(2L), eq(VerificationCodeType.REGISTRATION));
         verify(notificationPort).sendVerificationEmail(eq("bob@example.com"), eq(VerificationCodeType.REGISTRATION), org.mockito.ArgumentMatchers.anyString());
         verifyNoInteractions(jwtUtil);
+    }
+
+    @Test
+    void resendVerificationCodeShouldAllowFirstManualResendImmediatelyAfterSignup() {
+        User user = User.builder()
+                .id(10L)
+                .email("fresh@example.com")
+                .isVerified(false)
+                .build();
+        VerifyCode latest = VerifyCode.builder()
+                .userId(10L)
+                .code("ABC123")
+                .type(VerificationCodeType.REGISTRATION)
+                .createdAt(java.time.LocalDateTime.now().minusSeconds(10))
+                .expiresAt(java.time.LocalDateTime.now().plusMinutes(10))
+                .used(false)
+                .build();
+
+        when(userRepository.findByEmail("fresh@example.com")).thenReturn(java.util.Optional.of(user));
+        when(verifyCodeRepository.findTopByUserIdAndType(10L, VerificationCodeType.REGISTRATION)).thenReturn(java.util.Optional.of(latest));
+        when(verifyCodeRepository.existsByUserIdAndTypeAndUsedTrue(10L, VerificationCodeType.REGISTRATION)).thenReturn(false);
+        when(verifyCodeRepository.save(any(VerifyCode.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        String message = authApplicationService.resendVerificationCode(new EmailRequestCommand("fresh@example.com"));
+
+        assertEquals("If verification is needed, a new code will be sent shortly.", message);
+        verify(verifyCodeRepository).markByUserIdAndTypeUsed(eq(10L), eq(VerificationCodeType.REGISTRATION));
+        verify(notificationPort).sendVerificationEmail(eq("fresh@example.com"), eq(VerificationCodeType.REGISTRATION), org.mockito.ArgumentMatchers.anyString());
+    }
+
+    @Test
+    void resendVerificationCodeShouldSendWhenCooldownExpired() {
+        User user = User.builder()
+                .id(10L)
+                .email("fresh@example.com")
+                .isVerified(false)
+                .build();
+        VerifyCode latest = VerifyCode.builder()
+                .userId(10L)
+                .code("ABC123")
+                .type(VerificationCodeType.REGISTRATION)
+                .createdAt(java.time.LocalDateTime.now().minusMinutes(2))
+                .expiresAt(java.time.LocalDateTime.now().plusMinutes(10))
+                .used(false)
+                .build();
+
+        when(userRepository.findByEmail("fresh@example.com")).thenReturn(java.util.Optional.of(user));
+        when(verifyCodeRepository.findTopByUserIdAndType(10L, VerificationCodeType.REGISTRATION)).thenReturn(java.util.Optional.of(latest));
+        when(verifyCodeRepository.existsByUserIdAndTypeAndUsedTrue(10L, VerificationCodeType.REGISTRATION)).thenReturn(true);
+        when(verifyCodeRepository.save(any(VerifyCode.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        String message = authApplicationService.resendVerificationCode(new EmailRequestCommand("fresh@example.com"));
+
+        assertEquals("If verification is needed, a new code will be sent shortly.", message);
+        verify(verifyCodeRepository).markByUserIdAndTypeUsed(eq(10L), eq(VerificationCodeType.REGISTRATION));
+        verify(notificationPort).sendVerificationEmail(eq("fresh@example.com"), eq(VerificationCodeType.REGISTRATION), org.mockito.ArgumentMatchers.anyString());
+    }
+
+    @Test
+    void resendVerificationCodeShouldRateLimitWithinOneMinute() {
+        User user = User.builder()
+                .id(11L)
+                .email("fresh2@example.com")
+                .isVerified(false)
+                .build();
+        VerifyCode latest = VerifyCode.builder()
+                .userId(11L)
+                .code("ABC123")
+                .type(VerificationCodeType.REGISTRATION)
+                .createdAt(java.time.LocalDateTime.now())
+                .expiresAt(java.time.LocalDateTime.now().plusMinutes(10))
+                .used(false)
+                .build();
+
+        when(userRepository.findByEmail("fresh2@example.com")).thenReturn(java.util.Optional.of(user));
+        when(verifyCodeRepository.findTopByUserIdAndType(11L, VerificationCodeType.REGISTRATION)).thenReturn(java.util.Optional.of(latest));
+        when(verifyCodeRepository.existsByUserIdAndTypeAndUsedTrue(11L, VerificationCodeType.REGISTRATION)).thenReturn(true);
+
+        VerificationCodeRateLimitException exception = assertThrows(
+                VerificationCodeRateLimitException.class,
+                () -> authApplicationService.resendVerificationCode(new EmailRequestCommand("fresh2@example.com"))
+        );
+
+        assertEquals("Please wait before requesting another verification code.", exception.getMessage());
+        verifyNoInteractions(notificationPort);
+    }
+
+    @Test
+    void resendVerificationCodeShouldReturnGenericSuccessForUnknownOrVerifiedUsers() {
+        when(userRepository.findByEmail("unknown@example.com")).thenReturn(java.util.Optional.empty());
+        String unknownMessage = authApplicationService.resendVerificationCode(new EmailRequestCommand("unknown@example.com"));
+        assertEquals("If verification is needed, a new code will be sent shortly.", unknownMessage);
+
+        User verifiedUser = User.builder()
+                .id(12L)
+                .email("verified@example.com")
+                .isVerified(true)
+                .build();
+        when(userRepository.findByEmail("verified@example.com")).thenReturn(java.util.Optional.of(verifiedUser));
+        String verifiedMessage = authApplicationService.resendVerificationCode(new EmailRequestCommand("verified@example.com"));
+        assertEquals("If verification is needed, a new code will be sent shortly.", verifiedMessage);
+
+        verifyNoInteractions(notificationPort);
     }
 
     @Test

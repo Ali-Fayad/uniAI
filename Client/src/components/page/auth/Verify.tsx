@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { isAxiosError } from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthCard } from "../../../components/AuthCard";
 import { authService } from "../../../services/auth";
@@ -16,11 +17,37 @@ const Verify = () => {
   const [code, setCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isResending, setIsResending] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
+  const [resendError, setResendError] = useState("");
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
   const redirectTo =
     (location.state as { redirectTo?: string } | null)?.redirectTo || ROUTES.CHAT;
 
   // Get email from navigation state
   const email = (location.state as { email?: string })?.email || "";
+
+  useEffect(() => {
+    if (cooldownSeconds <= 0) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setCooldownSeconds((current) => Math.max(current - 1, 0));
+    }, 1000);
+
+    return () => window.clearTimeout(timer);
+  }, [cooldownSeconds]);
+
+  const formatCooldown = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = String(seconds % 60).padStart(2, "0");
+    return `${minutes}:${remainingSeconds}`;
+  };
+
+  const startCooldown = (seconds = 60) => {
+    setCooldownSeconds((current) => (current > 0 ? current : seconds));
+  };
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,14 +114,42 @@ const Verify = () => {
   };
 
   const handleResend = async () => {
-    if (!email) return;
+    if (!email) {
+      setResendError(TEXT.auth.verify.resendMissingEmail);
+      setResendMessage("");
+      return;
+    }
+
+    setIsResending(true);
+    setResendError("");
+    setResendMessage("");
 
     try {
-      // Resend verification by calling signup again (backend should handle this)
-      console.log("Resending verification code to:", email);
-      // TODO: Implement resend endpoint if available
-    } catch (err) {
-      console.error("Failed to resend code:", err);
+      const response = await authService.resendVerificationCode(email);
+      setResendMessage(response.message || TEXT.auth.verify.resendSuccess);
+      setCooldownSeconds(60);
+    } catch (err: unknown) {
+      if (isAxiosError(err)) {
+        const backendMessage =
+          typeof err.response?.data === "string"
+            ? err.response.data
+            : err.response?.data?.message;
+
+        if (err.response?.status === 429) {
+          startCooldown(60);
+        }
+
+        setResendError(
+          backendMessage ||
+            (err.response?.status === 429
+              ? TEXT.auth.verify.resendCooldown
+              : TEXT.common.error)
+        );
+      } else {
+        setResendError(TEXT.common.error);
+      }
+    } finally {
+      setIsResending(false);
     }
   };
 
@@ -112,8 +167,22 @@ const Verify = () => {
 
         <form className="space-y-6" onSubmit={handleVerify}>
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
+            <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
               {error}
+            </div>
+          )}
+
+          {(resendMessage || resendError) && (
+            <div
+              className={[
+                "rounded-lg border px-4 py-3 text-sm",
+                resendError
+                  ? "border-red-200 bg-red-50 text-red-800"
+                  : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-textPrimary)]",
+              ].join(" ")}
+              aria-live="polite"
+            >
+              {resendError || resendMessage}
             </div>
           )}
 
@@ -148,10 +217,15 @@ const Verify = () => {
           Didn't receive code?{" "}
           <button
             type="button"
-            className="text-[var(--color-primaryVariant)] font-medium hover:text-[var(--color-primary)] transition-colors ml-1 bg-transparent p-0 border-0"
+            disabled={isResending || cooldownSeconds > 0}
+            className="ml-1 border-0 bg-transparent p-0 font-medium text-[var(--color-primaryVariant)] transition-colors hover:text-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-60"
             onClick={handleResend}
           >
-            Resend
+            {isResending
+              ? TEXT.auth.verify.resendButtonLoading
+              : cooldownSeconds > 0
+                ? `Resend code in ${formatCooldown(cooldownSeconds)}`
+                : TEXT.auth.verify.resendButton}
           </button>
         </p>
       </AuthCard>

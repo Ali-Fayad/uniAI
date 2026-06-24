@@ -29,6 +29,16 @@ public class VerifyCodeRepositoryAdapter implements VerifyCodeRepository {
     }
 
     @Override
+    public boolean existsByUserIdAndTypeAndUsedTrue(Long userId, VerificationCodeType type) {
+        return jpaRepository.existsByUserIdAndTypeAndUsedTrue(userId, type);
+    }
+
+    @Override
+    public void markByUserIdAndTypeUsed(Long userId, VerificationCodeType type) {
+        jpaRepository.markByUserIdAndTypeUsed(userId, type);
+    }
+
+    @Override
     public VerifyCode save(VerifyCode verifyCode) {
         return jpaRepository.save(verifyCode);
     }

@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthApplicationService implements
         SignUpUseCase,
+        ResendVerificationCodeUseCase,
         SignInUseCase,
         VerifyEmailUseCase,
         VerifyTwoFactorUseCase,
@@ -49,6 +50,8 @@ public class AuthApplicationService implements
     private final OAuthPort oAuthPort;
 
     private static final String VERIFICATION_REQUIRED_MESSAGE = "A verification code was sent — check your email!";
+    private static final String VERIFICATION_RESEND_SUCCESS_MESSAGE = "If verification is needed, a new code will be sent shortly.";
+    private static final String VERIFICATION_RESEND_RATE_LIMIT_MESSAGE = "Please wait before requesting another verification code.";
 
     @Value("${app.email.code-length:6}")
     private int codeLength;
@@ -82,12 +85,38 @@ public class AuthApplicationService implements
                         passwordEncoder.encode(command.getPassword()))
                 .role(role)
                 .build();
-
         userRepository.save(user);
 
         sendVerificationCode(user, VerificationCodeType.REGISTRATION);
 
         return SignUpResultDto.verificationRequired(VERIFICATION_REQUIRED_MESSAGE);
+    }
+
+    // -------------------------------------------------------------------------
+    // ResendVerificationCodeUseCase
+    // -------------------------------------------------------------------------
+
+    @Override
+    @Transactional
+    public String resendVerificationCode(EmailRequestCommand command) {
+        String email = command.getEmail().toLowerCase();
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        if (user == null || user.isVerified()) {
+            return VERIFICATION_RESEND_SUCCESS_MESSAGE;
+        }
+
+        VerifyCode latest = verifyCodeRepository
+                .findTopByUserIdAndType(user.getId(), VerificationCodeType.REGISTRATION)
+                .orElse(null);
+
+        if (latest != null && verifyCodeRepository.existsByUserIdAndTypeAndUsedTrue(user.getId(), VerificationCodeType.REGISTRATION)
+                && isCooldownActive(latest)) {
+            throw new VerificationCodeRateLimitException(VERIFICATION_RESEND_RATE_LIMIT_MESSAGE);
+        }
+
+        sendVerificationCode(user, VerificationCodeType.REGISTRATION);
+        return VERIFICATION_RESEND_SUCCESS_MESSAGE;
     }
 
     // -------------------------------------------------------------------------
@@ -199,7 +228,7 @@ public class AuthApplicationService implements
     private void sendVerificationCode(User user, VerificationCodeType type) {
         String code = EmailUtil.generateVerificationCode(codeLength);
 
-        verifyCodeRepository.deleteByUserIdAndType(user.getId(), type);
+        verifyCodeRepository.markByUserIdAndTypeUsed(user.getId(), type);
 
         VerifyCode verifyCode = VerifyCodeBuilder.create(user.getId(), code, type)
                 .expiresInMinutes(codeExpiryMinutes)
@@ -207,6 +236,11 @@ public class AuthApplicationService implements
 
         verifyCodeRepository.save(verifyCode);
         notificationPort.sendVerificationEmail(user.getEmail(), type, code);
+    }
+
+    private boolean isCooldownActive(VerifyCode latest) {
+        return latest.getCreatedAt() != null
+                && latest.getCreatedAt().plusMinutes(1).isAfter(java.time.LocalDateTime.now());
     }
 
     /**

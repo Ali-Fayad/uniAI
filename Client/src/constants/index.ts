@@ -11,6 +11,7 @@ export const ENDPOINTS = {
     CHECK_EMAIL: '/api/auth/check-email',
     CHECK_USERNAME: '/api/auth/check-username',
     VERIFY: '/api/auth/verify',
+    RESEND_VERIFY: '/api/auth/verify/resend',
     VERIFY_2FA: '/api/auth/2fa/verify',
     FORGOT_PASSWORD: '/api/auth/forget-password',
     FORGOT_PASSWORD_CONFIRM: '/api/auth/forget-password/confirm',

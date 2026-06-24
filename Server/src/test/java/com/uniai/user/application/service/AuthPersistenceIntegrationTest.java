@@ -30,8 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Import(AuthPersistenceIntegrationTest.TestBeans.class)
@@ -77,9 +75,6 @@ class AuthPersistenceIntegrationTest extends PostgresIntegrationTest {
         command.setUsername("freshuser");
         command.setEmail("fresh@example.com");
         command.setPassword("Password123");
-
-        when(passwordEncoder.encode("Password123")).thenReturn("encoded-password");
-        when(jwtUtil.generateToken(any(JwtTokenPayload.class))).thenReturn("jwt-token");
 
         SignUpResultDto result = authApplicationService.signUp(command);
 

@@ -130,6 +130,10 @@ export const TEXT = {
       submitButton: "Verify",
       submitButtonLoading: "Verifying...",
       resendButton: "Resend Code",
+      resendButtonLoading: "Sending...",
+      resendSuccess: "A new verification code has been sent.",
+      resendCooldown: "Please wait before requesting another verification code.",
+      resendMissingEmail: "Email is missing. Please start signup again.",
       error: "Failed to verify code. Please try again.",
     },
     verify2FA: {

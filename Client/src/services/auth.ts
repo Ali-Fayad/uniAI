@@ -86,6 +86,18 @@ export const authService: IAuthService = {
   },
 
   /**
+   * Resend email verification code
+   */
+  async resendVerificationCode(email: string): Promise<MessageResponse> {
+    const data: EmailRequestDto = { email };
+    const response = await apiClient.post<MessageResponse>(
+      ENDPOINTS.AUTH.RESEND_VERIFY,
+      data
+    );
+    return response.data;
+  },
+
+  /**
    * Verify 2FA code
    */
   async verify2FA(data: VerifyDto): Promise<TokenResponse> {

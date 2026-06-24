@@ -30,6 +30,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(202).body(ex.getMessage());
     }
 
+    @ExceptionHandler(VerificationCodeRateLimitException.class)
+    public ResponseEntity<?> handleVerificationCodeRateLimitException(Exception ex) {
+        logger.info("VerificationCodeRateLimitException: {}", ex.getMessage());
+        return ResponseEntity.status(429).body(ex.getMessage());
+    }
+
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<?> handleAlreadyExistsException(Exception ex) {
         logger.warn("AlreadyExistsException: {}", ex.getMessage(), ex);

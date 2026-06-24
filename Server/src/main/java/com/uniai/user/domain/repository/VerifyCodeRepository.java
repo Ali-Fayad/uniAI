@@ -15,6 +15,10 @@ public interface VerifyCodeRepository {
 
     Optional<VerifyCode> findTopByUserIdAndType(Long userId, VerificationCodeType type);
 
+    boolean existsByUserIdAndTypeAndUsedTrue(Long userId, VerificationCodeType type);
+
+    void markByUserIdAndTypeUsed(Long userId, VerificationCodeType type);
+
     VerifyCode save(VerifyCode verifyCode);
 
     void delete(VerifyCode verifyCode);

@@ -22,6 +22,7 @@ export interface IAuthService {
   signUp(data: SignUpDto): Promise<TokenResponse>;
   signIn(data: SignInDto): Promise<TokenResponse>;
   verify(data: VerifyDto): Promise<TokenResponse>;
+  resendVerificationCode(email: string): Promise<MessageResponse>;
   verify2FA(data: VerifyDto): Promise<TokenResponse>;
   forgotPassword(email: string): Promise<MessageResponse>;
   forgotPasswordConfirm(data: RequestPasswordDto): Promise<TokenResponse>;
