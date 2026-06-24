@@ -3,12 +3,15 @@ package com.uniai.user.application.service;
 import com.uniai.shared.exception.AlreadyExistsException;
 import com.uniai.shared.infrastructure.jwt.JwtUtil;
 import com.uniai.user.application.dto.command.SignUpCommand;
+import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.out.NotificationPort;
 import com.uniai.user.application.port.out.OAuthPort;
 import com.uniai.user.domain.model.User;
+import com.uniai.user.domain.model.VerifyCode;
 import com.uniai.user.domain.repository.UserRepository;
 import com.uniai.user.domain.repository.VerifyCodeRepository;
 import com.uniai.user.domain.valueobject.UserRole;
+import com.uniai.user.domain.valueobject.VerificationCodeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +24,12 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -85,17 +93,26 @@ class AuthApplicationServiceTest {
         when(userRepository.existsByUsername("alice")).thenReturn(false);
         when(userRepository.count()).thenReturn(0L);
         when(passwordEncoder.encode("Password123")).thenReturn("encoded");
-        when(userRepository.save(org.mockito.ArgumentMatchers.any(User.class)))
+        when(userRepository.save(any(User.class)))
+                .thenAnswer(invocation -> {
+                    User user = invocation.getArgument(0);
+                    user.setId(1L);
+                    return user;
+                });
+        when(verifyCodeRepository.save(any(VerifyCode.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        assertThrows(
-                com.uniai.shared.exception.VerificationNeededException.class,
-                () -> authApplicationService.signUp(command)
-        );
+        SignUpResultDto result = authApplicationService.signUp(command);
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(userRepository).save(userCaptor.capture());
         org.junit.jupiter.api.Assertions.assertEquals(UserRole.ADMIN, userCaptor.getValue().getRole());
+        assertTrue(result.verificationRequired());
+        assertEquals("A verification code was sent — check your email!", result.message());
+        verify(verifyCodeRepository).deleteByUserIdAndType(eq(1L), eq(VerificationCodeType.REGISTRATION));
+        verify(verifyCodeRepository).save(any(VerifyCode.class));
+        verify(notificationPort).sendVerificationEmail(eq("alice@example.com"), eq(VerificationCodeType.REGISTRATION), org.mockito.ArgumentMatchers.anyString());
+        verifyNoInteractions(jwtUtil);
     }
 
     @Test
@@ -111,17 +128,25 @@ class AuthApplicationServiceTest {
         when(userRepository.existsByUsername("bob")).thenReturn(false);
         when(userRepository.count()).thenReturn(1L);
         when(passwordEncoder.encode("Password123")).thenReturn("encoded");
-        when(userRepository.save(org.mockito.ArgumentMatchers.any(User.class)))
+        when(userRepository.save(any(User.class)))
+                .thenAnswer(invocation -> {
+                    User user = invocation.getArgument(0);
+                    user.setId(2L);
+                    return user;
+                });
+        when(verifyCodeRepository.save(any(VerifyCode.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        assertThrows(
-                com.uniai.shared.exception.VerificationNeededException.class,
-                () -> authApplicationService.signUp(command)
-        );
+        SignUpResultDto result = authApplicationService.signUp(command);
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(userRepository).save(userCaptor.capture());
         org.junit.jupiter.api.Assertions.assertEquals(UserRole.USER, userCaptor.getValue().getRole());
+        assertTrue(result.verificationRequired());
+        assertEquals("A verification code was sent — check your email!", result.message());
+        verify(verifyCodeRepository).deleteByUserIdAndType(eq(2L), eq(VerificationCodeType.REGISTRATION));
+        verify(notificationPort).sendVerificationEmail(eq("bob@example.com"), eq(VerificationCodeType.REGISTRATION), org.mockito.ArgumentMatchers.anyString());
+        verifyNoInteractions(jwtUtil);
     }
 
     @Test

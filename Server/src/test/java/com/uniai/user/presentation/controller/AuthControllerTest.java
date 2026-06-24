@@ -1,5 +1,7 @@
 package com.uniai.user.presentation.controller;
 
+import com.uniai.user.application.dto.command.SignUpCommand;
+import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.in.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -57,6 +60,18 @@ class AuthControllerTest {
                 getGoogleAuthUrlUseCase,
                 checkEmailAvailabilityUseCase,
                 checkUsernameAvailabilityUseCase);
+    }
+
+    @Test
+    void signUpShouldReturnAcceptedWithVerificationMessage() {
+        when(signUpUseCase.signUp(any())).thenReturn(
+                SignUpResultDto.verificationRequired("A verification code was sent — check your email!")
+        );
+
+        ResponseEntity<?> response = authController.signUp(new SignUpCommand());
+
+        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
+        assertEquals("A verification code was sent — check your email!", response.getBody());
     }
 
     @Test

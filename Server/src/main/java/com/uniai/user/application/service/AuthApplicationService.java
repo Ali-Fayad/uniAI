@@ -6,6 +6,7 @@ import com.uniai.shared.infrastructure.jwt.JwtTokenPayload;
 import com.uniai.shared.infrastructure.jwt.JwtUtil;
 import com.uniai.user.application.dto.command.*;
 import com.uniai.user.application.dto.response.AuthResponseDto;
+import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.in.*;
 import com.uniai.user.application.port.out.NotificationPort;
 import com.uniai.user.application.port.out.OAuthPort;
@@ -47,6 +48,8 @@ public class AuthApplicationService implements
     private final NotificationPort notificationPort;
     private final OAuthPort oAuthPort;
 
+    private static final String VERIFICATION_REQUIRED_MESSAGE = "A verification code was sent — check your email!";
+
     @Value("${app.email.code-length:6}")
     private int codeLength;
 
@@ -59,7 +62,7 @@ public class AuthApplicationService implements
 
     @Override
     @Transactional
-    public String signUp(SignUpCommand command) {
+    public SignUpResultDto signUp(SignUpCommand command) {
         if (userRepository.existsByEmail(command.getEmail().toLowerCase())) {
             throw new AlreadyExistsException("Email already registered");
         }
@@ -82,12 +85,9 @@ public class AuthApplicationService implements
 
         userRepository.save(user);
 
-        if (!user.isVerified()) {
-            sendVerificationCode(user, VerificationCodeType.REGISTRATION);
-            throw new VerificationNeededException("A verification code was sent — check your email!");
-        }
+        sendVerificationCode(user, VerificationCodeType.REGISTRATION);
 
-        return jwtUtil.generateToken(toPayload(user));
+        return SignUpResultDto.verificationRequired(VERIFICATION_REQUIRED_MESSAGE);
     }
 
     // -------------------------------------------------------------------------
@@ -105,7 +105,7 @@ public class AuthApplicationService implements
 
         if (!user.isVerified()) {
             sendVerificationCode(user, VerificationCodeType.REGISTRATION);
-            throw new VerificationNeededException("A verification code was sent — check your email!");
+            throw new VerificationNeededException(VERIFICATION_REQUIRED_MESSAGE);
         }
 
         if (user.isTwoFacAuth()) {

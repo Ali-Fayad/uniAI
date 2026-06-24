@@ -4,9 +4,11 @@ import com.uniai.user.application.dto.command.RequestPasswordCommand;
 import com.uniai.user.application.dto.command.SignInCommand;
 import com.uniai.user.application.dto.command.SignUpCommand;
 import com.uniai.user.application.dto.command.VerifyCommand;
+import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.in.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +33,8 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpCommand command) {
-        String token = signUpUseCase.signUp(command);
-        return ResponseEntity.ok(new TokenResponse(token));
+        SignUpResultDto result = signUpUseCase.signUp(command);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(result.message());
     }
 
     @PostMapping("/signin")
