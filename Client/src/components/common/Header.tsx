@@ -28,10 +28,14 @@ const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-surface)] shadow-sm border-b border-[var(--color-border)] print:hidden" style={{ height: '64px' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex h-full items-center justify-between gap-4">
-          <HeaderBrand appName={TEXT.header.appName} onHomeClick={goHome} />
+        <div className="grid h-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4">
+          <div aria-hidden="true" />
 
-          <div className="flex items-center gap-2">
+          <div className="justify-self-center">
+            <HeaderBrand appName={TEXT.header.appName} onHomeClick={goHome} />
+          </div>
+
+          <div className="flex items-center justify-end gap-2">
             <HeaderThemeToggle themeName={themeName} onToggle={toggleTheme} />
             {isAuthenticated && (
               <HeaderLogoutButton onClick={logoutAndGoHome} />
