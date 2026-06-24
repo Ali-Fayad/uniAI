@@ -31,9 +31,9 @@ const AppDock: React.FC = () => {
     >
       <Dock
         orientation="vertical"
-        className="mx-0 mt-0 items-center justify-center gap-3 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]/95 p-3 shadow-lg shadow-black/5 backdrop-blur-md"
-        iconSize={64}
-        iconMagnification={72}
+        className="mx-0 mt-0 w-[76px] items-center justify-center gap-2 rounded-[28px] border border-[var(--color-border)] bg-[var(--color-surface)]/85 p-2.5 shadow-[0_18px_45px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+        iconSize={60}
+        iconMagnification={68}
         iconDistance={180}
       >
         {visibleItems.map((item) => {
@@ -46,7 +46,7 @@ const AppDock: React.FC = () => {
               className={cn(
                 "overflow-hidden border transition-all duration-200 focus-within:ring-2 focus-within:ring-[var(--color-primary)] focus-within:ring-offset-2 focus-within:ring-offset-[var(--color-surface)]",
                 isActive
-                  ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10 text-[var(--color-primary)] shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                  ? "border-[var(--color-primary)] bg-[var(--color-primary)]/12 text-[var(--color-primary)] shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
                   : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-textSecondary)] hover:border-[var(--color-primary)] hover:bg-[var(--color-background)] hover:text-[var(--color-primary)]"
               )}
               title={item.description ?? item.label}

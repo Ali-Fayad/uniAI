@@ -22,7 +22,7 @@ const App = () => {
           <Header />
           <AppDock />
 
-          <div className="flex-grow md:pr-28">
+          <div className="flex-grow">
             <AppRouter />
           </div>
         </div>
