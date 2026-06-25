@@ -3,7 +3,9 @@ package com.uniai.cvbuilder.presentation.controller;
 import com.uniai.cvbuilder.application.dto.command.*;
 import com.uniai.cvbuilder.application.dto.response.*;
 import com.uniai.cvbuilder.application.port.in.CVUseCase;
-import com.uniai.cvbuilder.application.service.ExternalApiApplicationService;
+import com.uniai.catalog.application.service.CatalogQueryService;
+import com.uniai.catalog.application.dto.response.PositionCatalogResponse;
+import com.uniai.catalog.application.dto.response.SkillCatalogResponse;
 import com.uniai.shared.infrastructure.jwt.JwtFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ public class CVController {
 
     private final JwtFacade jwtFacade;
     private final CVUseCase cvUseCase;
-    private final ExternalApiApplicationService externalApiApplicationService;
+    private final CatalogQueryService catalogQueryService;
 
     @GetMapping("/templates")
     public ResponseEntity<List<CVTemplateResponse>> getTemplates() {
@@ -183,12 +185,18 @@ public class CVController {
 
     @GetMapping("/skills")
     public ResponseEntity<List<String>> getSkills() {
-        return ResponseEntity.ok(externalApiApplicationService.getSkills());
+        List<String> skills = catalogQueryService.getSkills(null).stream()
+                .map(SkillCatalogResponse::name)
+                .toList();
+        return ResponseEntity.ok(skills);
     }
 
     @GetMapping("/positions")
     public ResponseEntity<List<String>> getPositions() {
-        return ResponseEntity.ok(externalApiApplicationService.getPositions());
+        List<String> positions = catalogQueryService.getPositions(null).stream()
+                .map(PositionCatalogResponse::name)
+                .toList();
+        return ResponseEntity.ok(positions);
     }
 
     @GetMapping("/universities")
