@@ -1,0 +1,501 @@
+name,category_id
+Java,1
+Python,1
+JavaScript,1
+TypeScript,1
+C,1
+C++,1
+C#,1
+Go,1
+Rust,1
+PHP,1
+Ruby,1
+Swift,1
+Kotlin,1
+Dart,1
+Scala,1
+R,1
+MATLAB,1
+Bash,1
+PowerShell,1
+SQL,1
+HTML,1
+CSS,1
+Sass,1
+Less,1
+Lua,1
+Perl,1
+Objective-C,1
+Groovy,1
+Visual Basic,1
+Assembly,1
+Haskell,1
+Elixir,1
+Erlang,1
+React,2
+Angular,2
+Vue.js,2
+Svelte,2
+Next.js,2
+Nuxt.js,2
+Remix,2
+Vite,2
+Webpack,2
+Babel,2
+Tailwind CSS,2
+Bootstrap,2
+Material UI,2
+Chakra UI,2
+Redux,2
+Zustand,2
+React Query,2
+Axios,2
+jQuery,2
+Responsive Design,2
+Web Accessibility,2
+Progressive Web Apps,2
+Single Page Applications,2
+Server-Side Rendering,2
+Frontend Performance,2
+DOM Manipulation,2
+CSS Grid,2
+Flexbox,2
+Spring Boot,3
+Spring Framework,3
+Node.js,3
+Express.js,3
+NestJS,3
+Django,3
+Flask,3
+FastAPI,3
+Laravel,3
+Symfony,3
+ASP.NET Core,3
+Ruby on Rails,3
+REST APIs,3
+GraphQL,3
+gRPC,3
+Microservices,3
+Monolithic Architecture,3
+API Design,3
+Authentication,3
+Authorization,3
+JWT,3
+OAuth2,3
+OpenAPI,3
+Swagger,3
+Hibernate,3
+JPA,3
+Entity Framework,3
+Message Queues,3
+RabbitMQ,3
+Kafka,3
+Redis Caching,3
+Background Jobs,3
+WebSockets,3
+Server-Sent Events,3
+Android Development,4
+iOS Development,4
+React Native,4
+Flutter,4
+SwiftUI,4
+UIKit,4
+Jetpack Compose,4
+Android SDK,4
+iOS SDK,4
+Mobile UI Design,4
+Mobile App Testing,4
+Firebase,4
+Push Notifications,4
+In-App Purchases,4
+App Store Deployment,4
+Google Play Deployment,4
+Mobile Performance,4
+Offline-First Apps,4
+Mobile Security,4
+Expo,4
+Ionic,4
+Cordova,4
+Kotlin Multiplatform,4
+Native Modules,4
+PostgreSQL,5
+MySQL,5
+MariaDB,5
+SQLite,5
+Oracle Database,5
+Microsoft SQL Server,5
+MongoDB,5
+DynamoDB,5
+Cassandra,5
+Elasticsearch,5
+Neo4j,5
+Firebase Firestore,5
+Database Design,5
+Data Modeling,5
+Normalization,5
+Indexing,5
+Query Optimization,5
+Stored Procedures,5
+Database Migration,5
+Flyway,5
+Liquibase,5
+Transactions,5
+ACID,5
+NoSQL Databases,5
+Data Warehousing,5
+ETL,5
+OLAP,5
+Backup and Recovery,5
+Database Replication,5
+Docker,6
+Docker Compose,6
+Kubernetes,6
+Helm,6
+Terraform,6
+Ansible,6
+Jenkins,6
+GitHub Actions,6
+GitLab CI,6
+CircleCI,6
+AWS,6
+Azure,6
+Google Cloud Platform,6
+Linux Administration,6
+Nginx,6
+Apache HTTP Server,6
+Load Balancing,6
+CI/CD,6
+Infrastructure as Code,6
+Monitoring,6
+Prometheus,6
+Grafana,6
+ELK Stack,6
+CloudFormation,6
+Serverless,6
+AWS Lambda,6
+Azure Functions,6
+Cloud Run,6
+Networking Basics,6
+DNS,6
+SSL/TLS,6
+Reverse Proxy,6
+Container Orchestration,6
+Excel,7
+Advanced Excel,7
+Google Sheets,7
+Data Analysis,7
+Data Visualization,7
+Power BI,7
+Tableau,7
+Looker Studio,7
+Pandas,7
+NumPy,7
+SciPy,7
+Jupyter Notebook,7
+Matplotlib,7
+Plotly,7
+Statistics,7
+Probability,7
+Regression Analysis,7
+A/B Testing,7
+Business Intelligence,7
+Data Cleaning,7
+Data Wrangling,7
+Data Mining,7
+Dashboard Design,7
+KPI Reporting,7
+SQL Analytics,7
+BigQuery,7
+Snowflake,7
+Apache Spark,7
+PySpark,7
+Airflow,7
+Data Pipelines,7
+Data Governance,7
+Machine Learning,8
+Deep Learning,8
+Natural Language Processing,8
+Computer Vision,8
+Generative AI,8
+Large Language Models,8
+Prompt Engineering,8
+RAG,8
+Vector Databases,8
+Embeddings,8
+TensorFlow,8
+PyTorch,8
+Keras,8
+Scikit-learn,8
+Hugging Face,8
+OpenAI API,8
+LangChain,8
+LlamaIndex,8
+Model Evaluation,8
+Feature Engineering,8
+Model Deployment,8
+MLOps,8
+Fine-Tuning,8
+Classification,8
+Clustering,8
+Recommendation Systems,8
+Time Series Forecasting,8
+Neural Networks,8
+Transformers,8
+Image Processing,8
+Cybersecurity Fundamentals,9
+Network Security,9
+Application Security,9
+Web Security,9
+OWASP Top 10,9
+Penetration Testing,9
+Vulnerability Assessment,9
+Threat Modeling,9
+Security Auditing,9
+Encryption,9
+Cryptography,9
+Identity and Access Management,9
+SIEM,9
+Incident Response,9
+Digital Forensics,9
+Malware Analysis,9
+Cloud Security,9
+Container Security,9
+Secure Coding,9
+Security Testing,9
+Firewall Management,9
+Endpoint Security,9
+Risk Assessment,9
+Compliance,9
+ISO 27001,9
+SOC 2,9
+Data Privacy,9
+Manual Testing,10
+Automated Testing,10
+Unit Testing,10
+Integration Testing,10
+End-to-End Testing,10
+Regression Testing,10
+Performance Testing,10
+Load Testing,10
+API Testing,10
+Mobile Testing,10
+Test Planning,10
+Test Case Design,10
+Bug Reporting,10
+Selenium,10
+Cypress,10
+Playwright,10
+JUnit,10
+Mockito,10
+Jest,10
+Vitest,10
+React Testing Library,10
+Postman,10
+Newman,10
+JMeter,10
+Cucumber,10
+BDD,10
+TDD,10
+Quality Assurance,10
+UI Design,11
+UX Design,11
+User Research,11
+Wireframing,11
+Prototyping,11
+Figma,11
+Adobe XD,11
+Sketch,11
+Design Systems,11
+Interaction Design,11
+Information Architecture,11
+Usability Testing,11
+User Journey Mapping,11
+Persona Creation,11
+Visual Design,11
+Typography,11
+Color Theory,11
+Icon Design,11
+Branding,11
+Accessibility Design,11
+Mobile Design,11
+Web Design,11
+Landing Page Design,11
+Design Thinking,11
+Framer,11
+Product Management,12
+Project Management,12
+Agile Methodology,12
+Scrum,12
+Kanban,12
+Jira,12
+Trello,12
+Asana,12
+Notion,12
+Roadmap Planning,12
+Backlog Management,12
+Sprint Planning,12
+User Stories,12
+Requirements Gathering,12
+Stakeholder Management,12
+Risk Management,12
+Resource Planning,12
+Timeline Estimation,12
+Product Strategy,12
+Market Research,12
+Competitor Analysis,12
+MVP Planning,12
+OKRs,12
+KPIs,12
+Product Analytics,12
+Change Management,12
+Documentation,12
+Digital Marketing,13
+Content Marketing,13
+SEO,13
+SEM,13
+Google Ads,13
+Meta Ads,13
+Email Marketing,13
+Social Media Marketing,13
+Copywriting,13
+Content Writing,13
+Brand Strategy,13
+Sales,13
+Customer Relationship Management,13
+HubSpot,13
+Salesforce,13
+Lead Generation,13
+Growth Marketing,13
+Marketing Analytics,13
+Google Analytics,13
+Conversion Rate Optimization,13
+Public Relations,13
+Community Management,13
+E-commerce,13
+Shopify,13
+Customer Support,13
+Negotiation,13
+Accounting,14
+Financial Accounting,14
+Managerial Accounting,14
+Bookkeeping,14
+Financial Analysis,14
+Financial Modeling,14
+Budgeting,14
+Forecasting,14
+Cost Accounting,14
+Auditing,14
+Tax Preparation,14
+Payroll,14
+Accounts Payable,14
+Accounts Receivable,14
+QuickBooks,14
+SAP Finance,14
+Excel Financial Modeling,14
+Investment Analysis,14
+Risk Analysis,14
+Corporate Finance,14
+Banking Operations,14
+Financial Reporting,14
+IFRS,14
+GAAP,14
+Cash Flow Analysis,14
+Communication,15
+Teamwork,15
+Problem Solving,15
+Critical Thinking,15
+Leadership,15
+Time Management,15
+Adaptability,15
+Creativity,15
+Attention to Detail,15
+Presentation Skills,15
+Public Speaking,15
+Conflict Resolution,15
+Decision Making,15
+Emotional Intelligence,15
+Active Listening,15
+Collaboration,15
+Customer Service,15
+Mentoring,15
+Analytical Thinking,15
+Self-Motivation,15
+Organization,15
+Professional Writing,15
+Research Skills,15
+Learning Agility,15
+Work Ethic,15
+Microsoft Word,16
+Microsoft Excel,16
+Microsoft PowerPoint,16
+Microsoft Outlook,16
+Google Docs,16
+Google Slides,16
+Google Drive,16
+Microsoft Teams,16
+Slack,16
+Zoom,16
+Notion Workspace,16
+Airtable,16
+Trello Boards,16
+Canva Presentations,16
+Document Formatting,16
+Email Management,16
+Calendar Management,16
+Data Entry,16
+File Organization,16
+PDF Editing,16
+Report Writing,16
+Presentation Design,16
+AutoCAD,17
+SolidWorks,17
+CATIA,17
+Fusion 360,17
+Revit,17
+SketchUp,17
+MATLAB Simulink,17
+Arduino,17
+Raspberry Pi,17
+PCB Design,17
+Circuit Design,17
+Electrical Engineering,17
+Mechanical Design,17
+Civil Engineering,17
+Structural Analysis,17
+3D Modeling,17
+3D Printing,17
+Robotics,17
+PLC Programming,17
+Instrumentation,17
+Control Systems,17
+CAD Drafting,17
+BIM,17
+Finite Element Analysis,17
+Thermodynamics,17
+Fluid Mechanics,17
+Manufacturing Processes,17
+Biology,18
+Chemistry,18
+Physics,18
+Laboratory Techniques,18
+Clinical Research,18
+Medical Terminology,18
+Anatomy,18
+Physiology,18
+Microbiology,18
+Biochemistry,18
+Genetics,18
+Pharmacology,18
+Public Health,18
+Epidemiology,18
+Healthcare Administration,18
+Patient Care,18
+First Aid,18
+CPR,18
+Nursing Fundamentals,18
+Scientific Writing,18
+Research Methodology,18
+SPSS,18
+Bioinformatics,18
+Quality Control,18
+Lab Safety,18
