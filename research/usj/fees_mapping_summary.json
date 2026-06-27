@@ -1,0 +1,47 @@
+{
+  "institution": "Université Saint-Joseph de Beyrouth",
+  "date_accessed": "2026-06-27",
+  "fee_pages_reviewed": [
+    "https://usj.edu.lb/aide/",
+    "https://usj.edu.lb/fr/e-doors/masters",
+    "https://usj.edu.lb/fr/admission/admis-master",
+    "https://usj.edu.lb/fr/admission/admis-doctorat",
+    "https://usj.edu.lb/fr/admission/equivalences",
+    "https://www.usj.edu.lb/pdf/reglementdesetudes.pdf"
+  ],
+  "published_fee_schedule_found": false,
+  "tuition_model": {
+    "system": "ECTS",
+    "credit_hours": 25,
+    "full_time_minimum_credits_per_semester": 24,
+    "part_time_minimum_credits_per_semester": 15,
+    "master_credit_range": "90-120",
+    "phd_credit_range": "180"
+  },
+  "shared_fee_items_found": {
+    "payment_spread_without_fees": true,
+    "interest_free_loans": true,
+    "social_scholarships": true,
+    "excellence_scholarships": true,
+    "sports_scholarships": true,
+    "magis_scholarships": true,
+    "international_student_scholarships": true
+  },
+  "shared_fee_items_missing": [
+    "application fee amount",
+    "registration fee amount",
+    "technology fee amount",
+    "student activity fee amount",
+    "laboratory fee amount",
+    "thesis fee amount",
+    "graduation fee amount",
+    "central graduate tuition table"
+  ],
+  "programs_updated_with_tuition": 0,
+  "programs_still_missing_tuition": 51,
+  "notes": [
+    "No objectively verified tuition amount was located in the official pages reviewed here.",
+    "Program tuition remains null in research/usj/programs.json until an official faculty or program fee schedule is found.",
+    "The university-wide policy is still useful for admissions, aid, and payment-plan queries."
+  ]
+}

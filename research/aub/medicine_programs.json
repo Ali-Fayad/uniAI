@@ -1,0 +1,410 @@
+[
+  {
+    "id": "dbmg-ms",
+    "faculty": "Faculty of Medicine",
+    "department": "Biochemistry and Molecular Genetics",
+    "major_category": "Medicine",
+    "major": "Biochemistry",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biochemistry",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "Minimum two years",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in biochemistry under the Faculty of Medicine's biomedical sciences umbrella.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DBMG/Pages/GraduateProgram.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dbmg_graduate_program",
+        "page_title": "Graduate Program",
+        "url": "https://www.aub.edu.lb/fm/DBMG/Pages/GraduateProgram.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page states the MS is thesis-based and requires 21 credits of graduate coursework plus a 9-credit thesis."
+  },
+  {
+    "id": "dacp-ms-hmcb",
+    "faculty": "Faculty of Medicine",
+    "department": "Anatomy, Cell Biology and Physiological Sciences",
+    "major_category": "Medicine",
+    "major": "Human Morphology and Cell Biology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Human Morphology and Cell Biology",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in human morphology and cell biology offered by the Department of Anatomy, Cell Biology and Physiological Sciences.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_ms_programs",
+        "page_title": "MS Programs",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "AUB lists this as one of three MS programs in the Department of Anatomy, Cell Biology and Physiological Sciences."
+  },
+  {
+    "id": "dacp-ms-neuroscience",
+    "faculty": "Faculty of Medicine",
+    "department": "Anatomy, Cell Biology and Physiological Sciences",
+    "major_category": "Medicine",
+    "major": "Neuroscience",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Neuroscience",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": [
+      "Interfaculty Graduate Neuroscience Program"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty graduate neuroscience master's program housed in the Faculty of Medicine.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_ms_programs",
+        "page_title": "MS Programs",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "AUB lists this MS under the umbrella of the Interfaculty Graduate Neuroscience Program."
+  },
+  {
+    "id": "dacp-ms-physiology",
+    "faculty": "Faculty of Medicine",
+    "department": "Anatomy, Cell Biology and Physiological Sciences",
+    "major_category": "Medicine",
+    "major": "Physiology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Physiology",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in physiology offered by the Department of Anatomy, Cell Biology and Physiological Sciences.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_ms_programs",
+        "page_title": "MS Programs",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "AUB lists this as one of three MS programs in the Department of Anatomy, Cell Biology and Physiological Sciences."
+  },
+  {
+    "id": "epim-ms",
+    "faculty": "Faculty of Medicine",
+    "department": "Experimental Pathology, Immunology and Microbiology",
+    "major_category": "Medicine",
+    "major": "Microbiology and Immunology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Microbiology and Immunology",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in microbiology and immunology under the Graduate Studies in Biomedical Sciences umbrella.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/EPIM/Pages/MS-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_epim_ms_program",
+        "page_title": "MS Program",
+        "url": "https://www.aub.edu.lb/fm/EPIM/Pages/MS-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page states this MS is offered under the umbrella of the Graduate Studies in Biomedical Sciences."
+  },
+  {
+    "id": "pharm-ms",
+    "faculty": "Faculty of Medicine",
+    "department": "Pharmacology and Toxicology",
+    "major_category": "Medicine",
+    "major": "Pharmacology and Therapeutics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Pharmacology and Therapeutics",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in pharmacology and therapeutics under the Graduate Studies in Biomedical Sciences umbrella.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/Pages/MS-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_pharm_ms_program",
+        "page_title": "Masters Program",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/Pages/MS-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page states this MS is offered under the umbrella of the Graduate Studies in Biomedical Sciences."
+  },
+  {
+    "id": "fm-dbms-phd",
+    "faculty": "Faculty of Medicine",
+    "department": "Doctoral Program in Biomedical Sciences",
+    "major_category": "Medicine",
+    "major": "Biomedical Sciences",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Biomedical Sciences",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": [
+      "Biochemistry and Molecular Genetics",
+      "Cell Biology of Cancer",
+      "Microbiology and Immunology",
+      "Neurosciences Program",
+      "Pharmacology and Toxicology",
+      "Physiology"
+    ],
+    "credits": 74,
+    "duration": "At least three years beyond the master's degree; five-year completion limit",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in biomedical sciences offering discipline-specific thesis work within the Faculty of Medicine.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/PhD-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_phd_program",
+        "page_title": "PhD Program",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/PhD-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The AUB catalogue also lists Biomedical Engineering and Nutrition as DBMS disciplines, but they are omitted here because this file is limited to Faculty of Medicine graduate programs."
+  }
+]

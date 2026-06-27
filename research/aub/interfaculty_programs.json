@@ -1,0 +1,273 @@
+[
+  {
+    "id": "bmen-ms",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Biomedical Engineering Program",
+    "major_category": "Engineering and Architecture",
+    "major": "Biomedical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biomedical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Joint interdisciplinary graduate program between MSFEA and the Faculty of Medicine.",
+    "admission_requirements": "Open to students from engineering, basic sciences, biomedical sciences, health sciences, computer science, and mathematics backgrounds.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_bmen",
+        "page_title": "Biomedical Engineering Program",
+        "url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      },
+      {
+        "source_id": "aub_english_requirements",
+        "page_title": "Check your English Language Requirements",
+        "url": "https://www.aub.edu.lb/admissions/Pages/EnglishRequirements.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB describes it as a joint interdisciplinary graduate program between MSFEA and the Faculty of Medicine."
+  },
+  {
+    "id": "bmen-phd",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Biomedical Engineering Program",
+    "major_category": "Engineering and Architecture",
+    "major": "Biomedical Engineering",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Biomedical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary doctoral program in biomedical engineering spanning engineering, medicine, and science.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_bmen",
+        "page_title": "Biomedical Engineering Program",
+        "url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB describes it as an interdisciplinary doctoral program spanning engineering, medicine, and science."
+  },
+  {
+    "id": "cee-ms-et",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Civil and Environmental Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Environmental Technology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Environmental Technology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty graduate environmental sciences program track open to non-engineering students with a degree in basic sciences or equivalent.",
+    "admission_requirements": "Open to non-engineering students who hold a degree in basic sciences or equivalent.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_cee",
+        "page_title": "Civil and Environmental Engineering",
+        "url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB states the department actively participates in the Interfaculty Graduate Environmental Sciences Program."
+  },
+  {
+    "id": "soad-ms-environmental-sciences",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "School of Architecture and Design",
+    "major_category": "Architecture and Design",
+    "major": "Ecosystem Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Interfaculty Master of Science in Environmental Sciences, with a major in Ecosystem Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty master's degree housed on the School of Architecture and Design page.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_soad",
+        "page_title": "School of Architecture and Design",
+        "url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB lists this as an interfaculty master's degree in Environmental Sciences."
+  },
+  {
+    "id": "fas-gpcs",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Graduate Program in Computational Science (GPCS)",
+    "major_category": "Arts and Sciences",
+    "major": "Computational Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master’s Degree in Computational Science",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Data Analytics",
+      "Optimization",
+      "Risk Assessment",
+      "Computational Mathematics and Numerical Simulation",
+      "Theory of Computing",
+      "Computational Astrophysics",
+      "Computational Biosciences",
+      "Computational Continuum Mechanics",
+      "Computational Condensed Matter Physics"
+    ],
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Multidisciplinary graduate program in computational science.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/gpcs/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_gpcs",
+        "page_title": "Graduate Program in Computational Science (GPCS)",
+        "url": "https://www.aub.edu.lb/fas/gpcs/Pages/default.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB describes this as a multidisciplinary graduate program in computational science."
+  }
+]

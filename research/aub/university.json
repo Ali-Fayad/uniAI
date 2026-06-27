@@ -1,0 +1,159 @@
+{
+  "institution_name": "American University of Beirut",
+  "institution_url": "https://www.aub.edu.lb/",
+  "date_accessed": "2026-06-25",
+  "language_of_instruction": "English",
+  "accreditation": [
+    {
+      "name": "Middle States Commission on Higher Education",
+      "scope": "University-level",
+      "notes": "AUB states that it is accredited in the US by MSCHE."
+    }
+  ],
+  "faculties_discovered": [
+    "Faculty of Arts and Sciences",
+    "Faculty of Medicine",
+    "Maroun Semaan Faculty of Engineering and Architecture",
+    "Faculty of Agricultural and Food Sciences",
+    "Faculty of Health Sciences",
+    "Suliman S. Olayan School of Business"
+  ],
+  "graduate_program_units_inspected": 12,
+  "graduate_offerings_captured": {
+    "masters": 19,
+    "phd": 5,
+    "total": 24
+  },
+  "admissions_process": {
+    "summary": "Applicants use the AUB application management portal, review admissions requirements first, and then log in or create an account to start or continue an application.",
+    "steps": [
+      "Review admissions requirements and English language requirements.",
+      "Create an account or log in to the application management portal.",
+      "Submit the graduate application and supporting materials.",
+      "Wait for the admissions decision and complete any required RUSE/English proof."
+    ]
+  },
+  "required_documents": [
+    "Academic records/transcripts",
+    "English language proof as required by AUB",
+    "Program-specific materials if requested by the school or department"
+  ],
+  "general_admission_requirements": {
+    "summary": "AUB says it seeks applicants with strong academic excellence, intellectual vitality, and civic responsibility.",
+    "english_requirement": {
+      "summary": "Graduate applicants must demonstrate RUSE. AUB lists minimums of AUB-EN 40, TOEFL iBT 97, IELTS Academic 7, GRE Verbal 147, GMAT Verbal 25, or DET 120, with validity periods varying by test.",
+      "source_note": "University-level English requirements page."
+    }
+  },
+  "tuition_policy": {
+    "summary": "Tuition is published by the Office of the Comptroller. The student tuition page points to the current academic year's schedule and to payment deadline information maintained by the Registrar.",
+    "source_note": "Current fees were not fully extracted here."
+  },
+  "fee_structure": {
+    "summary": "AUB publishes a tuition and fees schedule for the current academic year. Specific graduate program fees vary by program and were only captured where explicitly stated on a program page.",
+    "program_specific_examples": [
+      "MBA Online: $595 per credit."
+    ]
+  },
+  "graduate_calendar": {
+    "summary": "The Graduate Council publishes orientation, thesis deadline, and event information; the Registrar publishes important dates and deadline pages.",
+    "notes": "A single consolidated graduate calendar was not fully extracted."
+  },
+  "scholarships": {
+    "summary": "AUB states that it offers scholarship programs for undergraduate and/or graduate students.",
+    "notes": "Program-specific scholarship eligibility was not fully extracted."
+  },
+  "assistantships": {
+    "summary": "The Graduate Council says around 50% of master's students benefit from graduate assistantships and scholarships, and the vast majority of PhD students receive fellowships with full tuition waiver and monthly stipends."
+  },
+  "financial_aid": {
+    "summary": "AUB's Office of Financial Aid says the need-based program supports qualified students who could not otherwise meet tuition costs.",
+    "notes": "The public financial-aid page is written primarily for undergraduate students; graduate-specific aid exists through the Graduate Council and some programs."
+  },
+  "payment_plans": {
+    "summary": "The student tuition page references deferred payment requests, but a consolidated graduate payment-plan policy was not extracted."
+  },
+  "contacts": {
+    "graduate_council": "graduate council page",
+    "admissions_portal": "Application Management",
+    "financial_aid": "Office of Financial Aid",
+    "registrar": "Office of the Registrar",
+    "comptroller": "Student / tuition and payment",
+    "privacy_officer": "dpo@aub.edu.lb"
+  },
+  "faq": [
+    "Graduate admissions and English requirements are published separately by AUB.",
+    "Many program pages expose brochure/download links rather than full admissions text.",
+    "Some graduate program pages were gated or rendered in a way that hid details from the current browsing session."
+  ],
+  "important_links": [
+    "Admissions",
+    "Applications",
+    "English Requirements",
+    "Financial Aid",
+    "Scholarships",
+    "Graduate Council",
+    "Registrar",
+    "Student / Tuition and Payment"
+  ],
+  "sources": [
+    {
+      "source_id": "aub_admissions_home",
+      "page_title": "Office of Admissions",
+      "url": "https://www.aub.edu.lb/admissions/Pages/default.aspx",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_application_management",
+      "page_title": "Application Management",
+      "url": "https://join.aub.edu.lb/Apply/",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_applications",
+      "page_title": "Applications - AUB - Office of Admissions - American University of Beirut - Lebanon",
+      "url": "https://www.aub.edu.lb/admissions/applications/Pages/applications.aspx",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_english_requirements",
+      "page_title": "Check your English Language Requirements",
+      "url": "https://www.aub.edu.lb/admissions/Pages/EnglishRequirements.aspx",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_financial_aid",
+      "page_title": "Office of Financial Aid",
+      "url": "https://www.aub.edu.lb/faid/Pages/default.aspx",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_scholarships",
+      "page_title": "Scholarships",
+      "url": "https://www.aub.edu.lb/faid/Pages/Scholarships.aspx",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_graduate_council",
+      "page_title": "Graduate Council",
+      "url": "https://www.aub.edu.lb/graduatecouncil/Pages/default.aspx",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_registrar",
+      "page_title": "Office of the Registrar",
+      "url": "https://www.aub.edu.lb/registrar/Pages/default.aspx",
+      "date_accessed": "2026-06-25"
+    },
+    {
+      "source_id": "aub_student_tuition",
+      "page_title": "Student",
+      "url": "https://www.aub.edu.lb/comptroller/Pages/Student.aspx",
+      "date_accessed": "2026-06-25"
+    }
+  ],
+  "notes": [
+    "This file captures the university-level graduate policy surface that was publicly visible during discovery.",
+    "The full graduate catalog is not fully exposed on some faculty pages in this browsing environment, so this is a verified-but-partial extraction rather than a claim of total completeness."
+  ]
+}

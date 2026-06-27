@@ -1,0 +1,2110 @@
+[
+  {
+    "id": "business-emba",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Business Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "Executive Master of Business Administration",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": "1.5-2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Executive MBA for experienced professionals, delivered in a flexible weekend modular format.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum six years of professional experience; English proficiency; interview required.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Successful completion of an interview",
+    "experience_requirement": "Minimum six years of professional experience",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1043,
+      "category": "Executive M.B.A.",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/emba/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_emba",
+        "page_title": "Executive MBA and Executive Certificates  |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/emba/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Executive MBA page also lists three embedded executive certificates. All applicants are admitted through the EMBA program, regardless of whether they intend to complete a single executive certificate or continue toward the full EMBA degree. Delivery mode normalized from official page wording \"on-campus (modular format)\"."
+  },
+  {
+    "id": "business-ma-applied-economics",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Applied Economics",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Applied Economics",
+    "thesis_or_non_thesis": "PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "two years (full-time)",
+    "language": null,
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research-intensive MA in Applied Economics focused on advanced economic theory, empirical techniques, data analysis, and policy formulation.",
+    "admission_requirements": "LAU general graduate requirements; minimum GPA of 3.0; economics background preferred; applicants from business, mathematics, engineering, technology, or computer science may need 9-12 remedial credits.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Applied Economics",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/ma-applied-economics/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_aksob_programs",
+        "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_applied_economics",
+        "page_title": "Master of Arts (MA) in Applied Economics |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/ma-applied-economics/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Start term: Fall or Spring."
+  },
+  {
+    "id": "business-mba",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Business Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "MBA (Master of Business Administration)",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 39,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "MBA program for students with business and non-business backgrounds, with core courses, electives, and a thesis option in the curriculum.",
+    "admission_requirements": "Bachelor's degree in business studies or equivalent from a recognized university; 3.0 GPA; letters of recommendation; interview if required.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Interview if required",
+    "experience_requirement": "Relevant professional experience is considered an asset, but is not a prerequisite.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Business Administration",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/mba/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_aksob_programs",
+        "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_mba",
+        "page_title": "Master of Business Administration (MBA) |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/mba/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Admissions take place in fall, spring, and summer semesters; part-time study is available."
+  },
+  {
+    "id": "business-llm-business-law",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Business Law",
+    "degree_type": "MASTER",
+    "official_degree_name": "LLM in Business Law",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate law program focused on business and transnational contract law with theoretical and practical training.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Business Law",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/llm/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_aksob_programs",
+        "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_llm",
+        "page_title": "Master of Laws |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/llm/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Two academic years; 30 credits; Beirut campus."
+  },
+  {
+    "id": "business-ms-finance-and-accounting",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Finance and Accounting",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Finance and Accounting",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Finance and Accounting",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/ms-finance-and-accounting/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_aksob_programs",
+        "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_finance_accounting",
+        "page_title": "MS in Finance and Accounting |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/ms-finance-and-accounting/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Official graduate listing surfaces the program; dedicated page URL was not separately available in this pass."
+  },
+  {
+    "id": "business-ms-data-analytics",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Data Analytics",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Data Analytics",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "two years (full-time)",
+    "language": null,
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Interdisciplinary business analytics program at the intersection of information technology, operations management, applied mathematics, and statistics.",
+    "admission_requirements": "Bachelor's degree in a related field; minimum GPA of 3.2; statistics and programming coursework or readiness; related professional experience is valued but not required.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Relevant professional experience is valued but not required.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Data Analytics",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/ms-data-analytics/master-of-science-in-data-analytics.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_aksob_programs",
+        "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_data_analytics",
+        "page_title": "Master of Science in Data Analytics |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/ms-data-analytics/master-of-science-in-data-analytics.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Start term: Fall or Spring."
+  },
+  {
+    "id": "business-ms-human-resources-management",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Human Resources Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Human Resources Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate HRM program covering strategic human resources management, HR functions, and human capital evaluation.",
+    "admission_requirements": "Applicants are expected to have a bachelor's degree in business studies or equivalent, plus English proficiency as per LAU rules; letters of recommendation and an interview may be required.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Interview if required",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Human Resources Management",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/mshr/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_aksob_programs",
+        "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_mshr",
+        "page_title": "Master of Science in Human Resources Management |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/mshr/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Admissions are selective and competitive; applicants from non-business backgrounds complete 6 remedial credits."
+  },
+  {
+    "id": "business-msl",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Law",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Studies in Law",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Professional graduate law program for candidates without a law degree who want to understand legal principles and apply them in their field.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Master of Studies in Law",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sb.lau.edu.lb/academics/programs/msl/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_aksob_programs",
+        "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_msl",
+        "page_title": "Master of Studies in Law (MSL) |  The LAU Adnan Kassar School of Business",
+        "url": "https://sb.lau.edu.lb/academics/programs/msl/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Graduate listing shows a 30–39 credit range, which is not stored as a single integer here. This is a 30- to 39-credit professional program completed in two academic years; thesis or project option is available."
+  },
+  {
+    "id": "business-mba-business-analytics-online",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Business Analytics",
+    "degree_type": "MASTER",
+    "official_degree_name": "MBA in Business Analytics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 33,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online MBA with a business analytics specialization, built around data-driven decision-making and applied analytics.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum GPA of 2.5; CV or resume; personal statement; at least one letter of recommendation; work experience recommended; interview may be requested; English test required if English is not the first language of instruction.",
+    "required_documents": null,
+    "gre_requirement": "Not required",
+    "gmat_requirement": "Not required",
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Applicants may be asked for an interview",
+    "experience_requirement": "Work experience recommended.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "AACSB; NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/mba-masters-business-analytics/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_mba_business_analytics",
+        "page_title": "Online MBA in Business Analytics - Business Analytics Master's Degree - LAU",
+        "url": "https://online.lau.edu.lb/programs/mba-masters-business-analytics/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering. No prior analytics experience required; optional New York residency available; five intakes per year."
+  },
+  {
+    "id": "business-mba-global-business-administration-online",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Global Business Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "MBA in Global Business Administration",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 33,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online MBA with a global business administration focus and customizable electives.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum GPA of 2.5; CV or resume; personal statement; at least one letter of recommendation; work experience recommended; interview may be requested; English test required if English is not the first language of instruction.",
+    "required_documents": null,
+    "gre_requirement": "Not required",
+    "gmat_requirement": "Not required",
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Applicants may be asked for an interview",
+    "experience_requirement": "Work experience recommended.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "AACSB; NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/mba-masters-business-administration/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_mba_global_business_admin",
+        "page_title": "Online MBA in Global Business Administration - LAU Online",
+        "url": "https://online.lau.edu.lb/programs/mba-masters-business-administration/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering. Optional New York residency available; five intakes per year; accelerated study option available."
+  },
+  {
+    "id": "business-mba-healthcare-management-online",
+    "faculty": "Adnan Kassar School of Business",
+    "department": "Adnan Kassar School of Business",
+    "major_category": "Business",
+    "major": "Healthcare Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "MBA in Healthcare Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 33,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online MBA tailored to healthcare management and leadership.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum GPA of 2.5; CV or resume; personal statement; at least one letter of recommendation; work experience recommended; interview may be requested; English test required if English is not the first language of instruction.",
+    "required_documents": null,
+    "gre_requirement": "Not required",
+    "gmat_requirement": "Not required",
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Applicants may be asked for an interview",
+    "experience_requirement": "Work experience recommended.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "AACSB; NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/mba-masters-healthcare-management/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_mba_healthcare_mgmt",
+        "page_title": "Online MBA in Healthcare Management - LAU Online",
+        "url": "https://online.lau.edu.lb/programs/mba-masters-healthcare-management/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering. Optional New York residency available; five intakes per year; accelerated study option available."
+  },
+  {
+    "id": "sard-ma-islamic-art",
+    "faculty": "School of Architecture and Design",
+    "department": "School of Architecture and Design",
+    "major_category": "Architecture and Design",
+    "major": "Islamic Art",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Islamic Art",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "three semesters",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate program in Islamic art and architecture that supports research and doctoral preparation.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1004,
+      "category": "Islamic Art",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://sard.lau.edu.lb/academics/degrees-minors/ma-islamic-art/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_sard",
+        "page_title": "The LAU School of Architecture and Design",
+        "url": "https://sard.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_islamic_art",
+        "page_title": "MA in Islamic Art |  The LAU School of Architecture & Design",
+        "url": "https://sard.lau.edu.lb/academics/degrees-minors/ma-islamic-art/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; scholarship opportunities are available through the Mu’taz and Rada Sawwaf Scholarship Fund."
+  },
+  {
+    "id": "soas-ma-comparative-literature",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Comparative Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Comparative Literature",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 33,
+    "duration": "two years",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary comparative literature program studying texts and cultural productions across languages and cultures.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Comparative Literature",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ma-comparative-literature.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_comparative_literature",
+        "page_title": "MA in Comparative Literature |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ma-comparative-literature.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "33 credits; three areas of advanced study; includes a six-credit thesis."
+  },
+  {
+    "id": "soas-ma-education",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Education",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Teaching English to Speakers of Other Languages (TESOL)",
+      "Science, Technology, Engineering, and Mathematics (STEM) Education",
+      "Educational Leadership and Policy Studies"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Master of Arts in Education with specialized emphases in TESOL, STEM Education, and Educational Leadership and Policy Studies.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Education",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ma-education.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_education",
+        "page_title": "MA in Education |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ma-education.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; the capstone can be a thesis or project."
+  },
+  {
+    "id": "soas-ma-interdisciplinary-gender-studies",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Interdisciplinary Gender Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Interdisciplinary Gender Studies",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary graduate degree focused on gender, equality, human rights, and social justice.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Interdisciplinary Gender Studies",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ma-interdisciplinary-gender-studies.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_interdisciplinary_gender_studies",
+        "page_title": "MA in Interdisciplinary Gender Studies  |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ma-interdisciplinary-gender-studies.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; students complete either a thesis or a professional placement with project."
+  },
+  {
+    "id": "soas-ma-international-affairs",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "International Affairs",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in International Affairs",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "two years",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate program preparing professionals and leaders for national and international institutions with training in the theoretical, practical, legal, and ethical dimensions of international relations.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "International Affairs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ma-international-affairs.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_international_affairs",
+        "page_title": "MA in International Affairs |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ma-international-affairs.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; Middle East area studies emphasis is available."
+  },
+  {
+    "id": "soas-ma-migration-studies",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Migration Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Migration Studies",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "two years",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary graduate degree in migration studies with a focus on the Middle East.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Migration Studies",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ma-migrationstudies.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_migration_studies",
+        "page_title": "MA in Migration Studies |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ma-migrationstudies.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; includes a thesis and a practicum/internship-or-research option among electives."
+  },
+  {
+    "id": "soas-ma-multimedia-journalism",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Multimedia Journalism",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Multimedia Journalism",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Research",
+      "Professional"
+    ],
+    "credits": 32,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate journalism program for experienced journalists and newcomers, with research and professional tracks and a strong multimedia and digital innovation focus.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Multimedia Journalism",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ma-multimedia-journalism.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ma_multimedia_journalism",
+        "page_title": "MA in Multimedia Journalism |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ma-multimedia-journalism.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "32 credits; both tracks include a teaching apprenticeship."
+  },
+  {
+    "id": "soas-ms-applied-artificial-intelligence-online",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Applied Artificial Intelligence",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Applied Artificial Intelligence",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online applied artificial intelligence program with customizable electives across business, healthcare, and digital humanities.",
+    "admission_requirements": "Bachelor's degree from a recognized university with a minimum cumulative GPA of 2.5; official transcripts; CV or resume; personal statement; English test required if English is not the language of instruction.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "No AI experience required; adequate professional experience may be considered if GPA is below 2.5.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/ms-masters-applied-artificial-intelligence/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_ai_online",
+        "page_title": "MS in Applied Artificial Intelligence - Applied AI Degree - LAU",
+        "url": "https://online.lau.edu.lb/programs/ms-masters-applied-artificial-intelligence/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering. 30 credits; asynchronous online format; certificate option available; no application fee."
+  },
+  {
+    "id": "soas-ms-biological-sciences",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Biological Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Biological Sciences",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "two years",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Research-intensive MS in modern and applied biological sciences with four main research niche areas.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Biological Sciences",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ms-biological-sciences.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_biological_sciences",
+        "page_title": "MS in Biological Sciences |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ms-biological-sciences.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; graduate assistantships may cover up to 100% of tuition."
+  },
+  {
+    "id": "soas-ms-computer-science",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Computer Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Computer Science",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Algorithms and Theory",
+      "Systems",
+      "Hardware and Networks",
+      "Software Engineering"
+    ],
+    "credits": 30,
+    "duration": "two years",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate computer science program offering a broad foundation plus four concentration areas.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Computer Science",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ms-computer-science.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_computer_science",
+        "page_title": "MS in Computer Science |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ms-computer-science.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; courses are offered at night; the program includes a thesis or project option."
+  },
+  {
+    "id": "soas-ms-computer-science-online",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Computer Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Computer Science",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online computer science program with customizable electives and an application-oriented curriculum.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum GPA of 2.75; official transcripts; CV or resume; personal statement; English test required if English is not the first language of instruction.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": "Not required",
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/ms-masters-computer-science/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_ms_computer_science",
+        "page_title": "Online MS in Computer Science | Lebanese American University",
+        "url": "https://online.lau.edu.lb/programs/ms-masters-computer-science/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering; same academic field as the campus program but a distinct official LAU page and delivery mode. Asynchronous online format; no residency requirement; certificate options available; no application fee."
+  },
+  {
+    "id": "soas-ms-cybersecurity-online",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Cybersecurity",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Cybersecurity",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online cybersecurity program designed to protect organizations from evolving cyber threats.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum GPA of 2.5; official transcripts; CV or resume; optional personal statement; optional letter of recommendation; English test required if English is not the language of instruction.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/ms-cyber-security/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_ms_cybersecurity",
+        "page_title": "Online Masters in Cyber Security - Lebanese American University",
+        "url": "https://online.lau.edu.lb/programs/ms-cyber-security/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering. 30 credits; part-time only; accelerated study option available; no application fee."
+  },
+  {
+    "id": "soas-ms-data-science",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Data Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Data Science",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "two years",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Comprehensive MS in Data Science covering algorithms, data engineering, visualization, machine learning, AI, statistical learning, and Bayesian statistics.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Data Science",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ms-data-science.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_data_science",
+        "page_title": "MS in Data Science |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ms-data-science.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; includes a capstone project or thesis option."
+  },
+  {
+    "id": "soas-ms-data-science-online",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Data Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Data Science",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online data science program with multidisciplinary coursework and a part-time format.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum GPA of 2.5; official transcripts; industry experience recommended, but not required; optional personal statement; optional letter of recommendation; English test required if English is not the language of instruction.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Industry experience recommended, but not required.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/ms-data-science/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_ms_data_science",
+        "page_title": "Online Masters in Data Science - Lebanese American University",
+        "url": "https://online.lau.edu.lb/programs/ms-data-science/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering; same academic field as the campus program but a distinct official LAU page and delivery mode. Part-time only; asynchronous format; no application fee."
+  },
+  {
+    "id": "soas-ms-nutrition",
+    "faculty": "School of Arts and Sciences",
+    "department": "School of Arts and Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Nutrition",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Nutrition",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Clinical and Behavioral Nutrition",
+      "Nutrition for Public Health",
+      "Food Innovation, Quality, and Sustainability"
+    ],
+    "credits": 30,
+    "duration": "two years",
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate nutrition program offering thesis and project options with three specialized tracks.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Nutrition",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soas.lau.edu.lb/academics/programs/ms-nutrition.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soas",
+        "page_title": "The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_nutrition",
+        "page_title": "MS in Nutrition |  The LAU School of Arts and Sciences",
+        "url": "https://soas.lau.edu.lb/academics/programs/ms-nutrition.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; graduate assistantships are available; combined Registered Dietitian pathway is mentioned on the page."
+  },
+  {
+    "id": "soe-ms-civil-environmental-engineering",
+    "faculty": "School of Engineering",
+    "department": "School of Engineering",
+    "major_category": "Engineering",
+    "major": "Civil and Environmental Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Civil & Environmental Engineering",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Construction Engineering and Management",
+      "Environmental and Water Resources Engineering",
+      "Geotechnical Engineering",
+      "Structural Engineering",
+      "Transportation Engineering"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Research-oriented MS in Civil & Environmental Engineering with five emphasis areas.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Civil and Environmental Engineering",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soe.lau.edu.lb/departments/civil/degree-programs/ms-civil.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soe",
+        "page_title": "The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_civil_environmental_engineering",
+        "page_title": "MS in Civil & Environmental Engineering |  The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/departments/civil/degree-programs/ms-civil.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; thesis-based; students complete a minimum of one academic year of full-time graduate study or equivalent part-time study."
+  },
+  {
+    "id": "soe-ms-computer-engineering",
+    "faculty": "School of Engineering",
+    "department": "School of Engineering",
+    "major_category": "Engineering",
+    "major": "Computer Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Computer Engineering",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Communication and Signal Processing",
+      "Integrated Circuits, Electronics, and Control",
+      "Electric Power and Energy Systems",
+      "Computer Hardware",
+      "Computer Software and Networks",
+      "AI Systems Engineering"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Research-oriented MS in Computer Engineering with concentration options across communication, hardware, software, AI, and power systems.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Computer Engineering",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soe.lau.edu.lb/departments/electrical-computer/degree-programs/ms-computer.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soe",
+        "page_title": "The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_computer_engineering",
+        "page_title": "MS in Computer Engineering |  The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/departments/electrical-computer/degree-programs/ms-computer.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credits; thesis required; the page emphasizes research competencies and Byblos campus delivery."
+  },
+  {
+    "id": "soe-ms-engineering-management-online",
+    "faculty": "School of Engineering",
+    "department": "School of Engineering",
+    "major_category": "Engineering",
+    "major": "Engineering Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Engineering Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online engineering management program built for leadership in engineering and technology-driven industries.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/ms-engineering-management/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_ms_engineering_management",
+        "page_title": "Online MS in Engineering Management - Lebanese American University",
+        "url": "https://online.lau.edu.lb/programs/ms-engineering-management/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering. 30 credits; optional New York residency available; five intakes per year; no application fee."
+  },
+  {
+    "id": "soe-ms-industrial-engineering-management",
+    "faculty": "School of Engineering",
+    "department": "School of Engineering",
+    "major_category": "Engineering",
+    "major": "Industrial Engineering and Engineering Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Industrial Engineering & Engineering Management",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Optimization",
+      "Production Systems and Manufacturing",
+      "Infrastructure and Construction Management",
+      "Industrial Management and Economics",
+      "Computational Modelling and Data Analytics"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary MS in Industrial Engineering and Engineering Management with five concentration areas.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Industrial Engineering and Engineering Management",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soe.lau.edu.lb/departments/industrial-mechanical/degree-programs/ms-industrial.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soe",
+        "page_title": "The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_industrial_engineering_management",
+        "page_title": "MS in Industrial Engineering & Engineering Management |  The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/departments/industrial-mechanical/degree-programs/ms-industrial.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credit hours; thesis and project tracks are both available."
+  },
+  {
+    "id": "soe-ms-international-construction-management-online",
+    "faculty": "School of Engineering",
+    "department": "School of Engineering",
+    "major_category": "Engineering",
+    "major": "International Construction Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in International Construction Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": "ONLINE",
+    "program_description": "100% online international construction management program focused on global construction practices and technology.",
+    "admission_requirements": "Bachelor's degree from a recognized university; minimum GPA of 2.75; official transcripts; minimum 2 years of engineering/construction industry-related experience or 3 years of unrelated industry experience; CV or resume; personal statement; one letter of recommendation; English test required if English is not the first language of instruction.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Minimum 2 years of engineering/construction industry-related experience or 3 years of unrelated industry experience.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "NECHE; New York State Education Department (Distance Education Format)",
+    "official_program_url": "https://online.lau.edu.lb/programs/ms-masters-international-construction-management/",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_online_home",
+        "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+        "url": "https://online.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_online_ms_international_construction_management",
+        "page_title": "Online M.S. International Construction Management Degree - LAU",
+        "url": "https://online.lau.edu.lb/programs/ms-masters-international-construction-management/",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Online offering. 30 credits; asynchronous format; full-time and part-time flexibility; no application fee."
+  },
+  {
+    "id": "soe-ms-mechanical-engineering",
+    "faculty": "School of Engineering",
+    "department": "School of Engineering",
+    "major_category": "Engineering",
+    "major": "Mechanical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Mechanical Engineering",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Graduate mechanical engineering program focused on contemporary mechanical engineering and research preparation.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Mechanical Engineering",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://soe.lau.edu.lb/departments/industrial-mechanical/degree-programs/ms-mechanical.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_soe",
+        "page_title": "The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_mechanical_engineering",
+        "page_title": "MS in Mechanical Engineering  |  The LAU School of Engineering",
+        "url": "https://soe.lau.edu.lb/departments/industrial-mechanical/degree-programs/ms-mechanical.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "30 credit hours; thesis required; offered on the Byblos campus."
+  },
+  {
+    "id": "pharmacy-ms-pharmaceutical-development-management",
+    "faculty": "School of Pharmacy",
+    "department": "School of Pharmacy",
+    "major_category": "Pharmacy",
+    "major": "Pharmaceutical Development and Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "M.S. Degree in Pharmaceutical Development and Management",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary MS in Pharmaceutical Development and Management with thesis and non-thesis professional tracks and industry partnership.",
+    "admission_requirements": "Applicants should hold a pharmacy degree (B.S. or Pharm.D.) or major in Chemistry or a biological science; minimum GPA of 2.75; English proficiency required; updated CV and personal statement required; non-pharmacy applicants may be conditionally accepted and complete remedial courses.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 902,
+      "category": "Pharmaceutical Development & Management",
+      "notes": "Official LAU Fees for 2026-2027 schedule.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Recognized by the Lebanese Ministry of Education and Higher Education; New York State Education Department",
+    "official_program_url": "https://pharmacy.lau.edu.lb/education/graduate/ms-pharma.php",
+    "sources": [
+      {
+        "source_id": "lau_graduate_programs",
+        "page_title": "Graduate Programs | Study at LAU | LAU",
+        "url": "https://www.lau.edu.lb/study/graduate.php",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_school_pharmacy",
+        "page_title": "The LAU School of Pharmacy",
+        "url": "https://pharmacy.lau.edu.lb/",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "lau_prog_ms_pharmaceutical_dev_mgmt",
+        "page_title": "M.S. Degree in Pharmaceutical Development and Management |  The LAU School of Pharmacy",
+        "url": "https://pharmacy.lau.edu.lb/education/graduate/ms-pharma.php",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "36 credits; thesis track includes a research project, non-thesis track includes a 6-month internship and literature-based project."
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "hson-msn",
+    "faculty": "Rafic Hariri School of Nursing",
+    "department": "Rafic Hariri School of Nursing",
+    "major_category": "Health Sciences",
+    "major": "Nursing",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Nursing",
+    "thesis_or_non_thesis": "Thesis or non-thesis",
+    "concentrations_or_tracks": [
+      "Adult-Gerontology Clinical Nurse Specialist",
+      "Psychiatric Mental Health Clinical Nurse Specialist",
+      "Community and Public Health Nursing",
+      "Nursing Administration and Management",
+      "Pediatric Clinical Nurse Specialist"
+    ],
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate nursing program emphasizing advanced nursing practice.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1006,
+      "category": "Rafic Hariri School of Nursing Graduate Tuition",
+      "notes": "Generic Rafic Hariri School of Nursing per-credit rate from the 2026-2027 AUB fee schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/hson/Documents/MSN-handbook.pdf",
+    "sources": [
+      {
+        "source_id": "aub_hson_home",
+        "page_title": "Rafic Hariri School of Nursing",
+        "url": "https://www.aub.edu.lb/hson/Pages/default.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_hson_msn_handbook",
+        "page_title": "MSN Graduate Student Handbook 2025-2026",
+        "url": "https://www.aub.edu.lb/hson/Documents/MSN-handbook.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The handbook lists five MSN tracks and states that the Nursing Administration and Management track was converted to a blended format."
+  },
+  {
+    "id": "hson-phd",
+    "faculty": "Rafic Hariri School of Nursing",
+    "department": "Rafic Hariri School of Nursing",
+    "major_category": "Health Sciences",
+    "major": "Nursing Science",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Nursing Science",
+    "thesis_or_non_thesis": "Thesis",
+    "concentrations_or_tracks": null,
+    "credits": 48,
+    "duration": "At least six regular semesters beyond the master's degree",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in nursing science preparing graduates for academic, research, education, and health system leadership roles.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1006,
+      "category": "Rafic Hariri School of Nursing Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/hson/Documents/PhD-handbook-25-26.pdf",
+    "sources": [
+      {
+        "source_id": "aub_hson_home",
+        "page_title": "Rafic Hariri School of Nursing",
+        "url": "https://www.aub.edu.lb/hson/Pages/default.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_hson_phd_handbook",
+        "page_title": "PhD Student Handbook 2025-26",
+        "url": "https://www.aub.edu.lb/hson/Documents/PhD-handbook-25-26.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The handbook says the PhD program launched in Fall 2018-2019."
+  }
+]

@@ -1,0 +1,210 @@
+{
+  "id": "usj",
+  "name": "Université Saint-Joseph de Beyrouth",
+  "date_accessed": "2026-06-27",
+  "language_of_instruction": "French and Arabic; some graduate programs also state English as a language of instruction",
+  "graduate_scope": {
+    "included": [
+      "MASTER",
+      "PHD"
+    ],
+    "out_of_scope": [
+      "certificate",
+      "diploma",
+      "DU",
+      "continuing education",
+      "professional training"
+    ]
+  },
+  "sources_used": [
+    "usj_grad_catalog_fr",
+    "usj_admission_master_fr",
+    "usj_admission_doctorat_fr",
+    "usj_admission_equivalences_fr",
+    "usj_admission_documents_fr",
+    "usj_aide",
+    "usj_reglement_etudes_pdf",
+    "usj_accreditation_inst",
+    "usj_social_services_fr",
+    "usj_home_fr"
+  ],
+  "admissions_process": {
+    "summary": "Graduate admissions are routed through the dedicated Master and Doctorate admissions pages and the second-cycle catalog hub. The master admissions page says requirements depend on the applicant's prior university title and the institution/program selected; some programs add an interview, file review, or aptitude test.",
+    "steps": [
+      "Review the Master or Doctorate admissions page and the graduate catalog.",
+      "Verify diploma equivalence when the prior degree is not issued by the Lebanese University.",
+      "Prepare the admission file and any program-specific supporting materials.",
+      "Submit the graduate application through the university's official admission flow.",
+      "Complete any interview, file study, or aptitude test requested by the chosen program."
+    ]
+  },
+  "required_documents": {
+    "summary": "USJ publishes a dedicated graduate documents page and directs applicants there from the admissions pages. The current pass confirmed that a complete admission file is required and that prior diplomas are reviewed for equivalence, but the page text was not fully extractable in this session.",
+    "notes": [
+      "Detailed document checklist intentionally left unresolved rather than inferred."
+    ]
+  },
+  "general_admission_requirements": {
+    "master_summary": "Master's applicants generally need a bachelor's degree or equivalent recognized by USJ. Some programs require an interview, dossier review, or aptitude test.",
+    "doctorate_summary": "The doctorate admissions page is published on the official site, but the detailed requirement text was not fully extracted in this pass.",
+    "equivalence_summary": "Non-Lebanese or otherwise non-standard prior diplomas are subject to equivalence or recognition by the USJ equivalence commission and, where applicable, the Lebanese Ministry of Education and Higher Education."
+  },
+  "english_requirement": {
+    "summary": "USJ states that the university's teaching languages are French and Arabic, with some programs taught in English. The academic regulations require master's students to validate at least two Arabic credits, and the regulations note that institutions may extend French aptitude requirements to graduate cycles. A single university-wide graduate English threshold was not published in the reviewed pages.",
+    "notes": [
+      "Program-specific English or French tests may apply on individual admissions pages."
+    ]
+  },
+  "tuition_policy": {
+    "summary": "USJ uses a semester-based ECTS model. One credit equals 25 hours of work, full-time status is at least 24 credits per semester, and part-time status is at least 15 credits. Master's degrees are generally 90-120 credits and doctorates 180 credits. The reviewed official pages did not expose a centralized graduate tuition schedule, so tuition should be treated as unresolved unless a program page or faculty fee schedule explicitly states it.",
+    "notes": [
+      "The academic regulations note that some non-degree offerings such as DU/continuing education are priced by the institution that offers them, but those offerings are out of scope for the graduate dataset."
+    ]
+  },
+  "fee_structure": {
+    "application_fee": null,
+    "registration_fee": null,
+    "technology_fee": null,
+    "student_activity_fee": null,
+    "lab_fee": null,
+    "thesis_fee": null,
+    "graduation_fee": null,
+    "notes": "No public graduate fee schedule or fee table was located in the official pages reviewed for this pass."
+  },
+  "scholarships": {
+    "summary": "USJ publishes multiple university-wide scholarship categories, including social scholarships, excellence scholarships, sports scholarships, Magis and Magis M scholarships, ISEB, FSI-HDF, and scholarships for international students.",
+    "categories": [
+      "social scholarships",
+      "excellence scholarships",
+      "sports scholarships",
+      "Magis scholarships",
+      "Magis M scholarships",
+      "ISEB scholarships",
+      "FSI-HDF scholarships",
+      "international student scholarships"
+    ]
+  },
+  "assistantships": {
+    "summary": "A dedicated graduate assistantship page was not found in this pass. The official pages instead describe student jobs and broader financial-aid categories.",
+    "notes": [
+      "No distinct graduate assistantship policy was published on the pages reviewed here."
+    ]
+  },
+  "financial_aid": {
+    "summary": "USJ's financial-aid page states that the university distributes social aid, academic aid, loans, and other reductions. The page reports 2024-2025 aid totals and says the institution is open to all social classes.",
+    "details": [
+      "social aid",
+      "academic aid",
+      "student jobs",
+      "family reductions",
+      "aid for employees' children",
+      "aid for international students",
+      "USJ loans",
+      "other donor-supported aid"
+    ]
+  },
+  "payment_plans": {
+    "summary": "The graduate social-aid section states that USJ can spread payment over several university months without fees. The university's loan program is interest-free and repayment begins one year after the planned diploma date.",
+    "notes": [
+      "No separate tuition-installment policy page was located."
+    ]
+  },
+  "international_student_info": {
+    "summary": "USJ says it welcomes applicants of all nationalities. The financial-aid pages also list scholarships for international students, and equivalence is required for most foreign diplomas.",
+    "notes": [
+      "The graduate admissions page explicitly states that nationality is not a barrier to admission."
+    ]
+  },
+  "accreditation": {
+    "summary": "USJ states that it received institutional reaccreditation in September 2025 for eight years from ACQUIN. The quality page says the accreditation is institutional and covers the university as a whole.",
+    "body": "ACQUIN",
+    "scope": "University-level",
+    "validity": "8 years"
+  },
+  "transcript_requirements": {
+    "summary": "Previous academic titles are subject to equivalence or recognition review. Credit transfers within USJ or from other institutions must be submitted to the USJ equivalence commission, and at least 50% of the credits for a degree must be completed at USJ.",
+    "notes": [
+      "A separate transcript checklist was not fully extracted."
+    ]
+  },
+  "gpa_requirements": {
+    "summary": null,
+    "notes": [
+      "No university-wide graduate GPA threshold was published in the reviewed official pages."
+    ]
+  },
+  "official_grading_information": {
+    "summary": "USJ uses the ECTS system. One credit equals 25 hours of student work. Masters generally require 90-120 credits and doctorates 180 credits. The regulations also state that a student is full-time at 24 credits or more per semester and part-time at 15 credits or more.",
+    "notes": [
+      "Maximum credits per semester are 36, with a rectoral exception possible.",
+      "The regulations also say that at least half of the credits for a degree must be completed at USJ."
+    ]
+  },
+  "notes": [
+    "This file captures the university-wide graduate policy surface that was publicly visible during the shared-data pass.",
+    "No centralized public graduate tuition table was found, so program tuition remains unresolved unless later confirmed by a faculty or program page.",
+    "The detailed graduate documents page was discovered but not fully parsed in this session."
+  ],
+  "sources": [
+    {
+      "source_id": "usj_home_fr",
+      "page_title": "Université Saint-Joseph de Beyrouth",
+      "url": "https://usj.edu.lb/fr",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_grad_catalog_fr",
+      "page_title": "homepage - e-doors master | Université Saint-Joseph de Beyrouth",
+      "url": "https://usj.edu.lb/fr/e-doors/masters",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_admission_master_fr",
+      "page_title": "Admission: Master’s Degree",
+      "url": "https://usj.edu.lb/fr/admission/admis-master",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_admission_doctorat_fr",
+      "page_title": "Admission en doctorat",
+      "url": "https://usj.edu.lb/fr/admission/admis-doctorat",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_admission_equivalences_fr",
+      "page_title": "Équivalences et validations",
+      "url": "https://usj.edu.lb/fr/admission/equivalences",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_admission_documents_fr",
+      "page_title": "Documents requis - admission",
+      "url": "https://usj.edu.lb/fr/admission/documents",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_aide",
+      "page_title": "Aides financières",
+      "url": "https://usj.edu.lb/aide/",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_reglement_etudes_pdf",
+      "page_title": "Règlement intérieur des études",
+      "url": "https://www.usj.edu.lb/pdf/reglementdesetudes.pdf",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_accreditation_inst",
+      "page_title": "Accréditation institutionnelle",
+      "url": "https://usj.edu.lb/qualite/acc-inst.php",
+      "date_accessed": "2026-06-27"
+    },
+    {
+      "source_id": "usj_social_services_fr",
+      "page_title": "Services sociaux",
+      "url": "https://usj.edu.lb/fr/ss",
+      "date_accessed": "2026-06-27"
+    }
+  ]
+}

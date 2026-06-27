@@ -1,0 +1,38 @@
+{
+  "verdict": "APPROVE WITH NOTES",
+  "program_count": 51,
+  "master_count": 47,
+  "phd_count": 4,
+  "tuition_row_count": 47,
+  "source_count": 32,
+  "unique_source_url_count": 32,
+  "program_source_link_count": 108,
+  "admission_requirement_row_count": 5,
+  "accreditation_row_count": 1,
+  "out_of_scope_records_inserted": 0,
+  "duplicate_program_ids": [],
+  "duplicate_source_ids": [],
+  "duplicate_source_urls": [],
+  "official_program_url_constraint_dropped": true,
+  "tuition_absent_only_for_phd": [
+    "usj-fs-phd-mathematiques",
+    "usj-fs-phd-physique",
+    "usj-fs-phd-chimie",
+    "usj-fs-phd-sciences-de-la-vie"
+  ],
+  "compile_passed": true,
+  "flyway_db_run_performed": false,
+  "flyway_db_run_reason": "No datasource is configured in this workspace.",
+  "row_count_checks": {
+    "expected_programs": 51,
+    "expected_masters": 47,
+    "expected_phds": 4,
+    "expected_tuition": 47,
+    "expected_sources": 32
+  },
+  "compatibility_notes": [
+    "V27 drops uq_graduate_program_university_url to permit documented hub/catalog URL reuse.",
+    "Tuition rows are per-credit USD structured objects compatible with the V24 schema.",
+    "PhD tuition remains null because the official 2nd-cycle tuition PDF does not publish doctorate pricing."
+  ]
+}

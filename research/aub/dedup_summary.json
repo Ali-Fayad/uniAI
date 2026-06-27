@@ -1,0 +1,151 @@
+{
+  "total_input_rows": 68,
+  "total_unique_programs": 62,
+  "duplicates_removed": 6,
+  "canonical_ids": {
+    "bmen-ms": "bmen-ms",
+    "bmen-phd": "bmen-phd",
+    "cee-me-civil": "cee-me-civil",
+    "cee-me-ewre": "cee-me-ewre",
+    "cee-ms-et": "cee-ms-et",
+    "cee-phd-civil": "cee-phd-civil",
+    "cee-phd-ewre": "cee-phd-ewre",
+    "chen-me": "chen-me",
+    "ece-me": "ece-me",
+    "ece-phd": "ece-phd",
+    "iem-mem": "iem-mem",
+    "me-mechanical": "me-mechanical",
+    "me-applied-energy": "me-applied-energy",
+    "me-energy-studies": "me-energy-studies",
+    "me-dual-degree-em-es": "me-dual-degree-em-es",
+    "me-phd": "me-phd",
+    "soad-mupp": "soad-mupp",
+    "soad-mud": "soad-mud",
+    "soad-ms-environmental-sciences": "soad-ms-environmental-sciences",
+    "fhs-gphp": "fhs-gphp",
+    "osb-mhrm": "osb-mhrm",
+    "osb-msba": "osb-msba",
+    "osb-mfin": "osb-mfin",
+    "osb-mba-online": "osb-mba-online",
+    "fas-gpcs": "fas-gpcs-ms",
+    "fas-gpcs-ms": "fas-gpcs-ms",
+    "fas-soam-anth": "fas-soam-anth",
+    "fas-soam-soc": "fas-soam-soc",
+    "fas-soam-media": "fas-soam-media",
+    "fas-pspa-pols": "fas-pspa-pols",
+    "fas-pspa-puba": "fas-pspa-puba",
+    "fas-pspa-ppia": "fas-pspa-ppia",
+    "fas-arabic-ma": "fas-arabic-ma",
+    "fas-arabic-phd": "fas-arabic-phd",
+    "fas-english-ma-lang": "fas-english-ma-lang",
+    "fas-english-ma-lit": "fas-english-ma-lit",
+    "fas-histarc-ma-history": "fas-histarc-ma-history",
+    "fas-histarc-phd-history": "fas-histarc-phd-history",
+    "fas-histarc-ma-archaeology": "fas-histarc-ma-archaeology",
+    "fas-philosophy-ma": "fas-philosophy-ma",
+    "fas-psychology-ma": "fas-psychology-ma",
+    "fas-econ-ma": "fas-econ-ma",
+    "fas-econ-mfe": "fas-econ-mfe",
+    "fas-biology-ms": "fas-biology-ms",
+    "fas-biology-phd": "fas-biology-phd",
+    "fas-chemistry-ms": "fas-chemistry-ms",
+    "fas-earthsciences-ms": "fas-earthsciences-ms",
+    "fas-cs-ms": "fas-cs-ms",
+    "fas-math-ms": "fas-math-ms",
+    "fas-math-phd": "fas-math-phd",
+    "fas-faah-ma-art-curating": "fas-faah-ma-art-curating",
+    "fhs-mph": "fhs-mph",
+    "fhs-ms-environmental-sciences": "fhs-ms-environmental-sciences",
+    "fhs-emhcl": "fhs-emhcl",
+    "dbmg-ms": "dbmg-ms",
+    "dacp-ms-hmcb": "dacp-ms-hmcb",
+    "dacp-ms-neuroscience": "dacp-ms-neuroscience",
+    "dacp-ms-physiology": "dacp-ms-physiology",
+    "epim-ms": "epim-ms",
+    "pharm-ms": "pharm-ms",
+    "fm-dbms-phd": "fm-dbms-phd",
+    "hson-msn": "hson-msn",
+    "hson-phd": "hson-phd"
+  },
+  "duplicate_groups": [
+    {
+      "dedup_key": "Maroun Semaan Faculty of Engineering and Architecture||Biomedical Engineering Program||Biomedical Engineering||MASTER||https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+      "canonical_id": "bmen-ms",
+      "member_ids": [
+        "bmen-ms"
+      ],
+      "member_files": [
+        "programs.json",
+        "interfaculty_programs.json"
+      ],
+      "row_count": 2,
+      "unique_id_count": 1,
+      "chosen_file": "interfaculty_programs.json",
+      "reason": "duplicate rows with identical id"
+    },
+    {
+      "dedup_key": "Maroun Semaan Faculty of Engineering and Architecture||Biomedical Engineering Program||Biomedical Engineering||PHD||https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+      "canonical_id": "bmen-phd",
+      "member_ids": [
+        "bmen-phd"
+      ],
+      "member_files": [
+        "programs.json",
+        "interfaculty_programs.json"
+      ],
+      "row_count": 2,
+      "unique_id_count": 1,
+      "chosen_file": "interfaculty_programs.json",
+      "reason": "duplicate rows with identical id"
+    },
+    {
+      "dedup_key": "Maroun Semaan Faculty of Engineering and Architecture||Civil and Environmental Engineering||Environmental Technology||MASTER||https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+      "canonical_id": "cee-ms-et",
+      "member_ids": [
+        "cee-ms-et"
+      ],
+      "member_files": [
+        "programs.json",
+        "interfaculty_programs.json"
+      ],
+      "row_count": 2,
+      "unique_id_count": 1,
+      "chosen_file": "interfaculty_programs.json",
+      "reason": "duplicate rows with identical id"
+    },
+    {
+      "dedup_key": "Maroun Semaan Faculty of Engineering and Architecture||School of Architecture and Design||Ecosystem Management||MASTER||https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+      "canonical_id": "soad-ms-environmental-sciences",
+      "member_ids": [
+        "soad-ms-environmental-sciences"
+      ],
+      "member_files": [
+        "programs.json",
+        "interfaculty_programs.json"
+      ],
+      "row_count": 2,
+      "unique_id_count": 1,
+      "chosen_file": "interfaculty_programs.json",
+      "reason": "duplicate rows with identical id"
+    },
+    {
+      "dedup_key": "Faculty of Arts and Sciences||Graduate Program in Computational Science (GPCS)||Computational Science||MASTER||https://www.aub.edu.lb/fas/gpcs/Pages/default.aspx",
+      "canonical_id": "fas-gpcs-ms",
+      "member_ids": [
+        "fas-gpcs",
+        "fas-gpcs-ms"
+      ],
+      "member_files": [
+        "programs.json",
+        "fas_programs.json",
+        "interfaculty_programs.json"
+      ],
+      "row_count": 3,
+      "unique_id_count": 2,
+      "chosen_file": "fas_programs.json",
+      "reason": "same program fields matched"
+    }
+  ],
+  "unresolved_conflicts": [],
+  "output_file": "research/aub/programs_merged_candidate.json"
+}

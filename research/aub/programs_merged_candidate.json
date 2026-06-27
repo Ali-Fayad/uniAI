@@ -1,0 +1,3365 @@
+[
+  {
+    "id": "fas-arabic-ma",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Arabic and Near Eastern Languages",
+    "major_category": "Arts and Sciences",
+    "major": "Arabic Language and Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Arabic Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/arabic/Pages/program-learning-outcomes-for-degrees-granted.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_arabic_plo",
+        "page_title": "Program Learning Outcomes for Degrees Granted",
+        "url": "https://www.aub.edu.lb/fas/arabic/Pages/program-learning-outcomes-for-degrees-granted.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-arabic-phd",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Arabic and Near Eastern Languages",
+    "major_category": "Arts and Sciences",
+    "major": "Arabic Language and Literature",
+    "degree_type": "PHD",
+    "official_degree_name": "PhD in Arabic Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/arabic/Pages/program-learning-outcomes-for-degrees-granted.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_arabic_plo",
+        "page_title": "Program Learning Outcomes for Degrees Granted",
+        "url": "https://www.aub.edu.lb/fas/arabic/Pages/program-learning-outcomes-for-degrees-granted.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-biology-ms",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Biology",
+    "major_category": "Arts and Sciences",
+    "major": "Biology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/biology/Pages/biologydept.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_biology_dept",
+        "page_title": "Department of Biology",
+        "url": "https://www.aub.edu.lb/fas/biology/Pages/biologydept.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-biology-phd",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Biology",
+    "major_category": "Arts and Sciences",
+    "major": "Cell and Molecular Biology",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Cell and Molecular Biology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/biology/Pages/biologydept.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_biology_dept",
+        "page_title": "Department of Biology",
+        "url": "https://www.aub.edu.lb/fas/biology/Pages/biologydept.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-chemistry-ms",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Chemistry",
+    "major_category": "Arts and Sciences",
+    "major": "Chemistry",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Chemistry",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/chemistry/Pages/AboutTheProgram.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_chemistry_about_program",
+        "page_title": "About The Program",
+        "url": "https://www.aub.edu.lb/fas/chemistry/Pages/AboutTheProgram.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The page says the PhD program is temporarily suspended."
+  },
+  {
+    "id": "fas-cs-ms",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Computer Science",
+    "major_category": "Arts and Sciences",
+    "major": "Computer Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Computer Science",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_cs_graduate_programs",
+        "page_title": "Graduate Programs",
+        "url": "https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-earthsciences-ms",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Earth Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Geology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Geology",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/earthsciences/Pages/graduate.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_earthsciences_graduate",
+        "page_title": "Graduate Program",
+        "url": "https://www.aub.edu.lb/fas/earthsciences/Pages/graduate.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-econ-ma",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Economics",
+    "major_category": "Arts and Sciences",
+    "major": "Economics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Economics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/economics/Pages/graduate_programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_economics_graduate_programs",
+        "page_title": "Graduate Programs in Economics",
+        "url": "https://www.aub.edu.lb/fas/economics/Pages/graduate_programs.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-econ-mfe",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Economics",
+    "major_category": "Arts and Sciences",
+    "major": "Financial Economics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Financial Economics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1189,
+      "category": "FAS Financial Economics",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/economics/Pages/graduate_programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_economics_graduate_programs",
+        "page_title": "Graduate Programs in Economics",
+        "url": "https://www.aub.edu.lb/fas/economics/Pages/graduate_programs.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-english-ma-lang",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of English",
+    "major_category": "Arts and Sciences",
+    "major": "English Language",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in English Language",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/english/Pages/graduatestudies.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_english_graduate_studies",
+        "page_title": "Graduate Studies",
+        "url": "https://www.aub.edu.lb/fas/english/Pages/graduatestudies.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-english-ma-lit",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of English",
+    "major_category": "Arts and Sciences",
+    "major": "English Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in English Literature",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/english/Pages/graduatestudies.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_english_graduate_studies",
+        "page_title": "Graduate Studies",
+        "url": "https://www.aub.edu.lb/fas/english/Pages/graduatestudies.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-faah-ma-art-curating",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Fine Arts and Art History",
+    "major_category": "Arts and Sciences",
+    "major": "Art History and Curating",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Art History and Curating",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": [
+      "Art History",
+      "Curating"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/faah/Pages/ma-art-curating.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_faah_ma_art_curating",
+        "page_title": "Masters in Art History and Curating",
+        "url": "https://www.aub.edu.lb/fas/faah/Pages/ma-art-curating.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The program offers a thesis-based art history specialization and a curating specialization with a curatorial research paper plus exhibition."
+  },
+  {
+    "id": "fas-gpcs-ms",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Graduate Program in Computational Science (GPCS)",
+    "major_category": "Arts and Sciences",
+    "major": "Computational Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master's Degree in Computational Science",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Data Analytics",
+      "Computational Theory",
+      "Bioinformatics",
+      "Biostatistics",
+      "Computational Biosciences",
+      "Computational (Astro)-Physics",
+      "Hydrogeology",
+      "Continuum Mechanics",
+      "Optimization",
+      "Operations Research",
+      "Risk Analysis"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/gpcs/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_gpcs",
+        "page_title": "Graduate Program in Computational Science (GPCS)",
+        "url": "https://www.aub.edu.lb/fas/gpcs/Pages/default.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB describes this as a multidisciplinary graduate program in computational science. Canonical merged record; old duplicate IDs: fas-gpcs. Cross-listed/interfaculty program; also appeared in interfaculty_programs.json. Old duplicate ID: fas-gpcs. Cross-listed/interfaculty program; also appeared in interfaculty_programs.json."
+  },
+  {
+    "id": "fas-histarc-ma-archaeology",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of History and Archaeology",
+    "major_category": "Arts and Sciences",
+    "major": "Archaeology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Archaeology",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/histarc/Pages/Archaeology-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_histarc_archaeology_program",
+        "page_title": "Archaeology Program",
+        "url": "https://www.aub.edu.lb/fas/histarc/Pages/Archaeology-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_histarc_archaeology_ma",
+        "page_title": "MA in Archaeology",
+        "url": "https://www.aub.edu.lb/fas/histarc/Pages/MA-in-Archaeology.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-histarc-ma-history",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of History and Archaeology",
+    "major_category": "Arts and Sciences",
+    "major": "Arab and Middle Eastern History",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Arab and Middle Eastern History",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/histarc/Pages/History-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_histarc_history_program",
+        "page_title": "History Program",
+        "url": "https://www.aub.edu.lb/fas/histarc/Pages/History-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_histarc_history_ma",
+        "page_title": "MA in Arab & Middle Eastern History",
+        "url": "https://www.aub.edu.lb/fas/histarc/Pages/MA-in-Arab-%26-Middle-Eastern-History.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-histarc-phd-history",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of History and Archaeology",
+    "major_category": "Arts and Sciences",
+    "major": "Arab and Middle Eastern History",
+    "degree_type": "PHD",
+    "official_degree_name": "PhD in Arab & Middle Eastern History",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/histarc/Pages/History-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_histarc_history_program",
+        "page_title": "History Program",
+        "url": "https://www.aub.edu.lb/fas/histarc/Pages/History-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_histarc_history_phd",
+        "page_title": "PhD in Arab & Middle Eastern History",
+        "url": "https://www.aub.edu.lb/fas/histarc/Pages/PhD-in-Arab-%26-Middle-Eastern-History.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-math-ms",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Mathematics",
+    "major_category": "Arts and Sciences",
+    "major": "Mathematics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Mathematics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Pure Mathematics",
+      "Applied Mathematics"
+    ],
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/math/Pages/programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_math_programs",
+        "page_title": "Programs",
+        "url": "https://www.aub.edu.lb/fas/math/Pages/programs.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-math-phd",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Mathematics",
+    "major_category": "Arts and Sciences",
+    "major": "Mathematics",
+    "degree_type": "PHD",
+    "official_degree_name": "PhD in Mathematics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1136,
+      "category": "FAS Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/math/Pages/programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_math_programs",
+        "page_title": "Programs",
+        "url": "https://www.aub.edu.lb/fas/math/Pages/programs.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-philosophy-ma",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Philosophy",
+    "major_category": "Arts and Sciences",
+    "major": "Philosophy",
+    "degree_type": "MASTER",
+    "official_degree_name": "M.A. in Philosophy",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/philosophy/Pages/graduate.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_philosophy_graduate",
+        "page_title": "Graduate Studies",
+        "url": "https://www.aub.edu.lb/fas/philosophy/Pages/graduate.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-pspa-pols",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Political Studies and Public Administration",
+    "major_category": "Arts and Sciences",
+    "major": "Political Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Political Studies",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/pspa/Pages/programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_pspa_programs",
+        "page_title": "Programs",
+        "url": "https://www.aub.edu.lb/fas/pspa/Pages/programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_pspa_catalogue",
+        "page_title": "Department of Political Studies and Public Administration (PSPA)",
+        "url": "https://www.aub.edu.lb/Registrar/catalogue2024-25/Pages/graduate-pspa.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-pspa-ppia",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Political Studies and Public Administration",
+    "major_category": "Arts and Sciences",
+    "major": "Public Policy and International Affairs",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Public Policy and International Affairs",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 24,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/pspa/Pages/programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_pspa_programs",
+        "page_title": "Programs",
+        "url": "https://www.aub.edu.lb/fas/pspa/Pages/programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_pspa_catalogue",
+        "page_title": "Department of Political Studies and Public Administration (PSPA)",
+        "url": "https://www.aub.edu.lb/Registrar/catalogue2024-25/Pages/graduate-pspa.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-pspa-puba",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Political Studies and Public Administration",
+    "major_category": "Arts and Sciences",
+    "major": "Public Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Public Administration",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/pspa/Pages/programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_pspa_programs",
+        "page_title": "Programs",
+        "url": "https://www.aub.edu.lb/fas/pspa/Pages/programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_pspa_catalogue",
+        "page_title": "Department of Political Studies and Public Administration (PSPA)",
+        "url": "https://www.aub.edu.lb/Registrar/catalogue2024-25/Pages/graduate-pspa.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-psychology-ma",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Psychology",
+    "major_category": "Arts and Sciences",
+    "major": "Psychology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Psychology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/psychology/Pages/Master-of-Arts-in-Psychology.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_psychology_ma",
+        "page_title": "Master of Arts in Psychology",
+        "url": "https://www.aub.edu.lb/fas/psychology/Pages/Master-of-Arts-in-Psychology.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-soam-anth",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Sociology, Anthropology and Media Studies",
+    "major_category": "Arts and Sciences",
+    "major": "Anthropology",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA - Anthropology",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/soam/Pages/Graduateprograms.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_soam_graduate_programs",
+        "page_title": "Graduate Programs",
+        "url": "https://www.aub.edu.lb/fas/soam/Pages/Graduateprograms.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_soam_catalogue",
+        "page_title": "Department of Sociology, Anthropology, and Media Studies",
+        "url": "https://www.aub.edu.lb/Registrar/catalogue2025-26/gr/Pages/fas-dsams.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-soam-media",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Sociology, Anthropology and Media Studies",
+    "major_category": "Arts and Sciences",
+    "major": "Media Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA - Media Studies",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/soam/Pages/Graduateprograms.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_soam_graduate_programs",
+        "page_title": "Graduate Programs",
+        "url": "https://www.aub.edu.lb/fas/soam/Pages/Graduateprograms.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_soam_catalogue",
+        "page_title": "Department of Sociology, Anthropology, and Media Studies",
+        "url": "https://www.aub.edu.lb/Registrar/catalogue2025-26/gr/Pages/fas-dsams.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fas-soam-soc",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Sociology, Anthropology and Media Studies",
+    "major_category": "Arts and Sciences",
+    "major": "Sociology",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA - Sociology",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 21,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1099,
+      "category": "FAS Humanities & Social Sciences",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fas/soam/Pages/Graduateprograms.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fas_soam_graduate_programs",
+        "page_title": "Graduate Programs",
+        "url": "https://www.aub.edu.lb/fas/soam/Pages/Graduateprograms.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fas_soam_catalogue",
+        "page_title": "Department of Sociology, Anthropology, and Media Studies",
+        "url": "https://www.aub.edu.lb/Registrar/catalogue2025-26/gr/Pages/fas-dsams.aspx",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "fhs-emhcl",
+    "faculty": "Faculty of Health Sciences",
+    "department": "Health Management and Policy Department",
+    "major_category": "Health Sciences",
+    "major": "Health Care Leadership",
+    "degree_type": "MASTER",
+    "official_degree_name": "Executive Master in Health Care Leadership (EMHCL)",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": "Online",
+    "program_description": "Online executive master's program in health care leadership hosted by the Health Management and Policy Department.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 900,
+      "category": "Executive Master in Healthcare Leadership",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fhs/Landing/Health-Care-Leadership.html",
+    "sources": [
+      {
+        "source_id": "aub_fhs_hmp_dep",
+        "page_title": "Health Management and Policy Department",
+        "url": "https://www.aub.edu.lb/fhs/Pages/hmp_dep.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fhs_emhcl",
+        "page_title": "Executive Master in Healthcare Leadership",
+        "url": "https://www.aub.edu.lb/fhs/Landing/Health-Care-Leadership.html",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page says HMPD hosts the EMHCL, and the landing page labels it as an online graduate academic program. No credit or duration information was published on the official public page."
+  },
+  {
+    "id": "fhs-gphp",
+    "faculty": "Faculty of Health Sciences",
+    "department": "Graduate Public Health Program",
+    "major_category": "Health Sciences",
+    "major": "Public Health",
+    "degree_type": "MASTER",
+    "official_degree_name": null,
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate public health program at FHS with public-health training and CEPH accreditation history.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_SEMESTER",
+      "amount": 16050,
+      "category": "MPH",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Council on Education for Public Health (CEPH) accreditation referenced on the page.",
+    "official_program_url": "https://www.aub.edu.lb/fhs/Pages/gphp.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fhs_gphp",
+        "page_title": "Graduate Public Health Program",
+        "url": "https://www.aub.edu.lb/fhs/Pages/gphp.aspx",
+        "date_accessed": "2026-06-25"
+      },
+      {
+        "source_id": "aub_fhs_home",
+        "page_title": "Faculty of Health Sciences",
+        "url": "https://www.aub.edu.lb/fhs/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "The public page did not render the degree title in text, so the official degree name remains null."
+  },
+  {
+    "id": "fhs-mph",
+    "faculty": "Faculty of Health Sciences",
+    "department": "Graduate Public Health Program",
+    "major_category": "Health Sciences",
+    "major": "Public Health",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Public Health",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Epidemiology and Biostatistics",
+      "Health Management and Policy",
+      "Health Promotion and Community Health"
+    ],
+    "credits": 42,
+    "duration": "Minimum 2 years full-time; up to 4 years part-time",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Professional Master of Public Health degree within the Graduate Public Health Program.",
+    "admission_requirements": "Good academic record; English proficiency required; no GRE required.",
+    "required_documents": null,
+    "gre_requirement": "No GRE is required.",
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_SEMESTER",
+      "amount": 16050,
+      "category": "MPH",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fhs/Pages/mph.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fhs_mph",
+        "page_title": "Master of Public Health",
+        "url": "https://www.aub.edu.lb/fhs/Pages/mph.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fhs_mph_brochure",
+        "page_title": "Master of Public Health Brochure",
+        "url": "https://www.aub.edu.lb/fhs/Documents/degrees_programs/grad_mph.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The brochure says the MPH totals 42 credits and lists the three concentrations above. It also states that full-time students generally need a minimum of two years and part-time students up to four years."
+  },
+  {
+    "id": "fhs-ms-environmental-sciences",
+    "faculty": "Faculty of Health Sciences",
+    "department": "Environmental Health Department",
+    "major_category": "Health Sciences",
+    "major": "Environmental Health",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Environmental Sciences",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "Normally completed over two years full-time",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty Master of Science degree in Environmental Sciences with a major in Environmental Health.",
+    "admission_requirements": "Open to students from all undergraduate backgrounds; English proficiency required; no GRE required.",
+    "required_documents": null,
+    "gre_requirement": "No GRE is required.",
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1208,
+      "category": "Faculty of Health Sciences Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fhs/Pages/ms_environmental_sciences.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fhs_ms_environmental_sciences",
+        "page_title": "Master of Science in Environmental Sciences",
+        "url": "https://www.aub.edu.lb/fhs/Pages/ms_environmental_sciences.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fhs_ms_environmental_sciences_brochure",
+        "page_title": "Master of Science in Environmental Sciences Brochure",
+        "url": "https://www.aub.edu.lb/fhs/Documents/degrees_programs/grad_msenvironmentalsciences.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The brochure says the degree consists of 30 credits, including a thesis/project component of 6 or 3 credits. It also states that the program is offered within the Interfaculty Graduate Environmental Sciences Program. Normalized thesis_or_non_thesis from \"Thesis or project\"."
+  },
+  {
+    "id": "dacp-ms-hmcb",
+    "faculty": "Faculty of Medicine",
+    "department": "Anatomy, Cell Biology and Physiological Sciences",
+    "major_category": "Medicine",
+    "major": "Human Morphology and Cell Biology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Human Morphology and Cell Biology",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in human morphology and cell biology offered by the Department of Anatomy, Cell Biology and Physiological Sciences.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_ms_programs",
+        "page_title": "MS Programs",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "AUB lists this as one of three MS programs in the Department of Anatomy, Cell Biology and Physiological Sciences. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "dacp-ms-neuroscience",
+    "faculty": "Faculty of Medicine",
+    "department": "Anatomy, Cell Biology and Physiological Sciences",
+    "major_category": "Medicine",
+    "major": "Neuroscience",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Neuroscience",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Interfaculty Graduate Neuroscience Program"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty graduate neuroscience master's program housed in the Faculty of Medicine.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_ms_programs",
+        "page_title": "MS Programs",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "AUB lists this MS under the umbrella of the Interfaculty Graduate Neuroscience Program. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "dacp-ms-physiology",
+    "faculty": "Faculty of Medicine",
+    "department": "Anatomy, Cell Biology and Physiological Sciences",
+    "major_category": "Medicine",
+    "major": "Physiology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Physiology",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in physiology offered by the Department of Anatomy, Cell Biology and Physiological Sciences.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_ms_programs",
+        "page_title": "MS Programs",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "AUB lists this as one of three MS programs in the Department of Anatomy, Cell Biology and Physiological Sciences. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "dbmg-ms",
+    "faculty": "Faculty of Medicine",
+    "department": "Biochemistry and Molecular Genetics",
+    "major_category": "Medicine",
+    "major": "Biochemistry",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biochemistry",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "Minimum two years",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in biochemistry under the Faculty of Medicine's biomedical sciences umbrella.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DBMG/Pages/GraduateProgram.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dbmg_graduate_program",
+        "page_title": "Graduate Program",
+        "url": "https://www.aub.edu.lb/fm/DBMG/Pages/GraduateProgram.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page states the MS is thesis-based and requires 21 credits of graduate coursework plus a 9-credit thesis. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "epim-ms",
+    "faculty": "Faculty of Medicine",
+    "department": "Experimental Pathology, Immunology and Microbiology",
+    "major_category": "Medicine",
+    "major": "Microbiology and Immunology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Microbiology and Immunology",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in microbiology and immunology under the Graduate Studies in Biomedical Sciences umbrella.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/EPIM/Pages/MS-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_epim_ms_program",
+        "page_title": "MS Program",
+        "url": "https://www.aub.edu.lb/fm/EPIM/Pages/MS-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page states this MS is offered under the umbrella of the Graduate Studies in Biomedical Sciences. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "fm-dbms-phd",
+    "faculty": "Faculty of Medicine",
+    "department": "Doctoral Program in Biomedical Sciences",
+    "major_category": "Medicine",
+    "major": "Biomedical Sciences",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Biomedical Sciences",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Biochemistry and Molecular Genetics",
+      "Cell Biology of Cancer",
+      "Microbiology and Immunology",
+      "Neurosciences Program",
+      "Pharmacology and Toxicology",
+      "Physiology"
+    ],
+    "credits": 74,
+    "duration": "At least three years beyond the master's degree; five-year completion limit",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in biomedical sciences offering discipline-specific thesis work within the Faculty of Medicine.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/DACP/Pages/PhD-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_dacp_phd_program",
+        "page_title": "PhD Program",
+        "url": "https://www.aub.edu.lb/fm/DACP/Pages/PhD-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The AUB catalogue also lists Biomedical Engineering and Nutrition as DBMS disciplines, but they are omitted here because this file is limited to Faculty of Medicine graduate programs. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "pharm-ms",
+    "faculty": "Faculty of Medicine",
+    "department": "Pharmacology and Toxicology",
+    "major_category": "Medicine",
+    "major": "Pharmacology and Therapeutics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Pharmacology and Therapeutics",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in pharmacology and therapeutics under the Graduate Studies in Biomedical Sciences umbrella.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1206,
+      "category": "Faculty of Medicine Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/Pages/MS-Program.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fm_pharm_ms_program",
+        "page_title": "Masters Program",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/Pages/MS-Program.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fm_aubmc_catalogue",
+        "page_title": "Graduate Catalogue 2017–18",
+        "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page states this MS is offered under the umbrella of the Graduate Studies in Biomedical Sciences. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "bmen-ms",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Biomedical Engineering Program",
+    "major_category": "Engineering and Architecture",
+    "major": "Biomedical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biomedical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Joint interdisciplinary graduate program between MSFEA and the Faculty of Medicine.",
+    "admission_requirements": "Open to students from engineering, basic sciences, biomedical sciences, health sciences, computer science, and mathematics backgrounds.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_bmen",
+        "page_title": "Biomedical Engineering Program",
+        "url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      },
+      {
+        "source_id": "aub_english_requirements",
+        "page_title": "Check your English Language Requirements",
+        "url": "https://www.aub.edu.lb/admissions/Pages/EnglishRequirements.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "The page also offers a PhD degree; see the sibling record. Also appears in research/aub/programs.json; AUB describes it as a joint interdisciplinary graduate program between MSFEA and the Faculty of Medicine. Cross-listed/interfaculty program; also appeared in interfaculty_programs.json."
+  },
+  {
+    "id": "bmen-phd",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Biomedical Engineering Program",
+    "major_category": "Engineering and Architecture",
+    "major": "Biomedical Engineering",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Biomedical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary doctoral program in biomedical engineering spanning engineering, medicine, and science.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_bmen",
+        "page_title": "Biomedical Engineering Program",
+        "url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB describes it as an interdisciplinary doctoral program spanning engineering, medicine, and science. Cross-listed/interfaculty program; also appeared in interfaculty_programs.json."
+  },
+  {
+    "id": "cee-me-civil",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Civil and Environmental Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Civil Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Engineering in Civil Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in civil engineering focused on complex civil and environmental challenges.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_cee",
+        "page_title": "Civil and Environmental Engineering",
+        "url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "cee-me-ewre",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Civil and Environmental Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Environmental and Water Resources Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Engineering in Environmental & Water Resources Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in environmental and water resources engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_cee",
+        "page_title": "Civil and Environmental Engineering",
+        "url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "cee-ms-et",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Civil and Environmental Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Environmental Technology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Environmental Technology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty graduate environmental sciences program track open to non-engineering students with a degree in basic sciences or equivalent.",
+    "admission_requirements": "Open to non-engineering students who hold a degree in basic sciences or equivalent.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_cee",
+        "page_title": "Civil and Environmental Engineering",
+        "url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "The page explicitly says this track participates in the Interfaculty Graduate Environmental Sciences Program. Also appears in research/aub/programs.json; AUB states the department actively participates in the Interfaculty Graduate Environmental Sciences Program. Cross-listed/interfaculty program; also appeared in interfaculty_programs.json."
+  },
+  {
+    "id": "cee-phd-civil",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Civil and Environmental Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Civil Engineering",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Civil Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in civil engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_cee",
+        "page_title": "Civil and Environmental Engineering",
+        "url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "cee-phd-ewre",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Civil and Environmental Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Environmental and Water Resources Engineering",
+    "degree_type": "PHD",
+    "official_degree_name": "PhD in Environmental & Water Resources Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in environmental and water resources engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_cee",
+        "page_title": "Civil and Environmental Engineering",
+        "url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "chen-me",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Baha and Walid Bassatne Department of Chemical Engineering and Advanced Energy",
+    "major_category": "Engineering and Architecture",
+    "major": "Chemical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Engineering in Chemical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in chemical engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/cpe/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_chen",
+        "page_title": "Baha and Walid Bassatne Department of Chemical Engineering and Advanced Energy",
+        "url": "https://www.aub.edu.lb/msfea/cpe/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ece-me",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Electrical and Computer Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Electrical and Computer Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Engineering in Electrical and Computer Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Track in Control and Robotics",
+      "Track and Minor in Artificial Intelligence"
+    ],
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in electrical and computer engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/ece/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_ece",
+        "page_title": "Electrical and Computer Engineering",
+        "url": "https://www.aub.edu.lb/msfea/ece/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ece-phd",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Electrical and Computer Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Electrical and Computer Engineering",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Electrical and Computer Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in electrical and computer engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/ece/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_ece",
+        "page_title": "Electrical and Computer Engineering",
+        "url": "https://www.aub.edu.lb/msfea/ece/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "iem-mem",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Industrial Engineering and Management",
+    "major_category": "Engineering and Architecture",
+    "major": "Engineering Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master degree in Engineering Management (MEM)",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Engineering Management - Online"
+    ],
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate program in engineering management.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/iem/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_iem",
+        "page_title": "Industrial Engineering and Management",
+        "url": "https://www.aub.edu.lb/msfea/iem/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "me-applied-energy",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Mechanical Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Applied Energy",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Mechanical Engineering major in Applied Energy",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Mechanical engineering master's option focused on applied energy.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_me",
+        "page_title": "Mechanical Engineering",
+        "url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "me-dual-degree-em-es",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Mechanical Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Engineering Management and Energy Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Engineering dual degree in Engineering Management & Energy Studies",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Dual master's program combining engineering management and energy studies.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_me",
+        "page_title": "Mechanical Engineering",
+        "url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "The page names this as a dual degree; the exact major labeling is inferred from the visible wording."
+  },
+  {
+    "id": "me-energy-studies",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Mechanical Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Energy Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Energy Studies",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate degree in energy studies.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_me",
+        "page_title": "Mechanical Engineering",
+        "url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "me-mechanical",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Mechanical Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Mechanical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Engineering major Mechanical Engineering",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate mechanical engineering program with thesis or non-thesis option.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_me",
+        "page_title": "Mechanical Engineering",
+        "url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "me-phd",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "Mechanical Engineering",
+    "major_category": "Engineering and Architecture",
+    "major": "Mechanical Engineering",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy (Ph.D.) in Mechanical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in mechanical engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_me",
+        "page_title": "Mechanical Engineering",
+        "url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "soad-ms-environmental-sciences",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "School of Architecture and Design",
+    "major_category": "Architecture and Design",
+    "major": "Ecosystem Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Interfaculty Master of Science in Environmental Sciences, with a major in Ecosystem Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty master's degree housed on the School of Architecture and Design page.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_soad",
+        "page_title": "School of Architecture and Design",
+        "url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": "Also appears in research/aub/programs.json; AUB lists this as an interfaculty master's degree in Environmental Sciences. Cross-listed/interfaculty program; also appeared in interfaculty_programs.json."
+  },
+  {
+    "id": "soad-mud",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "School of Architecture and Design",
+    "major_category": "Architecture and Design",
+    "major": "Urban Design",
+    "degree_type": "MASTER",
+    "official_degree_name": "Urban Design",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate degree in urban design.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_soad",
+        "page_title": "School of Architecture and Design",
+        "url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "soad-mupp",
+    "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+    "department": "School of Architecture and Design",
+    "major_category": "Architecture and Design",
+    "major": "Urban Planning and Policy",
+    "degree_type": "MASTER",
+    "official_degree_name": "Urban Planning and Policy",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate degree in urban planning and policy.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1281,
+      "category": "MSFEA Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_soad",
+        "page_title": "School of Architecture and Design",
+        "url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "hson-msn",
+    "faculty": "Rafic Hariri School of Nursing",
+    "department": "Rafic Hariri School of Nursing",
+    "major_category": "Health Sciences",
+    "major": "Nursing",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Nursing",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations_or_tracks": [
+      "Adult-Gerontology Clinical Nurse Specialist",
+      "Psychiatric Mental Health Clinical Nurse Specialist",
+      "Community and Public Health Nursing",
+      "Nursing Administration and Management",
+      "Pediatric Clinical Nurse Specialist"
+    ],
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Graduate nursing program emphasizing advanced nursing practice.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1006,
+      "category": "Rafic Hariri School of Nursing Graduate Tuition",
+      "notes": "Generic Rafic Hariri School of Nursing per-credit rate from the 2026-2027 AUB fee schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/hson/Documents/MSN-handbook.pdf",
+    "sources": [
+      {
+        "source_id": "aub_hson_home",
+        "page_title": "Rafic Hariri School of Nursing",
+        "url": "https://www.aub.edu.lb/hson/Pages/default.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_hson_msn_handbook",
+        "page_title": "MSN Graduate Student Handbook 2025-2026",
+        "url": "https://www.aub.edu.lb/hson/Documents/MSN-handbook.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The handbook lists five MSN tracks and states that the Nursing Administration and Management track was converted to a blended format. Normalized thesis_or_non_thesis from \"Thesis or non-thesis\"."
+  },
+  {
+    "id": "hson-phd",
+    "faculty": "Rafic Hariri School of Nursing",
+    "department": "Rafic Hariri School of Nursing",
+    "major_category": "Health Sciences",
+    "major": "Nursing Science",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Philosophy in Nursing Science",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 48,
+    "duration": "At least six regular semesters beyond the master's degree",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in nursing science preparing graduates for academic, research, education, and health system leadership roles.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1006,
+      "category": "Rafic Hariri School of Nursing Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/hson/Documents/PhD-handbook-25-26.pdf",
+    "sources": [
+      {
+        "source_id": "aub_hson_home",
+        "page_title": "Rafic Hariri School of Nursing",
+        "url": "https://www.aub.edu.lb/hson/Pages/default.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_hson_phd_handbook",
+        "page_title": "PhD Student Handbook 2025-26",
+        "url": "https://www.aub.edu.lb/hson/Documents/PhD-handbook-25-26.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The handbook says the PhD program launched in Fall 2018-2019. Normalized thesis_or_non_thesis from \"Thesis\"."
+  },
+  {
+    "id": "osb-mba-online",
+    "faculty": "Suliman S. Olayan School of Business",
+    "department": "MBA Online",
+    "major_category": "Business",
+    "major": "Business Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "MBA Online",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Optional concentration tracks"
+    ],
+    "credits": 36,
+    "duration": "6, 10, or 12 trimesters",
+    "language": "English",
+    "delivery_mode": "Online",
+    "program_description": "Fully online MBA designed for working professionals with eight core courses and four electives.",
+    "admission_requirements": "An undergraduate degree is required. GMAT is considered, and relevant work experience is expected.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": "GMAT score required; the program page says it looks at the quantitative and verbal balance.",
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Work experience is explicitly expected.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 619,
+      "category": "MBA Online",
+      "notes": "Special MBA Online fee confirmed by the OSB Costs and Fees page; official 2026-2027 fee schedule supersedes the older public page value.",
+      "source_ids": [
+        "aub_tuition_2026_2027",
+        "aub_osb_mba_costs_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/osb/OMBA/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_osb_omba",
+        "page_title": "MBA Online Suliman S. Olayan School of Business",
+        "url": "https://www.aub.edu.lb/osb/OMBA/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      },
+      {
+        "source_id": "aub_osb_omba_program",
+        "page_title": "The Program MBA Online",
+        "url": "https://www.aub.edu.lb/osb/OMBA/Pages/program.aspx",
+        "date_accessed": "2026-06-25"
+      },
+      {
+        "source_id": "aub_osb_omba_admissions",
+        "page_title": "Admissions and Fees MBA Online",
+        "url": "https://www.aub.edu.lb/osb/OMBA/Pages/Admission.aspx",
+        "date_accessed": "2026-06-25"
+      },
+      {
+        "source_id": "aub_english_requirements",
+        "page_title": "Check your English Language Requirements",
+        "url": "https://www.aub.edu.lb/admissions/Pages/EnglishRequirements.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "osb-mfin",
+    "faculty": "Suliman S. Olayan School of Business",
+    "department": "Specialized Master's",
+    "major_category": "Business",
+    "major": "Finance",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master's in Finance",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Finance master's program focused on financial markets, valuation, and analytical skills.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1244,
+      "category": "Suliman S. Olayan School of Business Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/osb/MFIN/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_osb_mfin",
+        "page_title": "Master's in Finance Leading the future of finance",
+        "url": "https://www.aub.edu.lb/osb/MFIN/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "osb-mhrm",
+    "faculty": "Suliman S. Olayan School of Business",
+    "department": "Specialized Master's",
+    "major_category": "Business",
+    "major": "Human Resource Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master's in Human Resource Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Specialized master's program for aspiring HRM practitioners and early-career professionals.",
+    "admission_requirements": "Undergraduate degree from AUB or another recognized university in business, social science, health/science, humanities, or a related field.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Early-career practitioners are explicitly welcomed.",
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1244,
+      "category": "Suliman S. Olayan School of Business Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/osb/MHRM/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_osb_mhrm",
+        "page_title": "Master's in Human Resource Management Developing and managing leaders of the future",
+        "url": "https://www.aub.edu.lb/osb/MHRM/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "osb-msba",
+    "faculty": "Suliman S. Olayan School of Business",
+    "department": "Specialized Master's",
+    "major_category": "Business",
+    "major": "Business Analytics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master's of Science in Business Analytics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Business analytics master's program focused on big data, modeling, visualization, and business decision-making.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1244,
+      "category": "Suliman S. Olayan School of Business Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/osb/MSBA/Pages/default.aspx",
+    "sources": [
+      {
+        "source_id": "aub_osb_msba",
+        "page_title": "MSBA, the leading Business Analytics program in the MENA region Where business and big data meet",
+        "url": "https://www.aub.edu.lb/osb/MSBA/Pages/default.aspx",
+        "date_accessed": "2026-06-25"
+      }
+    ],
+    "notes": null
+  }
+]

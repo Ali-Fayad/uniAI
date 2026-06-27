@@ -1,0 +1,308 @@
+{
+  "institution": "Université Saint-Joseph de Beyrouth",
+  "date_accessed": "2026-06-27",
+  "counts": {
+    "in_scope_programs": 51,
+    "out_of_scope_programs": 5,
+    "sources": 31,
+    "unique_program_ids": 51,
+    "unique_source_urls": 31,
+    "duplicate_program_id_count": 0,
+    "duplicate_source_id_count": 0,
+    "duplicate_program_url_groups": 5
+  },
+  "completeness": {
+    "raw_schema_cell_pct": 30.51,
+    "optional_program_field_pct": 3.32
+  },
+  "validation": {
+    "json_parse_ok": true,
+    "compile_ok": true,
+    "degree_types": [
+      "MASTER",
+      "PHD"
+    ],
+    "delivery_mode_values": [],
+    "language_values": [
+      "MULTILINGUAL",
+      null
+    ],
+    "thesis_or_non_thesis_values": [
+      "PROJECT",
+      "THESIS",
+      null
+    ],
+    "billing_basis_values": [],
+    "every_program_has_source": true,
+    "all_source_refs_resolved": true,
+    "all_source_urls_official": true,
+    "out_of_scope_overlap": false
+  },
+  "duplicate_program_urls": [
+    {
+      "url": "https://usj.edu.lb/fr/e-doors/masters",
+      "count": 24,
+      "intentional_reuse": true
+    },
+    {
+      "url": "https://usj.edu.lb/fr/fs/formations",
+      "count": 8,
+      "intentional_reuse": true
+    },
+    {
+      "url": "https://usj.edu.lb/fgm/",
+      "count": 6,
+      "intentional_reuse": true
+    },
+    {
+      "url": "https://usj.edu.lb/fdsp/",
+      "count": 5,
+      "intentional_reuse": true
+    },
+    {
+      "url": "https://usj.edu.lb/fmd/",
+      "count": 3,
+      "intentional_reuse": true
+    }
+  ],
+  "orphan_sources": [
+    {
+      "source_id": "usj_home_en",
+      "url": "https://usj.edu.lb/en",
+      "classification": "useful discovery/reference"
+    },
+    {
+      "source_id": "usj_equivalences",
+      "url": "https://usj.edu.lb/admission/equivalences.php",
+      "classification": "useful discovery/reference"
+    },
+    {
+      "source_id": "usj_fgm_mba_dossier_pdf",
+      "url": "https://usjweb.usj.edu.lb/fgm/pdf/front/dossier-inscription-MBA-Promo24.pdf",
+      "classification": "useful discovery/reference"
+    },
+    {
+      "source_id": "usj_fgm_presentation_master_pdf",
+      "url": "https://usjweb.usj.edu.lb/fgm/pdf/front/Presentation-Master.pdf",
+      "classification": "useful discovery/reference"
+    },
+    {
+      "source_id": "usj_fgm_masters_presentation_pdf",
+      "url": "https://usjweb.usj.edu.lb/fgm/pdf/front/Masters-Presentation.pdf",
+      "classification": "useful discovery/reference"
+    },
+    {
+      "source_id": "usj_school_fia",
+      "url": "https://usj.edu.lb/fia/",
+      "classification": "useful discovery/reference"
+    },
+    {
+      "source_id": "usj_school_elfs",
+      "url": "https://usj.edu.lb/elfs/",
+      "classification": "useful discovery/reference"
+    }
+  ],
+  "null_field_analysis": [
+    {
+      "field": "id",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "faculty",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "department",
+      "populated": 19,
+      "null": 32,
+      "classification": "partially available from official pages"
+    },
+    {
+      "field": "major_category",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "major",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "degree_type",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "official_degree_name",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "thesis_or_non_thesis",
+      "populated": 3,
+      "null": 48,
+      "classification": "program-specific; mostly unavailable on hub pages"
+    },
+    {
+      "field": "concentrations_or_tracks",
+      "populated": 0,
+      "null": 51,
+      "classification": "program-specific; not exposed on reviewed pages"
+    },
+    {
+      "field": "credits",
+      "populated": 3,
+      "null": 48,
+      "classification": "program-specific; only PDF-backed FS programs published credits"
+    },
+    {
+      "field": "duration",
+      "populated": 3,
+      "null": 48,
+      "classification": "program-specific; only PDF-backed FS programs published duration"
+    },
+    {
+      "field": "language",
+      "populated": 3,
+      "null": 48,
+      "classification": "program-specific; only PDF-backed FS PDFs explicitly stated it"
+    },
+    {
+      "field": "delivery_mode",
+      "populated": 0,
+      "null": 51,
+      "classification": "not explicitly stated"
+    },
+    {
+      "field": "program_description",
+      "populated": 3,
+      "null": 48,
+      "classification": "program-specific; only PDF-backed FS programs published descriptions"
+    },
+    {
+      "field": "admission_requirements",
+      "populated": 3,
+      "null": 48,
+      "classification": "program-specific; only PDF-backed FS programs published detailed requirements"
+    },
+    {
+      "field": "required_documents",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally shared in university.json"
+    },
+    {
+      "field": "gre_requirement",
+      "populated": 0,
+      "null": 51,
+      "classification": "not published"
+    },
+    {
+      "field": "gmat_requirement",
+      "populated": 0,
+      "null": 51,
+      "classification": "not published"
+    },
+    {
+      "field": "english_requirement",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally shared in university.json"
+    },
+    {
+      "field": "portfolio_requirement",
+      "populated": 0,
+      "null": 51,
+      "classification": "not published"
+    },
+    {
+      "field": "interview_requirement",
+      "populated": 2,
+      "null": 49,
+      "classification": "program-specific; only two PDF-backed FS programs explicitly mention it"
+    },
+    {
+      "field": "experience_requirement",
+      "populated": 0,
+      "null": 51,
+      "classification": "not published"
+    },
+    {
+      "field": "tuition",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally unresolved at program level; no official program fee table published"
+    },
+    {
+      "field": "additional_fees",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally shared in university.json / no program fee table published"
+    },
+    {
+      "field": "deadlines",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally shared in university.json"
+    },
+    {
+      "field": "scholarships",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally shared in university.json"
+    },
+    {
+      "field": "financial_aid",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally shared in university.json"
+    },
+    {
+      "field": "payment_plans",
+      "populated": 0,
+      "null": 51,
+      "classification": "intentionally shared in university.json"
+    },
+    {
+      "field": "accreditation",
+      "populated": 0,
+      "null": 51,
+      "classification": "not published at program level"
+    },
+    {
+      "field": "official_program_url",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "sources",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    },
+    {
+      "field": "notes",
+      "populated": 51,
+      "null": 0,
+      "classification": "required"
+    }
+  ],
+  "schema_compatibility": {
+    "compatible_with_aub_lau_program_schema": true,
+    "issues": [],
+    "notes": [
+      "Program-record schema matches the AUB/LAU field set.",
+      "University-level companion metadata is separate and does not affect program compatibility."
+    ]
+  },
+  "recommendation": "APPROVE WITH NOTES"
+}

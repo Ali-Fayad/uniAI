@@ -1,0 +1,554 @@
+{
+  "id": "lau",
+  "name": "Lebanese American University",
+  "date_accessed": "2026-06-27",
+  "sources_used": [
+    "lau_graduate_programs",
+    "lau_graduate_applicants",
+    "lau_fees_2026_2027",
+    "lau_financial_aid_grad",
+    "lau_graduate_research_scholarship",
+    "lau_academic_calendar",
+    "lau_catalog_grad_rules"
+  ],
+  "tuition_table": [
+    {
+      "program_id": "business-emba",
+      "official_degree_name": "Executive Master of Business Administration",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1043,
+      "category": "Executive M.B.A.",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-ma-applied-economics",
+      "official_degree_name": "MA in Applied Economics",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Applied Economics",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-mba",
+      "official_degree_name": "MBA (Master of Business Administration)",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Business Administration",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-llm-business-law",
+      "official_degree_name": "LLM in Business Law",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Business Law",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-ms-finance-and-accounting",
+      "official_degree_name": "MS in Finance and Accounting",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Finance and Accounting",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-ms-data-analytics",
+      "official_degree_name": "MS in Data Analytics",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Data Analytics",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-ms-human-resources-management",
+      "official_degree_name": "MS in Human Resources Management",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Human Resources Management",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-msl",
+      "official_degree_name": "Master of Studies in Law",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1022,
+      "category": "Master of Studies in Law",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-mba-business-analytics-online",
+      "official_degree_name": "MBA in Business Analytics",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-mba-global-business-administration-online",
+      "official_degree_name": "MBA in Global Business Administration",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "business-mba-healthcare-management-online",
+      "official_degree_name": "MBA in Healthcare Management",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "sard-ma-islamic-art",
+      "official_degree_name": "MA in Islamic Art",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1004,
+      "category": "Islamic Art",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ma-comparative-literature",
+      "official_degree_name": "MA in Comparative Literature",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Comparative Literature",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ma-education",
+      "official_degree_name": "MA in Education",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Education",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ma-interdisciplinary-gender-studies",
+      "official_degree_name": "MA in Interdisciplinary Gender Studies",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Interdisciplinary Gender Studies",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ma-international-affairs",
+      "official_degree_name": "MA in International Affairs",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "International Affairs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ma-migration-studies",
+      "official_degree_name": "MA in Migration Studies",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 903,
+      "category": "Migration Studies",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ma-multimedia-journalism",
+      "official_degree_name": "MA in Multimedia Journalism",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Multimedia Journalism",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-applied-artificial-intelligence-online",
+      "official_degree_name": "MS in Applied Artificial Intelligence",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-biological-sciences",
+      "official_degree_name": "MS in Biological Sciences",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Biological Sciences",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-computer-science",
+      "official_degree_name": "MS in Computer Science",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Computer Science",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-computer-science-online",
+      "official_degree_name": "MS in Computer Science",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-cybersecurity-online",
+      "official_degree_name": "MS in Cybersecurity",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-data-science",
+      "official_degree_name": "MS in Data Science",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Data Science",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-data-science-online",
+      "official_degree_name": "MS in Data Science",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soas-ms-nutrition",
+      "official_degree_name": "MS in Nutrition",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 943,
+      "category": "Nutrition",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soe-ms-civil-environmental-engineering",
+      "official_degree_name": "MS in Civil & Environmental Engineering",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Civil and Environmental Engineering",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soe-ms-computer-engineering",
+      "official_degree_name": "MS in Computer Engineering",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Computer Engineering",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soe-ms-engineering-management-online",
+      "official_degree_name": "MS in Engineering Management",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soe-ms-industrial-engineering-management",
+      "official_degree_name": "MS in Industrial Engineering & Engineering Management",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Industrial Engineering and Engineering Management",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soe-ms-international-construction-management-online",
+      "official_degree_name": "MS in International Construction Management",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 580,
+      "category": "Online Master’s Programs",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "soe-ms-mechanical-engineering",
+      "official_degree_name": "MS in Mechanical Engineering",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1032,
+      "category": "Mechanical Engineering",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    },
+    {
+      "program_id": "pharmacy-ms-pharmaceutical-development-management",
+      "official_degree_name": "M.S. Degree in Pharmaceutical Development and Management",
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 902,
+      "category": "Pharmaceutical Development & Management",
+      "source_ids": [
+        "lau_fees_2026_2027"
+      ]
+    }
+  ],
+  "fee_table": [
+    {
+      "item": "Graduate application fee",
+      "amount": 50,
+      "currency": "USD",
+      "billing_basis": "ONE_TIME",
+      "scope_level": "UNIVERSITY",
+      "source_ids": [
+        "lau_graduate_applicants"
+      ]
+    }
+  ],
+  "admissions": {
+    "general_admission": "Graduate admission is selective and requires a bachelor’s degree from a recognized college or university plus distinct academic ability and motivation.",
+    "required_documents": [
+      "One recent passport-size photo.",
+      "Copy of identity card or passport.",
+      "Family Civil Status record for Lebanese and Arab nationals.",
+      "Certified copies of educational or professional certificates or diplomas.",
+      "Official updated university transcripts from all universities attended, with course descriptions of completed courses.",
+      "Equivalency of the bachelor’s degree from the Lebanese Ministry of Higher Education, when applicable.",
+      "Certified copy of the official secondary diploma and any required Lebanese equivalence.",
+      "Two professor recommendations; employment certificate if the applicant has work experience.",
+      "W-9S form and proof of Social Security Number for U.S. citizens or U.S. Green Card holders."
+    ],
+    "english_requirements": {
+      "tests": [
+        {
+          "test": "TOEFL iBT",
+          "minimum_score": 90
+        },
+        {
+          "test": "IELTS",
+          "minimum_score": 7
+        },
+        {
+          "test": "EEE",
+          "minimum_score": 123
+        },
+        {
+          "test": "Duolingo English Test",
+          "minimum_score": 125
+        }
+      ],
+      "conditional_rules": [
+        "EEE scores between 102 and 122, or equivalent TOEFL/IELTS/Duolingo scores, require ENG601 or a retake of the English test within the first year of enrollment.",
+        "Applicants below EEE 102, TOEFL iBT 80, IELTS 6.5, or Duolingo 115 are not accepted into graduate programs.",
+        "English proficiency may not be required for applicants from LAU-recognized universities where the language of instruction is English."
+      ]
+    },
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "deadlines": [
+      {
+        "label": "Late admission for Fall 2026",
+        "date": "2026-07-15"
+      },
+      {
+        "label": "Late Graduate Assistantship for Fall 2026",
+        "date": "2026-07-15"
+      },
+      {
+        "label": "Graduate Research Scholarship for Fall 2026",
+        "date": "2026-03-31"
+      }
+    ],
+    "notes": [
+      "General undergraduate-major requirements are program-specific and were not promoted into the shared university file.",
+      "The medical school deadline surfaced on the admissions page but is out of scope for the current graduate inventory."
+    ],
+    "source_ids": [
+      "lau_graduate_applicants",
+      "lau_catalog_grad_rules"
+    ]
+  },
+  "financial_aid": {
+    "graduate_assistantships": {
+      "description": "Graduate assistantships cover full or partial tuition fees in exchange for academic work.",
+      "availability": "In-person programs only.",
+      "application_path": "Online application plus GA form through the portal.",
+      "source_ids": [
+        "lau_financial_aid_grad",
+        "lau_catalog_grad_rules",
+        "lau_graduate_applicants"
+      ]
+    },
+    "graduate_research_scholarship": {
+      "description": "Distinguished students may pursue a master’s degree with tuition fully waived for two years.",
+      "deadline": "2026-03-31",
+      "source_ids": [
+        "lau_financial_aid_grad",
+        "lau_graduate_research_scholarship"
+      ]
+    },
+    "grants": {
+      "description": "Grants cover part of tuition and are awarded on the basis of financial need.",
+      "source_ids": [
+        "lau_financial_aid_grad"
+      ]
+    },
+    "loans": {
+      "description": "LAU maintains a revolving loan fund as part of the graduate financial aid program.",
+      "source_ids": [
+        "lau_financial_aid_grad"
+      ]
+    },
+    "mepi_tlg_program": {
+      "description": "Tomorrow’s Leaders Graduate (TLG) program supports students with excellent academic records and demonstrated financial need to earn a master’s degree.",
+      "source_ids": [
+        "lau_financial_aid_grad"
+      ]
+    },
+    "notes": [
+      "Graduate assistantships are not available for online programs.",
+      "The financial-aid page also mentions U.S. Federal Aid and student employment as supporting options."
+    ]
+  },
+  "programs_missing_tuition": [],
+  "fields_updated_in_programs": [
+    "tuition"
+  ],
+  "fields_intentionally_kept_null": [
+    "additional_fees",
+    "deadlines",
+    "scholarships",
+    "financial_aid",
+    "payment_plans",
+    "admission_requirements",
+    "required_documents",
+    "gre_requirement",
+    "gmat_requirement",
+    "english_requirement",
+    "portfolio_requirement",
+    "interview_requirement",
+    "experience_requirement",
+    "accreditation"
+  ],
+  "manual_review_items": [
+    "Payment plans/installment terms were not found on the official graduate pages reviewed.",
+    "Graduate certificate and out-of-scope professional tuition rows were observed on the fees page but were not mapped into the in-scope inventory.",
+    "Track-level tuition overrides were not needed for the current 33 in-scope master’s records."
+  ]
+}

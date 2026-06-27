@@ -1,0 +1,3829 @@
+{
+  "date_accessed": "2026-06-26",
+  "validation": {
+    "files_checked": [
+      {
+        "file": "programs.json",
+        "valid": true,
+        "type": "array",
+        "count": 25
+      },
+      {
+        "file": "fas_programs.json",
+        "valid": true,
+        "type": "array",
+        "count": 26
+      },
+      {
+        "file": "fhs_programs.json",
+        "valid": true,
+        "type": "array",
+        "count": 3
+      },
+      {
+        "file": "interfaculty_programs.json",
+        "valid": true,
+        "type": "array",
+        "count": 5
+      },
+      {
+        "file": "medicine_programs.json",
+        "valid": true,
+        "type": "array",
+        "count": 7
+      },
+      {
+        "file": "nursing_programs.json",
+        "valid": true,
+        "type": "array",
+        "count": 2
+      },
+      {
+        "file": "fafs_programs.json",
+        "valid": true,
+        "type": "array",
+        "count": 0
+      },
+      {
+        "file": "sources.json",
+        "valid": true,
+        "type": "array",
+        "count": 32
+      },
+      {
+        "file": "university.json",
+        "valid": true,
+        "type": "object",
+        "count": null
+      }
+    ],
+    "invalid_json_files": [],
+    "discovery_report_checked": {
+      "file": "discovery_report.md",
+      "status": "not_json",
+      "note": "Markdown file inspected for staleness only"
+    }
+  },
+  "schema_reference": {
+    "program_schema_fields": [
+      "id",
+      "faculty",
+      "department",
+      "major_category",
+      "major",
+      "degree_type",
+      "official_degree_name",
+      "thesis_or_non_thesis",
+      "concentrations_or_tracks",
+      "credits",
+      "duration",
+      "language",
+      "delivery_mode",
+      "program_description",
+      "admission_requirements",
+      "required_documents",
+      "gre_requirement",
+      "gmat_requirement",
+      "english_requirement",
+      "portfolio_requirement",
+      "interview_requirement",
+      "experience_requirement",
+      "tuition",
+      "additional_fees",
+      "deadlines",
+      "scholarships",
+      "financial_aid",
+      "payment_plans",
+      "accreditation",
+      "official_program_url",
+      "sources",
+      "notes"
+    ],
+    "source_schema_fields": [
+      "source_id",
+      "page_title",
+      "url",
+      "date_accessed"
+    ]
+  },
+  "schema_consistency": [
+    {
+      "file": "programs.json",
+      "recordCount": 25,
+      "missingFields": [
+        {
+          "index": 2,
+          "id": "cee-me-civil",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 3,
+          "id": "cee-me-ewre",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 5,
+          "id": "cee-phd-civil",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 6,
+          "id": "cee-phd-ewre",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 7,
+          "id": "chen-me",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 8,
+          "id": "ece-me",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 9,
+          "id": "ece-phd",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 10,
+          "id": "iem-mem",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 11,
+          "id": "me-mechanical",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 12,
+          "id": "me-applied-energy",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 13,
+          "id": "me-energy-studies",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 15,
+          "id": "me-phd",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 16,
+          "id": "soad-mupp",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 17,
+          "id": "soad-mud",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 18,
+          "id": "soad-ms-environmental-sciences",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 20,
+          "id": "osb-mhrm",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 21,
+          "id": "osb-msba",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 22,
+          "id": "osb-mfin",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 23,
+          "id": "osb-mba-online",
+          "missing": [
+            "notes"
+          ]
+        },
+        {
+          "index": 24,
+          "id": "fas-gpcs",
+          "missing": [
+            "notes"
+          ]
+        }
+      ],
+      "extraFields": [],
+      "typeMismatches": [],
+      "fieldOrderIssues": [
+        {
+          "index": 2,
+          "id": "cee-me-civil",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 3,
+          "id": "cee-me-ewre",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 5,
+          "id": "cee-phd-civil",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 6,
+          "id": "cee-phd-ewre",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 7,
+          "id": "chen-me",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 8,
+          "id": "ece-me",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 9,
+          "id": "ece-phd",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 10,
+          "id": "iem-mem",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 11,
+          "id": "me-mechanical",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 12,
+          "id": "me-applied-energy",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 13,
+          "id": "me-energy-studies",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 15,
+          "id": "me-phd",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 16,
+          "id": "soad-mupp",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 17,
+          "id": "soad-mud",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 18,
+          "id": "soad-ms-environmental-sciences",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 20,
+          "id": "osb-mhrm",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 21,
+          "id": "osb-msba",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 22,
+          "id": "osb-mfin",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 23,
+          "id": "osb-mba-online",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        },
+        {
+          "index": 24,
+          "id": "fas-gpcs",
+          "keys": [
+            "id",
+            "faculty",
+            "department",
+            "major_category",
+            "major",
+            "degree_type",
+            "official_degree_name",
+            "thesis_or_non_thesis",
+            "concentrations_or_tracks",
+            "credits",
+            "duration",
+            "language",
+            "delivery_mode",
+            "program_description",
+            "admission_requirements",
+            "required_documents",
+            "gre_requirement",
+            "gmat_requirement",
+            "english_requirement",
+            "portfolio_requirement",
+            "interview_requirement",
+            "experience_requirement",
+            "tuition",
+            "additional_fees",
+            "deadlines",
+            "scholarships",
+            "financial_aid",
+            "payment_plans",
+            "accreditation",
+            "official_program_url",
+            "sources"
+          ]
+        }
+      ],
+      "sourceSchemaIssues": []
+    },
+    {
+      "file": "fas_programs.json",
+      "recordCount": 26,
+      "missingFields": [],
+      "extraFields": [],
+      "typeMismatches": [],
+      "fieldOrderIssues": [],
+      "sourceSchemaIssues": []
+    },
+    {
+      "file": "fhs_programs.json",
+      "recordCount": 3,
+      "missingFields": [],
+      "extraFields": [],
+      "typeMismatches": [],
+      "fieldOrderIssues": [],
+      "sourceSchemaIssues": []
+    },
+    {
+      "file": "interfaculty_programs.json",
+      "recordCount": 5,
+      "missingFields": [],
+      "extraFields": [],
+      "typeMismatches": [],
+      "fieldOrderIssues": [],
+      "sourceSchemaIssues": []
+    },
+    {
+      "file": "medicine_programs.json",
+      "recordCount": 7,
+      "missingFields": [],
+      "extraFields": [],
+      "typeMismatches": [],
+      "fieldOrderIssues": [],
+      "sourceSchemaIssues": []
+    },
+    {
+      "file": "nursing_programs.json",
+      "recordCount": 2,
+      "missingFields": [],
+      "extraFields": [],
+      "typeMismatches": [],
+      "fieldOrderIssues": [],
+      "sourceSchemaIssues": []
+    },
+    {
+      "file": "fafs_programs.json",
+      "recordCount": 0,
+      "missingFields": [],
+      "extraFields": [],
+      "typeMismatches": [],
+      "fieldOrderIssues": [],
+      "sourceSchemaIssues": []
+    }
+  ],
+  "inventory_summary": {
+    "unique_program_records": 63,
+    "total_program_rows_across_files": 68,
+    "faculties": [
+      {
+        "faculty": "Maroun Semaan Faculty of Engineering and Architecture",
+        "MASTER": 14,
+        "PHD": 5,
+        "total": 19,
+        "degree_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences"
+        ],
+        "official_degree_names": [
+          "Master of Science in Biomedical Engineering",
+          "Doctor of Philosophy in Biomedical Engineering",
+          "Master of Engineering in Civil Engineering",
+          "Master of Engineering in Environmental & Water Resources Engineering",
+          "Master of Science in Environmental Technology",
+          "Ph.D. in Civil Engineering",
+          "PhD in Environmental & Water Resources Engineering",
+          "Master of Engineering in Chemical Engineering",
+          "Master of Engineering in Electrical and Computer Engineering",
+          "Doctor of Philosophy in Electrical and Computer Engineering",
+          "Master degree in Engineering Management (MEM)",
+          "Master of Engineering major Mechanical Engineering",
+          "Master of Mechanical Engineering major in Applied Energy",
+          "Master of Science in Energy Studies",
+          "Master of Engineering dual degree in Engineering Management & Energy Studies",
+          "Doctor of Philosophy (Ph.D.) in Mechanical Engineering",
+          "Urban Planning and Policy",
+          "Urban Design",
+          "Interfaculty Master of Science in Environmental Sciences, with a major in Ecosystem Management"
+        ]
+      },
+      {
+        "faculty": "Faculty of Health Sciences",
+        "MASTER": 4,
+        "PHD": 0,
+        "total": 4,
+        "degree_ids": [
+          "fhs-gphp",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl"
+        ],
+        "official_degree_names": [
+          null,
+          "Master of Public Health",
+          "Master of Science in Environmental Sciences",
+          "Executive Master in Health Care Leadership (EMHCL)"
+        ]
+      },
+      {
+        "faculty": "Suliman S. Olayan School of Business",
+        "MASTER": 4,
+        "PHD": 0,
+        "total": 4,
+        "degree_ids": [
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online"
+        ],
+        "official_degree_names": [
+          "Master's in Human Resource Management",
+          "Master's of Science in Business Analytics",
+          "Master's in Finance",
+          "MBA Online"
+        ]
+      },
+      {
+        "faculty": "Faculty of Arts and Sciences",
+        "MASTER": 23,
+        "PHD": 4,
+        "total": 27,
+        "degree_ids": [
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating"
+        ],
+        "official_degree_names": [
+          "Master’s Degree in Computational Science",
+          "Master's Degree in Computational Science",
+          "MA - Anthropology",
+          "MA - Sociology",
+          "MA - Media Studies",
+          "Master of Arts in Political Studies",
+          "Master of Arts in Public Administration",
+          "Master of Arts in Public Policy and International Affairs",
+          "MA in Arabic Language and Literature",
+          "PhD in Arabic Language and Literature",
+          "MA in English Language",
+          "MA in English Literature",
+          "Master of Arts in Arab and Middle Eastern History",
+          "PhD in Arab & Middle Eastern History",
+          "Master of Arts in Archaeology",
+          "M.A. in Philosophy",
+          "Master of Arts in Psychology",
+          "Master of Arts in Economics",
+          "Master of Arts in Financial Economics",
+          "Master of Science in Biology",
+          "Doctor of Philosophy in Cell and Molecular Biology",
+          "Master of Science in Chemistry",
+          "Master of Science in Geology",
+          "Master of Science in Computer Science",
+          "Master of Science in Mathematics",
+          "PhD in Mathematics",
+          "Master of Arts in Art History and Curating"
+        ]
+      },
+      {
+        "faculty": "Faculty of Medicine",
+        "MASTER": 6,
+        "PHD": 1,
+        "total": 7,
+        "degree_ids": [
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd"
+        ],
+        "official_degree_names": [
+          "Master of Science in Biochemistry",
+          "Master of Science in Human Morphology and Cell Biology",
+          "Master of Science in Neuroscience",
+          "Master of Science in Physiology",
+          "Master of Science in Microbiology and Immunology",
+          "Master of Science in Pharmacology and Therapeutics",
+          "Doctor of Philosophy in Biomedical Sciences"
+        ]
+      },
+      {
+        "faculty": "Rafic Hariri School of Nursing",
+        "MASTER": 1,
+        "PHD": 1,
+        "total": 2,
+        "degree_ids": [
+          "hson-msn",
+          "hson-phd"
+        ],
+        "official_degree_names": [
+          "Master of Science in Nursing",
+          "Doctor of Philosophy in Nursing Science"
+        ]
+      }
+    ],
+    "target_faculty_buckets": 7,
+    "faculties_with_records": 6
+  },
+  "null_analysis": {
+    "field_stats": [
+      {
+        "field": "id",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "faculty",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "department",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "major_category",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "major",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "degree_type",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "official_degree_name",
+        "total": 63,
+        "populated": 62,
+        "null": 1,
+        "affected_program_ids": [
+          "fhs-gphp"
+        ],
+        "null_percentage": 1.6
+      },
+      {
+        "field": "thesis_or_non_thesis",
+        "total": 63,
+        "populated": 27,
+        "null": 36,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-histarc-phd-history",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fhs-mph",
+          "fhs-emhcl"
+        ],
+        "null_percentage": 57.1
+      },
+      {
+        "field": "concentrations_or_tracks",
+        "total": 63,
+        "populated": 11,
+        "null": 52,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-phd",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-phd",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "hson-phd"
+        ],
+        "null_percentage": 82.5
+      },
+      {
+        "field": "credits",
+        "total": 63,
+        "populated": 23,
+        "null": 40,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "fas-gpcs",
+          "fas-soam-anth",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-histarc-phd-history",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fhs-emhcl",
+          "hson-msn"
+        ],
+        "null_percentage": 63.5
+      },
+      {
+        "field": "duration",
+        "total": 63,
+        "populated": 6,
+        "null": 57,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-emhcl",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "hson-msn"
+        ],
+        "null_percentage": 90.5
+      },
+      {
+        "field": "language",
+        "total": 63,
+        "populated": 39,
+        "null": 24,
+        "affected_program_ids": [
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-emhcl"
+        ],
+        "null_percentage": 38.1
+      },
+      {
+        "field": "delivery_mode",
+        "total": 63,
+        "populated": 2,
+        "null": 61,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 96.8
+      },
+      {
+        "field": "program_description",
+        "total": 63,
+        "populated": 37,
+        "null": 26,
+        "affected_program_ids": [
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating"
+        ],
+        "null_percentage": 41.3
+      },
+      {
+        "field": "admission_requirements",
+        "total": 63,
+        "populated": 6,
+        "null": 57,
+        "affected_program_ids": [
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-msba",
+          "osb-mfin",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 90.5
+      },
+      {
+        "field": "required_documents",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "gre_requirement",
+        "total": 63,
+        "populated": 2,
+        "null": 61,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 96.8
+      },
+      {
+        "field": "gmat_requirement",
+        "total": 63,
+        "populated": 1,
+        "null": 62,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 98.4
+      },
+      {
+        "field": "english_requirement",
+        "total": 63,
+        "populated": 36,
+        "null": 27,
+        "affected_program_ids": [
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-emhcl"
+        ],
+        "null_percentage": 42.9
+      },
+      {
+        "field": "portfolio_requirement",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "interview_requirement",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "experience_requirement",
+        "total": 63,
+        "populated": 2,
+        "null": 61,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-msba",
+          "osb-mfin",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 96.8
+      },
+      {
+        "field": "tuition",
+        "total": 63,
+        "populated": 1,
+        "null": 62,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 98.4
+      },
+      {
+        "field": "additional_fees",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "deadlines",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "scholarships",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "financial_aid",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "payment_plans",
+        "total": 63,
+        "populated": 0,
+        "null": 63,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "fhs-gphp",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 100
+      },
+      {
+        "field": "accreditation",
+        "total": 63,
+        "populated": 1,
+        "null": 62,
+        "affected_program_ids": [
+          "bmen-ms",
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-ms-et",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-dual-degree-em-es",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-chemistry-ms",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd",
+          "fas-faah-ma-art-curating",
+          "fhs-mph",
+          "fhs-ms-environmental-sciences",
+          "fhs-emhcl",
+          "dbmg-ms",
+          "dacp-ms-hmcb",
+          "dacp-ms-neuroscience",
+          "dacp-ms-physiology",
+          "epim-ms",
+          "pharm-ms",
+          "fm-dbms-phd",
+          "hson-msn",
+          "hson-phd"
+        ],
+        "null_percentage": 98.4
+      },
+      {
+        "field": "official_program_url",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "sources",
+        "total": 63,
+        "populated": 63,
+        "null": 0,
+        "affected_program_ids": [],
+        "null_percentage": 0
+      },
+      {
+        "field": "notes",
+        "total": 63,
+        "populated": 18,
+        "null": 45,
+        "affected_program_ids": [
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd"
+        ],
+        "null_percentage": 71.4
+      }
+    ],
+    "critical_missing_fields": [
+      {
+        "field": "official_degree_name",
+        "affected_program_ids": [
+          "fhs-gphp"
+        ]
+      },
+      {
+        "field": "notes",
+        "affected_program_ids": [
+          "bmen-phd",
+          "cee-me-civil",
+          "cee-me-ewre",
+          "cee-phd-civil",
+          "cee-phd-ewre",
+          "chen-me",
+          "ece-me",
+          "ece-phd",
+          "iem-mem",
+          "me-mechanical",
+          "me-applied-energy",
+          "me-energy-studies",
+          "me-phd",
+          "soad-mupp",
+          "soad-mud",
+          "soad-ms-environmental-sciences",
+          "osb-mhrm",
+          "osb-msba",
+          "osb-mfin",
+          "osb-mba-online",
+          "fas-gpcs",
+          "fas-gpcs-ms",
+          "fas-soam-anth",
+          "fas-soam-soc",
+          "fas-soam-media",
+          "fas-pspa-pols",
+          "fas-pspa-puba",
+          "fas-pspa-ppia",
+          "fas-arabic-ma",
+          "fas-arabic-phd",
+          "fas-english-ma-lang",
+          "fas-english-ma-lit",
+          "fas-histarc-ma-history",
+          "fas-histarc-phd-history",
+          "fas-histarc-ma-archaeology",
+          "fas-philosophy-ma",
+          "fas-psychology-ma",
+          "fas-econ-ma",
+          "fas-econ-mfe",
+          "fas-biology-ms",
+          "fas-biology-phd",
+          "fas-earthsciences-ms",
+          "fas-cs-ms",
+          "fas-math-ms",
+          "fas-math-phd"
+        ]
+      }
+    ]
+  },
+  "null_classification": {
+    "program_specific": [
+      "credits",
+      "duration",
+      "thesis_or_non_thesis",
+      "concentrations_or_tracks",
+      "program_description",
+      "delivery_mode",
+      "accreditation",
+      "language"
+    ],
+    "university_wide_shared": [
+      "tuition",
+      "additional_fees",
+      "required_documents",
+      "english_requirement",
+      "deadlines",
+      "scholarships",
+      "financial_aid",
+      "payment_plans"
+    ],
+    "faculty_level_mixed": [
+      "admission_requirements",
+      "gre_requirement",
+      "gmat_requirement",
+      "portfolio_requirement",
+      "interview_requirement",
+      "experience_requirement"
+    ]
+  },
+  "source_gap_analysis": {
+    "captured_source_urls_by_category": {
+      "program_page": [
+        {
+          "url": "https://join.aub.edu.lb/Apply/",
+          "source_ids": [
+            "aub_application_management"
+          ],
+          "page_titles": [
+            "Application Management"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/arabic/Pages/program-learning-outcomes-for-degrees-granted.aspx",
+          "source_ids": [
+            "aub_fas_arabic_plo"
+          ],
+          "page_titles": [
+            "Program Learning Outcomes for Degrees Granted"
+          ],
+          "origins": [
+            "fas-arabic-ma",
+            "fas-arabic-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/biology/Pages/biologydept.aspx",
+          "source_ids": [
+            "aub_fas_biology_dept"
+          ],
+          "page_titles": [
+            "Department of Biology"
+          ],
+          "origins": [
+            "fas-biology-ms",
+            "fas-biology-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/chemistry/Pages/AboutTheProgram.aspx",
+          "source_ids": [
+            "aub_fas_chemistry_about_program"
+          ],
+          "page_titles": [
+            "About The Program"
+          ],
+          "origins": [
+            "fas-chemistry-ms"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx",
+          "source_ids": [
+            "aub_fas_cs_graduate_programs"
+          ],
+          "page_titles": [
+            "Graduate Programs"
+          ],
+          "origins": [
+            "fas-cs-ms"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/earthsciences/Pages/graduate.aspx",
+          "source_ids": [
+            "aub_fas_earthsciences_graduate"
+          ],
+          "page_titles": [
+            "Graduate Program"
+          ],
+          "origins": [
+            "fas-earthsciences-ms"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/economics/Pages/graduate_programs.aspx",
+          "source_ids": [
+            "aub_fas_economics_graduate_programs"
+          ],
+          "page_titles": [
+            "Graduate Programs in Economics"
+          ],
+          "origins": [
+            "fas-econ-ma",
+            "fas-econ-mfe"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/english/Pages/graduatestudies.aspx",
+          "source_ids": [
+            "aub_fas_english_graduate_studies"
+          ],
+          "page_titles": [
+            "Graduate Studies"
+          ],
+          "origins": [
+            "fas-english-ma-lang",
+            "fas-english-ma-lit"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/faah/Pages/ma-art-curating.aspx",
+          "source_ids": [
+            "aub_fas_faah_ma_art_curating"
+          ],
+          "page_titles": [
+            "Masters in Art History and Curating"
+          ],
+          "origins": [
+            "fas-faah-ma-art-curating"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/gpcs/Pages/default.aspx",
+          "source_ids": [
+            "aub_fas_gpcs"
+          ],
+          "page_titles": [
+            "Graduate Program in Computational Science (GPCS)"
+          ],
+          "origins": [
+            "sources.json",
+            "fas-gpcs",
+            "fas-gpcs-ms"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/histarc/Pages/Archaeology-Program.aspx",
+          "source_ids": [
+            "aub_fas_histarc_archaeology_program"
+          ],
+          "page_titles": [
+            "Archaeology Program"
+          ],
+          "origins": [
+            "fas-histarc-ma-archaeology"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/histarc/Pages/History-Program.aspx",
+          "source_ids": [
+            "aub_fas_histarc_history_program"
+          ],
+          "page_titles": [
+            "History Program"
+          ],
+          "origins": [
+            "fas-histarc-ma-history",
+            "fas-histarc-phd-history"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/histarc/Pages/MA-in-Arab-%26-Middle-Eastern-History.aspx",
+          "source_ids": [
+            "aub_fas_histarc_history_ma"
+          ],
+          "page_titles": [
+            "MA in Arab & Middle Eastern History"
+          ],
+          "origins": [
+            "fas-histarc-ma-history"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/histarc/Pages/MA-in-Archaeology.aspx",
+          "source_ids": [
+            "aub_fas_histarc_archaeology_ma"
+          ],
+          "page_titles": [
+            "MA in Archaeology"
+          ],
+          "origins": [
+            "fas-histarc-ma-archaeology"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/histarc/Pages/PhD-in-Arab-%26-Middle-Eastern-History.aspx",
+          "source_ids": [
+            "aub_fas_histarc_history_phd"
+          ],
+          "page_titles": [
+            "PhD in Arab & Middle Eastern History"
+          ],
+          "origins": [
+            "fas-histarc-phd-history"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/math/Pages/programs.aspx",
+          "source_ids": [
+            "aub_fas_math_programs"
+          ],
+          "page_titles": [
+            "Programs"
+          ],
+          "origins": [
+            "fas-math-ms",
+            "fas-math-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/philosophy/Pages/graduate.aspx",
+          "source_ids": [
+            "aub_fas_philosophy_graduate"
+          ],
+          "page_titles": [
+            "Graduate Studies"
+          ],
+          "origins": [
+            "fas-philosophy-ma"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/pspa/Pages/programs.aspx",
+          "source_ids": [
+            "aub_fas_pspa_programs"
+          ],
+          "page_titles": [
+            "Programs"
+          ],
+          "origins": [
+            "fas-pspa-pols",
+            "fas-pspa-puba",
+            "fas-pspa-ppia"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/psychology/Pages/Master-of-Arts-in-Psychology.aspx",
+          "source_ids": [
+            "aub_fas_psychology_ma"
+          ],
+          "page_titles": [
+            "Master of Arts in Psychology"
+          ],
+          "origins": [
+            "fas-psychology-ma"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/soam/Pages/Graduateprograms.aspx",
+          "source_ids": [
+            "aub_fas_soam_graduate_programs"
+          ],
+          "page_titles": [
+            "Graduate Programs"
+          ],
+          "origins": [
+            "fas-soam-anth",
+            "fas-soam-soc",
+            "fas-soam-media"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fhs/Landing/Health-Care-Leadership.html",
+          "source_ids": [
+            "aub_fhs_emhcl"
+          ],
+          "page_titles": [
+            "Executive Master in Healthcare Leadership"
+          ],
+          "origins": [
+            "fhs-emhcl"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fhs/Pages/gphp.aspx",
+          "source_ids": [
+            "aub_fhs_gphp"
+          ],
+          "page_titles": [
+            "Graduate Public Health Program"
+          ],
+          "origins": [
+            "sources.json",
+            "fhs-gphp"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fhs/Pages/hmp_dep.aspx",
+          "source_ids": [
+            "aub_fhs_hmp_dep"
+          ],
+          "page_titles": [
+            "Health Management and Policy Department"
+          ],
+          "origins": [
+            "fhs-emhcl"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fhs/Pages/mph.aspx",
+          "source_ids": [
+            "aub_fhs_mph"
+          ],
+          "page_titles": [
+            "Master of Public Health"
+          ],
+          "origins": [
+            "fhs-mph"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fhs/Pages/ms_environmental_sciences.aspx",
+          "source_ids": [
+            "aub_fhs_ms_environmental_sciences"
+          ],
+          "page_titles": [
+            "Master of Science in Environmental Sciences"
+          ],
+          "origins": [
+            "fhs-ms-environmental-sciences"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fm/DACP/Pages/MS-Programs.aspx",
+          "source_ids": [
+            "aub_fm_dacp_ms_programs"
+          ],
+          "page_titles": [
+            "MS Programs"
+          ],
+          "origins": [
+            "dacp-ms-hmcb",
+            "dacp-ms-neuroscience",
+            "dacp-ms-physiology"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fm/DACP/Pages/PhD-Program.aspx",
+          "source_ids": [
+            "aub_fm_dacp_phd_program"
+          ],
+          "page_titles": [
+            "PhD Program"
+          ],
+          "origins": [
+            "fm-dbms-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fm/DBMG/Pages/GraduateProgram.aspx",
+          "source_ids": [
+            "aub_fm_dbmg_graduate_program"
+          ],
+          "page_titles": [
+            "Graduate Program"
+          ],
+          "origins": [
+            "dbmg-ms"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fm/EPIM/Pages/MS-Program.aspx",
+          "source_ids": [
+            "aub_fm_epim_ms_program"
+          ],
+          "page_titles": [
+            "MS Program"
+          ],
+          "origins": [
+            "epim-ms"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/Pages/MS-Program.aspx",
+          "source_ids": [
+            "aub_fm_pharm_ms_program"
+          ],
+          "page_titles": [
+            "Masters Program"
+          ],
+          "origins": [
+            "pharm-ms"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/ard/Pages/default.aspx",
+          "source_ids": [
+            "aub_soad"
+          ],
+          "page_titles": [
+            "School of Architecture and Design"
+          ],
+          "origins": [
+            "sources.json",
+            "soad-mupp",
+            "soad-mud",
+            "soad-ms-environmental-sciences"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/BME/Pages/default.aspx",
+          "source_ids": [
+            "aub_bmen"
+          ],
+          "page_titles": [
+            "Biomedical Engineering Program"
+          ],
+          "origins": [
+            "sources.json",
+            "bmen-ms",
+            "bmen-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/cee/Pages/default.aspx",
+          "source_ids": [
+            "aub_cee"
+          ],
+          "page_titles": [
+            "Civil and Environmental Engineering"
+          ],
+          "origins": [
+            "sources.json",
+            "cee-me-civil",
+            "cee-me-ewre",
+            "cee-ms-et",
+            "cee-phd-civil",
+            "cee-phd-ewre"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/cpe/Pages/default.aspx",
+          "source_ids": [
+            "aub_chen"
+          ],
+          "page_titles": [
+            "Baha and Walid Bassatne Department of Chemical Engineering and Advanced Energy"
+          ],
+          "origins": [
+            "sources.json",
+            "chen-me"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/ece/Pages/default.aspx",
+          "source_ids": [
+            "aub_ece"
+          ],
+          "page_titles": [
+            "Electrical and Computer Engineering"
+          ],
+          "origins": [
+            "sources.json",
+            "ece-me",
+            "ece-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/iem/Pages/default.aspx",
+          "source_ids": [
+            "aub_iem"
+          ],
+          "page_titles": [
+            "Industrial Engineering and Management"
+          ],
+          "origins": [
+            "sources.json",
+            "iem-mem"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/me/Pages/default.aspx",
+          "source_ids": [
+            "aub_me"
+          ],
+          "page_titles": [
+            "Mechanical Engineering"
+          ],
+          "origins": [
+            "sources.json",
+            "me-mechanical",
+            "me-applied-energy",
+            "me-energy-studies",
+            "me-dual-degree-em-es",
+            "me-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/MFIN/Pages/default.aspx",
+          "source_ids": [
+            "aub_osb_mfin"
+          ],
+          "page_titles": [
+            "Master's in Finance Leading the future of finance"
+          ],
+          "origins": [
+            "sources.json",
+            "osb-mfin"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/MHRM/Pages/default.aspx",
+          "source_ids": [
+            "aub_osb_mhrm"
+          ],
+          "page_titles": [
+            "Master's in Human Resource Management Developing and managing leaders of the future"
+          ],
+          "origins": [
+            "sources.json",
+            "osb-mhrm"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/MSBA/Pages/default.aspx",
+          "source_ids": [
+            "aub_osb_msba"
+          ],
+          "page_titles": [
+            "MSBA, the leading Business Analytics program in the MENA region Where business and big data meet"
+          ],
+          "origins": [
+            "sources.json",
+            "osb-msba"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/OMBA/Pages/Admission.aspx",
+          "source_ids": [
+            "aub_osb_omba_admissions"
+          ],
+          "page_titles": [
+            "Admissions and Fees MBA Online"
+          ],
+          "origins": [
+            "sources.json",
+            "osb-mba-online"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/OMBA/Pages/default.aspx",
+          "source_ids": [
+            "aub_osb_omba"
+          ],
+          "page_titles": [
+            "MBA Online Suliman S. Olayan School of Business"
+          ],
+          "origins": [
+            "sources.json",
+            "osb-mba-online"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/OMBA/Pages/Learning.aspx",
+          "source_ids": [
+            "aub_osb_omba_learning"
+          ],
+          "page_titles": [
+            "The Learning MBA Online"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/OMBA/Pages/program.aspx",
+          "source_ids": [
+            "aub_osb_omba_program"
+          ],
+          "page_titles": [
+            "The Program MBA Online"
+          ],
+          "origins": [
+            "sources.json",
+            "osb-mba-online"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/Pages/embaprograms.aspx",
+          "source_ids": [
+            "aub_osb_emba"
+          ],
+          "page_titles": [
+            "Executive MBA Programs"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/Pages/SpecializedMasters.aspx",
+          "source_ids": [
+            "aub_osb_specialized_masters"
+          ],
+          "page_titles": [
+            "Specialized Master's"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/registrar/Pages/default.aspx",
+          "source_ids": [
+            "aub_registrar"
+          ],
+          "page_titles": [
+            "Office of the Registrar"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        }
+      ],
+      "faculty_page": [
+        {
+          "url": "https://www.aub.edu.lb/fafs/Pages/default.aspx",
+          "source_ids": [
+            "aub_fafs_home"
+          ],
+          "page_titles": [
+            "The Faculty of Agricultural and Food Sciences"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fas/Pages/default.aspx",
+          "source_ids": [
+            "aub_fas_home"
+          ],
+          "page_titles": [
+            "Faculty of Arts and Sciences (FAS)"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fhs/Pages/default.aspx",
+          "source_ids": [
+            "aub_fhs_home"
+          ],
+          "page_titles": [
+            "Faculty of Health Sciences"
+          ],
+          "origins": [
+            "sources.json",
+            "fhs-gphp"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/hson/Pages/default.aspx",
+          "source_ids": [
+            "aub_hson_home"
+          ],
+          "page_titles": [
+            "Rafic Hariri School of Nursing"
+          ],
+          "origins": [
+            "hson-msn",
+            "hson-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/msfea/Pages/default.aspx",
+          "source_ids": [
+            "aub_msfea_home"
+          ],
+          "page_titles": [
+            "Maroun Semaan Faculty of Engineering and Architecture"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/osb/Pages/default.aspx",
+          "source_ids": [
+            "aub_osb_home"
+          ],
+          "page_titles": [
+            "Welcome to the Suliman S. Olayan School of Business"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        }
+      ],
+      "handbook_pdf": [
+        {
+          "url": "https://www.aub.edu.lb/fhs/Documents/degrees_programs/grad_mph.pdf",
+          "source_ids": [
+            "aub_fhs_mph_brochure"
+          ],
+          "page_titles": [
+            "Master of Public Health Brochure"
+          ],
+          "origins": [
+            "fhs-mph"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fhs/Documents/degrees_programs/grad_msenvironmentalsciences.pdf",
+          "source_ids": [
+            "aub_fhs_ms_environmental_sciences_brochure"
+          ],
+          "page_titles": [
+            "Master of Science in Environmental Sciences Brochure"
+          ],
+          "origins": [
+            "fhs-ms-environmental-sciences"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/fm/PharmacologyandToxicology/PublishingImages/Pages/PhD-Program/fm-aubmc.pdf",
+          "source_ids": [
+            "aub_fm_aubmc_catalogue"
+          ],
+          "page_titles": [
+            "Graduate Catalogue 2017–18"
+          ],
+          "origins": [
+            "dbmg-ms",
+            "dacp-ms-hmcb",
+            "dacp-ms-neuroscience",
+            "dacp-ms-physiology",
+            "epim-ms",
+            "pharm-ms",
+            "fm-dbms-phd"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/hson/Documents/MSN-handbook.pdf",
+          "source_ids": [
+            "aub_hson_msn_handbook"
+          ],
+          "page_titles": [
+            "MSN Graduate Student Handbook 2025-2026"
+          ],
+          "origins": [
+            "hson-msn"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/hson/Documents/PhD-handbook-25-26.pdf",
+          "source_ids": [
+            "aub_hson_phd_handbook"
+          ],
+          "page_titles": [
+            "PhD Student Handbook 2025-26"
+          ],
+          "origins": [
+            "hson-phd"
+          ]
+        }
+      ],
+      "admissions_page": [
+        {
+          "url": "https://www.aub.edu.lb/admissions/applications/Pages/applications.aspx",
+          "source_ids": [
+            "aub_applications"
+          ],
+          "page_titles": [
+            "Applications - AUB - Office of Admissions - American University of Beirut - Lebanon"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/admissions/Pages/default.aspx",
+          "source_ids": [
+            "aub_admissions_home"
+          ],
+          "page_titles": [
+            "Office of Admissions"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/admissions/Pages/EnglishRequirements.aspx",
+          "source_ids": [
+            "aub_english_requirements"
+          ],
+          "page_titles": [
+            "Check your English Language Requirements"
+          ],
+          "origins": [
+            "sources.json",
+            "bmen-ms",
+            "osb-mba-online"
+          ]
+        }
+      ],
+      "tuition_fees_page": [
+        {
+          "url": "https://www.aub.edu.lb/comptroller/Pages/Student.aspx",
+          "source_ids": [
+            "aub_student_tuition"
+          ],
+          "page_titles": [
+            "Student"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        }
+      ],
+      "financial_aid_page": [
+        {
+          "url": "https://www.aub.edu.lb/faid/Pages/default.aspx",
+          "source_ids": [
+            "aub_financial_aid"
+          ],
+          "page_titles": [
+            "Office of Financial Aid"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        }
+      ],
+      "scholarship_page": [
+        {
+          "url": "https://www.aub.edu.lb/faid/Pages/Scholarships.aspx",
+          "source_ids": [
+            "aub_scholarships"
+          ],
+          "page_titles": [
+            "Scholarships"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        }
+      ],
+      "catalogue_page": [
+        {
+          "url": "https://www.aub.edu.lb/Registrar/catalogue2024-25/Pages/graduate-pspa.aspx",
+          "source_ids": [
+            "aub_fas_pspa_catalogue"
+          ],
+          "page_titles": [
+            "Department of Political Studies and Public Administration (PSPA)"
+          ],
+          "origins": [
+            "fas-pspa-pols",
+            "fas-pspa-puba",
+            "fas-pspa-ppia"
+          ]
+        },
+        {
+          "url": "https://www.aub.edu.lb/Registrar/catalogue2025-26/gr/Pages/fas-dsams.aspx",
+          "source_ids": [
+            "aub_fas_soam_catalogue"
+          ],
+          "page_titles": [
+            "Department of Sociology, Anthropology, and Media Studies"
+          ],
+          "origins": [
+            "fas-soam-anth",
+            "fas-soam-soc",
+            "fas-soam-media"
+          ]
+        }
+      ],
+      "other_shared": [
+        {
+          "url": "https://www.aub.edu.lb/graduatecouncil/Pages/default.aspx",
+          "source_ids": [
+            "aub_graduate_council"
+          ],
+          "page_titles": [
+            "Graduate Council"
+          ],
+          "origins": [
+            "sources.json"
+          ]
+        }
+      ]
+    },
+    "missing_source_categories": [
+      "application_fee_page",
+      "graduate_calendar_page",
+      "assistantships_fellowships_page",
+      "faculty_specific_tuition_pages",
+      "unverified_FAFS_graduate_pages",
+      "unverified_FAS_Education_graduate_page",
+      "unverified_FAS_Physics_graduate_page"
+    ],
+    "suggested_next_source_pages": [
+      "https://www.aub.edu.lb/comptroller/Pages/Student.aspx",
+      "https://www.aub.edu.lb/graduatecouncil/Pages/default.aspx",
+      "https://www.aub.edu.lb/admissions/Pages/default.aspx",
+      "https://www.aub.edu.lb/admissions/applications/Pages/applications.aspx",
+      "https://www.aub.edu.lb/admissions/Pages/EnglishRequirements.aspx",
+      "https://www.aub.edu.lb/faid/Pages/default.aspx",
+      "https://www.aub.edu.lb/faid/Pages/Scholarships.aspx",
+      "https://www.aub.edu.lb/registrar/Pages/default.aspx",
+      "https://www.aub.edu.lb/fafs/Pages/default.aspx",
+      "https://www.aub.edu.lb/fas/Pages/departments.aspx"
+    ],
+    "notes": "The current source set already includes program pages, faculty pages, catalogue pages, handbooks, and the standard admissions/aid/tuition entry points. The remaining gap is mostly shared policy surfaces plus a few unverified faculty pages."
+  },
+  "duplicate_and_conflict_audit": {
+    "duplicate_ids_across_files": [
+      {
+        "id": "bmen-ms",
+        "files": [
+          "programs.json",
+          "interfaculty_programs.json"
+        ]
+      },
+      {
+        "id": "bmen-phd",
+        "files": [
+          "programs.json",
+          "interfaculty_programs.json"
+        ]
+      },
+      {
+        "id": "cee-ms-et",
+        "files": [
+          "programs.json",
+          "interfaculty_programs.json"
+        ]
+      },
+      {
+        "id": "soad-ms-environmental-sciences",
+        "files": [
+          "programs.json",
+          "interfaculty_programs.json"
+        ]
+      },
+      {
+        "id": "fas-gpcs",
+        "files": [
+          "programs.json",
+          "interfaculty_programs.json"
+        ]
+      }
+    ],
+    "same_program_different_ids": [
+      {
+        "key": "Faculty of Arts and Sciences|Graduate Program in Computational Science (GPCS)|Computational Science|MASTER|https://www.aub.edu.lb/fas/gpcs/Pages/default.aspx",
+        "records": [
+          {
+            "id": "fas-gpcs",
+            "official_degree_name": "Master’s Degree in Computational Science",
+            "file": "programs.json"
+          },
+          {
+            "id": "fas-gpcs-ms",
+            "official_degree_name": "Master's Degree in Computational Science",
+            "file": "fas_programs.json"
+          }
+        ]
+      }
+    ],
+    "same_source_url_different_source_ids": []
+  },
+  "report_notes": [
+    "The existing discovery_report.md is stale relative to the current JSON inventory and still reflects the earlier partial pass.",
+    "programs.json is the canonical schema reference, but 20 records omit the trailing notes key entirely.",
+    "fafs_programs.json is an empty array and contains no records to audit."
+  ],
+  "recommended_next_steps": [
+    "Complete the missing FAS inventory pages before merge, especially any remaining FAS departments that may still have unverified graduate offerings.",
+    "Use the shared university pages to fill tuition, deadlines, English requirements, financial aid, scholarships, and payment-plan fields.",
+    "Then do program-page-level enrichment for credits, thesis/non-thesis, tracks, and admissions details on the remaining null-heavy records."
+  ]
+}

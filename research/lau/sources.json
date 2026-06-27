@@ -1,0 +1,450 @@
+[
+  {
+    "source_id": "lau_home",
+    "page_title": "Lebanese American University",
+    "url": "https://www.lau.edu.lb/",
+    "date_accessed": "2026-06-27",
+    "source_type": "OTHER",
+    "notes": "Top-level university entry point with graduate, admissions, tuition, and aid links."
+  },
+  {
+    "source_id": "lau_graduate_programs",
+    "page_title": "Graduate Programs | Study at LAU | LAU",
+    "url": "https://www.lau.edu.lb/study/graduate.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_LIST",
+    "notes": "Primary graduate program listing; surfaces master's, online master's, MD, PharmD, and graduate certificates mention."
+  },
+  {
+    "source_id": "lau_gsr_home",
+    "page_title": "Graduate Studies and Research | LAU",
+    "url": "https://gsr.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "OTHER",
+    "notes": "Graduate studies and research hub; links to graduate programs and research-related pages."
+  },
+  {
+    "source_id": "lau_schools",
+    "page_title": "Schools | Study at LAU | LAU",
+    "url": "https://www.lau.edu.lb/study/schools.php",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "University schools/faculties listing used to map program families."
+  },
+  {
+    "source_id": "lau_academic_calendar",
+    "page_title": "Academic Calendar | LAU",
+    "url": "https://www.lau.edu.lb/calendar/",
+    "date_accessed": "2026-06-27",
+    "source_type": "DEADLINE",
+    "notes": "Official academic calendar with registration, payment, and deadline dates."
+  },
+  {
+    "source_id": "lau_fees_2026_2027",
+    "page_title": "Fees for 2026-2027 | LAU",
+    "url": "https://www.lau.edu.lb/fees/2026-2027/",
+    "date_accessed": "2026-06-27",
+    "source_type": "TUITION_FEES",
+    "notes": "Official fee schedule for 2026-2027; source for graduate tuition and special program pricing."
+  },
+  {
+    "source_id": "lau_graduate_applicants",
+    "page_title": "Graduate Applicants | Apply to LAU",
+    "url": "https://www.lau.edu.lb/apply/graduate.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "ADMISSIONS",
+    "notes": "Graduate admissions process, application fee, documents, English requirements, and deadlines."
+  },
+  {
+    "source_id": "lau_request_info_grad_fall_2026",
+    "page_title": "Request Information - Graduate Admissions Fall 2026 | Study at LAU | LAU",
+    "url": "https://www.lau.edu.lb/study/request-information-graduate-admissions-fall-2026.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "ADMISSIONS",
+    "notes": "Marketing/admissions contact form for fall 2026 graduate recruitment."
+  },
+  {
+    "source_id": "lau_financial_aid_grad",
+    "page_title": "Scholarship and Financial Support for Graduate Students | Need-Based Financial Aid | Apply to LAU",
+    "url": "https://www.lau.edu.lb/apply/financial-aid/graduate.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "FINANCIAL_AID",
+    "notes": "Graduate assistantships, need-based aid, grants, loans, and deadlines."
+  },
+  {
+    "source_id": "lau_graduate_research_scholarship",
+    "page_title": "Graduate Research Scholarship | LAU Research",
+    "url": "https://www.lau.edu.lb/research/grs/",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOLARSHIP",
+    "notes": "Graduate research scholarship with tuition waiver and deadline."
+  },
+  {
+    "source_id": "lau_catalog_grad_rules",
+    "page_title": "Academic Rules and Procedures | Academic Catalog 2023–2024 | LAU",
+    "url": "https://catalog.lau.edu.lb/2023-2024/graduate/academic-rules-procedures.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "CATALOG",
+    "notes": "Graduate academic rules on residency, time limit, and thesis/project requirements."
+  },
+  {
+    "source_id": "lau_ugc",
+    "page_title": "University Graduate and Research Council | Office of the Provost | LAU",
+    "url": "https://www.lau.edu.lb/about/governance/provost/people/councils-committees/ugc.php",
+    "date_accessed": "2026-06-26",
+    "source_type": "OTHER",
+    "notes": "Graduate governance page; useful for policy and escalation context."
+  },
+  {
+    "source_id": "lau_school_sard",
+    "page_title": "The LAU School of Architecture and Design",
+    "url": "https://sard.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "School home page; graduate program surfaced in the graduate listing."
+  },
+  {
+    "source_id": "lau_school_soas",
+    "page_title": "The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "School home page; graduate program hub for multiple departments and online programs."
+  },
+  {
+    "source_id": "lau_school_aksob",
+    "page_title": "The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Business school home page; programs subpage lists graduate offerings and executive certificates."
+  },
+  {
+    "source_id": "lau_school_soe",
+    "page_title": "The LAU School of Engineering",
+    "url": "https://soe.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "School home page; graduate engineering programs are listed on department program pages."
+  },
+  {
+    "source_id": "lau_school_medicine",
+    "page_title": "The LAU Gilbert and Rose-Marie Chagoury School of Medicine",
+    "url": "https://medicine.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "School home page; the public graduate listing surfaced the MD program."
+  },
+  {
+    "source_id": "lau_school_nursing",
+    "page_title": "The LAU Alice Ramez Chagoury School of Nursing",
+    "url": "https://nursing.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "School home page; graduate program pages were not yet located from the public listing pass."
+  },
+  {
+    "source_id": "lau_school_pharmacy",
+    "page_title": "The LAU School of Pharmacy",
+    "url": "https://pharmacy.lau.edu.lb/",
+    "date_accessed": "2026-06-26",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "School home page; graduate PharmD and MS programs surfaced in the graduate listing."
+  },
+  {
+    "source_id": "lau_prog_emba",
+    "page_title": "Executive MBA and Executive Certificates  |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/emba/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Executive MBA page with delivery mode, duration, credits, and executive certificate context. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_applied_economics",
+    "page_title": "Master of Arts (MA) in Applied Economics |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/ma-applied-economics/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Business school master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_mba",
+    "page_title": "Master of Business Administration (MBA) |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/mba/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Business school MBA page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_llm",
+    "page_title": "Master of Laws |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/llm/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Business school LLM page surfaced in the graduate listing. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_data_analytics",
+    "page_title": "Master of Science in Data Analytics |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/ms-data-analytics/master-of-science-in-data-analytics.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Business school master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_mshr",
+    "page_title": "Master of Science in Human Resources Management |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/mshr/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Business school master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_msl",
+    "page_title": "Master of Studies in Law (MSL) |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/msl/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Business school law-adjacent master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_mba_business_analytics",
+    "page_title": "Online MBA in Business Analytics - Business Analytics Master's Degree - LAU",
+    "url": "https://online.lau.edu.lb/programs/mba-masters-business-analytics/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page with online delivery and per-credit cost language. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_mba_global_business_admin",
+    "page_title": "Online MBA in Global Business Administration - LAU Online",
+    "url": "https://online.lau.edu.lb/programs/mba-masters-business-administration/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page with online delivery and per-credit cost language. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_mba_healthcare_mgmt",
+    "page_title": "Online MBA Master's in Healthcare Management - LAU Online",
+    "url": "https://online.lau.edu.lb/programs/mba-masters-healthcare-management/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page with online delivery and per-credit cost language. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_islamic_art",
+    "page_title": "MA in Islamic Art |  The LAU School of Architecture & Design",
+    "url": "https://sard.lau.edu.lb/academics/degrees-minors/ma-islamic-art/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Architecture and design graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_comparative_literature",
+    "page_title": "MA in Comparative Literature |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ma-comparative-literature.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_education",
+    "page_title": "MA in Education |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ma-education.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_interdisciplinary_gender_studies",
+    "page_title": "MA in Interdisciplinary Gender Studies  |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ma-interdisciplinary-gender-studies.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_international_affairs",
+    "page_title": "MA in International Affairs |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ma-international-affairs.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_migration_studies",
+    "page_title": "MA in Migration Studies |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ma-migrationstudies.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ma_multimedia_journalism",
+    "page_title": "MA in Multimedia Journalism |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ma-multimedia-journalism.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_ai_online",
+    "page_title": "MS in Applied Artificial Intelligence - Applied AI Degree - LAU",
+    "url": "https://online.lau.edu.lb/programs/ms-masters-applied-artificial-intelligence/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_biological_sciences",
+    "page_title": "MS in Biological Sciences |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ms-biological-sciences.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_computer_science",
+    "page_title": "MS in Computer Science |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ms-computer-science.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_ms_computer_science",
+    "page_title": "Online MS in Computer Science | Lebanese American University",
+    "url": "https://online.lau.edu.lb/programs/ms-masters-computer-science/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_ms_cybersecurity",
+    "page_title": "Online Masters in Cyber Security - Lebanese American University",
+    "url": "https://online.lau.edu.lb/programs/ms-cyber-security/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_data_science",
+    "page_title": "MS in Data Science |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ms-data-science.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_ms_data_science",
+    "page_title": "Online Masters in Data Science - Lebanese American University",
+    "url": "https://online.lau.edu.lb/programs/ms-data-science/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_nutrition",
+    "page_title": "MS in Nutrition |  The LAU School of Arts and Sciences",
+    "url": "https://soas.lau.edu.lb/academics/programs/ms-nutrition.php",
+    "date_accessed": "2026-06-26",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Arts and sciences graduate program page."
+  },
+  {
+    "source_id": "lau_prog_ms_civil_environmental_engineering",
+    "page_title": "MS in Civil & Environmental Engineering |  The LAU School of Engineering",
+    "url": "https://soe.lau.edu.lb/departments/civil/degree-programs/ms-civil.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Engineering graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_computer_engineering",
+    "page_title": "MS in Computer Engineering |  The LAU School of Engineering",
+    "url": "https://soe.lau.edu.lb/departments/electrical-computer/degree-programs/ms-computer.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Engineering graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_ms_engineering_management",
+    "page_title": "Online MS in Engineering Management - Lebanese American University",
+    "url": "https://online.lau.edu.lb/programs/ms-engineering-management/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_industrial_engineering_management",
+    "page_title": "MS in Industrial Engineering & Engineering Management |  The LAU School of Engineering",
+    "url": "https://soe.lau.edu.lb/departments/industrial-mechanical/degree-programs/ms-industrial.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Engineering graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_online_ms_international_construction_management",
+    "page_title": "Online M.S. International Construction Management Degree - LAU",
+    "url": "https://online.lau.edu.lb/programs/ms-masters-international-construction-management/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Online master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_ms_mechanical_engineering",
+    "page_title": "MS in Mechanical Engineering  |  The LAU School of Engineering",
+    "url": "https://soe.lau.edu.lb/departments/industrial-mechanical/degree-programs/ms-mechanical.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Engineering graduate program page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_prog_md",
+    "page_title": "MD Program | The Gilbert and Rose-Marie Chagoury School of Medicine | LAU",
+    "url": "https://medicine.lau.edu.lb/education/md/",
+    "date_accessed": "2026-06-26",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Professional doctorate page surfaced in the graduate listing."
+  },
+  {
+    "source_id": "lau_prog_pharmd",
+    "page_title": "Doctor of Pharmacy (Pharm.D.) |  The LAU School of Pharmacy",
+    "url": "https://pharmacy.lau.edu.lb/education/graduate/pharmd.php",
+    "date_accessed": "2026-06-26",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Professional doctorate page surfaced in the graduate listing."
+  },
+  {
+    "source_id": "lau_prog_ms_pharmaceutical_dev_mgmt",
+    "page_title": "M.S. Degree in Pharmaceutical Development and Management |  The LAU School of Pharmacy",
+    "url": "https://pharmacy.lau.edu.lb/education/graduate/ms-pharma.php",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Pharmacy graduate master's page. Re-checked for program enrichment on 2026-06-27."
+  },
+  {
+    "source_id": "lau_aksob_programs",
+    "page_title": "Programs of Study | The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_LIST",
+    "notes": "Official AKSOB graduate programs listing; links to all graduate offerings and executive certificates."
+  },
+  {
+    "source_id": "lau_online_home",
+    "page_title": "Lebanese American University | Flexible, 100% Online Programs",
+    "url": "https://online.lau.edu.lb/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_LIST",
+    "notes": "Official LAU Online landing page; lists online master’s programs and graduate certificates."
+  },
+  {
+    "source_id": "lau_prog_ms_finance_accounting",
+    "page_title": "MS in Finance and Accounting |  The LAU Adnan Kassar School of Business",
+    "url": "https://sb.lau.edu.lb/academics/programs/ms-finance-and-accounting/",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Business school master’s page used by the in-scope graduate inventory."
+  }
+]

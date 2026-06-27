@@ -1,0 +1,204 @@
+[
+  {
+    "id": "usj-fdsp-double-diploma-health-law",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": "Faculté de droit",
+    "major_category": "Droit et sciences politiques",
+    "major": "Droit de la santé",
+    "degree_type": null,
+    "official_degree_name": "Double Diplôme Universitaire en droit de la santé",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdsp"
+      }
+    ],
+    "notes": "Diplôme double universitaire; treated as out of scope because it is not a single Master or PhD."
+  },
+  {
+    "id": "usj-fdsp-double-master-law",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": "Faculté de droit",
+    "major_category": "Droit et sciences politiques",
+    "major": "Droit",
+    "degree_type": null,
+    "official_degree_name": "Double Diplôme de Master en droit en partenariat avec l’Université Paris-Panthéon-Assas",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdsp"
+      }
+    ],
+    "notes": "Double-degree structure; moved out of scope until later decision on treatment of dual degrees."
+  },
+  {
+    "id": "usj-fdsp-du-statistics",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": null,
+    "major_category": "Droit et sciences politiques",
+    "major": "Statistiques appliquées",
+    "degree_type": null,
+    "official_degree_name": "Diplôme universitaire de statistiques appliquées",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_school_fdsp"
+      }
+    ],
+    "notes": "University diploma, not an in-scope graduate degree."
+  },
+  {
+    "id": "usj-flsh-magis-m",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Bourses Magis M",
+    "degree_type": null,
+    "official_degree_name": "Bourses Magis M",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "Scholarship/program-support entry, not a degree program."
+  },
+  {
+    "id": "usj-admission-talf-tala",
+    "faculty": "Université Saint-Joseph de Beyrouth",
+    "department": null,
+    "major_category": "Admissions et langues",
+    "major": "TALF / TALA",
+    "degree_type": null,
+    "official_degree_name": "TALF / TALA",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_home_fr"
+      }
+    ],
+    "notes": "Language placement / admission support item, not a degree program."
+  }
+]

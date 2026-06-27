@@ -1,0 +1,177 @@
+[
+  {
+    "id": "fhs-mph",
+    "faculty": "Faculty of Health Sciences",
+    "department": "Graduate Public Health Program",
+    "major_category": "Health Sciences",
+    "major": "Public Health",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Public Health",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Epidemiology and Biostatistics",
+      "Health Management and Policy",
+      "Health Promotion and Community Health"
+    ],
+    "credits": 42,
+    "duration": "Minimum 2 years full-time; up to 4 years part-time",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Professional Master of Public Health degree within the Graduate Public Health Program.",
+    "admission_requirements": "Good academic record; English proficiency required; no GRE required.",
+    "required_documents": null,
+    "gre_requirement": "No GRE is required.",
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_SEMESTER",
+      "amount": 16050,
+      "category": "MPH",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fhs/Pages/mph.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fhs_mph",
+        "page_title": "Master of Public Health",
+        "url": "https://www.aub.edu.lb/fhs/Pages/mph.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fhs_mph_brochure",
+        "page_title": "Master of Public Health Brochure",
+        "url": "https://www.aub.edu.lb/fhs/Documents/degrees_programs/grad_mph.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The brochure says the MPH totals 42 credits and lists the three concentrations above. It also states that full-time students generally need a minimum of two years and part-time students up to four years."
+  },
+  {
+    "id": "fhs-ms-environmental-sciences",
+    "faculty": "Faculty of Health Sciences",
+    "department": "Environmental Health Department",
+    "major_category": "Health Sciences",
+    "major": "Environmental Health",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Environmental Sciences",
+    "thesis_or_non_thesis": "Thesis or project",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "Normally completed over two years full-time",
+    "language": "English",
+    "delivery_mode": null,
+    "program_description": "Interfaculty Master of Science degree in Environmental Sciences with a major in Environmental Health.",
+    "admission_requirements": "Open to students from all undergraduate backgrounds; English proficiency required; no GRE required.",
+    "required_documents": null,
+    "gre_requirement": "No GRE is required.",
+    "gmat_requirement": null,
+    "english_requirement": "Use AUB graduate English/RUSE requirements.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 1208,
+      "category": "Faculty of Health Sciences Graduate Tuition",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fhs/Pages/ms_environmental_sciences.aspx",
+    "sources": [
+      {
+        "source_id": "aub_fhs_ms_environmental_sciences",
+        "page_title": "Master of Science in Environmental Sciences",
+        "url": "https://www.aub.edu.lb/fhs/Pages/ms_environmental_sciences.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fhs_ms_environmental_sciences_brochure",
+        "page_title": "Master of Science in Environmental Sciences Brochure",
+        "url": "https://www.aub.edu.lb/fhs/Documents/degrees_programs/grad_msenvironmentalsciences.pdf",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The brochure says the degree consists of 30 credits, including a thesis/project component of 6 or 3 credits. It also states that the program is offered within the Interfaculty Graduate Environmental Sciences Program."
+  },
+  {
+    "id": "fhs-emhcl",
+    "faculty": "Faculty of Health Sciences",
+    "department": "Health Management and Policy Department",
+    "major_category": "Health Sciences",
+    "major": "Health Care Leadership",
+    "degree_type": "MASTER",
+    "official_degree_name": "Executive Master in Health Care Leadership (EMHCL)",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": "Online",
+    "program_description": "Online executive master's program in health care leadership hosted by the Health Management and Policy Department.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 900,
+      "category": "Executive Master in Healthcare Leadership",
+      "notes": "Official AUB Tuition & Fees 2026-2027 schedule.",
+      "source_ids": [
+        "aub_tuition_2026_2027"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.aub.edu.lb/fhs/Landing/Health-Care-Leadership.html",
+    "sources": [
+      {
+        "source_id": "aub_fhs_hmp_dep",
+        "page_title": "Health Management and Policy Department",
+        "url": "https://www.aub.edu.lb/fhs/Pages/hmp_dep.aspx",
+        "date_accessed": "2026-06-26"
+      },
+      {
+        "source_id": "aub_fhs_emhcl",
+        "page_title": "Executive Master in Healthcare Leadership",
+        "url": "https://www.aub.edu.lb/fhs/Landing/Health-Care-Leadership.html",
+        "date_accessed": "2026-06-26"
+      }
+    ],
+    "notes": "The department page says HMPD hosts the EMHCL, and the landing page labels it as an online graduate academic program. No credit or duration information was published on the official public page."
+  }
+]

@@ -1,0 +1,2581 @@
+[
+  {
+    "id": "usj-flsh-master-history-international-relations",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Histoire - Relations internationales",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en Histoire - Relations internationales",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing; individual program page was not canonicalized in this discovery pass."
+  },
+  {
+    "id": "usj-flsh-master-information-communication",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Information et communication",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en information et communication",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-lettres-francaises",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Lettres françaises",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en lettres françaises",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-orthopedagogie",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Orthopédagogie",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en orthopédagogie",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-psychologie-clinique-pathologique",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Psychologie clinique et pathologique",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en psychologie clinique et pathologique",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing; the catalog also shows an option-specific variant."
+  },
+  {
+    "id": "usj-flsh-master-relations-islamo-chretiennes",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Relations islamo-chrétiennes",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en relations islamo-chrétiennes (Français)",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French catalog title; Arabic and French variants appear on the same graduate hub."
+  },
+  {
+    "id": "usj-flsh-master-sciences-education",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Sciences de l'éducation",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en sciences de l'éducation",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-travail-social",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Travail social",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en travail social",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-evenementiel",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Événementiel",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en événementiel",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-leadership-rh",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Leadership et gestion des ressources humaines",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en leadership et gestion des ressources humaines",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French catalog listing; English mirror title also appears on the hub."
+  },
+  {
+    "id": "usj-flsh-master-philosophie",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Philosophie",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en Philosophie",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-iesav-master-cinema",
+    "faculty": "Institut d'études scéniques, audiovisuelles et cinématographiques",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Cinéma",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en cinéma",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "IESAV",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_iesav"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-iesav-master-critique-art-curatoriat",
+    "faculty": "Institut d'études scéniques, audiovisuelles et cinématographiques",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Critique d'art et curatoriat",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en critique d'art et curatoriat",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "IESAV",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_iesav"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-environnement-amenagement-territoire",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Environnement et aménagement du territoire",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en environnement et aménagement du territoire",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-gestion-pastorale",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Gestion pastorale",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en gestion pastorale",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-iesav-master-interpretation",
+    "faculty": "Institut d'études scéniques, audiovisuelles et cinématographiques",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Interprétation",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en interprétation",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "IESAV",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_iesav"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-psychologie-education-formation",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Psychologie de l'éducation et de la formation",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en psychologie de l'éducation et de la formation",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-psychologie-travail-entreprise",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Psychologie du travail et de l'entreprise",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en psychologie du travail et de l'entreprise",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-flsh-master-sciences-religieuses",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Sciences religieuses",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en sciences religieuses",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-iesav-master-theatre",
+    "faculty": "Institut d'études scéniques, audiovisuelles et cinématographiques",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Théâtre",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en théâtre",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 72,
+      "category": "IESAV Master in Theater",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule. Special theater rate from the PDF.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_iesav"
+      }
+    ],
+    "notes": "French-only catalog listing."
+  },
+  {
+    "id": "usj-fdlt-master-traduction",
+    "faculty": "Faculté de langues et de traduction",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Traduction",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en traduction",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FDLT",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdlt"
+      }
+    ],
+    "notes": "French catalog title; English mirror title also appears on the hub."
+  },
+  {
+    "id": "usj-flsh-master-arabic-language-literature",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Langue arabe et littérature",
+    "degree_type": "MASTER",
+    "official_degree_name": "الماستر فــي اللغــة العربيـّة وآدابهــا",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "Arabic catalog title; French/English equivalents appear on the hub."
+  },
+  {
+    "id": "usj-flsh-master-islamics",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Islamics",
+    "degree_type": "MASTER",
+    "official_degree_name": "الماستر في الإسلاميّات",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "Arabic catalog title; French/English equivalents appear on the hub."
+  },
+  {
+    "id": "usj-flsh-master-arabic-islamic-philosophy",
+    "faculty": "Faculté des lettres et des sciences humaines Ramez G. Chagoury",
+    "department": null,
+    "major_category": "Arts, lettres et sciences humaines",
+    "major": "Philosophie arabe et islamique",
+    "degree_type": "MASTER",
+    "official_degree_name": "الماستر في الفلسفة العربيّة والإسلاميّة",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FLSH",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/e-doors/masters",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_flsh"
+      }
+    ],
+    "notes": "Arabic catalog title; French/English equivalents appear on the hub."
+  },
+  {
+    "id": "usj-fdsp-master-private-law",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": "Faculté de droit",
+    "major_category": "Droit et sciences politiques",
+    "major": "Droit privé",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en droit privé",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FDSP",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdsp"
+      }
+    ],
+    "notes": "French-only law faculty listing."
+  },
+  {
+    "id": "usj-fdsp-master-human-rights-democratisation",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": "Institut des sciences politiques",
+    "major_category": "Droit et sciences politiques",
+    "major": "Human Rights and Democratisation",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Human Rights and Democratisation",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 72,
+      "category": "ISP Human Rights and Democratisation",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule. Special program rate from the PDF.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdsp"
+      },
+      {
+        "source_id": "usj_school_isp"
+      }
+    ],
+    "notes": "English-title program surfaced on the graduate hub and law faculty page."
+  },
+  {
+    "id": "usj-fdsp-master-business-law",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": "Faculté de droit",
+    "major_category": "Droit et sciences politiques",
+    "major": "Droit des affaires",
+    "degree_type": "MASTER",
+    "official_degree_name": "LL.M. en Droit des Affaires",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FDSP",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdsp"
+      }
+    ],
+    "notes": "French catalog title; English mirror title appears on the hub."
+  },
+  {
+    "id": "usj-fdsp-master-public-law",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": "Faculté de droit",
+    "major_category": "Droit et sciences politiques",
+    "major": "Droit public",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en droit public",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FDSP",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdsp"
+      }
+    ],
+    "notes": "French-only law faculty listing."
+  },
+  {
+    "id": "usj-fdsp-master-political-science",
+    "faculty": "Faculté de droit et des sciences politiques",
+    "department": "Institut des sciences politiques",
+    "major_category": "Droit et sciences politiques",
+    "major": "Sciences politiques",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en sciences politiques",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FDSP",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fdsp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fdsp"
+      },
+      {
+        "source_id": "usj_school_isp"
+      }
+    ],
+    "notes": "French-only listing on the law/political-science faculty hub."
+  },
+  {
+    "id": "usj-fgm-mba-international-paris-liban",
+    "faculty": "Faculté de gestion et de management",
+    "department": "Faculté de gestion et de management",
+    "major_category": "Économie, gestion, banque et assurances",
+    "major": "MBA International Paris-Liban",
+    "degree_type": "MASTER",
+    "official_degree_name": "MBA International Paris-Liban",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 56,
+      "category": "MBA International Paris-Liban",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule. PDF lists this MBA row in Fresh USD.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fgm/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fgm"
+      }
+    ],
+    "notes": "French catalog listing; official program page was not individually canonicalized in this pass."
+  },
+  {
+    "id": "usj-fgm-master-gestion-management",
+    "faculty": "Faculté de gestion et de management",
+    "department": "Faculté de gestion et de management",
+    "major_category": "Économie, gestion, banque et assurances",
+    "major": "Gestion et management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en gestion et management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FGM",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fgm/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fgm"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fgm-master-informatique-appliquee-entreprises",
+    "faculty": "Faculté de gestion et de management",
+    "department": "Faculté de gestion et de management",
+    "major_category": "Économie, gestion, banque et assurances",
+    "major": "Informatique appliquée aux entreprises",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en informatique appliquée aux entreprises",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FGM",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fgm/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fgm"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fgm-master-sciences-economiques",
+    "faculty": "Faculté de gestion et de management",
+    "department": "Faculté de gestion et de management",
+    "major_category": "Économie, gestion, banque et assurances",
+    "major": "Sciences économiques",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en sciences économiques",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FGM",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fgm/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fgm"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fgm-master-marketing-publicite",
+    "faculty": "Faculté de gestion et de management",
+    "department": "Faculté de gestion et de management",
+    "major_category": "Économie, gestion, banque et assurances",
+    "major": "Marketing et publicité",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en marketing et publicité",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FGM",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fgm/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fgm"
+      }
+    ],
+    "notes": "French catalog listing; English mirror title appears on the hub."
+  },
+  {
+    "id": "usj-fgm-master-etudes-bancaires",
+    "faculty": "Faculté de gestion et de management",
+    "department": "Faculté de gestion et de management",
+    "major_category": "Économie, gestion, banque et assurances",
+    "major": "Études bancaires",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en études bancaires",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 110,
+      "category": "FGM",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fgm/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fgm"
+      }
+    ],
+    "notes": "French catalog listing; English mirror title appears on the hub."
+  },
+  {
+    "id": "usj-fs-master-biomarketing",
+    "faculty": "Faculté des sciences",
+    "department": null,
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Biomarketing",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en biomarketing",
+    "thesis_or_non_thesis": "PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 120,
+    "duration": "4 semesters",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary master that trains professionals in science and marketing for the biochemical, pharmaceutical, cosmetic, food, paramedical, and biotechnology sectors.",
+    "admission_requirements": "Bachelor's or Master's degree in biology, chemistry, or biochemistry; medical, pharmaceutical, or paramedical sciences including nutrition and medical laboratory analysis are also accepted; other degrees require USJ equivalence review; English proficiency is required; admission includes file evaluation and an interview.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Interview with a selection committee is required after application review.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 115,
+      "category": "FS",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usj.edu.lb/catalogues/25-26/fr/FS/FS-13-Master%20in%20Biomarketing.pdf",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_biomarketing_pdf"
+      }
+    ],
+    "notes": "Official program PDF; main language of instruction is French, English, and Arabic; campus listed as CST."
+  },
+  {
+    "id": "usj-fs-master-artificial-intelligence",
+    "faculty": "Faculté des sciences",
+    "department": null,
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Intelligence artificielle",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master Degree in Artificial Intelligence",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 115,
+      "category": "FS",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_formations_fr"
+      }
+    ],
+    "notes": "English-title listing on the graduate hub and French faculty page."
+  },
+  {
+    "id": "usj-fs-master-data-science",
+    "faculty": "Faculté des sciences",
+    "department": null,
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Data science",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master Degree in Data Science",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 120,
+    "duration": "4 semesters",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Master's program that trains specialists in large-scale data collection, processing, analytics, and decision-support systems.",
+    "admission_requirements": "Applicants to the first semester must hold a Bachelor of Engineering in Computer and Communications Engineering, Computer Science, or Mathematics, or an equivalent degree recognized by USJ. Applicants to the third semester must hold a Bachelor of Engineering in Computer and Communications Engineering, be a CCE student at ESIB with at least 120 credits in the engineering cycle, or hold a Master in Computer Science, Computer and Communications Engineering, Mathematics, or an equivalent degree recognized by USJ. Admission is based on the application file and an interview might be required.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "An interview might be required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 115,
+      "category": "FS",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usj.edu.lb/catalogues/25-26/fr/FS/FS-14-Master%20in%20Data%20Science.pdf",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_data_science_pdf"
+      }
+    ],
+    "notes": "Official program PDF; main language of instruction is French, English, and Arabic; campus listed as CST."
+  },
+  {
+    "id": "usj-fs-master-astrophysics",
+    "faculty": "Faculté des sciences",
+    "department": "Département de physique",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Astrophysics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en astrophysique",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 115,
+      "category": "FS",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fs"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fs-master-environment-management",
+    "faculty": "Faculté des sciences",
+    "department": "Département de sciences de la vie et de la terre",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Sciences et gestion de l'environnement",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en sciences et gestion de l'environnement",
+    "thesis_or_non_thesis": "PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 120,
+    "duration": "4 semesters",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Multidisciplinary master's program focused on understanding environmental issues holistically and training experts in analysis, pollution prevention, treatment, and governance.",
+    "admission_requirements": "Applicants may hold a USJ licence in chemistry, geography, physics, life and earth sciences (biochemistry), laboratory sciences, or an engineering diploma. Holders of a licence or first-year scientific master's degree from outside USJ may be admitted if the degree is judged equivalent by the USJ equivalence commission.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 115,
+      "category": "FS",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usj.edu.lb/catalogues/25-26/fr/FS/FS-11-Master%20en%20sciences%20et%20gestion%20de%20l%20environnement.pdf",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_environment_pdf"
+      }
+    ],
+    "notes": "Official program PDF; main language of instruction is French, English, and Arabic; campus listed as CST."
+  },
+  {
+    "id": "usj-fs-master-gene-electrique-electronique",
+    "faculty": "Faculté des sciences",
+    "department": "Département de physique",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Génie électrique et électronique",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en génie électrique et électronique",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 115,
+      "category": "FS",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fs"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fs-master-chimie-alimentaire",
+    "faculty": "Faculté des sciences",
+    "department": "Département de chimie",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Chimie alimentaire",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en chimie alimentaire",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 115,
+      "category": "FS",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fs"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fmd-master-nutrition",
+    "faculty": "Faculté de médecine",
+    "department": null,
+    "major_category": "Médecine et santé",
+    "major": "Nutrition",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en nutrition",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 204,
+      "category": "FMD",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fmd/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fmd"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fmd-master-physiotherapie",
+    "faculty": "Faculté de médecine",
+    "department": null,
+    "major_category": "Médecine et santé",
+    "major": "Physiothérapie",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en physiothérapie",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 204,
+      "category": "FMD",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fmd/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fmd"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fmd-master-sante-publique",
+    "faculty": "Institut supérieur de santé publique",
+    "department": null,
+    "major_category": "Médecine et santé",
+    "major": "Santé publique",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en santé publique",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "ISSP",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fmd/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fmd"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fsi-master-sciences-infirmieres",
+    "faculty": "Faculté des sciences infirmières",
+    "department": null,
+    "major_category": "Médecine et santé",
+    "major": "Sciences infirmières",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en sciences infirmières",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 107,
+      "category": "FSI",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fsi/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fsi"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fp-master-sciences-pharmaceutiques-biologiques",
+    "faculty": "Faculté de pharmacie",
+    "department": null,
+    "major_category": "Médecine et santé",
+    "major": "Sciences pharmaceutiques et biologiques",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master en sciences pharmaceutiques et biologiques",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 71,
+      "category": "FP",
+      "notes": "Official USJ 2024-2025 second-cycle tuition schedule.",
+      "source_ids": [
+        "usj_tuition_2024_2025"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fp/",
+    "sources": [
+      {
+        "source_id": "usj_grad_catalog_fr"
+      },
+      {
+        "source_id": "usj_school_fp"
+      }
+    ],
+    "notes": "French catalog listing."
+  },
+  {
+    "id": "usj-fs-phd-mathematiques",
+    "faculty": "Faculté des sciences",
+    "department": "Département de mathématiques",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Mathématiques",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctorat en mathématiques",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_formations_fr"
+      }
+    ],
+    "notes": "Doctoral page surfaced on the Faculty of Sciences graduate page."
+  },
+  {
+    "id": "usj-fs-phd-physique",
+    "faculty": "Faculté des sciences",
+    "department": "Département de physique",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Physique",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctorat en physique",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_formations_fr"
+      }
+    ],
+    "notes": "Doctoral page surfaced on the Faculty of Sciences graduate page."
+  },
+  {
+    "id": "usj-fs-phd-chimie",
+    "faculty": "Faculté des sciences",
+    "department": "Département de chimie",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Chimie",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctorat en chimie",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_formations_fr"
+      }
+    ],
+    "notes": "Doctoral page surfaced on the Faculty of Sciences graduate page."
+  },
+  {
+    "id": "usj-fs-phd-sciences-de-la-vie",
+    "faculty": "Faculté des sciences",
+    "department": "Département de sciences de la vie et de la terre",
+    "major_category": "Ingénierie et technologie, sciences",
+    "major": "Sciences de la vie",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctorat en sciences de la vie",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://usj.edu.lb/fr/fs/formations",
+    "sources": [
+      {
+        "source_id": "usj_school_fs"
+      },
+      {
+        "source_id": "usj_fs_formations_fr"
+      }
+    ],
+    "notes": "Doctoral page surfaced on the Faculty of Sciences graduate page."
+  }
+]
