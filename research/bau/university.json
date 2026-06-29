@@ -1,0 +1,219 @@
+{
+  "university": "Beirut Arab University",
+  "short_name": "BAU",
+  "official_website": "https://www.bau.edu.lb",
+  "country": "Lebanon",
+  "graduate_school_url": "https://www.bau.edu.lb/Graduate/Programs",
+  "faculties": [
+    {
+      "name": "Human Sciences",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Human-Sciences/Programs"
+    },
+    {
+      "name": "Law & Political Science",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Law-and-Political-science/Programs"
+    },
+    {
+      "name": "Business Administration",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Business-Administration/Programs"
+    },
+    {
+      "name": "Architecture - Design & Built Environment",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Architecture-Design-and-Built-Environment/Programs"
+    },
+    {
+      "name": "Engineering",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Engineering/Programs"
+    },
+    {
+      "name": "Science",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Science/Programs"
+    },
+    {
+      "name": "Pharmacy",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Pharmacy/Programs"
+    },
+    {
+      "name": "Medicine",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Medicine/Programs"
+    },
+    {
+      "name": "Dentistry",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Dentistry/Programs"
+    },
+    {
+      "name": "Health Sciences",
+      "graduate_programs_url": "https://www.bau.edu.lb/Graduate/Health-Sciences/Programs"
+    }
+  ],
+  "application_url": "https://ssb8en.bau.edu.lb/PROD_en/bwskalog.P_DispLoginNon",
+  "contact": {
+    "graduate_studies_email": "gradstudies@bau.edu.lb",
+    "telephone": "+961 1 300110 Ext: 2605"
+  },
+  "recognition": "Lebanese Ministry of Education and Higher Education recognizes BAU degrees according to BAU admissions page snippet.",
+  "sources": [
+    "bau_grad_programs_root",
+    "bau_grad_admissions",
+    "bau_grad_fall_2026_news",
+    "bau_grad_admission_requirements",
+    "bau_grad_applying",
+    "bau_grad_dates",
+    "bau_grad_tuition_pdf",
+    "bau_grad_bylaws_pdf",
+    "bau_grad_program_scholarships",
+    "bau_grad_merit_scholarships",
+    "bau_grad_scholarships_awards"
+  ],
+  "admissions": {
+    "application_url": "https://ssb8en.bau.edu.lb/PROD_en/bwskalog.P_DispLoginNon",
+    "application_fee": {
+      "amount": 50,
+      "currency": "USD",
+      "source": "bau_grad_admissions"
+    },
+    "general_criteria": [
+      "Master's applicants must hold a Bachelor's degree from BAU or another recognized university.",
+      "For faculties other than Human Sciences and Law & Political Science, Master's admission additionally requires minimum CGPA 2.33 or 70%.",
+      "PhD applicants in Human Sciences and Law & Political Science require a Master's degree with minimum CGPA 2.33 or 70%.",
+      "Other faculties require a Master's degree with minimum CGPA 3.00 or 80%."
+    ],
+    "faculty_specific_requirements": [
+      "Arabic, English and French language/literature applicants must pass a special admission exam.",
+      "Law & Political Science applicants must attend an interview plus Arabic and foreign-language exam.",
+      "Dentistry applicants are required to attend interview, practical exam and written exam."
+    ],
+    "sources": [
+      "bau_grad_admissions",
+      "bau_grad_admission_requirements"
+    ]
+  },
+  "required_documents": {
+    "general": [
+      "Official Bachelor's Degree Certificate.",
+      "Official Bachelor's Degree Transcript.",
+      "Official equivalence of the Bachelor's degree from the Lebanese Ministry of Education and Higher Education or a receipt confirming equivalency application.",
+      "Copy of identity card or passport for non-Lebanese applicants.",
+      "Recent passport-size photo endorsed by the relevant authorities.",
+      "English Language Proficiency Test Scores, if applicable.",
+      "Non-refundable application fee."
+    ],
+    "phd_additional": [
+      "Official Master's Degree certificate.",
+      "Official Master's Degree transcript.",
+      "Official equivalence of the Master's degree from the Lebanese Ministry of Education and Higher Education or a receipt confirming equivalency application.",
+      "Copy of the Master's thesis."
+    ],
+    "program_dependent": [
+      "National Colloquium Examination for Medicine, Dentistry and some Health Sciences programs.",
+      "Two years of work experience after the Bachelor's degree for MBA.",
+      "Five years of work experience after the Bachelor's degree, including a two-year MBA program, for DBA."
+    ],
+    "sources": [
+      "bau_grad_admissions",
+      "bau_grad_applying"
+    ]
+  },
+  "language_requirements": {
+    "bau_graduates": "BAU graduates are exempted from language proficiency examinations.",
+    "non_bau_applicants": "Non-BAU applicants must demonstrate language proficiency through a BAU language exam or recognized exam scores.",
+    "english_minimums": {
+      "bau_english_exam": "60%",
+      "toefl_paper": 520,
+      "toefl_internet": 68,
+      "ielts": 5.5
+    },
+    "french_alternative": {
+      "bau_english_or_french_exam": "60%",
+      "dalf_c1": "50"
+    },
+    "remediation": "Students scoring 50%-59% on the BAU English or French language exam must successfully complete the relevant course.",
+    "sources": [
+      "bau_grad_admissions"
+    ]
+  },
+  "deadlines": {
+    "current_cycle": {
+      "term": "Fall Semester 2026-2027",
+      "application_start": "2026-04-07",
+      "deadline": "2026-08-14",
+      "source": "bau_grad_admissions"
+    },
+    "general_note": "Applications are submitted during admission periods assigned by the University and announced on BAU website.",
+    "sources": [
+      "bau_grad_admissions",
+      "bau_grad_dates",
+      "bau_grad_fall_2026_news",
+      "bau_grad_spring_2025_news"
+    ]
+  },
+  "scholarships": {
+    "program_based": "BAU provides tuition fee reduction support to newly admitted eligible Master applicants in listed faculties, subject to CGPA and scholarship terms.",
+    "merit_master": "BAU grants a 50% tuition discount on course fees for the Master's degree to two eligible BAU graduates with the highest ranks and CGPA at least 3.33.",
+    "merit_phd": "BAU grants a 100% tuition discount on course fees to five eligible students holding a BAU Master degree, subject to published academic, publication, interview, and service conditions.",
+    "sources": [
+      "bau_grad_program_scholarships",
+      "bau_grad_merit_scholarships",
+      "bau_grad_scholarships_awards"
+    ]
+  },
+  "financial_aid": {
+    "url": "https://www.bau.edu.lb/Financial-Aid-and-Scholarships-at-BAU",
+    "notes": "Official BAU financial aid and scholarships page is linked from graduate pages; graduate-specific scholarship details are captured in scholarships.",
+    "sources": [
+      "bau_grad_program_scholarships",
+      "bau_grad_merit_scholarships"
+    ]
+  },
+  "payment_plans": null,
+  "regulations": {
+    "postgraduate_bylaws_pdf": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Graduate/Postgraduate-Bylaws-English.pdf",
+    "registration_requirements_url": "https://www.bau.edu.lb/Graduate/Registration-Requirements",
+    "sources": [
+      "bau_grad_bylaws_pdf"
+    ]
+  },
+  "accreditation": {
+    "url": "https://www.bau.edu.lb/Accreditation",
+    "notes": "University-level accreditation page is linked from BAU graduate pages; program-level accreditation remains null unless explicitly listed in program records.",
+    "sources": [
+      "bau_grad_programs_root"
+    ]
+  },
+  "international_students": {
+    "url": "https://www.bau.edu.lb/Admissions/InternationalStudents",
+    "required_document_note": "Non-Lebanese applicants must provide an officially endorsed passport copy or identity document as applicable.",
+    "sources": [
+      "bau_grad_admissions",
+      "bau_grad_applying"
+    ]
+  },
+  "academic_calendar": {
+    "graduate_calendar_url": "https://www.bau.edu.lb/Graduate/Academic-Calendar",
+    "sources": [
+      "bau_grad_admissions",
+      "bau_grad_dates"
+    ]
+  },
+  "tuition_and_fees": {
+    "academic_year": "2025-2026",
+    "source": "bau_grad_tuition_pdf",
+    "lbp_rate": 89500,
+    "global_fees": [
+      {
+        "name": "Healthcare fees",
+        "amount_usd": 100,
+        "frequency": "per semester"
+      },
+      {
+        "name": "Technology Fees",
+        "amount_usd": 100,
+        "frequency": "per semester"
+      }
+    ],
+    "notes": [
+      "Tuition fees are subject to change at any time without prior notice.",
+      "The new tuition fees apply to all continuing and new students enrolled in postgraduate programs."
+    ]
+  }
+}

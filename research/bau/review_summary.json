@@ -1,0 +1,107 @@
+{
+  "task_code": "BAU_FINAL_REVIEW_001",
+  "university": "Beirut Arab University",
+  "verdict": "REJECT",
+  "ready_for_db_seeding_v30": false,
+  "validation": {
+    "json_parse_passed": true,
+    "duplicate_program_ids": [],
+    "duplicate_source_ids": [],
+    "duplicate_source_urls": [],
+    "all_programs_have_sources": true,
+    "all_referenced_sources_exist": true,
+    "all_source_urls_official_bau": true,
+    "reachable_source_urls_checked": 25,
+    "reachable_source_urls_ok": 25,
+    "compile_attempt": {
+      "command": "./mvnw -q -DskipTests compile",
+      "status": "failed",
+      "reason": "mvnw not present in /Users/alifayad/Downloads/research/bau"
+    }
+  },
+  "inventory": {
+    "in_scope_programs": 116,
+    "out_of_scope_programs": 14,
+    "masters": 59,
+    "phd": 50,
+    "dba": 1,
+    "mba": 3,
+    "march": 3,
+    "diploma": 6,
+    "speciality_diploma": 8,
+    "missing_faculties": []
+  },
+  "completeness": {
+    "core_record_completeness": "100%",
+    "program_inventory_completeness": "100%",
+    "tuition_completeness": "0%",
+    "enrichment_completeness": "partial",
+    "in_scope_field_coverage": {
+      "credits": "94.0%",
+      "duration": "100.0%",
+      "thesis_project": "94.0%",
+      "language": "0.0%",
+      "delivery_mode": "0.0%",
+      "tuition": "0.0%",
+      "tracks_concentrations": "0.0%",
+      "gre_gmat": "0.0%",
+      "interview": "0.0%",
+      "experience": "0.0%",
+      "accreditation": "0.0%",
+      "official_program_url": "0.0%"
+    }
+  },
+  "findings": [
+    {
+      "severity": "high",
+      "issue": "Shared university data is not centralized in university.json and is duplicated as generic text inside program records.",
+      "affected_files": [
+        "university.json",
+        "programs.json",
+        "out_of_scope_programs.json",
+        "shared_report.md"
+      ],
+      "proposed_fix": "Move shared admissions, deadlines, documents, and related graduate-wide rules into university.json, then remove duplicated generic copies from individual programs."
+    },
+    {
+      "severity": "high",
+      "issue": "official_program_url is null for every program record even though BAU publishes official program pages.",
+      "affected_files": [
+        "programs.json",
+        "out_of_scope_programs.json"
+      ],
+      "proposed_fix": "Populate official_program_url with the official BAU program page for each record."
+    },
+    {
+      "severity": "high",
+      "issue": "Tuition is not populated at program level and fee mappings are empty.",
+      "affected_files": [
+        "fees_mapping_summary.json",
+        "programs.json"
+      ],
+      "proposed_fix": "Parse the official BAU tuition PDF into program-level tuition objects and keep null only where BAU does not publish a value."
+    },
+    {
+      "severity": "medium",
+      "issue": "Source provenance is incomplete because access dates are missing from sources.json.",
+      "affected_files": [
+        "sources.json"
+      ],
+      "proposed_fix": "Add access_date fields to each source entry while preserving existing source IDs and URLs."
+    },
+    {
+      "severity": "medium",
+      "issue": "Maven compile validation could not be executed from this folder because ./mvnw is absent.",
+      "affected_files": [
+        "environment"
+      ],
+      "proposed_fix": "Run the compile check from the actual Maven project root or add the missing wrapper before rerunning validation."
+    }
+  ],
+  "official_bau_source_status": {
+    "live_inventory_cross_check_passed": true,
+    "source_urls_reachable": true,
+    "tuition_pdf_reachable": true
+  },
+  "final_assessment": "The BAU dataset requires further corrections before V30 DB seeding."
+}

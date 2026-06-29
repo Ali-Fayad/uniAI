@@ -1,0 +1,2845 @@
+{
+  "university": "Beirut Arab University",
+  "source": "bau_grad_tuition_pdf",
+  "academic_year": "2025-2026",
+  "status": "parsed_from_official_rendered_pdf",
+  "currency": "USD",
+  "lbp_rate": 89500,
+  "global_fees": [
+    {
+      "name": "Healthcare fees",
+      "amount_usd": 100,
+      "frequency": "per semester",
+      "source": "bau_grad_tuition_pdf"
+    },
+    {
+      "name": "Technology Fees",
+      "amount_usd": 100,
+      "frequency": "per semester",
+      "source": "bau_grad_tuition_pdf"
+    }
+  ],
+  "notes": [
+    "Tuition fees are subject to change at any time without prior notice.",
+    "The new tuition fees apply to all continuing and new students enrolled in postgraduate programs.",
+    "Rows with multiple published routes or credit bands are represented as tuition variants.",
+    "Out-of-scope degree families are retained in out_of_scope_programs.json and excluded from the main mapping total."
+  ],
+  "program_fee_mappings": [
+    {
+      "program_id": "bau-grad-002",
+      "program_name": "Arabic Language & Literature",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-003",
+      "program_name": "English Language & Literature",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-004",
+      "program_name": "French Language & Literature",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-005",
+      "program_name": "History",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-006",
+      "program_name": "Mass Communication",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-007",
+      "program_name": "Master in Clinical Psychology",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master in Clinical Psychology (with Thesis)",
+            "courses_total_credits": 24,
+            "fees_per_credit_usd": 130,
+            "fees_per_credit_usd_lbp_rate_89500": 70,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 3467,
+            "thesis_total_fees_usd_lbp_rate_89500": 1867,
+            "total_fees_usd": 6587,
+            "total_fees_usd_lbp_rate_89500": 3547
+          },
+          {
+            "name": "with project",
+            "published_row": "Master in Clinical Psychology (with Project)",
+            "courses_total_credits": 27,
+            "fees_per_credit_usd": 130,
+            "fees_per_credit_usd_lbp_rate_89500": 70,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 1734,
+            "thesis_total_fees_usd_lbp_rate_89500": 933,
+            "total_fees_usd": 5244,
+            "total_fees_usd_lbp_rate_89500": 2823
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-008",
+      "program_name": "Psychology",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-009",
+      "program_name": "Sociology",
+      "faculty_name": "Human Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-010",
+      "program_name": "Arabic Language & Literature",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-011",
+      "program_name": "Eco-critique",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-012",
+      "program_name": "English Language & Literature (Linguistics)",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-013",
+      "program_name": "English Language & Literature (Literature)",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-014",
+      "program_name": "French Language & Literature",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-015",
+      "program_name": "History - ISSUES IN ANCIENT HISTORY",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-016",
+      "program_name": "History - ISSUES IN ARAB MODERN AND CONTEMPORARY HISTORY",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-017",
+      "program_name": "History - ISSUES IN EUROPEAN HISTORY DURING THE MIDDLE AGES",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-018",
+      "program_name": "History - ISSUES IN ISLAMIC HISTORY",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-019",
+      "program_name": "History - ISSUES IN MODERN AND CONTEMPORARY HISTORY",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-020",
+      "program_name": "History - ISSUES IN MODERN AND CONTEMPORARY LEBANESE HISTORY",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-021",
+      "program_name": "History - ISSUES IN OTTOMAN HISTORY",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-022",
+      "program_name": "Library & Information Science",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-023",
+      "program_name": "Mass Communication",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-024",
+      "program_name": "Psychology",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-025",
+      "program_name": "Sociology",
+      "faculty_name": "Human Sciences",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 217,
+        "fees_per_credit_usd_lbp_rate_89500": 117,
+        "thesis_total_credits": 28,
+        "thesis_total_fees_usd": 4550,
+        "thesis_total_fees_usd_lbp_rate_89500": 2450,
+        "total_fees_usd": 7155,
+        "total_fees_usd_lbp_rate_89500": 3853
+      }
+    },
+    {
+      "program_id": "bau-grad-029",
+      "program_name": "Political Sciences",
+      "faculty_name": "Law & Political Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 8,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-030",
+      "program_name": "Private Law",
+      "faculty_name": "Law & Political Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 8,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-031",
+      "program_name": "Public Law",
+      "faculty_name": "Law & Political Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 130,
+        "fees_per_credit_usd_lbp_rate_89500": 70,
+        "thesis_total_credits": 8,
+        "thesis_total_fees_usd": 3467,
+        "thesis_total_fees_usd_lbp_rate_89500": 1867,
+        "total_fees_usd": 7367,
+        "total_fees_usd_lbp_rate_89500": 3967
+      }
+    },
+    {
+      "program_id": "bau-grad-032",
+      "program_name": "Law",
+      "faculty_name": "Law & Political Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 48,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 7630,
+        "total_fees_usd_lbp_rate_89500": 4108
+      }
+    },
+    {
+      "program_id": "bau-grad-033",
+      "program_name": "Political Science",
+      "faculty_name": "Law & Political Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 12,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 48,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 7630,
+        "total_fees_usd_lbp_rate_89500": 4108
+      }
+    },
+    {
+      "program_id": "bau-grad-036",
+      "program_name": "Accounting",
+      "faculty_name": "Business Administration",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 152,
+        "fees_per_credit_usd_lbp_rate_89500": 82,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3900,
+        "thesis_total_fees_usd_lbp_rate_89500": 2100,
+        "total_fees_usd": 8463,
+        "total_fees_usd_lbp_rate_89500": 4557
+      }
+    },
+    {
+      "program_id": "bau-grad-037",
+      "program_name": "Business Administration",
+      "faculty_name": "Business Administration",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 152,
+        "fees_per_credit_usd_lbp_rate_89500": 82,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3900,
+        "thesis_total_fees_usd_lbp_rate_89500": 2100,
+        "total_fees_usd": 8463,
+        "total_fees_usd_lbp_rate_89500": 4557
+      }
+    },
+    {
+      "program_id": "bau-grad-038",
+      "program_name": "Economics",
+      "faculty_name": "Business Administration",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 152,
+        "fees_per_credit_usd_lbp_rate_89500": 82,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 3900,
+        "thesis_total_fees_usd_lbp_rate_89500": 2100,
+        "total_fees_usd": 8463,
+        "total_fees_usd_lbp_rate_89500": 4557
+      }
+    },
+    {
+      "program_id": "bau-grad-042",
+      "program_name": "Accounting",
+      "faculty_name": "Business Administration",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 24,
+        "fees_per_credit_usd": 273,
+        "fees_per_credit_usd_lbp_rate_89500": 147,
+        "thesis_total_credits": 24,
+        "thesis_total_fees_usd": 6552,
+        "thesis_total_fees_usd_lbp_rate_89500": 3528,
+        "total_fees_usd": 13104,
+        "total_fees_usd_lbp_rate_89500": 7056
+      }
+    },
+    {
+      "program_id": "bau-grad-043",
+      "program_name": "Economics",
+      "faculty_name": "Business Administration",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 24,
+        "fees_per_credit_usd": 273,
+        "fees_per_credit_usd_lbp_rate_89500": 147,
+        "thesis_total_credits": 24,
+        "thesis_total_fees_usd": 6552,
+        "thesis_total_fees_usd_lbp_rate_89500": 3528,
+        "total_fees_usd": 13104,
+        "total_fees_usd_lbp_rate_89500": 7056
+      }
+    },
+    {
+      "program_id": "bau-grad-044",
+      "program_name": "Marketing",
+      "faculty_name": "Business Administration",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 24,
+        "fees_per_credit_usd": 273,
+        "fees_per_credit_usd_lbp_rate_89500": 147,
+        "thesis_total_credits": 24,
+        "thesis_total_fees_usd": 6552,
+        "thesis_total_fees_usd_lbp_rate_89500": 3528,
+        "total_fees_usd": 13104,
+        "total_fees_usd_lbp_rate_89500": 7056
+      }
+    },
+    {
+      "program_id": "bau-grad-045",
+      "program_name": "Organizational Behavior & Human Resources Management",
+      "faculty_name": "Business Administration",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 24,
+        "fees_per_credit_usd": 273,
+        "fees_per_credit_usd_lbp_rate_89500": 147,
+        "thesis_total_credits": 24,
+        "thesis_total_fees_usd": 6552,
+        "thesis_total_fees_usd_lbp_rate_89500": 3528,
+        "total_fees_usd": 13104,
+        "total_fees_usd_lbp_rate_89500": 7056
+      }
+    },
+    {
+      "program_id": "bau-grad-046",
+      "program_name": "Strategy and Entrepreneurship",
+      "faculty_name": "Business Administration",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 24,
+        "fees_per_credit_usd": 273,
+        "fees_per_credit_usd_lbp_rate_89500": 147,
+        "thesis_total_credits": 24,
+        "thesis_total_fees_usd": 6552,
+        "thesis_total_fees_usd_lbp_rate_89500": 3528,
+        "total_fees_usd": 13104,
+        "total_fees_usd_lbp_rate_89500": 7056
+      }
+    },
+    {
+      "program_id": "bau-grad-050",
+      "program_name": "Master of Science in Architecture",
+      "faculty_name": "Architecture - Design & Built Environment",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 12357,
+        "total_fees_usd_lbp_rate_89500": 6654
+      }
+    },
+    {
+      "program_id": "bau-grad-051",
+      "program_name": "Master of Science in Heritage of Islamic Arab Architecture",
+      "faculty_name": "Architecture - Design & Built Environment",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 12357,
+        "total_fees_usd_lbp_rate_89500": 6654
+      }
+    },
+    {
+      "program_id": "bau-grad-052",
+      "program_name": "Master of Science in Urban Design and Planning",
+      "faculty_name": "Architecture - Design & Built Environment",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 12357,
+        "total_fees_usd_lbp_rate_89500": 6654
+      }
+    },
+    {
+      "program_id": "bau-grad-053",
+      "program_name": "Architecture",
+      "faculty_name": "Architecture - Design & Built Environment",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 304,
+        "fees_per_credit_usd_lbp_rate_89500": 163,
+        "thesis_total_credits": 32,
+        "thesis_total_fees_usd": 6934,
+        "thesis_total_fees_usd_lbp_rate_89500": 3733,
+        "total_fees_usd": 12397,
+        "total_fees_usd_lbp_rate_89500": 6676
+      }
+    },
+    {
+      "program_id": "bau-grad-054",
+      "program_name": "Urban Design and Planning",
+      "faculty_name": "Architecture - Design & Built Environment",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 304,
+        "fees_per_credit_usd_lbp_rate_89500": 163,
+        "thesis_total_credits": 32,
+        "thesis_total_fees_usd": 6934,
+        "thesis_total_fees_usd_lbp_rate_89500": 3733,
+        "total_fees_usd": 12397,
+        "total_fees_usd_lbp_rate_89500": 6676
+      }
+    },
+    {
+      "program_id": "bau-grad-055",
+      "program_name": "Biomedical Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-056",
+      "program_name": "Civil Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-057",
+      "program_name": "Communications and Electronics Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-058",
+      "program_name": "Computer Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-059",
+      "program_name": "Electrical Power and Machines Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-060",
+      "program_name": "Industrial Engineeing",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-061",
+      "program_name": "Mechanical Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-062",
+      "program_name": "Petroleum Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (With Thesis) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 9,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 8125,
+            "total_fees_usd_lbp_rate_89500": 4375
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 15 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2600,
+            "thesis_total_fees_usd_lbp_rate_89500": 1400,
+            "total_fees_usd": 6500,
+            "total_fees_usd_lbp_rate_89500": 3500
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-063",
+      "program_name": "Civil Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 304,
+        "fees_per_credit_usd_lbp_rate_89500": 163,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 6934,
+        "thesis_total_fees_usd_lbp_rate_89500": 3733,
+        "total_fees_usd": 12397,
+        "total_fees_usd_lbp_rate_89500": 6676
+      }
+    },
+    {
+      "program_id": "bau-grad-064",
+      "program_name": "Communications and Electronics Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 304,
+        "fees_per_credit_usd_lbp_rate_89500": 163,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 6934,
+        "thesis_total_fees_usd_lbp_rate_89500": 3733,
+        "total_fees_usd": 12397,
+        "total_fees_usd_lbp_rate_89500": 6676
+      }
+    },
+    {
+      "program_id": "bau-grad-065",
+      "program_name": "Computer Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 304,
+        "fees_per_credit_usd_lbp_rate_89500": 163,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 6934,
+        "thesis_total_fees_usd_lbp_rate_89500": 3733,
+        "total_fees_usd": 12397,
+        "total_fees_usd_lbp_rate_89500": 6676
+      }
+    },
+    {
+      "program_id": "bau-grad-066",
+      "program_name": "Electrical Power and Machines Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 304,
+        "fees_per_credit_usd_lbp_rate_89500": 163,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 6934,
+        "thesis_total_fees_usd_lbp_rate_89500": 3733,
+        "total_fees_usd": 12397,
+        "total_fees_usd_lbp_rate_89500": 6676
+      }
+    },
+    {
+      "program_id": "bau-grad-067",
+      "program_name": "Mechanical Engineering",
+      "faculty_name": "Engineering",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 304,
+        "fees_per_credit_usd_lbp_rate_89500": 163,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 6934,
+        "thesis_total_fees_usd_lbp_rate_89500": 3733,
+        "total_fees_usd": 12397,
+        "total_fees_usd_lbp_rate_89500": 6676
+      }
+    },
+    {
+      "program_id": "bau-grad-068",
+      "program_name": "Applied Statistics",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-069",
+      "program_name": "Biochemistry",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-070",
+      "program_name": "Biology",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-071",
+      "program_name": "Chemistry",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-072",
+      "program_name": "Computer Science",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-073",
+      "program_name": "Mathematics",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-074",
+      "program_name": "Medical Physics",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master in Medical Physics (with Thesis)",
+            "courses_total_credits": 30,
+            "fees_per_credit_usd": 163,
+            "fees_per_credit_usd_lbp_rate_89500": 88,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 4334,
+            "thesis_total_fees_usd_lbp_rate_89500": 2333,
+            "total_fees_usd": 9209,
+            "total_fees_usd_lbp_rate_89500": 4958
+          },
+          {
+            "name": "with project",
+            "published_row": "Master in Medical Physics (with Project)",
+            "courses_total_credits": 33,
+            "fees_per_credit_usd": 163,
+            "fees_per_credit_usd_lbp_rate_89500": 88,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 2167,
+            "thesis_total_fees_usd_lbp_rate_89500": 1167,
+            "total_fees_usd": 7530,
+            "total_fees_usd_lbp_rate_89500": 4054
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-075",
+      "program_name": "Physics",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-076",
+      "program_name": "Radiation Protection",
+      "faculty_name": "Science",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-077",
+      "program_name": "Biochemistry",
+      "faculty_name": "Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 9061,
+        "total_fees_usd_lbp_rate_89500": 4879
+      }
+    },
+    {
+      "program_id": "bau-grad-078",
+      "program_name": "Biology",
+      "faculty_name": "Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 9061,
+        "total_fees_usd_lbp_rate_89500": 4879
+      }
+    },
+    {
+      "program_id": "bau-grad-079",
+      "program_name": "Chemistry",
+      "faculty_name": "Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 9061,
+        "total_fees_usd_lbp_rate_89500": 4879
+      }
+    },
+    {
+      "program_id": "bau-grad-080",
+      "program_name": "Computer Science",
+      "faculty_name": "Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 9061,
+        "total_fees_usd_lbp_rate_89500": 4879
+      }
+    },
+    {
+      "program_id": "bau-grad-081",
+      "program_name": "Mathematics",
+      "faculty_name": "Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 9061,
+        "total_fees_usd_lbp_rate_89500": 4879
+      }
+    },
+    {
+      "program_id": "bau-grad-082",
+      "program_name": "Physics",
+      "faculty_name": "Science",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 239,
+        "fees_per_credit_usd_lbp_rate_89500": 128,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 4767,
+        "thesis_total_fees_usd_lbp_rate_89500": 2567,
+        "total_fees_usd": 9061,
+        "total_fees_usd_lbp_rate_89500": 4879
+      }
+    },
+    {
+      "program_id": "bau-grad-084",
+      "program_name": "Analytical Chemistry and Quality Control",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-085",
+      "program_name": "Clinical Pharmacy",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-086",
+      "program_name": "Pharmaceutical Chemistry",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-087",
+      "program_name": "Pharmaceutical Microbiology",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-088",
+      "program_name": "Pharmaceutics and Industrial Pharmacy",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-089",
+      "program_name": "Pharmacogenomics and personalized Medicine",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-090",
+      "program_name": "Pharmacognosy and Medicinal Plants",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-091",
+      "program_name": "Pharmacology, Toxicology and Biochemistry",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-092",
+      "program_name": "Pharmacy Practice",
+      "faculty_name": "Pharmacy",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "with thesis",
+            "published_row": "Master (with Thesis) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 12,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 6500,
+            "thesis_total_fees_usd_lbp_rate_89500": 3500,
+            "total_fees_usd": 10143,
+            "total_fees_usd_lbp_rate_89500": 5461
+          },
+          {
+            "name": "with project",
+            "published_row": "Master (with Project) - 18 Credits obtained from Undergraduate Level",
+            "courses_total_credits": 15,
+            "fees_per_credit_usd": 304,
+            "fees_per_credit_usd_lbp_rate_89500": 163,
+            "thesis_total_credits": 3,
+            "thesis_total_fees_usd": 3250,
+            "thesis_total_fees_usd_lbp_rate_89500": 1750,
+            "total_fees_usd": 7803,
+            "total_fees_usd_lbp_rate_89500": 4202
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-093",
+      "program_name": "Analytical Chemistry and Quality Control",
+      "faculty_name": "Pharmacy",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 325,
+        "fees_per_credit_usd_lbp_rate_89500": 175,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 8667,
+        "thesis_total_fees_usd_lbp_rate_89500": 4667,
+        "total_fees_usd": 14517,
+        "total_fees_usd_lbp_rate_89500": 7817
+      }
+    },
+    {
+      "program_id": "bau-grad-094",
+      "program_name": "Clinical Pharmacy",
+      "faculty_name": "Pharmacy",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 325,
+        "fees_per_credit_usd_lbp_rate_89500": 175,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 8667,
+        "thesis_total_fees_usd_lbp_rate_89500": 4667,
+        "total_fees_usd": 14517,
+        "total_fees_usd_lbp_rate_89500": 7817
+      }
+    },
+    {
+      "program_id": "bau-grad-095",
+      "program_name": "Pharmaceutical Chemistry",
+      "faculty_name": "Pharmacy",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 325,
+        "fees_per_credit_usd_lbp_rate_89500": 175,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 8667,
+        "thesis_total_fees_usd_lbp_rate_89500": 4667,
+        "total_fees_usd": 14517,
+        "total_fees_usd_lbp_rate_89500": 7817
+      }
+    },
+    {
+      "program_id": "bau-grad-096",
+      "program_name": "Pharmaceutical Microbiology",
+      "faculty_name": "Pharmacy",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 325,
+        "fees_per_credit_usd_lbp_rate_89500": 175,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 8667,
+        "thesis_total_fees_usd_lbp_rate_89500": 4667,
+        "total_fees_usd": 14517,
+        "total_fees_usd_lbp_rate_89500": 7817
+      }
+    },
+    {
+      "program_id": "bau-grad-097",
+      "program_name": "Pharmaceutics and Industrial Pharmacy",
+      "faculty_name": "Pharmacy",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 325,
+        "fees_per_credit_usd_lbp_rate_89500": 175,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 8667,
+        "thesis_total_fees_usd_lbp_rate_89500": 4667,
+        "total_fees_usd": 14517,
+        "total_fees_usd_lbp_rate_89500": 7817
+      }
+    },
+    {
+      "program_id": "bau-grad-098",
+      "program_name": "Pharmacognosy and Medicinal Plants",
+      "faculty_name": "Pharmacy",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 325,
+        "fees_per_credit_usd_lbp_rate_89500": 175,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 8667,
+        "thesis_total_fees_usd_lbp_rate_89500": 4667,
+        "total_fees_usd": 14517,
+        "total_fees_usd_lbp_rate_89500": 7817
+      }
+    },
+    {
+      "program_id": "bau-grad-099",
+      "program_name": "Pharmacology, Toxicology and Biochemistry",
+      "faculty_name": "Pharmacy",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 18,
+        "fees_per_credit_usd": 325,
+        "fees_per_credit_usd_lbp_rate_89500": 175,
+        "thesis_total_credits": 22,
+        "thesis_total_fees_usd": 8667,
+        "thesis_total_fees_usd_lbp_rate_89500": 4667,
+        "total_fees_usd": 14517,
+        "total_fees_usd_lbp_rate_89500": 7817
+      }
+    },
+    {
+      "program_id": "bau-grad-100",
+      "program_name": "Human Anatomy and Embryology",
+      "faculty_name": "Medicine",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 34,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 17001,
+        "total_fees_usd_lbp_rate_89500": 9155
+      }
+    },
+    {
+      "program_id": "bau-grad-101",
+      "program_name": "Medical Physiology",
+      "faculty_name": "Medicine",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master in Physiology (with Thesis)",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 15613,
+        "total_fees_usd_lbp_rate_89500": 8407
+      }
+    },
+    {
+      "program_id": "bau-grad-102",
+      "program_name": "Endodontology (Accredited by ESE)",
+      "faculty_name": "Dentistry",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "40 course credits",
+            "published_row": "Master - 40 course credits",
+            "courses_total_credits": 40,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 18200,
+            "total_fees_usd_lbp_rate_89500": 9800
+          },
+          {
+            "name": "60 course credits",
+            "published_row": "Master - 60 course credits",
+            "courses_total_credits": 60,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 24700,
+            "total_fees_usd_lbp_rate_89500": 13300
+          },
+          {
+            "name": "68 course credits",
+            "published_row": "Master - 68 course credits",
+            "courses_total_credits": 68,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 27300,
+            "total_fees_usd_lbp_rate_89500": 14700
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-103",
+      "program_name": "Operative & Esthetic Dentistry",
+      "faculty_name": "Dentistry",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "40 course credits",
+            "published_row": "Master - 40 course credits",
+            "courses_total_credits": 40,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 18200,
+            "total_fees_usd_lbp_rate_89500": 9800
+          },
+          {
+            "name": "60 course credits",
+            "published_row": "Master - 60 course credits",
+            "courses_total_credits": 60,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 24700,
+            "total_fees_usd_lbp_rate_89500": 13300
+          },
+          {
+            "name": "68 course credits",
+            "published_row": "Master - 68 course credits",
+            "courses_total_credits": 68,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 27300,
+            "total_fees_usd_lbp_rate_89500": 14700
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-104",
+      "program_name": "Oral Surgery",
+      "faculty_name": "Dentistry",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "40 course credits",
+            "published_row": "Master - 40 course credits",
+            "courses_total_credits": 40,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 18200,
+            "total_fees_usd_lbp_rate_89500": 9800
+          },
+          {
+            "name": "60 course credits",
+            "published_row": "Master - 60 course credits",
+            "courses_total_credits": 60,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 24700,
+            "total_fees_usd_lbp_rate_89500": 13300
+          },
+          {
+            "name": "68 course credits",
+            "published_row": "Master - 68 course credits",
+            "courses_total_credits": 68,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 27300,
+            "total_fees_usd_lbp_rate_89500": 14700
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-105",
+      "program_name": "Orthodontics",
+      "faculty_name": "Dentistry",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "40 course credits",
+            "published_row": "Master - 40 course credits",
+            "courses_total_credits": 40,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 18200,
+            "total_fees_usd_lbp_rate_89500": 9800
+          },
+          {
+            "name": "60 course credits",
+            "published_row": "Master - 60 course credits",
+            "courses_total_credits": 60,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 24700,
+            "total_fees_usd_lbp_rate_89500": 13300
+          },
+          {
+            "name": "68 course credits",
+            "published_row": "Master - 68 course credits",
+            "courses_total_credits": 68,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 27300,
+            "total_fees_usd_lbp_rate_89500": 14700
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-106",
+      "program_name": "Pediatric Dentistry",
+      "faculty_name": "Dentistry",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "40 course credits",
+            "published_row": "Master - 40 course credits",
+            "courses_total_credits": 40,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 18200,
+            "total_fees_usd_lbp_rate_89500": 9800
+          },
+          {
+            "name": "60 course credits",
+            "published_row": "Master - 60 course credits",
+            "courses_total_credits": 60,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 24700,
+            "total_fees_usd_lbp_rate_89500": 13300
+          },
+          {
+            "name": "68 course credits",
+            "published_row": "Master - 68 course credits",
+            "courses_total_credits": 68,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 27300,
+            "total_fees_usd_lbp_rate_89500": 14700
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-107",
+      "program_name": "Periodontology",
+      "faculty_name": "Dentistry",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "40 course credits",
+            "published_row": "Master - 40 course credits",
+            "courses_total_credits": 40,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 18200,
+            "total_fees_usd_lbp_rate_89500": 9800
+          },
+          {
+            "name": "60 course credits",
+            "published_row": "Master - 60 course credits",
+            "courses_total_credits": 60,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 24700,
+            "total_fees_usd_lbp_rate_89500": 13300
+          },
+          {
+            "name": "68 course credits",
+            "published_row": "Master - 68 course credits",
+            "courses_total_credits": 68,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 27300,
+            "total_fees_usd_lbp_rate_89500": 14700
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-108",
+      "program_name": "Prosthodontics & Esthetic Dentistry",
+      "faculty_name": "Dentistry",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total_by_published_variant",
+        "variants": [
+          {
+            "name": "40 course credits",
+            "published_row": "Master - 40 course credits",
+            "courses_total_credits": 40,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 18200,
+            "total_fees_usd_lbp_rate_89500": 9800
+          },
+          {
+            "name": "60 course credits",
+            "published_row": "Master - 60 course credits",
+            "courses_total_credits": 60,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 24700,
+            "total_fees_usd_lbp_rate_89500": 13300
+          },
+          {
+            "name": "68 course credits",
+            "published_row": "Master - 68 course credits",
+            "courses_total_credits": 68,
+            "fees_per_credit_usd": 325,
+            "fees_per_credit_usd_lbp_rate_89500": 175,
+            "thesis_total_credits": 6,
+            "thesis_total_fees_usd": 5200,
+            "thesis_total_fees_usd_lbp_rate_89500": 2800,
+            "total_fees_usd": 27300,
+            "total_fees_usd_lbp_rate_89500": 14700
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "bau-grad-109",
+      "program_name": "Endodontology",
+      "faculty_name": "Dentistry",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 40,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 19084,
+        "total_fees_usd_lbp_rate_89500": 10276
+      }
+    },
+    {
+      "program_id": "bau-grad-110",
+      "program_name": "Operative & Esthetic Dentistry",
+      "faculty_name": "Dentistry",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 40,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 19084,
+        "total_fees_usd_lbp_rate_89500": 10276
+      }
+    },
+    {
+      "program_id": "bau-grad-111",
+      "program_name": "Oral Surgery",
+      "faculty_name": "Dentistry",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 40,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 19084,
+        "total_fees_usd_lbp_rate_89500": 10276
+      }
+    },
+    {
+      "program_id": "bau-grad-112",
+      "program_name": "Orthodontics",
+      "faculty_name": "Dentistry",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 40,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 19084,
+        "total_fees_usd_lbp_rate_89500": 10276
+      }
+    },
+    {
+      "program_id": "bau-grad-113",
+      "program_name": "Pediatric Dentistry",
+      "faculty_name": "Dentistry",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 40,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 19084,
+        "total_fees_usd_lbp_rate_89500": 10276
+      }
+    },
+    {
+      "program_id": "bau-grad-114",
+      "program_name": "Periodontology",
+      "faculty_name": "Dentistry",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 40,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 19084,
+        "total_fees_usd_lbp_rate_89500": 10276
+      }
+    },
+    {
+      "program_id": "bau-grad-115",
+      "program_name": "Prosthodontics",
+      "faculty_name": "Dentistry",
+      "degree_name": "PhD",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "PhD",
+        "courses_total_credits": 40,
+        "fees_per_credit_usd": 347,
+        "fees_per_credit_usd_lbp_rate_89500": 187,
+        "thesis_total_credits": 10,
+        "thesis_total_fees_usd": 5200,
+        "thesis_total_fees_usd_lbp_rate_89500": 2800,
+        "total_fees_usd": 19084,
+        "total_fees_usd_lbp_rate_89500": 10276
+      }
+    },
+    {
+      "program_id": "bau-grad-124",
+      "program_name": "Food Analysis and Safety",
+      "faculty_name": "Health Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-125",
+      "program_name": "Infection Prevention and Control",
+      "faculty_name": "Health Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master in Infection Prevention & Control (Project)",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 2167,
+        "thesis_total_fees_usd_lbp_rate_89500": 1167,
+        "total_fees_usd": 7042,
+        "total_fees_usd_lbp_rate_89500": 3792
+      }
+    },
+    {
+      "program_id": "bau-grad-126",
+      "program_name": "Master in Medical Laboratory Sciences - Hematology and Blood Banking Track",
+      "faculty_name": "Health Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-127",
+      "program_name": "Master in Medical Laboratory Sciences - Microbiology and Immunology Track",
+      "faculty_name": "Health Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-128",
+      "program_name": "Master of Science in Nursing- Critical Care Nursing Speciality",
+      "faculty_name": "Health Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-129",
+      "program_name": "Master of Science in Nursing- Medical Surgical Nursing Speciality",
+      "faculty_name": "Health Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    },
+    {
+      "program_id": "bau-grad-130",
+      "program_name": "Master of Science in Nutrition",
+      "faculty_name": "Health Sciences",
+      "degree_name": "Master",
+      "tuition": {
+        "source": "bau_grad_tuition_pdf",
+        "academic_year": "2025-2026",
+        "currency": "USD",
+        "billing_basis": "program_total",
+        "published_row": "Master",
+        "courses_total_credits": 30,
+        "fees_per_credit_usd": 163,
+        "fees_per_credit_usd_lbp_rate_89500": 88,
+        "thesis_total_credits": 6,
+        "thesis_total_fees_usd": 4334,
+        "thesis_total_fees_usd_lbp_rate_89500": 2333,
+        "total_fees_usd": 9209,
+        "total_fees_usd_lbp_rate_89500": 4958
+      }
+    }
+  ]
+}

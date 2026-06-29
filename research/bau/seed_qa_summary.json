@@ -1,0 +1,54 @@
+{
+  "verdict": "APPROVE WITH NOTES",
+  "migration": {
+    "file": "Server/src/main/resources/db/migration/V30__seed_bau_graduate_data.sql",
+    "ordered_after": "V29__seed_uob_graduate_data.sql",
+    "drops_official_program_url_uniqueness": false
+  },
+  "counts": {
+    "universities": 1,
+    "faculties_schools": 10,
+    "departments": 0,
+    "degree_types": 4,
+    "languages": 4,
+    "sources": 25,
+    "programs": 109,
+    "master": 59,
+    "phd": 50,
+    "tuition_rows": 109,
+    "fee_item_rows": 2,
+    "admission_requirement_rows": 7,
+    "required_document_rows": 14,
+    "deadline_rows": 1,
+    "scholarship_rows": 3,
+    "financial_aid_rows": 1,
+    "payment_plan_rows": 0,
+    "accreditation_rows": 1,
+    "track_rows": 0,
+    "alias_rows": 0,
+    "program_source_links": 436,
+    "out_of_scope_rows_skipped": 21
+  },
+  "checks": {
+    "program_ids_unique": true,
+    "source_ids_unique": true,
+    "source_urls_unique": true,
+    "program_source_links_unique": true,
+    "tuition_rows_unique": true,
+    "fee_items_unique": true,
+    "shared_facts_unique": true,
+    "every_program_has_source": true,
+    "every_tuition_row_resolves": true,
+    "every_in_scope_program_master_or_phd": true,
+    "out_of_scope_excluded_from_graduate_program": true,
+    "enum_compatibility_v24": true,
+    "flyway_execution_ran": false,
+    "compile_passed": true
+  },
+  "notes": [
+    "BAU finalized in-scope inventory uses unique official_program_url values, so the uniqueness constraint remains intact.",
+    "26 programs have multiple tuition variants in the official fee PDF; variant details are preserved in notes.",
+    "No department-level graduate rows were present in the finalized BAU inventory.",
+    "Flyway execution was not performed because no datasource is configured in this workspace."
+  ]
+}

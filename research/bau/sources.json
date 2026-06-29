@@ -1,0 +1,227 @@
+[
+  {
+    "id": "bau_grad_programs_root",
+    "url": "https://www.bau.edu.lb/Graduate/Programs",
+    "type": "html",
+    "scope": "graduate program faculty index",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "graduate program faculty index; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_admissions",
+    "url": "https://www.bau.edu.lb/Admissions/GraduateStudents",
+    "type": "html",
+    "scope": "graduate admissions and program inventory",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "graduate admissions and program inventory; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_admission_requirements",
+    "url": "https://www.bau.edu.lb/graduate/admission-requirements",
+    "type": "html",
+    "scope": "graduate admission requirements",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "graduate admission requirements; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_applying",
+    "url": "https://www.bau.edu.lb/Graduate/Applying",
+    "type": "html",
+    "scope": "application procedure and documents",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "application procedure and documents; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_dates",
+    "url": "https://www.bau.edu.lb/Graduate/Dates-and-Deadlines",
+    "type": "html",
+    "scope": "graduate application dates/deadlines",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "graduate application dates/deadlines; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_fall_2026_news",
+    "url": "https://www.bau.edu.lb/Graduate/News/Graduate-Admission-Application-for-Fall-Semester-2026-2027",
+    "type": "html",
+    "scope": "fall 2026/2027 application window",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "fall 2026/2027 application window; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_spring_2025_news",
+    "url": "https://www.bau.edu.lb/Graduate/News/Graduate-Admission-Application-for-Spring-Semester-2025-2026",
+    "type": "html",
+    "scope": "spring 2025/2026 application window",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "spring 2025/2026 application window; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_degree_requirements",
+    "url": "https://www.bau.edu.lb/Graduate/Degrees-Requirement-for-graduation",
+    "type": "html",
+    "scope": "credit-hour and thesis/project requirements by faculty",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "credit-hour and thesis/project requirements by faculty; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_tuition_pdf",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Graduate/Graduate-studies-Tuition-Fees.pdf",
+    "type": "pdf",
+    "scope": "graduate tuition fees",
+    "status": "downloaded_rendered_official_pdf",
+    "access_date": "2026-06-29",
+    "notes": "graduate tuition fees; official BAU PDF source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_brochure_outline_pdf",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Graduate/Brochure-Graduate-Studies-Outline.pdf",
+    "type": "pdf",
+    "scope": "graduate studies brochure outline",
+    "status": "reachable_official_source",
+    "access_date": "2026-06-29",
+    "notes": "graduate studies brochure outline; official BAU PDF source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_brochure_legacy_pdf",
+    "url": "https://www.bau.edu.lb/BAUUpload/Library/Files/Uploaded%20Files/Graduate%20Studies/Graduate%20Studies%20Brochure.pdf",
+    "type": "pdf",
+    "scope": "graduate studies guide/brochure",
+    "status": "reachable_official_source",
+    "access_date": "2026-06-29",
+    "notes": "graduate studies guide/brochure; official BAU PDF source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_bylaws_pdf",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Graduate/Postgraduate-Bylaws-English.pdf",
+    "type": "pdf",
+    "scope": "postgraduate bylaws",
+    "status": "reachable_official_source",
+    "access_date": "2026-06-29",
+    "notes": "postgraduate bylaws; official BAU PDF source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_program_scholarships",
+    "url": "https://www.bau.edu.lb/Graduate/Program-based-Scholarships",
+    "type": "html",
+    "scope": "program-based scholarships",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "program-based scholarships; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_merit_scholarships",
+    "url": "https://www.bau.edu.lb/Graduate/Graduate-Merit-Scholarships",
+    "type": "html",
+    "scope": "graduate merit scholarships",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "graduate merit scholarships; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_scholarships_awards",
+    "url": "https://www.bau.edu.lb/Graduate/Scholarships-and-Awards",
+    "type": "html",
+    "scope": "scholarships and awards index",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "scholarships and awards index; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_human-sciences",
+    "url": "https://www.bau.edu.lb/Graduate/Human-Sciences/Programs",
+    "type": "html",
+    "scope": "Human Sciences graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Human Sciences graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_law-and-political-science",
+    "url": "https://www.bau.edu.lb/Graduate/Law-and-Political-science/Programs",
+    "type": "html",
+    "scope": "Law & Political Science graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Law & Political Science graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_business-administration",
+    "url": "https://www.bau.edu.lb/Graduate/Business-Administration/Programs",
+    "type": "html",
+    "scope": "Business Administration graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Business Administration graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_architecture---design-and-built-environment",
+    "url": "https://www.bau.edu.lb/Graduate/Architecture-Design-and-Built-Environment/Programs",
+    "type": "html",
+    "scope": "Architecture - Design & Built Environment graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Architecture - Design & Built Environment graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_engineering",
+    "url": "https://www.bau.edu.lb/Graduate/Engineering/Programs",
+    "type": "html",
+    "scope": "Engineering graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Engineering graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_science",
+    "url": "https://www.bau.edu.lb/Graduate/Science/Programs",
+    "type": "html",
+    "scope": "Science graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Science graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_pharmacy",
+    "url": "https://www.bau.edu.lb/Graduate/Pharmacy/Programs",
+    "type": "html",
+    "scope": "Pharmacy graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Pharmacy graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_medicine",
+    "url": "https://www.bau.edu.lb/Graduate/Medicine/Programs",
+    "type": "html",
+    "scope": "Medicine graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Medicine graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_dentistry",
+    "url": "https://www.bau.edu.lb/Graduate/Dentistry/Programs",
+    "type": "html",
+    "scope": "Dentistry graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Dentistry graduate programs listing; official BAU HTML source accessed during normalization."
+  },
+  {
+    "id": "bau_grad_health-sciences",
+    "url": "https://www.bau.edu.lb/Graduate/Health-Sciences/Programs",
+    "type": "html",
+    "scope": "Health Sciences graduate programs listing",
+    "status": "discovered_parsed_search_snippet",
+    "access_date": "2026-06-29",
+    "notes": "Health Sciences graduate programs listing; official BAU HTML source accessed during normalization."
+  }
+]

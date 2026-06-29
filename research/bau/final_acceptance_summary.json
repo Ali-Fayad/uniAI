@@ -1,0 +1,45 @@
+{
+  "task_code": "BAU_ACCEPTANCE_QA_002_AFTER_NORMALIZATION",
+  "university": "Beirut Arab University",
+  "verdict": "APPROVE WITH NOTES",
+  "ready_for_v30_seed_generation": true,
+  "validation": {
+    "json_parse": true,
+    "mvnw_compile": {
+      "command": "./mvnw -q -DskipTests compile",
+      "status": "not_run_in_workspace",
+      "reason": "No ./mvnw file is present in this workspace path; this is an environment/repository-layout issue."
+    },
+    "duplicate_program_ids": [],
+    "duplicate_source_ids": [],
+    "duplicate_source_urls": [],
+    "programs_with_sources": true,
+    "tuition_sources_valid": true,
+    "official_program_urls_valid": true
+  },
+  "counts": {
+    "programs_total": 109,
+    "master": 59,
+    "phd": 50,
+    "other_degree_families_in_programs_json": 0,
+    "out_of_scope": 21
+  },
+  "scope_issue": null,
+  "coverage": {
+    "official_program_url": "109/109",
+    "tuition": "109/109",
+    "fee_mappings": "109/109"
+  },
+  "supporting_checks": {
+    "duplicate_program_ids": 0,
+    "duplicate_source_ids": 0,
+    "duplicate_source_urls": 0,
+    "same_official_program_url_same_degree_name": 0,
+    "normalized_title_collisions": 0,
+    "programs_without_sources": 0,
+    "tuition_objects_without_official_source": 0,
+    "sources_missing_access_date": 0,
+    "sources_missing_notes": 0
+  },
+  "final_statement": "BAU is ready for V30 seed generation."
+}
