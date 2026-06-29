@@ -1,0 +1,330 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "counts": {
+    "programs": 80,
+    "masters": 59,
+    "phds": 21,
+    "out_of_scope": 4,
+    "sources": 45,
+    "tuition_rows": 59,
+    "null_tuition_rows": 21
+  },
+  "duplicate_checks": {
+    "duplicate_program_ids": [],
+    "duplicate_source_ids": [],
+    "duplicate_source_urls": [],
+    "intentional_url_reuse_groups": [
+      {
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "count": 9,
+        "program_ids": [
+          "usek-law-master-business-law",
+          "usek-law-master-diplomacy-and-international-security",
+          "usek-law-master-international-contracts",
+          "usek-law-master-political-sciences",
+          "usek-law-master-political-sciences-international-relations",
+          "usek-law-master-private-law",
+          "usek-law-master-public-law",
+          "usek-law-master-middle-eastern-studies",
+          "usek-law-master-international-comparative-law"
+        ]
+      },
+      {
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "count": 10,
+        "program_ids": [
+          "usek-engineering-master-biomedical-engineering",
+          "usek-engineering-master-chemical-engineering",
+          "usek-engineering-master-civil-engineering",
+          "usek-engineering-master-communication-engineering",
+          "usek-engineering-master-computer-engineering",
+          "usek-engineering-master-electrical-electronics-engineering",
+          "usek-engineering-master-enology",
+          "usek-engineering-master-food-engineering",
+          "usek-engineering-master-mechanical-engineering",
+          "usek-engineering-master-petroleum-engineering"
+        ]
+      },
+      {
+        "url": "https://www.usek.edu.lb/fmus/academic-program/phd?t=5",
+        "count": 2,
+        "program_ids": [
+          "usek-music-phd-music",
+          "usek-music-phd-higher-specialized-music-education"
+        ]
+      },
+      {
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "count": 28,
+        "program_ids": [
+          "usek-fas-master-arabic-language-literature",
+          "usek-fas-master-cinema-television",
+          "usek-fas-master-conservation-restoration-cultural-property-sacred-art",
+          "usek-fas-master-education",
+          "usek-fas-master-education-administration",
+          "usek-fas-master-education-technology",
+          "usek-fas-master-e-journalism-e-communication",
+          "usek-fas-master-english-language-literature",
+          "usek-fas-master-french-language-literature",
+          "usek-fas-master-history",
+          "usek-fas-master-information-studies",
+          "usek-fas-master-intervention-social-work",
+          "usek-fas-master-journalism-communication",
+          "usek-fas-master-philosophy",
+          "usek-fas-master-psychology",
+          "usek-fas-master-religious-sciences",
+          "usek-fas-master-social-sciences",
+          "usek-fas-master-translation",
+          "usek-fas-master-actuarial-financial-mathematics",
+          "usek-fas-master-biochemistry",
+          "usek-fas-master-biology",
+          "usek-fas-master-chemistry",
+          "usek-fas-master-computer-science",
+          "usek-fas-master-cybersecurity-cyberdefence",
+          "usek-fas-master-environmental-technologies",
+          "usek-fas-master-mathematics",
+          "usek-fas-master-neuroscience-biotechnology",
+          "usek-fas-master-nutrition"
+        ]
+      },
+      {
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "count": 14,
+        "program_ids": [
+          "usek-fas-phd-agricultural-food-sciences",
+          "usek-fas-phd-arabic-language-literature",
+          "usek-fas-phd-archeology-art-history",
+          "usek-fas-phd-chemistry-life-earth-sciences",
+          "usek-fas-phd-conservation-restoration-cultural-property-sacred-art",
+          "usek-fas-phd-education-sciences",
+          "usek-fas-phd-english-language-literature",
+          "usek-fas-phd-french-language-literature",
+          "usek-fas-phd-history",
+          "usek-fas-phd-language-sciences-traductology",
+          "usek-fas-phd-philosophy",
+          "usek-fas-phd-psychology",
+          "usek-fas-phd-social-sciences",
+          "usek-fas-phd-visual-arts"
+        ]
+      }
+    ]
+  },
+  "source_checks": {
+    "programs_without_sources": [],
+    "programs_with_broken_source_refs": [],
+    "programs_with_non_official_urls": [],
+    "orphan_sources": [
+      {
+        "source_id": "usek_architecture_combined_page",
+        "page_title": "Holy Spirit University of Kaslik | Bachelor and Master in Architecture (Combined Program)",
+        "url": "https://www.usek.edu.lb/en/department-of-architecture/bachelor-of-science-in-architectural-studies-22?t=2",
+        "source_type": "PROGRAM_PAGE",
+        "classification": "reference",
+        "notes": "Combined program page. Relevant later because it contains the graduate architecture component."
+      },
+      {
+        "source_id": "usek_multiple_sclerosis_diploma",
+        "page_title": "Holy Spirit University of Kaslik | University Diploma in Multiple Sclerosis",
+        "url": "https://www.usek.edu.lb/en/academic-programs/department-of-doctoral-studies/university-diploma-in-multiple-sclerosis?t=2",
+        "source_type": "PROGRAM_PAGE",
+        "classification": "discovery",
+        "notes": "Official program page surfaced during discovery but is out of scope for the current MASTER/PHD inventory."
+      }
+    ]
+  },
+  "normalization_checks": {
+    "degree_type": [
+      "MASTER",
+      "PHD"
+    ],
+    "delivery_mode": [],
+    "language": [
+      "ENGLISH",
+      "MULTILINGUAL"
+    ],
+    "thesis_or_non_thesis": [
+      "THESIS",
+      "THESIS_OR_PROJECT",
+      "PROJECT"
+    ],
+    "tuition_billing_basis": [
+      "PER_CREDIT"
+    ],
+    "tuition_currency": [
+      "USD"
+    ],
+    "requirement_enum_violations": []
+  },
+  "tuition_checks": {
+    "tuition_rows": 59,
+    "null_tuition_rows": 21,
+    "master_null_tuition": 0,
+    "phd_null_tuition": 21,
+    "issues": []
+  },
+  "completeness": {
+    "overall_populated_cells": 128,
+    "overall_total_cells": 1680,
+    "overall_populated_pct": 7.62,
+    "field_stats": [
+      {
+        "field": "credits",
+        "populated": 22,
+        "nulls": 58,
+        "null_pct": 72.5
+      },
+      {
+        "field": "duration",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "language",
+        "populated": 21,
+        "nulls": 59,
+        "null_pct": 73.8
+      },
+      {
+        "field": "delivery_mode",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "program_description",
+        "populated": 19,
+        "nulls": 61,
+        "null_pct": 76.3
+      },
+      {
+        "field": "admission_requirements",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "required_documents",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "gre_requirement",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "gmat_requirement",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "english_requirement",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "portfolio_requirement",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "interview_requirement",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "experience_requirement",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "tuition",
+        "populated": 59,
+        "nulls": 21,
+        "null_pct": 26.3
+      },
+      {
+        "field": "additional_fees",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "deadlines",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "scholarships",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "financial_aid",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "payment_plans",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "accreditation",
+        "populated": 0,
+        "nulls": 80,
+        "null_pct": 100
+      },
+      {
+        "field": "concentrations_or_tracks",
+        "populated": 7,
+        "nulls": 73,
+        "null_pct": 91.3
+      }
+    ]
+  },
+  "university_status": {
+    "admissions": true,
+    "required_documents": true,
+    "doctoral_required_documents": true,
+    "language_requirements": true,
+    "deadlines": true,
+    "scholarships": true,
+    "financial_aid": true,
+    "payment_plans": true,
+    "academic_calendar": true,
+    "academic_regulations": true,
+    "accreditation": true,
+    "tuition_model": true
+  },
+  "remaining_missing_information": [
+    {
+      "gap": "doctoral tuition",
+      "classification": "officially unavailable",
+      "note": "No doctoral rate is published in the official graduate fee table used for this pass."
+    },
+    {
+      "gap": "program descriptions / durations / delivery modes / tracks for many records",
+      "classification": "likely missing and worth future research",
+      "note": "Some are not exposed on the official pages or were only exposed on hub pages."
+    },
+    {
+      "gap": "shared admissions / documents / deadlines / scholarships / aid / payment plans",
+      "classification": "intentionally stored in university.json",
+      "note": "These are centralized as intended and not duplicated into every program row."
+    }
+  ],
+  "recommendation": "APPROVE_WITH_NOTES"
+}

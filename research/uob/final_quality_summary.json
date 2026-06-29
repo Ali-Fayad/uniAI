@@ -1,0 +1,251 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "counts": {
+    "programs": 60,
+    "master": 59,
+    "phd": 1,
+    "out_of_scope": 2,
+    "sources": 28,
+    "unique_source_urls": 28,
+    "tuition_rows": 58,
+    "null_tuition_rows": 2,
+    "programs_missing_tuition": [
+      "uob-theology-master-theology",
+      "uob-theology-phd-theology"
+    ]
+  },
+  "duplicates": {
+    "duplicate_program_ids": [],
+    "duplicate_source_ids": [],
+    "duplicate_source_urls": [],
+    "duplicate_official_program_urls": [
+      {
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "program_ids": [
+          "uob-alba-master-architecture-march",
+          "uob-alba-master-computer-graphics-interactive-media-mfa",
+          "uob-alba-master-graphic-design-mfa",
+          "uob-alba-master-interior-architecture-design-mfa",
+          "uob-alba-master-animation-2d-3d",
+          "uob-alba-master-architecture",
+          "uob-alba-master-audiovisual-directing",
+          "uob-alba-master-audiovisual-production",
+          "uob-alba-master-cinema-directing",
+          "uob-alba-master-global-design",
+          "uob-alba-master-graphic-design-publicity",
+          "uob-alba-master-illustration-comic",
+          "uob-alba-master-interior-architecture",
+          "uob-alba-master-landscape-management",
+          "uob-alba-master-multimedia-creation",
+          "uob-alba-master-photography",
+          "uob-alba-master-television-digital-media",
+          "uob-alba-master-urban-design",
+          "uob-alba-master-visual-arts"
+        ]
+      },
+      {
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "program_ids": [
+          "uob-fas-master-arabic-language-literature",
+          "uob-fas-master-biology",
+          "uob-fas-master-chemistry",
+          "uob-fas-master-christian-muslim-studies",
+          "uob-fas-master-computer-science",
+          "uob-fas-master-education-kurah",
+          "uob-fas-master-english-language-literature",
+          "uob-fas-master-english-language-teaching",
+          "uob-fas-master-environmental-sciences",
+          "uob-fas-master-french-language-literature",
+          "uob-fas-master-history",
+          "uob-fas-master-languages-translation",
+          "uob-fas-master-mass-media-communication",
+          "uob-fas-master-mathematics",
+          "uob-fas-master-philosophy",
+          "uob-fas-master-physical-education",
+          "uob-fas-master-political-science-international-affairs",
+          "uob-fas-master-psychology",
+          "uob-fas-master-sports-management",
+          "uob-fas-master-education-aley"
+        ]
+      },
+      {
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "program_ids": [
+          "uob-fobm-master-accounting-finance",
+          "uob-fobm-master-financial-economics",
+          "uob-fobm-master-human-resources-management",
+          "uob-foe-master-chemical-engineering",
+          "uob-foe-master-civil-engineering",
+          "uob-foe-master-computer-engineering",
+          "uob-foe-master-electrical-engineering",
+          "uob-foe-master-engineering-management",
+          "uob-foe-master-environmental-engineering",
+          "uob-foe-master-mechanical-engineering",
+          "uob-fom-master-cognitive-behavior-therapy"
+        ]
+      },
+      {
+        "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSClinicalLabSciences.aspx",
+        "program_ids": [
+          "uob-fhs-master-clinical-laboratory-sciences-lab-management",
+          "uob-fhs-master-medical-laboratory-sciences"
+        ]
+      },
+      {
+        "url": "https://theology.balamand.edu.lb/",
+        "program_ids": [
+          "uob-theology-master-theology",
+          "uob-theology-phd-theology"
+        ]
+      }
+    ]
+  },
+  "source_integrity": {
+    "broken_source_refs": [],
+    "orphan_sources": [],
+    "all_urls_official": true
+  },
+  "schema_compatibility": {
+    "v24_compatible": true,
+    "degree_type": [
+      "MASTER",
+      "PHD"
+    ],
+    "delivery_mode": [],
+    "language": [
+      "ARABIC",
+      "ENGLISH",
+      "FRENCH",
+      "MULTILINGUAL"
+    ],
+    "thesis_or_non_thesis": [
+      "THESIS",
+      "NON_THESIS",
+      "THESIS_OR_PROJECT",
+      "PROJECT",
+      null
+    ],
+    "tuition_billing_basis": [
+      "PER_CREDIT",
+      "PER_ACADEMIC_YEAR"
+    ],
+    "tuition_currency": [
+      "USD",
+      "LBP"
+    ]
+  },
+  "tuition_consistency": {
+    "master_with_null_tuition": 1,
+    "phd_with_null_tuition": 1,
+    "shared_report_match": true,
+    "official_limitation_note": "Theology tuition is not published in the reviewed official UOB sources."
+  },
+  "completeness": {
+    "overall_percent_including_tuition": 31.3095238095,
+    "overall_percent_excluding_tuition": 26.2820512821,
+    "field_coverage": {
+      "program_description": {
+        "populated": 47,
+        "total": 60
+      },
+      "credits": {
+        "populated": 26,
+        "total": 60
+      },
+      "duration": {
+        "populated": 24,
+        "total": 60
+      },
+      "thesis_or_non_thesis": {
+        "populated": 26,
+        "total": 60
+      },
+      "concentrations_or_tracks": {
+        "populated": 16,
+        "total": 60
+      },
+      "delivery_mode": {
+        "populated": 0,
+        "total": 60
+      },
+      "language": {
+        "populated": 60,
+        "total": 60
+      },
+      "admission_requirements": {
+        "populated": 3,
+        "total": 60
+      },
+      "gre_requirement": {
+        "populated": 0,
+        "total": 60
+      },
+      "gmat_requirement": {
+        "populated": 0,
+        "total": 60
+      },
+      "interview_requirement": {
+        "populated": 1,
+        "total": 60
+      },
+      "experience_requirement": {
+        "populated": 1,
+        "total": 60
+      },
+      "accreditation": {
+        "populated": 1,
+        "total": 60
+      }
+    }
+  },
+  "centralized_fields": {
+    "university_json_fields": [
+      "admissions",
+      "required_documents",
+      "english_requirement",
+      "deadlines",
+      "scholarships",
+      "financial_aid",
+      "payment_plans",
+      "academic_calendar",
+      "academic_regulations",
+      "accreditation",
+      "international_students",
+      "language_policy"
+    ],
+    "program_fields_left_null_by_design": [
+      "required_documents",
+      "deadlines",
+      "scholarships",
+      "financial_aid",
+      "payment_plans",
+      "english_requirement",
+      "additional_fees"
+    ]
+  },
+  "overlap": {
+    "out_of_scope_overlap_with_program_ids": false,
+    "out_of_scope_shared_catalog_url_reuse": true
+  },
+  "remaining_gaps": [
+    "Theology tuition is not published in the reviewed UOB sources.",
+    "Engineering graduate offerings remain mostly catalogue/hub based.",
+    "Some ALBA records still lack directly verified credits and duration.",
+    "uob-fom-master-cognitive-behavior-therapy remains catalogue-level only.",
+    "uob-fas-master-philosophy still lacks directly verified credit/duration detail."
+  ],
+  "validation": {
+    "programs_json_parse": true,
+    "out_of_scope_json_parse": true,
+    "university_json_parse": true,
+    "sources_json_parse": true,
+    "fees_mapping_summary_parse": true,
+    "no_duplicate_program_ids": true,
+    "no_duplicate_source_ids": true,
+    "no_duplicate_source_urls": true,
+    "every_program_has_source": true,
+    "every_source_reference_resolves": true,
+    "every_program_url_official": true,
+    "compile_passed": true
+  }
+}

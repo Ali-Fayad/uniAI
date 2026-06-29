@@ -1,0 +1,523 @@
+{
+  "id": "uob",
+  "name": "University of Balamand",
+  "date_accessed": "2026-06-28",
+  "sources_used": [
+    "uob_grad_admissions",
+    "uob_admission_guide_page",
+    "uob_admission_guide_pdf",
+    "uob_fees_expenses_pdf",
+    "uob_financial_support",
+    "uob_academic_calendar",
+    "uob_grading_policy_faq",
+    "uob_catalogue_page",
+    "uob_general_graduate_catalogue_pdf",
+    "uob_fas",
+    "uob_fas_graduate_catalogue_pdf",
+    "uob_fobm",
+    "uob_fobm_mba",
+    "uob_fobm_emba",
+    "uob_foe",
+    "uob_fhs",
+    "uob_fhs_graduate_catalogue_pdf",
+    "uob_fhs_mph",
+    "uob_fhs_ms_cls",
+    "uob_fhs_ms_nursing",
+    "uob_fom",
+    "uob_fom_ms_biomedical",
+    "uob_fom_admissions",
+    "uob_alba",
+    "uob_alba_graduate_catalogue_pdf",
+    "uob_theology",
+    "uob_home"
+  ],
+  "tuition_model": {
+    "summary": "UOB publishes a 2025-2026 graduate fee table with faculty-based per-credit rates and a small number of fixed yearly tuition rows for special programs.",
+    "billing_basis": [
+      "PER_CREDIT",
+      "PER_ACADEMIC_YEAR"
+    ],
+    "currency": "USD",
+    "source_ids": [
+      "uob_fees_expenses_pdf"
+    ]
+  },
+  "tuition_table": [
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Graduate arts rate in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-fas-master-arabic-language-literature",
+        "uob-fas-master-christian-muslim-studies",
+        "uob-fas-master-education-kurah",
+        "uob-fas-master-education-aley",
+        "uob-fas-master-english-language-literature",
+        "uob-fas-master-english-language-teaching",
+        "uob-fas-master-french-language-literature",
+        "uob-fas-master-history",
+        "uob-fas-master-languages-translation",
+        "uob-fas-master-mass-media-communication",
+        "uob-fas-master-philosophy",
+        "uob-fas-master-physical-education",
+        "uob-fas-master-political-science-international-affairs",
+        "uob-fas-master-psychology",
+        "uob-fas-master-sports-management"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 705,
+      "category": "Faculty of Arts and Sciences - Sciences",
+      "notes": "Graduate sciences rate in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-fas-master-biology",
+        "uob-fas-master-chemistry",
+        "uob-fas-master-computer-science",
+        "uob-fas-master-environmental-sciences",
+        "uob-fas-master-food-science-technology",
+        "uob-fas-master-mathematics"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Faculty of Business and Management",
+      "notes": "Graduate business rate in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-fobm-mba",
+        "uob-fobm-master-accounting-finance",
+        "uob-fobm-master-financial-economics",
+        "uob-fobm-master-human-resources-management"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "amount": 25500,
+      "category": "Executive Master of Business Administration",
+      "notes": "Official fee table lists EMBA as yearly tuition.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-fobm-emba"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Graduate engineering rate in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-foe-master-chemical-engineering",
+        "uob-foe-master-civil-engineering",
+        "uob-foe-master-computer-engineering",
+        "uob-foe-master-electrical-engineering",
+        "uob-foe-master-engineering-management",
+        "uob-foe-master-environmental-engineering",
+        "uob-foe-master-mechanical-engineering"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 715,
+      "category": "Faculty of Health Sciences",
+      "notes": "Graduate health sciences rate in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-fhs-master-public-health",
+        "uob-fhs-master-medical-laboratory-sciences",
+        "uob-fhs-master-clinical-laboratory-sciences-lab-management",
+        "uob-fhs-master-nursing"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "amount": 30000,
+      "category": "Faculty of Medicine and Medical Sciences",
+      "notes": "Official fee table lists Faculty of Medicine yearly tuition.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-fom-master-biomedical-sciences",
+        "uob-fom-master-cognitive-behavior-therapy"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Graduate rate in the official fee table; OCR extraction suggests a campus-specific ALBA row.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-alba-master-animation-2d-3d",
+        "uob-alba-master-architecture",
+        "uob-alba-master-audiovisual-directing",
+        "uob-alba-master-audiovisual-production",
+        "uob-alba-master-cinema-directing",
+        "uob-alba-master-global-design",
+        "uob-alba-master-graphic-design-publicity",
+        "uob-alba-master-illustration-comic",
+        "uob-alba-master-interior-architecture",
+        "uob-alba-master-landscape-management",
+        "uob-alba-master-multimedia-creation",
+        "uob-alba-master-photography",
+        "uob-alba-master-television-digital-media",
+        "uob-alba-master-urban-design",
+        "uob-alba-master-visual-arts"
+      ]
+    },
+    {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 510,
+      "category": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+      "notes": "Graduate rate in the official fee table; used for the Al-Kurah graduate ALBA offerings.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ],
+      "program_ids": [
+        "uob-alba-master-architecture-march",
+        "uob-alba-master-computer-graphics-interactive-media-mfa",
+        "uob-alba-master-graphic-design-mfa",
+        "uob-alba-master-interior-architecture-design-mfa"
+      ]
+    }
+  ],
+  "fee_table": [
+    {
+      "record_key": "graduate_application_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Graduate Application Fee",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 60,
+      "category": "Application and entrance exam fees",
+      "notes": "Non-refundable graduate application fee.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "post_graduate_application_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Post-Graduate Application Fee",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 60,
+      "category": "Application and entrance exam fees",
+      "notes": "Non-refundable post-graduate application fee.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "interview_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Interview",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 30,
+      "category": "Application and entrance exam fees",
+      "notes": "Interview fee listed in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "medical_exam_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Medical Examination",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 50,
+      "category": "Application and entrance exam fees",
+      "notes": "Medical examination fee listed in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "physical_exam_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Physical Examination",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 30,
+      "category": "Application and entrance exam fees",
+      "notes": "Physical examination fee listed in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "english_language_test_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "English Language Test",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 40,
+      "category": "Application and entrance exam fees",
+      "notes": "English language test fee listed in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "french_language_test_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "French Language Test",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 20,
+      "category": "Application and entrance exam fees",
+      "notes": "French language test fee listed in the official fee table.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "library_laboratory_deposit",
+      "academic_year": "2025-2026",
+      "fee_name": "Library and Laboratory Deposit",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 170,
+      "category": "Academic support",
+      "notes": "Deposit required of every student enrolling in UOB.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "student_activities_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Student Activities",
+      "billing_basis": "PER_SEMESTER",
+      "currency": "USD",
+      "amount": 200,
+      "category": "Student activities",
+      "notes": "Charged every semester.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "internet_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Internet Fee",
+      "billing_basis": "PER_SEMESTER",
+      "currency": "USD",
+      "amount": 30,
+      "category": "Technology services",
+      "notes": "Charged every semester.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "graduation_fee",
+      "academic_year": "2025-2026",
+      "fee_name": "Graduation Fee",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 125,
+      "category": "Graduation fees",
+      "notes": "Charged to every graduating student upon clearance.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "late_payment_penalty",
+      "academic_year": "2025-2026",
+      "fee_name": "Late Registration / Payment Penalty",
+      "billing_basis": "PER_SEMESTER",
+      "currency": "USD",
+      "amount": 100,
+      "category": "Administrative fees",
+      "notes": "Additional amount charged for late registration/payment of installments.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "nssf_medical_branch",
+      "academic_year": "2025-2026",
+      "fee_name": "National Social Security Fund (Medical Branch)",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "currency": "LBP",
+      "amount": null,
+      "category": "Insurance",
+      "notes": "Lebanese students must enroll in the NSSF medical branch; fee is 30% of the legal minimum salary.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    {
+      "record_key": "payment_method",
+      "academic_year": "2025-2026",
+      "fee_name": "Method of Payment",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": null,
+      "category": "Payment method",
+      "notes": "Payment should be made in cash at the university cashier’s office.",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    }
+  ],
+  "admissions": {
+    "summary": "Graduate admissions are handled by the Office of Admissions. Applicants must meet university and faculty requirements; departments and faculties supervise the criteria.",
+    "source_ids": [
+      "uob_grad_admissions",
+      "uob_admission_guide_pdf"
+    ]
+  },
+  "required_documents": {
+    "summary": "The reviewed graduate admissions sources explicitly list a certified copy of diploma, two recommendation letters, diploma equivalence if applicable, and an official transcript with course descriptions for completed courses.",
+    "source_ids": [
+      "uob_admission_guide_pdf"
+    ]
+  },
+  "english_requirement": {
+    "summary": "English-track graduate majors require EPT 85 or TOEFL iBT 100 (or paper-based TOEFL 600). Applicants below the threshold may be admitted conditionally and complete ENGL101/ENGL102 during the first year. French-track majors require FREN201, with DELF/DALF-based placement rules.",
+    "source_ids": [
+      "uob_grad_admissions",
+      "uob_admission_guide_pdf"
+    ]
+  },
+  "deadlines": {
+    "summary": "No single centralized graduate application deadline page was identified. The university asks applicants to monitor the website for updates and the academic calendar lists semester timing, registration, and exam periods.",
+    "source_ids": [
+      "uob_grad_admissions",
+      "uob_admission_guide_pdf",
+      "uob_academic_calendar"
+    ]
+  },
+  "scholarships": {
+    "summary": "The financial support pages mention merit scholarships, athletic scholarships, faculty support, and graduate assistantship as support categories. Graduate-specific award tables were not published in the reviewed sources.",
+    "source_ids": [
+      "uob_financial_support",
+      "uob_admission_guide_pdf"
+    ]
+  },
+  "financial_aid": {
+    "summary": "UOB states it allocates part of its annual budget to support student tuition fees based on academic excellence and the social situation of the student. The financial support page also references financial aid applications and graduate assistantship.",
+    "source_ids": [
+      "uob_financial_support",
+      "uob_admission_guide_pdf"
+    ]
+  },
+  "payment_plans": {
+    "summary": "The reviewed official sources do not publish a dedicated installment-plan page. The fee sheet states payment is made in cash at the cashier’s office, late installment payment triggers an additional charge, and a refund schedule is provided for withdrawals.",
+    "source_ids": [
+      "uob_fees_expenses_pdf"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "The official academic calendar page and the graduate catalogue publish the current semester timing, registration windows, drop/add periods, and exam periods.",
+    "source_ids": [
+      "uob_academic_calendar",
+      "uob_general_graduate_catalogue_pdf"
+    ]
+  },
+  "academic_regulations": {
+    "summary": "Graduate academic regulations published in the catalogue require a full-time load of 9-12 credits per semester, allow transfer credits up to 40%, require a minimum cumulative average of 80, and publish the graduate grading scheme.",
+    "source_ids": [
+      "uob_general_graduate_catalogue_pdf",
+      "uob_grading_policy_faq"
+    ]
+  },
+  "accreditation": {
+    "summary": "UOB states in the admissions guide that it is accredited by multiple higher educational commissions. The Faculty of Engineering hub also highlights ABET and ACQUIN accreditation markers.",
+    "source_ids": [
+      "uob_admission_guide_pdf",
+      "uob_foe"
+    ]
+  },
+  "international_students": {
+    "summary": "UOB states it admits students from Lebanon and the region at large without discrimination and also welcomes international students from 55 countries. The admissions materials provide international-student guidance through the university admissions flow.",
+    "source_ids": [
+      "uob_admission_guide_pdf",
+      "uob_grad_admissions"
+    ]
+  },
+  "language_policy": {
+    "summary": "UOB follows the American System of Liberal Education, with some programs offered in French. The graduate catalogue lists faculty language settings: FAS English/French/Arabic, Business English, Engineering English, Health Sciences English/French, Medicine English, ALBA English/French, and Theology Arabic/English/Greek.",
+    "source_ids": [
+      "uob_admission_guide_pdf",
+      "uob_general_graduate_catalogue_pdf"
+    ]
+  },
+  "programs_missing_tuition": [
+    "uob-theology-master-theology",
+    "uob-theology-phd-theology"
+  ],
+  "notes": "Tuition mapping uses the official 2025-2026 UOB fee table. The ALBA rows are mapped conservatively by campus; the fee PDF extraction shows an additional ALBA value that is not clearly attributable to a graduate campus row and was not mapped into graduate tuition. Theology tuition is not published in the reviewed sources.",
+  "sources": [
+    "uob_grad_admissions",
+    "uob_admission_guide_page",
+    "uob_admission_guide_pdf",
+    "uob_fees_expenses_pdf",
+    "uob_financial_support",
+    "uob_academic_calendar",
+    "uob_grading_policy_faq",
+    "uob_catalogue_page",
+    "uob_general_graduate_catalogue_pdf",
+    "uob_fas",
+    "uob_fas_graduate_catalogue_pdf",
+    "uob_fobm",
+    "uob_fobm_mba",
+    "uob_fobm_emba",
+    "uob_foe",
+    "uob_fhs",
+    "uob_fhs_graduate_catalogue_pdf",
+    "uob_fhs_mph",
+    "uob_fhs_ms_cls",
+    "uob_fhs_ms_nursing",
+    "uob_fom",
+    "uob_fom_ms_biomedical",
+    "uob_fom_admissions",
+    "uob_alba",
+    "uob_alba_graduate_catalogue_pdf",
+    "uob_theology",
+    "uob_home"
+  ]
+}

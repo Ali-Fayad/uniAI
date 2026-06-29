@@ -1,0 +1,484 @@
+{
+  "institution": "Holy Spirit University of Kaslik",
+  "date_accessed": "2026-06-27",
+  "tuition_source_ids": [
+    "usek_grad_fees"
+  ],
+  "tuition_model": {
+    "summary": "USEK publishes a graduate studies fee table in USD per credit. The official note states that the cost of a credit is determined by the school/faculty offering the course, not by the student’s home affiliation, and that the prices apply in all USEK branches.",
+    "billing_basis": "PER_CREDIT",
+    "currency": "USD",
+    "source_ids": [
+      "usek_grad_fees"
+    ]
+  },
+  "tuition_rows": [
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-arabic-language-literature",
+        "usek-fas-master-conservation-restoration-cultural-property-sacred-art",
+        "usek-fas-master-education",
+        "usek-fas-master-education-administration",
+        "usek-fas-master-education-technology",
+        "usek-fas-master-e-journalism-e-communication",
+        "usek-fas-master-english-language-literature",
+        "usek-fas-master-french-language-literature",
+        "usek-fas-master-history",
+        "usek-fas-master-information-studies",
+        "usek-fas-master-intervention-social-work",
+        "usek-fas-master-journalism-communication",
+        "usek-fas-master-philosophy",
+        "usek-fas-master-psychology",
+        "usek-fas-master-religious-sciences",
+        "usek-fas-master-social-sciences",
+        "usek-fas-master-translation"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - Music and Performing Arts",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-music-master-music",
+        "usek-music-master-performing-arts"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Pontifical School of Theology - Theology",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-theology-master-arts-theology"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-law-master-business-law",
+        "usek-law-master-criminology",
+        "usek-law-master-diplomacy-and-international-security",
+        "usek-law-master-international-contracts",
+        "usek-law-master-political-sciences",
+        "usek-law-master-political-sciences-international-relations",
+        "usek-law-master-private-law",
+        "usek-law-master-public-law",
+        "usek-law-master-middle-eastern-studies",
+        "usek-law-master-international-comparative-law"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "Faculty of Arts & Sciences - Communication - Cinema and Television",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-cinema-television"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "Faculty of Arts & Sciences - Nutrition and Food Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-nutrition"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Architecture & Design - Architecture / Design &Digital Media",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-architecture-master-communication-visual-arts",
+        "usek-architecture-master-contemporary-art"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Architecture & Design - Design &Digital Media",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-architecture-master-digital-media"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Architecture & Design - Interior Design",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-architecture-master-interior-architecture"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Engineering - Agricultural & Food Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-engineering-master-enology",
+        "usek-engineering-master-food-engineering"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Biology",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-biology"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Chemistry and Biochemistry",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-biochemistry",
+        "usek-fas-master-chemistry"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Computer science and IT",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-computer-science",
+        "usek-fas-master-cybersecurity-cyberdefence"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Mathematics",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-actuarial-financial-mathematics",
+        "usek-fas-master-mathematics"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - science programs",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-fas-master-environmental-technologies",
+        "usek-fas-master-neuroscience-biotechnology"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Business - Business Administration",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-business-master-business-administration",
+        "usek-business-master-business-administration-financial-engineering",
+        "usek-business-master-business-administration-human-resources",
+        "usek-business-master-business-administration-management-and-international-affairs"
+      ]
+    },
+    {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ],
+      "program_ids": [
+        "usek-engineering-master-biomedical-engineering",
+        "usek-engineering-master-chemical-engineering",
+        "usek-engineering-master-civil-engineering",
+        "usek-engineering-master-communication-engineering",
+        "usek-engineering-master-computer-engineering",
+        "usek-engineering-master-electrical-electronics-engineering",
+        "usek-engineering-master-mechanical-engineering",
+        "usek-engineering-master-petroleum-engineering"
+      ]
+    }
+  ],
+  "mapped_program_count": 59,
+  "unmapped_program_count": 21,
+  "unmapped_programs": [
+    {
+      "program_id": "usek-business-phd-business-administration",
+      "official_degree_name": "Ph.D. in Business",
+      "faculty": "Business School",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-business-doctorate-business-administration",
+      "official_degree_name": "Doctorate in Business Administration",
+      "faculty": "Business School",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-law-phd-law",
+      "official_degree_name": "Ph.D. in Law",
+      "faculty": "School of Law and Political Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-theology-phd-theology",
+      "official_degree_name": "Ph.D. in Theology",
+      "faculty": "Pontifical School of Theology",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-medicine-doctorate-medicine",
+      "official_degree_name": "Doctorate of Medicine",
+      "faculty": "School of Medicine and Medical Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-music-phd-music",
+      "official_degree_name": "Ph.D. in Music",
+      "faculty": "School of Music and Performing Arts",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-music-phd-higher-specialized-music-education",
+      "official_degree_name": "Ph.D. in Higher and Specialized Music Education",
+      "faculty": "School of Music and Performing Arts",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-agricultural-food-sciences",
+      "official_degree_name": "Ph.D. in Agricultural and Food Sciences",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-arabic-language-literature",
+      "official_degree_name": "Ph.D. in Arabic Language and Literature",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-archeology-art-history",
+      "official_degree_name": "Ph.D. in Archeology and Art History",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-chemistry-life-earth-sciences",
+      "official_degree_name": "Ph.D. in Chemistry and Life and Earth Sciences",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-conservation-restoration-cultural-property-sacred-art",
+      "official_degree_name": "Ph.D. in Conservation, Restoration of Cultural Property & Sacred Art",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-education-sciences",
+      "official_degree_name": "Ph.D. in Education Sciences",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-english-language-literature",
+      "official_degree_name": "Ph.D. in English Language and Literature",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-french-language-literature",
+      "official_degree_name": "Ph.D. in French Language and Literature",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-history",
+      "official_degree_name": "Ph.D. in History",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-language-sciences-traductology",
+      "official_degree_name": "Ph.D. in Language Sciences and Traductology",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-philosophy",
+      "official_degree_name": "Ph.D. in Philosophy",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-psychology",
+      "official_degree_name": "Ph.D. in Psychology",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-social-sciences",
+      "official_degree_name": "Ph.D. in Social Sciences",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    },
+    {
+      "program_id": "usek-fas-phd-visual-arts",
+      "official_degree_name": "Ph.D. in Visual Arts",
+      "faculty": "Faculty of Arts and Sciences",
+      "reason": "No official doctoral tuition amount was published in the graduate fee table used for this pass."
+    }
+  ],
+  "shared_fees": [
+    {
+      "fee_name": "Admission file fee",
+      "amount": 30,
+      "currency": "USD",
+      "billing_basis": "ONE_TIME",
+      "notes": "Non-refundable; paid at a bank specified by USEK or at any OMT branch with no additional fees.",
+      "source_ids": [
+        "usek_admission_guide_pdf"
+      ]
+    },
+    {
+      "fee_name": "Registration fee",
+      "amount": 200,
+      "currency": "USD",
+      "billing_basis": "PER_SEMESTER",
+      "notes": "Paid per semester (Fall, Spring, Summer Session). Included in the first payment.",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    {
+      "fee_name": "Operational fee",
+      "amount": 300,
+      "currency": "USD",
+      "billing_basis": "PER_SEMESTER",
+      "notes": "Charged in Fall and Spring semesters and included in the first payment.",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    {
+      "fee_name": "NSSF membership fee",
+      "amount": 94,
+      "currency": "USD",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "notes": "Paid in fresh dollars at the market rate; subject to NSSF exemption rules for affiliated students and students over 30.",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    {
+      "fee_name": "First payment",
+      "amount": 1000,
+      "currency": "USD",
+      "billing_basis": "ONE_TIME",
+      "notes": "First payment includes the USD 200 registration fee.",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    }
+  ],
+  "notes": [
+    "The graduate fee table is per-credit and school/faculty based.",
+    "Program tuition objects use the same official source id, usek_grad_fees.",
+    "The doctoral eligibility PDF was added to the source registry for completeness."
+  ]
+}

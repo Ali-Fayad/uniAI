@@ -1,0 +1,4418 @@
+[
+  {
+    "id": "usek-business-master-business-administration",
+    "faculty": "Business School",
+    "department": "Business Administration",
+    "major_category": "Business",
+    "major": "Business Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Audit",
+      "Finance",
+      "Marketing"
+    ],
+    "credits": 39,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "MBA with emphases in Audit, Finance, and Marketing.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Business - Business Administration",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/faculty-of-business-and-commercial-sciences/academic-programs/business-administration/master-business-administration?t=2",
+    "sources": [
+      {
+        "source_id": "usek_mba_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Business Administration",
+        "url": "https://www.usek.edu.lb/en/faculty-of-business-and-commercial-sciences/academic-programs/business-administration/master-business-administration?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_business_school",
+        "page_title": "Holy Spirit University of Kaslik | Business School",
+        "url": "https://www.usek.edu.lb/business",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists the three emphases and a thesis requirement."
+  },
+  {
+    "id": "usek-business-master-business-administration-financial-engineering",
+    "faculty": "Business School",
+    "department": "Finance Department",
+    "major_category": "Business",
+    "major": "Business Administration - Financial Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration - Financial Engineering",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Financial Engineering"
+    ],
+    "credits": 39,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "MBA emphasis in Financial Engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Business - Business Administration",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/finance-department/master-business-administration-financial-engineering-2?t=2",
+    "sources": [
+      {
+        "source_id": "usek_mba_fe_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Business Administration - Financial Engineering",
+        "url": "https://www.usek.edu.lb/en/finance-department/master-business-administration-financial-engineering-2?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_business_school",
+        "page_title": "Holy Spirit University of Kaslik | Business School",
+        "url": "https://www.usek.edu.lb/business",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists Financial Engineering emphasis and a master professional thesis."
+  },
+  {
+    "id": "usek-business-master-business-administration-human-resources",
+    "faculty": "Business School",
+    "department": "Management Department",
+    "major_category": "Business",
+    "major": "Business Administration - Human Resources",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration - Human Resources",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Human Resources"
+    ],
+    "credits": 39,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "MBA emphasis in Human Resources; offered in collaboration with Université Panthéon-Assas - Paris II.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Business - Business Administration",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/management-department/master-business-administration-human-resources?t=2",
+    "sources": [
+      {
+        "source_id": "usek_mba_hr_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Business Administration - Human Resources",
+        "url": "https://www.usek.edu.lb/en/management-department/master-business-administration-human-resources?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_business_school",
+        "page_title": "Holy Spirit University of Kaslik | Business School",
+        "url": "https://www.usek.edu.lb/business",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page states collaboration with Université Panthéon-Assas - Paris II and a master thesis requirement."
+  },
+  {
+    "id": "usek-business-master-business-administration-management-and-international-affairs",
+    "faculty": "Business School",
+    "department": "Management Department",
+    "major_category": "Business",
+    "major": "Business Administration - Management and International Affairs",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – Management and International Affairs",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Management and International Affairs"
+    ],
+    "credits": 39,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "MBA emphasis in Management and International Affairs; dual diploma with HEC Montréal.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Business - Business Administration",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/management-department/master-in-business-administration-management-and-international-affairs-2?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_mia_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Business Administration – Management and International Affairs",
+        "url": "https://www.usek.edu.lb/en/management-department/master-in-business-administration-management-and-international-affairs-2?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_business_school",
+        "page_title": "Holy Spirit University of Kaslik | Business School",
+        "url": "https://www.usek.edu.lb/business",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page describes a dual diploma in management, equivalent to a D.E.S.S. from HEC Montréal and an MBA from USEK."
+  },
+  {
+    "id": "usek-business-phd-business-administration",
+    "faculty": "Business School",
+    "department": "Doctoral Studies",
+    "major_category": "Business",
+    "major": "Business",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Business",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in business administration focused on original research and business research methods.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/doctoral-studies/phd-in-business-2?t=5",
+    "sources": [
+      {
+        "source_id": "usek_business_phd_page",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Business",
+        "url": "https://www.usek.edu.lb/en/doctoral-studies/phd-in-business-2?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_business_school",
+        "page_title": "Holy Spirit University of Kaslik | Business School",
+        "url": "https://www.usek.edu.lb/business",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_doctoral_college",
+        "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+        "url": "https://www.usek.edu.lb/doctoral-college",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Doctoral page lists multilingual instruction and 60 credits."
+  },
+  {
+    "id": "usek-business-doctorate-business-administration",
+    "faculty": "Business School",
+    "department": "Doctoral Studies",
+    "major_category": "Business",
+    "major": "Business Administration",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctorate in Business Administration",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "Dual Doctorate in Business Administration with Excelia Business School.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/academic-programs/doctoral-studies/doctorate-in-business-administration?t=5",
+    "sources": [
+      {
+        "source_id": "usek_dba_page",
+        "page_title": "Holy Spirit University of Kaslik | Doctorate in Business Administration",
+        "url": "https://www.usek.edu.lb/en/academic-programs/doctoral-studies/doctorate-in-business-administration?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_business_school",
+        "page_title": "Holy Spirit University of Kaslik | Business School",
+        "url": "https://www.usek.edu.lb/business",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_doctoral_college",
+        "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+        "url": "https://www.usek.edu.lb/doctoral-college",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists English instruction, 60 credits, and a partnership with Excelia Business School."
+  },
+  {
+    "id": "usek-law-master-business-law",
+    "faculty": "School of Law and Political Sciences",
+    "department": "Law",
+    "major_category": "Law and Political Sciences",
+    "major": "Business Law",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Business Law",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 26,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Comparative training in French, European, and Lebanese business law in partnership with Université de Poitiers.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction, 26 credits, and a research dissertation / internship project structure."
+  },
+  {
+    "id": "usek-law-master-criminology",
+    "faculty": "School of Law and Political Sciences",
+    "department": "Department of Criminology",
+    "major_category": "Law and Political Sciences",
+    "major": "Criminology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Criminology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/department-of-criminology/master-in-criminology-2?t=2",
+    "sources": [
+      {
+        "source_id": "usek_criminology_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Criminology",
+        "url": "https://www.usek.edu.lb/en/department-of-criminology/master-in-criminology-2?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Direct program page title confirmed. The captured HTML snapshot reused business-law content, so only the title/breadcrumb were used for inventory purposes."
+  },
+  {
+    "id": "usek-law-master-diplomacy-and-international-security",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "Diplomacy and International Security",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Diplomacy and International Security",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-master-international-contracts",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "International Contracts",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in International Contracts",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-master-political-sciences",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "Political Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Political Sciences",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-master-political-sciences-international-relations",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "Political Sciences - International Relations",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Political Sciences - International Relations",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "International Relations"
+    ],
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-master-private-law",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "Private Law",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Private Law",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-master-public-law",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "Public Law",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Public Law",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-master-middle-eastern-studies",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "Middle Eastern Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Middle Eastern Studies",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-master-international-comparative-law",
+    "faculty": "School of Law and Political Sciences",
+    "department": null,
+    "major_category": "Law and Political Sciences",
+    "major": "International and Comparative Law",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Laws in International and Comparative Law",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "School of Law and Political Sciences - Law / Political Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "sources": [
+      {
+        "source_id": "usek_business_law_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+        "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Law and Political Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-law-phd-law",
+    "faculty": "School of Law and Political Sciences",
+    "department": "Law",
+    "major_category": "Law and Political Sciences",
+    "major": "Law",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Law",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Doctoral program training independent researchers in law.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/law/phd-in-law-2?t=5",
+    "sources": [
+      {
+        "source_id": "usek_law_phd_page",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Law",
+        "url": "https://www.usek.edu.lb/en/law/phd-in-law-2?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_law_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+        "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_doctoral_college",
+        "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+        "url": "https://www.usek.edu.lb/doctoral-college",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction and 60 credits."
+  },
+  {
+    "id": "usek-theology-master-arts-theology",
+    "faculty": "Pontifical School of Theology",
+    "department": null,
+    "major_category": "Theology",
+    "major": "Theology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Theology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Pontifical School of Theology - Theology",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/pontifical-school-of-theology/master-of-arts-in-theology?t=2",
+    "sources": [
+      {
+        "source_id": "usek_theology_ma_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Arts in Theology",
+        "url": "https://www.usek.edu.lb/en/pontifical-school-of-theology/master-of-arts-in-theology?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_theology_school",
+        "page_title": "Holy Spirit University of Kaslik | Pontifical School of Theology",
+        "url": "https://www.usek.edu.lb/academics/pontifical-school-of-theology",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction and 60 credits."
+  },
+  {
+    "id": "usek-theology-phd-theology",
+    "faculty": "Pontifical School of Theology",
+    "department": null,
+    "major_category": "Theology",
+    "major": "Theology",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Theology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/pontifical-school-of-theology/phd-in-theology?t=5",
+    "sources": [
+      {
+        "source_id": "usek_theology_phd_page",
+        "page_title": "Holy Spirit University of Kaslik | PhD in Theology",
+        "url": "https://www.usek.edu.lb/en/pontifical-school-of-theology/phd-in-theology?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_theology_school",
+        "page_title": "Holy Spirit University of Kaslik | Pontifical School of Theology",
+        "url": "https://www.usek.edu.lb/academics/pontifical-school-of-theology",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_doctoral_college",
+        "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+        "url": "https://www.usek.edu.lb/doctoral-college",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction and 60 credits."
+  },
+  {
+    "id": "usek-engineering-master-biomedical-engineering",
+    "faculty": "School of Engineering",
+    "department": "Department of Biomedical Engineering",
+    "major_category": "Engineering",
+    "major": "Biomedical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biomedical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "Graduate program preparing students for advanced study and research in biomedical engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-chemical-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Chemical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Chemical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-civil-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Civil Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Civil Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-communication-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Communication Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Communication Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-computer-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Computer Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Computer Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-electrical-electronics-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Electrical and Electronics Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Electrical and Electronics Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-enology",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Enology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Enology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Engineering - Agricultural & Food Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-food-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Food Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Food Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Engineering - Agricultural & Food Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-mechanical-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Mechanical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Mechanical Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-engineering-master-petroleum-engineering",
+    "faculty": "School of Engineering",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Petroleum Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Petroleum Engineering",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 480,
+      "category": "School of Engineering - Biomedical/Chemical/Civil/Electrical/Mechanical/Petroleum Engineering",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "sources": [
+      {
+        "source_id": "usek_biomedical_engineering_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+        "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_engineering_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+        "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the School of Engineering graduate hub page that surfaces all 10 engineering master titles."
+  },
+  {
+    "id": "usek-architecture-master-interior-architecture",
+    "faculty": "School of Architecture and Design",
+    "department": "Department of Design and Interior Architecture",
+    "major_category": "Architecture and Design",
+    "major": "Interior Architecture",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Interior Architecture",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 42,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Program preparing students to enter the field as skilled designers, creative thinkers, professional leaders, and responsible citizens.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Architecture & Design - Interior Design",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/department-of-interior-design/master-in-interior-design-2?t=2",
+    "sources": [
+      {
+        "source_id": "usek_architecture_interior_page",
+        "page_title": "Holy Spirit University of Kaslik | Master in Interior Architecture",
+        "url": "https://www.usek.edu.lb/en/department-of-interior-design/master-in-interior-design-2?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_architecture_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Architecture and Design",
+        "url": "https://www.usek.edu.lb/academics/school-of-architecture-and-design",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction, 42 credits, and final thesis/project components."
+  },
+  {
+    "id": "usek-architecture-master-communication-visual-arts",
+    "faculty": "School of Architecture and Design",
+    "department": "Department of Visual Communication",
+    "major_category": "Architecture and Design",
+    "major": "Communication and Visual Arts",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Communication and Visual Arts",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 42,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "Multidisciplinary training in graphic design and advertising with a strong digital, social, and visual communication component.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Architecture & Design - Architecture / Design &Digital Media",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/fba/department-of-communication-and-visual-arts/master-of-arts-in-communication-and-visual-arts?t=2",
+    "sources": [
+      {
+        "source_id": "usek_architecture_comm_visual_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Arts in Communication and Visual Arts",
+        "url": "https://www.usek.edu.lb/fba/department-of-communication-and-visual-arts/master-of-arts-in-communication-and-visual-arts?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_architecture_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Architecture and Design",
+        "url": "https://www.usek.edu.lb/academics/school-of-architecture-and-design",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists English instruction, 42 credits, and thesis/project requirements."
+  },
+  {
+    "id": "usek-architecture-master-contemporary-art",
+    "faculty": "School of Architecture and Design",
+    "department": null,
+    "major_category": "Architecture and Design",
+    "major": "Contemporary Art",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Contemporary Art",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Interdisciplinary master that links art to communication, philosophy, literature, anthropology, history, and semiotics.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Architecture & Design - Architecture / Design &Digital Media",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/fbaaa-academic-programs/master-contemporary-art?t=2",
+    "sources": [
+      {
+        "source_id": "usek_architecture_contemporary_art_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Arts in Contemporary Art",
+        "url": "https://www.usek.edu.lb/fbaaa-academic-programs/master-contemporary-art?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_architecture_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Architecture and Design",
+        "url": "https://www.usek.edu.lb/academics/school-of-architecture-and-design",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction, 36 credits, and a research-thesis orientation."
+  },
+  {
+    "id": "usek-architecture-master-digital-media",
+    "faculty": "School of Architecture and Design",
+    "department": "Department of Digital Media",
+    "major_category": "Architecture and Design",
+    "major": "Digital Media",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Digital Media",
+    "thesis_or_non_thesis": "PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 42,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "Graduate program preparing students to contribute to film and animation through original research and production projects.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "School of Architecture & Design - Design &Digital Media",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/fbaaa/department-of-audio-visual/master-of-arts-in-digital-media?t=2",
+    "sources": [
+      {
+        "source_id": "usek_architecture_digital_media_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Arts in Digital Media",
+        "url": "https://www.usek.edu.lb/fbaaa/department-of-audio-visual/master-of-arts-in-digital-media?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_architecture_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Architecture and Design",
+        "url": "https://www.usek.edu.lb/academics/school-of-architecture-and-design",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists English instruction, 42 credits, and a final project structure."
+  },
+  {
+    "id": "usek-medicine-doctorate-medicine",
+    "faculty": "School of Medicine and Medical Sciences",
+    "department": "Department of Medical Sciences",
+    "major_category": "Medicine and Medical Sciences",
+    "major": "Medicine",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctorate of Medicine",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 120,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Professional doctorate training general practitioners and preparing graduates for medical specializations.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/en/department-of-medical-sciences/doctorate-of-medicine-2?t=5",
+    "sources": [
+      {
+        "source_id": "usek_medicine_doctorate_page",
+        "page_title": "Holy Spirit University of Kaslik | Doctorate of Medicine",
+        "url": "https://www.usek.edu.lb/en/department-of-medical-sciences/doctorate-of-medicine-2?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_medicine_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Medicine and Medical Sciences",
+        "url": "https://www.usek.edu.lb/school-of-medicine-and-medical-sciences",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_doctoral_college",
+        "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+        "url": "https://www.usek.edu.lb/doctoral-college",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction and 120 credits."
+  },
+  {
+    "id": "usek-music-master-music",
+    "faculty": "School of Music and Performing Arts",
+    "department": "Department of Music",
+    "major_category": "Music and Performing Arts",
+    "major": "Music",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Music",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": [
+      "Musicology"
+    ],
+    "credits": 36,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate music program with a Musicology emphasis.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - Music and Performing Arts",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/fmus-academic-programs/department-of-music/master-of-arts-in-music?t=2",
+    "sources": [
+      {
+        "source_id": "usek_music_master_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Arts in Music",
+        "url": "https://www.usek.edu.lb/fmus-academic-programs/department-of-music/master-of-arts-in-music?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_music_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Music and Performing Arts",
+        "url": "https://www.usek.edu.lb/school-of-music-and-performing-arts",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction, 36 credits, and a Musicology emphasis. The school page also lists Master of Arts in Performing Arts."
+  },
+  {
+    "id": "usek-music-master-performing-arts",
+    "faculty": "School of Music and Performing Arts",
+    "department": "Department of Performing Arts",
+    "major_category": "Music and Performing Arts",
+    "major": "Performing Arts",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Performing Arts",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate program in performing arts with theory, production, and embodied research components.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - Music and Performing Arts",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/fmus/department-of-performing-arts/master-in-performing-arts?t=2",
+    "sources": [
+      {
+        "source_id": "usek_music_performing_arts_page",
+        "page_title": "Holy Spirit University of Kaslik | Master of Arts in Performing Arts",
+        "url": "https://www.usek.edu.lb/fmus/department-of-performing-arts/master-in-performing-arts?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_music_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Music and Performing Arts",
+        "url": "https://www.usek.edu.lb/school-of-music-and-performing-arts",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Official page lists multilingual instruction, 36 credits, and thesis/project language in the mission statement."
+  },
+  {
+    "id": "usek-music-phd-music",
+    "faculty": "School of Music and Performing Arts",
+    "department": "Department of Higher and Specialized Musical Education",
+    "major_category": "Music and Performing Arts",
+    "major": "Music",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Music",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in music research and scholarship.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/fmus/academic-program/phd?t=5",
+    "sources": [
+      {
+        "source_id": "usek_music_phd_page",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Music and Ph.D. in Higher and Specialized Music Education",
+        "url": "https://www.usek.edu.lb/fmus/academic-program/phd?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_music_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Music and Performing Arts",
+        "url": "https://www.usek.edu.lb/school-of-music-and-performing-arts",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_doctoral_college",
+        "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+        "url": "https://www.usek.edu.lb/doctoral-college",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Shared doctoral page also lists the Ph.D. in Higher and Specialized Music Education."
+  },
+  {
+    "id": "usek-music-phd-higher-specialized-music-education",
+    "faculty": "School of Music and Performing Arts",
+    "department": "Department of Higher and Specialized Musical Education",
+    "major_category": "Music and Performing Arts",
+    "major": "Higher and Specialized Music Education",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Higher and Specialized Music Education",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Doctoral program in higher and specialized music education.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/fmus/academic-program/phd?t=5",
+    "sources": [
+      {
+        "source_id": "usek_music_phd_page",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Music and Ph.D. in Higher and Specialized Music Education",
+        "url": "https://www.usek.edu.lb/fmus/academic-program/phd?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_music_school",
+        "page_title": "Holy Spirit University of Kaslik | School of Music and Performing Arts",
+        "url": "https://www.usek.edu.lb/school-of-music-and-performing-arts",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_doctoral_college",
+        "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+        "url": "https://www.usek.edu.lb/doctoral-college",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Shared doctoral page also lists the Ph.D. in Music."
+  },
+  {
+    "id": "usek-fas-master-arabic-language-literature",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Arabic Language and Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Arabic Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-cinema-television",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Cinema and Television",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Cinema and Television",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "Faculty of Arts & Sciences - Communication - Cinema and Television",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-conservation-restoration-cultural-property-sacred-art",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Conservation, Restoration of Cultural Property & Sacred Art",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Conservation, Restoration of Cultural Property & Sacred Art",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-education",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Education",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Teaching English to Speakers of Other Languages (TESOL)",
+      "Science, Technology, Engineering, and Mathematics (STEM) Education",
+      "Educational Leadership and Policy Studies"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-education-administration",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Education - Administration of Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Education - Administration of Education",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-education-technology",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Education - Technology of Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Education - Technology of Education",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-e-journalism-e-communication",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "E-Journalism and E-Communication",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in E-Journalism and E-Communication",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-english-language-literature",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "English Language and Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in English Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-french-language-literature",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "French Language and Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in French Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-history",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "History",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in History",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-information-studies",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Information Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Information Studies",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-intervention-social-work",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Intervention and Social Work",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Intervention and Social Work",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-journalism-communication",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Journalism and Communication",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Journalism and Communication",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-philosophy",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Philosophy",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Philosophy",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-psychology",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Psychology",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Psychology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-religious-sciences",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Religious Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Religious Sciences",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-social-sciences",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Social Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Social Sciences",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-translation",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Translation",
+    "degree_type": "MASTER",
+    "official_degree_name": "MA in Translation",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 309,
+      "category": "Faculty of Arts & Sciences - humanities / social sciences / education",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-actuarial-financial-mathematics",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Actuarial and Financial Mathematics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Actuarial and Financial Mathematics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Mathematics",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-biochemistry",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Biochemistry",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biochemistry",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Chemistry and Biochemistry",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-biology",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Biology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Biology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Biology",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-chemistry",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Chemistry",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Chemistry",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Chemistry and Biochemistry",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-computer-science",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Computer Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Computer Science",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Computer science and IT",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-cybersecurity-cyberdefence",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Cybersecurity and Cyberdefence",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Cybersecurity and Cyberdefence",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Computer science and IT",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-environmental-technologies",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Environmental Technologies",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Environmental Technologies",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - science programs",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-mathematics",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Mathematics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Mathematics",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - Mathematics",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-neuroscience-biotechnology",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Neuroscience and Biotechnology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Neuroscience and Biotechnology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 450,
+      "category": "Faculty of Arts & Sciences - science programs",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-master-nutrition",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Nutrition",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Nutrition",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 387,
+      "category": "Faculty of Arts & Sciences - Nutrition and Food Sciences",
+      "notes": "Official USEK graduate credit-fee table (2024-2025).",
+      "source_ids": [
+        "usek_grad_fees"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "sources": [
+      {
+        "source_id": "usek_interpretation_diploma",
+        "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences graduate hub page; individual program page was not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-agricultural-food-sciences",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Department of Nutrition and Food Sciences",
+    "major_category": "Arts and Sciences",
+    "major": "Agricultural and Food Sciences",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Agricultural and Food Sciences",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 60,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The first doctoral degree in the discipline in Lebanon.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-arabic-language-literature",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Arabic Language and Literature",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Arabic Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-archeology-art-history",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Archeology and Art History",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Archeology and Art History",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-chemistry-life-earth-sciences",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Chemistry and Life and Earth Sciences",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Chemistry and Life and Earth Sciences",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-conservation-restoration-cultural-property-sacred-art",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Conservation, Restoration of Cultural Property & Sacred Art",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Conservation, Restoration of Cultural Property & Sacred Art",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-education-sciences",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Education Sciences",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Education Sciences",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-english-language-literature",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "English Language and Literature",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in English Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-french-language-literature",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "French Language and Literature",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in French Language and Literature",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-history",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "History",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in History",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-language-sciences-traductology",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Language Sciences and Traductology",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Language Sciences and Traductology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-philosophy",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Philosophy",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Philosophy",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-psychology",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Psychology",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Psychology",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-social-sciences",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Social Sciences",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Social Sciences",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  },
+  {
+    "id": "usek-fas-phd-visual-arts",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "major_category": "Arts and Sciences",
+    "major": "Visual Arts",
+    "degree_type": "PHD",
+    "official_degree_name": "Ph.D. in Visual Arts",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": null,
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "sources": [
+      {
+        "source_id": "usek_fas_phd_list",
+        "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+        "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+        "date_accessed": "2026-06-27"
+      },
+      {
+        "source_id": "usek_arts_sciences_school",
+        "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+        "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+        "date_accessed": "2026-06-27"
+      }
+    ],
+    "notes": "Listed on the Faculty of Arts and Sciences doctoral hub page; individual program pages were not canonicalized in this pass."
+  }
+]

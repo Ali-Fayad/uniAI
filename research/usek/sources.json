@@ -1,0 +1,362 @@
+[
+  {
+    "source_id": "usek_home_en",
+    "page_title": "Holy Spirit University of Kaslik | Home",
+    "url": "https://www.usek.edu.lb/en/home",
+    "date_accessed": "2026-06-27",
+    "source_type": "OTHER",
+    "notes": "Official home page. Redirects from the bare domain and exposes academics, admissions, fees, scholarships, calendar, and program navigation."
+  },
+  {
+    "source_id": "usek_academics",
+    "page_title": "Holy Spirit University of Kaslik | Academics",
+    "url": "https://www.usek.edu.lb/en/academics",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_LIST",
+    "notes": "Central academics hub listing faculties, doctoral college, and graduate program entry points."
+  },
+  {
+    "source_id": "usek_university_catalogue",
+    "page_title": "Holy Spirit University of Kaslik | University Catalogue",
+    "url": "https://www.usek.edu.lb/university-catalogue",
+    "date_accessed": "2026-06-27",
+    "source_type": "CATALOG",
+    "notes": "Official catalogue hub for program discovery and later graduate parsing."
+  },
+  {
+    "source_id": "usek_admission_grad_requirements",
+    "page_title": "Holy Spirit University of Kaslik | Requirements",
+    "url": "https://www.usek.edu.lb/en/admission/for-graduate-studies/requirements?parent=1",
+    "date_accessed": "2026-06-27",
+    "source_type": "ADMISSIONS",
+    "notes": "Graduate admissions requirements page. Lists required documents, file submission steps, application fee, and registration guidance."
+  },
+  {
+    "source_id": "usek_admission_grad_deadlines",
+    "page_title": "Holy Spirit University of Kaslik | Dates and deadlines",
+    "url": "https://www.usek.edu.lb/en/admission/for-graduate-studies/dates-and-deadlines?parent=1",
+    "date_accessed": "2026-06-27",
+    "source_type": "DEADLINE",
+    "notes": "Graduate admissions deadline page. Includes application deadline, exam dates, results, and file-transfer deadline."
+  },
+  {
+    "source_id": "usek_admission_doctoral",
+    "page_title": "Holy Spirit University of Kaslik | Doctoral Studies",
+    "url": "https://www.usek.edu.lb/en/admission/for-doctoral-studies",
+    "date_accessed": "2026-06-27",
+    "source_type": "ADMISSIONS",
+    "notes": "Doctoral admissions surface with requirements and links to the list of PhD programs."
+  },
+  {
+    "source_id": "usek_admission_guide_pdf",
+    "page_title": "USEK Admissions Guide PDF",
+    "url": "https://www.usek.edu.lb/Content/Assets/20260319AdmissionGuide-021354.pdf",
+    "date_accessed": "2026-06-27",
+    "source_type": "PDF",
+    "notes": "Official admissions guide PDF linked from the graduate admissions page."
+  },
+  {
+    "source_id": "usek_calendar_pdf",
+    "page_title": "USEK Academic Calendar PDF",
+    "url": "https://www.usek.edu.lb/ContentFiles/78FullCalendar.pdf?v=202604082131",
+    "date_accessed": "2026-06-27",
+    "source_type": "PDF",
+    "notes": "Official academic calendar PDF linked from the calendar page."
+  },
+  {
+    "source_id": "usek_grad_fees",
+    "page_title": "Holy Spirit University of Kaslik | Graduate Studies",
+    "url": "https://www.usek.edu.lb/en/university-fees/graduate-studies-1",
+    "date_accessed": "2026-06-27",
+    "source_type": "TUITION_FEES",
+    "notes": "Official graduate-fees page. Contains graduate registration/operational/NSSF fees and the graduate credit-fee table."
+  },
+  {
+    "source_id": "usek_scholarships",
+    "page_title": "Holy Spirit University of Kaslik | Scholarships and Financial Aid",
+    "url": "https://www.usek.edu.lb/students/scholarships-and-financial-aids",
+    "date_accessed": "2026-06-27",
+    "source_type": "FINANCIAL_AID",
+    "notes": "University-wide scholarships and financial aid hub. References discounts, allowances, and aid applications."
+  },
+  {
+    "source_id": "usek_doctoral_college",
+    "page_title": "Holy Spirit University of Kaslik | Doctoral College",
+    "url": "https://www.usek.edu.lb/doctoral-college",
+    "date_accessed": "2026-06-27",
+    "source_type": "OTHER",
+    "notes": "Doctoral college hub. Useful for PhD governance, supervision, rules, and thesis-related pages."
+  },
+  {
+    "source_id": "usek_business_school",
+    "page_title": "Holy Spirit University of Kaslik | Business School",
+    "url": "https://www.usek.edu.lb/business",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Business School landing page with graduate and doctoral tabs."
+  },
+  {
+    "source_id": "usek_engineering_school",
+    "page_title": "Holy Spirit University of Kaslik | School of Engineering",
+    "url": "https://www.usek.edu.lb/en/academics/school-of-engineering",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Engineering school landing page with graduate-program tab and program pages nested under faculty paths."
+  },
+  {
+    "source_id": "usek_architecture_school",
+    "page_title": "Holy Spirit University of Kaslik | School of Architecture and Design",
+    "url": "https://www.usek.edu.lb/academics/school-of-architecture-and-design",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Architecture and design school landing page with graduate-program tab."
+  },
+  {
+    "source_id": "usek_law_school",
+    "page_title": "Holy Spirit University of Kaslik | School of Law and Political Sciences",
+    "url": "https://www.usek.edu.lb/academics/school-of-law-and-political-sciences",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Law and political sciences landing page with graduate and doctoral tabs."
+  },
+  {
+    "source_id": "usek_medicine_school",
+    "page_title": "Holy Spirit University of Kaslik | School of Medicine and Medical Sciences",
+    "url": "https://www.usek.edu.lb/school-of-medicine-and-medical-sciences",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Medicine and medical sciences landing page with graduate, doctoral, and postdoctoral tabs."
+  },
+  {
+    "source_id": "usek_theology_school",
+    "page_title": "Holy Spirit University of Kaslik | Pontifical School of Theology",
+    "url": "https://www.usek.edu.lb/academics/pontifical-school-of-theology",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Pontifical School of Theology landing page with graduate and doctoral tabs."
+  },
+  {
+    "source_id": "usek_nursing_school",
+    "page_title": "Holy Spirit University of Kaslik | Higher Institute of Nursing Sciences",
+    "url": "https://www.usek.edu.lb/en/academics/higher-institute-of-nursing-sciences",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Nursing institute landing page. Graduate-fee schedule references nursing as a graduate-credit line, but a program page was not canonicalized in this pass."
+  },
+  {
+    "source_id": "usek_arts_sciences_school",
+    "page_title": "Holy Spirit University of Kaslik | Faculty of Arts and Sciences",
+    "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Faculty of Arts and Sciences landing page with graduate and doctoral tabs."
+  },
+  {
+    "source_id": "usek_mba_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Business Administration",
+    "url": "https://www.usek.edu.lb/en/faculty-of-business-and-commercial-sciences/academic-programs/business-administration/master-business-administration?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists English, 39 credits, thesis requirement, and emphasis options."
+  },
+  {
+    "source_id": "usek_dba_page",
+    "page_title": "Holy Spirit University of Kaslik | Doctorate in Business Administration",
+    "url": "https://www.usek.edu.lb/en/academic-programs/doctoral-studies/doctorate-in-business-administration?t=5",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed doctoral program page. Lists English and 60 credits."
+  },
+  {
+    "source_id": "usek_mba_fe_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Business Administration - Financial Engineering",
+    "url": "https://www.usek.edu.lb/en/finance-department/master-business-administration-financial-engineering-2?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page nested under Finance Department."
+  },
+  {
+    "source_id": "usek_mba_hr_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Business Administration - Human Resources",
+    "url": "https://www.usek.edu.lb/en/management-department/master-business-administration-human-resources?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page nested under Management Department."
+  },
+  {
+    "source_id": "usek_business_law_page",
+    "page_title": "Holy Spirit University of Kaslik | Master in Business Law",
+    "url": "https://www.usek.edu.lb/law/academic-programs/master-in-business-law?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page in the School of Law and Political Sciences."
+  },
+  {
+    "source_id": "usek_criminology_page",
+    "page_title": "Holy Spirit University of Kaslik | Master in Criminology",
+    "url": "https://www.usek.edu.lb/en/department-of-criminology/master-in-criminology-2?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page nested under the Department of Criminology."
+  },
+  {
+    "source_id": "usek_theology_ma_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Arts in Theology",
+    "url": "https://www.usek.edu.lb/en/pontifical-school-of-theology/master-of-arts-in-theology?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page in theology."
+  },
+  {
+    "source_id": "usek_theology_phd_page",
+    "page_title": "Holy Spirit University of Kaslik | PhD in Theology",
+    "url": "https://www.usek.edu.lb/en/pontifical-school-of-theology/phd-in-theology?t=5",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed doctoral program page in theology."
+  },
+  {
+    "source_id": "usek_biomedical_engineering_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Science in Biomedical Engineering",
+    "url": "https://www.usek.edu.lb/en/fi-academic-programs/department-of-biomedical-engineering-2/master-of-science-in-biomedical-engineering?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed engineering graduate page with credits and English language shown."
+  },
+  {
+    "source_id": "usek_architecture_combined_page",
+    "page_title": "Holy Spirit University of Kaslik | Bachelor and Master in Architecture (Combined Program)",
+    "url": "https://www.usek.edu.lb/en/department-of-architecture/bachelor-of-science-in-architectural-studies-22?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Combined program page. Relevant later because it contains the graduate architecture component."
+  },
+  {
+    "source_id": "usek_multiple_sclerosis_diploma",
+    "page_title": "Holy Spirit University of Kaslik | University Diploma in Multiple Sclerosis",
+    "url": "https://www.usek.edu.lb/en/academic-programs/department-of-doctoral-studies/university-diploma-in-multiple-sclerosis?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official program page surfaced during discovery but is out of scope for the current MASTER/PHD inventory."
+  },
+  {
+    "source_id": "usek_interpretation_diploma",
+    "page_title": "Holy Spirit University of Kaslik | Diploma in Interpretation",
+    "url": "https://www.usek.edu.lb/academics/faculty-of-arts-and-sciences/department-of-languages-and-literatures/diploma-in-interpretation?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official program page surfaced during discovery but is out of scope for the current MASTER/PHD inventory."
+  },
+  {
+    "source_id": "usek_business_mia_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Business Administration – Management and International Affairs",
+    "url": "https://www.usek.edu.lb/en/management-department/master-in-business-administration-management-and-international-affairs-2?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists English, 39 credits, and a dual diploma partnership with HEC Montréal."
+  },
+  {
+    "source_id": "usek_business_phd_page",
+    "page_title": "Holy Spirit University of Kaslik | Ph.D. in Business",
+    "url": "https://www.usek.edu.lb/en/doctoral-studies/phd-in-business-2?t=5",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed doctoral program page. Lists multilingual instruction and 60 credits."
+  },
+  {
+    "source_id": "usek_law_phd_page",
+    "page_title": "Holy Spirit University of Kaslik | Ph.D. in Law",
+    "url": "https://www.usek.edu.lb/en/law/phd-in-law-2?t=5",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed doctoral program page. Lists multilingual instruction and 60 credits."
+  },
+  {
+    "source_id": "usek_medicine_doctorate_page",
+    "page_title": "Holy Spirit University of Kaslik | Doctorate of Medicine",
+    "url": "https://www.usek.edu.lb/en/department-of-medical-sciences/doctorate-of-medicine-2?t=5",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed doctorate page. Lists multilingual instruction and 120 credits."
+  },
+  {
+    "source_id": "usek_music_school",
+    "page_title": "Holy Spirit University of Kaslik | School of Music and Performing Arts",
+    "url": "https://www.usek.edu.lb/school-of-music-and-performing-arts",
+    "date_accessed": "2026-06-27",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "School hub with graduate and doctoral tabs. Linked from the music program pages."
+  },
+  {
+    "source_id": "usek_music_master_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Arts in Music",
+    "url": "https://www.usek.edu.lb/fmus-academic-programs/department-of-music/master-of-arts-in-music?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists multilingual instruction, 36 credits, and Musicology emphasis."
+  },
+  {
+    "source_id": "usek_music_performing_arts_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Arts in Performing Arts",
+    "url": "https://www.usek.edu.lb/fmus/department-of-performing-arts/master-in-performing-arts?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists multilingual instruction and 36 credits."
+  },
+  {
+    "source_id": "usek_music_phd_page",
+    "page_title": "Holy Spirit University of Kaslik | Ph.D. in Music and Ph.D. in Higher and Specialized Music Education",
+    "url": "https://www.usek.edu.lb/fmus/academic-program/phd?t=5",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Doctoral page listing both Ph.D. in Music and Ph.D. in Higher and Specialized Music Education; multilingual; 60 credits."
+  },
+  {
+    "source_id": "usek_architecture_interior_page",
+    "page_title": "Holy Spirit University of Kaslik | Master in Interior Architecture",
+    "url": "https://www.usek.edu.lb/en/department-of-interior-design/master-in-interior-design-2?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists multilingual instruction and 42 credits."
+  },
+  {
+    "source_id": "usek_architecture_comm_visual_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Arts in Communication and Visual Arts",
+    "url": "https://www.usek.edu.lb/fba/department-of-communication-and-visual-arts/master-of-arts-in-communication-and-visual-arts?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists English instruction and 42 credits."
+  },
+  {
+    "source_id": "usek_architecture_contemporary_art_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Arts in Contemporary Art",
+    "url": "https://www.usek.edu.lb/fbaaa-academic-programs/master-contemporary-art?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists multilingual instruction and 36 credits."
+  },
+  {
+    "source_id": "usek_architecture_digital_media_page",
+    "page_title": "Holy Spirit University of Kaslik | Master of Arts in Digital Media",
+    "url": "https://www.usek.edu.lb/fbaaa/department-of-audio-visual/master-of-arts-in-digital-media?t=2",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Confirmed graduate program page. Lists English instruction and 42 credits."
+  },
+  {
+    "source_id": "usek_fas_phd_list",
+    "page_title": "Holy Spirit University of Kaslik | Ph.D. in Agricultural and Food Sciences",
+    "url": "https://www.usek.edu.lb/faculty-of-arts-and-sciences/academic-programs/department-of-nutrition-and-food-sciences/phd-in-agricultural-and-food-sciences?t=5",
+    "date_accessed": "2026-06-27",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Doctoral hub page listing all Faculty of Arts and Sciences PhD titles; also the direct page for Ph.D. in Agricultural and Food Sciences."
+  },
+  {
+    "source_id": "usek_doctoral_eligibility_pdf",
+    "page_title": "USEK Doctoral Rules and regulations / Article 3 Admission Eligibility Requirements",
+    "url": "https://www.usek.edu.lb/Content/Assets/20220622AdmissionEligibilityRequirements-013855.pdf",
+    "date_accessed": "2026-06-27",
+    "source_type": "PDF",
+    "notes": "Official doctoral eligibility appendix linked from the doctoral studies page. Lists program-specific GPA thresholds for the PhD inventory and is useful for doctoral admissions."
+  }
+]

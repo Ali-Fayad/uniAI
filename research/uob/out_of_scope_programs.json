@@ -1,0 +1,96 @@
+[
+  {
+    "id": "uob-md-medicine",
+    "faculty": "Faculty of Medicine and Medical Sciences - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Medicine and Medical Sciences",
+    "major": "Medicine",
+    "degree_type": "PHD",
+    "official_degree_name": "Doctor of Medicine (M.D.)",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fom",
+        "page_title": "Faculty of Medicine and Medical Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FOM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Out of scope for the graduate inventory; listed in the catalogue as Doctor of Medicine."
+  },
+  {
+    "id": "uob-pgme-specialty-diplomas",
+    "faculty": "Faculty of Postgraduate Medical Education - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Medical Specialty Training",
+    "major": "Residency and Fellowship Specialty Diplomas",
+    "degree_type": null,
+    "official_degree_name": "Postgraduate Medical Education Specialty Diploma Programs",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fom",
+        "page_title": "Faculty of Medicine and Medical Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FOM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Out of scope for the graduate inventory; the catalogue surfaces 22 residency programs and 10 fellowship programs under postgraduate medical education."
+  }
+]

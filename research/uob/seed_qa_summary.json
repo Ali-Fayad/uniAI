@@ -1,0 +1,136 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "can_consider_seed_complete": true,
+  "issues_found": [
+    "official_program_url uniqueness was intentionally dropped in V29 because UOB reuses hub/catalog URLs across multiple graduate programs",
+    "two Theology tuition values remain null because no official tuition figure was published in the reviewed UOB sources"
+  ],
+  "blockers": [],
+  "nice_to_have_improvements": [
+    "publish dedicated canonical program pages for additional hub-based graduate offerings where available later",
+    "publish an official theology tuition figure if UOB adds one later",
+    "narrow URL reuse where UOB later publishes program-specific canonical pages"
+  ],
+  "row_counts": {
+    "universities": 1,
+    "faculties_schools": 9,
+    "departments": 23,
+    "degree_types": 4,
+    "languages": 4,
+    "sources": 28,
+    "programs": 60,
+    "master": 59,
+    "phd": 1,
+    "tuition_rows": 58,
+    "fee_item_rows": 14,
+    "admission_requirement_rows": 8,
+    "required_document_rows": 4,
+    "deadline_rows": 1,
+    "scholarship_rows": 1,
+    "financial_aid_rows": 1,
+    "payment_plan_rows": 1,
+    "accreditation_rows": 2,
+    "track_rows": 43,
+    "alias_rows": 0,
+    "program_source_links": 180,
+    "out_of_scope_rows_skipped": 2
+  },
+  "enum_checks": {
+    "degree_type": [
+      "MASTER",
+      "PHD"
+    ],
+    "delivery_mode": [],
+    "language": [
+      "ARABIC",
+      "ENGLISH",
+      "FRENCH",
+      "MULTILINGUAL"
+    ],
+    "thesis_or_non_thesis": [
+      "THESIS",
+      "NON_THESIS",
+      "THESIS_OR_PROJECT",
+      "PROJECT",
+      null
+    ],
+    "tuition_billing_basis": [
+      "PER_CREDIT",
+      "PER_ACADEMIC_YEAR"
+    ],
+    "tuition_currency": [
+      "USD"
+    ]
+  },
+  "duplicate_checks": {
+    "program_ids": false,
+    "source_ids": false,
+    "source_urls": false,
+    "official_program_urls": true,
+    "program_source_links": false,
+    "tuition_rows": false,
+    "tracks": false,
+    "fee_items": false,
+    "accreditation_rows": false
+  },
+  "reference_checks": {
+    "every_program_has_source": true,
+    "every_source_reference_resolves": true,
+    "every_tuition_row_maps_to_existing_program": true,
+    "every_tuition_row_maps_to_existing_source": true,
+    "out_of_scope_overlap": false
+  },
+  "tuition_checks": {
+    "tuition_rows": 58,
+    "null_tuition_rows": 2,
+    "null_tuition_program_ids": [
+      "uob-theology-master-theology",
+      "uob-theology-phd-theology"
+    ],
+    "null_tuition_only_phd_or_theology": true,
+    "master_programs_with_null_tuition": [
+      "uob-theology-master-theology"
+    ]
+  },
+  "official_program_url_reuse": {
+    "approved": true,
+    "cases": [
+      {
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "program_count": 19
+      },
+      {
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "program_count": 20
+      },
+      {
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "program_count": 11
+      },
+      {
+        "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSClinicalLabSciences.aspx",
+        "program_count": 2
+      },
+      {
+        "url": "https://theology.balamand.edu.lb/",
+        "program_count": 2
+      }
+    ]
+  },
+  "remaining_gaps": [
+    {
+      "field": "theology tuition",
+      "status": "officially unavailable"
+    },
+    {
+      "field": "dedicated canonical pages for many hub-based programs",
+      "status": "future publication may reduce hub reuse"
+    }
+  ],
+  "validation": {
+    "json_parses": true,
+    "compile_passed": true,
+    "flyway_executed": false,
+    "flyway_note": "No datasource is configured in this workspace."
+  }
+}

@@ -1,0 +1,226 @@
+[
+  {
+    "source_id": "uob_home",
+    "page_title": "University of Balamand Home",
+    "url": "https://www.balamand.edu.lb/",
+    "date_accessed": "2026-06-28",
+    "source_type": "OTHER",
+    "notes": "University home page; graduate links are exposed from the main navigation."
+  },
+  {
+    "source_id": "uob_grad_admissions",
+    "page_title": "Graduate Admissions",
+    "url": "https://www.balamand.edu.lb/ProspectiveStudents/Pages/GraduateAdmissions.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "ADMISSIONS",
+    "notes": "Central graduate admissions page; confirms graduate study and links to admissions criteria, tuition, financial support, and the graduate catalogue."
+  },
+  {
+    "source_id": "uob_admission_guide_page",
+    "page_title": "Admission Guide",
+    "url": "https://www.balamand.edu.lb/ProspectiveStudents/AdmissionGuide/Pages/default.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "ADMISSIONS",
+    "notes": "Admissions guide landing page surfaced from the graduate admissions page."
+  },
+  {
+    "source_id": "uob_admission_guide_pdf",
+    "page_title": "Admission Guide PDF",
+    "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/ProspectiveStudents/AdmissionGuide.pdf",
+    "date_accessed": "2026-06-28",
+    "source_type": "PDF",
+    "notes": "Official admissions guide PDF; used as a reference source for graduate admissions and applicant checklist context."
+  },
+  {
+    "source_id": "uob_fees_expenses_pdf",
+    "page_title": "Fees and Expenses",
+    "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/CurrentStudents/FeesExpenses.pdf",
+    "date_accessed": "2026-06-28",
+    "source_type": "TUITION_FEES",
+    "notes": "Official university tuition/fees PDF; graduate application fee, graduate per-credit tuition, special yearly tuition rows, and common fees are listed here."
+  },
+  {
+    "source_id": "uob_financial_support",
+    "page_title": "Financial Support",
+    "url": "https://www.balamand.edu.lb/CurrentStudents/FinancialSupport/Pages/FinancialSupport.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "FINANCIAL_AID",
+    "notes": "University-wide financial aid and scholarship hub; includes graduate assistantship references."
+  },
+  {
+    "source_id": "uob_academic_calendar",
+    "page_title": "Academic Calendar",
+    "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/AcademicCalendar.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "DEADLINE",
+    "notes": "University academic calendar; relevant for graduate deadline discovery."
+  },
+  {
+    "source_id": "uob_grading_policy_faq",
+    "page_title": "Grading Policy FAQs",
+    "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/GradingPolicyFAQ.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "OTHER",
+    "notes": "Official graduate grading and policy reference."
+  },
+  {
+    "source_id": "uob_catalogue_page",
+    "page_title": "Catalogue",
+    "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "CATALOG",
+    "notes": "Catalogue landing page with graduate sections by faculty and institute."
+  },
+  {
+    "source_id": "uob_general_graduate_catalogue_pdf",
+    "page_title": "General Section Graduate Catalogue",
+    "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "date_accessed": "2026-06-28",
+    "source_type": "CATALOG",
+    "notes": "Official general graduate catalogue section. Confirms graduate masters and doctorate offerings across the university."
+  },
+  {
+    "source_id": "uob_fas",
+    "page_title": "Faculty of Arts and Sciences",
+    "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Faculty hub page showing graduate arts and sciences offerings and linking to the FAS graduate catalogue."
+  },
+  {
+    "source_id": "uob_fas_graduate_catalogue_pdf",
+    "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+    "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "date_accessed": "2026-06-28",
+    "source_type": "CATALOG",
+    "notes": "Faculty graduate catalogue PDF; detailed graduate offerings for arts and sciences."
+  },
+  {
+    "source_id": "uob_fas_food_science",
+    "page_title": "Graduate Program in Food Science and Technology",
+    "url": "https://www.balamand.edu.lb/faculties/FAS/Departments/Pages/FoodScience.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official program page under FAS."
+  },
+  {
+    "source_id": "uob_fobm",
+    "page_title": "Faculty of Business and Management",
+    "url": "https://www.balamand.edu.lb/faculties/FOBM/Pages/default.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Faculty hub page showing MBA and EMBA graduate offerings."
+  },
+  {
+    "source_id": "uob_fobm_mba",
+    "page_title": "Master of Business Administration (MBA)",
+    "url": "https://www.balamand.edu.lb/faculties/FOBM/Departments/Pages/MBA.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official MBA page; includes duration, credits, and concentration tracks."
+  },
+  {
+    "source_id": "uob_fobm_emba",
+    "page_title": "Executive Master of Business Administration (EMBA)",
+    "url": "https://www.balamand.edu.lb/faculties/FOBM/Departments/Pages/EMBA.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official EMBA page; executive graduate offering."
+  },
+  {
+    "source_id": "uob_foe",
+    "page_title": "Faculty of Engineering",
+    "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Faculty hub page. Graduate offerings are referenced via the general graduate catalogue."
+  },
+  {
+    "source_id": "uob_fhs",
+    "page_title": "Faculty of Health Sciences",
+    "url": "https://www.balamand.edu.lb/faculties/FHS/Pages/Default.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Faculty hub page showing graduate offerings in public health, clinical laboratory sciences, and nursing."
+  },
+  {
+    "source_id": "uob_fhs_graduate_catalogue_pdf",
+    "page_title": "Faculty of Health Sciences Graduate Catalogue",
+    "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FHSGraduate.pdf",
+    "date_accessed": "2026-06-28",
+    "source_type": "CATALOG",
+    "notes": "Faculty graduate catalogue PDF."
+  },
+  {
+    "source_id": "uob_fhs_mph",
+    "page_title": "Master of Public Health (MPH)",
+    "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSPublicHealth.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official MPH page."
+  },
+  {
+    "source_id": "uob_fhs_ms_cls",
+    "page_title": "MS in Clinical Laboratory Sciences",
+    "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSClinicalLabSciences.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official graduate program page."
+  },
+  {
+    "source_id": "uob_fhs_ms_nursing",
+    "page_title": "MS in Nursing",
+    "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSNursing.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official graduate nursing page."
+  },
+  {
+    "source_id": "uob_fom",
+    "page_title": "Faculty of Medicine and Medical Sciences",
+    "url": "https://www.balamand.edu.lb/faculties/FOM/Pages/default.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Faculty hub page showing the MS in Biomedical Sciences and graduate admissions links."
+  },
+  {
+    "source_id": "uob_fom_ms_biomedical",
+    "page_title": "MS in Biomedical Sciences",
+    "url": "https://www.balamand.edu.lb/faculties/FOM/AcademicPrograms/Pages/MSBiomedical.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "PROGRAM_PAGE",
+    "notes": "Official biomedical sciences graduate program page."
+  },
+  {
+    "source_id": "uob_fom_admissions",
+    "page_title": "Faculty of Medicine Admissions",
+    "url": "https://www.balamand.edu.lb/faculties/FOM/AcademicPrograms/Pages/Admissions.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "ADMISSIONS",
+    "notes": "Faculty-specific admissions page for medical and graduate entry points."
+  },
+  {
+    "source_id": "uob_alba",
+    "page_title": "Académie Libanaise des Beaux-Arts",
+    "url": "https://www.balamand.edu.lb/faculties/ALBA/Pages/default.aspx",
+    "date_accessed": "2026-06-28",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "ALBA faculty hub page showing graduate admission link and graduate catalogue access."
+  },
+  {
+    "source_id": "uob_alba_graduate_catalogue_pdf",
+    "page_title": "ALBA Graduate Catalogue",
+    "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "date_accessed": "2026-06-28",
+    "source_type": "CATALOG",
+    "notes": "ALBA graduate catalogue PDF."
+  },
+  {
+    "source_id": "uob_theology",
+    "page_title": "Saint John of Damascus Institute of Theology",
+    "url": "https://theology.balamand.edu.lb/",
+    "date_accessed": "2026-06-28",
+    "source_type": "SCHOOL_PAGE",
+    "notes": "Official theology institute domain surfaced from UOB navigation; direct fetch timed out during discovery."
+  }
+]

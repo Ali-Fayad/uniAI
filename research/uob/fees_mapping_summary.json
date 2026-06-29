@@ -1,0 +1,265 @@
+{
+  "source_id": "uob_fees_expenses_pdf",
+  "tuition_rows": 58,
+  "null_tuition_rows": 2,
+  "by_faculty": {
+    "Académie Libanaise des Beaux-Arts - Al-Kurah Campus": {
+      "programs": [
+        "uob-alba-master-architecture-march",
+        "uob-alba-master-computer-graphics-interactive-media-mfa",
+        "uob-alba-master-graphic-design-mfa",
+        "uob-alba-master-interior-architecture-design-mfa"
+      ],
+      "tuition_rows": 4,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "510 USD PER_CREDIT"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Académie Libanaise des Beaux-Arts - Dekouaneh Campus": {
+      "programs": [
+        "uob-alba-master-animation-2d-3d",
+        "uob-alba-master-architecture",
+        "uob-alba-master-audiovisual-directing",
+        "uob-alba-master-audiovisual-production",
+        "uob-alba-master-cinema-directing",
+        "uob-alba-master-global-design",
+        "uob-alba-master-graphic-design-publicity",
+        "uob-alba-master-illustration-comic",
+        "uob-alba-master-interior-architecture",
+        "uob-alba-master-landscape-management",
+        "uob-alba-master-multimedia-creation",
+        "uob-alba-master-photography",
+        "uob-alba-master-television-digital-media",
+        "uob-alba-master-urban-design",
+        "uob-alba-master-visual-arts"
+      ],
+      "tuition_rows": 15,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "250 USD PER_CREDIT"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Faculty of Arts and Sciences - Al-Kurah Campus": {
+      "programs": [
+        "uob-fas-master-arabic-language-literature",
+        "uob-fas-master-biology",
+        "uob-fas-master-chemistry",
+        "uob-fas-master-christian-muslim-studies",
+        "uob-fas-master-computer-science",
+        "uob-fas-master-education-kurah",
+        "uob-fas-master-english-language-literature",
+        "uob-fas-master-english-language-teaching",
+        "uob-fas-master-environmental-sciences",
+        "uob-fas-master-food-science-technology",
+        "uob-fas-master-french-language-literature",
+        "uob-fas-master-history",
+        "uob-fas-master-languages-translation",
+        "uob-fas-master-mass-media-communication",
+        "uob-fas-master-mathematics",
+        "uob-fas-master-philosophy",
+        "uob-fas-master-physical-education",
+        "uob-fas-master-political-science-international-affairs",
+        "uob-fas-master-psychology",
+        "uob-fas-master-sports-management"
+      ],
+      "tuition_rows": 20,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "725 USD PER_CREDIT",
+        "705 USD PER_CREDIT"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Faculty of Arts and Sciences - Souk El Gharb-Aley Campus": {
+      "programs": [
+        "uob-fas-master-education-aley"
+      ],
+      "tuition_rows": 1,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "725 USD PER_CREDIT"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Faculty of Business and Management - Al-Kurah Campus": {
+      "programs": [
+        "uob-fobm-master-accounting-finance",
+        "uob-fobm-mba",
+        "uob-fobm-emba",
+        "uob-fobm-master-financial-economics",
+        "uob-fobm-master-human-resources-management"
+      ],
+      "tuition_rows": 5,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "635 USD PER_CREDIT",
+        "25500 USD PER_ACADEMIC_YEAR"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Faculty of Engineering - Al-Kurah Campus": {
+      "programs": [
+        "uob-foe-master-chemical-engineering",
+        "uob-foe-master-civil-engineering",
+        "uob-foe-master-computer-engineering",
+        "uob-foe-master-electrical-engineering",
+        "uob-foe-master-engineering-management",
+        "uob-foe-master-environmental-engineering",
+        "uob-foe-master-mechanical-engineering"
+      ],
+      "tuition_rows": 7,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "540 USD PER_CREDIT"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Faculty of Health Sciences - Dekouaneh Campus": {
+      "programs": [
+        "uob-fhs-master-clinical-laboratory-sciences-lab-management",
+        "uob-fhs-master-medical-laboratory-sciences",
+        "uob-fhs-master-nursing",
+        "uob-fhs-master-public-health"
+      ],
+      "tuition_rows": 4,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "715 USD PER_CREDIT"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Faculty of Medicine and Medical Sciences - Al-Kurah Campus": {
+      "programs": [
+        "uob-fom-master-biomedical-sciences",
+        "uob-fom-master-cognitive-behavior-therapy"
+      ],
+      "tuition_rows": 2,
+      "null_rows": 0,
+      "tuition_amounts": [
+        "30000 USD PER_ACADEMIC_YEAR"
+      ],
+      "degree_types": [
+        "MASTER"
+      ]
+    },
+    "Saint John of Damascus Institute of Theology - Al-Kurah Campus": {
+      "programs": [
+        "uob-theology-master-theology",
+        "uob-theology-phd-theology"
+      ],
+      "tuition_rows": 0,
+      "null_rows": 2,
+      "tuition_amounts": [],
+      "degree_types": [
+        "MASTER",
+        "PHD"
+      ]
+    }
+  },
+  "by_degree": {
+    "MASTER": {
+      "tuition_rows": 58,
+      "null_rows": 1,
+      "program_ids": [
+        "uob-alba-master-architecture-march",
+        "uob-alba-master-computer-graphics-interactive-media-mfa",
+        "uob-alba-master-graphic-design-mfa",
+        "uob-alba-master-interior-architecture-design-mfa",
+        "uob-alba-master-animation-2d-3d",
+        "uob-alba-master-architecture",
+        "uob-alba-master-audiovisual-directing",
+        "uob-alba-master-audiovisual-production",
+        "uob-alba-master-cinema-directing",
+        "uob-alba-master-global-design",
+        "uob-alba-master-graphic-design-publicity",
+        "uob-alba-master-illustration-comic",
+        "uob-alba-master-interior-architecture",
+        "uob-alba-master-landscape-management",
+        "uob-alba-master-multimedia-creation",
+        "uob-alba-master-photography",
+        "uob-alba-master-television-digital-media",
+        "uob-alba-master-urban-design",
+        "uob-alba-master-visual-arts",
+        "uob-fas-master-arabic-language-literature",
+        "uob-fas-master-biology",
+        "uob-fas-master-chemistry",
+        "uob-fas-master-christian-muslim-studies",
+        "uob-fas-master-computer-science",
+        "uob-fas-master-education-kurah",
+        "uob-fas-master-english-language-literature",
+        "uob-fas-master-english-language-teaching",
+        "uob-fas-master-environmental-sciences",
+        "uob-fas-master-food-science-technology",
+        "uob-fas-master-french-language-literature",
+        "uob-fas-master-history",
+        "uob-fas-master-languages-translation",
+        "uob-fas-master-mass-media-communication",
+        "uob-fas-master-mathematics",
+        "uob-fas-master-philosophy",
+        "uob-fas-master-physical-education",
+        "uob-fas-master-political-science-international-affairs",
+        "uob-fas-master-psychology",
+        "uob-fas-master-sports-management",
+        "uob-fas-master-education-aley",
+        "uob-fobm-master-accounting-finance",
+        "uob-fobm-mba",
+        "uob-fobm-emba",
+        "uob-fobm-master-financial-economics",
+        "uob-fobm-master-human-resources-management",
+        "uob-foe-master-chemical-engineering",
+        "uob-foe-master-civil-engineering",
+        "uob-foe-master-computer-engineering",
+        "uob-foe-master-electrical-engineering",
+        "uob-foe-master-engineering-management",
+        "uob-foe-master-environmental-engineering",
+        "uob-foe-master-mechanical-engineering",
+        "uob-fhs-master-clinical-laboratory-sciences-lab-management",
+        "uob-fhs-master-medical-laboratory-sciences",
+        "uob-fhs-master-nursing",
+        "uob-fhs-master-public-health",
+        "uob-fom-master-biomedical-sciences",
+        "uob-fom-master-cognitive-behavior-therapy",
+        "uob-theology-master-theology"
+      ]
+    },
+    "PHD": {
+      "tuition_rows": 0,
+      "null_rows": 1,
+      "program_ids": [
+        "uob-theology-phd-theology"
+      ]
+    }
+  },
+  "unmapped_programs": [
+    {
+      "id": "uob-theology-master-theology",
+      "faculty": "Saint John of Damascus Institute of Theology - Al-Kurah Campus",
+      "official_degree_name": "Theology M.Th.",
+      "reason": "No official tuition was clearly published for this graduate program in the reviewed UOB sources."
+    },
+    {
+      "id": "uob-theology-phd-theology",
+      "faculty": "Saint John of Damascus Institute of Theology - Al-Kurah Campus",
+      "official_degree_name": "Theology Ph.D.",
+      "reason": "No official tuition was clearly published for this graduate program in the reviewed UOB sources."
+    }
+  ],
+  "notes": "Tuition was mapped from the official 2025-2026 UOB fees PDF. Doctoral Theology remains null because no official tuition figure was identified. ALBA campus tuition is mapped conservatively by campus; one additional ALBA figure in the OCR extraction was not clearly attributable to a graduate campus row and was not used."
+}

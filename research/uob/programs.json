@@ -1,0 +1,3821 @@
+[
+  {
+    "id": "uob-alba-master-architecture-march",
+    "faculty": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Architecture",
+    "major": "Architecture",
+    "degree_type": "MASTER",
+    "official_degree_name": "Architecture M.Arch.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Professional graduate study in architecture or interior architecture that emphasizes advanced design practice, project development, and jury-reviewed studio work.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 510,
+      "category": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+      "notes": "Official UOB fee table lists ALBA - Balamand / Al-Kurah Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Al-Kurah Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-computer-graphics-interactive-media-mfa",
+    "faculty": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Design",
+    "major": "Computer Graphics and Interactive Media",
+    "degree_type": "MASTER",
+    "official_degree_name": "Computer Graphics and Interactive Media M.F.A.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate study in computer graphics and interactive media centered on creativity, digital tools, and self-directed multimedia projects.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 510,
+      "category": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+      "notes": "Official UOB fee table lists ALBA - Balamand / Al-Kurah Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Al-Kurah Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-graphic-design-mfa",
+    "faculty": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Design",
+    "major": "Graphic Design",
+    "degree_type": "MASTER",
+    "official_degree_name": "Graphic Design M.F.A.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate study in graphic design that emphasizes visual communication, typography, and project-based studio work.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 510,
+      "category": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+      "notes": "Official UOB fee table lists ALBA - Balamand / Al-Kurah Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Al-Kurah Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-interior-architecture-design-mfa",
+    "faculty": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Architecture",
+    "major": "Interior Architecture and Design",
+    "degree_type": "MASTER",
+    "official_degree_name": "Interior Architecture and Design M.F.A.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Professional graduate study in architecture or interior architecture that emphasizes advanced design practice, project development, and jury-reviewed studio work.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 510,
+      "category": "Académie Libanaise des Beaux-Arts - Al-Kurah Campus",
+      "notes": "Official UOB fee table lists ALBA - Balamand / Al-Kurah Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Al-Kurah Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-animation-2d-3d",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Animation",
+    "major": "Animation",
+    "degree_type": "MASTER",
+    "official_degree_name": "Animation 2D/3D Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in animation within ALBAs creative media catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-architecture",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Architecture",
+    "major": "Architecture",
+    "degree_type": "MASTER",
+    "official_degree_name": "Architecture Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Professional graduate study in architecture or interior architecture that emphasizes advanced design practice, project development, and jury-reviewed studio work.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-audiovisual-directing",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Audiovisual Directing",
+    "major": "Audiovisual Directing",
+    "degree_type": "MASTER",
+    "official_degree_name": "Réalisation Audiovisuelle Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in audiovisual directing or production within ALBAs creative media catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-audiovisual-production",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Audiovisual Production",
+    "major": "Audiovisual Production",
+    "degree_type": "MASTER",
+    "official_degree_name": "Production Audiovisuelle Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in audiovisual directing or production within ALBAs creative media catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-cinema-directing",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Cinema Directing",
+    "major": "Cinema Directing",
+    "degree_type": "MASTER",
+    "official_degree_name": "Réalisation Cinéma Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in cinema directing within ALBAs creative media catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-global-design",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Global Design",
+    "major": "Global Design",
+    "degree_type": "MASTER",
+    "official_degree_name": "Design Global Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in global design within ALBAs creative catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-graphic-design-publicity",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Graphic Design and Advertising",
+    "major": "Graphic Design and Advertising",
+    "degree_type": "MASTER",
+    "official_degree_name": "Graphisme et Publicité Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate study in graphic design that emphasizes visual communication, typography, and project-based studio work.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-illustration-comic",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Illustration and Comic Strip",
+    "major": "Illustration and Comic Strip",
+    "degree_type": "MASTER",
+    "official_degree_name": "Illustration - Bande Dessinée Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in illustration and comic strip within ALBAs creative catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-interior-architecture",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Interior Architecture and Design",
+    "major": "Interior Architecture",
+    "degree_type": "MASTER",
+    "official_degree_name": "Architecture d’Intérieur Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Professional graduate study in architecture or interior architecture that emphasizes advanced design practice, project development, and jury-reviewed studio work.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-landscape-management",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Landscape Management",
+    "major": "Landscape Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Aménagement du Paysage Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in landscape management within ALBAs design catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-multimedia-creation",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Multimedia Creation",
+    "major": "Multimedia Creation",
+    "degree_type": "MASTER",
+    "official_degree_name": "Création Multimédia Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in multimedia creation within ALBAs creative catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-photography",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Photography",
+    "major": "Photography",
+    "degree_type": "MASTER",
+    "official_degree_name": "Photographie Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in photography within ALBAs creative catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-television-digital-media",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Television and Digital Media",
+    "major": "Television and Digital Media",
+    "degree_type": "MASTER",
+    "official_degree_name": "Television and Digital Media Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in television and digital media within ALBAs creative catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-urban-design",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Urban Design",
+    "major": "Urban Design",
+    "degree_type": "MASTER",
+    "official_degree_name": "Design Urbain Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in urban design within ALBAs architecture catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-alba-master-visual-arts",
+    "faculty": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+    "department": null,
+    "major_category": "Visual Arts",
+    "major": "Visual Arts",
+    "degree_type": "MASTER",
+    "official_degree_name": "Arts visuels Master",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate specialization in visual arts within ALBAs creative catalogue.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 250,
+      "category": "Académie Libanaise des Beaux-Arts - Dekouaneh Campus",
+      "notes": "Official UOB fee table lists ALBA - Dekouaneh Campus graduate tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_alba_graduate_catalogue_pdf",
+        "page_title": "ALBA Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/ALBAGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the ALBA graduate catalogue under the Dekouaneh Campus; no individual program page surfaced during discovery."
+  },
+  {
+    "id": "uob-fas-master-arabic-language-literature",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Arabic Language and Literature",
+    "major_category": "Arts and Sciences",
+    "major": "Arabic Language and Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "Arabic Language and Literature M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Arabic Language",
+      "Arabic Literature"
+    ],
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ARABIC",
+    "delivery_mode": null,
+    "program_description": "The master program in Arabic Language and Literature offers two specializations, Arabic Language and Arabic Literature, and requires coursework plus a research thesis.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue states that the Arabic master requires 24 coursework credits plus 6 thesis credits and is taught in Arabic."
+  },
+  {
+    "id": "uob-fas-master-biology",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Biology",
+    "major_category": "Sciences",
+    "major": "Biology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Biology M.S.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Biochemistry",
+      "Molecular Biology",
+      "Immunology",
+      "Microbiology"
+    ],
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Biology MSc is a two-year, 30-credit graduate program with a thesis or project option. It emphasizes biochemistry, molecular biology, immunology, and microbiology.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 705,
+      "category": "Faculty of Arts and Sciences - Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue states that the Biology MSc is a two-year, 30-credit program with a thesis or project option."
+  },
+  {
+    "id": "uob-fas-master-chemistry",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Chemistry",
+    "major_category": "Sciences",
+    "major": "Chemistry",
+    "degree_type": "MASTER",
+    "official_degree_name": "Chemistry M.S.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Advanced Analytical Chemistry",
+      "Advanced Organic Chemistry",
+      "Advanced Physical Chemistry",
+      "Advanced Inorganic Chemistry"
+    ],
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Chemistry MSc requires at least 30 credits and combines advanced chemistry coursework with thesis or project work in the major subfields of chemistry.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 705,
+      "category": "Faculty of Arts and Sciences - Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue specifies a 30-credit Chemistry MSc with a thesis or project option and four advanced chemistry areas."
+  },
+  {
+    "id": "uob-fas-master-christian-muslim-studies",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Christian Muslim Studies",
+    "major_category": "Arts and Sciences",
+    "major": "Christian Muslim Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "Christian Muslim Studies M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ARABIC",
+    "delivery_mode": null,
+    "program_description": "The Christian-Muslim Studies MA is a two-year, 30-credit graduate program focused on Christian-Muslim dialogue, ethics, and related intellectual traditions.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue states that the MA in Christian-Muslim Studies requires 24 credits plus a 6-credit thesis and uses Arabic as the language of study."
+  },
+  {
+    "id": "uob-fas-master-computer-science",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Computer Science",
+    "major_category": "Sciences",
+    "major": "Computer Science",
+    "degree_type": "MASTER",
+    "official_degree_name": "Computer Science M.S.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Health Information Systems",
+      "Software Engineering"
+    ],
+    "credits": 30,
+    "duration": "4 semesters / 2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The MS in Computer Science is a multidisciplinary graduate program with options in Software Engineering and Health Information Systems. The degree can be completed through a thesis or a project-oriented path.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 705,
+      "category": "Faculty of Arts and Sciences - Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue describes the Computer Science MSc as a two-option program with thesis/project paths and a Health Information Systems option."
+  },
+  {
+    "id": "uob-fas-master-education-kurah",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Education",
+    "major_category": "Arts and Sciences",
+    "major": "Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "Education M.A.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Curriculum and Educational Management",
+      "Instructional Design and Technology"
+    ],
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Education MA is offered through two graduate tracks: Curriculum and Educational Management, and Instructional Design and Technology.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue presents the Education MA as a two-track program with a thesis track and a project-based track."
+  },
+  {
+    "id": "uob-fas-master-english-language-literature",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of English Language and Literature",
+    "major_category": "Arts and Sciences",
+    "major": "English Language and Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "English Language and Literature M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The MA in English Language and Literature develops advanced study of literary theory, modern literatures, research, analysis, and writing for academic and professional goals.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue describes the degree as a 30-credit thesis program designed for doctoral study, teaching, research, and writing."
+  },
+  {
+    "id": "uob-fas-master-english-language-teaching",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of English Language and Literature",
+    "major_category": "Arts and Sciences",
+    "major": "English Language Teaching",
+    "degree_type": "MASTER",
+    "official_degree_name": "English Language Teaching M.A.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The ELT MA prepares English language teachers through advanced research opportunities, language-teaching methodology, and either a thesis or a non-thesis project track.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue states that ELT is a 30-credit program with thesis and non-thesis professional tracks."
+  },
+  {
+    "id": "uob-fas-master-environmental-sciences",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Environmental Sciences",
+    "major_category": "Sciences",
+    "major": "Environmental Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "Environmental Sciences M.S.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The MSc in Environmental Sciences is a 30-credit, two-year program that combines core environmental science coursework, electives, and a thesis.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 705,
+      "category": "Faculty of Arts and Sciences - Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue specifies a 30-credit MSc in Environmental Sciences with a thesis and interdisciplinary electives."
+  },
+  {
+    "id": "uob-fas-master-food-science-technology",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Graduate Program in Food Science and Technology",
+    "major_category": "Sciences",
+    "major": "Food Science and Technology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Food Science and Technology M.S.",
+    "thesis_or_non_thesis": "PROJECT",
+    "concentrations_or_tracks": [
+      "Food Quality Assurance",
+      "Food Processing Control"
+    ],
+    "credits": 42,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Food Science and Technology MSc is a multidisciplinary, two-year graduate program for science and engineering backgrounds. It consists of 42 credits and culminates in a placement and research project.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 705,
+      "category": "Faculty of Arts and Sciences - Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FAS/Departments/Pages/FoodScience.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fas_food_science",
+        "page_title": "Graduate Program in Food Science and Technology",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Departments/Pages/FoodScience.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The program now uses the dedicated Food Science page as the canonical URL; the official page confirms the two-year structure, 42 credits, and two concentration tracks."
+  },
+  {
+    "id": "uob-fas-master-french-language-literature",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of French Language and Literature",
+    "major_category": "Arts and Sciences",
+    "major": "French Language and Literature",
+    "degree_type": "MASTER",
+    "official_degree_name": "French Language and Literature M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Literature",
+      "Linguistics",
+      "French as a Foreign and Second Language"
+    ],
+    "credits": 30,
+    "duration": null,
+    "language": "FRENCH",
+    "delivery_mode": null,
+    "program_description": "The French Language and Literature MA is organized around literary, linguistic, and French-as-a-foreign-language components and requires a 6-credit research thesis.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The French department describes the MA as having three options: literature, linguistics, and French as a foreign/second language."
+  },
+  {
+    "id": "uob-fas-master-history",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of History",
+    "major_category": "Arts and Sciences",
+    "major": "History",
+    "degree_type": "MASTER",
+    "official_degree_name": "History M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The MA in History places the program within the history of the Middle East and North Africa and focuses on historical methodology, critical analysis, and the experience of Lebanon and its region.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The FAS graduate catalogue states that History is a 30-credit thesis program focused on the Middle East and North Africa."
+  },
+  {
+    "id": "uob-fas-master-languages-translation",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Languages and Translation",
+    "major_category": "Arts and Sciences",
+    "major": "Languages and Translation",
+    "degree_type": "MASTER",
+    "official_degree_name": "Languages, Translation M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Master in Translation Studies prepares translators through training in Arabic, French, and English translation techniques, translation theory, terminology, technologies, and a research thesis.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The Translation department states that the master in translation studies is a 30-credit degree taught across Arabic, French, and English."
+  },
+  {
+    "id": "uob-fas-master-mass-media-communication",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Mass Media and Communication",
+    "major_category": "Arts and Sciences",
+    "major": "Mass Media and Communication",
+    "degree_type": "MASTER",
+    "official_degree_name": "Mass Media and Communication M.A.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The MA in Mass Communication provides advanced knowledge and professional skills for careers in media, advertising, public relations, broadcasting, and scholarly research. Students complete either a final project/report or a thesis.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The Mass Media and Communication department states that all MA students complete 30 credits and choose between a thesis and a project/report capstone."
+  },
+  {
+    "id": "uob-fas-master-mathematics",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Mathematics",
+    "major_category": "Sciences",
+    "major": "Mathematics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Mathematics M.S.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "4 semesters / 2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Computational Mathematics MSc is a 4-semester, 30-credit degree that combines theoretical mathematics with computational methods, numerical simulation, and applications relevant to science and engineering.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 705,
+      "category": "Faculty of Arts and Sciences - Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The Mathematics department states that the program requires 30 credits and offers either a 6-credit thesis or a 3-credit project plus an elective."
+  },
+  {
+    "id": "uob-fas-master-philosophy",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Philosophy",
+    "major_category": "Arts and Sciences",
+    "major": "Philosophy",
+    "degree_type": "MASTER",
+    "official_degree_name": "Philosophy M.A.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "Graduate courses in philosophy cover God and metaphysics, contemporary philosophy, existentialism, philosophy and literature, post-modernism, classical Islamic philosophy, and modern Arab and Islamic thought.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The philosophy graduate course list is catalog-based and remains the official source for the program."
+  },
+  {
+    "id": "uob-fas-master-physical-education",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Physical Education",
+    "major_category": "Arts and Sciences",
+    "major": "Physical Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "Physical Education M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Physical Conditioning",
+      "Physical Activity and Health"
+    ],
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Physical Education MA includes graduate study in physical conditioning and in physical activity and health, with a 30-credit thesis-based curriculum and specialized sport science coursework.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The Physical Education department describes two thesis-based tracks under the MA program: Physical Conditioning and Physical Activity and Health."
+  },
+  {
+    "id": "uob-fas-master-political-science-international-affairs",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Political Science and International Affairs",
+    "major_category": "Arts and Sciences",
+    "major": "Political Science and International Affairs",
+    "degree_type": "MASTER",
+    "official_degree_name": "Political Science and International Affairs M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The MA in Middle Eastern and Mediterranean Politics focuses on critical understanding of politics, political analysis, conflict resolution, and Mediterranean and international affairs.",
+    "admission_requirements": "A Bachelor degree in Political Science with a minimum average of 80 is normally required; applicants slightly below 80 may be accepted on probation; applicants from other disciplines may be accepted on probation with bridging courses.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The department states that the degree requires 24 credits of coursework plus a 6-credit thesis and that graduate courses are normally offered as seminars."
+  },
+  {
+    "id": "uob-fas-master-psychology",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Psychology",
+    "major_category": "Arts and Sciences",
+    "major": "Psychology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Psychology M.A.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Clinical Developmental Psychology",
+      "Clinical Psychology"
+    ],
+    "credits": 40,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The Psychology MA prepares students for clinical practice through a scholar-practitioner model with research thesis writing, research methodology, and a two-year clinical training curriculum.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The Psychology department states that both clinical psychology tracks culminate in a substantive thesis and more than 720 hours of supervised clinical training."
+  },
+  {
+    "id": "uob-fas-master-sports-management",
+    "faculty": "Faculty of Arts and Sciences - Al-Kurah Campus",
+    "department": "Department of Physical Education",
+    "major_category": "Arts and Sciences",
+    "major": "Sports Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Sports Management M.A.",
+    "thesis_or_non_thesis": "PROJECT",
+    "concentrations_or_tracks": null,
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Sports Management MA offers a business perspective on the sports industry and prepares graduates to manage sports businesses and organizations through a 30-credit curriculum and a field project.",
+    "admission_requirements": "Candidates holding a BA in Physical Education or a BS in Business are eligible for the program.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the FAS graduate catalogue; no separate program page surfaced during discovery. The department states that Sports Management is a 30-credit program and that the field project is the capstone, with eligibility for BA Physical Education or BS Business holders."
+  },
+  {
+    "id": "uob-fas-master-education-aley",
+    "faculty": "Faculty of Arts and Sciences - Souk El Gharb-Aley Campus",
+    "department": "Department of Education",
+    "major_category": "Arts and Sciences",
+    "major": "Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "Education M.A.",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Curriculum and Educational Management",
+      "Instructional Design and Technology"
+    ],
+    "credits": 30,
+    "duration": "2 years",
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": "The Education MA is offered through two graduate tracks: Curriculum and Educational Management, and Instructional Design and Technology.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 725,
+      "category": "Faculty of Arts and Sciences - Arts",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fas_graduate_catalogue_pdf",
+        "page_title": "Faculty of Arts and Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FASGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fas",
+        "page_title": "Faculty of Arts and Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FAS/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "The graduate catalogue lists Education M.A. at the Souk El Gharb-Aley Campus as a separate campus offering. The Aley campus listing is retained separately because the catalogue lists it as a campus-specific Education MA offering."
+  },
+  {
+    "id": "uob-fobm-master-accounting-finance",
+    "faculty": "Faculty of Business and Management - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Business and Management",
+    "major": "Accounting and Finance",
+    "degree_type": "MASTER",
+    "official_degree_name": "Accounting and Finance Master.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Faculty of Business and Management",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fobm",
+        "page_title": "Faculty of Business and Management",
+        "url": "https://www.balamand.edu.lb/faculties/FOBM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and on the FOBM hub; no separate program page surfaced during discovery."
+  },
+  {
+    "id": "uob-fobm-mba",
+    "faculty": "Faculty of Business and Management - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Business and Management",
+    "major": "Business Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Business Administration (MBA)",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Accounting",
+      "Finance",
+      "Health Care Management",
+      "Human Resources Management",
+      "Management",
+      "Marketing"
+    ],
+    "credits": 39,
+    "duration": "1.5-2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The MBA program develops influential leaders and managers for complex business environments. The curriculum includes 21 core credits and 18 remaining credits that can be completed through elective-and-project or elective-and-thesis tracks.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Faculty of Business and Management",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FOBM/Departments/Pages/MBA.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fobm_mba",
+        "page_title": "Master of Business Administration (MBA)",
+        "url": "https://www.balamand.edu.lb/faculties/FOBM/Departments/Pages/MBA.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fobm",
+        "page_title": "Faculty of Business and Management",
+        "url": "https://www.balamand.edu.lb/faculties/FOBM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Official MBA page lists 39 credits, a 1.5-2 year duration, and six concentration tracks; the graduate catalogue and faculty hub also list the program. Official MBA page confirms 39 credits, a 1.5-2 year duration, and six optional concentration tracks."
+  },
+  {
+    "id": "uob-fobm-emba",
+    "faculty": "Faculty of Business and Management - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Business and Management",
+    "major": "Executive Business Administration",
+    "degree_type": "MASTER",
+    "official_degree_name": "Executive Master in Business Administration (EMBA)",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 39,
+    "duration": "19 months",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The EMBA is a module-based executive program themed Navigating Crises. It is designed for seasoned managers and entrepreneurs and consists of 19 monthly modules, including one three-credit opening module and eighteen two-credit modules.",
+    "admission_requirements": "Bachelor degree licensed from the Ministry of Education; five years of managerial experience; completed application with required documents; English proficiency; interview with the program committee.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Interview with the EMBA admission committee",
+    "experience_requirement": "Five years of managerial experience",
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "amount": 25500,
+      "category": "Executive Master of Business Administration",
+      "notes": "Official UOB fee table lists Executive MBA as yearly tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FOBM/Departments/Pages/EMBA.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fobm_emba",
+        "page_title": "Executive Master of Business Administration (EMBA)",
+        "url": "https://www.balamand.edu.lb/faculties/FOBM/Departments/Pages/EMBA.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fobm",
+        "page_title": "Faculty of Business and Management",
+        "url": "https://www.balamand.edu.lb/faculties/FOBM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Official EMBA page confirms the program; it is also listed in the graduate catalogue and FOBM hub. Official EMBA page confirms the module-based structure, 19-month completion time, admission criteria, required documents, and interview requirement."
+  },
+  {
+    "id": "uob-fobm-master-financial-economics",
+    "faculty": "Faculty of Business and Management - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Business and Management",
+    "major": "Financial Economics",
+    "degree_type": "MASTER",
+    "official_degree_name": "Financial Economics M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Faculty of Business and Management",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fobm",
+        "page_title": "Faculty of Business and Management",
+        "url": "https://www.balamand.edu.lb/faculties/FOBM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and on the FOBM hub; no separate program page surfaced during discovery."
+  },
+  {
+    "id": "uob-fobm-master-human-resources-management",
+    "faculty": "Faculty of Business and Management - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Business and Management",
+    "major": "Human Resources Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Human Resources Management Master.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Faculty of Business and Management",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fobm",
+        "page_title": "Faculty of Business and Management",
+        "url": "https://www.balamand.edu.lb/faculties/FOBM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and on the FOBM hub; no separate program page surfaced during discovery."
+  },
+  {
+    "id": "uob-foe-master-chemical-engineering",
+    "faculty": "Faculty of Engineering - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Chemical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Chemical Engineering M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_foe",
+        "page_title": "Faculty of Engineering",
+        "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and reachable from the Faculty of Engineering hub; no individual graduate program page was canonicalized in this pass."
+  },
+  {
+    "id": "uob-foe-master-civil-engineering",
+    "faculty": "Faculty of Engineering - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Civil Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Civil Engineering M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_foe",
+        "page_title": "Faculty of Engineering",
+        "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and reachable from the Faculty of Engineering hub; no individual graduate program page was canonicalized in this pass."
+  },
+  {
+    "id": "uob-foe-master-computer-engineering",
+    "faculty": "Faculty of Engineering - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Computer Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Computer Engineering M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_foe",
+        "page_title": "Faculty of Engineering",
+        "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and reachable from the Faculty of Engineering hub; no individual graduate program page was canonicalized in this pass."
+  },
+  {
+    "id": "uob-foe-master-electrical-engineering",
+    "faculty": "Faculty of Engineering - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Electrical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Electrical Engineering M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_foe",
+        "page_title": "Faculty of Engineering",
+        "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and reachable from the Faculty of Engineering hub; no individual graduate program page was canonicalized in this pass."
+  },
+  {
+    "id": "uob-foe-master-engineering-management",
+    "faculty": "Faculty of Engineering - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Engineering Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Engineering Management M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_foe",
+        "page_title": "Faculty of Engineering",
+        "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and reachable from the Faculty of Engineering hub; no individual graduate program page was canonicalized in this pass."
+  },
+  {
+    "id": "uob-foe-master-environmental-engineering",
+    "faculty": "Faculty of Engineering - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Environmental Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Environmental Engineering M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_foe",
+        "page_title": "Faculty of Engineering",
+        "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and reachable from the Faculty of Engineering hub; no individual graduate program page was canonicalized in this pass."
+  },
+  {
+    "id": "uob-foe-master-mechanical-engineering",
+    "faculty": "Faculty of Engineering - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Engineering",
+    "major": "Mechanical Engineering",
+    "degree_type": "MASTER",
+    "official_degree_name": "Mechanical Engineering M.S.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 540,
+      "category": "Faculty of Engineering",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_foe",
+        "page_title": "Faculty of Engineering",
+        "url": "https://www.balamand.edu.lb/faculties/FOE/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the general graduate catalogue and reachable from the Faculty of Engineering hub; no individual graduate program page was canonicalized in this pass."
+  },
+  {
+    "id": "uob-fhs-master-clinical-laboratory-sciences-lab-management",
+    "faculty": "Faculty of Health Sciences - Dekouaneh Campus",
+    "department": "Department of Medical Laboratory Sciences",
+    "major_category": "Health Sciences",
+    "major": "Clinical Laboratory Sciences (Lab Management)",
+    "degree_type": "MASTER",
+    "official_degree_name": "Clinical Laboratory Sciences (Lab Management) M.S.",
+    "thesis_or_non_thesis": "NON_THESIS",
+    "concentrations_or_tracks": [
+      "Laboratory Management"
+    ],
+    "credits": 34,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The professional MS-CLS laboratory-management track provides focused academic training and internship-based preparation for laboratory operations, management, and industry roles.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 715,
+      "category": "Faculty of Health Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSClinicalLabSciences.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fhs_ms_cls",
+        "page_title": "MS in Clinical Laboratory Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSClinicalLabSciences.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs",
+        "page_title": "Faculty of Health Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/Pages/Default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs_graduate_catalogue_pdf",
+        "page_title": "Faculty of Health Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FHSGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Official FHS graduate page exists; the catalogue uses the lab-management wording. Official MS-CLS page identifies the Laboratory Management professional track, which carries 34 credits and uses an internship capstone. Official MS-CLS page confirms the Laboratory Management professional track and its internship-based capstone."
+  },
+  {
+    "id": "uob-fhs-master-medical-laboratory-sciences",
+    "faculty": "Faculty of Health Sciences - Dekouaneh Campus",
+    "department": "Department of Medical Laboratory Sciences",
+    "major_category": "Health Sciences",
+    "major": "Medical Laboratory Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "Medical Laboratory Sciences M.S.",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Infectious Diseases and Immunology",
+      "Molecular Biology"
+    ],
+    "credits": 30,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The thesis track in clinical laboratory sciences deepens expertise in molecular biology, infectious diseases, immunology, and related laboratory research.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 715,
+      "category": "Faculty of Health Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSClinicalLabSciences.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fhs_ms_cls",
+        "page_title": "MS in Clinical Laboratory Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSClinicalLabSciences.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs",
+        "page_title": "Faculty of Health Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/Pages/Default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs_graduate_catalogue_pdf",
+        "page_title": "Faculty of Health Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FHSGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Listed in the graduate catalogue and the FHS hub; no separate canonical program page was resolved during discovery. Updated to the thesis-track wording from the official MS-CLS page and handbook; the page lists Molecular Biology and Infectious Diseases and Immunology thesis tracks."
+  },
+  {
+    "id": "uob-fhs-master-nursing",
+    "faculty": "Faculty of Health Sciences - Dekouaneh Campus",
+    "department": "Department of Nursing",
+    "major_category": "Health Sciences",
+    "major": "Nursing",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Nursing",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": [
+      "Adult Care",
+      "Neonatal and Child Care"
+    ],
+    "credits": 36,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The MSN is an advanced research-based and clinical training degree that prepares qualified nurses for leadership and specialized practice in neonatal/child care and adult care.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 715,
+      "category": "Faculty of Health Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Candidate for initial accreditation by the Accreditation Commission for Education in Nursing (ACEN); candidacy effective December 20, 2022 and noted on the program page as expiring December 20, 2024.",
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSNursing.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fhs_ms_nursing",
+        "page_title": "MS in Nursing",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSNursing.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs",
+        "page_title": "Faculty of Health Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/Pages/Default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs_graduate_catalogue_pdf",
+        "page_title": "Faculty of Health Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FHSGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Official nursing page states two fields of specialization; the FHS hub also lists the program. Official nursing page confirms the two tracks, 36-credit structure, thesis or project option, two-year completion time, and ACEN candidacy notice."
+  },
+  {
+    "id": "uob-fhs-master-public-health",
+    "faculty": "Faculty of Health Sciences - Dekouaneh Campus",
+    "department": "Department of Public Health",
+    "major_category": "Health Sciences",
+    "major": "Public Health",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Public Health (MPH)",
+    "thesis_or_non_thesis": "NON_THESIS",
+    "concentrations_or_tracks": [
+      "Community Health",
+      "Occupational and Environmental Health"
+    ],
+    "credits": 42,
+    "duration": "Minimum 20 months full-time; up to 4 years part-time",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The MPH is a 42-credit practicum-based degree focused on community health leadership and on promoting health-sustaining environments in Lebanon and across the Middle East.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 715,
+      "category": "Faculty of Health Sciences",
+      "notes": "Official UOB graduate fee table (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSPublicHealth.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fhs_mph",
+        "page_title": "Master of Public Health (MPH)",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/AcademicPrograms/Pages/Programs/MSPublicHealth.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs",
+        "page_title": "Faculty of Health Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FHS/Pages/Default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fhs_graduate_catalogue_pdf",
+        "page_title": "Faculty of Health Sciences Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/FHSGraduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Official MPH page exists; the Faculty of Health Sciences hub and graduate catalogue also list the program. Official MPH page confirms a 42-credit practicum-based degree with two tracks and a minimum 20-month full-time completion window."
+  },
+  {
+    "id": "uob-fom-master-biomedical-sciences",
+    "faculty": "Faculty of Medicine and Medical Sciences - Al-Kurah Campus",
+    "department": "Department of Biomedical Sciences",
+    "major_category": "Medicine and Medical Sciences",
+    "major": "Biomedical Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "MS in Biomedical Sciences",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": [
+      "Biochemistry",
+      "Immunology",
+      "Microbiology",
+      "Molecular Biology",
+      "Physiology"
+    ],
+    "credits": null,
+    "duration": "2 years",
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": "The two-year MS in Biomedical Sciences prepares students for research careers and for further study toward a PhD or MD degree. The program offers course and research tracks in biochemistry, immunology, microbiology, molecular biology, and physiology.",
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "amount": 30000,
+      "category": "Faculty of Medicine and Medical Sciences",
+      "notes": "Official UOB fee table lists Faculty of Medicine yearly tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/faculties/FOM/AcademicPrograms/Pages/MSBiomedical.aspx",
+    "sources": [
+      {
+        "source_id": "uob_fom_ms_biomedical",
+        "page_title": "MS in Biomedical Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FOM/AcademicPrograms/Pages/MSBiomedical.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_fom",
+        "page_title": "Faculty of Medicine and Medical Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FOM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "Official FOM graduate program page exists and the graduate catalogue also lists the MS in Biomedical Sciences. Official biomedical sciences page confirms the two-year research-oriented structure, thesis requirement, and five named research tracks."
+  },
+  {
+    "id": "uob-fom-master-cognitive-behavior-therapy",
+    "faculty": "Faculty of Medicine and Medical Sciences - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Medicine and Medical Sciences",
+    "major": "Cognitive Behavior Therapy",
+    "degree_type": "MASTER",
+    "official_degree_name": "Cognitive Behavior Therapy M.C.B.T.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "ENGLISH",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "amount": 30000,
+      "category": "Faculty of Medicine and Medical Sciences",
+      "notes": "Official UOB fee table lists Faculty of Medicine yearly tuition (2025-2026).",
+      "source_ids": [
+        "uob_fees_expenses_pdf"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+    "sources": [
+      {
+        "source_id": "uob_fom",
+        "page_title": "Faculty of Medicine and Medical Sciences",
+        "url": "https://www.balamand.edu.lb/faculties/FOM/Pages/default.aspx",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "The graduate catalogue lists M.C.B.T. under Faculty of Medicine and Medical Sciences; no separate program page was resolved during discovery."
+  },
+  {
+    "id": "uob-theology-master-theology",
+    "faculty": "Saint John of Damascus Institute of Theology - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Theology",
+    "major": "Theology",
+    "degree_type": "MASTER",
+    "official_degree_name": "Theology M.Th.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://theology.balamand.edu.lb/",
+    "sources": [
+      {
+        "source_id": "uob_theology",
+        "page_title": "Saint John of Damascus Institute of Theology",
+        "url": "https://theology.balamand.edu.lb/",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "The official theology subdomain was surfaced from UOB navigation but was not fully fetched during discovery; the graduate catalogue also lists the M.Th. offering."
+  },
+  {
+    "id": "uob-theology-phd-theology",
+    "faculty": "Saint John of Damascus Institute of Theology - Al-Kurah Campus",
+    "department": null,
+    "major_category": "Theology",
+    "major": "Theology",
+    "degree_type": "PHD",
+    "official_degree_name": "Theology Ph.D.",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": null,
+    "duration": null,
+    "language": "MULTILINGUAL",
+    "delivery_mode": null,
+    "program_description": null,
+    "admission_requirements": null,
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://theology.balamand.edu.lb/",
+    "sources": [
+      {
+        "source_id": "uob_theology",
+        "page_title": "Saint John of Damascus Institute of Theology",
+        "url": "https://theology.balamand.edu.lb/",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_general_graduate_catalogue_pdf",
+        "page_title": "General Section Graduate Catalogue",
+        "url": "https://www.balamand.edu.lb/Style%20Library/PDFs/Catalogue/General-Section-Graduate.pdf",
+        "date_accessed": "2026-06-28"
+      },
+      {
+        "source_id": "uob_catalogue_page",
+        "page_title": "Catalogue",
+        "url": "https://www.balamand.edu.lb/CurrentStudents/Pages/Catalogue.aspx",
+        "date_accessed": "2026-06-28"
+      }
+    ],
+    "notes": "The official theology subdomain was surfaced from UOB navigation but was not fully fetched during discovery; the graduate catalogue also lists the Ph.D. offering."
+  }
+]
