@@ -1,0 +1,1323 @@
+[
+  {
+    "id": "ndu-faad-master-design",
+    "official_title": "Master of Arts in Design",
+    "degree_type": "MASTER",
+    "faculty": "Ramez G. Chagoury Faculty of Architecture, Arts, and Design",
+    "department": "Department of Design",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/faad/departments/department-of-design/programs/master-of-arts-in-design-1",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 670,
+      "category": "Architecture",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program emphasizes the relationship between theory and practice in design, including professional and managerial aspects of project research and development, and the social and cultural context of design work.",
+    "admission_requirements": "Applicants from visual arts and design backgrounds are preferred. Candidates from other disciplines may be considered after meeting University graduate admission requirements. A portfolio and an interview with the MA course faculty are required. Full-time candidates must take at least 9 credits per semester; part-time candidates must take at least 6.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Required with the MA course faculty.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page specifies both part-time and full-time study loads.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program emphasizes the relationship between theory and practice in design, including professional and managerial aspects of project research and development, and the social and cultural context of design work.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": "Required with the MA course faculty.",
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fh-master-education",
+    "official_title": "Master of Arts in Education",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Humanities",
+    "department": "Department of Psychology, Education and Physical Education",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fh/departments/department-of-psychology-education-and-physical-education/programs/master-of-arts-in-education",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 33,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": [
+      "School Leadership",
+      "Educational Technology",
+      "Special Needs Education"
+    ],
+    "description": "The program prepares students for advanced studies and careers in education, with a foundation in school leadership, educational technology, and special needs education.",
+    "admission_requirements": "Applicants should hold a BA in Education or a BA with a Teaching Diploma from an accredited university. Related bachelor’s degrees may be considered case by case by the department.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The graduation requirements include a thesis.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program prepares students for advanced studies and careers in education, with a foundation in school leadership, educational technology, and special needs education.",
+    "concentrations_or_tracks": [
+      "School Leadership",
+      "Educational Technology",
+      "Special Needs Education"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fh-master-english-language-literature-applied-linguistics-tefl",
+    "official_title": "Master of Arts in English Language and Literature - Applied Linguistics and TEFL Emphasis",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Humanities",
+    "department": "Department of English and Translation",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fh/departments/department-of-english-and-translation/programs/master-of-arts-in-english-language-and-literature---applied-linguistics-and-tefl-emphasis",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": [
+      "Applied Linguistics and TEFL Emphasis"
+    ],
+    "description": "The program deepens students’ expertise in English literature and the mechanics of the English language, and prepares graduates for advanced study, foreign language teaching, program administration, and communications.",
+    "admission_requirements": "Applicants are expected to show strong English proficiency; the page gives priority to applicants with added qualifications and professional experience such as teaching.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page requires a minimum EET score of 60 for admission and states that GRE performance is required only if an applicant submits GRE results.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program deepens students’ expertise in English literature and the mechanics of the English language, and prepares graduates for advanced study, foreign language teaching, program administration, and communications.",
+    "concentrations_or_tracks": [
+      "Applied Linguistics and TEFL Emphasis"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fh-master-english-language-literature-literature",
+    "official_title": "Master of Arts in English Language and Literature - Literature Emphasis",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Humanities",
+    "department": "Department of English and Translation",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fh/departments/department-of-english-and-translation/programs/master-of-arts-in-english-language-and-literature---literature-emphasis",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": [
+      "Literature Emphasis"
+    ],
+    "description": "The program deepens students’ expertise in English literature and the structure of the English language for advanced study and careers in teaching, program administration, and communications.",
+    "admission_requirements": null,
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page states that graduation requires 30 credits and thesis submission and defense.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program deepens students’ expertise in English literature and the structure of the English language for advanced study and careers in teaching, program administration, and communications.",
+    "concentrations_or_tracks": [
+      "Literature Emphasis"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-flps-master-international-affairs-diplomacy",
+    "official_title": "Master of Arts in International Affairs and Diplomacy",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Law and Political Science",
+    "department": "Department of Government and International Relations",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/flps/departments/department-of-government-and-international-relations/programs/master-of-arts-in-international-affairs-and-diplomacy",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": null,
+    "description": "The program provides advanced university training in international affairs and diplomacy and prepares graduates for specialized careers and doctoral study.",
+    "admission_requirements": "Applicants should hold a BA in Political Science, Public Administration, International Affairs and Diplomacy, International Law, or another related field. Non-major applicants may be asked to complete prerequisite courses.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The program page allows either comprehensive exam coursework or 30 credits of coursework plus 6 thesis credits.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program provides advanced university training in international affairs and diplomacy and prepares graduates for specialized careers and doctoral study.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-flps-master-international-affairs-diplomacy-international-law",
+    "official_title": "Master of Arts in International Affairs and Diplomacy - International Law Emphasis",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Law and Political Science",
+    "department": "Department of Government and International Relations",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/flps/departments/department-of-government-and-international-relations/programs/master-of-arts-in-international-affairs-and-diplomacy---international-law-emphasis",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": [
+      "International Law Emphasis"
+    ],
+    "description": "The international law emphasis builds on the broader international affairs and diplomacy curriculum and adds a specialization in international law.",
+    "admission_requirements": "Applicants should hold a BA in Political Science, Public Administration, International Affairs and Diplomacy, International Law, or another related field. Non-major applicants may be asked to complete prerequisite courses.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The emphasis-specific prerequisite list includes IAF 211, IAF 401, and POS 442 or equivalents.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The international law emphasis builds on the broader international affairs and diplomacy curriculum and adds a specialization in international law.",
+    "concentrations_or_tracks": [
+      "International Law Emphasis"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fh-master-media-studies",
+    "official_title": "Master of Arts in Media Studies",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Humanities",
+    "department": "Department of Media Studies",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fh/departments/department-of-media-studies/programs/master-of-arts-in-media-studies",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": null,
+    "description": "The program equips graduates with conceptual, analytical, and hands-on tools for careers in communication and for doctoral study in media-related fields.",
+    "admission_requirements": "Applicants may enter from the fields listed by the department. Unrelated majors may need preparatory courses. The page states a minimum GPA of 3.0, with probationary admission possible for GPAs between 2.8 and 3.0.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "Applicants must submit three recommendation letters, an updated CV, and a personal statement.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program equips graduates with conceptual, analytical, and hands-on tools for careers in communication and for doctoral study in media-related fields.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-faad-master-music",
+    "official_title": "Master of Arts in Music",
+    "degree_type": "MASTER",
+    "faculty": "Ramez G. Chagoury Faculty of Architecture, Arts, and Design",
+    "department": "Department of Music",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/faad/departments/department-of-music/programs/master-of-arts-in-music",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 670,
+      "category": "Architecture",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "Graduate study in musicology covers historical and ethnomusicological investigation, hermeneutics, semiotics, criticism, and independent study with faculty consultation.",
+    "admission_requirements": "Applicants normally hold a bachelor degree in music or an equivalent qualification. They must submit an extended written piece on a musical subject. An English test is required except for students majoring in Arabic music.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Selection is based on applicant information and, when necessary, an interview.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page does not explicitly publish a thesis requirement in the visible content.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Graduate study in musicology covers historical and ethnomusicological investigation, hermeneutics, semiotics, criticism, and independent study with faculty consultation.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": "Selection is based on applicant information and, when necessary, an interview.",
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-flps-master-political-science",
+    "official_title": "Master of Arts in Political Science",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Law and Political Science",
+    "department": "Department of Government and International Relations",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/flps/departments/department-of-government-and-international-relations/programs/master-of-arts-in-political-science",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": null,
+    "description": "The program is aimed at students preparing for public service and related fields and builds a theoretical and professional foundation in political science.",
+    "admission_requirements": "Applicants should hold a BA in Political Science, Public Administration, International Affairs and Diplomacy, International Law, or another related field. The page requires the EET minimum, a minimum undergraduate GPA of 3.0, and may require GRE for non-NDU students. Non-major applicants may need prerequisite courses.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The program page allows either a comprehensive written and oral examination or 30 credits of coursework plus 6 thesis credits.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program is aimed at students preparing for public service and related fields and builds a theoretical and professional foundation in political science.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-flps-master-political-science-human-rights",
+    "official_title": "Master of Arts in Political Science - Human Rights Emphasis",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Law and Political Science",
+    "department": "Department of Government and International Relations",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/flps/departments/department-of-government-and-international-relations/programs/master-of-arts-in-political-science---human-rights-emphasis",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": [
+      "Human Rights Emphasis"
+    ],
+    "description": "The human rights emphasis builds the political science curriculum around human rights conventions, analysis, and advocacy.",
+    "admission_requirements": "Applicants should hold a BA in Political Science, Public Administration, International Affairs and Diplomacy, International Law, or another related field. The page requires the EET minimum, a minimum undergraduate GPA of 3.0, and may require GRE for non-NDU students. Non-major applicants may need prerequisite courses.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The visible page content names prerequisites for the political science track and allows the same thesis/non-thesis path structure as the main program.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The human rights emphasis builds the political science curriculum around human rights conventions, analysis, and advocacy.",
+    "concentrations_or_tracks": [
+      "Human Rights Emphasis"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-flps-master-political-science-ngos",
+    "official_title": "Master of Arts in Political Science - NGOs Emphasis",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Law and Political Science",
+    "department": "Department of Government and International Relations",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/flps/departments/department-of-government-and-international-relations/programs/master-of-arts-in-political-science---ngos-emphasis",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": [
+      "NGOs Emphasis"
+    ],
+    "description": "The NGOs emphasis focuses on international and civil society organizations, NGOs, NPOs, humanitarian aid, and policy frameworks.",
+    "admission_requirements": "Applicants should hold a BA in Political Science, Public Administration, International Affairs and Diplomacy, International Law, or another related field. The page requires the EET minimum, a minimum undergraduate GPA of 3.0, and may require GRE for non-NDU students. Non-major applicants may need prerequisite courses.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The visible page content includes program-specific prerequisite lists for Political Science, Public Administration, International Affairs and Diplomacy, and International Affairs and Diplomacy - International Law Emphasis.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The NGOs emphasis focuses on international and civil society organizations, NGOs, NPOs, humanitarian aid, and policy frameworks.",
+    "concentrations_or_tracks": [
+      "NGOs Emphasis"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fh-master-psychology-educational",
+    "official_title": "Master of Arts in Psychology - Educational Psychology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Humanities",
+    "department": "Department of Psychology, Education and Physical Education",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fh/departments/department-of-psychology-education-and-physical-education/programs/master-of-arts-in-psychology-educational-psychology",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": [
+      "Educational Psychology"
+    ],
+    "description": "The program applies psychological principles to teaching and learning and prepares students for postgraduate work in educational psychology.",
+    "admission_requirements": "Applicants should hold a BA in Psychology or an equivalent degree from an accredited university. Other majors are evaluated separately. The page also requires a minimum undergraduate GPA of 2.75, a personal statement, and three professional recommendations.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "A personal interview is at the discretion of the department.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "Graduation may follow either a thesis track or a non-thesis track.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program applies psychological principles to teaching and learning and prepares students for postgraduate work in educational psychology.",
+    "concentrations_or_tracks": [
+      "Educational Psychology"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": "A personal interview is at the discretion of the department.",
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-flps-master-public-administration",
+    "official_title": "Master of Arts in Public Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Law and Political Science",
+    "department": "Department of Government and International Relations",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/flps/departments/department-of-government-and-international-relations/programs/master-of-arts-in-public-administration",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": null,
+    "description": "The program teaches public administration theories and concepts and prepares graduates for public-sector and NGO careers through practice-oriented and research-based training.",
+    "admission_requirements": "Applicants should hold a BA in Political Science, Public Administration, International Affairs and Diplomacy, International Law, or another related field. The page requires the EET minimum and a minimum undergraduate GPA of 3.0. Non-major applicants may need prerequisite courses.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The graduation page allows either comprehensive examination coursework or 30 credits plus 6 thesis credits.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program teaches public administration theories and concepts and prepares graduates for public-sector and NGO careers through practice-oriented and research-based training.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fh-master-translation",
+    "official_title": "Master of Arts in Translation",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Humanities",
+    "department": "Department of English and Translation",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fh/departments/department-of-english-and-translation/programs/master-of-arts-in-translation",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": "English, French, Arabic",
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": null,
+    "description": "The program offers advanced training in translation and interpretation for students and working professionals across English, French, and Arabic.",
+    "admission_requirements": "Applicants must pass written French and Arabic language proficiency tests with a grade of 70 or above in both. An interview in English, French, and Arabic is also required. Applicants with a bachelor’s degree other than Translation must take TRA 201 and TRA 311 or TRA 401 in the first semester and earn a grade of B or higher.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Required in English, French, and Arabic.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "The graduation requirements include a thesis.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program offers advanced training in translation and interpretation for students and working professionals across English, French, and Arabic.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": "Required in English, French, and Arabic.",
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fnas-master-actuarial-sciences",
+    "official_title": "Master of Science in Actuarial Sciences - In partnership with Chedid Re",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Natural and Applied Sciences",
+    "department": "Department of Mathematics and Statistics",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fnas/departments/department-of-mathematics-and-statistics/programs/master-of-science-in-actuarial-sciences---in-partnership-with-chedid-re",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program responds to the regional demand for risk specialists and prepares graduates for professional actuarial credentials and doctoral study.",
+    "admission_requirements": "Applicants holding a BS in Mathematics or Actuarial Sciences with a cumulative GPA of at least 3.0 are accepted; 2.7 to 2.99 may be conditionally accepted. Remedial courses may be required. Up to 9 transfer credits may be approved.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The official page emphasizes preparation for actuarial professional examinations and the partnership with Chedid Re.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program responds to the regional demand for risk specialists and prepares graduates for professional actuarial credentials and doctoral study.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fnas-master-biology",
+    "official_title": "Master of Science in Biology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Natural and Applied Sciences",
+    "department": "Department of Sciences",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fnas/departments/department-of-sciences/programs/master-of-science-in-biology",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": null,
+    "description": "The program combines coursework, practical lab experience, and thesis research to deepen advanced biological knowledge and support doctoral or professional paths.",
+    "admission_requirements": "Applicants holding a BS in Biology with a cumulative GPA of at least 3.0 are accepted; 2.7 to 2.99 may be conditionally accepted. Remedial biology courses may be required, and up to 9 transfer credits may be approved.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The graduation requirements include 6 thesis credits.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program combines coursework, practical lab experience, and thesis research to deepen advanced biological knowledge and support doctoral or professional paths.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fbae-master-business-strategy",
+    "official_title": "Master of Science in Business Strategy - AACSB Accredited Program",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration and Economics",
+    "department": "Department of Accounting and Finance",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fbae/departments/department-of-accounting-and-finance/programs/master-of-science-in-business-strategy---aacsb-accredited-program",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Business",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program is a specialized business strategy degree designed for professionals, business graduates, and other graduates seeking strategic management skills and doctoral preparation.",
+    "admission_requirements": "Business and economics graduates need a completed application, two recommendation letters, and a minimum undergraduate GPA of 2.7. Applicants from other disciplines may need up to 18 credits of remedial courses. Applicants from non-English instruction institutions need an EET score of 60.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": "AACSB Accredited Program",
+    "notes": "The visible page lists a 5:30 p.m. course schedule and a maximum load of 12 credits per semester. It does not publish GRE or GMAT requirements in the visible content.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program is a specialized business strategy degree designed for professionals, business graduates, and other graduates seeking strategic management skills and doctoral preparation.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fe-master-civil-engineering",
+    "official_title": "Master of Science in Civil Engineering",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Engineering",
+    "department": "Department of Civil and Environmental Engineering",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fe/departments/department-of-civil-and-environmental-engineering/programs/-master-of-science-in-civil-engineering",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 765,
+      "category": "Engineering",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program develops theoretical and applied civil engineering knowledge, leadership, and research readiness for advanced professional practice or doctoral study.",
+    "admission_requirements": "Applicants must hold a bachelor degree in Civil Engineering or its equivalent, have a minimum GPA of 3.0, obtain GRE scores, and receive Faculty Graduate Committee approval. English proficiency requirements in the catalog must also be met.",
+    "GRE": "Official GRE score required.",
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "Holders of BS degrees in Civil Engineering may need remedial courses on a case-by-case basis.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program develops theoretical and applied civil engineering knowledge, leadership, and research readiness for advanced professional practice or doctoral study.",
+    "gre_requirement": "Official GRE score required.",
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fnas-master-computer-science",
+    "official_title": "Master of Science in Computer Science",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Natural and Applied Sciences",
+    "department": "Department of Computer Science",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fnas/departments/department-of-computer-science/programs/master-of-science-in-computer-science",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 670,
+      "category": "Computer Sciences",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program prepares practitioners and future researchers in computing through advanced study in systems, software, databases, networks, security, and related fields.",
+    "admission_requirements": "Applicants holding a BS in Computer Science with a cumulative GPA of at least 3.0 are accepted; 2.7 to 2.99 may be conditionally accepted. Remedial undergraduate computer science courses may be required, and up to 9 transfer credits may be approved.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page lists career tracks including software development, data science, cybersecurity, cloud computing, and research roles.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program prepares practitioners and future researchers in computing through advanced study in systems, software, databases, networks, security, and related fields.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fe-master-electrical-computer-engineering",
+    "official_title": "Master of Science in Electrical and Computer Engineering",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Engineering",
+    "department": "Department of Electrical, Computer and Communication Engineering",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fe/departments/department-of-electrical-computer-and-communication-engineering/programs/master-of-science-in-electrical-and-computer-engineering",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 765,
+      "category": "Engineering",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program extends undergraduate engineering fundamentals into advanced electrical and computer engineering practice and doctoral preparation.",
+    "admission_requirements": "Applicants must hold a bachelor degree in Electrical/Computer Engineering or its equivalent, have a minimum GPA of 3.0, obtain GRE scores, and receive Faculty Graduate Committee approval. English proficiency requirements in the catalog must also be met.",
+    "GRE": "Official GRE score required.",
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "Holders of BE degrees may transfer up to 18 undergraduate major elective credits if the courses meet the page conditions.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program extends undergraduate engineering fundamentals into advanced electrical and computer engineering practice and doctoral preparation.",
+    "gre_requirement": "Official GRE score required.",
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fbae-master-financial-risk-management",
+    "official_title": "Master of Science in Financial Risk Management - AACSB Accredited Program",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration and Economics",
+    "department": "Department of Accounting and Finance",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fbae/departments/department-of-accounting-and-finance/programs/master-of-science-in-financial-risk-management---aacsb-accredited-program",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Business",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program develops professional and technical skills for identifying, measuring, and managing financial risk and prepares students for professional FRM study or doctoral work.",
+    "admission_requirements": "Business and economics graduates must submit a completed application, two recommendation letters, and show a cumulative average of 80% or 3.0/4.0. Other scientific discipline graduates may be admitted with relevant undergraduate business courses. Applicants from non-English instruction institutions need an EET score of 60.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": "AACSB Accredited Program",
+    "notes": "The page states a 30-credit program and a per-credit tuition price of USD 635.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program develops professional and technical skills for identifying, measuring, and managing financial risk and prepares students for professional FRM study or doctoral work.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fnhs-master-food-safety-quality-management",
+    "official_title": "Master of Science in Food Safety and Quality Management",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Nursing and Health Sciences",
+    "department": "Department of Nursing and Health Sciences",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fnhs/departments/department-of-nursing-and-health-sciences/programs/master-of-science-in-food-safety-and-quality-management",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": null,
+    "description": "The program prepares graduates to manage food safety and quality from farm to fork with advanced knowledge, hands-on practice, and research capacity.",
+    "admission_requirements": "Applicants with a BS in Food Safety and Quality Management or a related field may apply. Other health-science backgrounds may need undergraduate remedial courses. The page requires a minimum GPA of 3.0, allows conditional admission for 2.7 to 2.99, and may require an interview for non-NDU applicants.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Applicants whose undergraduate degree is not from NDU may be asked for an interview.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page offers both thesis and applied non-thesis study paths.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program prepares graduates to manage food safety and quality from farm to fork with advanced knowledge, hands-on practice, and research capacity.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": "Applicants whose undergraduate degree is not from NDU may be asked for an interview.",
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fnhs-master-human-nutrition",
+    "official_title": "Master of Science in Human Nutrition",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Nursing and Health Sciences",
+    "department": "Department of Nursing and Health Sciences",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fnhs/departments/department-of-nursing-and-health-sciences/programs/department-of-nursing-and-health-sciences/programs/master-of-science-in-human-nutrition",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 35,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": null,
+    "description": "The program advances nutrition research and dietetics practice through tailored mentorship, coursework, research training, and thesis work.",
+    "admission_requirements": "Applicants with a BS in Nutrition or a related field may apply. Other health-science backgrounds may need undergraduate nutrition courses. The page requires a minimum GPA of 3.0, allows conditional admission for 2.7 to 2.99, and may require an interview for non-NDU applicants.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Applicants whose undergraduate degree is not from NDU may be asked for an interview.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "The program offers thesis and non-thesis paths and lists research areas including nutrition and psychology, biochemistry, clinical nutrition, sports nutrition, and public health nutrition.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program advances nutrition research and dietetics practice through tailored mentorship, coursework, research training, and thesis work.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": "Applicants whose undergraduate degree is not from NDU may be asked for an interview.",
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fnas-master-industrial-chemistry",
+    "official_title": "Master of Science in Industrial Chemistry",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Natural and Applied Sciences",
+    "department": "Department of Sciences",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fnas/departments/department-of-sciences/programs/master-of-science-in-industrial-chemistry",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 36,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": null,
+    "description": "The program prepares highly qualified students for applied chemistry careers and PhD study through interactive learning, hands-on research, and thesis work.",
+    "admission_requirements": "Applicants holding a BS in Chemistry with a cumulative GPA of at least 3.0 are accepted; 2.7 to 2.99 may be conditionally accepted. Chemistry remedial courses may be required, and up to 9 transfer credits may be approved.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The visible page says the program is not offered at the present time.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program prepares highly qualified students for applied chemistry careers and PhD study through interactive learning, hands-on research, and thesis work.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fnas-master-mathematics",
+    "official_title": "Master of Science in Mathematics",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Natural and Applied Sciences",
+    "department": "Department of Mathematics and Statistics",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fnas/departments/department-of-mathematics-and-statistics/programs/master-of-science-in-mathematics",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 33,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": null,
+    "description": "The program provides advanced mathematical instruction, strengthens reasoning and analytical skills, and prepares graduates for teaching, research, and doctoral study.",
+    "admission_requirements": "Applicants holding a BS in Mathematics with a cumulative GPA of at least 3.0 are accepted; 2.7 to 2.99 may be conditionally accepted. Mathematics remedial courses may be required, and up to 9 transfer credits may be approved.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page explicitly states that students communicate mathematical ideas effectively by completing a thesis.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program provides advanced mathematical instruction, strengthens reasoning and analytical skills, and prepares graduates for teaching, research, and doctoral study.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fe-master-mechanical-engineering",
+    "official_title": "Master of Science in Mechanical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Engineering",
+    "department": "Department of Mechanical Engineering",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fe/departments/department-of-mechanical-engineering/programs/master-of-science-in-mechanical-engineering",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 765,
+      "category": "Engineering",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program builds advanced mechanical engineering knowledge and skills for professional practice and doctoral study.",
+    "admission_requirements": "Applicants must hold a bachelor degree in Mechanical Engineering or its equivalent, have a minimum GPA of 3.0, obtain GRE scores, and receive Faculty Graduate Committee approval. English proficiency requirements in the catalog must also be met.",
+    "GRE": "Official GRE score required.",
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page does not publish a thesis requirement in the visible content.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program builds advanced mechanical engineering knowledge and skills for professional practice and doctoral study.",
+    "gre_requirement": "Official GRE score required.",
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-faad-master-sustainable-architecture",
+    "official_title": "Masters of Arts in Sustainable Architecture",
+    "degree_type": "MASTER",
+    "faculty": "Ramez G. Chagoury Faculty of Architecture, Arts, and Design",
+    "department": "Department of Architecture",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/faad/department-of-architecture/programs/masters-of-arts-in-sustainable-arachitecture",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 30,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 670,
+      "category": "Architecture",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": null,
+    "description": "The program addresses the built environment and sustainability at the urban and building scales, with concentration work culminating in a thesis.",
+    "admission_requirements": "Applicants must submit a letter of intent and schedule an interview with the Department Graduate Committee. The program targets Architecture, Landscape Architecture, and Civil Engineering graduates, while other degrees are considered case by case. Full-time students must take at least 9 credits per semester.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Required with the Department Graduate Committee.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "The page states that the urban design master is currently not offered and that both concentration paths end with thesis research.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The program addresses the built environment and sustainability at the urban and building scales, with concentration work culminating in a thesis.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": "Required with the Department Graduate Committee.",
+    "experience_requirement": null
+  },
+  {
+    "id": "ndu-fbae-master-mba",
+    "official_title": "MBA - AACSB Accredited Program",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration and Economics",
+    "department": "Department of Management and Marketing",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fbae/departments/department-of-management-and-marketing/programs/mba---aacsb-accredited-program",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 33,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Business",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "concentrations": [
+      "Project Management"
+    ],
+    "description": "The MBA program is designed for driven professionals seeking leadership, strategic management, and analytical business skills, with either a General MBA or a Project Management emphasis.",
+    "admission_requirements": "Applicants must submit a completed application, two passport-sized photos, official transcripts with a minimum cumulative GPA of 2.7, two recommendation letters, a CV, and employment letters stating current position and years of service. Applicants from non-English instruction institutions need an EET score of 60. Non-business graduates may need up to 18 remedial credits.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": "Employment letters specifying current position and years of service are required.",
+    "accreditation": "AACSB Accredited Program",
+    "notes": "The MBA page states that students may choose a Project Management emphasis or a General MBA and that the degree can be completed on a full- or part-time basis.",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "The MBA program is designed for driven professionals seeking leadership, strategic management, and analytical business skills, with either a General MBA or a Project Management emphasis.",
+    "concentrations_or_tracks": [
+      "Project Management"
+    ],
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Employment letters specifying current position and years of service are required."
+  },
+  {
+    "id": "ndu-fbae-master-ms-business-strategy",
+    "official_title": "MS Business Strategy - AACSB Accredited Program",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration and Economics",
+    "department": "Department of Management and Marketing",
+    "official_program_url": "https://www.ndu.edu.lb/academics/faculties/fbae/departments/department-of-management-and-marketing/programs/mba-in-project-management---aacsb-accredited-program",
+    "source_ids": [
+      "NDU-SRC-003",
+      "NDU-SRC-002",
+      "NDU-SRC-006",
+      "NDU-SRC-008"
+    ],
+    "language": null,
+    "credits": 33,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Business",
+      "notes": "Official NDU graduate tuition and fee table.",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "thesis_or_non_thesis": null,
+    "concentrations": null,
+    "description": "The program is a specialized business strategy degree designed for professionals, business graduates, and other graduates seeking strategic management skills and doctoral preparation.",
+    "admission_requirements": "Business and economics graduates need a completed application, two recommendation letters, and a minimum undergraduate GPA of 2.7. Applicants from other disciplines may need up to 18 credits of remedial courses. Applicants from non-English instruction institutions need an EET score of 60.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": "AACSB Accredited Program",
+    "notes": "The visible page lists a 5:30 p.m. course schedule and a maximum load of 12 credits per semester. It does not publish GRE or GMAT requirements in the visible content.",
+    "delivery_mode": "ON_CAMPUS",
+    "concentrations_or_tracks": null,
+    "program_description": "The program is a specialized business strategy degree designed for professionals, business graduates, and other graduates seeking strategic management skills and doctoral preparation.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  }
+]

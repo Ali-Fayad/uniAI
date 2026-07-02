@@ -1,0 +1,599 @@
+{
+  "id": "ndu",
+  "name": "Notre Dame University-Louaize",
+  "date_accessed": "2026-06-30",
+  "sources_used": [
+    "NDU-SRC-002",
+    "NDU-SRC-003",
+    "NDU-SRC-005",
+    "NDU-SRC-006",
+    "NDU-SRC-007",
+    "NDU-SRC-008",
+    "NDU-SRC-009",
+    "NDU-SRC-010",
+    "NDU-SRC-011",
+    "NDU-SRC-012",
+    "NDU-SRC-013",
+    "NDU-SRC-014",
+    "NDU-SRC-015",
+    "NDU-SRC-016",
+    "NDU-SRC-017",
+    "NDU-SRC-018"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants apply online through SIS, pay the USD 30 application fee, and submit the required documents before the relevant admission decision date. Faculty- or program-specific additional requirements may also apply.",
+    "steps": [
+      "Apply online through the SIS portal.",
+      "Pay the USD 30 application fee online or on campus.",
+      "Submit the required graduate documents to Admissions.",
+      "Complete any program-specific test, CV, interview, or employment-document requirement if requested.",
+      "Review the admission result in SIS and follow the registration instructions."
+    ],
+    "source_ids": [
+      "NDU-SRC-002",
+      "NDU-SRC-005",
+      "NDU-SRC-006",
+      "NDU-SRC-007"
+    ]
+  },
+  "required_documents": {
+    "summary": "NDU requires a certified bachelor's degree copy, official undergraduate transcript, Lebanese Baccalaureate Part II copy or equivalent, ID card or passport copy, one recent passport-sized photo, and two recommendation letters; NDU graduates have limited document exemptions.",
+    "items": [
+      "Certified bachelor's degree copy or equivalent",
+      "Official undergraduate transcript",
+      "Certified Lebanese Baccalaureate Part II copy or equivalent",
+      "National ID card copy for Lebanese applicants or passport copy for international applicants",
+      "One recent passport-sized photograph",
+      "Two recommendation letters, one academic and one professional"
+    ],
+    "source_ids": [
+      "NDU-SRC-002"
+    ]
+  },
+  "english_requirement": {
+    "summary": "NDU graduates are exempt from the English Entrance Test. All other graduate applicants must submit TOEFL, SAT, or IELTS scores, or sit for the NDU EET.",
+    "source_ids": [
+      "NDU-SRC-002",
+      "NDU-SRC-006"
+    ]
+  },
+  "deadlines": {
+    "summary": "The official Important Dates page publishes the current Fall 2026 graduate application windows and decision dates; the admissions calendar also shows the 2026-2027 semester application timelines.",
+    "important_dates": {
+      "fall_2026_regular_admission_ii_decision_release": "June 29, 2026",
+      "fall_2026_regular_admission_iii_exam_date": "July 24, 2026",
+      "fall_2026_regular_admission_iii_decision_release": "August 21, 2026",
+      "fall_2026_application_window": "December 8, 2025 to July 21, 2026",
+      "spring_2027_application_window": "October 1, 2026 to December 2, 2026",
+      "financial_aid_application_period": "February 10, 2026 to June 30, 2026"
+    },
+    "source_ids": [
+      "NDU-SRC-007",
+      "NDU-SRC-014"
+    ]
+  },
+  "tuition_model": {
+    "summary": "NDU publishes a 2025-2026 graduate tuition table using per-credit rates by faculty/category, plus a first payment and technology/student services fees.",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "currency": "USD",
+    "source_ids": [
+      "NDU-SRC-008"
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "Faculty of Business Administration and Economics",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Business",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fbae-master-business-strategy",
+        "ndu-fbae-master-financial-risk-management",
+        "ndu-fbae-master-mba",
+        "ndu-fbae-master-ms-business-strategy"
+      ],
+      "program_count": 4
+    },
+    {
+      "faculty": "Faculty of Engineering",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 765,
+      "category": "Engineering",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fe-master-civil-engineering",
+        "ndu-fe-master-electrical-computer-engineering",
+        "ndu-fe-master-mechanical-engineering"
+      ],
+      "program_count": 3
+    },
+    {
+      "faculty": "Faculty of Humanities",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fh-master-education",
+        "ndu-fh-master-english-language-literature-applied-linguistics-tefl",
+        "ndu-fh-master-english-language-literature-literature",
+        "ndu-fh-master-media-studies",
+        "ndu-fh-master-psychology-educational",
+        "ndu-fh-master-translation"
+      ],
+      "program_count": 6
+    },
+    {
+      "faculty": "Faculty of Law and Political Science",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-flps-master-international-affairs-diplomacy",
+        "ndu-flps-master-international-affairs-diplomacy-international-law",
+        "ndu-flps-master-political-science",
+        "ndu-flps-master-political-science-human-rights",
+        "ndu-flps-master-political-science-ngos",
+        "ndu-flps-master-public-administration"
+      ],
+      "program_count": 6
+    },
+    {
+      "faculty": "Faculty of Natural and Applied Sciences",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fnas-master-actuarial-sciences",
+        "ndu-fnas-master-biology",
+        "ndu-fnas-master-computer-science",
+        "ndu-fnas-master-industrial-chemistry",
+        "ndu-fnas-master-mathematics"
+      ],
+      "program_count": 5
+    },
+    {
+      "faculty": "Faculty of Nursing and Health Sciences",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fnhs-master-food-safety-quality-management",
+        "ndu-fnhs-master-human-nutrition"
+      ],
+      "program_count": 2
+    },
+    {
+      "faculty": "Ramez G. Chagoury Faculty of Architecture, Arts, and Design",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 670,
+      "category": "Architecture",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-faad-master-design",
+        "ndu-faad-master-music",
+        "ndu-faad-master-sustainable-architecture"
+      ],
+      "program_count": 3
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 30,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-005",
+        "NDU-SRC-008"
+      ]
+    },
+    "registration_fee": null,
+    "first_payment": {
+      "amount": 1050,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "technology_and_student_services_fee": {
+      "fall_semester": 450,
+      "spring_semester": 450,
+      "summer_session": 200,
+      "currency": "USD",
+      "billing_basis": "PER_TERM",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "student_activity_fee": null,
+    "late_registration_fee": {
+      "amount": 100,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "late_payment_fee": {
+      "amount": 75,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "medical_fee_new_students": {
+      "amount": 60,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "smart_id_card_fee": {
+      "amount": 20,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "statement_of_fees_fee": {
+      "amount": 10,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "transcript_fee": {
+      "amount": 10,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "entrance_examination_fee": {
+      "one_test": 30,
+      "two_tests": 50,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "NDU-SRC-008"
+      ]
+    },
+    "notes": "Credit fees must be paid in full in cash USD. Technology and student services fees are also paid in cash USD alongside each tuition installment.",
+    "source_ids": [
+      "NDU-SRC-008"
+    ]
+  },
+  "payment_methods": {
+    "summary": "The tuition-fees page states that credit fees must be paid in full in cash USD. The application fee may be paid online or on campus.",
+    "methods": [
+      "Cash USD for tuition and fee installments",
+      "Online or on-campus payment for the application fee"
+    ],
+    "source_ids": [
+      "NDU-SRC-005",
+      "NDU-SRC-008"
+    ]
+  },
+  "payment_plans": {
+    "summary": "NDU publishes an installment schedule for the 2025-2026 academic year across fall, spring, and summer terms, with four payments in fall and spring and two payments in summer.",
+    "schedule": [
+      {
+        "term": "Fall 2025",
+        "payment": "First Payment",
+        "from": "August 8, 2025",
+        "to": "August 25, 2025"
+      },
+      {
+        "term": "Fall 2025",
+        "payment": "Second Payment",
+        "from": "September 30, 2025",
+        "to": "October 8, 2025"
+      },
+      {
+        "term": "Fall 2025",
+        "payment": "Third Payment",
+        "from": "October 28, 2025",
+        "to": "November 5, 2025"
+      },
+      {
+        "term": "Fall 2025",
+        "payment": "Fourth Payment",
+        "from": "November 26, 2025",
+        "to": "December 4, 2025"
+      },
+      {
+        "term": "Spring 2026",
+        "payment": "First Payment",
+        "from": "December 19, 2025",
+        "to": "January 9, 2026"
+      },
+      {
+        "term": "Spring 2026",
+        "payment": "Second Payment",
+        "from": "February 26, 2026",
+        "to": "March 6, 2026"
+      },
+      {
+        "term": "Spring 2026",
+        "payment": "Third Payment",
+        "from": "March 27, 2026",
+        "to": "April 9, 2026"
+      },
+      {
+        "term": "Spring 2026",
+        "payment": "Fourth Payment",
+        "from": "April 27, 2026",
+        "to": "May 6, 2026"
+      },
+      {
+        "term": "Summer 2026",
+        "payment": "First Payment",
+        "from": "May 20, 2026",
+        "to": "May 31, 2026"
+      },
+      {
+        "term": "Summer 2026",
+        "payment": "Second Payment",
+        "from": "June 29, 2026",
+        "to": "July 7, 2026"
+      }
+    ],
+    "source_ids": [
+      "NDU-SRC-009"
+    ]
+  },
+  "scholarships": {
+    "summary": "The only graduate-specific scholarship/discount confirmed in this pass is the 25% tuition reduction for eligible NDU graduates who enter a graduate program within two consecutive regular semesters.",
+    "categories": [
+      "25% graduate tuition reduction for eligible NDU graduates"
+    ],
+    "source_ids": [
+      "NDU-SRC-010"
+    ]
+  },
+  "financial_aid": {
+    "summary": "NDU publishes a Fall 2026 Work Study Grant notice and a broader financial-aid application window on the official site. The public pages do not provide a single graduate-specific aid catalog beyond the tuition reduction.",
+    "details": [
+      "Fall 2026 Work Study Grant applications: current students by March 10, 2026; new students by June 30, 2026.",
+      "Financial Aid Application period for Fall 2026 runs from February 10, 2026 to June 30, 2026.",
+      "General scholarship and financial-aid page exists, but graduate-specific eligibility was not fully isolated."
+    ],
+    "source_ids": [
+      "NDU-SRC-002",
+      "NDU-SRC-007",
+      "NDU-SRC-011"
+    ]
+  },
+  "assistantships": {
+    "summary": "No standalone public graduate assistantship policy was confirmed in the reviewed sources. Some individual program pages mention graduate assistantship opportunities, but the policy surface was not centralized in the current pass.",
+    "source_ids": [
+      "NDU-SRC-013",
+      "NDU-SRC-015"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "The official academic calendar is published on the NDU site and includes the 2025-2026 academic year schedule with registration, payment, and holiday milestones. It is not presented as a graduate-only calendar.",
+    "source_ids": [
+      "NDU-SRC-014"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The Registrar's graduate regulations page is published on the official NDU site and the catalog PDF is available as an official reference. Detailed text was not fully extracted in this pass.",
+    "source_ids": [
+      "NDU-SRC-012",
+      "NDU-SRC-015"
+    ]
+  },
+  "international_student_notes": {
+    "summary": "International applicants follow the same graduate admissions process, submit a passport copy instead of a national ID, and must satisfy the same English-proficiency requirements unless exempt as NDU graduates.",
+    "source_ids": [
+      "NDU-SRC-002",
+      "NDU-SRC-005",
+      "NDU-SRC-006"
+    ]
+  },
+  "accreditation": {
+    "institutional": {
+      "body": "New England Commission of Higher Education (NECHE)",
+      "scope": "Institution-wide",
+      "source_ids": [
+        "NDU-SRC-018"
+      ]
+    },
+    "programmatic": {
+      "body": "AACSB",
+      "scope": "Graduate business programs",
+      "source_ids": [
+        "NDU-SRC-010",
+        "NDU-SRC-008"
+      ]
+    },
+    "summary": "NDU states that it is institutionally accredited by NECHE; the graduate tuition reduction page also states that graduate business programs are AACSB accredited.",
+    "source_ids": [
+      "NDU-SRC-018",
+      "NDU-SRC-010"
+    ]
+  },
+  "language_policy": {
+    "summary": "The graduate admissions pages do not publish a separate university-wide language-of-instruction policy. Instead, NDU requires English proficiency for graduate admission, and individual programs may impose additional language or test conditions.",
+    "source_ids": [
+      "NDU-SRC-002",
+      "NDU-SRC-006"
+    ]
+  },
+  "notes": [
+    "Shared admissions and policy data were centralized here; program rows retain only program-specific fields and tuition.",
+    "Graduate program tuition is mapped at the faculty/category level using the official 2025-2026 tuition table.",
+    "No PhD records were created because NDU doctoral offerings were not confirmed in the official sources reviewed."
+  ],
+  "sources": [
+    {
+      "source_id": "NDU-SRC-002",
+      "page_title": "Graduate",
+      "url": "https://www.ndu.edu.lb/academics/graduate",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Main graduate overview. Confirms graduate studies, admission eligibility, English proficiency, required documents, MBA/Engineering extra requirements, and registration guidance."
+    },
+    {
+      "source_id": "NDU-SRC-003",
+      "page_title": "Degree Programs",
+      "url": "https://www.ndu.edu.lb/academics/degree-programs",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Central program index. Listed 28 graduate entries during this pass."
+    },
+    {
+      "source_id": "NDU-SRC-005",
+      "page_title": "Application Process",
+      "url": "https://www.ndu.edu.lb/admissions/application-process",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Confirms online application, USD 30 application fee, document submission, entrance exams, and evaluation process."
+    },
+    {
+      "source_id": "NDU-SRC-006",
+      "page_title": "Graduate Admission Requirements",
+      "url": "https://www.ndu.edu.lb/admissions/admission-requirements/graduate",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Graduate admission requirement source discovered through official admissions path/search."
+    },
+    {
+      "source_id": "NDU-SRC-007",
+      "page_title": "Important Dates",
+      "url": "https://www.ndu.edu.lb/admissions/important-dates",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Admissions dates and Fall 2026 admission cycle notes."
+    },
+    {
+      "source_id": "NDU-SRC-008",
+      "page_title": "Tuition Fees",
+      "url": "https://www.ndu.edu.lb/office-of-finance/tuition-fees",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Official graduate tuition and fee table."
+    },
+    {
+      "source_id": "NDU-SRC-009",
+      "page_title": "Yearly Schedule",
+      "url": "https://www.ndu.edu.lb/offices/office-of-finance/yearly-schedule",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Payment schedule/installment timing."
+    },
+    {
+      "source_id": "NDU-SRC-010",
+      "page_title": "Graduate Tuition Reduction",
+      "url": "https://www.ndu.edu.lb/admissions/graduate-tuition-reduction",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Graduate-specific 25% tuition reduction for eligible recent NDU graduates."
+    },
+    {
+      "source_id": "NDU-SRC-011",
+      "page_title": "Scholarship and Financial Aid - New Students",
+      "url": "https://www.ndu.edu.lb/scholarship-and-financial-aid/new-student",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Financial aid upon admission source; appears undergraduate/full-time oriented in visible content, so follow-up needed for graduate applicability."
+    },
+    {
+      "source_id": "NDU-SRC-012",
+      "page_title": "Academic Rules and Regulations - Graduates",
+      "url": "https://www.ndu.edu.lb/offices/office-of-the-registrar/academic-rules-and-regulations/graduates",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Graduate regulations source."
+    },
+    {
+      "source_id": "NDU-SRC-013",
+      "page_title": "Office of Research and Graduate Studies",
+      "url": "https://www.ndu.edu.lb/offices/office-of-research-and-graduate-studies/message",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Office source for graduate programs and research environment."
+    },
+    {
+      "source_id": "NDU-SRC-014",
+      "page_title": "Academic Calendar",
+      "url": "https://www.ndu.edu.lb/academics/academic-calendar",
+      "date_accessed": "2026-06-29",
+      "source_type": "webpage",
+      "notes": "Academic calendar source."
+    },
+    {
+      "source_id": "NDU-SRC-015",
+      "page_title": "NDU Catalog 2025-2026",
+      "url": "https://www.ndu.edu.lb/Assets/Library/Gallery/PDFs/NDU%20Catalog%202025-2026.pdf",
+      "date_accessed": "2026-06-29",
+      "source_type": "pdf",
+      "notes": "Official catalog PDF."
+    },
+    {
+      "source_id": "NDU-SRC-016",
+      "page_title": "Admission Guide 2025-2026",
+      "url": "https://www.ndu.edu.lb/Assets/ContentFiles/admission-guide-2025_151350.pdf",
+      "date_accessed": "2026-06-29",
+      "source_type": "pdf",
+      "notes": "Official admission guide PDF."
+    },
+    {
+      "source_id": "NDU-SRC-017",
+      "page_title": "NDU Catalog 2024-2025",
+      "url": "https://www.ndu.edu.lb/Library/Assets/Files/Documents/OfficeoftheRegistrar/Catalog%202024-2025.pdf",
+      "date_accessed": "2026-06-29",
+      "source_type": "pdf",
+      "notes": "Prior catalog PDF; useful fallback only."
+    },
+    {
+      "source_id": "NDU-SRC-018",
+      "page_title": "Institutional Accreditation",
+      "url": "https://www.ndu.edu.lb/about/accreditation/institutional-accreditation",
+      "date_accessed": "2026-06-30",
+      "source_type": "webpage",
+      "notes": "Confirms NDU institutional accreditation by NECHE and states that accreditation applies to the institution as a whole."
+    }
+  ]
+}

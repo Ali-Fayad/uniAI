@@ -1,0 +1,139 @@
+{
+  "total_programs": 29,
+  "tuition_populated_count": 29,
+  "tuition_null_count": 0,
+  "tuition_rows_grouped_by_faculty": [
+    {
+      "faculty": "Faculty of Business Administration and Economics",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 635,
+      "category": "Business",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fbae-master-business-strategy",
+        "ndu-fbae-master-financial-risk-management",
+        "ndu-fbae-master-mba",
+        "ndu-fbae-master-ms-business-strategy"
+      ],
+      "program_count": 4
+    },
+    {
+      "faculty": "Faculty of Engineering",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 765,
+      "category": "Engineering",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fe-master-civil-engineering",
+        "ndu-fe-master-electrical-computer-engineering",
+        "ndu-fe-master-mechanical-engineering"
+      ],
+      "program_count": 3
+    },
+    {
+      "faculty": "Faculty of Humanities",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fh-master-education",
+        "ndu-fh-master-english-language-literature-applied-linguistics-tefl",
+        "ndu-fh-master-english-language-literature-literature",
+        "ndu-fh-master-media-studies",
+        "ndu-fh-master-psychology-educational",
+        "ndu-fh-master-translation"
+      ],
+      "program_count": 6
+    },
+    {
+      "faculty": "Faculty of Law and Political Science",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-flps-master-international-affairs-diplomacy",
+        "ndu-flps-master-international-affairs-diplomacy-international-law",
+        "ndu-flps-master-political-science",
+        "ndu-flps-master-political-science-human-rights",
+        "ndu-flps-master-political-science-ngos",
+        "ndu-flps-master-public-administration"
+      ],
+      "program_count": 6
+    },
+    {
+      "faculty": "Faculty of Natural and Applied Sciences",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fnas-master-actuarial-sciences",
+        "ndu-fnas-master-biology",
+        "ndu-fnas-master-computer-science",
+        "ndu-fnas-master-industrial-chemistry",
+        "ndu-fnas-master-mathematics"
+      ],
+      "program_count": 5
+    },
+    {
+      "faculty": "Faculty of Nursing and Health Sciences",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 590,
+      "category": "All Others",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-fnhs-master-food-safety-quality-management",
+        "ndu-fnhs-master-human-nutrition"
+      ],
+      "program_count": 2
+    },
+    {
+      "faculty": "Ramez G. Chagoury Faculty of Architecture, Arts, and Design",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 670,
+      "category": "Architecture",
+      "source_ids": [
+        "NDU-SRC-008"
+      ],
+      "program_ids": [
+        "ndu-faad-master-design",
+        "ndu-faad-master-music",
+        "ndu-faad-master-sustainable-architecture"
+      ],
+      "program_count": 3
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "NDU-SRC-008"
+  ],
+  "notes": "All 29 MASTER records were mapped to the official NDU graduate tuition table; no program required a null tuition fallback."
+}

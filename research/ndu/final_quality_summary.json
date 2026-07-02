@@ -1,0 +1,159 @@
+{
+  "task_code": "NDU_FINAL_QA_001",
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_v31_seed_generation": true,
+  "json_parse": {
+    "all_research_ndu_json_parse": true,
+    "files_checked": [
+      "programs.json",
+      "out_of_scope_programs.json",
+      "university.json",
+      "sources.json",
+      "fees_mapping_summary.json"
+    ]
+  },
+  "counts": {
+    "programs": 29,
+    "master_programs": 29,
+    "phd_programs": 0,
+    "out_of_scope_programs": 2,
+    "tuition_populated": 29,
+    "tuition_null": 0
+  },
+  "duplicate_checks": {
+    "program_ids": [],
+    "official_program_urls": [],
+    "source_ids": [],
+    "source_urls": []
+  },
+  "source_validation": {
+    "every_program_has_source": true,
+    "every_source_reference_resolves": true,
+    "official_url_validation": true,
+    "tuition_source_validation": true,
+    "orphan_sources": [
+      {
+        "source_id": "NDU-SRC-001",
+        "page_title": "Official website",
+        "usage_count": 0,
+        "classification": "discovery_anchor"
+      },
+      {
+        "source_id": "NDU-SRC-004",
+        "page_title": "Faculties",
+        "usage_count": 0,
+        "classification": "reference"
+      },
+      {
+        "source_id": "NDU-SRC-016",
+        "page_title": "Admission Guide 2025-2026",
+        "usage_count": 0,
+        "classification": "reference"
+      },
+      {
+        "source_id": "NDU-SRC-017",
+        "page_title": "NDU Catalog 2024-2025",
+        "usage_count": 0,
+        "classification": "obsolete_fallback"
+      }
+    ]
+  },
+  "schema_compatibility_v24": {
+    "degree_type": true,
+    "delivery_mode": true,
+    "thesis_or_non_thesis": true,
+    "tuition.billing_basis": true,
+    "language": true
+  },
+  "centralization": {
+    "shared_admissions_centralized_in_university_json": true,
+    "program_level_admission_requirements_only_program_specific": true
+  },
+  "completeness_stats": {
+    "description": {
+      "non_null": 29,
+      "null": 0,
+      "coverage": 1
+    },
+    "program_description": {
+      "non_null": 29,
+      "null": 0,
+      "coverage": 1
+    },
+    "delivery_mode": {
+      "non_null": 29,
+      "null": 0,
+      "coverage": 1
+    },
+    "thesis_or_non_thesis": {
+      "non_null": 19,
+      "null": 10,
+      "coverage": 0.6552
+    },
+    "concentrations": {
+      "non_null": 8,
+      "null": 21,
+      "coverage": 0.2759
+    },
+    "concentrations_or_tracks": {
+      "non_null": 8,
+      "null": 21,
+      "coverage": 0.2759
+    },
+    "admission_requirements": {
+      "non_null": 28,
+      "null": 1,
+      "coverage": 0.9655
+    },
+    "GRE": {
+      "non_null": 3,
+      "null": 26,
+      "coverage": 0.1034
+    },
+    "GMAT": {
+      "non_null": 0,
+      "null": 29,
+      "coverage": 0
+    },
+    "interview": {
+      "non_null": 7,
+      "null": 22,
+      "coverage": 0.2414
+    },
+    "experience": {
+      "non_null": 1,
+      "null": 28,
+      "coverage": 0.0345
+    },
+    "accreditation": {
+      "non_null": 4,
+      "null": 25,
+      "coverage": 0.1379
+    },
+    "language": {
+      "non_null": 1,
+      "null": 28,
+      "coverage": 0.0345
+    },
+    "credits": {
+      "non_null": 29,
+      "null": 0,
+      "coverage": 1
+    },
+    "tuition": {
+      "non_null": 29,
+      "null": 0,
+      "coverage": 1
+    }
+  },
+  "official_gaps": [
+    "No distinct public graduate registration fee was isolated.",
+    "No standalone graduate assistantship policy was published centrally.",
+    "No graduate-only language policy was published beyond English admissions requirements.",
+    "A graduate-only academic calendar was not isolated.",
+    "Some official pages omit thesis/non-thesis, interview, or experience details."
+  ],
+  "compile": {
+    "mvnw_compile": "PASS"
+  }
+}

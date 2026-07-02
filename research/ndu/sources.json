@@ -1,0 +1,146 @@
+[
+  {
+    "source_id": "NDU-SRC-001",
+    "page_title": "Official website",
+    "url": "https://www.ndu.edu.lb",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Official NDU website listed in discovery_report.md. Starting point for the discovery pass."
+  },
+  {
+    "source_id": "NDU-SRC-002",
+    "page_title": "Graduate",
+    "url": "https://www.ndu.edu.lb/academics/graduate",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Main graduate overview. Confirms graduate studies, admission eligibility, English proficiency, required documents, MBA/Engineering extra requirements, and registration guidance."
+  },
+  {
+    "source_id": "NDU-SRC-003",
+    "page_title": "Degree Programs",
+    "url": "https://www.ndu.edu.lb/academics/degree-programs",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Central program index. Listed 28 graduate entries during this pass."
+  },
+  {
+    "source_id": "NDU-SRC-004",
+    "page_title": "Faculties",
+    "url": "https://www.ndu.edu.lb/academics/faculties",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Official faculty list. Graduate programs were discovered under FAAD, FBAE, FE, FH, FLPS, FNAS, and FNHS."
+  },
+  {
+    "source_id": "NDU-SRC-005",
+    "page_title": "Application Process",
+    "url": "https://www.ndu.edu.lb/admissions/application-process",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Confirms online application, USD 30 application fee, document submission, entrance exams, and evaluation process."
+  },
+  {
+    "source_id": "NDU-SRC-006",
+    "page_title": "Graduate Admission Requirements",
+    "url": "https://www.ndu.edu.lb/admissions/admission-requirements/graduate",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Graduate admission requirement source discovered through official admissions path/search."
+  },
+  {
+    "source_id": "NDU-SRC-007",
+    "page_title": "Important Dates",
+    "url": "https://www.ndu.edu.lb/admissions/important-dates",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Admissions dates and Fall 2026 admission cycle notes."
+  },
+  {
+    "source_id": "NDU-SRC-008",
+    "page_title": "Tuition Fees",
+    "url": "https://www.ndu.edu.lb/office-of-finance/tuition-fees",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Official graduate tuition and fee table."
+  },
+  {
+    "source_id": "NDU-SRC-009",
+    "page_title": "Yearly Schedule",
+    "url": "https://www.ndu.edu.lb/offices/office-of-finance/yearly-schedule",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Payment schedule/installment timing."
+  },
+  {
+    "source_id": "NDU-SRC-010",
+    "page_title": "Graduate Tuition Reduction",
+    "url": "https://www.ndu.edu.lb/admissions/graduate-tuition-reduction",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Graduate-specific 25% tuition reduction for eligible recent NDU graduates."
+  },
+  {
+    "source_id": "NDU-SRC-011",
+    "page_title": "Scholarship and Financial Aid - New Students",
+    "url": "https://www.ndu.edu.lb/scholarship-and-financial-aid/new-student",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Financial aid upon admission source; appears undergraduate/full-time oriented in visible content, so follow-up needed for graduate applicability."
+  },
+  {
+    "source_id": "NDU-SRC-012",
+    "page_title": "Academic Rules and Regulations - Graduates",
+    "url": "https://www.ndu.edu.lb/offices/office-of-the-registrar/academic-rules-and-regulations/graduates",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Graduate regulations source."
+  },
+  {
+    "source_id": "NDU-SRC-013",
+    "page_title": "Office of Research and Graduate Studies",
+    "url": "https://www.ndu.edu.lb/offices/office-of-research-and-graduate-studies/message",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Office source for graduate programs and research environment."
+  },
+  {
+    "source_id": "NDU-SRC-014",
+    "page_title": "Academic Calendar",
+    "url": "https://www.ndu.edu.lb/academics/academic-calendar",
+    "date_accessed": "2026-06-29",
+    "source_type": "webpage",
+    "notes": "Academic calendar source."
+  },
+  {
+    "source_id": "NDU-SRC-015",
+    "page_title": "NDU Catalog 2025-2026",
+    "url": "https://www.ndu.edu.lb/Assets/Library/Gallery/PDFs/NDU%20Catalog%202025-2026.pdf",
+    "date_accessed": "2026-06-29",
+    "source_type": "pdf",
+    "notes": "Official catalog PDF."
+  },
+  {
+    "source_id": "NDU-SRC-016",
+    "page_title": "Admission Guide 2025-2026",
+    "url": "https://www.ndu.edu.lb/Assets/ContentFiles/admission-guide-2025_151350.pdf",
+    "date_accessed": "2026-06-29",
+    "source_type": "pdf",
+    "notes": "Official admission guide PDF."
+  },
+  {
+    "source_id": "NDU-SRC-017",
+    "page_title": "NDU Catalog 2024-2025",
+    "url": "https://www.ndu.edu.lb/Library/Assets/Files/Documents/OfficeoftheRegistrar/Catalog%202024-2025.pdf",
+    "date_accessed": "2026-06-29",
+    "source_type": "pdf",
+    "notes": "Prior catalog PDF; useful fallback only."
+  },
+  {
+    "source_id": "NDU-SRC-018",
+    "page_title": "Institutional Accreditation",
+    "url": "https://www.ndu.edu.lb/about/accreditation/institutional-accreditation",
+    "date_accessed": "2026-07-01",
+    "source_type": "webpage",
+    "notes": "Confirms NDU institutional accreditation by NECHE and was reused during the enrichment pass."
+  }
+]
