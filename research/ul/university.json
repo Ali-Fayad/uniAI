@@ -1,0 +1,164 @@
+{
+  "id": "ul",
+  "name": "Lebanese University",
+  "official_website": "https://www.ul.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-03",
+  "sources_used": [
+    "UL-SRC-002",
+    "UL-SRC-025",
+    "UL-SRC-050",
+    "UL-SRC-052",
+    "UL-SRC-053",
+    "UL-SRC-054",
+    "UL-SRC-055",
+    "UL-SRC-058",
+    "UL-SRC-059",
+    "UL-SRC-060",
+    "UL-SRC-061",
+    "UL-SRC-062"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants submit their enrollment file to the relevant faculty or institute administration, follow the deadlines set annually by that unit, and complete the enrollment process in person unless an official POA is used for non-Lebanese applicants who cannot attend. Some faculties also allow online admission.",
+    "steps": [
+      "Prepare the enrollment file and supporting documents required by the relevant faculty or institute.",
+      "Submit the application to the faculty or institute administration within the annual deadline window.",
+      "Attend in person to complete the enrollment process, or use an authorized POA path if the applicant is non-Lebanese and cannot attend.",
+      "Pay the published one-installment enrollment fee and any applicable CEE registration fee.",
+      "Follow the faculty or institute regulations for any further admission or registration steps."
+    ],
+    "source_ids": [
+      "UL-SRC-061",
+      "UL-SRC-062"
+    ]
+  },
+  "required_documents": {
+    "summary": "UL publishes a general enrollment document list that applies to master and PhD enrollment, plus transfer-related documents where a faculty accepts transfers.",
+    "items": [
+      "Lebanese Baccalaureate or the equivalent, certified by the Ministry of Education & Higher Education",
+      "For non-Lebanese students, the high-school certificate that allows university admission in the home country and the Lebanese equivalency certificate",
+      "Individual civil-status record not older than 3 months, or an ID copy for Lebanese students",
+      "Certified passport copy for foreign students",
+      "Two ID photos",
+      "Affidavit or Social Security card copy if the student benefits from Lebanese Social Security",
+      "Postal stamp of LBP 1,000",
+      "Competitive Entrance Exam registration fee, if any (LBP 35,000)",
+      "Certified transfer documents when a faculty or institute accepts transfer students"
+    ],
+    "source_ids": [
+      "UL-SRC-061"
+    ]
+  },
+  "language_requirements": {
+    "summary": "No university-wide graduate language threshold was published in the reviewed UL pages. Language expectations appear to be faculty- or program-specific.",
+    "notes": [
+      "The reviewed source set did not expose a central English/French proficiency policy for all graduate programs."
+    ],
+    "source_ids": [
+      "UL-SRC-061"
+    ]
+  },
+  "tuition_model": {
+    "summary": "UL does not publish this amount as tuition. The reviewed official fee pages label it as a shared graduate enrollment/registration fee tier for Master and PhD degrees, so it is stored at university scope rather than in program tuition objects.",
+    "billing_basis": [],
+    "currency": "LBP",
+    "source_ids": [
+      "UL-SRC-059",
+      "UL-SRC-060"
+    ],
+    "notes": "The exact wording attached to the amount is: \"Master & PhD Degrees in all faculties and doctoral schools - Lebanese Students & Palestinian Students\"."
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": null,
+    "registration_fee": {
+      "amount": 745000,
+      "currency": "LBP",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "UL-SRC-059",
+        "UL-SRC-060"
+      ],
+      "exact_label": "Master & PhD Degrees in all faculties and doctoral schools - Lebanese Students & Palestinian Students",
+      "notes": "Shared graduate enrollment/registration fee tier published on the current UL graduate fee pages. UL-SRC-061 is legacy/supporting only."
+    },
+    "notes": [
+      "UL-SRC-059 and UL-SRC-060 are the preferred current graduate fee sources.",
+      "UL-SRC-061 is legacy/supporting and should not be used as the canonical tuition source.",
+      "The 745,000 LBP amount is stored as a shared graduate enrollment/registration fee tier, not as program tuition."
+    ],
+    "shared_graduate_enrollment_fee": {
+      "amount": 745000,
+      "currency": "LBP",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "UL-SRC-059",
+        "UL-SRC-060"
+      ],
+      "exact_label": "Master & PhD Degrees in all faculties and doctoral schools - Lebanese Students & Palestinian Students",
+      "notes": "The reviewed official pages present this as a shared graduate enrollment fee, not a per-credit tuition amount."
+    }
+  },
+  "scholarships": {
+    "summary": "No university-wide graduate scholarship schedule was published in the reviewed official UL sources. The doctoral school for law, political, administrative, and economic sciences does publish PhD grant support.",
+    "source_ids": [
+      "UL-SRC-052",
+      "UL-SRC-054",
+      "UL-SRC-055"
+    ]
+  },
+  "financial_aid": {
+    "summary": "The official doctoral-school pages state that UL grants support to PhD students in the Doctoral School of Law, Political, Administrative & Economic Sciences. No broader graduate aid table was published in the reviewed sources.",
+    "source_ids": [
+      "UL-SRC-052",
+      "UL-SRC-054",
+      "UL-SRC-055"
+    ]
+  },
+  "assistantships": null,
+  "payment_plans": {
+    "summary": "UL states that the enrollment fees are paid in one installment. No installment plan was published in the reviewed official sources.",
+    "source_ids": [
+      "UL-SRC-061"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "UL publishes an official 2025-2026 academic calendar PDF, and the registration page states that deadlines are set annually by each faculty or institute administration.",
+    "source_ids": [
+      "UL-SRC-061",
+      "UL-SRC-062"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The registration page says students must adhere to the university laws and the regulations of the relevant faculty. No centralized graduate handbook was identified in the reviewed sources.",
+    "source_ids": [
+      "UL-SRC-061"
+    ]
+  },
+  "doctoral_regulations": {
+    "summary": "The doctoral school internal-system pages publish doctoral structure details, including the Science & Technology school’s 180-ECTS doctorate structure and the doctoral-school-by-doctoral-school PhD pathways.",
+    "source_ids": [
+      "UL-SRC-050",
+      "UL-SRC-053",
+      "UL-SRC-058"
+    ]
+  },
+  "international_students": {
+    "summary": "Foreign students must provide a certified passport copy and may complete enrollment through an authorized representative or embassy under a POA if they cannot attend in person.",
+    "source_ids": [
+      "UL-SRC-061"
+    ]
+  },
+  "accreditation": null,
+  "language_policy": {
+    "summary": "No university-wide graduate language policy was published in the reviewed official UL sources; language expectations remain faculty- or program-specific.",
+    "source_ids": [
+      "UL-SRC-061"
+    ]
+  },
+  "notes": [
+    "UL-SRC-059 and UL-SRC-060 are the preferred current graduate fee sources.",
+    "UL-SRC-061 is legacy/supporting and is retained only for historical comparison.",
+    "The 745,000 LBP amount is stored as a shared graduate enrollment/registration fee tier, not as program tuition."
+  ]
+}

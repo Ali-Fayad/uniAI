@@ -1,0 +1,197 @@
+{
+  "total_programs": 46,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 46,
+  "tuition_rows_grouped_by_faculty": [],
+  "unmapped_programs": [
+    {
+      "program_id": "lu-fe-master-hydrosciences",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-mechanics",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-natural-risks",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-renewable-energies",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-robotics",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-tcmis",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-telecommunications",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-civil-engineering",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fe-master-htte",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-science-master-1-professional-programs",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-science-master-2-biochemistry-biology",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-science-master-2-chemistry",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-science-master-2-informatics",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-science-master-2-mathematics-statistics",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-science-master-2-physics-electronics",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fph-master-programs",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-fms-master-clinical-investigation",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-nrc-master-neuroimaging",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-nrc-master-neuropsychology",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-nrc-master-neuroscience",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-mrc-master-health-administration",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-law-master-programs",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-information-master-corporate-communications",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-information-master-digital-media",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-information-master-economic-development-journalism",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-technology-master-geotechnics-environment",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-technology-master-mechatronics-energy",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-technology-master-communication-systems-engineering",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-technology-master-information-systems",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-pharmacy-master-clinical-pharmacy",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-pharmacy-master-industrial-cosmetology-dermopharmacy",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-pharmacy-master-pharmaceutical-industry",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-pharmacy-master-pharmaceutical-mba",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-pharmacy-master-clinical-pharmacy-pharmacoepidemiology",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-pharmacy-master-pharmaceutical-biotechnology",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-pharmacy-master-pharmacology-toxicology",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-dental-master-orthodontics",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-dental-master-forensic-dentistry-anthropology-human-identification",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-dental-master-oral-surgery",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-dental-master-restorative-esthetic-dentistry-endodontics",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-feba-master-programs",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-letters-master-programs",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-iss-master-programs",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-dslhss-phd-program",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-dslpaes-phd-program",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    },
+    {
+      "program_id": "lu-dsst-phd-program",
+      "reason": "Official UL amount is a shared graduate enrollment/registration fee, not program tuition."
+    }
+  ],
+  "source_ids_used": [
+    "UL-SRC-059",
+    "UL-SRC-060"
+  ],
+  "notes": "UL-SRC-059 and UL-SRC-060 publish the shared graduate enrollment/registration fee tier. The amount is not mapped into program tuition objects because the official wording does not present it as tuition."
+}

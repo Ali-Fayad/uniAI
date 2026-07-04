@@ -1,0 +1,70 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_db_import_completion": true,
+  "validation": {
+    "json_parses": true,
+    "compile_passed": true,
+    "v32_after_v31": true,
+    "program_rows_seeded": 46,
+    "master_rows_seeded": 43,
+    "phd_rows_seeded": 3,
+    "tuition_rows_seeded": 0,
+    "shared_fee_item_only": true,
+    "out_of_scope_rows_skipped": true,
+    "hub_catalog_url_reuse_handled": true,
+    "broken_source_references": false,
+    "every_program_has_source_links": true,
+    "v24_compatibility": {
+      "degree_type": true,
+      "delivery_mode": true,
+      "thesis_or_non_thesis": true,
+      "billing_basis": true,
+      "scope_level": true,
+      "tuition_null_handling": true
+    },
+    "duplicate_prevention_idempotency": true,
+    "source_url_uniqueness": true,
+    "row_counts_match_import_report": true,
+    "flyway_runtime_executed": false,
+    "flyway_runtime_note": "Flyway was not run against a live datasource in this workspace."
+  },
+  "counts": {
+    "university_rows": 1,
+    "faculty_school_rows": 17,
+    "department_rows": 0,
+    "degree_type_rows": 4,
+    "language_rows": 4,
+    "source_rows": 62,
+    "program_rows": 46,
+    "master_rows": 43,
+    "phd_rows": 3,
+    "tuition_rows": 0,
+    "fee_item_rows": 2,
+    "admission_requirement_rows": 2,
+    "required_document_rows": 9,
+    "deadline_rows": 1,
+    "scholarship_rows": 0,
+    "financial_aid_rows": 1,
+    "payment_plan_rows": 1,
+    "accreditation_rows": 4,
+    "track_rows": 34,
+    "alias_rows": 0,
+    "program_source_links": 106,
+    "out_of_scope_skipped": 2
+  },
+  "shared_fee": {
+    "amount": 745000,
+    "currency": "LBP",
+    "billing_basis": "FLAT_FEE",
+    "source_ids": [
+      "UL-SRC-059",
+      "UL-SRC-060"
+    ],
+    "legacy_supporting_source": "UL-SRC-061"
+  },
+  "notes": [
+    "UL reuses hub/catalog URLs across several graduate programs; the migration intentionally drops the unique URL constraint before seeding.",
+    "Program tuition remains null by design; the shared 745,000 LBP fee is modeled once at university scope.",
+    "The only graduate aid item seeded is doctoral grant support because the reviewed official sources do not publish a broader scholarship catalog."
+  ]
+}

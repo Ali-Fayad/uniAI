@@ -1,0 +1,98 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_v32_seed_generation": true,
+  "counts": {
+    "programs": 46,
+    "master": 43,
+    "phd": 3,
+    "out_of_scope": 2
+  },
+  "validation": {
+    "json_parses": true,
+    "compile_passed": true,
+    "duplicate_program_ids": false,
+    "duplicate_source_ids": false,
+    "duplicate_source_urls": false,
+    "every_program_has_source": true,
+    "every_source_reference_resolves": true,
+    "every_official_program_url_is_ul": true,
+    "program_tuition_null_for_all_programs": true,
+    "no_out_of_scope_records_in_programs": true,
+    "v24_compatibility": {
+      "degree_type": true,
+      "delivery_mode": true,
+      "thesis_or_non_thesis": true,
+      "language": true,
+      "tuition_null_handling": true
+    }
+  },
+  "shared_fee_item": {
+    "amount": 745000,
+    "currency": "LBP",
+    "billing_basis": "FLAT_FEE",
+    "label": "Master & PhD Degrees in all faculties and doctoral schools - Lebanese Students & Palestinian Students",
+    "source_ids": [
+      "UL-SRC-059",
+      "UL-SRC-060"
+    ],
+    "legacy_supporting_source": "UL-SRC-061"
+  },
+  "preferred_fee_sources": [
+    "UL-SRC-059",
+    "UL-SRC-060"
+  ],
+  "legacy_fee_source": "UL-SRC-061",
+  "orphan_sources": [
+    {
+      "source_id": "UL-SRC-001",
+      "classification": "shared/reference"
+    },
+    {
+      "source_id": "UL-SRC-002",
+      "classification": "shared/reference"
+    },
+    {
+      "source_id": "UL-SRC-003",
+      "classification": "shared/reference"
+    },
+    {
+      "source_id": "UL-SRC-004",
+      "classification": "shared/reference"
+    },
+    {
+      "source_id": "UL-SRC-007",
+      "classification": "reference"
+    },
+    {
+      "source_id": "UL-SRC-033",
+      "classification": "reference"
+    },
+    {
+      "source_id": "UL-SRC-037",
+      "classification": "legacy/supporting"
+    },
+    {
+      "source_id": "UL-SRC-046",
+      "classification": "shared/reference"
+    }
+  ],
+  "completeness": {
+    "description": 46,
+    "program_description": 46,
+    "credits": 2,
+    "duration": 0,
+    "thesis_or_non_thesis": 28,
+    "concentrations": 7,
+    "concentrations_or_tracks": 7,
+    "delivery_mode": 0,
+    "language": 0,
+    "admission_requirements": 0,
+    "GRE": 0,
+    "GMAT": 0,
+    "interview": 0,
+    "experience": 0,
+    "accreditation": 4,
+    "notes": 46
+  }
+}
+
