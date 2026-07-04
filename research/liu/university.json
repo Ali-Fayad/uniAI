@@ -1,0 +1,476 @@
+{
+  "id": "liu",
+  "name": "Lebanese International University",
+  "official_website": "https://www.liu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-04",
+  "sources_used": [
+    "LIU-SRC-001",
+    "LIU-SRC-002",
+    "LIU-SRC-003",
+    "LIU-SRC-004",
+    "LIU-SRC-005",
+    "LIU-SRC-006",
+    "LIU-SRC-007",
+    "LIU-SRC-008",
+    "LIU-SRC-009",
+    "LIU-SRC-010",
+    "LIU-SRC-011",
+    "LIU-SRC-012",
+    "LIU-SRC-013",
+    "LIU-SRC-014",
+    "LIU-SRC-015",
+    "LIU-SRC-016",
+    "LIU-SRC-017",
+    "LIU-SRC-018",
+    "LIU-SRC-019",
+    "LIU-SRC-020",
+    "LIU-SRC-021",
+    "LIU-SRC-022",
+    "LIU-SRC-023",
+    "LIU-SRC-024",
+    "LIU-SRC-025",
+    "LIU-SRC-026"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants apply through the admissions flow, submit the required file, and complete any school- or program-specific steps such as entrance tests or additional review where published.",
+    "steps": [
+      "Review the program and the school-level graduate admissions information.",
+      "Prepare and submit the graduate application file with the required documents.",
+      "Pay the application fee and complete any entrance-test or interview step if required.",
+      "Register and pay tuition according to the published payment instructions."
+    ],
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-004",
+      "LIU-SRC-005",
+      "LIU-SRC-009"
+    ]
+  },
+  "required_documents": {
+    "summary": "LIU publishes a graduate document checklist that includes academic records, identification, a photo, and supporting admission paperwork; the discovery pass captured the items but not a single consolidated checklist page with stable text for every variant.",
+    "items": [
+      "Certified copy of Lebanese Baccalaureate, Technical Baccalaureate, or equivalent foreign baccalaureate",
+      "Certified copy of university degree or transcript, depending on the graduate page variant",
+      "Identification card copy",
+      "Family civil status record copy",
+      "Recent passport-sized colored photograph",
+      "National Social Security papers if available, or payment/form processing",
+      "Graduate application fee receipt",
+      "English entrance / exam fee receipt"
+    ],
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-004",
+      "LIU-SRC-005",
+      "LIU-SRC-009"
+    ]
+  },
+  "language_requirements": {
+    "summary": "LIU does not publish a single university-wide graduate language policy page in the reviewed sources; English proficiency and placement/testing are used, and some programs expect specific language preparation.",
+    "notes": [
+      "The admissions pages and factsheet point to English competence documentation and placement testing.",
+      "MBA and engineering program pages reference school-level academic preparation rather than a single graduate language rule."
+    ],
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-004",
+      "LIU-SRC-006",
+      "LIU-SRC-013",
+      "LIU-SRC-016"
+    ]
+  },
+  "tuition_model": {
+    "summary": "LIU publishes graduate tuition by school/program on the Tuition Fees page. The frozen inventory maps tuition program-by-program from the current official school rates and program evidence, with all 15 master programs priced.",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "currency": "USD",
+    "source_ids": [
+      "LIU-SRC-006",
+      "LIU-SRC-008",
+      "LIU-SRC-014"
+    ],
+    "notes": "The official tuition page states that tuition may change without notice. MBA emphases remain grouped under the single MBA record; LIU does not expose separate program pages for each emphasis in the discovery package."
+  },
+  "tuition_table": [
+    {
+      "faculty": "School of Business",
+      "program_id": "liu-sobu-mba",
+      "official_degree_name": "Master of Business Administration (MBA)",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 225,
+      "category": "School of Business",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008",
+        "LIU-SRC-017"
+      ],
+      "program_count": 1,
+      "notes": "School of Business graduate tuition is published as USD 225 per credit; MBA emphases remain grouped under one MBA record."
+    },
+    {
+      "faculty": "School of Business",
+      "program_id": "liu-sobu-mbat",
+      "official_degree_name": "Master of Business Administration with Thesis (MBAT)",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 225,
+      "category": "School of Business",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008"
+      ],
+      "program_count": 1,
+      "notes": "MBAT follows the School of Business graduate rate published on the official tuition page."
+    },
+    {
+      "faculty": "School of Business",
+      "program_id": "liu-sobu-wmba",
+      "official_degree_name": "WORMS / LIU-Hochschule Worms MBA dual degree",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 225,
+      "category": "School of Business",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008",
+        "LIU-SRC-018"
+      ],
+      "program_count": 1,
+      "notes": "The dual-degree MBA is mapped at the School of Business graduate rate published on the official tuition page."
+    },
+    {
+      "faculty": "School of Engineering",
+      "program_id": "liu-soe-ms-computer-communications-engineering",
+      "official_degree_name": "MS in Computer and Communications Engineering",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-023"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Engineering",
+      "program_id": "liu-soe-ms-electrical-engineering",
+      "official_degree_name": "MS in Electrical Engineering",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-019"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Engineering",
+      "program_id": "liu-soe-ms-electronics-engineering",
+      "official_degree_name": "MS in Electronics Engineering",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Engineering",
+      "program_id": "liu-soe-ms-electronics-engineering-biomedical-emphasis",
+      "official_degree_name": "MS in Electronics Engineering, emphasis on Biomedical Engineering",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Engineering",
+      "program_id": "liu-soe-ms-industrial-engineering",
+      "official_degree_name": "MS in Industrial Engineering",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-021"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Engineering",
+      "program_id": "liu-soe-ms-mechanical-engineering",
+      "official_degree_name": "MS in Mechanical Engineering",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-020"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Engineering",
+      "program_id": "liu-soe-ms-surveying-engineering",
+      "official_degree_name": "MS in Surveying Engineering",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-022"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Arts and Sciences",
+      "program_id": "liu-soas-ms-computer-science",
+      "official_degree_name": "Master of Science in Computer Science",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Arts and Sciences",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-002",
+        "LIU-SRC-003"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the Computer Science graduate rate as USD 285 per credit."
+    },
+    {
+      "faculty": "School of Arts and Sciences",
+      "program_id": "liu-soas-ms-food-technology",
+      "official_degree_name": "Master of Science in Food Technology",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 240,
+      "category": "School of Arts and Sciences",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-002",
+        "LIU-SRC-003"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the Food Technology graduate rate as USD 240 per credit."
+    },
+    {
+      "faculty": "School of Arts and Sciences",
+      "program_id": "liu-soas-ms-mathematics-applied-mathematics",
+      "official_degree_name": "Master of Science in Mathematics / Applied Mathematics",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 190,
+      "category": "School of Arts and Sciences",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-002",
+        "LIU-SRC-003"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the MS Applied Math graduate rate as USD 190 per credit; LIU uses dual naming in the official graduate pages."
+    },
+    {
+      "faculty": "School of Education",
+      "program_id": "liu-soedu-med-educational-management",
+      "official_degree_name": "Masters of Education in Educational Management",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 190,
+      "category": "School of Education",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-024"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Education graduate rate as USD 190 per credit."
+    },
+    {
+      "faculty": "School of Education",
+      "program_id": "liu-soedu-med-teaching-english-second-language",
+      "official_degree_name": "Masters of Education in Teaching English as a Second Language",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 190,
+      "category": "School of Education",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-025"
+      ],
+      "program_count": 1,
+      "notes": "Official tuition page lists the School of Education graduate rate as USD 190 per credit."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 2500000,
+      "currency": "LBP",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "LIU-SRC-005",
+        "LIU-SRC-009"
+      ],
+      "notes": "Graduate application fee published in official admissions materials."
+    },
+    "registration_fee": {
+      "amount": 150,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008"
+      ],
+      "notes": "Official tuition page lists a registration fee of USD 150."
+    },
+    "notes": [
+      "Tuition fees are charged per credit.",
+      "The tuition page says fee amounts may change without notice."
+    ]
+  },
+  "payment_methods": {
+    "summary": "LIU states that tuition can be paid through FNB and OMT; admissions materials also route the application fee through the admissions process.",
+    "methods": [
+      "FNB",
+      "OMT"
+    ],
+    "source_ids": [
+      "LIU-SRC-006",
+      "LIU-SRC-004",
+      "LIU-SRC-005"
+    ]
+  },
+  "payment_plans": {
+    "summary": "The official brochure states that tuition payment may be divided into four payments per semester or eight payments per year.",
+    "schedule": [
+      "Four payments per semester",
+      "Eight payments per year"
+    ],
+    "source_ids": [
+      "LIU-SRC-014"
+    ]
+  },
+  "scholarships": {
+    "summary": "The reviewed official sources do not publish a distinct graduate scholarship catalogue. Financial aid is referenced generally, but the scholarship surface was not separately itemized in this pass.",
+    "source_ids": [
+      "LIU-SRC-006",
+      "LIU-SRC-014"
+    ]
+  },
+  "financial_aid": {
+    "summary": "LIU says financial aid is available generally based on academic achievement and financial need. The tuition page notes that School of Pharmacy students are not eligible for financial aid.",
+    "details": [
+      "Financial aid depends on academic achievement and financial need.",
+      "Financial aid forms are available from the Public Relations Office.",
+      "School of Pharmacy students are not eligible for financial aid."
+    ],
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-006",
+      "LIU-SRC-014"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "An official academic calendar page was found, but the detailed graduate dates were not fully extracted in this pass.",
+    "source_ids": [
+      "LIU-SRC-011"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The University Catalogue is the main official source for graduate rules, admissions, transfer criteria, graduation requirements, and school-specific curriculum sections.",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-013"
+    ]
+  },
+  "accreditation": {
+    "summary": "No distinct university-wide graduate accreditation page was isolated in the reviewed official sources for this pass.",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-013"
+    ]
+  },
+  "international_students": {
+    "summary": "LIU publishes official exchange and visiting-student material, including mobility guidance, passport-copy expectations, and English competence documentation for international applicants.",
+    "items": [
+      "Exchange and visiting student guidance is published in an official PDF.",
+      "International applicants are expected to provide passport-based identification when appropriate.",
+      "English competence documentation appears in the factsheet and graduate admissions materials."
+    ],
+    "source_ids": [
+      "LIU-SRC-013",
+      "LIU-SRC-015",
+      "LIU-SRC-016"
+    ]
+  },
+  "language_policy": {
+    "summary": "No single university-wide graduate language policy page was found. The reviewed sources indicate English proficiency/placement expectations and school-level program language variation.",
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-006",
+      "LIU-SRC-013",
+      "LIU-SRC-016"
+    ]
+  },
+  "notes": [
+    "MBA emphases are retained as concentrations under one MBA record rather than split into separate programs.",
+    "The inventory keeps 15 master programs and zero PhD records, with PharmD and doctoral research references out of scope.",
+    "The university tuition table is program-specific, but every mapped value comes from official LIU tuition sources only."
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "date_accessed": "2026-07-04",
+  "program_counts": {
+    "total": 17,
+    "master": 17,
+    "phd": 0,
+    "out_of_scope": 0
+  },
+  "validation": {
+    "json_parse": true,
+    "duplicate_program_ids": false,
+    "duplicate_source_ids": false,
+    "duplicate_source_urls": false,
+    "every_program_has_source": true,
+    "every_source_reference_resolves": true,
+    "all_urls_official_aust": true,
+    "tuition_populated_count": 17,
+    "tuition_null_count": 0,
+    "shared_data_centralized": true,
+    "program_level_admission_requirements_only_when_program_specific": true,
+    "discrepancies_documented": true,
+    "no_phd_rows": true,
+    "schema_v24_compatible": true,
+    "orphan_sources_classified": true,
+    "out_of_scope_absent_from_programs": true,
+    "mvnw_compile_passed": true
+  },
+  "tuition": {
+    "currency": "USD",
+    "billing_basis": "PER_CREDIT",
+    "amount": 320,
+    "coverage_ratio": 1
+  },
+  "shared_centralization": {
+    "fields": [
+      "admissions_process",
+      "required_documents",
+      "language_requirements",
+      "tuition_model",
+      "fee_structure",
+      "payment_methods",
+      "payment_plans",
+      "scholarships",
+      "financial_aid",
+      "academic_calendar",
+      "graduate_regulations",
+      "accreditation",
+      "international_students"
+    ]
+  },
+  "official_discrepancies": [
+    {
+      "topic": "MBA credits",
+      "brochure_value": "36 credits",
+      "current_pages_value": "39 credits",
+      "decision": "Followed current admissions/program pages"
+    },
+    {
+      "topic": "English threshold",
+      "source_values": [
+        "TOEFL 575",
+        "TOEFL 600"
+      ],
+      "decision": "Retained as unresolved discrepancy"
+    }
+  ],
+  "orphan_sources": [
+    {
+      "source_id": "AUST-SRC-001",
+      "classification": "Discovery/navigation support only"
+    },
+    {
+      "source_id": "AUST-SRC-024",
+      "classification": "Brochure-only marketing source"
+    },
+    {
+      "source_id": "AUST-SRC-025",
+      "classification": "Brochure-only marketing source"
+    }
+  ],
+  "completeness": {
+    "program_fields": {
+      "program_description": 0,
+      "credits": 17,
+      "duration": 0,
+      "thesis_or_non_thesis": 0,
+      "concentrations_or_tracks": 1,
+      "delivery_mode": 0,
+      "language": 0,
+      "admission_requirements": 0,
+      "gre_requirement": 0,
+      "gmat_requirement": 0,
+      "portfolio_requirement": 0,
+      "interview_requirement": 0,
+      "experience_requirement": 0,
+      "accreditation": 0,
+      "notes": 17
+    },
+    "program_field_totals": {
+      "records": 17,
+      "fields_tracked": 15
+    },
+    "university_fields_populated": [
+      "admissions_process",
+      "required_documents",
+      "language_requirements",
+      "tuition_model",
+      "fee_structure",
+      "payment_methods",
+      "payment_plans",
+      "scholarships",
+      "financial_aid",
+      "academic_calendar",
+      "graduate_regulations",
+      "international_students"
+    ],
+    "university_fields_null": [
+      "accreditation"
+    ]
+  },
+  "recommendation": "APPROVE WITH NOTES",
+  "ready_for_v35_seed_generation": true,
+  "message": "AUST is ready for V35 seed generation."
+}

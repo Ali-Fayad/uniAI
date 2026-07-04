@@ -1,0 +1,218 @@
+[
+  {
+    "source_id": "AUST-SRC-001",
+    "page_title": "AUST official homepage",
+    "url": "https://www.aust.edu.lb/",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official homepage used to confirm official domain, navigation, faculties, calendar, online services, application links, and campus/news context."
+  },
+  {
+    "source_id": "AUST-SRC-002",
+    "page_title": "Faculties & Programs",
+    "url": "https://www.aust.edu.lb/facultyandprograms",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official faculty/program index; lists four faculties and indicates graduate programs under Arts and Sciences, Health Sciences, Engineering, and Business and Economics."
+  },
+  {
+    "source_id": "AUST-SRC-003",
+    "page_title": "Graduate Application Instructions",
+    "url": "https://s1.aust.edu.lb/GraduateApp/GraduateInstructions.aspx",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Primary graduate-admissions source. Lists required documents, English entrance requirements, and graduate-level majors by faculty."
+  },
+  {
+    "source_id": "AUST-SRC-004",
+    "page_title": "AUST Online Graduate Application",
+    "url": "https://s1.aust.edu.lb/GraduateApp/Default.aspx",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official graduate application portal. Confirms online graduate application workflow and requirement for valid email/account."
+  },
+  {
+    "source_id": "AUST-SRC-005",
+    "page_title": "Graduate Programs - Admission Requirements",
+    "url": "https://www.aust.edu.lb/section/the-admission/graduate-programs/admission-requirements/203",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Graduate admission requirements page. Search result content confirms bachelor's/equivalent degree, TOEFL or AUST English equivalent, statement of purpose, and advisor assignment."
+  },
+  {
+    "source_id": "AUST-SRC-006",
+    "page_title": "Graduate Programs - Academic Rules",
+    "url": "https://www.aust.edu.lb/section/the-admission/graduate-programs/academic-rules/205",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Graduate academic rules page. Confirms master's degree requires 30-39 graduate credits depending on program, minimum cumulative GPA 3.00/4.00, and no more than two C grades."
+  },
+  {
+    "source_id": "AUST-SRC-007",
+    "page_title": "Graduate Tuition Fees",
+    "url": "https://www.aust.edu.lb/section/the-admission/tuition-fees-and-expenses/graduate-tuition-fees/225",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official graduate tuition-fee page. Confirms MBA/MS graduate clear tuition at USD 320 per credit hour, probation/remedial or prerequisite rates, other fees, and installment/deferred-payment method."
+  },
+  {
+    "source_id": "AUST-SRC-008",
+    "page_title": "Financial Aid",
+    "url": "https://www.aust.edu.lb/section/the-admission/tuition-fees-and-expenses/financial-aid/227",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official financial-aid page. Confirms partial scholarships based on need, minimum completed credits, full-time registration, and GPA condition."
+  },
+  {
+    "source_id": "AUST-SRC-009",
+    "page_title": "University Calendar - Summer I Semester 2025-2026",
+    "url": "https://www.aust.edu.lb/section/university-calendar/summer-i-semester-2025--2026/2661",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official academic calendar page for Summer I 2025-2026."
+  },
+  {
+    "source_id": "AUST-SRC-010",
+    "page_title": "University Calendar - Summer II Semester 2025-2026",
+    "url": "https://www.aust.edu.lb/section/university-calendar/summer-ii-semester-2025--2026/2662",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official academic calendar page for Summer II 2025-2026."
+  },
+  {
+    "source_id": "AUST-SRC-011",
+    "page_title": "University Calendar - Fall Semester 2026-2027",
+    "url": "https://www.aust.edu.lb/section/university-calendar/fall-semester-2026-2027/2663",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official academic calendar page for Fall 2026-2027."
+  },
+  {
+    "source_id": "AUST-SRC-012",
+    "page_title": "Faculty of Arts and Sciences - MA in Communication Arts (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-arts-and-sciences/graduate-programs/ma-in-communication-arts-39-crhr/318",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Program page discovered for MA in Communication Arts. Also shows Arts and Sciences graduate navigation including MS in Computer Science and MS in Information & Communications Technology."
+  },
+  {
+    "source_id": "AUST-SRC-013",
+    "page_title": "Faculty of Arts and Sciences - MS in Computer Science (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-arts-and-sciences/graduate-programs/ms-in-computer-science-39-crhr/major-description/450",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Program/major-description page for MS in Computer Science."
+  },
+  {
+    "source_id": "AUST-SRC-014",
+    "page_title": "Faculty of Arts and Sciences - MS in Information & Communications Technology (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-arts-and-sciences/graduate-programs/ms-in-information-communications-technology-39-crhr/major-description/451",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Program/major-description page for MS in Information & Communications Technology."
+  },
+  {
+    "source_id": "AUST-SRC-015",
+    "page_title": "Faculty of Business and Economics - Master in Business Administration (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-business-and-economics/graduate-programs/master-in-business-administration-39-crhr/640",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Program page for Master in Business Administration."
+  },
+  {
+    "source_id": "AUST-SRC-016",
+    "page_title": "Faculty of Business and Economics - MS in Business Administration Track Finance (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-business-and-economics/graduate-programs/ms-in-business-administration-track-finance-39-crhr/387",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Program page for MS in Business Administration Track Finance. Search-result navigation also confirms Accounting, Economics, Management, MIS, and Marketing tracks."
+  },
+  {
+    "source_id": "AUST-SRC-017",
+    "page_title": "Faculty of Business and Economics - MS/MBA in Management (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-business-and-economics/graduate-programs/ms-mba-in-management-%2839-crhr%29/390",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Program/navigation page for management-related graduate business program."
+  },
+  {
+    "source_id": "AUST-SRC-018",
+    "page_title": "Faculty of Engineering - MS in Mechatronics Engineering (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-engineering/graduate-programs/ms-in-mechatronics-engineering-39-crhr/2658",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Program page for MS in Mechatronics Engineering."
+  },
+  {
+    "source_id": "AUST-SRC-019",
+    "page_title": "Faculty of Engineering - MS in CCE highlighting Mechatronics Engineering (39 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-engineering/graduate-programs/ms-in-cce-highlighting-mechatronics-engineering-39-crhr/major-description/382",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official engineering graduate major-description page found during search; title/content references MS in Mechatronics Engineering and engineering graduate research orientation."
+  },
+  {
+    "source_id": "AUST-SRC-020",
+    "page_title": "Faculty of Health Sciences - MS Biotechnology in Forensic Science (36 cr.hr.)",
+    "url": "https://www.aust.edu.lb/facultydetails/faculty-of-health-sciences/graduate-programs/ms-biotechnology-in-forensic-science-%2836-crhr%29/major-description/407",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "FHS graduate page. Confirms FHS offers MS degrees in Biotechnology, Bio-analytical Toxicology, and Optics and Optometry; Biotechnology includes DNA Technologies and Forensic Science tracks."
+  },
+  {
+    "source_id": "AUST-SRC-021",
+    "page_title": "Students Handbook PDF",
+    "url": "https://api.aust.edu.lb/content/uploads/files/226~Students-Handbook.pdf",
+    "source_type": "pdf",
+    "date_accessed": "2026-07-04",
+    "notes": "Official AUST student handbook PDF. Contains policy/regulatory statements covering admission, registration, tuition/fees, conduct, academic standing, candidacy, graduation, and student life."
+  },
+  {
+    "source_id": "AUST-SRC-022",
+    "page_title": "Rules and Regulations PDF",
+    "url": "https://api.aust.edu.lb/content/uploads/files/927~rules-and-regulations.pdf",
+    "source_type": "pdf",
+    "date_accessed": "2026-07-04",
+    "notes": "Official rules/regulations PDF. Includes international-student rule and graduate full-time load note."
+  },
+  {
+    "source_id": "AUST-SRC-023",
+    "page_title": "Blended MBA Program Brochure PDF",
+    "url": "https://api.aust.edu.lb/content/uploads/files/315~BMBA-Brochure.pdf",
+    "source_type": "pdf",
+    "date_accessed": "2026-07-04",
+    "notes": "Official B-MBA brochure PDF. Describes blended MBA structure and program components. Marked for review because the brochure says 36 credits, while the current graduate application/program page lists MBA as 39 credits."
+  },
+  {
+    "source_id": "AUST-SRC-024",
+    "page_title": "MBA Finance Brochure PDF",
+    "url": "https://api.aust.edu.lb/content/uploads/files/MBA-Finance.pdf",
+    "source_type": "pdf",
+    "date_accessed": "2026-07-04",
+    "notes": "Official MBA Finance brochure PDF. Program marketing source; use lower priority than current program/admissions pages for structured data."
+  },
+  {
+    "source_id": "AUST-SRC-025",
+    "page_title": "MBA Management Brochure PDF",
+    "url": "https://api.aust.edu.lb/content/uploads/files/MBA-MGT.pdf",
+    "source_type": "pdf",
+    "date_accessed": "2026-07-04",
+    "notes": "Official MBA Management brochure PDF. Program marketing source; use lower priority than current program/admissions pages for structured data."
+  },
+  {
+    "source_id": "AUST-SRC-026",
+    "page_title": "Facts and Figures 2025-2026",
+    "url": "https://www.aust.edu.lb/section/about-aust/facts-and-figures/57",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official facts-and-figures page for institutional identity, campuses, and academic-year context."
+  },
+  {
+    "source_id": "AUST-SRC-027",
+    "page_title": "International Students Office",
+    "url": "https://www.aust.edu.lb/section/international-students-office/international-students-office/615",
+    "source_type": "webpage",
+    "date_accessed": "2026-07-04",
+    "notes": "Official International Students Office page discovered in site navigation; content extraction was limited, so rules/regulations PDF is stronger for concrete international-student admission rule."
+  }
+]

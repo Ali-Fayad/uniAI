@@ -1,0 +1,427 @@
+[
+  {
+    "id": "liu-sobu-mba",
+    "program_key": "liu-sobu-mba",
+    "title": "Master of Business Administration (MBA)",
+    "degree_type": "MASTER",
+    "faculty": "School of Business",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/MBA-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-007",
+      "LIU-SRC-008",
+      "LIU-SRC-017"
+    ],
+    "concentrations_or_tracks": [
+      "Accounting Information Systems",
+      "Financial Economics",
+      "Finance",
+      "Human Resources Management",
+      "Hospitality and Tourism Management",
+      "Management",
+      "Management Information Systems",
+      "Marketing"
+    ],
+    "notes": "Official School of Business page says the MBA has multiple emphases. Those emphases are kept as concentrations under this single MBA record rather than split into separate programs.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 225,
+      "category": "School of Business",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008",
+        "LIU-SRC-017"
+      ],
+      "notes": "School of Business graduate tuition is published as USD 225 per credit; MBA emphases remain grouped under one MBA record."
+    }
+  },
+  {
+    "id": "liu-sobu-mbat",
+    "program_key": "liu-sobu-mbat",
+    "title": "Master of Business Administration with Thesis (MBAT)",
+    "degree_type": "MASTER",
+    "faculty": "School of Business",
+    "department": null,
+    "official_program_url": "https://syslb.liu.edu.lb/syslbdatadir/Documents/09_University_Catalog.pdf",
+    "source_ids": [
+      "LIU-SRC-007",
+      "LIU-SRC-008"
+    ],
+    "thesis_or_non_thesis": "THESIS",
+    "notes": "Distinct title listed in the official catalogue. No separate plan-of-study PDF was identified in the discovery package, so the catalogue is used as the canonical official URL.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 225,
+      "category": "School of Business",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008"
+      ],
+      "notes": "MBAT follows the School of Business graduate rate published on the official tuition page."
+    }
+  },
+  {
+    "id": "liu-sobu-wmba",
+    "program_key": "liu-sobu-wmba",
+    "title": "WORMS / LIU-Hochschule Worms MBA dual degree",
+    "degree_type": "MASTER",
+    "faculty": "School of Business",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/WMBA-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-007",
+      "LIU-SRC-008",
+      "LIU-SRC-018"
+    ],
+    "notes": "Official dual-degree MBA title surfaced in the catalogue and dedicated WMBA plan-of-study PDF.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 225,
+      "category": "School of Business",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008",
+        "LIU-SRC-018"
+      ],
+      "notes": "The dual-degree MBA is mapped at the School of Business graduate rate published on the official tuition page."
+    }
+  },
+  {
+    "id": "liu-soe-ms-computer-communications-engineering",
+    "program_key": "liu-soe-ms-computer-communications-engineering",
+    "title": "MS in Computer and Communications Engineering",
+    "degree_type": "MASTER",
+    "faculty": "School of Engineering",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/MCCE-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-023"
+    ],
+    "notes": "Official metadata PDF exists for this engineering master.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-023"
+      ],
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soe-ms-electrical-engineering",
+    "program_key": "liu-soe-ms-electrical-engineering",
+    "title": "MS in Electrical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "School of Engineering",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/MEENG-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-019"
+    ],
+    "notes": "Official metadata PDF exists for this engineering master.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-019"
+      ],
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soe-ms-electronics-engineering",
+    "program_key": "liu-soe-ms-electronics-engineering",
+    "title": "MS in Electronics Engineering",
+    "degree_type": "MASTER",
+    "faculty": "School of Engineering",
+    "department": null,
+    "official_program_url": "https://syslb.liu.edu.lb/syslbdatadir/Documents/09_University_Catalog.pdf",
+    "source_ids": [
+      "LIU-SRC-008"
+    ],
+    "notes": "Listed in the official catalogue. No separate metadata PDF was found in the discovery package.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008"
+      ],
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soe-ms-electronics-engineering-biomedical-emphasis",
+    "program_key": "liu-soe-ms-electronics-engineering-biomedical-emphasis",
+    "title": "MS in Electronics Engineering, emphasis on Biomedical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "School of Engineering",
+    "department": null,
+    "official_program_url": "https://syslb.liu.edu.lb/syslbdatadir/Documents/09_University_Catalog.pdf",
+    "source_ids": [
+      "LIU-SRC-008"
+    ],
+    "notes": "The official catalogue explicitly names the biomedical emphasis. It is retained as a separate row because the title is published that way, but the catalogue is the only stable source URL discovered for it.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008"
+      ],
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soe-ms-industrial-engineering",
+    "program_key": "liu-soe-ms-industrial-engineering",
+    "title": "MS in Industrial Engineering",
+    "degree_type": "MASTER",
+    "faculty": "School of Engineering",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/MIENG-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-021"
+    ],
+    "notes": "Official metadata PDF exists for this engineering master.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-021"
+      ],
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soe-ms-mechanical-engineering",
+    "program_key": "liu-soe-ms-mechanical-engineering",
+    "title": "MS in Mechanical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "School of Engineering",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/MMENG-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-020"
+    ],
+    "notes": "Official metadata PDF exists for this engineering master.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-020"
+      ],
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soe-ms-surveying-engineering",
+    "program_key": "liu-soe-ms-surveying-engineering",
+    "title": "MS in Surveying Engineering",
+    "degree_type": "MASTER",
+    "faculty": "School of Engineering",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/MSURV-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-022"
+    ],
+    "notes": "Official metadata PDF exists for this engineering master.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Engineering",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-022"
+      ],
+      "notes": "Official tuition page lists the School of Engineering graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soas-ms-computer-science",
+    "program_key": "liu-soas-ms-computer-science",
+    "title": "Master of Science in Computer Science",
+    "degree_type": "MASTER",
+    "faculty": "School of Arts and Sciences",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/SAS/graduate.php",
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-008"
+    ],
+    "credits": 36,
+    "notes": "Listed on both SAS graduate pages; treated as one master record.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 285,
+      "category": "School of Arts and Sciences",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-002",
+        "LIU-SRC-003"
+      ],
+      "notes": "Official tuition page lists the Computer Science graduate rate as USD 285 per credit."
+    }
+  },
+  {
+    "id": "liu-soas-ms-food-technology",
+    "program_key": "liu-soas-ms-food-technology",
+    "title": "Master of Science in Food Technology",
+    "degree_type": "MASTER",
+    "faculty": "School of Arts and Sciences",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/SoASchool/view_page_content.php?page_name=R3JhZHVhdGU%3D&template_id=Mg%3D%3D",
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-008"
+    ],
+    "credits": 36,
+    "notes": "Listed on both SAS graduate pages; treated as one master record.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 240,
+      "category": "School of Arts and Sciences",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-002",
+        "LIU-SRC-003"
+      ],
+      "notes": "Official tuition page lists the Food Technology graduate rate as USD 240 per credit."
+    }
+  },
+  {
+    "id": "liu-soas-ms-mathematics-applied-mathematics",
+    "program_key": "liu-soas-ms-mathematics-applied-mathematics",
+    "title": "Master of Science in Mathematics / Applied Mathematics",
+    "degree_type": "MASTER",
+    "faculty": "School of Arts and Sciences",
+    "department": null,
+    "official_program_url": "https://syslb.liu.edu.lb/syslbdatadir/Documents/09_University_Catalog.pdf",
+    "source_ids": [
+      "LIU-SRC-002",
+      "LIU-SRC-003",
+      "LIU-SRC-008"
+    ],
+    "credits": 36,
+    "notes": "The official graduate pages use dual naming (Mathematics / Applied Mathematics). The catalogue is used as the stable canonical URL because the official pages were ambiguous in the discovery set.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 190,
+      "category": "School of Arts and Sciences",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-002",
+        "LIU-SRC-003"
+      ],
+      "notes": "Official tuition page lists the MS Applied Math graduate rate as USD 190 per credit; LIU uses dual naming in the official graduate pages."
+    }
+  },
+  {
+    "id": "liu-soedu-med-educational-management",
+    "program_key": "liu-soedu-med-educational-management",
+    "title": "Masters of Education in Educational Management",
+    "degree_type": "MASTER",
+    "faculty": "School of Education",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/ELMM-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-024"
+    ],
+    "notes": "Official metadata PDF exists for this education master.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 190,
+      "category": "School of Education",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-024"
+      ],
+      "notes": "Official tuition page lists the School of Education graduate rate as USD 190 per credit."
+    }
+  },
+  {
+    "id": "liu-soedu-med-teaching-english-second-language",
+    "program_key": "liu-soedu-med-teaching-english-second-language",
+    "title": "Masters of Education in Teaching English as a Second Language",
+    "degree_type": "MASTER",
+    "faculty": "School of Education",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/EDUM-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-025"
+    ],
+    "notes": "Official metadata PDF exists for this education master.",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 190,
+      "category": "School of Education",
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-025"
+      ],
+      "notes": "Official tuition page lists the School of Education graduate rate as USD 190 per credit."
+    }
+  }
+]

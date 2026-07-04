@@ -1,0 +1,253 @@
+{
+  "id": "aust",
+  "name": "American University of Science and Technology",
+  "official_website": "https://www.aust.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-04",
+  "sources_used": [
+    "AUST-SRC-002",
+    "AUST-SRC-003",
+    "AUST-SRC-005",
+    "AUST-SRC-006",
+    "AUST-SRC-007",
+    "AUST-SRC-008",
+    "AUST-SRC-009",
+    "AUST-SRC-010",
+    "AUST-SRC-011",
+    "AUST-SRC-021",
+    "AUST-SRC-022",
+    "AUST-SRC-023",
+    "AUST-SRC-026",
+    "AUST-SRC-027"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants apply through the official online graduate application, submit the required supporting documents, and are reviewed under the Graduate Committee and graduate admission requirements.",
+    "steps": [
+      "Use the official online graduate application.",
+      "Submit the required supporting documents listed by AUST.",
+      "Meet the graduate admission requirements, including bachelor's-or-equivalent standing and English proficiency expectations.",
+      "Complete any further review or committee action required by AUST."
+    ],
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-004",
+      "AUST-SRC-005"
+    ]
+  },
+  "required_documents": {
+    "summary": "AUST lists graduate application documents including identity and civil-status copies, photos, academic records, certificates, the application fee, and recommendations.",
+    "items": [
+      "Curriculum vitae",
+      "Identity or passport copy",
+      "Passport-sized photos",
+      "Application fee",
+      "Lebanese family civil-status record where applicable",
+      "Certified educational and professional certificates",
+      "Official transcript",
+      "Recommendations"
+    ],
+    "source_ids": [
+      "AUST-SRC-003"
+    ]
+  },
+  "language_requirements": {
+    "summary": "AUST publishes two different English-threshold values in the reviewed official sources. The graduate application instructions mention TOEFL 575 or equivalent, while the graduate admission requirements page mentions TOEFL 600 or equivalent.",
+    "notes": [
+      "Do not resolve the discrepancy in this inventory pass.",
+      "Use the current graduate admissions/program pages as the canonical source for inventory, but keep the threshold gap open for later shared-data handling."
+    ],
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-005"
+    ]
+  },
+  "tuition_model": {
+    "summary": "AUST publishes a graduate tuition page with MBA/MS clear tuition at USD 320 per credit hour. This shared mapping applies that current rate across the finalized master's inventory.",
+    "currency": "USD",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "source_ids": [
+      "AUST-SRC-007"
+    ],
+    "notes": [
+      "The Blended MBA brochure lists 36 credits, but the current admissions/program page lists 39 credits.",
+      "The brochure discrepancy is preserved in program notes and not resolved here."
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "AUST graduate programs",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "program_ids": [
+        "aust-fas-master-communication-arts",
+        "aust-fas-master-computer-science",
+        "aust-fas-master-information-communications-technology",
+        "aust-fbe-master-business-administration",
+        "aust-fbe-master-business-administration-accounting",
+        "aust-fbe-master-business-administration-finance",
+        "aust-fbe-master-business-administration-economics",
+        "aust-fbe-master-business-administration-hospitality-management",
+        "aust-fbe-master-business-administration-management",
+        "aust-fbe-master-business-administration-management-information-systems",
+        "aust-fbe-master-business-administration-marketing",
+        "aust-fe-master-computer-communications-engineering",
+        "aust-fe-master-mechatronics-engineering",
+        "aust-fe-master-biomedical-engineering",
+        "aust-fhs-master-biotechnology",
+        "aust-fhs-master-bio-analytical-toxicology",
+        "aust-fhs-master-optics-optometry"
+      ],
+      "program_count": 17,
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "All 17 master's records map to the current official graduate tuition page at USD 320 per credit hour."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "The graduate tuition page references an application fee, but the accessible source set did not expose a stable amount."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "Referenced on the graduate tuition page, but no stable amount was recovered in this pass."
+    },
+    "accident_insurance_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "Referenced on the graduate tuition page, but no stable amount was recovered in this pass."
+    },
+    "technology_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "Referenced on the graduate tuition page, but no stable amount was recovered in this pass."
+    },
+    "social_security_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "Referenced on the graduate tuition page, but no stable amount was recovered in this pass."
+    },
+    "lab_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "Referenced on the graduate tuition page, but no stable amount was recovered in this pass."
+    }
+  },
+  "payment_methods": {
+    "summary": "AUST states that students pay 25% of tuition fees plus other fees at the beginning of each semester.",
+    "items": [
+      "Semester-start payment of 25% of tuition plus other fees"
+    ],
+    "source_ids": [
+      "AUST-SRC-007"
+    ]
+  },
+  "payment_plans": {
+    "summary": "AUST allows deferred or installment payment by signed contract, with installments payable at the bank.",
+    "items": [
+      "Deferred payment by signed contract",
+      "Installment payment payable at the bank"
+    ],
+    "source_ids": [
+      "AUST-SRC-007"
+    ]
+  },
+  "scholarships": {
+    "summary": "The official financial-aid page confirms partial scholarships for candidates with financial need who meet the relevant academic conditions.",
+    "items": [
+      "Partial scholarships"
+    ],
+    "source_ids": [
+      "AUST-SRC-008"
+    ]
+  },
+  "financial_aid": {
+    "summary": "AUST financial aid is need-based and tied to academic standing and credit-load conditions.",
+    "items": [
+      "Need-based partial financial aid",
+      "Minimum completed credits requirement",
+      "Full-time registration requirement",
+      "GPA condition"
+    ],
+    "source_ids": [
+      "AUST-SRC-008"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "Official academic calendar pages were found for Summer I 2025-2026, Summer II 2025-2026, and Fall 2026-2027.",
+    "items": [
+      "Summer I Semester 2025-2026",
+      "Summer II Semester 2025-2026",
+      "Fall Semester 2026-2027"
+    ],
+    "source_ids": [
+      "AUST-SRC-009",
+      "AUST-SRC-010",
+      "AUST-SRC-011"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "AUST master's regulations require 30 to 39 credits depending on the program, a minimum cumulative GPA of 3.00/4.00, and no more than two C grades. The rules PDF also notes a minimum 6-credit load for full-time graduate status.",
+    "items": [
+      "30 to 39 graduate credits depending on the program",
+      "Minimum cumulative GPA of 3.00/4.00",
+      "No more than two C grades",
+      "Minimum 6 credit hours for full-time graduate status"
+    ],
+    "source_ids": [
+      "AUST-SRC-006",
+      "AUST-SRC-022"
+    ]
+  },
+  "accreditation": {
+    "summary": null,
+    "notes": [
+      "No explicit accreditation statement was recovered from the reviewed official AUST sources in this pass."
+    ],
+    "source_ids": []
+  },
+  "international_students": {
+    "summary": "International students must satisfy AUST admission requirements and Lebanese Immigration Law requirements.",
+    "items": [
+      "Meet all AUST graduate admission requirements",
+      "Comply with Lebanese Immigration Law requirements"
+    ],
+    "source_ids": [
+      "AUST-SRC-022",
+      "AUST-SRC-027"
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "total_programs": 15,
+  "tuition_populated_count": 15,
+  "tuition_null_count": 0,
+  "tuition_rows_by_faculty_or_school": [
+    {
+      "faculty": "School of Business",
+      "tuition_values": [
+        225
+      ],
+      "program_count": 3,
+      "program_ids": [
+        "liu-sobu-mba",
+        "liu-sobu-mbat",
+        "liu-sobu-wmba"
+      ],
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008",
+        "LIU-SRC-017",
+        "LIU-SRC-018"
+      ]
+    },
+    {
+      "faculty": "School of Engineering",
+      "tuition_values": [
+        285
+      ],
+      "program_count": 7,
+      "program_ids": [
+        "liu-soe-ms-computer-communications-engineering",
+        "liu-soe-ms-electrical-engineering",
+        "liu-soe-ms-electronics-engineering",
+        "liu-soe-ms-electronics-engineering-biomedical-emphasis",
+        "liu-soe-ms-industrial-engineering",
+        "liu-soe-ms-mechanical-engineering",
+        "liu-soe-ms-surveying-engineering"
+      ],
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-019",
+        "LIU-SRC-020",
+        "LIU-SRC-021",
+        "LIU-SRC-022",
+        "LIU-SRC-023"
+      ]
+    },
+    {
+      "faculty": "School of Arts and Sciences",
+      "tuition_values": [
+        285,
+        240,
+        190
+      ],
+      "program_count": 3,
+      "program_ids": [
+        "liu-soas-ms-computer-science",
+        "liu-soas-ms-food-technology",
+        "liu-soas-ms-mathematics-applied-mathematics"
+      ],
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-002",
+        "LIU-SRC-003"
+      ]
+    },
+    {
+      "faculty": "School of Education",
+      "tuition_values": [
+        190
+      ],
+      "program_count": 2,
+      "program_ids": [
+        "liu-soedu-med-educational-management",
+        "liu-soedu-med-teaching-english-second-language"
+      ],
+      "source_ids": [
+        "LIU-SRC-006",
+        "LIU-SRC-008",
+        "LIU-SRC-024",
+        "LIU-SRC-025"
+      ]
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "LIU-SRC-002",
+    "LIU-SRC-003",
+    "LIU-SRC-006",
+    "LIU-SRC-007",
+    "LIU-SRC-008",
+    "LIU-SRC-017",
+    "LIU-SRC-018",
+    "LIU-SRC-019",
+    "LIU-SRC-020",
+    "LIU-SRC-021",
+    "LIU-SRC-022",
+    "LIU-SRC-023",
+    "LIU-SRC-024",
+    "LIU-SRC-025"
+  ],
+  "notes": [
+    "School of Business MBA emphases remain concentrations under one MBA record.",
+    "Program tuition was mapped from the official LIU tuition page, catalogue, and program plan-of-study PDFs where available.",
+    "The catalogue-only mathematics and electronics records reuse the catalogue PDF URL intentionally because LIU did not expose separate stable program pages in the discovery package."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "total_programs": 17,
+  "tuition_populated_count": 17,
+  "tuition_null_count": 0,
+  "tuition_rows_grouped_by_faculty": [
+    {
+      "faculty": "AUST graduate programs",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "program_ids": [
+        "aust-fas-master-communication-arts",
+        "aust-fas-master-computer-science",
+        "aust-fas-master-information-communications-technology",
+        "aust-fbe-master-business-administration",
+        "aust-fbe-master-business-administration-accounting",
+        "aust-fbe-master-business-administration-finance",
+        "aust-fbe-master-business-administration-economics",
+        "aust-fbe-master-business-administration-hospitality-management",
+        "aust-fbe-master-business-administration-management",
+        "aust-fbe-master-business-administration-management-information-systems",
+        "aust-fbe-master-business-administration-marketing",
+        "aust-fe-master-computer-communications-engineering",
+        "aust-fe-master-mechatronics-engineering",
+        "aust-fe-master-biomedical-engineering",
+        "aust-fhs-master-biotechnology",
+        "aust-fhs-master-bio-analytical-toxicology",
+        "aust-fhs-master-optics-optometry"
+      ],
+      "program_count": 17,
+      "source_ids": [
+        "AUST-SRC-007"
+      ],
+      "notes": "All 17 master's records map to the official graduate tuition page at USD 320 per credit hour."
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "AUST-SRC-007"
+  ],
+  "notes": "All 17 MASTER records were mapped to the current official AUST graduate tuition page. No program required a null tuition fallback."
+}

@@ -1,0 +1,461 @@
+[
+  {
+    "id": "aust-fas-master-communication-arts",
+    "program_key": "communication-arts",
+    "title": "Master of Arts in Communication Arts",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-arts-and-sciences/graduate-programs/ma-in-communication-arts-39-crhr/318",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-012"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions under the Faculty of Arts and Sciences and confirmed by the public program page.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fas-master-computer-science",
+    "program_key": "computer-science",
+    "title": "Master of Science in Computer Science",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-arts-and-sciences/graduate-programs/ms-in-computer-science-39-crhr/major-description/450",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-013"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions and confirmed by the program page.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fas-master-information-communications-technology",
+    "program_key": "information-communications-technology",
+    "title": "Master of Science in Information & Communications Technology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-arts-and-sciences/graduate-programs/ms-in-information-communications-technology-39-crhr/major-description/451",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-014"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions and confirmed by the program page.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration",
+    "program_key": "business-administration",
+    "title": "Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-business-and-economics/graduate-programs/master-in-business-administration-39-crhr/640",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-015",
+      "AUST-SRC-023"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour. MBA brochure lists 36 credits, but the current admissions/program page uses 39 credits.",
+      "source_ids": [
+        "AUST-SRC-007",
+        "AUST-SRC-023"
+      ]
+    },
+    "notes": "Inventory follows the current admissions/program page at 39 credits; the official blended MBA brochure lists 36 credits, so the brochure discrepancy is recorded but not resolved here.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration-accounting",
+    "program_key": "business-administration-accounting",
+    "title": "Master of Science in Business Administration, Emphasis/Track Accounting",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; no distinct public program page was recovered in this pass.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration-finance",
+    "program_key": "business-administration-finance",
+    "title": "Master of Science in Business Administration, Emphasis/Track Finance",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-business-and-economics/graduate-programs/ms-in-business-administration-track-finance-39-crhr/387",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-016"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions and confirmed by the finance program page.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration-economics",
+    "program_key": "business-administration-economics",
+    "title": "Master of Science in Business Administration, Emphasis/Track Economics",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; no distinct public program page was recovered in this pass.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration-hospitality-management",
+    "program_key": "business-administration-hospitality-management",
+    "title": "Master of Science in Business Administration, Emphasis/Track Hospitality Management",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; no distinct public program page was recovered in this pass.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration-management",
+    "program_key": "business-administration-management",
+    "title": "Master of Science in Business Administration, Emphasis/Track Management",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-business-and-economics/graduate-programs/ms-mba-in-management-%2839-crhr%29/390",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-017"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; the public program page is titled MS/MBA in Management.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration-management-information-systems",
+    "program_key": "business-administration-management-information-systems",
+    "title": "Master of Science in Business Administration, Emphasis/Track Management Information Systems",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; no distinct public program page was recovered in this pass.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fbe-master-business-administration-marketing",
+    "program_key": "business-administration-marketing",
+    "title": "Master of Science in Business Administration, Emphasis/Track Marketing",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Economics",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; no distinct public program page was recovered in this pass.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fe-master-computer-communications-engineering",
+    "program_key": "computer-communications-engineering",
+    "title": "Master of Science in Computer & Communications Engineering",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Engineering",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; no distinct public program page was recovered in this pass.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fe-master-mechatronics-engineering",
+    "program_key": "mechatronics-engineering",
+    "title": "Master of Science in Mechatronics Engineering",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Engineering",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-engineering/graduate-programs/ms-in-mechatronics-engineering-39-crhr/2658",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-018",
+      "AUST-SRC-019"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions and confirmed by the Mechatronics Engineering program page.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fe-master-biomedical-engineering",
+    "program_key": "biomedical-engineering",
+    "title": "Master of Science in Biomedical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Engineering",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions; no distinct public program page was recovered in this pass.",
+    "credits": 39
+  },
+  {
+    "id": "aust-fhs-master-biotechnology",
+    "program_key": "biotechnology",
+    "title": "Master of Science in Biotechnology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Health Sciences",
+    "department": null,
+    "official_program_url": "https://www.aust.edu.lb/facultydetails/faculty-of-health-sciences/graduate-programs/ms-biotechnology-in-forensic-science-%2836-crhr%29/major-description/407",
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-020"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Official materials indicate Biotechnology tracks in DNA Technologies and Forensic Science; the public page recovered in this pass highlights the Forensic Science track.",
+    "credits": 36,
+    "concentrations_or_tracks": [
+      "DNA Technologies",
+      "Forensic Science"
+    ]
+  },
+  {
+    "id": "aust-fhs-master-bio-analytical-toxicology",
+    "program_key": "bio-analytical-toxicology",
+    "title": "Master of Science in Bio-analytical Toxicology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Health Sciences",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-020"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions and confirmed by the Faculty of Health Sciences graduate page.",
+    "credits": 36
+  },
+  {
+    "id": "aust-fhs-master-optics-optometry",
+    "program_key": "optics-optometry",
+    "title": "Master of Science in Optics and Optometry",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Health Sciences",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUST-SRC-003",
+      "AUST-SRC-002",
+      "AUST-SRC-020"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 320,
+      "category": "Graduate Programs",
+      "notes": "Official graduate tuition page lists MBA/MS graduate clear tuition at USD 320 per credit hour.",
+      "source_ids": [
+        "AUST-SRC-007"
+      ]
+    },
+    "notes": "Listed in the graduate application instructions and confirmed by the Faculty of Health Sciences graduate page.",
+    "credits": 36
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_seed_generation": true,
+  "readiness_statement": "LIU is ready for V34 seed generation.",
+  "validation": {
+    "v34_ordered_after_v33": true,
+    "json_parse": true,
+    "program_count": 15,
+    "master_count": 15,
+    "phd_count": 0,
+    "out_of_scope_count": 2,
+    "tuition_rows": 15,
+    "out_of_scope_skipped": true,
+    "mba_emphases_as_tracks": true,
+    "catalogue_url_reuse_handled": true,
+    "broken_source_references": [],
+    "every_program_has_sources": true,
+    "v24_schema_compatibility": true,
+    "idempotency": true,
+    "duplicate_prevention": true,
+    "row_counts_match_import_report": true,
+    "compile_passed": true
+  },
+  "duplicates": {
+    "program_ids": [],
+    "source_ids": [],
+    "source_urls": [],
+    "program_url_groups": [
+      {
+        "url": "https://syslb.liu.edu.lb/syslbdatadir/Documents/09_University_Catalog.pdf",
+        "program_ids": [
+          "liu-sobu-mbat",
+          "liu-soe-ms-electronics-engineering",
+          "liu-soe-ms-electronics-engineering-biomedical-emphasis",
+          "liu-soas-ms-mathematics-applied-mathematics"
+        ],
+        "intent": "catalogue reuse"
+      }
+    ]
+  },
+  "counts": {
+    "programs": 15,
+    "master": 15,
+    "phd": 0,
+    "out_of_scope": 2,
+    "tuition_rows": 15,
+    "program_source_links": 81
+  },
+  "completeness": {
+    "credits": 3,
+    "thesis_or_non_thesis": 1,
+    "concentrations_or_tracks": 1
+  }
+}

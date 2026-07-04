@@ -1,0 +1,92 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_seed_generation": true,
+  "readiness_statement": "LIU is ready for V34 seed generation.",
+  "counts": {
+    "programs": 15,
+    "master": 15,
+    "phd": 0,
+    "out_of_scope": 2,
+    "tuition_populated": 15,
+    "tuition_null": 0
+  },
+  "validation": {
+    "json_parse": true,
+    "duplicate_program_ids": [],
+    "duplicate_source_ids": [],
+    "duplicate_source_urls": [],
+    "duplicate_program_url_groups": [
+      {
+        "url": "https://syslb.liu.edu.lb/syslbdatadir/Documents/09_University_Catalog.pdf",
+        "program_ids": [
+          "liu-sobu-mbat",
+          "liu-soe-ms-electronics-engineering",
+          "liu-soe-ms-electronics-engineering-biomedical-emphasis",
+          "liu-soas-ms-mathematics-applied-mathematics"
+        ],
+        "intent": "catalogue reuse"
+      }
+    ],
+    "broken_program_source_refs": [],
+    "broken_tuition_source_refs": [],
+    "official_liu_urls_only": true,
+    "shared_data_centralized": true,
+    "program_level_admissions_program_specific_only": true,
+    "mba_emphases_not_split": true,
+    "v24_schema_compatibility": true,
+    "compile_passed": true
+  },
+  "source_coverage": {
+    "total_sources": 26,
+    "used_sources": 26,
+    "orphan_sources": [],
+    "classification": {
+      "discovery_reference": [
+        "LIU-SRC-001",
+        "LIU-SRC-010",
+        "LIU-SRC-011",
+        "LIU-SRC-012",
+        "LIU-SRC-013",
+        "LIU-SRC-014",
+        "LIU-SRC-015",
+        "LIU-SRC-016"
+      ],
+      "program_and_tuition": [
+        "LIU-SRC-002",
+        "LIU-SRC-003",
+        "LIU-SRC-004",
+        "LIU-SRC-005",
+        "LIU-SRC-006",
+        "LIU-SRC-007",
+        "LIU-SRC-008",
+        "LIU-SRC-009",
+        "LIU-SRC-017",
+        "LIU-SRC-018",
+        "LIU-SRC-019",
+        "LIU-SRC-020",
+        "LIU-SRC-021",
+        "LIU-SRC-022",
+        "LIU-SRC-023",
+        "LIU-SRC-024",
+        "LIU-SRC-025",
+        "LIU-SRC-026"
+      ]
+    }
+  },
+  "completeness": {
+    "program_description": 0,
+    "credits": 3,
+    "duration": 0,
+    "thesis_or_non_thesis": 1,
+    "concentrations_or_tracks": 1,
+    "delivery_mode": 0,
+    "language": 0,
+    "admission_requirements": 0,
+    "gre_requirement": 0,
+    "gmat_requirement": 0,
+    "portfolio_requirement": 0,
+    "interview_requirement": 0,
+    "experience_requirement": 0,
+    "accreditation": 0
+  }
+}

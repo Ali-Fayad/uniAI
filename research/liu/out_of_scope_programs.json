@@ -1,0 +1,31 @@
+[
+  {
+    "id": "liu-pharmd-doctor-of-pharmacy",
+    "program_key": "liu-pharmd-doctor-of-pharmacy",
+    "title": "Doctor of Pharmacy (PharmD)",
+    "degree_type": "DOCTORATE",
+    "faculty": "School of Pharmacy",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/metaData/PHRD-POS.pdf",
+    "source_ids": [
+      "LIU-SRC-008",
+      "LIU-SRC-010",
+      "LIU-SRC-026"
+    ],
+    "notes": "Official graduate/professional doctorate program page discovered, but excluded from the requested MASTER-only inventory."
+  },
+  {
+    "id": "liu-doctoral-phd-partnerships",
+    "program_key": "liu-doctoral-phd-partnerships",
+    "title": "Research & Graduate Studies - Publications / PhD Partnerships",
+    "degree_type": null,
+    "faculty": "University-wide",
+    "department": null,
+    "official_program_url": "https://liu.edu.lb/NewLIU2022/ORGS/publications.php",
+    "source_ids": [
+      "LIU-SRC-012",
+      "LIU-SRC-016"
+    ],
+    "notes": "PhD references are limited to research partnerships and co-supervision activity; LIU did not expose a standalone PhD program catalog in this discovery pass."
+  }
+]
