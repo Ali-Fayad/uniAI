@@ -1,0 +1,402 @@
+[
+  {
+    "source_id": "UA001",
+    "page_title": "Home | Antonine University",
+    "url": "https://ua.edu.lb/en/home",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official UA homepage; entry point for navigation and confirmation of main sections."
+  },
+  {
+    "source_id": "UA002",
+    "page_title": "Graduate | Antonine University",
+    "url": "https://ua.edu.lb/en/graduate",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Graduate admissions hub; explicitly frames UA graduate studies as master's-level study."
+  },
+  {
+    "source_id": "UA003",
+    "page_title": "Programs | Graduate | Antonine University",
+    "url": "https://www.ua.edu.lb/en/graduate/programs",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+  },
+  {
+    "source_id": "UA004",
+    "page_title": "Required Documents | Graduate | Antonine University",
+    "url": "https://ua.edu.lb/en/graduate/required-documents",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Graduate application document checklist and application/entrance exam fees."
+  },
+  {
+    "source_id": "UA005",
+    "page_title": "Application | Graduate | Antonine University",
+    "url": "https://ua.edu.lb/en/graduate/application",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Graduate application process and fees."
+  },
+  {
+    "source_id": "UA006",
+    "page_title": "Selection Criteria | Graduate | Antonine University",
+    "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+  },
+  {
+    "source_id": "UA007",
+    "page_title": "Entrance Exams | Graduate | Antonine University",
+    "url": "https://ua.edu.lb/en/graduate/entrance-exams",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Graduate entrance tests/interviews by faculty/department for academic year 2025-26."
+  },
+  {
+    "source_id": "UA008",
+    "page_title": "Tuition Fees | Graduate | Antonine University",
+    "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+  },
+  {
+    "source_id": "UA009",
+    "page_title": "Tuition Fees Fall 2026-27",
+    "url": "https://ua.edu.lb/Library/Assets/Gallery/tuition-and-general-fees-fall-2026-27.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "pdf",
+    "notes": "Official tuition and general fees PDF; includes graduate cycles, credits, campuses and per-credit prices."
+  },
+  {
+    "source_id": "UA010",
+    "page_title": "ADMISSIONS GUIDE",
+    "url": "https://ua.edu.lb/Library/Assets//Gallery/Documents/admissions/ua-admissions-guide.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "pdf",
+    "notes": "Official admissions guide PDF; includes academic programs, admission requirements, language proficiency, tuition fees, graduate checklist, financial aid/scholarships."
+  },
+  {
+    "source_id": "UA011",
+    "page_title": "Antonine University Office of Orientation & Admissions Graduate Application Form",
+    "url": "https://ua.edu.lb/Library/Assets/Gallery/ooa-application-form-graduate.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "pdf",
+    "notes": "Official graduate application form PDF; lists graduate program choices."
+  },
+  {
+    "source_id": "UA012",
+    "page_title": "Apply | Orientation and Admissions | Antonine University",
+    "url": "https://ua.edu.lb/en/office-of-orientation-and-admissions/apply",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Admissions apply page; online application instructions and forms."
+  },
+  {
+    "source_id": "UA013",
+    "page_title": "Academic Calendar | Antonine University",
+    "url": "https://ua.edu.lb/en/academic-calendar",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Academic calendar with registration, enrollment, payment, withdrawal, exams, and results dates for 2025-26."
+  },
+  {
+    "source_id": "UA014",
+    "page_title": "Financial Aid and Scholarships | Antonine University",
+    "url": "https://www.ua.edu.lb/en/office-of-social-affairs/financial-aid-and-scholarships",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Office of Social Affairs financial aid overview and payment-related assistance."
+  },
+  {
+    "source_id": "UA015",
+    "page_title": "Rules and Regulations | Social Affairs | Antonine University",
+    "url": "https://ua.edu.lb/en/office-of-social-affairs/rules-and-regulations",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "States financial aid and scholarships are available only to undergraduate students."
+  },
+  {
+    "source_id": "UA016",
+    "page_title": "Services | Language Center | Antonine University",
+    "url": "https://ua.edu.lb/en/language-center/services",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Language placement tests, IELTS/DELF services and language support."
+  },
+  {
+    "source_id": "UA017",
+    "page_title": "Language Courses | Antonine University",
+    "url": "https://ua.edu.lb/en/language-center/language-courses",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Remedial English/French and other language courses; students enrolled in programs must complete remedial courses if needed."
+  },
+  {
+    "source_id": "UA018",
+    "page_title": "Overview | International | Antonine University",
+    "url": "https://ua.edu.lb/en/international/overview",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Internationalization overview and context for international partnerships/mobility."
+  },
+  {
+    "source_id": "UA019",
+    "page_title": "Scholarship | Antonine University",
+    "url": "https://ua.edu.lb/en/international/scholarship",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "International scholarship opportunities including Master/PhD external scholarship calls."
+  },
+  {
+    "source_id": "UA020",
+    "page_title": "Mobility Opportunity | Antonine University",
+    "url": "https://ua.edu.lb/en/international/mobility-opportunity",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Mobility opportunities by cycle; includes Master and doctoral mobility items."
+  },
+  {
+    "source_id": "UA021",
+    "page_title": "International News | Antonine University",
+    "url": "https://ua.edu.lb/en/international/international-news",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "States UA hosts international students and supports international research/learning opportunities."
+  },
+  {
+    "source_id": "UA022",
+    "page_title": "Research Policies | Antonine University",
+    "url": "https://ua.edu.lb/en/research-policies",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Research policies page; includes policy inherent to doctoral supervision and support at UA."
+  },
+  {
+    "source_id": "UA023",
+    "page_title": "SAFAR Scholarships 2025 | Antonine University",
+    "url": "https://www.ua.edu.lb/en/international/safar-scholarships-2025",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Doctoral co-supervision scholarship opportunity; evidence of doctoral cooperation context, not a UA PhD program listing."
+  },
+  {
+    "source_id": "UA024",
+    "page_title": "Supporting Excellence in Research | Antonine University",
+    "url": "https://ua.edu.lb/en/events/supporting-excellence-in-research",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Event page announcing doctoral co-supervision scholarships; out of scope for program extraction but relevant to PhD/doctoral evidence."
+  },
+  {
+    "source_id": "UA025",
+    "page_title": "Faculty of Engineering and Technology | Antonine University",
+    "url": "https://ua.edu.lb/en/fet",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Faculty page; no graduate program found in primary graduate inventory for FET."
+  },
+  {
+    "source_id": "UA026",
+    "page_title": "Master of Business Administration – Accounting and Auditing",
+    "url": "https://ua.edu.lb/en/asb/mba-accounting-and-auditing",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Representative ASB graduate program detail page; confirms a 36-credit, two-year MBA structure, English/French instruction, and business-administration eligibility."
+  },
+  {
+    "source_id": "UA027",
+    "page_title": "MA in Information and Communication",
+    "url": "https://ua.edu.lb/en/fic/ma-in-information-and-communication",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Representative FIC graduate program detail page; confirms a 36-credit, two-year MA structure with a thesis and program-specific admissions."
+  },
+  {
+    "source_id": "UA028",
+    "page_title": "MS in Nursing Sciences",
+    "url": "https://ua.edu.lb/en/fph/dns/ms-in-nursing-sciences",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Representative FPH graduate program detail page used for the Nursing Sciences master enrichment."
+  },
+  {
+    "source_id": "UA029",
+    "page_title": "Master of Arts in Theological Sciences and Pastoral Studies",
+    "url": "https://ua.edu.lb/en/fot/ma-in-theological-sciences-and-pastoral-studies",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Representative FOT graduate program detail page; confirms a 37-credit, two-year theology master with Arabic instruction and thesis requirements."
+  },
+  {
+    "source_id": "UA030",
+    "page_title": "Certificate of Programme Accreditation - Master of Music and Musicology",
+    "url": "https://ua.edu.lb/Library/Assets/Gallery/Documents/News/certificate-fmm-master.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "pdf",
+    "notes": "Official PDF accreditation certificate for Master of Music and Musicology."
+  },
+  {
+    "source_id": "UA031",
+    "page_title": "Master of Business Administration – Marketing and International Management",
+    "url": "https://ua.edu.lb/en/asb/mba-marketing-and-international-management",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official ASB graduate program page."
+  },
+  {
+    "source_id": "UA032",
+    "page_title": "Master of Business Administration – Banking and Finance",
+    "url": "https://ua.edu.lb/en/asb/mba-banking-and-finance",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official ASB graduate program page."
+  },
+  {
+    "source_id": "UA033",
+    "page_title": "Master of Business Administration – Human Resource Management",
+    "url": "https://ua.edu.lb/en/asb/mba-human-resource-management",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official ASB graduate program page."
+  },
+  {
+    "source_id": "UA034",
+    "page_title": "Master of Business Administration – Operations and Logistics Management",
+    "url": "https://ua.edu.lb/en/asb/mba-operations-and-logistics-management",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official ASB graduate program page."
+  },
+  {
+    "source_id": "UA035",
+    "page_title": "Master of Business Administration – Digital Marketing",
+    "url": "https://ua.edu.lb/en/asb/mba-digital-marketing",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official ASB graduate program page."
+  },
+  {
+    "source_id": "UA036",
+    "page_title": "Master of Business Administration – General Management (MBA)",
+    "url": "https://ua.edu.lb/en/asb/mba",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official ASB graduate program page."
+  },
+  {
+    "source_id": "UA038",
+    "page_title": "Master in Music and Musicology – General Musicology of Modal Traditions",
+    "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-general-musicology-of-modal-traditions",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FMM graduate program page; confirms a research-oriented 36-credit, two-year master with thesis requirements and Arabic instruction."
+  },
+  {
+    "source_id": "UA039",
+    "page_title": "Master in Music and Musicology – Music Education",
+    "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-education",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FMM graduate program page."
+  },
+  {
+    "source_id": "UA040",
+    "page_title": "Master in Music and Musicology – Music Therapy",
+    "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-therapy",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FMM graduate program page."
+  },
+  {
+    "source_id": "UA041",
+    "page_title": "Master in Music and Musicology – Music Technology and Media",
+    "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-technology-and-media",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FMM graduate program page."
+  },
+  {
+    "source_id": "UA042",
+    "page_title": "Master in Music and Musicology – Art Music of the Mashriq",
+    "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-art-music-of-the-mashriq",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FMM graduate program page."
+  },
+  {
+    "source_id": "UA043",
+    "page_title": "Master in Music and Musicology – European Art Music",
+    "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-european-art-music",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FMM graduate program page."
+  },
+  {
+    "source_id": "UA045",
+    "page_title": "Master of Arts in Sport Sciences – Motricity Education and Adapted Physical Activities",
+    "url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-motricity-education-and-adapted-physical-activities",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FSS graduate program page; confirms a 36-credit, two-year research master with thesis and oral interview requirements."
+  },
+  {
+    "source_id": "UA046",
+    "page_title": "Master of Arts in Sport Sciences – Sports Training",
+    "url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-sports-training",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FSS graduate program page."
+  },
+  {
+    "source_id": "UA047",
+    "page_title": "Master of Arts in Sport Sciences – Sports Management",
+    "url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-sports-management",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FSS graduate program page."
+  },
+  {
+    "source_id": "UA048",
+    "page_title": "MBA in Sports Management",
+    "url": "https://ua.edu.lb/en/fss/mba-in-sports-management",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FSS graduate program page."
+  },
+  {
+    "source_id": "UA050",
+    "page_title": "Master of Arts in Theological Sciences and Pastoral Studies – Theology of Consecrated Life",
+    "url": "https://ua.edu.lb/en/fot/ma-in-theological-sciences-and-pastoral-studies-theology-of-consecrated-life",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official FOT consecrated-life page; confirms the specialized theology master and thesis-based structure."
+  },
+  {
+    "source_id": "UA051",
+    "page_title": "Advanced Diploma in Dental Laboratory Technology",
+    "url": "https://ua.edu.lb/en/fph/ddlt/advanced-diploma-in-dental-laboratory-technology",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official graduate-cycle diploma page."
+  },
+  {
+    "source_id": "UA052",
+    "page_title": "Specialized Diploma in Gerontology Nursing",
+    "url": "https://ua.edu.lb/en/fph/dns/specialized-diploma-in-gerontology-nursing",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official graduate-cycle diploma page."
+  },
+  {
+    "source_id": "UA053",
+    "page_title": "Doctor of Physical Therapy",
+    "url": "https://ua.edu.lb/en/fph/dpt/doctor-of-physical-therapy",
+    "date_accessed": "2026-07-04",
+    "source_type": "webpage",
+    "notes": "Official graduate-cycle professional doctorate page."
+  }
+]

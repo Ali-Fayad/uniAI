@@ -1,0 +1,334 @@
+{
+  "id": "ua",
+  "name": "Université Antonine",
+  "official_website": "https://ua.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-04",
+  "sources_used": [
+    "UA002",
+    "UA003",
+    "UA004",
+    "UA005",
+    "UA006",
+    "UA007",
+    "UA008",
+    "UA009",
+    "UA010",
+    "UA011",
+    "UA012",
+    "UA013",
+    "UA014",
+    "UA015",
+    "UA016",
+    "UA017",
+    "UA018",
+    "UA019",
+    "UA020",
+    "UA021",
+    "UA022",
+    "UA023",
+    "UA024",
+    "UA026",
+    "UA027",
+    "UA028",
+    "UA029",
+    "UA030",
+    "UA031",
+    "UA032",
+    "UA033",
+    "UA034",
+    "UA035",
+    "UA036",
+    "UA038",
+    "UA039",
+    "UA040",
+    "UA041",
+    "UA042",
+    "UA043",
+    "UA045",
+    "UA046",
+    "UA047",
+    "UA048",
+    "UA029",
+    "UA050"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants apply through the Office of Orientation and Admissions, submit the required file to the relevant faculty, meet faculty-specific admission criteria, and complete any interview/entrance-exam steps required by the program.",
+    "steps": [
+      "Review the graduate program and its faculty-specific admission criteria.",
+      "Prepare the required documents and submit the application file through admissions.",
+      "Complete any required interview, selection criteria, or entrance exam steps.",
+      "Finish enrollment and fee payment according to the faculty calendar and instructions."
+    ],
+    "source_ids": [
+      "UA004",
+      "UA005",
+      "UA006",
+      "UA007",
+      "UA010",
+      "UA012"
+    ]
+  },
+  "required_documents": {
+    "summary": "UA publishes a general graduate checklist plus program-specific or transfer-related documents where applicable.",
+    "items": [
+      "Passport-size photos",
+      "Civil-status / ID copy for Lebanese students",
+      "Passport copy for foreign students",
+      "Lebanese Baccalaureate or equivalent certified by MEHE",
+      "Bachelor degree or equivalent certified by MEHE",
+      "Transfer records and course descriptions when applicable",
+      "Family status record or equivalent civil document where required"
+    ],
+    "source_ids": [
+      "UA004",
+      "UA010",
+      "UA011"
+    ]
+  },
+  "language_requirements": {
+    "summary": "No university-wide graduate language threshold was published in the reviewed sources; language expectations are faculty- and program-specific.",
+    "notes": [
+      "The Language Center provides placement/testing and remedial support in English and French."
+    ],
+    "source_ids": [
+      "UA016",
+      "UA017",
+      "UA010"
+    ]
+  },
+  "tuition_model": {
+    "summary": "UA publishes per-credit graduate tuition by faculty/program in the graduate tuition page and Fall 2026-27 tuition PDF. All mapped program tuition is stored on the program records; the theology programs did not expose a reliable title-level tuition value in the accessible official source set.",
+    "currency": "USD",
+    "source_ids": [
+      "UA008",
+      "UA009"
+    ],
+    "notes": "Music and Musicology pages show a collective-course price of $200 and an individual-course price of $245; the program records store the $200 collective rate."
+  },
+  "tuition_table": [
+    {
+      "faculty": "Antonine School of Business",
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "currency": "USD",
+      "program_ids": [
+        "ua-asb-master-accounting-auditing",
+        "ua-asb-master-marketing-international-management",
+        "ua-asb-master-banking-finance",
+        "ua-asb-master-human-resource-management",
+        "ua-asb-master-operations-logistics-management",
+        "ua-asb-master-digital-marketing",
+        "ua-asb-master-general-management-mba"
+      ],
+      "source_ids": [
+        "UA026",
+        "UA031",
+        "UA032",
+        "UA033",
+        "UA034",
+        "UA035",
+        "UA036",
+        "UA008",
+        "UA009"
+      ],
+      "notes": "ASB MBA programs publish the same $230 credit price."
+    },
+    {
+      "faculty": "Faculty of Information and Communication",
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "amount": 215,
+      "currency": "USD",
+      "program_ids": [
+        "ua-fic-master-information-communication"
+      ],
+      "source_ids": [
+        "UA027",
+        "UA008",
+        "UA009"
+      ],
+      "notes": "Official page shows $215 credit price."
+    },
+    {
+      "faculty": "Faculty of Music and Musicology",
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "currency": "USD",
+      "program_ids": [
+        "ua-fmm-master-general-musicology-modal-traditions",
+        "ua-fmm-master-music-education",
+        "ua-fmm-master-music-therapy",
+        "ua-fmm-master-music-technology-media",
+        "ua-fmm-master-art-music-mashriq",
+        "ua-fmm-master-european-art-music"
+      ],
+      "source_ids": [
+        "UA038",
+        "UA039",
+        "UA040",
+        "UA041",
+        "UA042",
+        "UA043",
+        "UA009"
+      ],
+      "notes": "Official page shows collective course $200 and individual course $245; the program records store the collective rate."
+    },
+    {
+      "faculty": "Faculty of Public Health",
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "amount": 235,
+      "currency": "USD",
+      "program_ids": [
+        "ua-fph-master-nursing-sciences"
+      ],
+      "source_ids": [
+        "UA028",
+        "UA008",
+        "UA009"
+      ],
+      "notes": "Official page shows $235 credit price."
+    },
+    {
+      "faculty": "Faculty of Sport Sciences",
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "amount": 265,
+      "currency": "USD",
+      "program_ids": [
+        "ua-fss-master-motricity-education-adapted-physical-activities",
+        "ua-fss-master-sports-training",
+        "ua-fss-master-sports-management",
+        "ua-fss-master-mba-sports-management-esg"
+      ],
+      "source_ids": [
+        "UA045",
+        "UA046",
+        "UA047",
+        "UA048",
+        "UA008",
+        "UA009"
+      ],
+      "notes": "Official pages show $265 credit price."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 70,
+      "currency": "USD",
+      "source_ids": [
+        "UA004",
+        "UA005",
+        "UA009"
+      ],
+      "notes": "Graduate application fee published on the application and required-documents pages and echoed in the fee PDF."
+    },
+    "entrance_exam_fee": {
+      "amount": 50,
+      "currency": "USD",
+      "source_ids": [
+        "UA004",
+        "UA007",
+        "UA009"
+      ],
+      "notes": "Graduate entrance exam fee published on the graduate admissions pages and fee PDF."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": "USD",
+      "source_ids": [
+        "UA009"
+      ],
+      "notes": "The fee sheet lists fixed registration fees, but the OCR extraction did not expose a single universal graduate registration amount."
+    },
+    "student_id_card_fee": {
+      "amount": 15,
+      "currency": "USD",
+      "source_ids": [
+        "UA009"
+      ],
+      "notes": "UA Smart Student ID Card fee published in the fee sheet."
+    },
+    "insurance_fee": {
+      "amount": null,
+      "currency": "USD",
+      "source_ids": [
+        "UA009"
+      ],
+      "notes": "Individual accident insurance / NSSF-related fee appears in the fee sheet, but the extracted text is not clean enough to model a single universal amount confidently."
+    },
+    "notes": [
+      "UA publishes fees by semester/faculty in the official fee sheet.",
+      "No graduate installment plan was published in the reviewed sources."
+    ]
+  },
+  "scholarships": {
+    "summary": "No university-wide graduate scholarship table was published in the reviewed official sources. External or doctoral-oriented scholarship announcements exist, but they are not a general graduate scholarship policy.",
+    "source_ids": [
+      "UA014",
+      "UA015",
+      "UA019",
+      "UA023"
+    ]
+  },
+  "financial_aid": {
+    "summary": "UA social-affairs aid is undergraduate-only in the reviewed rules; no broad graduate aid catalogue was published.",
+    "source_ids": [
+      "UA014",
+      "UA015"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No graduate installment plan was published; the reviewed fee sheet and admissions materials do not describe a graduate payment-plan schedule.",
+    "source_ids": [
+      "UA009",
+      "UA010",
+      "UA013"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "UA publishes an official academic calendar with registration, enrollment, payment, withdrawal, exams, and results dates.",
+    "source_ids": [
+      "UA013"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "Students must follow the relevant faculty regulations and university rules; no centralized graduate handbook was identified in the reviewed sources.",
+    "source_ids": [
+      "UA010",
+      "UA012",
+      "UA015"
+    ]
+  },
+  "accreditation": {
+    "summary": "The reviewed sources include an official accreditation certificate for the Master of Music and Musicology. No broader graduate accreditation catalogue was identified.",
+    "source_ids": [
+      "UA030"
+    ]
+  },
+  "international_students": {
+    "summary": "Foreign students can enroll with a certified passport copy and may use an authorized representative or embassy POA path if they cannot attend in person.",
+    "source_ids": [
+      "UA004",
+      "UA005",
+      "UA010",
+      "UA012"
+    ]
+  },
+  "language_policy": {
+    "summary": "No university-wide graduate language policy was published in the reviewed sources; language expectations remain faculty- and program-specific.",
+    "source_ids": [
+      "UA016",
+      "UA017",
+      "UA010"
+    ]
+  },
+  "notes": [
+    "UA-SRC-059 and UA-SRC-060 are not applicable here; the shared graduate fee model is unique to UL.",
+    "Program tuition is mapped only where a title-level official rate was visible in the reviewed UA sources.",
+    "Theology program tuition was not mapped because a reliable title-level rate was not exposed in the accessible official source set."
+  ]
+}

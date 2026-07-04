@@ -1,0 +1,91 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_v33_seed_generation": true,
+  "validation": {
+    "json_parse": true,
+    "compile": true,
+    "program_count": 21,
+    "master_count": 21,
+    "phd_count": 0,
+    "out_of_scope_count": 9,
+    "duplicate_program_ids": 0,
+    "duplicate_source_ids": 0,
+    "duplicate_source_urls": 0,
+    "programs_with_sources": 21,
+    "source_references_resolve": true,
+    "official_ua_urls_only": true,
+    "tuition_populated_count": 19,
+    "tuition_null_count": 2,
+    "out_of_scope_in_programs": 0,
+    "v24_schema_compatibility": true
+  },
+  "tuition": {
+    "null_program_ids": [
+      "ua-fot-master-theological-sciences-pastoral-studies",
+      "ua-fot-master-theological-sciences-pastoral-studies-consecrated-life"
+    ],
+    "note": "Both null tuition values belong only to the two Theology master's programs because no reliable official tuition value was published."
+  },
+  "shared_centralization": {
+    "university_json_centralizes_shared_admissions": true,
+    "university_json_centralizes_required_documents": true,
+    "university_json_centralizes_deadlines": true,
+    "university_json_centralizes_fees": true
+  },
+  "orphan_sources": {
+    "discovery": [
+      "UA051",
+      "UA052",
+      "UA053"
+    ],
+    "reference": [
+      "UA001",
+      "UA002",
+      "UA004",
+      "UA005",
+      "UA007",
+      "UA009",
+      "UA010",
+      "UA011",
+      "UA012",
+      "UA013",
+      "UA014",
+      "UA015",
+      "UA016",
+      "UA017",
+      "UA018",
+      "UA019",
+      "UA020",
+      "UA021",
+      "UA022",
+      "UA023",
+      "UA024",
+      "UA025"
+    ],
+    "obsolete": []
+  },
+  "completeness": {
+    "program_description": 21,
+    "credits": 21,
+    "duration": 21,
+    "thesis_or_non_thesis": 14,
+    "concentrations_or_tracks": 0,
+    "delivery_mode": 21,
+    "language": 21,
+    "admission_requirements": 21,
+    "required_documents": 0,
+    "gre_requirement": 0,
+    "gmat_requirement": 1,
+    "english_requirement": 0,
+    "portfolio_requirement": 0,
+    "interview_requirement": 11,
+    "experience_requirement": 0,
+    "tuition": 19,
+    "additional_fees": 0,
+    "deadlines": 0,
+    "scholarships": 0,
+    "financial_aid": 0,
+    "payment_plans": 0,
+    "accreditation": 6
+  }
+}

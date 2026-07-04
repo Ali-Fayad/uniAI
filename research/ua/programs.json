@@ -1,0 +1,1583 @@
+[
+  {
+    "id": "ua-asb-master-accounting-auditing",
+    "faculty": "Antonine School of Business",
+    "department": null,
+    "major_category": "Business Administration",
+    "major": "Accounting and Auditing",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – Accounting and Auditing",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "English and French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "MBA concentration in Accounting and Auditing focused on advanced management, functional decision-making, and applied business practice.",
+    "admission_requirements": "Bachelor's degree in business administration from a recognized university.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": null,
+      "notes": "Official page shows $230 Price / Credit $230.",
+      "source_ids": [
+        "UA026",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/asb/mba-accounting-and-auditing",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA026",
+        "page_title": "Master of Business Administration – Accounting and Auditing",
+        "url": "https://ua.edu.lb/en/asb/mba-accounting-and-auditing",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Representative ASB graduate program detail page; confirms language, credits, duration, price, campuses and PLO fields."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Listed on the official Graduate Programs page under Antonine School of Business. Official page confirms the MBA is delivered on campus with a 36-credit, two-year structure."
+  },
+  {
+    "id": "ua-asb-master-marketing-international-management",
+    "faculty": "Antonine School of Business",
+    "department": null,
+    "major_category": "Business Administration",
+    "major": "Marketing and International Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – Marketing and International Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "English and French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "MBA concentration in Marketing and International Management focused on advanced management, functional decision-making, and applied business practice.",
+    "admission_requirements": "Bachelor's degree in business administration from a recognized university.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": null,
+      "notes": "ASB MBA tuition uses the same published $230 credit price.",
+      "source_ids": [
+        "UA031",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/asb/mba-marketing-and-international-management",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA031",
+        "page_title": "Master of Business Administration – Marketing and International Management",
+        "url": "https://ua.edu.lb/en/asb/mba-marketing-and-international-management",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official ASB graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Listed on the official Graduate Programs page under Antonine School of Business. Official page confirms the MBA is delivered on campus with a 36-credit, two-year structure."
+  },
+  {
+    "id": "ua-asb-master-banking-finance",
+    "faculty": "Antonine School of Business",
+    "department": null,
+    "major_category": "Business Administration",
+    "major": "Banking and Finance",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – Banking and Finance",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "English and French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "MBA concentration in Banking and Finance focused on advanced management, functional decision-making, and applied business practice.",
+    "admission_requirements": "Bachelor's degree in business administration from a recognized university.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": null,
+      "notes": "ASB MBA tuition uses the same published $230 credit price.",
+      "source_ids": [
+        "UA032",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/asb/mba-banking-and-finance",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA032",
+        "page_title": "Master of Business Administration – Banking and Finance",
+        "url": "https://ua.edu.lb/en/asb/mba-banking-and-finance",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official ASB graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Listed on the official Graduate Programs page under Antonine School of Business. Official page confirms the MBA is delivered on campus with a 36-credit, two-year structure."
+  },
+  {
+    "id": "ua-asb-master-human-resource-management",
+    "faculty": "Antonine School of Business",
+    "department": null,
+    "major_category": "Business Administration",
+    "major": "Human Resource Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – Human Resource Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "English and French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "MBA concentration in Human Resource Management focused on advanced management, functional decision-making, and applied business practice.",
+    "admission_requirements": "Bachelor's degree in business administration from a recognized university.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": null,
+      "notes": "ASB MBA tuition uses the same published $230 credit price.",
+      "source_ids": [
+        "UA033",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/asb/mba-human-resource-management",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA033",
+        "page_title": "Master of Business Administration – Human Resource Management",
+        "url": "https://ua.edu.lb/en/asb/mba-human-resource-management",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official ASB graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Listed on the official Graduate Programs page under Antonine School of Business. Official page confirms the MBA is delivered on campus with a 36-credit, two-year structure."
+  },
+  {
+    "id": "ua-asb-master-operations-logistics-management",
+    "faculty": "Antonine School of Business",
+    "department": null,
+    "major_category": "Business Administration",
+    "major": "Operations and Logistics Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – Operations and Logistics Management",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "English and French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "MBA concentration in Operations and Logistics Management focused on advanced management, functional decision-making, and applied business practice.",
+    "admission_requirements": "Bachelor's degree in business administration from a recognized university.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": null,
+      "notes": "ASB MBA tuition uses the same published $230 credit price.",
+      "source_ids": [
+        "UA034",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/asb/mba-operations-and-logistics-management",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA034",
+        "page_title": "Master of Business Administration – Operations and Logistics Management",
+        "url": "https://ua.edu.lb/en/asb/mba-operations-and-logistics-management",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official ASB graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Listed on the official Graduate Programs page under Antonine School of Business. Official page confirms the MBA is delivered on campus with a 36-credit, two-year structure."
+  },
+  {
+    "id": "ua-asb-master-digital-marketing",
+    "faculty": "Antonine School of Business",
+    "department": null,
+    "major_category": "Business Administration",
+    "major": "Digital Marketing",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – Digital Marketing",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "English and French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "MBA concentration in Digital Marketing focused on advanced management, functional decision-making, and applied business practice.",
+    "admission_requirements": "Bachelor's degree in business administration from a recognized university.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": null,
+      "notes": "ASB MBA tuition uses the same published $230 credit price.",
+      "source_ids": [
+        "UA035",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/asb/mba-digital-marketing",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA035",
+        "page_title": "Master of Business Administration – Digital Marketing",
+        "url": "https://ua.edu.lb/en/asb/mba-digital-marketing",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official ASB graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Listed on the official Graduate Programs page under Antonine School of Business. Official page confirms the MBA is delivered on campus with a 36-credit, two-year structure."
+  },
+  {
+    "id": "ua-asb-master-general-management-mba",
+    "faculty": "Antonine School of Business",
+    "department": null,
+    "major_category": "Business Administration",
+    "major": "General Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Business Administration – General Management (MBA) for non-business students",
+    "thesis_or_non_thesis": null,
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "English",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "MBA for non-business students focused on general management, leadership, and case-based business decision-making.",
+    "admission_requirements": "Bachelor's degree from a recognized university; MBA Entrance Exam required unless the applicant has a GMAT score above 500; letter of intent, two recommendation letters, CV, and certified bachelor's transcripts.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": "GMAT score above 500 exempts the applicant from the MBA Entrance Exam.",
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": null,
+      "notes": "ASB MBA tuition uses the same published $230 credit price.",
+      "source_ids": [
+        "UA036",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/asb/mba",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA036",
+        "page_title": "Master of Business Administration – General Management (MBA)",
+        "url": "https://ua.edu.lb/en/asb/mba",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official ASB graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Official page shortens the title to Master of Business Administration – General Management (MBA). Official page identifies this MBA as intended for non-business students."
+  },
+  {
+    "id": "ua-fic-master-information-communication",
+    "faculty": "Faculty of Information and Communication",
+    "department": null,
+    "major_category": "Information and Communication",
+    "major": "Information and Communication",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Information and Communication",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Master of Arts in Information and Communication with advanced study in communication theory, media practice, and research methods.",
+    "admission_requirements": "Bachelor's degree in journalism and communication, social sciences, humanities, graphic design, or advertising.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 215,
+      "category": null,
+      "notes": "Official page shows $215 Price / Credit $215.",
+      "source_ids": [
+        "UA027",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fic/ma-in-information-and-communication",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA027",
+        "page_title": "Master of Arts in Information and Communication",
+        "url": "https://ua.edu.lb/en/fic/ma-in-information-and-communication",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FIC graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Listed on the official Graduate Programs page under Faculty of Information and Communication. Program structure includes a thesis component."
+  },
+  {
+    "id": "ua-fmm-master-general-musicology-modal-traditions",
+    "faculty": "Faculty of Music and Musicology",
+    "department": null,
+    "major_category": "Music and Musicology",
+    "major": "General Musicology of Modal Traditions",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Music and Musicology – General Musicology of Modal Traditions",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research-oriented Master in Music and Musicology with concentration in General Musicology of Modal Traditions, combining advanced coursework, research training, and a thesis.",
+    "admission_requirements": "Bachelor's degree in Music and Musicology in the same concentration or a related option; remedial courses may be required; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": null,
+      "notes": "Official page shows Price/Credit collective course $200 and individual course $245.",
+      "source_ids": [
+        "UA038",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Official PDF accreditation certificate for Master of Music and Musicology.",
+    "official_program_url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-general-musicology-of-modal-traditions",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA038",
+        "page_title": "Master in Music and Musicology – General Musicology of Modal Traditions",
+        "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-general-musicology-of-modal-traditions",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FMM graduate program page."
+      },
+      {
+        "source_id": "UA030",
+        "page_title": "Certificate of Programme Accreditation - Master of Music and Musicology",
+        "url": "https://ua.edu.lb/Library/Assets/Gallery/Documents/News/certificate-fmm-master.pdf",
+        "date_accessed": "2026-07-04",
+        "source_type": "pdf",
+        "notes": "Official PDF accreditation certificate for Master of Music and Musicology."
+      }
+    ],
+    "notes": "Official page states that explanations are in Arabic and documentation is available in French, English, and Arabic."
+  },
+  {
+    "id": "ua-fmm-master-music-education",
+    "faculty": "Faculty of Music and Musicology",
+    "department": null,
+    "major_category": "Music and Musicology",
+    "major": "Music Education",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Music and Musicology – Music Education",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research-oriented Master in Music and Musicology with concentration in Music Education, combining advanced coursework, research training, and a thesis.",
+    "admission_requirements": "Bachelor's degree in Music and Musicology in the same concentration or a related option; remedial courses may be required; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": null,
+      "notes": "Official page shows Price/Credit collective course $200 and individual course $245.",
+      "source_ids": [
+        "UA039",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Official PDF accreditation certificate for Master of Music and Musicology.",
+    "official_program_url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-education",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA039",
+        "page_title": "Master in Music and Musicology – Music Education",
+        "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-education",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FMM graduate program page."
+      },
+      {
+        "source_id": "UA030",
+        "page_title": "Certificate of Programme Accreditation - Master of Music and Musicology",
+        "url": "https://ua.edu.lb/Library/Assets/Gallery/Documents/News/certificate-fmm-master.pdf",
+        "date_accessed": "2026-07-04",
+        "source_type": "pdf",
+        "notes": "Official PDF accreditation certificate for Master of Music and Musicology."
+      }
+    ],
+    "notes": "Official page states that explanations are in Arabic and documentation is available in French, English, and Arabic."
+  },
+  {
+    "id": "ua-fmm-master-music-therapy",
+    "faculty": "Faculty of Music and Musicology",
+    "department": null,
+    "major_category": "Music and Musicology",
+    "major": "Music Therapy",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Music and Musicology – Music Therapy",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research-oriented Master in Music and Musicology with concentration in Music Therapy, combining advanced coursework, research training, and a thesis.",
+    "admission_requirements": "Bachelor's degree in Music and Musicology in the same concentration or a related option; remedial courses may be required; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": null,
+      "notes": "Official page shows Price/Credit collective course $200 and individual course $245.",
+      "source_ids": [
+        "UA040",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Official PDF accreditation certificate for Master of Music and Musicology.",
+    "official_program_url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-therapy",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA040",
+        "page_title": "Master in Music and Musicology – Music Therapy",
+        "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-therapy",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FMM graduate program page."
+      },
+      {
+        "source_id": "UA030",
+        "page_title": "Certificate of Programme Accreditation - Master of Music and Musicology",
+        "url": "https://ua.edu.lb/Library/Assets/Gallery/Documents/News/certificate-fmm-master.pdf",
+        "date_accessed": "2026-07-04",
+        "source_type": "pdf",
+        "notes": "Official PDF accreditation certificate for Master of Music and Musicology."
+      }
+    ],
+    "notes": "Official page states that explanations are in Arabic and documentation is available in French, English, and Arabic."
+  },
+  {
+    "id": "ua-fmm-master-music-technology-media",
+    "faculty": "Faculty of Music and Musicology",
+    "department": null,
+    "major_category": "Music and Musicology",
+    "major": "Music Technology and Media",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Music and Musicology – Music Technology and Media",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research-oriented Master in Music and Musicology with concentration in Music Technology and Media, combining advanced coursework, research training, and a thesis.",
+    "admission_requirements": "Bachelor's degree in Music and Musicology in the same concentration or a related option; remedial courses may be required; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": null,
+      "notes": "Official page shows Price/Credit collective course $200 and individual course $245.",
+      "source_ids": [
+        "UA041",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Official PDF accreditation certificate for Master of Music and Musicology.",
+    "official_program_url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-technology-and-media",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA041",
+        "page_title": "Master in Music and Musicology – Music Technology and Media",
+        "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-music-technology-and-media",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FMM graduate program page."
+      },
+      {
+        "source_id": "UA030",
+        "page_title": "Certificate of Programme Accreditation - Master of Music and Musicology",
+        "url": "https://ua.edu.lb/Library/Assets/Gallery/Documents/News/certificate-fmm-master.pdf",
+        "date_accessed": "2026-07-04",
+        "source_type": "pdf",
+        "notes": "Official PDF accreditation certificate for Master of Music and Musicology."
+      }
+    ],
+    "notes": "Official page states that explanations are in Arabic and documentation is available in French, English, and Arabic."
+  },
+  {
+    "id": "ua-fmm-master-art-music-mashriq",
+    "faculty": "Faculty of Music and Musicology",
+    "department": null,
+    "major_category": "Music and Musicology",
+    "major": "Art Music of the Mashriq",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Music and Musicology – Art Music of the Mashriq",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research-oriented Master in Music and Musicology with concentration in Art Music of the Mashriq, combining advanced coursework, research training, and a thesis.",
+    "admission_requirements": "Bachelor's degree in Music and Musicology in the same concentration or a related option; remedial courses may be required; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": null,
+      "notes": "Official page shows Price/Credit collective course $200 and individual course $245.",
+      "source_ids": [
+        "UA042",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Official PDF accreditation certificate for Master of Music and Musicology.",
+    "official_program_url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-art-music-of-the-mashriq",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA042",
+        "page_title": "Master in Music and Musicology – Art Music of the Mashriq",
+        "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-art-music-of-the-mashriq",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FMM graduate program page."
+      },
+      {
+        "source_id": "UA030",
+        "page_title": "Certificate of Programme Accreditation - Master of Music and Musicology",
+        "url": "https://ua.edu.lb/Library/Assets/Gallery/Documents/News/certificate-fmm-master.pdf",
+        "date_accessed": "2026-07-04",
+        "source_type": "pdf",
+        "notes": "Official PDF accreditation certificate for Master of Music and Musicology."
+      }
+    ],
+    "notes": "Official page states that explanations are in Arabic and documentation is available in French, English, and Arabic."
+  },
+  {
+    "id": "ua-fmm-master-european-art-music",
+    "faculty": "Faculty of Music and Musicology",
+    "department": null,
+    "major_category": "Music and Musicology",
+    "major": "European Art Music",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master in Music and Musicology – European Art Music",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research-oriented Master in Music and Musicology with concentration in European Art Music, combining advanced coursework, research training, and a thesis.",
+    "admission_requirements": "Bachelor's degree in Music and Musicology in the same concentration or a related option; remedial courses may be required; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": null,
+      "notes": "Official page shows Price/Credit collective course $200 and individual course $245.",
+      "source_ids": [
+        "UA043",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": "Official PDF accreditation certificate for Master of Music and Musicology.",
+    "official_program_url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-european-art-music",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA043",
+        "page_title": "Master in Music and Musicology – European Art Music",
+        "url": "https://ua.edu.lb/en/fmm/master-in-music-and-musicology-european-art-music",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FMM graduate program page."
+      },
+      {
+        "source_id": "UA030",
+        "page_title": "Certificate of Programme Accreditation - Master of Music and Musicology",
+        "url": "https://ua.edu.lb/Library/Assets/Gallery/Documents/News/certificate-fmm-master.pdf",
+        "date_accessed": "2026-07-04",
+        "source_type": "pdf",
+        "notes": "Official PDF accreditation certificate for Master of Music and Musicology."
+      }
+    ],
+    "notes": "Official page states that explanations are in Arabic and documentation is available in French, English, and Arabic."
+  },
+  {
+    "id": "ua-fph-master-nursing-sciences",
+    "faculty": "Faculty of Public Health",
+    "department": null,
+    "major_category": "Health Sciences",
+    "major": "Nursing Sciences",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Science in Nursing Sciences",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 39,
+    "duration": 2,
+    "language": "French",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Master of Science in Nursing Sciences with advanced clinical, leadership, and research preparation.",
+    "admission_requirements": "Bachelor's degree in nursing sciences or equivalent; oral interview.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 235,
+      "category": null,
+      "notes": "Official page shows $235 Price / Credit $235.",
+      "source_ids": [
+        "UA028",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fph/dns/ms-in-nursing-sciences",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA028",
+        "page_title": "Master of Science in Nursing Sciences",
+        "url": "https://ua.edu.lb/en/fph/dns/ms-in-nursing-sciences",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FPH graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Representative program page was used for enrichment; the program remains a per-credit graduate master."
+  },
+  {
+    "id": "ua-fss-master-motricity-education-adapted-physical-activities",
+    "faculty": "Faculty of Sport Sciences",
+    "department": null,
+    "major_category": "Sport Sciences",
+    "major": "Motricity Education and Adapted Physical Activities",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Sport Sciences – Motricity Education and Adapted Physical Activities",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "French or English (based on program chosen)",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research master's in sport sciences with concentration in Motricity Education and Adapted Physical Activities, oriented toward research practice and specialized professional preparation.",
+    "admission_requirements": "Bachelor of Arts in Physical Education and Sport or equivalent; DELF B2 and English B1.2; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 265,
+      "category": null,
+      "notes": "Official page shows $265 Price / Credit $265.",
+      "source_ids": [
+        "UA045",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-motricity-education-and-adapted-physical-activities",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA045",
+        "page_title": "Master of Arts in Sport Sciences – Motricity Education and Adapted Physical Activities",
+        "url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-motricity-education-and-adapted-physical-activities",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FSS graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Official page presents the program as a research master with thesis and oral presentation requirements."
+  },
+  {
+    "id": "ua-fss-master-sports-training",
+    "faculty": "Faculty of Sport Sciences",
+    "department": null,
+    "major_category": "Sport Sciences",
+    "major": "Sports Training",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Sport Sciences – Sports Training",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "French or English (based on program chosen)",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research master's in sport sciences with concentration in Sports Training, oriented toward research practice and specialized professional preparation.",
+    "admission_requirements": "Bachelor of Arts in Physical Education and Sport or equivalent; DELF B2 and English B1.2; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 265,
+      "category": null,
+      "notes": "Official page shows $265 Price / Credit $265.",
+      "source_ids": [
+        "UA046",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-sports-training",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA046",
+        "page_title": "Master of Arts in Sport Sciences – Sports Training",
+        "url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-sports-training",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FSS graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Official page presents the program as a research master with thesis and oral presentation requirements."
+  },
+  {
+    "id": "ua-fss-master-sports-management",
+    "faculty": "Faculty of Sport Sciences",
+    "department": null,
+    "major_category": "Sport Sciences",
+    "major": "Sports Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Sport Sciences – Sports Management",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 36,
+    "duration": 2,
+    "language": "French or English (based on program chosen)",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Research master's in sport sciences with concentration in Sports Management, oriented toward research practice and specialized professional preparation.",
+    "admission_requirements": "Bachelor of Arts in Physical Education and Sport or equivalent; DELF B2 and English B1.2; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 265,
+      "category": null,
+      "notes": "Official page shows $265 Price / Credit $265.",
+      "source_ids": [
+        "UA047",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-sports-management",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA047",
+        "page_title": "Master of Arts in Sport Sciences – Sports Management",
+        "url": "https://ua.edu.lb/en/fss/ma-in-sport-sciences-sports-management",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FSS graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Official page presents the program as a research master with thesis and oral presentation requirements."
+  },
+  {
+    "id": "ua-fss-master-mba-sports-management-esg",
+    "faculty": "Faculty of Sport Sciences",
+    "department": null,
+    "major_category": "Sport Sciences",
+    "major": "Sports Management",
+    "degree_type": "MASTER",
+    "official_degree_name": "MBA in Sports Management (ESG)",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": "18-36",
+    "duration": 2,
+    "language": "French or English (based on program chosen)",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Professional MBA in Sports Management focused on administration, organization, and leadership in the sports sector.",
+    "admission_requirements": "Bachelor of Arts in Physical Education and Sport or a master's degree in the same field; oral interview with the Dean.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": "Required.",
+    "experience_requirement": null,
+    "tuition": {
+      "academic_year": "2026-2027",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 265,
+      "category": null,
+      "notes": "Official page shows $265 Price / Credit $265.",
+      "source_ids": [
+        "UA048",
+        "UA008",
+        "UA009"
+      ]
+    },
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fss/mba-in-sports-management",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA048",
+        "page_title": "MBA in Sports Management",
+        "url": "https://ua.edu.lb/en/fss/mba-in-sports-management",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FSS graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Official page lists a flexible 18-36 credit structure and an end-of-studies thesis/oral presentation."
+  },
+  {
+    "id": "ua-fot-master-theological-sciences-pastoral-studies",
+    "faculty": "Faculty of Theology",
+    "department": null,
+    "major_category": "Theological Sciences and Pastoral Studies",
+    "major": "Theological Sciences and Pastoral Studies",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Theological Sciences and Pastoral Studies",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 37,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Master of Arts in Theological Sciences and Pastoral Studies with advanced theological and pastoral formation.",
+    "admission_requirements": "Bachelor's degree in Theological Sciences and Pastoral Studies or equivalent.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fot/ma-in-theological-sciences-and-pastoral-studies",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA029",
+        "page_title": "Master of Arts in Theological Sciences and Pastoral Studies",
+        "url": "https://ua.edu.lb/en/fot/ma-in-theological-sciences-and-pastoral-studies",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FOT graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Official page indicates a thesis-based program structure in theology and pastoral studies."
+  },
+  {
+    "id": "ua-fot-master-theological-sciences-pastoral-studies-consecrated-life",
+    "faculty": "Faculty of Theology",
+    "department": null,
+    "major_category": "Theological Sciences and Pastoral Studies",
+    "major": "Theology of Consecrated Life",
+    "degree_type": "MASTER",
+    "official_degree_name": "Master of Arts in Theological Sciences and Pastoral Studies – Theology of Consecrated Life",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "credits": 37,
+    "duration": 2,
+    "language": "Arabic",
+    "delivery_mode": "ON_CAMPUS",
+    "program_description": "Specialized theology master focused on consecrated life within the broader theological and pastoral studies cycle.",
+    "admission_requirements": "Seminarians, religious, and consecrated persons with a Bachelor in Theological Sciences and Pastoral Studies or equivalent.",
+    "required_documents": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "english_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "tuition": null,
+    "additional_fees": null,
+    "deadlines": null,
+    "scholarships": null,
+    "financial_aid": null,
+    "payment_plans": null,
+    "accreditation": null,
+    "official_program_url": "https://ua.edu.lb/en/fot/ma-in-theological-sciences-and-pastoral-studies-theology-of-consecrated-life",
+    "sources": [
+      {
+        "source_id": "UA003",
+        "page_title": "Programs | Graduate | Antonine University",
+        "url": "https://www.ua.edu.lb/en/graduate/programs",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Primary graduate program inventory; lists faculties and graduate programs/options."
+      },
+      {
+        "source_id": "UA050",
+        "page_title": "Master of Arts in Theological Sciences and Pastoral Studies – Theology of Consecrated Life",
+        "url": "https://ua.edu.lb/en/fot/ma-in-theological-sciences-and-pastoral-studies-theology-of-consecrated-life",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Official FOT graduate program page."
+      },
+      {
+        "source_id": "UA006",
+        "page_title": "Selection Criteria | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/selection-criteria",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Faculty/program-level graduate admission requirements and selection criteria."
+      },
+      {
+        "source_id": "UA008",
+        "page_title": "Tuition Fees | Graduate | Antonine University",
+        "url": "https://ua.edu.lb/en/graduate/tuition-fees",
+        "date_accessed": "2026-07-04",
+        "source_type": "webpage",
+        "notes": "Graduate per-credit tuition summary and fixed/general fees reference."
+      }
+    ],
+    "notes": "Official page highlights formation for consecrated life and an end-of-studies thesis requirement."
+  }
+]

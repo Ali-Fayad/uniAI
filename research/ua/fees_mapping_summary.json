@@ -1,0 +1,153 @@
+{
+  "total_programs": 21,
+  "tuition_populated_count": 19,
+  "tuition_null_count": 2,
+  "tuition_rows_grouped_by_faculty": [
+    {
+      "faculty": "Antonine School of Business",
+      "count": 7,
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "currency": "USD",
+      "amount": 230,
+      "program_ids": [
+        "ua-asb-master-accounting-auditing",
+        "ua-asb-master-marketing-international-management",
+        "ua-asb-master-banking-finance",
+        "ua-asb-master-human-resource-management",
+        "ua-asb-master-operations-logistics-management",
+        "ua-asb-master-digital-marketing",
+        "ua-asb-master-general-management-mba"
+      ],
+      "source_ids": [
+        "UA026",
+        "UA008",
+        "UA009",
+        "UA031",
+        "UA032",
+        "UA033",
+        "UA034",
+        "UA035",
+        "UA036"
+      ],
+      "notes": "Official page shows $230 Price / Credit $230."
+    },
+    {
+      "faculty": "Faculty of Information and Communication",
+      "count": 1,
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "currency": "USD",
+      "amount": 215,
+      "program_ids": [
+        "ua-fic-master-information-communication"
+      ],
+      "source_ids": [
+        "UA027",
+        "UA008",
+        "UA009"
+      ],
+      "notes": "Official page shows $215 Price / Credit $215."
+    },
+    {
+      "faculty": "Faculty of Music and Musicology",
+      "count": 6,
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "currency": "USD",
+      "amount": 200,
+      "program_ids": [
+        "ua-fmm-master-general-musicology-modal-traditions",
+        "ua-fmm-master-music-education",
+        "ua-fmm-master-music-therapy",
+        "ua-fmm-master-music-technology-media",
+        "ua-fmm-master-art-music-mashriq",
+        "ua-fmm-master-european-art-music"
+      ],
+      "source_ids": [
+        "UA038",
+        "UA009",
+        "UA039",
+        "UA040",
+        "UA041",
+        "UA042",
+        "UA043"
+      ],
+      "notes": "Official page shows Price/Credit collective course $200 and individual course $245."
+    },
+    {
+      "faculty": "Faculty of Public Health",
+      "count": 1,
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "currency": "USD",
+      "amount": 235,
+      "program_ids": [
+        "ua-fph-master-nursing-sciences"
+      ],
+      "source_ids": [
+        "UA028",
+        "UA008",
+        "UA009"
+      ],
+      "notes": "Official page shows $235 Price / Credit $235."
+    },
+    {
+      "faculty": "Faculty of Sport Sciences",
+      "count": 4,
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "currency": "USD",
+      "amount": 265,
+      "program_ids": [
+        "ua-fss-master-motricity-education-adapted-physical-activities",
+        "ua-fss-master-sports-training",
+        "ua-fss-master-sports-management",
+        "ua-fss-master-mba-sports-management-esg"
+      ],
+      "source_ids": [
+        "UA045",
+        "UA008",
+        "UA009",
+        "UA046",
+        "UA047",
+        "UA048"
+      ],
+      "notes": "Official page shows $265 Price / Credit $265."
+    }
+  ],
+  "unmapped_programs": [
+    {
+      "program_id": "ua-fot-master-theological-sciences-pastoral-studies",
+      "reason": "No reliable title-level tuition value was exposed in the accessible official UA source set."
+    },
+    {
+      "program_id": "ua-fot-master-theological-sciences-pastoral-studies-consecrated-life",
+      "reason": "No reliable title-level tuition value was exposed in the accessible official UA source set."
+    }
+  ],
+  "source_ids_used": [
+    "UA026",
+    "UA008",
+    "UA009",
+    "UA031",
+    "UA032",
+    "UA033",
+    "UA034",
+    "UA035",
+    "UA036",
+    "UA027",
+    "UA038",
+    "UA039",
+    "UA040",
+    "UA041",
+    "UA042",
+    "UA043",
+    "UA028",
+    "UA045",
+    "UA046",
+    "UA047",
+    "UA048"
+  ],
+  "notes": "UA tuition is published per credit by faculty/program. The Music and Musicology pages publish a collective-course rate of $200 and an individual-course rate of $245; the program rows store the collective-course rate."
+}
