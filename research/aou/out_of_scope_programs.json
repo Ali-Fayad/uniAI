@@ -1,0 +1,41 @@
+[
+  {
+    "id": "aou-edu-teaching-diploma-education",
+    "program_key": "teaching-diploma-education",
+    "title": "Teaching Diploma in Education",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AOU_SRC_002"
+    ],
+    "notes": "Graduate-list diploma discovered on the official graduate programs page but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "aou-edu-teaching-diploma-physical-education-sports",
+    "program_key": "teaching-diploma-physical-education-sports",
+    "title": "Teaching Diploma in Physical Education and Sports",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AOU_SRC_002"
+    ],
+    "notes": "Graduate-list diploma discovered on the official graduate programs page but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "aou-edu-teaching-diploma-special-education-learning-difficulties",
+    "program_key": "teaching-diploma-special-education-learning-difficulties",
+    "title": "Teaching Diploma in Special Education - Learning Difficulties",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AOU_SRC_002"
+    ],
+    "notes": "Graduate-list diploma discovered on the official graduate programs page but excluded because diplomas are out of scope."
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "task_code": "MEU_FINAL_QA_001",
+  "university": "Middle East University",
+  "date_accessed": "2026-07-05",
+  "verdict": "APPROVE_WITH_NOTES",
+  "counts": {
+    "programs": 4,
+    "masters": 4,
+    "phds": 0,
+    "out_of_scope": 0
+  },
+  "validation": {
+    "json_parse": true,
+    "compile": true,
+    "duplicate_program_ids": false,
+    "duplicate_source_ids": false,
+    "duplicate_source_urls": false,
+    "duplicate_official_program_urls": false,
+    "broken_source_references": false,
+    "tuition_coverage": true,
+    "v24_compatibility": true
+  },
+  "notes": {
+    "ma_islamic_studies_language": "Cleared because the reviewed official source set did not explicitly publish a per-program language field.",
+    "orphan_sources": [
+      "MEU-S001"
+    ],
+    "intentional_nulls": [
+      "language",
+      "admission_requirements",
+      "credits",
+      "duration",
+      "thesis_or_non_thesis",
+      "delivery_mode",
+      "gre_requirement",
+      "gmat_requirement",
+      "portfolio_requirement",
+      "interview_requirement",
+      "experience_requirement",
+      "accreditation"
+    ],
+    "official_source_limitations": [
+      "No official graduate PhD program was confirmed.",
+      "No explicit per-program language field was published for the four graduate programs.",
+      "Tuition is shared at university scope rather than split by program beyond the official graduate fee schedule."
+    ]
+  }
+}

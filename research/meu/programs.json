@@ -1,0 +1,175 @@
+[
+  {
+    "id": "meu-fba-master-business-administration",
+    "program_key": "business-administration",
+    "title": "Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": "Department of Business Administration",
+    "official_program_url": "https://meu.edu.lb/business-administration-mba/",
+    "source_ids": [
+      "MEU-S002",
+      "MEU-S003"
+    ],
+    "program_description": "Master of Business Administration with concentrations in Finance, General Business, Management, and Marketing.",
+    "concentrations_or_tracks": [
+      "Finance",
+      "General Business",
+      "Management",
+      "Marketing"
+    ],
+    "admission_requirements": null,
+    "language": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 305,
+      "category": "Graduate Students",
+      "notes": "Official MEU graduate tuition schedule; the MBA also carries a separate business program fee recorded in university.json.",
+      "source_ids": [
+        "MEU-S013",
+        "MEU-S014"
+      ]
+    },
+    "credits": null,
+    "duration": null,
+    "thesis_or_non_thesis": null,
+    "delivery_mode": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "accreditation": null,
+    "notes": "Official MBA page confirms the program and the four concentrations.",
+    "description": "Master of Business Administration with concentrations in Finance, General Business, Management, and Marketing."
+  },
+  {
+    "id": "meu-fe-master-education",
+    "program_key": "education",
+    "title": "Master of Arts in Education",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Education",
+    "department": "Department of Teacher Education",
+    "official_program_url": "https://meu.edu.lb/master-education/",
+    "source_ids": [
+      "MEU-S002",
+      "MEU-S004"
+    ],
+    "program_description": "The Master of Arts in Education is designed for teachers who are seeking to enhance their classroom skills, become curriculum supervisors, or assume leadership roles in many educational settings.",
+    "concentrations_or_tracks": [
+      "Curriculum and Instruction",
+      "Educational Leadership"
+    ],
+    "admission_requirements": null,
+    "language": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 305,
+      "category": "Graduate Students",
+      "notes": "Official MEU graduate tuition schedule.",
+      "source_ids": [
+        "MEU-S013",
+        "MEU-S014"
+      ]
+    },
+    "credits": null,
+    "duration": null,
+    "thesis_or_non_thesis": null,
+    "delivery_mode": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "accreditation": null,
+    "notes": "Official MA Education page confirms the program and its two concentrations.",
+    "description": "The Master of Arts in Education is designed for teachers who are seeking to enhance their classroom skills, become curriculum supervisors, or assume leadership roles in many educational settings."
+  },
+  {
+    "id": "meu-ft-master-islamic-studies",
+    "program_key": "islamic-studies",
+    "title": "Master of Arts in Islamic Studies",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Philosophy and Theology",
+    "department": "Department of Mediterranean and Near Eastern Studies",
+    "official_program_url": "https://meu.edu.lb/islamic-studies/",
+    "source_ids": [
+      "MEU-S002",
+      "MEU-S005",
+      "MEU-S012"
+    ],
+    "program_description": "Master of Arts in Islamic Studies with 44 credits, catalog-based course structure, and Arabic prerequisite notes for students without sufficient Arabic background.",
+    "concentrations_or_tracks": null,
+    "admission_requirements": "Applicants without adequate Arabic background must complete two prerequisite Arabic language courses outside the MA program.",
+    "language": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 305,
+      "category": "Graduate Students",
+      "notes": "Official MEU graduate tuition schedule.",
+      "source_ids": [
+        "MEU-S013",
+        "MEU-S014"
+      ]
+    },
+    "credits": 44,
+    "duration": null,
+    "thesis_or_non_thesis": null,
+    "delivery_mode": "ON_CAMPUS",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "accreditation": null,
+    "notes": "Official program and catalog sources confirm the degree, department, 44-credit structure, and Arabic prerequisite condition.",
+    "description": "Master of Arts in Islamic Studies."
+  },
+  {
+    "id": "meu-fe-master-teaching",
+    "program_key": "teaching",
+    "title": "Master of Arts in Teaching",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Education",
+    "department": "Department of Teacher Education",
+    "official_program_url": "https://meu.edu.lb/teaching-master/",
+    "source_ids": [
+      "MEU-S002",
+      "MEU-S006"
+    ],
+    "program_description": "Master of Arts in Teaching for professional educators seeking advanced preparation in teaching and instructional practice.",
+    "concentrations_or_tracks": null,
+    "admission_requirements": null,
+    "language": null,
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 305,
+      "category": "Graduate Students",
+      "notes": "Official MEU graduate tuition schedule.",
+      "source_ids": [
+        "MEU-S013",
+        "MEU-S014"
+      ]
+    },
+    "credits": null,
+    "duration": null,
+    "thesis_or_non_thesis": null,
+    "delivery_mode": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "accreditation": null,
+    "notes": "Official MA Teaching page confirms the program and its focus on professional educators.",
+    "description": "Master of Arts in Teaching for professional educators."
+  }
+]

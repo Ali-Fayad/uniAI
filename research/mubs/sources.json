@@ -1,0 +1,202 @@
+[
+  {
+    "source_id": "MUBS-SRC-001",
+    "page_title": "Home - Modern University for Business & Science",
+    "url": "https://www.mubs.edu.lb/",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Main navigation and footer source for admissions, faculties, financial aid, academics, quick links, current events, and campus count."
+  },
+  {
+    "source_id": "MUBS-SRC-002",
+    "page_title": "Admission - Modern University for Business & Science",
+    "url": "https://www.mubs.edu.lb/en/admission.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Admission landing page listing Admission Requirements, Important Information, Undergraduate Majors, Graduate Majors, How to Apply, Tuition & Fees, Entrance Exams & Remedial Courses, Admission Webinars, and Placement Exam Dates."
+  },
+  {
+    "source_id": "MUBS-SRC-003",
+    "page_title": "Graduate Majors - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/admission/graduate-majors.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Target graduate programs page; browser fetch returned verification/loader page during discovery, so program details were cross-checked using faculty/program pages, UMS application URLs, and catalog PDFs."
+  },
+  {
+    "source_id": "MUBS-SRC-004",
+    "page_title": "Admission Requirements - Modern University for Business & Science",
+    "url": "https://www.mubs.edu.lb/en/admission/admission-requirements.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Target admissions requirement page; browser fetch returned verification/loader page. Graduate admission rules were found in official catalogue PDFs."
+  },
+  {
+    "source_id": "MUBS-SRC-005",
+    "page_title": "Tuition & Fees - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/admission/tuition.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Target MUBS tuition page; browser fetch returned verification/loader page. No current non-Cardiff graduate tuition amounts were confirmed."
+  },
+  {
+    "source_id": "MUBS-SRC-006",
+    "page_title": "Financial Aid - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/financial-aid.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Financial aid overview; states aid may include scholarships, academic merits, athletic scholarships, and need-based grants, and links to general information, applications, work-study, and charts."
+  },
+  {
+    "source_id": "MUBS-SRC-007",
+    "page_title": "Faculty of Business Administration - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/faculties/fba.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Faculty page; links to Cardiff Metropolitan University at MUBS and faculty profile/about pages. No direct MUBS-local master program list was visible in fetched content."
+  },
+  {
+    "source_id": "MUBS-SRC-008",
+    "page_title": "Faculty of Health Sciences - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/faculties/fhs.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Faculty page; links to FHS majors, profiles, Erasmus+ ICARE, health club, and publications. No master/PhD program details were visible in fetched content."
+  },
+  {
+    "source_id": "MUBS-SRC-009",
+    "page_title": "Computer Science Department - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/faculties/artsandsciences/csd.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Confirms Master of Computer Science (MCS), specialization areas Software Development, Cyber Security, Artificial Intelligence, and Internet of Things, and MEHE accreditation for BCS and MCS."
+  },
+  {
+    "source_id": "MUBS-SRC-010",
+    "page_title": "Faculty of Arts and Sciences - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/faculties/artsandsciences.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Faculty landing page listed in navigation; direct fetch was inconsistent, but department page was accessible."
+  },
+  {
+    "source_id": "MUBS-SRC-011",
+    "page_title": "Faculty of Fine Arts and Design - Modern University for Business & Science",
+    "url": "https://mubs.edu.lb/en/faculties/finearts.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Faculty page discovered through navigation/search. No in-scope master/PhD program details found in discovery."
+  },
+  {
+    "source_id": "MUBS-SRC-012",
+    "page_title": "Cardiff Metropolitan University at MUBS - CMU",
+    "url": "https://www.mubs.edu.lb/en/faculties/cmu.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Cardiff Met/MUBS overview; confirms MBA programmes at a glance: MBA General, Project Management, Human Resource Management, Marketing, Health Sector Management, Supply Chain & Logistics Management."
+  },
+  {
+    "source_id": "MUBS-SRC-013",
+    "page_title": "MBA Master of Business Administration (General) - CMU",
+    "url": "https://mubs.edu.lb/en/faculties/cmu/programs/postgraduate-level/7741.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Program page with MBA overview, core modules, pathway modules, final project, employability, and Cardiff Met application steps."
+  },
+  {
+    "source_id": "MUBS-SRC-014",
+    "page_title": "Tuition Fees - CMU",
+    "url": "https://mubs.edu.lb/en/faculties/cmu/tuitionfees.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "States graduate Dual-Degree and Hybrid Programme fees are available upon request via MUBS forms; no numeric tuition published in fetched content."
+  },
+  {
+    "source_id": "MUBS-SRC-015",
+    "page_title": "Financial Aid - CMU",
+    "url": "https://mubs.edu.lb/en/faculties/cmu/financialaidform.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Cardiff Met financial aid page; limited text available, mainly application steps and contact details."
+  },
+  {
+    "source_id": "MUBS-SRC-016",
+    "page_title": "Cardiff Met Programme at MUBS | Info Request Form",
+    "url": "https://www.mubs.edu.lb/cmu/info.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Official MUBS info request page describing British master degree, hybrid/flexible structure, and Cardiff Met recognition."
+  },
+  {
+    "source_id": "MUBS-SRC-017",
+    "page_title": "CMU Dual Degree | Info Request - MUBS Forms",
+    "url": "https://forms.mubs.edu.lb/index.php/944744?lang=en&newtest=Y",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_form",
+    "notes": "Official MUBS forms subdomain for Cardiff Met dual-degree interest; confirms master degree marketing and recognition statements."
+  },
+  {
+    "source_id": "MUBS-SRC-018",
+    "page_title": "Apply Online - Master of Science in Computer Science (MCS)",
+    "url": "https://ums.mubs.edu.lb/application/applicant/newApplicant.php?major=Master+of+Science+in+Computer+Science+%28MCS%29",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_form",
+    "notes": "Official UMS application URL confirms MCS appears as an application major."
+  },
+  {
+    "source_id": "MUBS-SRC-019",
+    "page_title": "Catalogue 2012 - Modern University for Business and Science",
+    "url": "https://www.mubs.edu.lb/assets/templates/mubs/files/catalogue2012.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_pdf",
+    "notes": "Official catalogue PDF. Useful for graduate admissions, TOEFL/GPA requirements, required documents, old postgraduate context, MBA Marketing and Entrepreneurship, and Master in Social Work references. Treat program data as legacy unless confirmed by current pages."
+  },
+  {
+    "source_id": "MUBS-SRC-020",
+    "page_title": "Academic Catalogue 2010-2011 - Modern University for Business and Science",
+    "url": "https://www.mubs.edu.lb/assets/templates/mubs/files/academiccatalogue.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_pdf",
+    "notes": "Older official catalogue. Useful for historical admissions, fees, financial assistance, academic regulations, and MBA references. Treat as legacy."
+  },
+  {
+    "source_id": "MUBS-SRC-021",
+    "page_title": "Catalogue 2014 - Modern University for Business and Science",
+    "url": "https://www.mubs.edu.lb/assets/templates/mubs/files/catalogue2014.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_pdf",
+    "notes": "Official catalogue PDF discovered through search. Potentially useful for historical programs and regulations; not relied on for current program confirmation without current pages."
+  },
+  {
+    "source_id": "MUBS-SRC-022",
+    "page_title": "Catalogue 2011 - Modern University for Business and Science",
+    "url": "https://mubs.edu.lb/assets/templates/mubs/files/catalogue2011.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_pdf",
+    "notes": "Older official catalogue; confirms graduate admission GPA baseline in search snippet. Treat as legacy."
+  },
+  {
+    "source_id": "MUBS-SRC-023",
+    "page_title": "MBA Cardiff PDF - MUBS / Cardiff Metropolitan University",
+    "url": "https://www.mubs.edu.lb/assets/templates/bsml/files/MBA-Cardiff.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_pdf",
+    "notes": "Official PDF describing Cardiff MBA structure, double degree, evening classes, and Lebanese/UK recognition; older PDF but relevant to Cardiff MBA background."
+  },
+  {
+    "source_id": "MUBS-SRC-024",
+    "page_title": "Academic Calendar - Modern University for Business & Science",
+    "url": "https://www.mubs.edu.lb/en/academics_mubs/academic-calendar.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Academic calendar URL discovered from navigation. Browser fetch returned verification/loader/timeout, but homepage lists upcoming academic dates including tuition payment deadline and withdrawal/evaluation dates."
+  },
+  {
+    "source_id": "MUBS-SRC-025",
+    "page_title": "Rules & Regulations - Modern University for Business & Science",
+    "url": "https://www.mubs.edu.lb/en/academics_mubs/rules.aspx",
+    "date_accessed": "2026-07-04",
+    "source_type": "official_page",
+    "notes": "Target regulations page discovered in navigation; direct fetch failed. Catalogue PDFs remain the main regulations source found."
+  }
+]

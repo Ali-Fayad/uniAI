@@ -1,0 +1,76 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_seed_generation": true,
+  "seed_generation_target": "V36",
+  "programs_total": 3,
+  "master_count": 3,
+  "phd_count": 0,
+  "out_of_scope_count": 2,
+  "duplicate_program_ids": [],
+  "duplicate_source_ids": [],
+  "duplicate_source_urls": [],
+  "duplicate_official_program_urls": [],
+  "broken_source_references": [],
+  "tuition_coverage": {
+    "populated": 0,
+    "null": 3
+  },
+  "shared_data_centralized": true,
+  "mba_modeling": "single_program",
+  "schema_compatibility": {
+    "degree_type": true,
+    "delivery_mode": true,
+    "thesis_or_non_thesis": true,
+    "language": true,
+    "tuition": true
+  },
+  "orphan_sources": [
+    "AUL-001",
+    "AUL-006",
+    "AUL-007",
+    "AUL-008",
+    "AUL-009"
+  ],
+  "completeness": {
+    "credits": 3,
+    "duration": 3,
+    "description": 3,
+    "notes": 3,
+    "language": 0,
+    "concentrations_or_tracks": 0,
+    "tuition": 0,
+    "program_description": 0,
+    "thesis_or_non_thesis": 0,
+    "delivery_mode": 0,
+    "admission_requirements": 0,
+    "GRE": 0,
+    "GMAT": 0,
+    "portfolio": 0,
+    "interview": 0,
+    "experience": 0,
+    "accreditation": 0
+  },
+  "intentional_nulls": [
+    "tuition",
+    "language",
+    "delivery_mode",
+    "admission_requirements",
+    "GRE",
+    "GMAT",
+    "portfolio",
+    "interview",
+    "experience",
+    "accreditation"
+  ],
+  "validation": {
+    "json_parse": true,
+    "compile": true,
+    "official_urls_only": true,
+    "every_source_reference_resolves": true
+  },
+  "notes": [
+    "No official graduate tuition schedule was published in the reviewed AUL sources.",
+    "No official PhD program evidence was found.",
+    "The MBA is kept as one program rather than separate concentration rows."
+  ]
+}

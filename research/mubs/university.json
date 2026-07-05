@@ -1,0 +1,225 @@
+{
+  "id": "mubs",
+  "name": "Modern University for Business and Science",
+  "official_website": "https://www.mubs.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-04",
+  "graduate_scope": {
+    "included": [
+      "MASTER",
+      "PHD"
+    ],
+    "out_of_scope": [
+      "Bachelor",
+      "Diploma",
+      "Certificate",
+      "Continuing Education",
+      "Professional Programs",
+      "News",
+      "Events"
+    ]
+  },
+  "sources_used": [
+    "MUBS-SRC-001",
+    "MUBS-SRC-002",
+    "MUBS-SRC-003",
+    "MUBS-SRC-004",
+    "MUBS-SRC-005",
+    "MUBS-SRC-006",
+    "MUBS-SRC-009",
+    "MUBS-SRC-012",
+    "MUBS-SRC-013",
+    "MUBS-SRC-014",
+    "MUBS-SRC-016",
+    "MUBS-SRC-017",
+    "MUBS-SRC-018",
+    "MUBS-SRC-019",
+    "MUBS-SRC-020",
+    "MUBS-SRC-022",
+    "MUBS-SRC-023",
+    "MUBS-SRC-024",
+    "MUBS-SRC-025"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants are directed through the admission landing page, the graduate-majors flow, and the official forms/application channels. Current graduate admission requirements were not fully extractable from the live site in this pass, so the official catalogue PDFs remain the clearest source for the graduate application checklist.",
+    "steps": [
+      "Review the admission landing page and graduate majors page.",
+      "Use the official MUBS application or info-request flow for the chosen graduate option.",
+      "Prepare the supporting documents listed in the official catalogue PDFs.",
+      "Complete any additional review or testing that MUBS requests for the selected graduate path."
+    ],
+    "source_ids": [
+      "MUBS-SRC-002",
+      "MUBS-SRC-003",
+      "MUBS-SRC-016",
+      "MUBS-SRC-017",
+      "MUBS-SRC-019",
+      "MUBS-SRC-022"
+    ]
+  },
+  "required_documents": {
+    "summary": "The official catalogue PDFs list the graduate application checklist. The current source set confirms the standard supporting documents even though the live admissions page could not be fully extracted.",
+    "items": [
+      "Graduate application form",
+      "Certified copies of official certificates or diplomas",
+      "Official transcripts",
+      "Identity card or passport copy",
+      "Family status document",
+      "Two recommendation letters",
+      "MUBS Graduate Admission Test",
+      "CV",
+      "Two photos"
+    ],
+    "source_ids": [
+      "MUBS-SRC-019",
+      "MUBS-SRC-022"
+    ]
+  },
+  "language_requirements": {
+    "summary": "The official catalogue PDFs state graduate English thresholds, but the current admissions page was not fully extractable during discovery. The legacy catalogue values are retained here as the official language reference recovered in this pass.",
+    "notes": [
+      "Paper-based TOEFL: 600",
+      "Computer-based TOEFL: 250",
+      "Internet-based TOEFL: 100",
+      "Treat these values as the official catalogue references recovered in this pass, not as a newly verified current-page rewrite."
+    ],
+    "source_ids": [
+      "MUBS-SRC-019",
+      "MUBS-SRC-022"
+    ]
+  },
+  "tuition_model": {
+    "summary": "No stable numeric graduate tuition rate was recovered from the current official MUBS pages in this pass. The general tuition page returned verification/loader behavior, and the Cardiff tuition page states that graduate fees are available upon request.",
+    "source_ids": [
+      "MUBS-SRC-005",
+      "MUBS-SRC-014",
+      "MUBS-SRC-016",
+      "MUBS-SRC-017"
+    ],
+    "notes": [
+      "No program-level tuition was mapped into `programs.json`.",
+      "Keep tuition null at program level until a current official fee schedule is recovered."
+    ]
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "MUBS-SRC-002",
+        "MUBS-SRC-003",
+        "MUBS-SRC-016",
+        "MUBS-SRC-017"
+      ],
+      "notes": "The reviewed official pages confirm the admissions and forms flow, but the accessible source set did not expose a stable graduate application fee amount."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "MUBS-SRC-005",
+        "MUBS-SRC-014"
+      ],
+      "notes": "The tuition and Cardiff tuition pages did not expose a stable graduate registration fee amount in this pass."
+    },
+    "notes": "The official source set confirms fee-related pages and forms, but not stable numeric fee amounts for the current graduate inventory."
+  },
+  "payment_methods": {
+    "summary": "The official source set confirms that fee information is handled through MUBS tuition and info-request forms, but it does not expose a stable bank/cash/installment payment matrix in this pass.",
+    "items": [
+      "Use the official MUBS tuition and info-request forms for fee inquiries",
+      "Cardiff graduate fees are available upon request through MUBS"
+    ],
+    "source_ids": [
+      "MUBS-SRC-014",
+      "MUBS-SRC-016",
+      "MUBS-SRC-017"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No formal installment schedule was recovered from the official pages reviewed in this pass. The source set only confirms that Cardiff graduate fees are available upon request.",
+    "items": [
+      "No published graduate installment schedule was recovered",
+      "Cardiff graduate fees are available upon request"
+    ],
+    "source_ids": [
+      "MUBS-SRC-014",
+      "MUBS-SRC-016",
+      "MUBS-SRC-017"
+    ]
+  },
+  "scholarships": {
+    "summary": "MUBS publishes a financial-aid page that explicitly references scholarships, academic merits, and athletic scholarships.",
+    "items": [
+      "Scholarships",
+      "Academic merits",
+      "Athletic scholarship"
+    ],
+    "source_ids": [
+      "MUBS-SRC-006"
+    ]
+  },
+  "financial_aid": {
+    "summary": "The financial-aid page states that aid is intended to help students and families cover higher-education expenses and includes need-based grants.",
+    "items": [
+      "Need-based grants",
+      "Financial aid for qualifying students and families",
+      "Scholarship-based support",
+      "Merit-based support",
+      "Athletic support"
+    ],
+    "source_ids": [
+      "MUBS-SRC-006"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "The academic calendar page is present in the official navigation, and the homepage previews upcoming academic dates, but the current calendar page could not be fully extracted in this pass.",
+    "items": [
+      "Academic calendar page discovered in navigation",
+      "Homepage previews current academic dates"
+    ],
+    "source_ids": [
+      "MUBS-SRC-001",
+      "MUBS-SRC-024"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The rules-and-regulations page is published on the official site, but the accessible source set did not expose its full text. The official catalogue PDFs remain the clearest recovered graduate-regulations reference for this pass.",
+    "items": [
+      "Graduate rules and regulations page exists on the official site",
+      "Catalogue PDFs remain the recovered graduate-regulations reference"
+    ],
+    "source_ids": [
+      "MUBS-SRC-019",
+      "MUBS-SRC-020",
+      "MUBS-SRC-022",
+      "MUBS-SRC-025"
+    ]
+  },
+  "international_students": {
+    "summary": "No dedicated graduate international-student policy page was recovered in this pass. The official site navigation includes International Affairs, and the admissions/forms flow supports applicant handling through official MUBS channels.",
+    "items": [
+      "International Affairs appears in the official site navigation",
+      "Graduate applicant handling is routed through official MUBS admissions and forms pages",
+      "No separate graduate international-student policy text was recovered"
+    ],
+    "source_ids": [
+      "MUBS-SRC-001",
+      "MUBS-SRC-002",
+      "MUBS-SRC-016",
+      "MUBS-SRC-017"
+    ]
+  },
+  "accreditation": {
+    "summary": "The Computer Science Department page explicitly states MEHE accreditation for the BCS and MCS. No broader university-wide graduate accreditation statement was recovered in the reviewed source set.",
+    "items": [
+      "MEHE accreditation for the BCS and MCS"
+    ],
+    "source_ids": [
+      "MUBS-SRC-009"
+    ]
+  }
+}

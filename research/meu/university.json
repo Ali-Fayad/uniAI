@@ -1,0 +1,342 @@
+{
+  "id": "meu",
+  "name": "Middle East University",
+  "official_website": "https://meu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "sources_used": [
+    "MEU-S001",
+    "MEU-S002",
+    "MEU-S003",
+    "MEU-S004",
+    "MEU-S005",
+    "MEU-S006",
+    "MEU-S007",
+    "MEU-S008",
+    "MEU-S009",
+    "MEU-S010",
+    "MEU-S011",
+    "MEU-S012",
+    "MEU-S013",
+    "MEU-S014",
+    "MEU-S015",
+    "MEU-S016",
+    "MEU-S017"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants use the official MEU application procedure, submit the required file at least one month before the semester, and may be asked to complete entrance testing or further documentation review.",
+    "steps": [
+      "Review the official program page and the MEU graduate admissions catalog page.",
+      "Complete the official application procedure and submit the required documents at least one month before the semester begins.",
+      "Pay the non-refundable graduate application fee.",
+      "Complete any required English test, GRE, or GMAT step that applies to the selected graduate program.",
+      "Finish registration or any Business Office payment arrangement before classes begin."
+    ],
+    "source_ids": [
+      "MEU-S007",
+      "MEU-S008",
+      "MEU-S010",
+      "MEU-S013",
+      "MEU-S014"
+    ]
+  },
+  "required_documents": {
+    "summary": "MEU publishes a graduate checklist in the catalog admissions page, with additional requirements for international and Lebanese applicants.",
+    "items": [
+      "Completed application form",
+      "Recent digital passport-style photograph",
+      "Authenticated copy of the bachelor's diploma and official undergraduate transcript(s) sent directly to MEU",
+      "Certified copy of the baccalaureate certificate or equivalent",
+      "English proficiency certificate if required and not older than two years",
+      "Non-refundable application fee",
+      "Passport main page for international applicants",
+      "National identity card for Lebanese applicants",
+      "Family civil status record for Lebanese applicants",
+      "Official transcript in a sealed envelope for transfer applicants"
+    ],
+    "source_ids": [
+      "MEU-S008"
+    ]
+  },
+  "language_requirements": {
+    "summary": "Graduate applicants must demonstrate English proficiency unless they studied their undergraduate program in English, and some graduate departments may require GRE or GMAT.",
+    "notes": [
+      "TOEFL ITP minimum 600.",
+      "TOEFL iBT minimum 100.",
+      "IELTS minimum 7.0.",
+      "Duolingo minimum 120.",
+      "The English score is valid for up to two years.",
+      "MA, MAT, and MS departments may require GRE.",
+      "MBA applicants may be required to sit for GMAT.",
+      "MA Islamic Studies includes an Arabic prerequisite note for students without sufficient Arabic background."
+    ],
+    "source_ids": [
+      "MEU-S008",
+      "MEU-S012"
+    ]
+  },
+  "tuition_model": {
+    "summary": "MEU publishes a shared graduate tuition rate of USD 305 per credit for graduate students in the official 2025-2026 fee schedule.",
+    "currency": "USD",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "source_ids": [
+      "MEU-S013",
+      "MEU-S014"
+    ],
+    "notes": [
+      "The graduate fee schedule applies the same per-credit tuition to the published graduate programs in this inventory.",
+      "MBA students also pay a separate business program fee, which is recorded below as a program-specific fee."
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "MEU graduate programs",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 305,
+      "category": "Graduate Students",
+      "program_ids": [
+        "meu-fba-master-business-administration",
+        "meu-fe-master-education",
+        "meu-ft-master-islamic-studies",
+        "meu-fe-master-teaching"
+      ],
+      "program_count": 4,
+      "source_ids": [
+        "MEU-S013",
+        "MEU-S014"
+      ],
+      "notes": "Official MEU graduate tuition schedule applies to the four inventoried MASTER programs."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 85,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "MEU-S007",
+        "MEU-S013",
+        "MEU-S014"
+      ],
+      "notes": "Graduate application fee published on the official application procedure and graduate fee pages."
+    },
+    "registration_fee": {
+      "amount": 220,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "MEU-S013",
+        "MEU-S014"
+      ],
+      "notes": "Graduate registration fee published in the official 2025-2026 fee schedule."
+    },
+    "program_specific_fees": [
+      {
+        "name": "Business Program Fee",
+        "applies_to": [
+          "Master of Business Administration"
+        ],
+        "amount_semester": 135,
+        "amount_summer": 85,
+        "currency": "USD",
+        "billing_basis": "PER_SEMESTER_AND_SUMMER",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "Published in the official graduate fee schedule for BBA/MBA students."
+      }
+    ],
+    "deposit_requirements": [
+      {
+        "name": "Foreign student advance deposit",
+        "amount": 2500,
+        "currency": "USD",
+        "billing_basis": "FLAT_FEE",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "Credited to the student's account for tuition and fees."
+      },
+      {
+        "name": "Lebanese registration deposit",
+        "amount": 200,
+        "currency": "USD",
+        "billing_basis": "FLAT_FEE",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "Credited to the student's account for tuition and fees."
+      }
+    ],
+    "other_fees": [
+      {
+        "name": "Development fee",
+        "amount": 45,
+        "currency": "USD",
+        "billing_basis": "PER_SEMESTER",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "Published in the official graduate fee schedule."
+      },
+      {
+        "name": "Parking fee",
+        "amount": 35,
+        "currency": "USD",
+        "billing_basis": "PER_SEMESTER",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "Published in the official graduate fee schedule."
+      },
+      {
+        "name": "Accident insurance for non-Lebanese students",
+        "amount": 30,
+        "currency": "USD",
+        "billing_basis": "PER_SEMESTER",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "Published in the official graduate fee schedule."
+      },
+      {
+        "name": "Student residency permit fee",
+        "amount": 450,
+        "currency": "USD",
+        "billing_basis": "FLAT_FEE",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "Published in the official graduate fee schedule."
+      },
+      {
+        "name": "National Social Security Fee for Lebanese students",
+        "amount": 3000000,
+        "currency": "LBP",
+        "billing_basis": "PER_SEMESTER",
+        "source_ids": [
+          "MEU-S013",
+          "MEU-S014"
+        ],
+        "notes": "If applicable; the official fee schedule states LBP 3,000,000 each semester."
+      }
+    ],
+    "notes": "The official graduate fee schedule also states that published prices are subject to change without prior notice and that payments may be made in Lebanese Lira at the exchange rate of the date."
+  },
+  "payment_methods": {
+    "summary": "MEU states that tuition and fees are paid in full during registration or by alternative arrangement with the Business Office, and payments may be made in cash or direct deposit into the MEU bank account.",
+    "items": [
+      "Pay tuition and fees in full during the registration period at the beginning of each semester",
+      "Make alternative arrangements with the Business Office",
+      "Pay in cash",
+      "Pay by direct deposit into the MEU bank account"
+    ],
+    "source_ids": [
+      "MEU-S010",
+      "MEU-S013",
+      "MEU-S014"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No formal installment plan was published in the reviewed official MEU sources; the catalog only says students may make alternative arrangements with the Business Office.",
+    "items": [
+      "Alternative arrangements with the Business Office",
+      "No formal installment schedule published in the reviewed official sources"
+    ],
+    "source_ids": [
+      "MEU-S010"
+    ]
+  },
+  "scholarships": {
+    "summary": "MEU publishes graduate-relevant scholarship and merit support on its financial aid page.",
+    "items": [
+      "Merit Tuition Scholarship for new and current graduate students",
+      "Scholarship support for eligible graduate students"
+    ],
+    "source_ids": [
+      "MEU-S011"
+    ]
+  },
+  "financial_aid": {
+    "summary": "MEU offers needs-based financial aid, family discount support, and work-study opportunities; the needs-based aid page states graduate students may qualify.",
+    "items": [
+      "Needs-Based Financial Aid up to 40% on tuition only for eligible Lebanese undergraduate and graduate students",
+      "Work-Study Program",
+      "Family Discount"
+    ],
+    "source_ids": [
+      "MEU-S011"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "MEU publishes official academic calendar PDFs for 2025-2026 and 2026-2027.",
+    "items": [
+      "Academic Calendar 2025-2026",
+      "Academic Calendar 2026-2027"
+    ],
+    "source_ids": [
+      "MEU-S015",
+      "MEU-S016"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "MEU publishes graduate status and regulation text in the catalog admissions page and supporting student handbook.",
+    "items": [
+      "Admission remains valid for one academic year from the date of acceptance",
+      "Regular graduate status requires at least a 2.75 undergraduate GPA in the major area",
+      "Regular graduate students are normally enrolled in 8 to 12 credits per semester",
+      "Summer enrollment is limited to 6 credits",
+      "More than 12 credits requires approval",
+      "Graduate programs must be completed within six academic years",
+      "Transfer credit is limited to 20 percent of the program and must have been earned within the last four years",
+      "MA, MAT, and MS departments may require GRE; MBA applicants may be required to sit for GMAT"
+    ],
+    "source_ids": [
+      "MEU-S008",
+      "MEU-S017"
+    ]
+  },
+  "international_students": {
+    "summary": "MEU sets advance-deposit, visa, residence-permit, and full-course-of-study expectations for international graduate applicants and students.",
+    "items": [
+      "Applicants from outside Lebanon must pay an advance deposit",
+      "Applicants must present a satisfactory budget for tuition, studies, and living costs",
+      "Applicants needing a visa should allow sufficient processing time",
+      "Applicants should not arrive in Lebanon before receiving official acceptance and travel authorization",
+      "Passport must be valid for at least one year from the date of joining MEU",
+      "MEU assists registered international students with residence permits",
+      "International students must be registered for a full course of study to maintain status"
+    ],
+    "source_ids": [
+      "MEU-S008",
+      "MEU-S010",
+      "MEU-S013",
+      "MEU-S014"
+    ]
+  },
+  "accreditation": {
+    "summary": "The official MEU sources in this pass do not present a single university-wide graduate accreditation table; accreditation and recognition are documented at the program and catalog level.",
+    "items": [
+      "MEHE accreditation for the BCS and MCS is stated on the Computer Science Department page",
+      "Cardiff Metropolitan University recognition context is stated on the MBA page and in the catalog-linked program materials"
+    ],
+    "source_ids": [
+      "MEU-S003",
+      "MEU-S005",
+      "MEU-S009",
+      "MEU-S012"
+    ]
+  }
+}

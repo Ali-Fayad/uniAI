@@ -1,0 +1,255 @@
+{
+  "id": "rhu",
+  "name": "Rafik Hariri University",
+  "official_website": "https://www.rhu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-04",
+  "sources_used": [
+    "RHU-SRC-002",
+    "RHU-SRC-003",
+    "RHU-SRC-004",
+    "RHU-SRC-005",
+    "RHU-SRC-006",
+    "RHU-SRC-007",
+    "RHU-SRC-008",
+    "RHU-SRC-009",
+    "RHU-SRC-011",
+    "RHU-SRC-013",
+    "RHU-SRC-014",
+    "RHU-SRC-015",
+    "RHU-SRC-016",
+    "RHU-SRC-017",
+    "RHU-SRC-018"
+  ],
+  "admissions_process": {
+    "summary": "RHU graduate admissions are merit-based. Applicants submit the official graduate application, provide the required documents, meet the English requirement, and complete any graduate committee review or interview step when requested.",
+    "steps": [
+      "Complete the official graduate application.",
+      "Submit the required graduate documents and evidence of prior degree recognition/equivalence.",
+      "Meet the English entrance or competency requirement.",
+      "Complete any program committee review or interview step if requested.",
+      "Pay the non-refundable admission file fee."
+    ],
+    "source_ids": [
+      "RHU-SRC-004",
+      "RHU-SRC-005",
+      "RHU-SRC-006",
+      "RHU-SRC-011"
+    ]
+  },
+  "required_documents": {
+    "summary": "RHU lists a graduate application package built around prior academic credentials, attested transcripts, English competency evidence, and recommendations.",
+    "items": [
+      "Certified copy of undergraduate degree and equivalence from the Ministry of Higher Education",
+      "Official transcripts attested by the Ministry of Higher Education",
+      "Certified copy of Lebanese Official High School Certificate or equivalent",
+      "RHU English Entrance Exam or standardized English competency exam",
+      "Recommendation letters",
+      "Any additional documents listed in the Graduate Catalog and application package"
+    ],
+    "source_ids": [
+      "RHU-SRC-004",
+      "RHU-SRC-011"
+    ]
+  },
+  "language_requirements": {
+    "summary": "RHU requires proof of English proficiency for graduate admission through the RHU English Entrance Exam or another recognized English competency exam.",
+    "notes": [
+      "The reviewed official sources do not expose a single numeric threshold in the source map summary.",
+      "Keep the requirement as a general English competency rule in shared data."
+    ],
+    "source_ids": [
+      "RHU-SRC-004",
+      "RHU-SRC-011"
+    ]
+  },
+  "tuition_model": {
+    "summary": "RHU publishes a current graduate fee table with tuition charged per credit hour and differentiated by college.",
+    "currency": "USD",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "source_ids": [
+      "RHU-SRC-008"
+    ],
+    "notes": [
+      "The 2025-2026 fee PDF shows College of Business Administration graduate tuition at USD 200 per credit hour.",
+      "The 2025-2026 fee PDF shows College of Engineering graduate tuition at USD 280 per credit hour."
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "College of Business Administration",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": "Graduate Tuition",
+      "program_count": 1,
+      "program_ids": [
+        "rhu-cba-master-business-administration"
+      ],
+      "notes": "Official 2025-2026 tuition and fees PDF lists College of Business Administration graduate tuition at USD 200 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    {
+      "faculty": "College of Engineering",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "Graduate Tuition",
+      "program_count": 6,
+      "program_ids": [
+        "rhu-coe-master-biomedical-engineering",
+        "rhu-coe-master-civil-environmental-engineering",
+        "rhu-coe-master-computer-communications-engineering",
+        "rhu-coe-master-electrical-engineering",
+        "rhu-coe-master-mechanical-engineering",
+        "rhu-coe-master-mechatronics-engineering"
+      ],
+      "notes": "Official 2025-2026 tuition and fees PDF lists College of Engineering graduate tuition at USD 280 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 30,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "RHU-SRC-005",
+        "RHU-SRC-011"
+      ],
+      "notes": "RHU publishes a non-refundable USD 30 admission file fee."
+    },
+    "registration_fee": {
+      "amount": 200,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "RHU-SRC-008"
+      ],
+      "notes": "The current fee PDF states that the first payment includes a USD 200 registration fee."
+    },
+    "operational_fee": {
+      "amount": 300,
+      "currency": "USD",
+      "billing_basis": "PER_SEMESTER",
+      "source_ids": [
+        "RHU-SRC-008"
+      ],
+      "notes": "The current fee PDF lists a USD 300 operational fee per semester."
+    },
+    "nssf_membership_fee": {
+      "amount": 94,
+      "currency": "USD",
+      "billing_basis": "PER_ACADEMIC_YEAR",
+      "source_ids": [
+        "RHU-SRC-008"
+      ],
+      "notes": "The current fee PDF lists an NSSF membership fee of USD 94 per academic year."
+    }
+  },
+  "payment_methods": {
+    "summary": "RHU states that students pay part of the semester charges at the beginning of the term and complete payment through the Finance Office process.",
+    "items": [
+      "Semester-start payment of 25% of tuition plus other fees",
+      "Finance Office payment procedures"
+    ],
+    "source_ids": [
+      "RHU-SRC-008",
+      "RHU-SRC-009"
+    ]
+  },
+  "payment_plans": {
+    "summary": "RHU offers deferred payment by signed contract with installment schedules by term.",
+    "items": [
+      "Deferred payment by signed contract",
+      "Four installments for Fall and Spring semesters",
+      "Two installments for Summer session"
+    ],
+    "source_ids": [
+      "RHU-SRC-008",
+      "RHU-SRC-009"
+    ]
+  },
+  "scholarships": {
+    "summary": "RHU publishes scholarship and discount language through the Financial Aid Office and graduate assistantship provisions in the Graduate Catalog.",
+    "items": [
+      "Financial-aid discounts",
+      "Agreement-based reductions",
+      "Limited merit-based graduate assistantships"
+    ],
+    "source_ids": [
+      "RHU-SRC-005",
+      "RHU-SRC-011"
+    ]
+  },
+  "financial_aid": {
+    "summary": "RHU financial aid is handled through the Financial Aid Office and the Graduate Catalog assistantship provisions.",
+    "items": [
+      "Need-based or discount-based financial aid through the Financial Aid Office",
+      "Limited merit-based graduate assistantships",
+      "Aid subject to academic and registration conditions"
+    ],
+    "source_ids": [
+      "RHU-SRC-005",
+      "RHU-SRC-011"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "RHU publishes its graduate academic calendar in the Graduate Catalog and on the academic calendar page.",
+    "items": [
+      "Academic Calendar 2025-2026",
+      "Academic calendar page on the official RHU website"
+    ],
+    "source_ids": [
+      "RHU-SRC-011",
+      "RHU-SRC-018"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The Graduate Catalog covers the graduate academic rules for period of study, supervision, course load, grades, plan of study, standing, assistantship, and graduation.",
+    "items": [
+      "Period of study",
+      "Orientation",
+      "Supervision",
+      "Courses and grades",
+      "Course load",
+      "Plan of study",
+      "Academic standing",
+      "Graduate assistantship",
+      "Graduation requirements"
+    ],
+    "source_ids": [
+      "RHU-SRC-011",
+      "RHU-SRC-018"
+    ]
+  },
+  "accreditation": {
+    "summary": null,
+    "notes": [
+      "No explicit accreditation statement was recovered from the reviewed official RHU sources in this pass."
+    ],
+    "source_ids": []
+  },
+  "international_students": {
+    "summary": "RHU's Graduate Catalog includes passport and visa guidance for international students, alongside the general graduate admission requirements.",
+    "items": [
+      "Passport and visa requirements",
+      "Meet RHU graduate admission requirements",
+      "Comply with applicable Lebanese immigration rules"
+    ],
+    "source_ids": [
+      "RHU-SRC-005",
+      "RHU-SRC-011"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "total_programs": 4,
+  "tuition_populated_count": 4,
+  "tuition_null_count": 0,
+  "tuition_rows_grouped_by_faculty": [
+    {
+      "faculty": "MEU graduate programs",
+      "count": 4,
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "currency": "USD",
+      "amount": 305,
+      "program_ids": [
+        "meu-fba-master-business-administration",
+        "meu-fe-master-education",
+        "meu-ft-master-islamic-studies",
+        "meu-fe-master-teaching"
+      ],
+      "source_ids": [
+        "MEU-S013",
+        "MEU-S014"
+      ],
+      "notes": "Official MEU graduate tuition schedule applies to all four inventoried MASTER programs."
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "MEU-S007",
+    "MEU-S008",
+    "MEU-S010",
+    "MEU-S011",
+    "MEU-S012",
+    "MEU-S013",
+    "MEU-S014",
+    "MEU-S015",
+    "MEU-S016",
+    "MEU-S017"
+  ],
+  "notes": "MEU publishes a shared graduate tuition rate of USD 305 per credit, a graduate application fee of USD 85, a registration fee of USD 220, and an MBA business program fee of USD 135 per semester / USD 85 per summer. All tuition and fee references resolve to official MEU sources only."
+}

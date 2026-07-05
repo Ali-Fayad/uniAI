@@ -1,0 +1,58 @@
+{
+  "date_accessed": "2026-07-04",
+  "program_counts": {
+    "total": 7,
+    "master": 7,
+    "phd": 0,
+    "out_of_scope": 0
+  },
+  "validation": {
+    "json_parse": true,
+    "duplicate_program_ids": false,
+    "duplicate_source_urls": false,
+    "every_source_reference_resolves": true,
+    "shared_data_centralized": true,
+    "mba_emphases_preserved": true,
+    "engineering_credits_intentionally_null_where_paths_differ": true,
+    "schema_v24_compatible": true,
+    "mvnw_compile_passed": true
+  },
+  "tuition": {
+    "currency": "USD",
+    "billing_basis": "PER_CREDIT",
+    "populated_count": 7,
+    "null_count": 0,
+    "college_of_business_administration": 200,
+    "college_of_engineering": 280
+  },
+  "shared_centralization": {
+    "fields": [
+      "admissions_process",
+      "required_documents",
+      "language_requirements",
+      "tuition_model",
+      "fee_structure",
+      "payment_methods",
+      "payment_plans",
+      "scholarships",
+      "financial_aid",
+      "academic_calendar",
+      "graduate_regulations",
+      "accreditation",
+      "international_students"
+    ]
+  },
+  "official_discrepancies": [
+    {
+      "topic": "MBA emphases",
+      "decision": "Kept as concentrations/notes under one MBA record"
+    },
+    {
+      "topic": "Engineering thesis paths",
+      "decision": "Left engineering credits unset where a single canonical number was not safely supported"
+    }
+  ],
+  "recommendation": "APPROVE WITH NOTES",
+  "ready_for_v37_seed_generation": true,
+  "message": "RHU is ready for V37 seed generation."
+}

@@ -1,0 +1,23 @@
+{
+  "total_programs": 2,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 2,
+  "tuition_rows_grouped_by_faculty": [],
+  "unmapped_programs": [
+    {
+      "program_id": "mubs-fas-master-computer-science",
+      "reason": "No stable numeric tuition value was exposed in the reviewed official sources; the current tuition page returned verification/loader behavior."
+    },
+    {
+      "program_id": "mubs-cmu-master-business-administration",
+      "reason": "No stable numeric tuition value was exposed in the reviewed official sources; the Cardiff tuition page says fees are available upon request."
+    }
+  ],
+  "source_ids_used": [
+    "MUBS-SRC-005",
+    "MUBS-SRC-014",
+    "MUBS-SRC-016",
+    "MUBS-SRC-017"
+  ],
+  "notes": "The reviewed official source set did not expose a stable numeric graduate tuition amount for either current master record. Program-level tuition is therefore left unmapped rather than inferred."
+}

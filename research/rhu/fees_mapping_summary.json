@@ -1,0 +1,51 @@
+{
+  "total_programs": 7,
+  "tuition_populated_count": 7,
+  "tuition_null_count": 0,
+  "tuition_rows_grouped_by_faculty": [
+    {
+      "faculty": "College of Business Administration",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": "Graduate Tuition",
+      "program_ids": [
+        "rhu-cba-master-business-administration"
+      ],
+      "program_count": 1,
+      "source_ids": [
+        "RHU-SRC-008"
+      ],
+      "notes": "MBA tuition maps to the current RHU graduate tuition PDF at USD 200 per credit hour."
+    },
+    {
+      "faculty": "College of Engineering",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "Graduate Tuition",
+      "program_ids": [
+        "rhu-coe-master-biomedical-engineering",
+        "rhu-coe-master-civil-environmental-engineering",
+        "rhu-coe-master-computer-communications-engineering",
+        "rhu-coe-master-electrical-engineering",
+        "rhu-coe-master-mechanical-engineering",
+        "rhu-coe-master-mechatronics-engineering"
+      ],
+      "program_count": 6,
+      "source_ids": [
+        "RHU-SRC-008"
+      ],
+      "notes": "Engineering master's programs map to the current RHU graduate tuition PDF at USD 280 per credit hour."
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "RHU-SRC-008"
+  ],
+  "notes": "All 7 MASTER records were mapped to the current official RHU graduate tuition PDF. No program required a null tuition fallback."
+}

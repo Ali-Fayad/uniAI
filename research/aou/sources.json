@@ -1,0 +1,162 @@
+[
+  {
+    "source_id": "AOU_SRC_001",
+    "page_title": "Arab Open University - Lebanon Home",
+    "url": "https://web.aou.edu.lb/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Main AOU Lebanon website; navigation hub for admissions, academics, students, faculties, and contact information."
+  },
+  {
+    "source_id": "AOU_SRC_002",
+    "page_title": "Graduate Programs",
+    "url": "https://web.aou.edu.lb/admission/pages/graduate-programs.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Central graduate programs listing; identifies in-scope master's programs and out-of-scope diplomas."
+  },
+  {
+    "source_id": "AOU_SRC_003",
+    "page_title": "Graduate Requirements",
+    "url": "https://web.aou.edu.lb/admission/pages/graduate-requirements.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Graduate admission requirements, English/GMAT exemptions, and required documents."
+  },
+  {
+    "source_id": "AOU_SRC_004",
+    "page_title": "Admission Fees - Graduate",
+    "url": "https://web.aou.edu.lb/admission/pages/graduate-fees.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Graduate application, registration, placement/GEE fees, AGFUND support note, and installment plan statement."
+  },
+  {
+    "source_id": "AOU_SRC_005",
+    "page_title": "Apply - Graduate",
+    "url": "https://web.aou.edu.lb/admission/pages/graduate-apply.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Graduate application page with MBA, MSc, and MA in TEFL admission requirements and application links."
+  },
+  {
+    "source_id": "AOU_SRC_006",
+    "page_title": "FAQ for Admission and Registration - Graduate",
+    "url": "https://web.aou.edu.lb/admission/pages/graduate-faq.aspx?list=faq_graduate",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Graduate FAQ; confirms offered postgraduate majors, recognition, credit totals, installment payments, and delivery timing."
+  },
+  {
+    "source_id": "AOU_SRC_007",
+    "page_title": "Admission Procedure",
+    "url": "https://web.aou.edu.lb/admission/Pages/default.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "General admission and registration procedure; includes postgraduate acceptance and payment steps."
+  },
+  {
+    "source_id": "AOU_SRC_008",
+    "page_title": "Faculty of Business Studies - Postgraduate Programs",
+    "url": "https://web.aou.edu.lb/faculties/business/Pages/postgraduate-programs.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Business postgraduate listing for MBA, MBA Finance, and MBA HRM."
+  },
+  {
+    "source_id": "AOU_SRC_009",
+    "page_title": "Masters in Business Administration",
+    "url": "https://web.aou.edu.lb/faculties/business/Pages/program-details.aspx?degree=2&iid=4",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "MBA General details: overview, admission requirements, duration, delivery, academic plan, tuition, additional fees, payment and refund rules."
+  },
+  {
+    "source_id": "AOU_SRC_010",
+    "page_title": "Masters in Business Administration (Finance)",
+    "url": "https://web.aou.edu.lb/faculties/business/Pages/program-details.aspx?degree=2&iid=5",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "MBA Finance detail page discovered through official postgraduate listing."
+  },
+  {
+    "source_id": "AOU_SRC_011",
+    "page_title": "Masters in Business Administration (HRM)",
+    "url": "https://web.aou.edu.lb/faculties/business/Pages/program-details.aspx?degree=2&iid=6",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "MBA HRM detail page discovered through official postgraduate listing."
+  },
+  {
+    "source_id": "AOU_SRC_012",
+    "page_title": "Faculty of Computer Studies - Postgraduate Programs",
+    "url": "https://web.aou.edu.lb/faculties/computer/Pages/postgraduate-programs.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Computer postgraduate listing for MSc in Computing (Cyber Security and Forensics); includes PDF handbook/specification links."
+  },
+  {
+    "source_id": "AOU_SRC_013",
+    "page_title": "MSc in Computing (Cyber Security and Forensics)",
+    "url": "https://web.aou.edu.lb/faculties/computer/Pages/program-details.aspx?degree=2&iid=7",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "MSc Computing program detail page discovered from official postgraduate listing."
+  },
+  {
+    "source_id": "AOU_SRC_014",
+    "page_title": "Faculty of Language Studies",
+    "url": "https://web.aou.edu.lb/faculties/language/Pages/default.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Faculty page describing MA in TEFL duration, delivery, staged awards, and dual degree structure."
+  },
+  {
+    "source_id": "AOU_SRC_015",
+    "page_title": "Faculty of Language Studies - Postgraduate Programs",
+    "url": "https://web.aou.edu.lb/faculties/language/Pages/postgraduate-programs.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Language postgraduate listing for MA in Teaching English as a Foreign Language (TEFL) - Thesis Track."
+  },
+  {
+    "source_id": "AOU_SRC_016",
+    "page_title": "MA in Teaching English as a Foreign Language (TEFL) - Thesis Track",
+    "url": "https://web.aou.edu.lb/faculties/language/Pages/program-details.aspx?degree=2&iid=17",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "MA TEFL detail page: overview, admission requirements, teaching mode, academic plan, tuition, fees, installment and refund notes."
+  },
+  {
+    "source_id": "AOU_SRC_017",
+    "page_title": "Academic Calendar",
+    "url": "https://web.aou.edu.lb/students/pages/academic-calendar.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Academic calendar page discovered in student navigation; page content was limited in crawl, but official calendar source recorded."
+  },
+  {
+    "source_id": "AOU_SRC_018",
+    "page_title": "Academic Year",
+    "url": "https://web.aou.edu.lb/students/guide/Pages/academic-year.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Student guide page describing semester structure and summer term duration."
+  },
+  {
+    "source_id": "AOU_SRC_019",
+    "page_title": "Fees - Student Guide",
+    "url": "https://web.aou.edu.lb/students/guide/Pages/fees.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Student guide fees page; repeats graduate application, registration, MBA GEE and English placement fees."
+  },
+  {
+    "source_id": "AOU_SRC_020",
+    "page_title": "AOU Lebanon Student's Guide",
+    "url": "https://web.aou.edu.lb/students/guide",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "notes": "Official student guide area linked from program detail pages and student navigation."
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "total_programs": 3,
+  "tuition_populated_count": 3,
+  "tuition_null_count": 0,
+  "tuition_rows_by_faculty_or_school": [
+    {
+      "faculty": "Faculty of Business Administration and Economics",
+      "tuition_values": [
+        455
+      ],
+      "program_count": 1,
+      "program_ids": [
+        "hu-mba"
+      ],
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ]
+    },
+    {
+      "faculty": "Faculty of Social and Behavioral Sciences",
+      "tuition_values": [
+        455
+      ],
+      "program_count": 2,
+      "program_ids": [
+        "hu-ma-education",
+        "hu-ma-psychology"
+      ],
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ]
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "HU_SRC_019",
+    "HU_SRC_032"
+  ],
+  "notes": [
+    "HU's official graduate catalog lists graduate tuition at USD 455 per credit hour.",
+    "The tuition-fees page confirms tuition is reviewed annually and that payment/installment arrangements are term-based.",
+    "MBA emphases remain concentrations under one MBA record; the MA in Psychology catalogs its areas of emphasis as concentrations within a single degree."
+  ]
+}

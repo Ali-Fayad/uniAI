@@ -1,0 +1,29 @@
+[
+  {
+    "id": "aul-out-teaching-graduate-diploma",
+    "program_key": "aul-out-teaching-graduate-diploma",
+    "official_title": "Teaching Diploma / Graduate Diploma",
+    "degree_type": "DIPLOMA",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUL-002",
+      "AUL-007"
+    ],
+    "notes": "Explicitly excluded from the graduate inventory because it is a diploma-level offering, not a MASTER or PHD degree."
+  },
+  {
+    "id": "aul-out-continuing-education-training",
+    "program_key": "aul-out-continuing-education-training",
+    "official_title": "Continuing Education Center / MikroTik Academy / MTCNA Training",
+    "degree_type": "CERTIFICATE",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUL-007"
+    ],
+    "notes": "Explicitly excluded from the graduate inventory because it is continuing education / training, not a graduate degree."
+  }
+]

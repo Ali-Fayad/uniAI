@@ -1,0 +1,41 @@
+{
+  "total_programs": 5,
+  "tuition_populated_count": 5,
+  "tuition_null_count": 0,
+  "tuition_rows_grouped_by_faculty": [
+    {
+      "faculty": "AOU graduate master's programs",
+      "degree_type": "MASTER",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "program_ids": [
+        "aou-bus-master-business-administration",
+        "aou-bus-master-business-administration-finance",
+        "aou-bus-master-business-administration-hrm",
+        "aou-comp-master-computing-cyber-security-forensics",
+        "aou-lang-master-tefl-thesis-track"
+      ],
+      "program_count": 5,
+      "source_ids": [
+        "AOU_SRC_009",
+        "AOU_SRC_010",
+        "AOU_SRC_011",
+        "AOU_SRC_013",
+        "AOU_SRC_016"
+      ],
+      "notes": "All five master's records map to the current official program-detail tuition pages at USD 170 per credit hour."
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "AOU_SRC_009",
+    "AOU_SRC_010",
+    "AOU_SRC_011",
+    "AOU_SRC_013",
+    "AOU_SRC_016"
+  ],
+  "notes": "All 5 MASTER records were mapped to official AOU program-detail tuition pages. The graduate fees page also exposes application and registration fees, but tuition mapping itself relies on the program pages."
+}

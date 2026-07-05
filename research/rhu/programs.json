@@ -1,0 +1,205 @@
+[
+  {
+    "id": "rhu-cba-master-business-administration",
+    "program_key": "business-administration",
+    "title": "Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "College of Business Administration",
+    "department": null,
+    "official_program_url": "https://www.rhu.edu.lb/home/academics/college-of-business-administration/majors-and-programs/mba-program/program-description",
+    "source_ids": [
+      "RHU-SRC-003",
+      "RHU-SRC-011",
+      "RHU-SRC-013",
+      "RHU-SRC-014"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": "College of Business Administration",
+      "notes": "Official 2025-2026 tuition and fees PDF lists graduate College of Business Administration tuition at USD 200 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    "program_description": "Graduate MBA program with two official emphases: General Business Management and Oil and Gas Management.",
+    "credits": 36,
+    "concentrations_or_tracks": [
+      "General Business Management",
+      "Oil and Gas Management"
+    ],
+    "notes": "RHU publishes the MBA as one graduate degree with General Business Management and Oil and Gas Management emphases; modeled as concentrations rather than separate graduate degree rows. The 2025-2026 Graduate Catalog is the canonical source."
+  },
+  {
+    "id": "rhu-coe-master-biomedical-engineering",
+    "program_key": "biomedical-engineering",
+    "title": "Master of Science in Biomedical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "College of Engineering",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "RHU-SRC-003",
+      "RHU-SRC-011",
+      "RHU-SRC-015"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "College of Engineering",
+      "notes": "Official 2025-2026 tuition and fees PDF lists graduate College of Engineering tuition at USD 280 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    "program_description": "Graduate engineering master’s program recognized in the official RHU Graduate Catalog.",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "notes": "Official graduate catalog and graduate programs page identify Biomedical Engineering as an RHU master's program. No distinct public program page was recovered in this pass."
+  },
+  {
+    "id": "rhu-coe-master-civil-environmental-engineering",
+    "program_key": "civil-environmental-engineering",
+    "title": "Master of Science in Civil and Environmental Engineering",
+    "degree_type": "MASTER",
+    "faculty": "College of Engineering",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "RHU-SRC-003",
+      "RHU-SRC-011",
+      "RHU-SRC-015"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "College of Engineering",
+      "notes": "Official 2025-2026 tuition and fees PDF lists graduate College of Engineering tuition at USD 280 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    "program_description": "Graduate engineering master’s program recognized in the official RHU Graduate Catalog.",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "notes": "Official graduate catalog and graduate programs page identify Civil and Environmental Engineering as an RHU master's program. No distinct public program page was recovered in this pass."
+  },
+  {
+    "id": "rhu-coe-master-computer-communications-engineering",
+    "program_key": "computer-communications-engineering",
+    "title": "Master of Science in Computer and Communications Engineering",
+    "degree_type": "MASTER",
+    "faculty": "College of Engineering",
+    "department": null,
+    "official_program_url": "https://www.rhu.edu.lb/academics/college-of-engineering/departments-programs/electrical-and-computer-engineering/master-of-science-in-computer-and-communications-engineering",
+    "source_ids": [
+      "RHU-SRC-003",
+      "RHU-SRC-011",
+      "RHU-SRC-015",
+      "RHU-SRC-016"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "College of Engineering",
+      "notes": "Official 2025-2026 tuition and fees PDF lists graduate College of Engineering tuition at USD 280 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    "program_description": "Graduate engineering master’s program recognized in the official RHU Graduate Catalog.",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "notes": "Official graduate programs page and catalog identify Computer and Communications Engineering as an RHU master's program. The recovered public program page is course-heavy, so the graduate catalog remains the canonical requirements source."
+  },
+  {
+    "id": "rhu-coe-master-electrical-engineering",
+    "program_key": "electrical-engineering",
+    "title": "Master of Science in Electrical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "College of Engineering",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "RHU-SRC-003",
+      "RHU-SRC-011",
+      "RHU-SRC-015"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "College of Engineering",
+      "notes": "Official 2025-2026 tuition and fees PDF lists graduate College of Engineering tuition at USD 280 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    "program_description": "Graduate engineering master’s program recognized in the official RHU Graduate Catalog.",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "notes": "Official graduate catalog and graduate programs page identify Electrical Engineering as an RHU master's program. No distinct public program page was recovered in this pass."
+  },
+  {
+    "id": "rhu-coe-master-mechanical-engineering",
+    "program_key": "mechanical-engineering",
+    "title": "Master of Science in Mechanical Engineering",
+    "degree_type": "MASTER",
+    "faculty": "College of Engineering",
+    "department": null,
+    "official_program_url": "https://www.rhu.edu.lb/academics/college-of-engineering/departments-programs/mechanical-and-mechatronic-engineering/master-of-science-in-mechanical--engineering",
+    "source_ids": [
+      "RHU-SRC-003",
+      "RHU-SRC-011",
+      "RHU-SRC-015",
+      "RHU-SRC-017"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "College of Engineering",
+      "notes": "Official 2025-2026 tuition and fees PDF lists graduate College of Engineering tuition at USD 280 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    "program_description": "Graduate engineering master’s program recognized in the official RHU Graduate Catalog.",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "notes": "Official graduate programs page and catalog identify Mechanical Engineering as an RHU master's program. The recovered public program page is used as the official program URL."
+  },
+  {
+    "id": "rhu-coe-master-mechatronics-engineering",
+    "program_key": "mechatronics-engineering",
+    "title": "Master of Science in Mechatronics Engineering",
+    "degree_type": "MASTER",
+    "faculty": "College of Engineering",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "RHU-SRC-003",
+      "RHU-SRC-011",
+      "RHU-SRC-015"
+    ],
+    "tuition": {
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 280,
+      "category": "College of Engineering",
+      "notes": "Official 2025-2026 tuition and fees PDF lists graduate College of Engineering tuition at USD 280 per credit hour.",
+      "source_ids": [
+        "RHU-SRC-008"
+      ]
+    },
+    "program_description": "Graduate engineering master’s program recognized in the official RHU Graduate Catalog.",
+    "thesis_or_non_thesis": "THESIS_OR_NON_THESIS",
+    "notes": "Official graduate catalog and graduate programs page identify Mechatronics Engineering as an RHU master's program. No distinct public program page was recovered in this pass."
+  }
+]

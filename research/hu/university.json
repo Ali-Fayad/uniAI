@@ -1,0 +1,248 @@
+{
+  "id": "hu",
+  "name": "Haigazian University",
+  "official_website": "https://www.haigazian.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-04",
+  "sources_used": [
+    "HU_SRC_001",
+    "HU_SRC_002",
+    "HU_SRC_003",
+    "HU_SRC_004",
+    "HU_SRC_005",
+    "HU_SRC_006",
+    "HU_SRC_007",
+    "HU_SRC_008",
+    "HU_SRC_009",
+    "HU_SRC_010",
+    "HU_SRC_011",
+    "HU_SRC_012",
+    "HU_SRC_013",
+    "HU_SRC_014",
+    "HU_SRC_015",
+    "HU_SRC_016",
+    "HU_SRC_017",
+    "HU_SRC_018",
+    "HU_SRC_019",
+    "HU_SRC_020",
+    "HU_SRC_021",
+    "HU_SRC_022",
+    "HU_SRC_023",
+    "HU_SRC_024",
+    "HU_SRC_025",
+    "HU_SRC_026",
+    "HU_SRC_027",
+    "HU_SRC_028",
+    "HU_SRC_029",
+    "HU_SRC_030",
+    "HU_SRC_031",
+    "HU_SRC_032"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants review the program requirements, submit the application file and required documents, meet program-specific admission criteria, and complete any required interview or entrance exam steps.",
+    "steps": [
+      "Review the graduate program and the official catalog or graduate admissions information.",
+      "Prepare and submit the graduate application file with the required documents.",
+      "Complete any required entrance examination, interview, or additional faculty review.",
+      "Register and pay tuition according to the term instructions and payment deadlines."
+    ],
+    "source_ids": [
+      "HU_SRC_015",
+      "HU_SRC_016",
+      "HU_SRC_017",
+      "HU_SRC_018",
+      "HU_SRC_032"
+    ]
+  },
+  "required_documents": {
+    "summary": "HU publishes a graduate document checklist covering identity, prior academic credentials, and application materials; the catalog and admissions pages should be used together because the HTML pages are sparse.",
+    "items": [
+      "Completed graduate application file",
+      "Passport-size photo",
+      "Civil ID copy for Lebanese applicants",
+      "Passport copy for non-Lebanese applicants",
+      "Certified bachelor's degree or equivalent",
+      "Official undergraduate transcript",
+      "Other faculty-specific supporting documents if requested"
+    ],
+    "source_ids": [
+      "HU_SRC_016",
+      "HU_SRC_023",
+      "HU_SRC_029",
+      "HU_SRC_032"
+    ]
+  },
+  "language_requirements": {
+    "summary": "HU uses English as the language of instruction. Graduate English thresholds are program-specific in the catalog: MBA applicants must submit TOEFL 550 or equivalent, while MA applicants must submit TOEFL 600 or equivalent.",
+    "notes": [
+      "The official catalog also references alternative standardized English tests and placement expectations.",
+      "No separate graduate language policy page with broader thresholds was identified beyond the catalog and admissions pages."
+    ],
+    "source_ids": [
+      "HU_SRC_002",
+      "HU_SRC_032"
+    ]
+  },
+  "deadlines": {
+    "summary": "HU publishes annual application windows in the admissions section and catalog. The catalog shows Fall and Spring application deadlines for the graduate admission cycle.",
+    "application_deadlines": {
+      "fall": "May 31",
+      "spring": "December 5"
+    },
+    "source_ids": [
+      "HU_SRC_015",
+      "HU_SRC_032"
+    ]
+  },
+  "tuition_model": {
+    "summary": "HU's official graduate catalog lists graduate tuition at USD 455 per credit hour. The tuition-fees page confirms tuition is reviewed annually and that payment/installment arrangements are tied to the term schedule.",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "currency": "USD",
+    "source_ids": [
+      "HU_SRC_019",
+      "HU_SRC_032"
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "Faculty of Business Administration and Economics",
+      "degree_type": "MASTER",
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 455,
+      "program_ids": [
+        "hu-mba"
+      ],
+      "program_count": 1,
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ],
+      "notes": "The official graduate catalog lists the MBA graduate tuition at USD 455 per credit hour."
+    },
+    {
+      "faculty": "Faculty of Social and Behavioral Sciences",
+      "degree_type": "MASTER",
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 455,
+      "program_ids": [
+        "hu-ma-education",
+        "hu-ma-psychology"
+      ],
+      "program_count": 2,
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ],
+      "notes": "The official graduate catalog lists the graduate tuition at USD 455 per credit hour for graduate study."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 40,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "HU_SRC_032"
+      ],
+      "notes": "Graduate application fee / readmission fee published in the official catalog financial section."
+    },
+    "registration_fee": {
+      "amount": 50,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "HU_SRC_032"
+      ],
+      "notes": "Registration fee for new and readmitted students published in the official catalog financial section."
+    },
+    "reservation_fee": {
+      "amount": 250,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "HU_SRC_032"
+      ],
+      "notes": "Reservation fee published in the official catalog financial section."
+    },
+    "installment_plan_fee": {
+      "amount": null,
+      "currency": "USD",
+      "billing_basis": "PERCENT_OF_TUITION",
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ],
+      "notes": "Installment payment is allowed through a signed request/declaration form; the catalog describes installment-related surcharges but the rate was not normalized further in this phase."
+    }
+  },
+  "payment_methods": {
+    "summary": "HU collects tuition and fees at registration and at the beginning of each term, with installment payments allowed through the university's signed request/declaration process.",
+    "source_ids": [
+      "HU_SRC_019",
+      "HU_SRC_032"
+    ]
+  },
+  "payment_plans": {
+    "summary": "Installment payments are permitted via a signed request/declaration form. The catalog also describes installment surcharges and term-based payment timing.",
+    "source_ids": [
+      "HU_SRC_019",
+      "HU_SRC_032"
+    ]
+  },
+  "scholarships": {
+    "summary": "HU publishes need-based financial aid and academic scholarship information; the financial aid FAQ confirms that full-time graduate students may apply, subject to limited availability.",
+    "items": [
+      "Need-based financial aid",
+      "Academic scholarships"
+    ],
+    "source_ids": [
+      "HU_SRC_022",
+      "HU_SRC_024",
+      "HU_SRC_025",
+      "HU_SRC_032"
+    ]
+  },
+  "financial_aid": {
+    "summary": "Graduate financial aid is available to eligible full-time graduate students on the basis of demonstrated need and academic standing.",
+    "source_ids": [
+      "HU_SRC_022",
+      "HU_SRC_025",
+      "HU_SRC_032"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "HU publishes annual academic calendars and registration periods; the catalog and calendar index should be used for term planning and registration timing.",
+    "source_ids": [
+      "HU_SRC_028",
+      "HU_SRC_032"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "Graduate Academic Information and the Graduate Handbook cover graduate rules, progress, grading, graduation, and thesis procedures.",
+    "source_ids": [
+      "HU_SRC_012",
+      "HU_SRC_013",
+      "HU_SRC_014",
+      "HU_SRC_032"
+    ]
+  },
+  "international_students": {
+    "summary": "No graduate-specific international student policy was isolated in the reviewed sources; HU's international-student page is primarily undergraduate-focused, so graduate applicants should follow the general admissions and catalog guidance.",
+    "source_ids": [
+      "HU_SRC_030",
+      "HU_SRC_032"
+    ]
+  },
+  "accreditation": {
+    "summary": "The Faculty of Business Administration and Economics is accredited by IACBE. No separate university-wide graduate accreditation statement was isolated in the reviewed sources.",
+    "source_ids": [
+      "HU_SRC_032"
+    ]
+  }
+}

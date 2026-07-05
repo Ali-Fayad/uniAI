@@ -1,0 +1,28 @@
+[
+  {
+    "id": "mubs-legacy-master-social-work",
+    "program_key": "master-social-work",
+    "title": "Master in Social Work",
+    "degree_type": "MASTER",
+    "faculty": "Legacy Faculty of Education and Social Work context",
+    "department": null,
+    "official_program_url": "https://www.mubs.edu.lb/assets/templates/mubs/files/catalogue2012.pdf",
+    "source_ids": [
+      "MUBS-SRC-019"
+    ],
+    "notes": "Appears in the official 2012 catalogue only; no current page confirming it as an active graduate offering was found."
+  },
+  {
+    "id": "mubs-legacy-mba-marketing-entrepreneurship",
+    "program_key": "mba-marketing-entrepreneurship",
+    "title": "MBA in Marketing and Entrepreneurship",
+    "degree_type": "MASTER",
+    "faculty": "Business / legacy catalogue context",
+    "department": null,
+    "official_program_url": "https://www.mubs.edu.lb/assets/templates/mubs/files/catalogue2012.pdf",
+    "source_ids": [
+      "MUBS-SRC-019"
+    ],
+    "notes": "Appears in the official 2012 catalogue only; retained as legacy evidence and excluded from the current inventory."
+  }
+]

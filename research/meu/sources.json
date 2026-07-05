@@ -1,0 +1,138 @@
+[
+  {
+    "source_id": "MEU-S001",
+    "page_title": "Middle East University Home",
+    "url": "https://meu.edu.lb/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "University homepage; confirms institutional identity, contact details, and quick links."
+  },
+  {
+    "source_id": "MEU-S002",
+    "page_title": "Programs - Middle East University",
+    "url": "https://meu.edu.lb/programs/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Primary program inventory page; lists graduate programs and links to program detail pages."
+  },
+  {
+    "source_id": "MEU-S003",
+    "page_title": "Business Administration - Master of Business Administration",
+    "url": "https://meu.edu.lb/business-administration-mba/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official MBA program page; includes overview and concentrations."
+  },
+  {
+    "source_id": "MEU-S004",
+    "page_title": "Education - Master of Arts",
+    "url": "https://meu.edu.lb/master-education/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official MA Education program page; includes overview and concentrations."
+  },
+  {
+    "source_id": "MEU-S005",
+    "page_title": "Islamic Studies - Master of Arts",
+    "url": "https://meu.edu.lb/islamic-studies/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official MA Islamic Studies program page; links to catalog curriculum."
+  },
+  {
+    "source_id": "MEU-S006",
+    "page_title": "Teaching - Master of Arts",
+    "url": "https://meu.edu.lb/teaching-master/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official MA Teaching program page; includes overview."
+  },
+  {
+    "source_id": "MEU-S007",
+    "page_title": "Application Procedure - Middle East University",
+    "url": "https://meu.edu.lb/application-procedure/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official admissions/application page; application fee and required document process."
+  },
+  {
+    "source_id": "MEU-S008",
+    "page_title": "Admissions | MEU Academic Catalog",
+    "url": "https://catalog.meu.edu.lb/catalog/admissions.jsp",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_catalog_webpage",
+    "notes": "Graduate admissions, required documents, English proficiency, international applicants, graduate statuses, transfer, and graduate regulations."
+  },
+  {
+    "source_id": "MEU-S009",
+    "page_title": "MEU Academic Catalog 2024-2026",
+    "url": "https://catalog.meu.edu.lb/catalog/index.jsp",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_catalog_webpage",
+    "notes": "Catalog index; maps faculties/departments and catalog sections."
+  },
+  {
+    "source_id": "MEU-S010",
+    "page_title": "Financial Information | MEU Academic Catalog",
+    "url": "https://catalog.meu.edu.lb/catalog/financialInformation.jsp",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_catalog_webpage",
+    "notes": "Tuition and fees policy, payment arrangements, international deposit note, financial aid, refund policy."
+  },
+  {
+    "source_id": "MEU-S011",
+    "page_title": "Financial Aid & Scholarships - Middle East University",
+    "url": "https://meu.edu.lb/scholarships/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Financial aid and scholarship options; includes graduate-relevant needs-based aid, merit scholarship, work-study, and terms."
+  },
+  {
+    "source_id": "MEU-S012",
+    "page_title": "Department of Mediterranean and Near Eastern Studies | MEU Academic Catalog",
+    "url": "https://catalog.meu.edu.lb/catalog/departmentOfMediterranean.jsp",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_catalog_webpage",
+    "notes": "Catalog details for MA Islamic Studies, including delivery, Arabic prerequisites, course list, and total credits."
+  },
+  {
+    "source_id": "MEU-S013",
+    "page_title": "Graduate Program 2025-2026",
+    "url": "https://meu.edu.lb/wp-content/uploads/2025/07/Graduate-Program-2025-26.pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_pdf",
+    "notes": "Official graduate tuition/fees PDF for 2025-2026."
+  },
+  {
+    "source_id": "MEU-S014",
+    "page_title": "Tuition and Fees - Master 2025-2026",
+    "url": "https://meu.edu.lb/wp-content/uploads/2025/08/Tuition-Master-2025-2026-1.pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_pdf",
+    "notes": "Official master tuition and fees PDF; includes deposit notes for Lebanese and foreign students."
+  },
+  {
+    "source_id": "MEU-S015",
+    "page_title": "Academic Calendar 2025-2026",
+    "url": "https://meu.edu.lb/wp-content/uploads/2026/01/MEU-Acad-Cal-2025-2026_compressed-2.pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_pdf",
+    "notes": "Official academic calendar PDF; includes semester dates, exam periods, and international student application deadlines."
+  },
+  {
+    "source_id": "MEU-S016",
+    "page_title": "Academic Calendar 2026-2027",
+    "url": "https://meu.edu.lb/wp-content/uploads/2026/04/MEU-Acad-Cal-2026-2027.pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_pdf",
+    "notes": "Official next academic calendar PDF for upcoming intake/year reference."
+  },
+  {
+    "source_id": "MEU-S017",
+    "page_title": "Student Handbook 2024",
+    "url": "https://meu.edu.lb/wp-content/uploads/2025/08/Student-Handbook-2024.pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_pdf",
+    "notes": "Official student handbook; useful for general student rules, but not primary for graduate program catalog data."
+  }
+]

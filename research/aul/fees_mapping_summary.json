@@ -1,0 +1,30 @@
+{
+  "total_programs": 3,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 3,
+  "tuition_rows_by_faculty_or_school": [],
+  "unmapped_programs": [
+    {
+      "program_id": "aul-mba",
+      "reason": "No official graduate tuition amount was published in the reviewed AUL sources."
+    },
+    {
+      "program_id": "aul-master-of-science-in-engineering",
+      "reason": "No official graduate tuition amount was published in the reviewed AUL sources."
+    },
+    {
+      "program_id": "aul-master-of-science",
+      "reason": "No official graduate tuition amount was published in the reviewed AUL sources."
+    }
+  ],
+  "source_ids_used": [
+    "AUL-002",
+    "AUL-003",
+    "AUL-004",
+    "AUL-005"
+  ],
+  "notes": [
+    "AUL publicly exposed fee labels on the admissions page, but no numeric graduate tuition schedule was available in the reviewed official content.",
+    "Tuition is therefore kept null for all three graduate programs."
+  ]
+}

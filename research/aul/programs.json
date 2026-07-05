@@ -1,0 +1,62 @@
+[
+  {
+    "id": "aul-mba",
+    "program_key": "aul-mba",
+    "official_title": "Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business",
+    "department": "Business Administration",
+    "official_program_url": "https://aul.edu.lb/?page_id=142",
+    "source_ids": [
+      "AUL-002",
+      "AUL-003"
+    ],
+    "credits": 38,
+    "duration": "2 YEARS",
+    "language": null,
+    "concentrations_or_tracks": null,
+    "tuition": null,
+    "description": "AUL's Faculty of Business page lists the MBA under Business Administration with major highlights, acquired skills, credits, and expected graduation time.",
+    "notes": "Discovery found one official MBA degree record. No separate MBA concentrations or additional graduate business degrees were identified in the official source set."
+  },
+  {
+    "id": "aul-master-of-science-in-engineering",
+    "program_key": "aul-master-of-science-in-engineering",
+    "official_title": "Master of Science in Engineering",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Engineering",
+    "department": "Computer & Communication Department",
+    "official_program_url": "https://aul.edu.lb/?page_id=144",
+    "source_ids": [
+      "AUL-002",
+      "AUL-004"
+    ],
+    "credits": 46,
+    "duration": "2 YEARS",
+    "language": null,
+    "concentrations_or_tracks": null,
+    "tuition": null,
+    "description": "AUL's Faculty of Engineering page lists Master in CCE under the Master of Science in Engineering umbrella with credits, duration, and program highlights.",
+    "notes": "The official page shows a Master of Science in Engineering title and a Master in CCE program label. No separate PhD program was found."
+  },
+  {
+    "id": "aul-master-of-science",
+    "program_key": "aul-master-of-science",
+    "official_title": "Master of Science",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Sciences & Fine Arts",
+    "department": "Computer Science Department",
+    "official_program_url": "https://aul.edu.lb/?page_id=146",
+    "source_ids": [
+      "AUL-002",
+      "AUL-005"
+    ],
+    "credits": 39,
+    "duration": "2 YEARS",
+    "language": null,
+    "concentrations_or_tracks": null,
+    "tuition": null,
+    "description": "AUL's Faculty of Sciences & Fine Arts page lists Master in CSC under the Master of Science degree with credits, duration, and major highlights.",
+    "notes": "The official page shows a Master of Science title and a Master in CSC program label. No additional graduate science degree pages were identified."
+  }
+]

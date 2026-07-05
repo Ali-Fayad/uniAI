@@ -1,0 +1,269 @@
+{
+  "id": "aou",
+  "name": "Arab Open University - Lebanon",
+  "official_website": "https://web.aou.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "sources_used": [
+    "AOU_SRC_002",
+    "AOU_SRC_003",
+    "AOU_SRC_004",
+    "AOU_SRC_005",
+    "AOU_SRC_006",
+    "AOU_SRC_007",
+    "AOU_SRC_008",
+    "AOU_SRC_009",
+    "AOU_SRC_010",
+    "AOU_SRC_011",
+    "AOU_SRC_012",
+    "AOU_SRC_013",
+    "AOU_SRC_014",
+    "AOU_SRC_015",
+    "AOU_SRC_016",
+    "AOU_SRC_017",
+    "AOU_SRC_018",
+    "AOU_SRC_019",
+    "AOU_SRC_020"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants apply through the official graduate application, submit the required supporting documents, and are reviewed under the graduate requirements and faculty-specific criteria.",
+    "steps": [
+      "Use the official graduate application.",
+      "Submit the required supporting documents listed by AOU.",
+      "Meet the graduate admission requirements, including degree equivalency and English/GEE conditions where applicable.",
+      "Complete faculty review where required."
+    ],
+    "source_ids": [
+      "AOU_SRC_003",
+      "AOU_SRC_004",
+      "AOU_SRC_005",
+      "AOU_SRC_007"
+    ]
+  },
+  "required_documents": {
+    "summary": "AOU lists the standard graduate application documents on the graduate requirements page.",
+    "items": [
+      "Completed graduate application",
+      "Certified copy of bachelor's equivalency or Ministry of Higher Education evaluation where applicable",
+      "Official transcript",
+      "Professional/employment certificates",
+      "Updated CV or resume",
+      "Two recommendation letters",
+      "Copy of a valid national ID"
+    ],
+    "source_ids": [
+      "AOU_SRC_003"
+    ]
+  },
+  "language_requirements": {
+    "summary": "MBA and MSc applicants must sit for the English placement test unless exempted; MA TEFL requires IELTS Academic 6 or TOEFL paper-based 550 or equivalent.",
+    "notes": [
+      "MBA and MSc exemptions include IELTS 7.0, paper TOEFL 600, TOEFL CBT 250, or internet-based TOEFL 100 obtained within the past 2 years.",
+      "The TEFL requirement is published separately from the MBA/MSc English placement-test rule."
+    ],
+    "source_ids": [
+      "AOU_SRC_003",
+      "AOU_SRC_005",
+      "AOU_SRC_006",
+      "AOU_SRC_016"
+    ]
+  },
+  "tuition_model": {
+    "summary": "AOU publishes the current graduate tuition as USD 170 per credit hour on each of the five in-scope program detail pages.",
+    "currency": "USD",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "source_ids": [
+      "AOU_SRC_009",
+      "AOU_SRC_010",
+      "AOU_SRC_011",
+      "AOU_SRC_013",
+      "AOU_SRC_016"
+    ],
+    "notes": [
+      "All five master's programs in scope use the same published per-credit tuition rate.",
+      "No separate graduate tuition table was retained beyond the program detail pages."
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "AOU graduate master's programs",
+      "degree_type": "MASTER",
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "program_ids": [
+        "aou-bus-master-business-administration",
+        "aou-bus-master-business-administration-finance",
+        "aou-bus-master-business-administration-hrm",
+        "aou-comp-master-computing-cyber-security-forensics",
+        "aou-lang-master-tefl-thesis-track"
+      ],
+      "program_count": 5,
+      "source_ids": [
+        "AOU_SRC_009",
+        "AOU_SRC_010",
+        "AOU_SRC_011",
+        "AOU_SRC_013",
+        "AOU_SRC_016"
+      ],
+      "notes": "All five master's records map to the current official program-detail tuition pages at USD 170 per credit hour."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 50,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AOU_SRC_004",
+        "AOU_SRC_019"
+      ],
+      "notes": "The graduate admission fees page and student guide list the graduate application fee."
+    },
+    "registration_fee": {
+      "amount": 200,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AOU_SRC_004",
+        "AOU_SRC_019"
+      ],
+      "notes": "The graduate admission fees page and student guide list the graduate registration fee."
+    },
+    "english_placement_fee": {
+      "amount": 30,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AOU_SRC_004",
+        "AOU_SRC_019"
+      ],
+      "notes": "The graduate admission fees page lists the English placement test fee for MBA applicants."
+    },
+    "gee_fee": {
+      "amount": 30,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AOU_SRC_004",
+        "AOU_SRC_019"
+      ],
+      "notes": "The graduate admission fees page lists the MBA Graduate Entrance Exam fee."
+    },
+    "operational_fee": {
+      "amount": 100,
+      "currency": "USD",
+      "billing_basis": "PER_SEMESTER",
+      "source_ids": [
+        "AOU_SRC_009",
+        "AOU_SRC_013",
+        "AOU_SRC_016"
+      ],
+      "notes": "Operational fees are shown on the reviewed graduate program detail pages."
+    },
+    "nssf_annual_fee": {
+      "amount": 8400000,
+      "currency": "LBP",
+      "billing_basis": "ANNUAL",
+      "source_ids": [
+        "AOU_SRC_009",
+        "AOU_SRC_013",
+        "AOU_SRC_016"
+      ],
+      "notes": "The reviewed graduate program detail pages show annual NSSF at 8,400,000 LBP."
+    }
+  },
+  "payment_methods": {
+    "summary": "The graduate fees page states that tuition can be paid in installments.",
+    "items": [
+      "Tuition payment in installments"
+    ],
+    "source_ids": [
+      "AOU_SRC_004",
+      "AOU_SRC_019"
+    ]
+  },
+  "payment_plans": {
+    "summary": "New and continuing students may pay tuition fees in installments following an installment plan.",
+    "items": [
+      "Installment plan for new and continuing students"
+    ],
+    "source_ids": [
+      "AOU_SRC_004",
+      "AOU_SRC_019"
+    ]
+  },
+  "scholarships": {
+    "summary": "The graduate fees page states that students benefit from financial support from AGFUND.",
+    "items": [
+      "AGFUND financial support"
+    ],
+    "source_ids": [
+      "AOU_SRC_004"
+    ]
+  },
+  "financial_aid": {
+    "summary": "The official graduate fees page confirms financial support through AGFUND.",
+    "items": [
+      "AGFUND support"
+    ],
+    "source_ids": [
+      "AOU_SRC_004"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "AOU retains official academic calendar and student-guide calendar pages; the student guide describes two regular semesters and an optional summer term.",
+    "items": [
+      "Official academic calendar page",
+      "Two regular semesters per academic year",
+      "Optional summer term",
+      "Summer term duration of eight weeks"
+    ],
+    "source_ids": [
+      "AOU_SRC_017",
+      "AOU_SRC_018"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The graduate FAQ confirms master's study runs on four regular semesters minimum and eight regular semesters maximum; the student guide also describes the semester structure.",
+    "items": [
+      "Minimum four regular semesters (two academic years)",
+      "Maximum eight regular semesters (four academic years)",
+      "Installment payment option for tuition fees"
+    ],
+    "source_ids": [
+      "AOU_SRC_006",
+      "AOU_SRC_018"
+    ]
+  },
+  "accreditation": {
+    "summary": "The reviewed graduate program pages state that the programs are OU Validated and that the OU is a validating partner.",
+    "items": [
+      "OU Validated / OU validating partner"
+    ],
+    "source_ids": [
+      "AOU_SRC_009",
+      "AOU_SRC_010",
+      "AOU_SRC_011",
+      "AOU_SRC_013",
+      "AOU_SRC_016"
+    ]
+  },
+  "international_students": {
+    "summary": "No dedicated international-student graduate page was retained; the graduate requirements page relies on Ministry of Higher Education evaluation for equivalent degrees.",
+    "items": [
+      "Equivalent degrees evaluated by the Ministry of Higher Education"
+    ],
+    "source_ids": [
+      "AOU_SRC_003",
+      "AOU_SRC_005"
+    ],
+    "notes": [
+      "This is the only international-student-adjacent guidance retained in the reviewed official source set."
+    ]
+  }
+}

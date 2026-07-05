@@ -1,0 +1,28 @@
+[
+  {
+    "id": "hu-out-hospitality-operations-certificate",
+    "program_key": "hu-out-hospitality-operations-certificate",
+    "title": "Hospitality Operations Certificate",
+    "degree_type": "CERTIFICATE",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "HU_SRC_032"
+    ],
+    "notes": "Excluded graduate-related offering called out in the HU discovery source map as a certificate-level item and not part of the graduate inventory."
+  },
+  {
+    "id": "hu-out-hospitality-management-diploma",
+    "program_key": "hu-out-hospitality-management-diploma",
+    "title": "Hospitality Management Diploma",
+    "degree_type": "DIPLOMA",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "HU_SRC_032"
+    ],
+    "notes": "Excluded graduate-related offering called out in the HU discovery source map as a diploma-level item and not part of the graduate inventory."
+  }
+]

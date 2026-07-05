@@ -1,0 +1,89 @@
+{
+  "institution": "Arab Open University (Lebanon)",
+  "status": "APPROVE_WITH_NOTES",
+  "counts": {
+    "programs": 5,
+    "master": 5,
+    "phd": 0,
+    "out_of_scope": 3,
+    "tuition_populated": 5,
+    "tuition_missing": 0
+  },
+  "uniqueness": {
+    "duplicate_program_ids": [],
+    "duplicate_source_ids": [],
+    "duplicate_source_urls": [],
+    "duplicate_official_program_urls": []
+  },
+  "source_resolution": {
+    "broken_source_references": [],
+    "all_resolve": true,
+    "source_total": 20,
+    "source_referenced": 19
+  },
+  "tuition": {
+    "coverage": "5/5",
+    "currency": "USD",
+    "billing_basis": "PER_CREDIT",
+    "amounts": [
+      170
+    ]
+  },
+  "gmat_verification": {
+    "only_explicitly_published_values_used": true,
+    "programs_with_gmat_text": [
+      "aou-bus-master-business-administration",
+      "aou-bus-master-business-administration-finance",
+      "aou-bus-master-business-administration-hrm"
+    ],
+    "programs_without_gmat_text": [
+      "aou-comp-master-computing-cyber-security-forensics",
+      "aou-lang-master-tefl-thesis-track"
+    ],
+    "notes": "The retained GMAT text is the explicitly published exemption rule tied to the Graduate Entrance Exam."
+  },
+  "completeness": {
+    "program_description": 5,
+    "credits": 5,
+    "duration": 5,
+    "thesis_or_non_thesis": 5,
+    "concentrations_or_tracks": 0,
+    "delivery_mode": 5,
+    "language": 0,
+    "admission_requirements": 5,
+    "gre_requirement": 0,
+    "gmat_requirement": 3,
+    "portfolio_requirement": 0,
+    "interview_requirement": 0,
+    "experience_requirement": 3,
+    "accreditation": 5,
+    "tuition": 5
+  },
+  "orphan_sources": [
+    {
+      "source_id": "AOU_SRC_001",
+      "page_title": "Arab Open University - Lebanon Home",
+      "classification": "discovery/navigation hub only",
+      "notes": "Retained in discovery/source mapping, but not required as a direct data-source reference in the finalized dataset."
+    }
+  ],
+  "intentional_nulls": [
+    "concentrations_or_tracks",
+    "language",
+    "gre_requirement",
+    "portfolio_requirement",
+    "interview_requirement"
+  ],
+  "official_source_limitations": [
+    "AOU uses web.aou.edu.lb as the live official Lebanon site in the crawl context.",
+    "MA in TEFL materials mention two tracks in the detail page, while the central graduate listing exposes the thesis-track title.",
+    "No separate graduate PhD or doctorate program was found.",
+    "The reviewed official source set does not expose additional stable per-program fields beyond those captured here."
+  ],
+  "validation": {
+    "json_parse": true,
+    "compile": true,
+    "v24_compatibility": true,
+    "no_out_of_scope_records_in_programs": true
+  }
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "source_id": "RHU-SRC-001",
+    "page_title": "RHU Home",
+    "url": "https://www.rhu.edu.lb/",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Official RHU homepage used for top-level navigation and current site structure."
+  },
+  {
+    "source_id": "RHU-SRC-002",
+    "page_title": "Graduate",
+    "url": "https://www.rhu.edu.lb/admission/graduate",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Graduate admissions landing page."
+  },
+  {
+    "source_id": "RHU-SRC-003",
+    "page_title": "Graduate Programs",
+    "url": "https://www.rhu.edu.lb/admission/graduate/graduate-programs",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Primary web page listing graduate programs and credits by college."
+  },
+  {
+    "source_id": "RHU-SRC-004",
+    "page_title": "Admission Requirements - Graduate",
+    "url": "https://www.rhu.edu.lb/admission/graduate/admission-requirements",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Graduate required documents and English entrance/competency requirement."
+  },
+  {
+    "source_id": "RHU-SRC-005",
+    "page_title": "Before Applying",
+    "url": "https://www.rhu.edu.lb/prospective-students/before-applying",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Application deadlines, application methods, enrollment next steps, payment and housing/transportation summary."
+  },
+  {
+    "source_id": "RHU-SRC-006",
+    "page_title": "How to Apply",
+    "url": "https://www.rhu.edu.lb/prospective-students/before-applying/how-to-apply",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "In-person and online application instructions; links to graduate online application from official RHU page."
+  },
+  {
+    "source_id": "RHU-SRC-007",
+    "page_title": "Fees & Expenses",
+    "url": "https://www.rhu.edu.lb/admission/fees-expenses",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Tuition and fees index page linking current and prior fee PDFs."
+  },
+  {
+    "source_id": "RHU-SRC-008",
+    "page_title": "Tuition and Fees Academic Year 2025-2026",
+    "url": "https://www.rhu.edu.lb/Library/Assets/Gallery/Files/tuitionandfees2526.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "pdf",
+    "notes": "Current tuition/fees PDF; includes graduate per-credit rates, service fees, deferred payment, late payment, transportation, and dormitory fees."
+  },
+  {
+    "source_id": "RHU-SRC-009",
+    "page_title": "Payment of Tuition and Fees",
+    "url": "https://www.rhu.edu.lb/rhu-offices/finance-office/payment-of-tuition-and-fees",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Finance Office payment page discovered for payment process coverage."
+  },
+  {
+    "source_id": "RHU-SRC-010",
+    "page_title": "Student Catalog",
+    "url": "https://www.rhu.edu.lb/admission/student-catalog",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Catalog index page linking RHU Graduate Catalog 2025-2026 and earlier catalogs."
+  },
+  {
+    "source_id": "RHU-SRC-011",
+    "page_title": "RHU Graduate Catalog 2025-2026",
+    "url": "https://www.rhu.edu.lb/Library/Assets/Gallery/Files/RHU_Graduate_Catalog_2025-2026.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "pdf",
+    "notes": "Primary discovery source for graduate programs, admissions, application package, academic calendar, regulations, graduate assistantship, financial aid, MBA, and engineering MS requirements."
+  },
+  {
+    "source_id": "RHU-SRC-012",
+    "page_title": "RHU Graduate Catalog 2024-2025",
+    "url": "https://www.rhu.edu.lb/Library/Assets/Gallery/Files/RHU_Graduate_Catalog_2024-2025.pdf",
+    "date_accessed": "2026-07-04",
+    "source_type": "pdf",
+    "notes": "Prior graduate catalog used only as historical cross-check; current 2025-2026 catalog is preferred."
+  },
+  {
+    "source_id": "RHU-SRC-013",
+    "page_title": "College of Business Administration",
+    "url": "https://www.rhu.edu.lb/academics/college-of-business-administration",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "College page listing MBA Program links and CBA context."
+  },
+  {
+    "source_id": "RHU-SRC-014",
+    "page_title": "MBA Program Description",
+    "url": "https://www.rhu.edu.lb/home/academics/college-of-business-administration/majors-and-programs/mba-program/program-description",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "MBA program overview page."
+  },
+  {
+    "source_id": "RHU-SRC-015",
+    "page_title": "College of Engineering",
+    "url": "https://www.rhu.edu.lb/academics/college-of-engineering",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Engineering college page used to validate college structure and engineering program navigation."
+  },
+  {
+    "source_id": "RHU-SRC-016",
+    "page_title": "Master of Science in Computer and Communications Engineering",
+    "url": "https://www.rhu.edu.lb/academics/college-of-engineering/departments-programs/electrical-and-computer-engineering/master-of-science-in-computer-and-communications-engineering",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Engineering MS page discovered; content extraction appears course-heavy, so catalog remains primary for complete requirements."
+  },
+  {
+    "source_id": "RHU-SRC-017",
+    "page_title": "Master of Science in Mechanical Engineering",
+    "url": "https://www.rhu.edu.lb/academics/college-of-engineering/departments-programs/mechanical-and-mechatronic-engineering/master-of-science-in-mechanical--engineering",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Engineering MS page discovered; catalog remains primary for complete requirements."
+  },
+  {
+    "source_id": "RHU-SRC-018",
+    "page_title": "Academic Calendar",
+    "url": "https://www.rhu.edu.lb/academics/academic-calendar",
+    "date_accessed": "2026-07-04",
+    "source_type": "html",
+    "notes": "Academic calendar page; current graduate catalog also includes 2025-2026 calendar."
+  }
+]

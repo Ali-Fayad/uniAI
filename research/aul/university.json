@@ -1,0 +1,163 @@
+{
+  "id": "aul",
+  "name": "Arts, Sciences and Technology University in Lebanon",
+  "official_website": "https://www.aul.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "sources_used": [
+    "AUL-001",
+    "AUL-002",
+    "AUL-003",
+    "AUL-004",
+    "AUL-005",
+    "AUL-006",
+    "AUL-007",
+    "AUL-008",
+    "AUL-009"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants complete the admissions application at the campus of registration, submit the required documents by the assigned deadlines, and complete any faculty-specific entrance or language exam steps that are required.",
+    "steps": [
+      "Fill the Admission Application Form at the campus of registration.",
+      "Submit the required documents before the deadline assigned by Admissions.",
+      "Complete any faculty-specific entrance exam or language requirement if required.",
+      "Proceed with degree enrollment once the application is approved."
+    ],
+    "source_ids": [
+      "AUL-002"
+    ]
+  },
+  "required_documents": {
+    "summary": "AUL publishes a general admissions document list that includes identity, family, academic records, and supporting papers for graduate applicants.",
+    "items": [
+      "Admission Application Form (4 pages)",
+      "Three recent passport-size colored photos",
+      "Certified copy of Identity Card or Passport",
+      "Certified copy of Family Register",
+      "Certified copy of Official Lebanese BAC II Certificate or equivalent / freshman authorization with SAT",
+      "Certified copy of high-school grades for the last three years",
+      "Certified copies of degree(s) and official transcript(s) from previous university stamped by the Lebanese Ministry of Education & Higher Education, with equivalence for graduate programs",
+      "International testing scores and certificates, if available",
+      "Medical report",
+      "NSSF letter, if available",
+      "Proof of residency letter"
+    ],
+    "source_ids": [
+      "AUL-002"
+    ]
+  },
+  "language_requirements": {
+    "summary": "No single university-wide graduate language threshold was published in the reviewed official sources. The admissions page references language entrance exam fees for majors when required, and faculty pages indicate program-specific entrance testing.",
+    "source_ids": [
+      "AUL-002",
+      "AUL-003",
+      "AUL-004",
+      "AUL-005"
+    ]
+  },
+  "deadlines": {
+    "summary": "The reviewed official sources confirm that required documents must be submitted by deadlines assigned by Admissions; a separate graduate deadline table was not published in the reviewed content.",
+    "source_ids": [
+      "AUL-002",
+      "AUL-007"
+    ]
+  },
+  "tuition_model": {
+    "summary": "Graduate tuition was not publicly available from the official AUL sources reviewed for this task. Do not infer tuition values.",
+    "currency": null,
+    "source_ids": [
+      "AUL-002",
+      "AUL-003",
+      "AUL-004",
+      "AUL-005"
+    ],
+    "notes": "The admissions page exposes fee labels, but no official graduate tuition schedule or numeric fee table was published in the reviewed source set."
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUL-002"
+      ],
+      "notes": "The admissions page includes application-fee labels, but no public graduate application amount was published in the reviewed content."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUL-002"
+      ],
+      "notes": "No standalone graduate registration fee amount was published in the reviewed official sources."
+    },
+    "entrance_exam_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "AUL-002"
+      ],
+      "notes": "The admissions page lists language and faculty-specific entrance exam labels, but the public page content reviewed did not expose numeric fee amounts."
+    }
+  },
+  "payment_methods": {
+    "summary": "AUL handles graduate admissions and registration through the campus admissions workflow; the reviewed sources did not publish a detailed graduate payment-method matrix.",
+    "source_ids": [
+      "AUL-002"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No graduate payment-plan details were published in the reviewed AUL sources.",
+    "source_ids": [
+      "AUL-002",
+      "AUL-007"
+    ]
+  },
+  "scholarships": {
+    "summary": "The admissions page shows scholarship-related labels, but no detailed graduate scholarship amounts or award tables were publicly available in the reviewed sources.",
+    "items": [
+      "SIBLINGS",
+      "SPORTS",
+      "SCHOLARSHIPS"
+    ],
+    "source_ids": [
+      "AUL-002"
+    ]
+  },
+  "financial_aid": {
+    "summary": "Degree-seeking students may qualify for financial aid at AUL, with applications submitted through Student Affairs before the university calendar deadline.",
+    "source_ids": [
+      "AUL-002"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "AUL's main navigation and Academics page link to the academic calendar, but the reviewed sources did not identify a separate graduate-only calendar.",
+    "source_ids": [
+      "AUL-001",
+      "AUL-007"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "No dedicated graduate regulations page was published in the reviewed official sources. Use the admissions page, faculty pages, and AUL-hosted handbook context as the available official guidance.",
+    "source_ids": [
+      "AUL-002",
+      "AUL-009"
+    ]
+  },
+  "international_students": {
+    "summary": "No graduate-specific international-student policy was published in the reviewed AUL sources; the admissions page notes that international testing scores and certificates may be required if available.",
+    "source_ids": [
+      "AUL-002",
+      "AUL-006"
+    ]
+  },
+  "accreditation": {
+    "summary": "No distinct graduate accreditation statement was identified in the reviewed official sources.",
+    "source_ids": [
+      "AUL-008"
+    ]
+  }
+}

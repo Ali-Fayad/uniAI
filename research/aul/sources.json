@@ -1,0 +1,74 @@
+[
+  {
+    "source_id": "AUL-001",
+    "page_title": "AUL University | Your Higher Education",
+    "url": "https://aul.edu.lb/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Official homepage used to identify official navigation, faculties, admissions, research, and academic pages."
+  },
+  {
+    "source_id": "AUL-002",
+    "page_title": "ADMISSIONS | AUL University",
+    "url": "https://aul.edu.lb/?page_id=78",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Admissions process, required documents, graduate-program document requirement, financial aid, scholarships, and pre-application major list."
+  },
+  {
+    "source_id": "AUL-003",
+    "page_title": "BUSINESS | AUL University",
+    "url": "https://aul.edu.lb/?page_id=142",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Faculty of Business page containing the Master of Business Administration (MBA)."
+  },
+  {
+    "source_id": "AUL-004",
+    "page_title": "ENGINEERING | AUL University",
+    "url": "https://aul.edu.lb/?page_id=144",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Faculty of Engineering page containing the Master of Science in Engineering / Master in CCE."
+  },
+  {
+    "source_id": "AUL-005",
+    "page_title": "SCIENCES & FINE ARTS | AUL University",
+    "url": "https://aul.edu.lb/?page_id=146",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Faculty of Sciences & Fine Arts page containing the Master of Science / Master in CSC."
+  },
+  {
+    "source_id": "AUL-006",
+    "page_title": "Research | AUL University",
+    "url": "https://aul.edu.lb/?page_id=1001",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Official research page mentioning master and PhD candidates and research features; no official PhD program page found."
+  },
+  {
+    "source_id": "AUL-007",
+    "page_title": "ACADEMICS | AUL University",
+    "url": "https://aul.edu.lb/?page_id=76",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Academics page and academic calendar navigation; continuing education content treated as out of scope."
+  },
+  {
+    "source_id": "AUL-008",
+    "page_title": "ABOUT AUL | AUL University",
+    "url": "https://aul.edu.lb/?page_id=80",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "scope_relevance": "Official institutional page used for accreditation and faculty navigation context."
+  },
+  {
+    "source_id": "AUL-009",
+    "page_title": "Student Work Program Handbook (Assistantship)",
+    "url": "https://www.aul.edu.lb/wp-content/uploads/2025/12/Student-Work-Program-Handbook-2025.pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_pdf",
+    "scope_relevance": "Official AUL-hosted PDF mentioning graduate students in MS or MBA programs are eligible for student work/assistantship."
+  }
+]

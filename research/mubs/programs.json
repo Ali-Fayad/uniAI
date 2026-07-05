@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mubs-fas-master-computer-science",
+    "program_key": "computer-science",
+    "title": "Master of Science in Computer Science",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Arts and Sciences",
+    "department": "Computer Science Department",
+    "official_program_url": "https://mubs.edu.lb/en/faculties/artsandsciences/csd.aspx",
+    "source_ids": [
+      "MUBS-SRC-009",
+      "MUBS-SRC-018"
+    ],
+    "program_description": "Graduate computer science program for CS degree holders that offers advanced study in Software Development, Cyber Security, Artificial Intelligence, and Internet of Things.",
+    "concentrations_or_tracks": [
+      "Software Development",
+      "Cyber Security",
+      "Artificial Intelligence",
+      "Internet of Things"
+    ],
+    "admission_requirements": "Designed for graduates with a computer science bachelor's degree.",
+    "accreditation": "MEHE accreditation for the BCS and MCS.",
+    "notes": "Current department page confirms the MCS, names four specialization areas, and states MEHE accreditation for BCS and MCS. The UMS application URL also confirms the major name."
+  },
+  {
+    "id": "mubs-cmu-master-business-administration",
+    "program_key": "cardiff-mba",
+    "title": "Master of Business Administration (MBA)",
+    "degree_type": "MASTER",
+    "faculty": "Cardiff Metropolitan University at MUBS",
+    "department": null,
+    "official_program_url": "https://mubs.edu.lb/en/faculties/cmu/programs/postgraduate-level/7741.aspx",
+    "source_ids": [
+      "MUBS-SRC-012",
+      "MUBS-SRC-013",
+      "MUBS-SRC-016",
+      "MUBS-SRC-023"
+    ],
+    "program_description": "Cardiff Metropolitan University MBA at MUBS with core modules, pathway modules, a final project, employability content, and official application steps.",
+    "concentrations_or_tracks": [
+      "Project Management",
+      "Human Resource Management",
+      "Marketing",
+      "Health Sector Management",
+      "Supply Chain & Logistics Management"
+    ],
+    "accreditation": "Cardiff Metropolitan University recognition in Lebanon and the UK.",
+    "notes": "The current Cardiff Met at MUBS page lists these named MBA pathways. The general MBA page, info request page, and Cardiff MBA PDF describe the British master degree, hybrid/flexible structure, evening classes, and pathway modules. Modeled as one MBA program with documented tracks rather than separate program records because no distinct current public page was recovered for each track."
+  }
+]

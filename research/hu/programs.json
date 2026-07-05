@@ -1,0 +1,162 @@
+[
+  {
+    "id": "hu-mba",
+    "program_key": "hu-mba",
+    "title": "Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration and Economics",
+    "department": null,
+    "official_program_url": "https://www.haigazian.edu.lb/academics/graduate-programs/",
+    "source_ids": [
+      "HU_SRC_002",
+      "HU_SRC_003",
+      "HU_SRC_004",
+      "HU_SRC_005",
+      "HU_SRC_006",
+      "HU_SRC_007",
+      "HU_SRC_008",
+      "HU_SRC_009",
+      "HU_SRC_032"
+    ],
+    "language": "English",
+    "credits": 39,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 455,
+      "category": "Faculty of Business Administration and Economics",
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ],
+      "notes": "HU's official graduate catalog lists graduate tuition at USD 455 per credit; the tuition-fees page confirms current annual review and term-based payment policy."
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": [
+      "General Business Administration",
+      "Accounting",
+      "Finance",
+      "Human Resources Management",
+      "Management",
+      "Marketing"
+    ],
+    "description": "The MBA develops analytical, decision-making, and problem-solving skills for leadership in professional management roles. HU's MBA framework allows specialization in six areas while keeping one common degree structure.",
+    "admission_requirements": "Open to applicants with a bachelor's degree in business or non-business fields from an accredited institution. The MBA may require between 39 and 64 credits depending on prior academic preparation and is designed for full-time study.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "notes": "HU's graduate index lists six MBA rows, but the official MBA PDFs share one common MBA framework with specialization areas. This inventory models them as one MBA record with concentrations instead of six separate programs.",
+    "delivery_mode": null,
+    "program_description": null,
+    "delivery_mode": null,
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "hu-ma-education",
+    "program_key": "hu-ma-education",
+    "title": "Master of Arts in Education",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Social and Behavioral Sciences",
+    "department": null,
+    "official_program_url": "https://www.haigazian.edu.lb/wp-content/uploads/2026/01/MA-Education24-26.pdf",
+    "source_ids": [
+      "HU_SRC_002",
+      "HU_SRC_003",
+      "HU_SRC_010",
+      "HU_SRC_032"
+    ],
+    "language": "English",
+    "credits": 33,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 455,
+      "category": "Faculty of Social and Behavioral Sciences",
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ],
+      "notes": "HU's official graduate catalog lists graduate tuition at USD 455 per credit; the tuition-fees page confirms current annual review and term-based payment policy."
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": [
+      "Educational Administration and Supervision",
+      "Special Education"
+    ],
+    "description": "The MA in Education is designed to prepare leaders in education and provides a path for advanced study. HU offers emphases in Educational Administration and Supervision and Special Education.",
+    "admission_requirements": "Applicants must satisfy the graduate admission standards and have taken or be taking 16 credits in undergraduate Education or Psychology courses, including statistics and research literacy. A cumulative grade average of 80 or above is required, and applicants are interviewed by the Social and Behavioral Sciences Graduate Committee.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Required by the Social and Behavioral Sciences Graduate Committee.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "Official graduate program listed in the HU index and MA program PDF. No additional title-level specialization was treated as a separate program.",
+    "delivery_mode": null,
+    "program_description": "The MA in Education is designed to prepare leaders in education and provides a path for advanced study. HU offers emphases in Educational Administration and Supervision and Special Education.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  },
+  {
+    "id": "hu-ma-psychology",
+    "program_key": "hu-ma-psychology",
+    "title": "Master of Arts in Psychology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Social and Behavioral Sciences",
+    "department": null,
+    "official_program_url": "https://www.haigazian.edu.lb/wp-content/uploads/2026/01/MA-Psychology24-26.pdf",
+    "source_ids": [
+      "HU_SRC_002",
+      "HU_SRC_003",
+      "HU_SRC_011",
+      "HU_SRC_032"
+    ],
+    "language": "English",
+    "credits": 33,
+    "duration": null,
+    "tuition": {
+      "academic_year": "2024-2025",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 455,
+      "category": "Faculty of Social and Behavioral Sciences",
+      "source_ids": [
+        "HU_SRC_019",
+        "HU_SRC_032"
+      ],
+      "notes": "HU's official graduate catalog lists graduate tuition at USD 455 per credit; the tuition-fees page confirms current annual review and term-based payment policy."
+    },
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations": [
+      "General Psychology",
+      "Clinical Psychology",
+      "Counseling",
+      "Industrial/Organizational Psychology",
+      "Marketing and Advertising Psychology"
+    ],
+    "description": "The MA in Psychology focuses on the broader social context and is organized into five modules: general psychology, clinical psychology, counseling, industrial/organizational psychology, and marketing and advertising psychology.",
+    "admission_requirements": "Applicants must satisfy the graduate admission standards and have taken or be taking 16 credits in undergraduate Education or Psychology courses, including statistics and research literacy. A cumulative grade average of 80 or above is required, and applicants are interviewed by the Social and Behavioral Sciences Graduate Committee.",
+    "GRE": null,
+    "GMAT": null,
+    "interview": "Required by the Social and Behavioral Sciences Graduate Committee.",
+    "experience": null,
+    "accreditation": null,
+    "notes": "Official graduate program listed in the HU index and MA program PDF. No separate PhD program or additional psychology graduate degree was found in the discovery set.",
+    "delivery_mode": null,
+    "program_description": "The MA in Psychology focuses on the broader social context and is organized into five modules: general psychology, clinical psychology, counseling, industrial/organizational psychology, and marketing and advertising psychology.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null
+  }
+]

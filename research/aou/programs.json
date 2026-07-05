@@ -1,0 +1,220 @@
+[
+  {
+    "id": "aou-bus-master-business-administration",
+    "program_key": "business-administration",
+    "title": "Masters in Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Studies",
+    "department": null,
+    "official_program_url": "https://web.aou.edu.lb/faculties/business/Pages/program-details.aspx?degree=2&iid=4",
+    "source_ids": [
+      "AOU_SRC_002",
+      "AOU_SRC_003",
+      "AOU_SRC_004",
+      "AOU_SRC_005",
+      "AOU_SRC_006",
+      "AOU_SRC_008",
+      "AOU_SRC_009",
+      "AOU_SRC_019"
+    ],
+    "program_description": "MBA for practicing managers that emphasizes strategic analysis, interdisciplinary skills, and management practice.",
+    "credits": 48,
+    "duration": "4 regular semesters (2 academic years) minimum; 8 regular semesters (4 years) maximum",
+    "thesis_or_non_thesis": "NON_THESIS",
+    "concentrations_or_tracks": null,
+    "delivery_mode": "ON_CAMPUS",
+    "language": null,
+    "admission_requirements": "Bachelor's degree from an accredited institution or an equivalent degree as evaluated by the Ministry of Higher Education; relevant professional experience; minimum GPA of 2.5 in the undergraduate degree; English placement test unless exempt; Graduate Entrance Exam unless exempt; non-business applicants must complete 16 credit hours of remedial courses.",
+    "gre_requirement": null,
+    "gmat_requirement": "Applicants with evidence of a minimum GMAT score of 500 or equivalent are exempted from the Graduate Entrance Exam.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Relevant professional experience",
+    "accreditation": "OU Validated",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "notes": "Official MBA program detail page lists tuition at USD 170 per credit hour.",
+      "source_ids": [
+        "AOU_SRC_009"
+      ]
+    },
+    "notes": "Official MBA general program published on the Faculty of Business Studies postgraduate and program detail pages."
+  },
+  {
+    "id": "aou-bus-master-business-administration-finance",
+    "program_key": "business-administration-finance",
+    "title": "Masters in Business Administration (Finance)",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Studies",
+    "department": null,
+    "official_program_url": "https://web.aou.edu.lb/faculties/business/Pages/program-details.aspx?degree=2&iid=5",
+    "source_ids": [
+      "AOU_SRC_002",
+      "AOU_SRC_003",
+      "AOU_SRC_005",
+      "AOU_SRC_006",
+      "AOU_SRC_008",
+      "AOU_SRC_010"
+    ],
+    "program_description": "MBA specialization in finance that develops skills to analyze and solve complex business finance problems and communicate finance findings effectively.",
+    "credits": 48,
+    "duration": "4 regular semesters (2 academic years) minimum; 8 regular semesters (4 years) maximum",
+    "thesis_or_non_thesis": "NON_THESIS",
+    "concentrations_or_tracks": null,
+    "delivery_mode": "ON_CAMPUS",
+    "language": null,
+    "admission_requirements": "Bachelor's degree from an accredited institution or an equivalent degree as evaluated by the Ministry of Higher Education; relevant professional experience; minimum GPA of 2.5 in the undergraduate degree; English placement test unless exempt; Graduate Entrance Exam unless exempt; non-business applicants must complete 16 credit hours of remedial courses.",
+    "gre_requirement": null,
+    "gmat_requirement": "Applicants with evidence of a minimum GMAT score of 500 or equivalent are exempted from the Graduate Entrance Exam.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Relevant professional experience",
+    "accreditation": "OU Validated",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "notes": "Official MBA Finance program detail page lists tuition at USD 170 per credit hour.",
+      "source_ids": [
+        "AOU_SRC_010"
+      ]
+    },
+    "notes": "Official MBA Finance program published on the Faculty of Business Studies postgraduate and program detail pages."
+  },
+  {
+    "id": "aou-bus-master-business-administration-hrm",
+    "program_key": "business-administration-hrm",
+    "title": "Masters in Business Administration (HRM)",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Studies",
+    "department": null,
+    "official_program_url": "https://web.aou.edu.lb/faculties/business/Pages/program-details.aspx?degree=2&iid=6",
+    "source_ids": [
+      "AOU_SRC_002",
+      "AOU_SRC_003",
+      "AOU_SRC_005",
+      "AOU_SRC_006",
+      "AOU_SRC_008",
+      "AOU_SRC_011"
+    ],
+    "program_description": "MBA specialization in human resource management that develops management and HRM decision-making skills for professional practice.",
+    "credits": 48,
+    "duration": "4 regular semesters (2 academic years) minimum; 8 regular semesters (4 years) maximum",
+    "thesis_or_non_thesis": "NON_THESIS",
+    "concentrations_or_tracks": null,
+    "delivery_mode": "ON_CAMPUS",
+    "language": null,
+    "admission_requirements": "Bachelor's degree from an accredited institution or an equivalent degree as evaluated by the Ministry of Higher Education; relevant professional experience; minimum GPA of 2.5 in the undergraduate degree; English placement test unless exempt; Graduate Entrance Exam unless exempt; non-business applicants must complete 16 credit hours of remedial courses.",
+    "gre_requirement": null,
+    "gmat_requirement": "Applicants with evidence of a minimum GMAT score of 500 or equivalent are exempted from the Graduate Entrance Exam.",
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": "Relevant professional experience",
+    "accreditation": "OU Validated",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "notes": "Official MBA HRM program detail page lists tuition at USD 170 per credit hour.",
+      "source_ids": [
+        "AOU_SRC_011"
+      ]
+    },
+    "notes": "Official MBA HRM program published on the Faculty of Business Studies postgraduate and program detail pages."
+  },
+  {
+    "id": "aou-comp-master-computing-cyber-security-forensics",
+    "program_key": "computing-cyber-security-forensics",
+    "title": "MSc in Computing (Cyber Security and Forensics)",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Computer Studies",
+    "department": null,
+    "official_program_url": "https://web.aou.edu.lb/faculties/computer/Pages/program-details.aspx?degree=2&iid=7",
+    "source_ids": [
+      "AOU_SRC_002",
+      "AOU_SRC_003",
+      "AOU_SRC_005",
+      "AOU_SRC_006",
+      "AOU_SRC_012",
+      "AOU_SRC_013"
+    ],
+    "program_description": "MSc in Computing focused on Cyber Security and Forensics, combining compulsory modules, electives, and a research project with dissertation.",
+    "credits": 48,
+    "duration": "4 regular semesters (2 academic years) minimum; 8 regular semesters (4 years) maximum",
+    "thesis_or_non_thesis": "THESIS_OR_PROJECT",
+    "concentrations_or_tracks": null,
+    "delivery_mode": "ON_CAMPUS",
+    "language": null,
+    "admission_requirements": "BSc in Information Technology-related subjects from AOU or another recognized university; minimum GPA of 2.5; applicants from mathematics, physics, business computing, or other relevant backgrounds may need 12 additional ITC credits before starting the MSc; English placement test unless exempt.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "accreditation": "OU Validated",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "notes": "Official MSc Computing program detail page lists tuition at USD 170 per credit hour.",
+      "source_ids": [
+        "AOU_SRC_013"
+      ]
+    },
+    "notes": "Official MSc Computing program published on the Faculty of Computer Studies postgraduate and program detail pages."
+  },
+  {
+    "id": "aou-lang-master-tefl-thesis-track",
+    "program_key": "tefl-thesis-track",
+    "title": "MA in Teaching English as a Foreign Language (TEFL) - Thesis Track",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Language Studies",
+    "department": null,
+    "official_program_url": "https://web.aou.edu.lb/faculties/language/Pages/program-details.aspx?degree=2&iid=17",
+    "source_ids": [
+      "AOU_SRC_002",
+      "AOU_SRC_003",
+      "AOU_SRC_005",
+      "AOU_SRC_006",
+      "AOU_SRC_014",
+      "AOU_SRC_015",
+      "AOU_SRC_016"
+    ],
+    "program_description": "MA in Teaching English as a Foreign Language with a thesis track, compulsory modules, and a thesis module.",
+    "credits": 48,
+    "duration": "4 regular semesters (2 academic years) minimum; 8 regular semesters (4 years) maximum",
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "delivery_mode": "ON_CAMPUS",
+    "language": null,
+    "admission_requirements": "BA degree in English Language and Literature or a related specialization from AOU or another recognized university with a graduation rating of GOOD or higher as evaluated by the Ministry of Higher Education; IELTS Academic band 6 or higher, or TOEFL paper-based 550 or equivalent computer-based score.",
+    "gre_requirement": null,
+    "gmat_requirement": null,
+    "portfolio_requirement": null,
+    "interview_requirement": null,
+    "experience_requirement": null,
+    "accreditation": "OU Validated",
+    "tuition": {
+      "academic_year": null,
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "notes": "Official MA TEFL program detail page lists tuition at USD 170 per credit hour.",
+      "source_ids": [
+        "AOU_SRC_016"
+      ]
+    },
+    "notes": "Official MA TEFL thesis-track program published on the Faculty of Language Studies postgraduate and program detail pages. The detail page also refers to dissertation and comprehensive-exam tracks, but the central graduate listing exposes the thesis-track title."
+  }
+]
