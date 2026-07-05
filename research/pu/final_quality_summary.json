@@ -1,0 +1,71 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_seed_generation": true,
+  "seed_generation_target": "V45",
+  "programs_total": 2,
+  "master_count": 2,
+  "phd_count": 0,
+  "out_of_scope_count": 0,
+  "tuition_coverage": {
+    "mapped_programs": 2,
+    "unmapped_programs": 0,
+    "model": "centralized_university_tuition_table"
+  },
+  "program_tuition_field_null_count": 2,
+  "duplicate_program_ids": [],
+  "duplicate_source_ids": [],
+  "duplicate_source_urls": [],
+  "duplicate_official_program_urls": [],
+  "broken_source_references": [],
+  "shared_data_centralized": true,
+  "mba_modeling": "single_program",
+  "schema_compatibility": {
+    "degree_type": true,
+    "delivery_mode": true,
+    "thesis_or_non_thesis": true,
+    "language": true,
+    "tuition": true
+  },
+  "orphan_sources": [],
+  "completeness": {
+    "program_description": 2,
+    "admission_requirements": 2,
+    "interview": 2,
+    "experience": 1,
+    "credits": 0,
+    "duration": 0,
+    "thesis_or_non_thesis": 0,
+    "concentrations_or_tracks": 0,
+    "delivery_mode": 0,
+    "language": 0,
+    "GRE": 0,
+    "GMAT": 0,
+    "portfolio": 0,
+    "accreditation": 0,
+    "tuition_rows": 2
+  },
+  "intentional_nulls": [
+    "credits",
+    "duration",
+    "thesis_or_non_thesis",
+    "concentrations_or_tracks",
+    "delivery_mode",
+    "language",
+    "GRE",
+    "GMAT",
+    "portfolio",
+    "accreditation"
+  ],
+  "validation": {
+    "json_parse": true,
+    "compile": true,
+    "official_urls_only": true,
+    "every_source_reference_resolves": true
+  },
+  "notes": [
+    "TUITION is modeled centrally in university.json.tuition_table.",
+    "No source IDs are orphaned when both program and university records are considered.",
+    "No official PhD program evidence was found.",
+    "MBA and LL.M. remain one graduate program each."
+  ]
+}

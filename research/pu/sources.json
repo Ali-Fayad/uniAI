@@ -1,0 +1,98 @@
+[
+  {
+    "source_id": "PU-SRC-001",
+    "page_title": "Home | Phoenicia University",
+    "url": "https://pu.edu.lb/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Canonical official PU website encountered during discovery; page includes PU identity, colleges, contact details, and top-level navigation."
+  },
+  {
+    "source_id": "PU-SRC-002",
+    "page_title": "Admission Requirements | Phoenicia University",
+    "url": "https://pu.edu.lb/admission-requirements",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Admissions index listing graduate MBA and graduate LL.M. admission requirement pages."
+  },
+  {
+    "source_id": "PU-SRC-003",
+    "page_title": "Graduate – Master of Business Administration (MBA) | Phoenicia University",
+    "url": "https://pu.edu.lb/graduate-master-business-administration",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Graduate MBA admission requirements, required documents, interview requirement, application fee, English proficiency, foundation courses, and credit transfer notes."
+  },
+  {
+    "source_id": "PU-SRC-004",
+    "page_title": "Master of Business Administration (MBA) | Phoenicia University",
+    "url": "https://pu.edu.lb/master-business-administration",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "MBA program overview, objectives, outcomes, and degree plan/curriculum links."
+  },
+  {
+    "source_id": "PU-SRC-005",
+    "page_title": "Graduate – Master of Laws (LL.M.) Program | Phoenicia University",
+    "url": "https://pu.edu.lb/graduate-master-laws-llm-program",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Graduate LL.M. admission requirements, required documents, interview requirement, application fee, English proficiency, language score thresholds, and enrollment options."
+  },
+  {
+    "source_id": "PU-SRC-006",
+    "page_title": "Master of Laws (LL.M.): Commercial Regulation, Litigation and Arbitration | Phoenicia University",
+    "url": "https://pu.edu.lb/master-laws-llm-commercial-regulation-litigation-and-arbitration",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "LL.M. program overview, focus area, objectives, outcomes, and degree plan/curriculum links."
+  },
+  {
+    "source_id": "PU-SRC-007",
+    "page_title": "Majors and Degrees | Phoenicia University",
+    "url": "https://pu.edu.lb/majors-and-degrees",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Majors and degrees page listing Master of Laws (LL.M.) and Master of Business Administration (MBA) among PU degrees."
+  },
+  {
+    "source_id": "PU-SRC-008",
+    "page_title": "Graduate Tuition and Fees | Phoenicia University",
+    "url": "https://pu.edu.lb/graduate-tuition-and-fees",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Graduate tuition page listing per-credit fees for MBA and LL.M.; notes tuition is paid in fresh dollars."
+  },
+  {
+    "source_id": "PU-SRC-009",
+    "page_title": "Financial Aid and Scholarship | Phoenicia University",
+    "url": "https://pu.edu.lb/financial-aid-and-scholarship",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Financial aid page describing need-based grants, loans, work-study, merit scholarships, application access, and contact email."
+  },
+  {
+    "source_id": "PU-SRC-010",
+    "page_title": "Full Registrar Calendar | Phoenicia University",
+    "url": "https://pu.edu.lb/full-registrar-calendar",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Registrar calendar with MBA/LLM semester dates, registration/payment deadlines, financial aid deadlines, deferral deadlines, and installment payment deadlines."
+  },
+  {
+    "source_id": "PU-SRC-011",
+    "page_title": "College of Law and Political Science | Phoenicia University",
+    "url": "https://pu.edu.lb/college-of-law-and-political-science",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "College page explicitly listing Master of Laws (LL.M.) under the College of Law and Political Science."
+  },
+  {
+    "source_id": "PU-SRC-012",
+    "page_title": "Self-Service - Apply | Phoenicia University",
+    "url": "https://pusis.pu.edu.lb/SelfService/Admissions/ApplicationSelectEnabledForm.aspx",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official PU self-service admissions page listing Graduate Student Application (MBA) and Graduate Student Application (Master of Laws - LLM)."
+  }
+]

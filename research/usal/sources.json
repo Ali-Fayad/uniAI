@@ -1,0 +1,110 @@
+[
+  {
+    "source_id": "USAL_SRC_001",
+    "page_title": "University of Sciences and Arts in Lebanon - USAL",
+    "url": "https://usal.edu.lb/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Homepage and global navigation; confirms institutional context and official links."
+  },
+  {
+    "source_id": "USAL_SRC_002",
+    "page_title": "Programs and Majors - USAL",
+    "url": "https://usal.edu.lb/programs-majors/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Lists 20 nationally ranked undergraduate programs; no Master's or PhD programs listed."
+  },
+  {
+    "source_id": "USAL_SRC_003",
+    "page_title": "FAQ - Frequently Asked Questions - USAL",
+    "url": "https://usal.edu.lb/faq/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "States USAL requested licensing for some postgraduate programs and is awaiting ministerial decision before offering them."
+  },
+  {
+    "source_id": "USAL_SRC_004",
+    "page_title": "Admission Requirements - USAL",
+    "url": "https://web.usal.edu.lb/admission-requirement/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Admission requirements/placement tests; evidence found for current undergraduate-style criteria, no graduate admissions requirements."
+  },
+  {
+    "source_id": "USAL_SRC_005",
+    "page_title": "Admission Procedures - USAL",
+    "url": "https://usal.edu.lb/admission-procedure/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Application steps for bachelor and diploma students; no graduate admission procedure found."
+  },
+  {
+    "source_id": "USAL_SRC_006",
+    "page_title": "Tuition & Fees - USAL",
+    "url": "https://usal.edu.lb/tuition-fees/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "2025-2026 tuition page; lists bachelor-level fees, no graduate tuition."
+  },
+  {
+    "source_id": "USAL_SRC_007",
+    "page_title": "Financial Aids - USAL",
+    "url": "https://usal.edu.lb/financial-aid/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Scholarships and financial aid page; no graduate-specific scholarship or financial aid found."
+  },
+  {
+    "source_id": "USAL_SRC_008",
+    "page_title": "Academic Calendar - USAL",
+    "url": "https://usal.edu.lb/academic-calendar/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Academic calendar page; no graduate-specific calendar found."
+  },
+  {
+    "source_id": "USAL_SRC_009",
+    "page_title": "International Office - USAL",
+    "url": "https://usal.edu.lb/International-Office/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "International students admissions/services; no graduate-specific international admissions found."
+  },
+  {
+    "source_id": "USAL_SRC_010",
+    "page_title": "Rules and Regulations - USAL",
+    "url": "https://usal.edu.lb/rules/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Rules and regulations landing page."
+  },
+  {
+    "source_id": "USAL_SRC_011",
+    "page_title": "نظام الدراسة المعدّل 2021",
+    "url": "https://usal.edu.lb/wp-content/uploads/2024/12/%D9%86%D8%B8%D8%A7%D9%85-%D8%A7%D9%84%D8%AF%D8%B1%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D9%85%D8%B9%D8%AF%D9%91%D9%84_2021.pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "pdf",
+    "source": "official USAL-hosted PDF",
+    "notes": "Academic study regulations PDF; reviewed for graduate regulation evidence, none found."
+  },
+  {
+    "source_id": "USAL_SRC_012",
+    "page_title": "Apply to USAL - USAL",
+    "url": "https://usal.edu.lb/apply/",
+    "date_accessed": "2026-07-05",
+    "source_type": "webpage",
+    "source": "official USAL website",
+    "notes": "Online registration page lists undergraduate, diploma, and visiting/auditing registration forms; no graduate application form found."
+  }
+]

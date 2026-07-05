@@ -1,0 +1,98 @@
+[
+  {
+    "source_id": "JU_SRC_001",
+    "page_title": "Jinan University - Home",
+    "url": "https://www.jinan.edu.lb/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official JU homepage; identifies the canonical live site used for discovery."
+  },
+  {
+    "source_id": "JU_SRC_002",
+    "page_title": "Majors & Programs | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/majors-programs",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Primary official listing of postgraduate Master's and Ph.D. programs and credits."
+  },
+  {
+    "source_id": "JU_SRC_003",
+    "page_title": "Graduate | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/graduate",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Graduate admissions and postgraduate studies overview with graduate policy/requirements tabs."
+  },
+  {
+    "source_id": "JU_SRC_004",
+    "page_title": "Entrance Registration Form | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/entrance-registration",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official application page; includes Graduate Applicants tab and required documents shown in extracted content."
+  },
+  {
+    "source_id": "JU_SRC_005",
+    "page_title": "Graduate Academic Resources | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/recruit-apply/graduate-academ",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Graduate research guide / thesis-dissertation submission guidance."
+  },
+  {
+    "source_id": "JU_SRC_006",
+    "page_title": "Tuition & Fees | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/about-corporation/tuition-and-fees",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "General tuition/fees method and bank transfer details."
+  },
+  {
+    "source_id": "JU_SRC_007",
+    "page_title": "Financial System | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/financial-system",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official 2026-2027 payment system; includes first-payment amounts for Master's and Doctoral levels."
+  },
+  {
+    "source_id": "JU_SRC_008",
+    "page_title": "Financial Aid | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/financial-aid",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Scholarship / financial aid rules applying to different study stages."
+  },
+  {
+    "source_id": "JU_SRC_009",
+    "page_title": "Academic Calendar | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/academic-calendar",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official academic calendar page with important academic dates and entrance exam events."
+  },
+  {
+    "source_id": "JU_SRC_010",
+    "page_title": "Student Calendar PDF | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/calendar-pdf",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "Official page linking student calendar PDFs; extracted page content did not expose PDF URLs."
+  },
+  {
+    "source_id": "JU_SRC_011",
+    "page_title": "Foreign Students | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/foreign-students",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "International/foreign student fee and language-fee information."
+  },
+  {
+    "source_id": "JU_SRC_012",
+    "page_title": "Policies & Procedures | Jinan University",
+    "url": "https://www.jinan.edu.lb/pages/en/policies-procedures",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_webpage",
+    "notes": "General academic policies page; available extracted content is mainly undergraduate/honors and not graduate-specific."
+  }
+]

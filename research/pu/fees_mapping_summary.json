@@ -1,0 +1,29 @@
+{
+  "total_programs": 2,
+  "tuition_populated_count": 2,
+  "tuition_null_count": 0,
+  "tuition_rows_by_faculty_or_school": [
+    {
+      "faculty": "College of Business",
+      "program_ids": [
+        "pu-mba"
+      ],
+      "billing_basis": "PER_CREDIT",
+      "amount": 210,
+      "currency": "USD"
+    },
+    {
+      "faculty": "College of Law and Political Science",
+      "program_ids": [
+        "pu-llm"
+      ],
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "currency": "USD"
+    }
+  ],
+  "unmapped_programs": [],
+  "source_ids_used": [
+    "PU-SRC-008"
+  ]
+}

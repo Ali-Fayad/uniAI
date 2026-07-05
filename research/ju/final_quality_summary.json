@@ -1,0 +1,61 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "programs": 20,
+  "master_count": 17,
+  "phd_count": 3,
+  "out_of_scope_count": 8,
+  "duplicate_program_ids": 0,
+  "duplicate_source_ids": 0,
+  "duplicate_source_urls": 0,
+  "duplicate_official_program_urls": 0,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 20,
+  "source_ids_unique": 12,
+  "source_urls_unique": 12,
+  "official_program_urls_unique": 0,
+  "shared_data_centralized": true,
+  "schema_compatibility": "V24",
+  "completeness_by_field": {
+    "program_description": { "populated": 0, "total": 20 },
+    "credits": { "populated": 20, "total": 20 },
+    "duration": { "populated": 0, "total": 20 },
+    "thesis_or_non_thesis": { "populated": 0, "total": 20 },
+    "concentrations_or_tracks": { "populated": 0, "total": 20 },
+    "delivery_mode": { "populated": 0, "total": 20 },
+    "language": { "populated": 0, "total": 20 },
+    "admission_requirements": { "populated": 0, "total": 20 },
+    "gre_requirement": { "populated": 0, "total": 20 },
+    "gmat_requirement": { "populated": 0, "total": 20 },
+    "portfolio_requirement": { "populated": 0, "total": 20 },
+    "interview_requirement": { "populated": 0, "total": 20 },
+    "experience_requirement": { "populated": 0, "total": 20 },
+    "accreditation": { "populated": 0, "total": 20 }
+  },
+  "orphan_sources": [
+    {
+      "source_id": "JU_SRC_001",
+      "classification": "discovery_only",
+      "reason": "Official homepage / navigation source used during discovery but not needed as inventory evidence."
+    },
+    {
+      "source_id": "JU_SRC_005",
+      "classification": "supporting_not_consumed",
+      "reason": "Graduate academic resources were reviewed, but no additional program-level field was safely populated from it."
+    },
+    {
+      "source_id": "JU_SRC_012",
+      "classification": "non_graduate_specific",
+      "reason": "Policies and procedures content was not graduate-specific enough to use as inventory evidence."
+    }
+  ],
+  "remaining_official_source_gaps": [
+    "Complete graduate tuition table by program",
+    "Explicit graduate-wide numeric language threshold",
+    "Explicit accreditation statement",
+    "Stable per-program detail URLs"
+  ],
+  "notes": [
+    "All official PhD records remain present.",
+    "Tuition remains null because official values were not published in the recovered source set."
+  ]
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "id": "ju-lit-master-translation-languages",
+    "program_key": "translation-and-languages",
+    "title": "Translation and Languages",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Literature and Humanities",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-lit-master-arabic-language",
+    "program_key": "arabic-language",
+    "title": "Arabic Language",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Literature and Humanities",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-bus-master-management",
+    "program_key": "management",
+    "title": "Management",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-bus-master-marketing",
+    "program_key": "marketing",
+    "title": "Marketing",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-bus-master-accounting",
+    "program_key": "accounting",
+    "title": "Accounting",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-bus-master-finance",
+    "program_key": "finance",
+    "title": "Finance",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-bus-master-business-information-technology",
+    "program_key": "business-information-technology",
+    "title": "Business Information Technology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-bus-master-project-management",
+    "program_key": "project-management",
+    "title": "Project Management",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-com-master-radio-television",
+    "program_key": "radio-television",
+    "title": "Radio & Television",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Communication",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-com-master-communication-journalism",
+    "program_key": "communication-journalism",
+    "title": "Communication & Journalism",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Communication",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-phh-master-control-infectious-diseases",
+    "program_key": "control-of-infectious-diseases",
+    "title": "Control of Infectious Diseases",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Public Health",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Masters in Public Health - 36 Credits.",
+    "tuition": null,
+    "credits": 36
+  },
+  {
+    "id": "ju-phh-master-health-education",
+    "program_key": "health-education",
+    "title": "Health Education",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Public Health",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Masters in Public Health - 36 Credits.",
+    "tuition": null,
+    "credits": 36
+  },
+  {
+    "id": "ju-phh-master-public-health-genetics",
+    "program_key": "public-health-genetics",
+    "title": "Public Health Genetics",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Public Health",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Masters in Public Health - 36 Credits.",
+    "tuition": null,
+    "credits": 36
+  },
+  {
+    "id": "ju-edu-master-management-educational-planning",
+    "program_key": "management-and-educational-planning",
+    "title": "Management and Educational Planning",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-edu-master-curriculum-teaching-methods",
+    "program_key": "curriculum-and-teaching-methods",
+    "title": "Curriculum and Teaching Methods",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-pol-master-human-rights",
+    "program_key": "human-rights",
+    "title": "Human Rights",
+    "degree_type": "MASTER",
+    "faculty": "Political Science Institute",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 36 Credits.",
+    "tuition": null,
+    "credits": 36
+  },
+  {
+    "id": "ju-sharia-master-shariaa-islamic-studies",
+    "program_key": "shariaa-and-islamic-studies",
+    "title": "Shariaa and Islamic Studies",
+    "degree_type": "MASTER",
+    "faculty": "The Faculty of Shariaa & Islamic Studies",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Master's Degree - 42 Credits.",
+    "tuition": null,
+    "credits": 42
+  },
+  {
+    "id": "ju-lit-phd-arabic-language",
+    "program_key": "arabic-language-phd",
+    "title": "Arabic Language",
+    "degree_type": "PHD",
+    "faculty": "Faculty of Literature and Humanities",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Ph.D. Degree - 54 Credits.",
+    "tuition": null,
+    "credits": 54
+  },
+  {
+    "id": "ju-bus-phd-philosophy-business-administration",
+    "program_key": "philosophy-of-business-administration-phd",
+    "title": "Philosophy of Business Administration",
+    "degree_type": "PHD",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Ph.D. Degree - 54 Credits.",
+    "tuition": null,
+    "credits": 54
+  },
+  {
+    "id": "ju-sharia-phd-shariaa-islamic-studies",
+    "program_key": "shariaa-and-islamic-studies-phd",
+    "title": "Shariaa and Islamic Studies",
+    "degree_type": "PHD",
+    "faculty": "The Faculty of Shariaa & Islamic Studies",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as a Ph.D. Degree - 54 Credits.",
+    "tuition": null,
+    "credits": 54
+  }
+]

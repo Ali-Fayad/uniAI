@@ -1,0 +1,114 @@
+[
+  {
+    "id": "ju-edu-diploma-teaching-primary-education",
+    "program_key": "teaching-diploma-primary-education",
+    "title": "Teaching Diploma in Primary Education",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "credits": 30,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Teaching Diploma - 30 Credits, but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "ju-edu-diploma-teaching-arabic",
+    "program_key": "teaching-diploma-arabic",
+    "title": "Teaching Diploma in Arabic",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "credits": 30,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Teaching Diploma - 30 Credits, but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "ju-edu-diploma-teaching-french",
+    "program_key": "teaching-diploma-french",
+    "title": "Teaching Diploma in French",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "credits": 30,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Teaching Diploma - 30 Credits, but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "ju-edu-diploma-teaching-english",
+    "program_key": "teaching-diploma-english",
+    "title": "Teaching Diploma in English",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "credits": 30,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Teaching Diploma - 30 Credits, but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "ju-edu-diploma-teaching-economics",
+    "program_key": "teaching-diploma-economics",
+    "title": "Teaching Diploma in Economics",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "credits": 30,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Teaching Diploma - 30 Credits, but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "ju-edu-diploma-teaching-social-sciences",
+    "program_key": "teaching-diploma-social-sciences",
+    "title": "Teaching Diploma in Social Sciences",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Education",
+    "department": null,
+    "official_program_url": null,
+    "credits": 30,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Teaching Diploma - 30 Credits, but excluded because diplomas are out of scope."
+  },
+  {
+    "id": "ju-lit-honors-translation-languages",
+    "program_key": "translation-and-languages-honors",
+    "title": "Translation and Languages Honors",
+    "degree_type": "HONORS",
+    "faculty": "Faculty of Literature and Humanities",
+    "department": null,
+    "official_program_url": null,
+    "credits": 22,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Honors - 22 Credits, but excluded because honors entries are out of scope."
+  },
+  {
+    "id": "ju-sharia-honors-islamic-studies",
+    "program_key": "islamic-studies-honors",
+    "title": "Islamic Studies Honors Degree",
+    "degree_type": "HONORS",
+    "faculty": "The Faculty of Shariaa & Islamic Studies",
+    "department": null,
+    "official_program_url": null,
+    "credits": 144,
+    "source_ids": [
+      "JU_SRC_002"
+    ],
+    "notes": "Listed on the official Majors & Programs page as Honors Degree - 144 Credits, but excluded because honors entries are out of scope."
+  }
+]

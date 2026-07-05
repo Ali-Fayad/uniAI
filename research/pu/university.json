@@ -1,0 +1,181 @@
+{
+  "id": "pu",
+  "name": "Phoenicia University",
+  "official_website": "https://pu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "sources_used": [
+    "PU-SRC-001",
+    "PU-SRC-002",
+    "PU-SRC-003",
+    "PU-SRC-004",
+    "PU-SRC-005",
+    "PU-SRC-006",
+    "PU-SRC-007",
+    "PU-SRC-008",
+    "PU-SRC-009",
+    "PU-SRC-010",
+    "PU-SRC-011",
+    "PU-SRC-012"
+  ],
+  "admissions_process": {
+    "summary": "PU publishes graduate MBA and LL.M. admissions pages that direct applicants to complete the online application, submit the required documents, meet English proficiency and interview requirements, and proceed through the admissions committee review process.",
+    "steps": [
+      "Select the graduate application form for MBA or LL.M. through the PU self-service admissions portal.",
+      "Prepare and submit the required documents and official equivalency documents.",
+      "Meet the program-specific English proficiency and interview requirements.",
+      "Complete admissions committee review and enroll according to the registrar calendar."
+    ],
+    "source_ids": [
+      "PU-SRC-002",
+      "PU-SRC-003",
+      "PU-SRC-005",
+      "PU-SRC-010",
+      "PU-SRC-012"
+    ]
+  },
+  "required_documents": {
+    "summary": "PU publishes graduate MBA and LL.M. document lists with overlapping core items and program-specific credential requirements.",
+    "items": [
+      "Online graduate application form",
+      "Photocopy of identity card or passport",
+      "One passport-sized photo",
+      "Official transcripts from the university where the applicant completed the bachelor's degree, including overall GPA",
+      "Official certificate for the Lebanese Baccalaureate or its recognized equivalent",
+      "Recommendation letter from a professor or employer",
+      "Updated resume",
+      "Proof of professional work experience for MBA applicants",
+      "Bachelor's degree equivalency from the Lebanese Ministry of Education and Higher Education for MBA applicants",
+      "Bachelor's degree in Law and official equivalency for LL.M. applicants",
+      "English proficiency evidence where required"
+    ],
+    "source_ids": [
+      "PU-SRC-003",
+      "PU-SRC-005",
+      "PU-SRC-012"
+    ]
+  },
+  "language_requirements": {
+    "summary": "PU publishes graduate English-proficiency requirements for the MBA and LL.M. Applicants may be asked to provide evidence from IELTS, TOEFL, Duolingo, or the PU Graduate English Placement Test depending on the program and prior language of instruction.",
+    "notes": [
+      "LL.M. applicants have published threshold values in the official admissions page."
+    ],
+    "source_ids": [
+      "PU-SRC-003",
+      "PU-SRC-005"
+    ]
+  },
+  "deadlines": {
+    "summary": "PU publishes registrar-calendar dates for MBA and LL.M. semesters, financial aid deadlines, deferral deadlines, payment deadlines, and installment deadlines.",
+    "source_ids": [
+      "PU-SRC-010"
+    ]
+  },
+  "tuition_model": {
+    "summary": "PU publishes per-credit graduate tuition rates and states that tuition is paid per semester in fresh dollars.",
+    "currency": "USD",
+    "source_ids": [
+      "PU-SRC-008"
+    ],
+    "notes": "MBA tuition is published at $210 per credit and LL.M. tuition at $200 per credit."
+  },
+  "tuition_table": [
+    {
+      "faculty": "College of Business",
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "amount": 210,
+      "currency": "USD",
+      "program_ids": [
+        "pu-mba"
+      ],
+      "source_ids": [
+        "PU-SRC-008"
+      ],
+      "notes": "Official graduate tuition page lists MBA graduate tuition at $210 per credit."
+    },
+    {
+      "faculty": "College of Law and Political Science",
+      "degree_type": "MASTER",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "currency": "USD",
+      "program_ids": [
+        "pu-llm"
+      ],
+      "source_ids": [
+        "PU-SRC-008"
+      ],
+      "notes": "Official graduate tuition page lists LL.M. graduate tuition at $200 per credit."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 1000000,
+      "currency": "LBP",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "PU-SRC-003",
+        "PU-SRC-005"
+      ],
+      "notes": "Non-refundable graduate application fee published on MBA and LL.M. admissions pages."
+    }
+  },
+  "payment_methods": {
+    "summary": "PU states graduate tuition is paid in fresh dollars per semester; no more detailed public payment-method matrix was isolated in the reviewed sources.",
+    "source_ids": [
+      "PU-SRC-008"
+    ]
+  },
+  "payment_plans": {
+    "summary": "The registrar calendar publishes installment-payment deadlines, but the reviewed official sources did not expose a separate graduate installment-plan policy page.",
+    "source_ids": [
+      "PU-SRC-010"
+    ]
+  },
+  "scholarships": {
+    "summary": "PU publishes financial-aid and scholarship options including need-based grants, loans, work-study, and merit scholarships.",
+    "items": [
+      "Need-based financial aid grants",
+      "Loans",
+      "Work-study program",
+      "Merit scholarships"
+    ],
+    "source_ids": [
+      "PU-SRC-009"
+    ]
+  },
+  "financial_aid": {
+    "summary": "PU's financial-aid page describes grant, loan, work-study, and scholarship support reviewed by a financial-aid/scholarship committee.",
+    "source_ids": [
+      "PU-SRC-009"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "PU publishes a registrar calendar with MBA and LL.M. semester dates and the associated registration, payment, financial-aid, deferral, and installment deadlines.",
+    "source_ids": [
+      "PU-SRC-010"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "No standalone graduate regulations handbook was published in the reviewed official sources; the admissions pages and registrar calendar provide the available official guidance.",
+    "source_ids": [
+      "PU-SRC-002",
+      "PU-SRC-010"
+    ]
+  },
+  "international_students": {
+    "summary": "No separate graduate international-student page was found in the reviewed official sources; applicants should follow the program-specific admissions pages and office guidance.",
+    "source_ids": [
+      "PU-SRC-003",
+      "PU-SRC-005"
+    ]
+  },
+  "accreditation": {
+    "summary": "No separate graduate accreditation statement was isolated from the reviewed official PU pages.",
+    "source_ids": [
+      "PU-SRC-001",
+      "PU-SRC-011"
+    ]
+  }
+}

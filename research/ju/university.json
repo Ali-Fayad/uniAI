@@ -1,0 +1,207 @@
+{
+  "id": "ju",
+  "name": "Jinan University",
+  "official_website": "https://www.jinan.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "sources_used": [
+    "JU_SRC_002",
+    "JU_SRC_003",
+    "JU_SRC_004",
+    "JU_SRC_005",
+    "JU_SRC_006",
+    "JU_SRC_007",
+    "JU_SRC_008",
+    "JU_SRC_009",
+    "JU_SRC_010",
+    "JU_SRC_011",
+    "JU_SRC_012"
+  ],
+  "admissions_process": {
+    "summary": "JU's graduate admission flow is centralized on the Graduate and Entrance Registration pages: applicants review the graduate admission rules, submit the required documents, and complete the registration and fee payment steps.",
+    "steps": [
+      "Review the official graduate admission rules and study mechanism.",
+      "Submit the graduate application and required documents.",
+      "Meet the degree and equivalency requirements stated on the official admission pages.",
+      "Pay the required application and registration-related fees.",
+      "Follow the graduate registration mechanism published by the university."
+    ],
+    "source_ids": [
+      "JU_SRC_003",
+      "JU_SRC_004"
+    ]
+  },
+  "required_documents": {
+    "summary": "JU's official admission text lists a graduate document package built around prior academic credentials, identity documents, and completed application material.",
+    "items": [
+      "Certified identification card or passport copy",
+      "Certified high school diploma",
+      "Certified high school transcript for three years",
+      "Certified bachelor's degree or equivalent",
+      "Official transcripts for the bachelor's degree or equivalent",
+      "Two personal photographs",
+      "Completed application and payment of the required registration fees"
+    ],
+    "source_ids": [
+      "JU_SRC_004"
+    ]
+  },
+  "language_requirements": {
+    "summary": "No explicit graduate-wide language threshold was published in the recovered official source set. JU does publish foreign-language remedial fees for international/foreign-student cases.",
+    "notes": [
+      "The reviewed sources do not expose a single numeric graduate English/French/Arabic admission threshold.",
+      "Foreign-student fee pages mention remedial foreign-language fees, but those are fee rules rather than admission thresholds."
+    ],
+    "source_ids": [
+      "JU_SRC_011",
+      "JU_SRC_004"
+    ]
+  },
+  "tuition_model": {
+    "summary": "JU publishes a per-credit tuition methodology for graduate study, but the recovered official pages did not expose a complete program-specific graduate tuition schedule that can be safely mapped without inference.",
+    "currency": "USD",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "source_ids": [
+      "JU_SRC_006",
+      "JU_SRC_007"
+    ],
+    "notes": [
+      "The Tuition & Fees page states that fees are assessed per credit and may include registration/services, housing, and Lebanese social security fees.",
+      "The Financial System page publishes first-payment amounts for selected master's and doctoral programs, but those are payment-plan values rather than a full tuition table.",
+      "Because the official per-credit graduate rate by program was not fully exposed in the recovered source set, tuition remains unmapped in programs.json."
+    ]
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "JU_SRC_004"
+      ],
+      "notes": "The official admission text references application fees, but the recovered extraction did not expose a numeric graduate application-fee amount."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "JU_SRC_004",
+        "JU_SRC_006",
+        "JU_SRC_007"
+      ],
+      "notes": "The official pages reference registration and first-payment steps, but the recovered extraction did not expose a standalone graduate registration-fee amount."
+    },
+    "additional_fees": {
+      "items": [
+        "Registration/services fees",
+        "Housing fees",
+        "Lebanese social security fees"
+      ],
+      "source_ids": [
+        "JU_SRC_006"
+      ],
+      "notes": "The Tuition & Fees page states that these additional charges may apply alongside the per-credit tuition system."
+    }
+  },
+  "payment_methods": {
+    "summary": "JU publishes multiple official payment channels for graduate students.",
+    "items": [
+      "Cash payment at the university accounting department",
+      "Cash payment at Byblos Bank branches",
+      "International transfer to the university account"
+    ],
+    "source_ids": [
+      "JU_SRC_006",
+      "JU_SRC_007",
+      "JU_SRC_011"
+    ]
+  },
+  "payment_plans": {
+    "summary": "JU publishes first-payment amounts and installment deadlines in the financial system page for the 2026-2027 cycle.",
+    "items": [
+      "Master's first payment: USD 400 for Public Health Genetics and Control of Infectious Diseases; USD 300 for other master's majors",
+      "Doctoral first payment: USD 400 for Islamic Studies and Sharia; USD 500 for Arabic Language and Literature; USD 600 for Business Administration",
+      "Fall semester installment dates: 03/09/2026, 03/10/2026, 03/11/2026, 03/12/2026",
+      "Spring semester installment dates: 03/02/2027, 03/03/2027, 03/04/2027, 03/05/2027"
+    ],
+    "source_ids": [
+      "JU_SRC_007"
+    ]
+  },
+  "scholarships": {
+    "summary": "JU's financial-aid page states that scholarships are allocated to different student categories and may cover part or all of the prescribed stage depending on justified need.",
+    "items": [
+      "Scholarships may cover part of the prescribed stage",
+      "Scholarships may cover the full prescribed stage",
+      "Only the highest scholarship is applied when multiple scholarships are available"
+    ],
+    "source_ids": [
+      "JU_SRC_008"
+    ]
+  },
+  "financial_aid": {
+    "summary": "JU's financial-aid page states that scholarship percentages apply only to study-unit value and do not include semester or foreign-language fees.",
+    "items": [
+      "Aid applies only to study-unit value",
+      "Semester fees are excluded from scholarship percentages",
+      "Foreign-language fees are excluded from scholarship percentages",
+      "Continuation requires good conduct and compliance with university rules"
+    ],
+    "source_ids": [
+      "JU_SRC_008"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "JU publishes an official academic calendar page and a student-calendar PDF page.",
+    "items": [
+      "Official academic calendar page",
+      "Student calendar PDF page",
+      "Registration periods",
+      "Examination schedules",
+      "Semester information"
+    ],
+    "source_ids": [
+      "JU_SRC_009",
+      "JU_SRC_010"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "JU's Graduate page exposes official graduate-regulation sections covering admission, study method, required documents, graduation conditions, registration, research progress, jury formation, and general provisions.",
+    "items": [
+      "Graduate admission",
+      "How to study",
+      "Required documents",
+      "Graduation conditions",
+      "Registration mechanism",
+      "Research progress mechanism",
+      "The jury formation",
+      "General provisions"
+    ],
+    "source_ids": [
+      "JU_SRC_003"
+    ]
+  },
+  "international_students": {
+    "summary": "JU's foreign-student page provides international fee sections, hospitality insurance references, remedial language fees, and international transfer details.",
+    "items": [
+      "International-student fee sections",
+      "Hospitalization insurance for non-Lebanese / international students",
+      "Remedial foreign-language fees",
+      "International transfer bank details"
+    ],
+    "source_ids": [
+      "JU_SRC_011"
+    ]
+  },
+  "accreditation": {
+    "summary": null,
+    "notes": [
+      "No explicit accreditation statement was recovered from the reviewed official JU sources in this pass."
+    ],
+    "source_ids": []
+  }
+}

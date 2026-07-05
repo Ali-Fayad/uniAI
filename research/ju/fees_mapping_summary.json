@@ -1,0 +1,94 @@
+{
+  "total_programs": 20,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 20,
+  "tuition_rows_grouped_by_faculty_or_institute": [],
+  "unmapped_programs": [
+    {
+      "program_id": "ju-lit-master-translation-languages",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-lit-master-arabic-language",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-bus-master-management",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-bus-master-marketing",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-bus-master-accounting",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-bus-master-finance",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-bus-master-business-information-technology",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-bus-master-project-management",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-com-master-radio-television",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-com-master-communication-journalism",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-phh-master-control-infectious-diseases",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-phh-master-health-education",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-phh-master-public-health-genetics",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-edu-master-management-educational-planning",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-edu-master-curriculum-teaching-methods",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-pol-master-human-rights",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-sharia-master-shariaa-islamic-studies",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-lit-phd-arabic-language",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-bus-phd-philosophy-business-administration",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    },
+    {
+      "program_id": "ju-sharia-phd-shariaa-islamic-studies",
+      "reason": "The recovered official source set did not expose a safe program-specific graduate tuition rate for this program."
+    }
+  ],
+  "source_ids_used": [
+    "JU_SRC_006",
+    "JU_SRC_007",
+    "JU_SRC_011"
+  ],
+  "notes": "JU publishes a per-credit graduate fee methodology and some payment-plan amounts, but the recovered official pages did not expose a complete program-specific graduate tuition table safe enough for direct mapping. Tuition therefore remains null for all 20 in-scope graduate records."
+}
