@@ -1,0 +1,68 @@
+[
+  {
+    "id": "lgu-master-business-administration",
+    "program_key": "master-business-administration",
+    "title": "Master of Business Administration (MBA)",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business and Insurance",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "LGU-SRC-003",
+      "LGU-SRC-005",
+      "LGU-SRC-012"
+    ],
+    "program_description": "LGU's official Graduate Studies page lists the Master of Business Administration as one of the university's graduate offerings.",
+    "tuition": null,
+    "notes": "Official graduate studies page names the MBA. No dedicated graduate program-detail page was recovered in this pass, so the official program URL is null."
+  },
+  {
+    "id": "lgu-master-science-engineering",
+    "program_key": "master-science-engineering",
+    "title": "Master of Science in Engineering",
+    "degree_type": "MASTER",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "LGU-SRC-003"
+    ],
+    "program_description": "LGU's official Graduate Studies page lists the Master of Science in Engineering as one of the university's graduate offerings.",
+    "tuition": null,
+    "notes": "Official graduate studies page names the program, but no dedicated graduate detail page or faculty assignment was recovered in this pass."
+  },
+  {
+    "id": "lgu-master-arts-education",
+    "program_key": "master-arts-education",
+    "title": "Master of Arts in Education",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Arts and Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "LGU-SRC-003",
+      "LGU-SRC-005",
+      "LGU-SRC-013"
+    ],
+    "program_description": "LGU's official Graduate Studies page lists the Master of Arts in Education as one of the university's graduate offerings.",
+    "tuition": null,
+    "notes": "Official graduate studies page names the program. No dedicated graduate program-detail page was recovered in this pass, so the official program URL is null."
+  },
+  {
+    "id": "lgu-master-public-health",
+    "program_key": "master-public-health",
+    "title": "Master of Public Health",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Public Health",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "LGU-SRC-003",
+      "LGU-SRC-005",
+      "LGU-SRC-011"
+    ],
+    "program_description": "LGU's official Graduate Studies page lists the Master of Public Health as one of the university's graduate offerings.",
+    "tuition": null,
+    "notes": "Official graduate studies page names the program. No dedicated graduate program-detail page was recovered in this pass, so the official program URL is null."
+  }
+]

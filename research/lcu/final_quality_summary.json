@@ -1,0 +1,77 @@
+{
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_seed_generation": true,
+  "seed_generation_target": "V42",
+  "programs_total": 2,
+  "master_count": 2,
+  "phd_count": 0,
+  "out_of_scope_count": 0,
+  "tuition_coverage": {
+    "populated": 0,
+    "null": 2
+  },
+  "duplicate_program_ids": [],
+  "duplicate_source_ids": [],
+  "duplicate_source_urls": [],
+  "duplicate_official_program_urls": [],
+  "broken_source_references": [],
+  "shared_data_centralized": true,
+  "mba_modeling": "single_program",
+  "schema_compatibility": {
+    "degree_type": true,
+    "delivery_mode": true,
+    "thesis_or_non_thesis": true,
+    "language": true,
+    "tuition": true
+  },
+  "orphan_sources": [
+    "LCU_SRC_001",
+    "LCU_SRC_006",
+    "LCU_SRC_007",
+    "LCU_SRC_008",
+    "LCU_SRC_009",
+    "LCU_SRC_010"
+  ],
+  "completeness": {
+    "program_description": 2,
+    "credits": 2,
+    "duration": 2,
+    "thesis_or_non_thesis": 2,
+    "concentrations_or_tracks": 0,
+    "delivery_mode": 0,
+    "language": 0,
+    "admission_requirements": 0,
+    "GRE": 0,
+    "GMAT": 0,
+    "portfolio": 0,
+    "interview": 0,
+    "experience": 0,
+    "accreditation": 0,
+    "tuition": 0
+  },
+  "intentional_nulls": [
+    "tuition",
+    "concentrations_or_tracks",
+    "delivery_mode",
+    "language",
+    "admission_requirements",
+    "GRE",
+    "GMAT",
+    "portfolio",
+    "interview",
+    "experience",
+    "accreditation"
+  ],
+  "validation": {
+    "json_parse": true,
+    "compile": true,
+    "official_urls_only": true,
+    "every_source_reference_resolves": true
+  },
+  "notes": [
+    "The official LCU source set only supports two graduate master's programs.",
+    "MBA emphases remain part of the single MBA structure.",
+    "No official PhD program evidence was found.",
+    "No usable numeric graduate tuition value was exposed in the accessible official content."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "total_programs": 2,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 2,
+  "tuition_rows_by_faculty_or_school": [],
+  "unmapped_programs": [
+    {
+      "program_id": "lcu-research-mba",
+      "faculty": "Faculty of Business Administration",
+      "reason": "No reliable numeric graduate tuition value was published in the accessible official LCU tuition content."
+    },
+    {
+      "program_id": "lcu-executive-mba",
+      "faculty": "Faculty of Business Administration",
+      "reason": "No reliable numeric graduate tuition value was published in the accessible official LCU tuition content."
+    }
+  ],
+  "source_ids_used": [
+    "LCU_SRC_002",
+    "LCU_SRC_003",
+    "LCU_SRC_004",
+    "LCU_SRC_005",
+    "LCU_SRC_006",
+    "LCU_SRC_007",
+    "LCU_SRC_010"
+  ]
+}

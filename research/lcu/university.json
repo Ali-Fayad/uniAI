@@ -1,0 +1,152 @@
+{
+  "id": "lcu",
+  "name": "Lebanese Canadian University",
+  "official_website": "https://www.lcu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "sources_used": [
+    "LCU_SRC_001",
+    "LCU_SRC_002",
+    "LCU_SRC_003",
+    "LCU_SRC_004",
+    "LCU_SRC_005",
+    "LCU_SRC_006",
+    "LCU_SRC_007",
+    "LCU_SRC_008",
+    "LCU_SRC_009",
+    "LCU_SRC_010"
+  ],
+  "admissions_process": {
+    "summary": "LCU exposes a public Apply Now page and graduate landing pages, but the accessible official text does not publish a distinct graduate admissions workflow or graduate checklist beyond undergraduate/freshman-facing instructions.",
+    "steps": [
+      "Review the official graduate program pages for the two published master's programs.",
+      "Use the public Apply Now page for general admissions navigation.",
+      "Consult admissions staff for any graduate-specific file requirements not exposed in the public pages."
+    ],
+    "source_ids": [
+      "LCU_SRC_002",
+      "LCU_SRC_006",
+      "LCU_SRC_007"
+    ]
+  },
+  "required_documents": {
+    "summary": "The public Apply Now page shows an admissions document list, but it is written for undergraduate/freshman applicants. No graduate-specific document list was published in the accessible official pages.",
+    "items": [
+      "3 recent passport-size photos",
+      "Recent personal Civil Status Record or National Identity Card copy",
+      "Passport and residence permit copy",
+      "Recent Family Civil Status Record",
+      "NSSF attestation or equivalent, if applicable",
+      "Recent certificate of employment for the student or guarantor specifying monthly salary",
+      "Official transcripts for the last three years of secondary school, certified by the issuing school",
+      "Certified Lebanese Baccalaureate copy or equivalent issued by the Lebanese Ministry of Higher Education",
+      "Official transcript of prior university study for transfer students"
+    ],
+    "source_ids": [
+      "LCU_SRC_007"
+    ]
+  },
+  "language_requirements": {
+    "summary": "No university-wide graduate language threshold was published in the reviewed LCU sources. The reviewed pages confirm graduate study exists in English at the Business faculty level, but no separate graduate language policy or test score threshold was captured.",
+    "notes": [
+      "Graduate language requirements may be program- or faculty-specific, but no public graduate table was exposed in the reviewed pages."
+    ],
+    "source_ids": [
+      "LCU_SRC_002",
+      "LCU_SRC_003",
+      "LCU_SRC_004",
+      "LCU_SRC_005"
+    ]
+  },
+  "deadlines": {
+    "summary": "The reviewed official pages did not expose a graduate deadline table. Admissions timing should be confirmed directly with LCU if needed.",
+    "source_ids": [
+      "LCU_SRC_002",
+      "LCU_SRC_007",
+      "LCU_SRC_010"
+    ]
+  },
+  "tuition_model": {
+    "summary": "LCU publishes a Graduate Tuition Fees heading on its tuition-fees page for Academic Year 2025-2026, but the accessible extracted content did not expose a reliable numeric graduate tuition value. Tuition is therefore left null.",
+    "currency": null,
+    "source_ids": [
+      "LCU_SRC_006"
+    ],
+    "notes": "Do not infer graduate tuition from the page heading alone."
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "LCU_SRC_007"
+      ],
+      "notes": "The accessible Apply Now page provides admissions instructions but no numeric graduate application fee was exposed."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "LCU_SRC_006"
+      ],
+      "notes": "The tuition-fees page references graduate tuition fees, but no standalone numeric registration fee was captured in the accessible text."
+    }
+  },
+  "payment_methods": {
+    "summary": "No detailed graduate payment-method matrix was published in the reviewed official LCU sources.",
+    "source_ids": [
+      "LCU_SRC_006",
+      "LCU_SRC_007"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No graduate payment-plan details were published in the reviewed official LCU sources.",
+    "source_ids": [
+      "LCU_SRC_006"
+    ]
+  },
+  "scholarships": {
+    "summary": "The official site navigation exposes scholarship-related content, but no graduate scholarship details were captured in the accessible official pages during this pass.",
+    "items": [],
+    "source_ids": [
+      "LCU_SRC_001",
+      "LCU_SRC_010"
+    ]
+  },
+  "financial_aid": {
+    "summary": "No graduate-specific financial aid details were published in the reviewed LCU sources.",
+    "source_ids": [
+      "LCU_SRC_007"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "LCU exposes an academic calendar widget and institutional overview pages, but the reviewed official sources did not provide a graduate-specific academic calendar.",
+    "source_ids": [
+      "LCU_SRC_010"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "No graduate handbook or graduate regulations page was found in the reviewed official LCU source set.",
+    "source_ids": [
+      "LCU_SRC_001",
+      "LCU_SRC_010"
+    ]
+  },
+  "international_students": {
+    "summary": "No graduate-specific international-student guidance was published in the reviewed official LCU sources.",
+    "source_ids": [
+      "LCU_SRC_007",
+      "LCU_SRC_010"
+    ]
+  },
+  "accreditation": {
+    "summary": "No graduate-specific accreditation statement was isolated from the reviewed official LCU pages.",
+    "source_ids": [
+      "LCU_SRC_001",
+      "LCU_SRC_010"
+    ]
+  }
+}

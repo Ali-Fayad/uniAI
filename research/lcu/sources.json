@@ -1,0 +1,92 @@
+[
+  {
+    "source_id": "LCU_SRC_001",
+    "page_title": "LCU Programs",
+    "url": "https://www.lcu.edu.lb/lcu-programs/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Program overview page states LCU has Bachelor and Master programs and describes the purpose of Master's programs."
+  },
+  {
+    "source_id": "LCU_SRC_002",
+    "page_title": "LCU Master Programs",
+    "url": "https://www.lcu.edu.lb/lcu-master-programs/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Master programs page identifies two graduate programs in the Faculty of Business Administration: Research MBA and Executive MBA."
+  },
+  {
+    "source_id": "LCU_SRC_003",
+    "page_title": "LCU Faculty of Business Administration",
+    "url": "https://www.lcu.edu.lb/lcu-faculty-of-business-administration/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Faculty page lists graduate programs, credits, and duration: Research MBA 36 credits / 2 years; Executive MBA 39 credits / 2 years."
+  },
+  {
+    "source_id": "LCU_SRC_004",
+    "page_title": "LCU Research MBA",
+    "url": "https://www.lcu.edu.lb/lcu-research-mba/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Research MBA page describes the program, doctoral-study preparation, and course requirements totaling 36 credits."
+  },
+  {
+    "source_id": "LCU_SRC_005",
+    "page_title": "LCU Executive MBA",
+    "url": "https://www.lcu.edu.lb/lcu-executive-mba/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Executive MBA page describes the program for working professionals/executives and course requirements totaling 39 credits plus remedial courses for non-business majors."
+  },
+  {
+    "source_id": "LCU_SRC_006",
+    "page_title": "LCU Tuition Fees",
+    "url": "https://www.lcu.edu.lb/lcu-tuition-fees/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Tuition page includes Academic Year/Tuition Fees 2025-2026 and a Graduate Tuition Fees section, but the accessible extracted content did not expose the graduate numeric value."
+  },
+  {
+    "source_id": "LCU_SRC_007",
+    "page_title": "LCU Apply Now",
+    "url": "https://www.lcu.edu.lb/lcu-apply-now/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Application page provides required admission documents and application procedure. The visible requirements are written for undergraduate/freshman applicants; no graduate-specific admissions requirements were found there."
+  },
+  {
+    "source_id": "LCU_SRC_008",
+    "page_title": "LCU Faculty of Arts & Sciences",
+    "url": "https://www.lcu.edu.lb/lcu-faculty-of-arts-and-science/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Faculty page lists only undergraduate programs in the accessible content. No Master or PhD program evidence found on this faculty page."
+  },
+  {
+    "source_id": "LCU_SRC_009",
+    "page_title": "LCU Faculty of Humanities",
+    "url": "https://www.lcu.edu.lb/lcu-faculty-of-humanities/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Faculty page lists only undergraduate programs in the accessible content. No Master or PhD program evidence found on this faculty page."
+  },
+  {
+    "source_id": "LCU_SRC_010",
+    "page_title": "LCU at a Glance",
+    "url": "https://www.lcu.edu.lb/lcu-at-a-glance/",
+    "date_accessed": "2026-07-05",
+    "source_type": "official_page",
+    "source": "Official LCU website",
+    "notes": "Institutional overview page states LCU operates three faculties and offers education at Bachelor and Master levels; no PhD evidence found."
+  }
+]

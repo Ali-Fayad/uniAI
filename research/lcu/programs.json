@@ -1,0 +1,62 @@
+[
+  {
+    "id": "lcu-research-mba",
+    "program_key": "lcu-research-mba",
+    "title": "Research Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": "https://www.lcu.edu.lb/lcu-research-mba/",
+    "source_ids": [
+      "LCU_SRC_002",
+      "LCU_SRC_003",
+      "LCU_SRC_004"
+    ],
+    "program_description": "The Research MBA provides advanced theoretical knowledge and research competencies in business and management, including strategic management, finance, marketing, organizational behavior, economics, quantitative research methods, research methodology, statistical analysis, and academic writing.",
+    "credits": 36,
+    "duration": 2,
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "delivery_mode": null,
+    "language": null,
+    "admission_requirements": null,
+    "GRE": null,
+    "GMAT": null,
+    "portfolio": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "tuition": null,
+    "notes": "Official LCU graduate pages identify this as the Research MBA and give the program's 36-credit, 2-year structure. No separate concentration or department-level breakdown was published in the reviewed official sources."
+  },
+  {
+    "id": "lcu-executive-mba",
+    "program_key": "lcu-executive-mba",
+    "title": "Executive Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": "https://www.lcu.edu.lb/lcu-executive-mba/",
+    "source_ids": [
+      "LCU_SRC_002",
+      "LCU_SRC_003",
+      "LCU_SRC_005"
+    ],
+    "program_description": "The Executive MBA is designed for working professionals and executives who want to strengthen leadership and managerial skills while continuing their careers. It focuses on strategic management, finance, marketing, leadership, operations, business analytics, practical application, and case-based learning.",
+    "credits": 39,
+    "duration": 2,
+    "thesis_or_non_thesis": "THESIS",
+    "concentrations_or_tracks": null,
+    "delivery_mode": null,
+    "language": null,
+    "admission_requirements": null,
+    "GRE": null,
+    "GMAT": null,
+    "portfolio": null,
+    "interview": null,
+    "experience": null,
+    "accreditation": null,
+    "tuition": null,
+    "notes": "Official LCU graduate pages identify this as the Executive MBA and give the program's 39-credit, 2-year structure. The reviewed sources do not treat any emphases as separate graduate degrees."
+  }
+]

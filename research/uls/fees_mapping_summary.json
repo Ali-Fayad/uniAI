@@ -1,0 +1,124 @@
+{
+  "total_programs": 13,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 13,
+  "tuition_rows_grouped_by_faculty": [
+    {
+      "faculty": "Faculty of Law",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 300,
+      "program_ids": [
+        "uls-law-master-private-law",
+        "uls-law-master-public-law",
+        "uls-law-master-comparative-law",
+        "uls-law-master-digital-law"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ]
+    },
+    {
+      "faculty": "Faculty of Economics and Business Administration",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "program_ids": [
+        "uls-feba-master-business-administration-finance-msc"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ]
+    },
+    {
+      "faculty": "Faculty of Economics and Business Administration",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "program_ids": [
+        "uls-feba-master-business-administration-finance-mba"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ]
+    },
+    {
+      "faculty": "Faculty of Political Science and International Relations",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "program_ids": [
+        "uls-polisci-master-political-science-international-relations",
+        "uls-polisci-professional-master-political-science-international-relations-diplomacy-strategic-negotiations",
+        "uls-polisci-professional-master-political-science-international-relations-ngo-management"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ]
+    },
+    {
+      "faculty": "Faculty of Public Health",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "program_ids": [
+        "uls-public-health-master-hospital-management"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ]
+    },
+    {
+      "faculty": "Faculty of Tourism and Hotel Management",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 300,
+      "program_ids": [
+        "uls-tourism-master-hospitality-management"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ]
+    },
+    {
+      "faculty": "Faculty of Religious and Theological Sciences",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 55,
+      "program_ids": [
+        "uls-religious-master-ecclesiastical-sciences"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ]
+    }
+  ],
+  "unmapped_programs": [
+    {
+      "program_id": "uls-feba-double-master-miage",
+      "reason": "No stable numeric tuition figure was recovered in the inspected official sources."
+    }
+  ],
+  "source_ids_used": [
+    "ULS-S018"
+  ],
+  "notes": [
+    "Program-level tuition remains null in `programs.json` because tuition is centralized in `university.json`.",
+    "The MIAGE double master remains unmapped because the official source set did not expose a stable numeric tuition figure for it.",
+    "All published tuition rows use the official 2025-2026 tuition-fees page."
+  ]
+}

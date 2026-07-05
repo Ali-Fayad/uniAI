@@ -1,0 +1,28 @@
+[
+  {
+    "id": "lgu-out-doctor-of-education",
+    "program_key": "doctor-of-education",
+    "title": "Doctor of Education (Ed.D.)",
+    "degree_type": "DOCTORATE",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "LGU-SRC-003"
+    ],
+    "notes": "Official graduate studies page lists Doctor of Education in the doctoral section, but the requested inventory scope is MASTER/PHD only and no dedicated doctoral detail page was recovered."
+  },
+  {
+    "id": "lgu-out-doctor-of-business-administration",
+    "program_key": "doctor-of-business-administration",
+    "title": "Doctor of Business Administration (DBA)",
+    "degree_type": "DOCTORATE",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "LGU-SRC-003"
+    ],
+    "notes": "Official graduate studies page lists Doctor of Business Administration in the doctoral section, but the requested inventory scope is MASTER/PHD only and no dedicated doctoral detail page was recovered."
+  }
+]

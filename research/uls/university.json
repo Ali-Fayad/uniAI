@@ -1,0 +1,440 @@
+{
+  "id": "uls",
+  "name": "Université La Sagesse",
+  "official_website": "https://www.uls.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "graduate_scope": {
+    "included": [
+      "MASTER",
+      "PHD"
+    ],
+    "out_of_scope": [
+      "Bachelor",
+      "Diploma",
+      "Certificate",
+      "Continuing Education",
+      "Professional Programs",
+      "Training",
+      "News",
+      "Events"
+    ]
+  },
+  "sources_used": [
+    "ULS-S001",
+    "ULS-S002",
+    "ULS-S003",
+    "ULS-S004",
+    "ULS-S005",
+    "ULS-S006",
+    "ULS-S007",
+    "ULS-S008",
+    "ULS-S009",
+    "ULS-S010",
+    "ULS-S011",
+    "ULS-S012",
+    "ULS-S013",
+    "ULS-S014",
+    "ULS-S015",
+    "ULS-S016",
+    "ULS-S017",
+    "ULS-S018",
+    "ULS-S019",
+    "ULS-S020"
+  ],
+  "admissions_process": {
+    "summary": "ULS uses the official admissions office, application flow, and enrolment calendar for graduate applicants. The public pages show the process steps, but they do not expose a complete graduate-specific admissions manual in the inspected source set.",
+    "steps": [
+      "Review the official program page and the graduate admissions pages.",
+      "Submit the application through the Office of Admissions and Orientation.",
+      "Complete the official document requirements referenced in the admissions flow.",
+      "Attend any required entrance exam or oral interview for the selected graduate program.",
+      "Register during the official enrolment period and academic calendar window."
+    ],
+    "source_ids": [
+      "ULS-S014",
+      "ULS-S015",
+      "ULS-S016",
+      "ULS-S020"
+    ]
+  },
+  "required_documents": {
+    "summary": "The inspected official pages confirm that required documents are part of the graduate application flow, but they do not expose a complete public graduate checklist. No missing items were inferred.",
+    "items": [],
+    "source_ids": [
+      "ULS-S015"
+    ],
+    "notes": [
+      "A detailed public graduate-specific checklist was not recovered in the official sources inspected."
+    ]
+  },
+  "language_requirements": {
+    "summary": "ULS publicly states the language of instruction or availability by faculty and, for some graduate programs, oral-interview and language-test expectations.",
+    "notes": [
+      "Faculty of Law: programs available in English or French.",
+      "Faculty of Economics and Business Administration: programs available in English or French.",
+      "Faculty of Political Science and International Relations: programs available in English or French.",
+      "Faculty of Public Health: graduate programs available in French and English.",
+      "Faculty of Tourism and Hotel Management: programs available in English.",
+      "Faculty of Religious and Theological Sciences: programs available in Arabic.",
+      "Faculty of Religious and Theological Sciences graduate listing shows oral interview plus French or English or Italian.",
+      "No per-program language field was inferred where the official page did not explicitly publish one."
+    ],
+    "source_ids": [
+      "ULS-S002",
+      "ULS-S003",
+      "ULS-S004",
+      "ULS-S008",
+      "ULS-S009",
+      "ULS-S010",
+      "ULS-S011"
+    ]
+  },
+  "tuition_model": {
+    "summary": "ULS publishes faculty-level graduate tuition for the 2025-2026 academic year. Tuition is best represented as a shared faculty schedule rather than as program-level fields, because the public pages expose faculty pricing and some program pages do not restate the fee figure.",
+    "currency": "USD",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "source_ids": [
+      "ULS-S018"
+    ],
+    "notes": [
+      "Program-level tuition remains null in `programs.json` because shared tuition is centralized here.",
+      "The MIAGE double master did not have a separately recovered stable numeric tuition figure in the inspected source set."
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "Faculty of Law",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 300,
+      "category": "Graduate Students",
+      "program_ids": [
+        "uls-law-master-private-law",
+        "uls-law-master-public-law",
+        "uls-law-master-comparative-law",
+        "uls-law-master-digital-law"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists graduate tuition for the Faculty of Law as $300 per credit."
+    },
+    {
+      "faculty": "Faculty of Economics and Business Administration",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": "Graduate Students",
+      "program_ids": [
+        "uls-feba-master-business-administration-finance-msc"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists MS graduate tuition as $230 per credit."
+    },
+    {
+      "faculty": "Faculty of Economics and Business Administration",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 200,
+      "category": "Graduate Students",
+      "program_ids": [
+        "uls-feba-master-business-administration-finance-mba"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists MBA graduate tuition as $200 per credit."
+    },
+    {
+      "faculty": "Faculty of Political Science and International Relations",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": "Graduate Students",
+      "program_ids": [
+        "uls-polisci-master-political-science-international-relations",
+        "uls-polisci-professional-master-political-science-international-relations-diplomacy-strategic-negotiations",
+        "uls-polisci-professional-master-political-science-international-relations-ngo-management"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists graduate tuition for the faculty as $230 per credit."
+    },
+    {
+      "faculty": "Faculty of Public Health",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 230,
+      "category": "Graduate Students",
+      "program_ids": [
+        "uls-public-health-master-hospital-management"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists graduate tuition for the faculty as $230 per credit."
+    },
+    {
+      "faculty": "Faculty of Tourism and Hotel Management",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 300,
+      "category": "Graduate Students",
+      "program_ids": [
+        "uls-tourism-master-hospitality-management"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists graduate tuition for the faculty as $300 per credit."
+    },
+    {
+      "faculty": "Faculty of Religious and Theological Sciences",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 55,
+      "category": "Graduate Students",
+      "program_ids": [
+        "uls-religious-master-ecclesiastical-sciences"
+      ],
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists graduate tuition for the faculty as $55 per credit."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 50,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists a $50 application fee across the graduate fee table."
+    },
+    "registration_fees": [
+      {
+        "faculty": "Faculty of Law",
+        "amount": 300,
+        "currency": "USD",
+        "secondary_amount": 7000000,
+        "secondary_currency": "LBP",
+        "billing_basis": "FLAT_FEE_PLUS_LBP",
+        "source_ids": [
+          "ULS-S018"
+        ],
+        "notes": "Official tuition-fees page lists a $300 + 7,000,000 LBP graduate registration fee."
+      },
+      {
+        "faculty": "Faculty of Economics and Business Administration",
+        "amount": 300,
+        "currency": "USD",
+        "secondary_amount": 7000000,
+        "secondary_currency": "LBP",
+        "billing_basis": "FLAT_FEE_PLUS_LBP",
+        "source_ids": [
+          "ULS-S018"
+        ],
+        "notes": "Official tuition-fees page lists a $300 + 7,000,000 LBP graduate registration fee."
+      },
+      {
+        "faculty": "Faculty of Political Science and International Relations",
+        "amount": 300,
+        "currency": "USD",
+        "secondary_amount": 7000000,
+        "secondary_currency": "LBP",
+        "billing_basis": "FLAT_FEE_PLUS_LBP",
+        "source_ids": [
+          "ULS-S018"
+        ],
+        "notes": "Official tuition-fees page lists a $300 + 7,000,000 LBP graduate registration fee."
+      },
+      {
+        "faculty": "Faculty of Public Health",
+        "amount": 300,
+        "currency": "USD",
+        "secondary_amount": 7000000,
+        "secondary_currency": "LBP",
+        "billing_basis": "FLAT_FEE_PLUS_LBP",
+        "source_ids": [
+          "ULS-S018"
+        ],
+        "notes": "Official tuition-fees page lists a $300 + 7,000,000 LBP graduate registration fee."
+      },
+      {
+        "faculty": "Faculty of Tourism and Hotel Management",
+        "amount": 300,
+        "currency": "USD",
+        "secondary_amount": 7000000,
+        "secondary_currency": "LBP",
+        "billing_basis": "FLAT_FEE_PLUS_LBP",
+        "source_ids": [
+          "ULS-S018"
+        ],
+        "notes": "Official tuition-fees page lists a $300 + 7,000,000 LBP graduate registration fee."
+      },
+      {
+        "faculty": "Faculty of Religious and Theological Sciences",
+        "amount": 40,
+        "currency": "USD",
+        "secondary_amount": 1000000,
+        "secondary_currency": "LBP",
+        "billing_basis": "FLAT_FEE_PLUS_LBP",
+        "source_ids": [
+          "ULS-S018"
+        ],
+        "notes": "Official tuition-fees page lists a $40 + 1,000,000 LBP graduate registration fee."
+      }
+    ],
+    "support_services_fee": {
+      "amount": 120,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists support services at $120 for most graduate faculties."
+    },
+    "down_payment": {
+      "amount": 330,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "ULS-S018"
+      ],
+      "notes": "Official tuition-fees page lists a $330 down payment for most graduate faculties."
+    },
+    "notes": "The official tuition page also publishes faculty-specific variations and a faculty-specific support-services fee for Religious and Theological Sciences."
+  },
+  "payment_methods": {
+    "summary": "The reviewed official pages do not publish a detailed graduate payment-method matrix. Fee handling is presented through the admissions and tuition-fees pages, with the registrar and admissions office as the official entry points.",
+    "items": [
+      "Use the official admissions and tuition-fees pages for graduate fee handling",
+      "Use the Office of Admissions and Orientation for graduate applicant routing",
+      "Use the Office of the Registrar for registration-related fee processing"
+    ],
+    "source_ids": [
+      "ULS-S014",
+      "ULS-S018",
+      "ULS-S020"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No formal graduate installment plan was recovered from the inspected official pages.",
+    "items": [
+      "No published graduate installment schedule was recovered"
+    ],
+    "source_ids": [
+      "ULS-S018",
+      "ULS-S020"
+    ]
+  },
+  "scholarships": {
+    "summary": "ULS publishes scholarship and merit-based support options on its financial-support page.",
+    "items": [
+      "Prodigy Achievement Scholarship",
+      "Academic Distinction Scholarship",
+      "Presidential Scholarship",
+      "Third Party Scholarship"
+    ],
+    "source_ids": [
+      "ULS-S019"
+    ]
+  },
+  "financial_aid": {
+    "summary": "ULS publishes financial support beyond scholarships, including sibling aid, student work, and La Sagesse network support.",
+    "items": [
+      "Siblings Aid",
+      "Student Work",
+      "La Sagesse Schools support",
+      "La Sagesse Network Protocol support"
+    ],
+    "source_ids": [
+      "ULS-S019"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "ULS publishes an official 2025-2026 academic calendar PDF and enrolment timing page.",
+    "items": [
+      "Official 2025-2026 academic calendar PDF",
+      "Enrolment calendar and exam dates page",
+      "Registrar academic calendar services"
+    ],
+    "source_ids": [
+      "ULS-S016",
+      "ULS-S017",
+      "ULS-S020"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The registrar page confirms academic-catalog and registration services. The DBA brochure is the clearest public graduate-regulations document recovered in this pass.",
+    "items": [
+      "Office of the Registrar academic catalog services",
+      "DBA brochure / academic regulations PDF",
+      "Graduate program pages linking academic-plan resources"
+    ],
+    "source_ids": [
+      "ULS-S006",
+      "ULS-S020",
+      "ULS-S003",
+      "ULS-S004",
+      "ULS-S008",
+      "ULS-S009",
+      "ULS-S010",
+      "ULS-S011"
+    ]
+  },
+  "international_students": {
+    "summary": "No dedicated graduate international-student policy page was recovered. The official site instead exposes admissions, international academic partnerships, and faculty pages that mention collaborations.",
+    "items": [
+      "Admissions office handles graduate applicant routing",
+      "FEBA international page confirms the MIAGE double master with Université de Bordeaux",
+      "DBA page and brochure confirm the ISC Paris partnership",
+      "No separate graduate international-student policy text was recovered"
+    ],
+    "source_ids": [
+      "ULS-S004",
+      "ULS-S005",
+      "ULS-S007",
+      "ULS-S014"
+    ]
+  },
+  "accreditation": {
+    "summary": "The official Academics page publishes faculty-level accreditation or certification statements for some graduate faculties. No broader university-wide graduate accreditation catalogue was recovered.",
+    "items": [
+      "Faculty of Law accredited by FIBAA",
+      "Faculty of Economics and Business Administration accredited by FIBAA",
+      "Faculty of Tourism and Hotel Management has Academic Certification of École Hôtelière de Lausanne"
+    ],
+    "source_ids": [
+      "ULS-S002",
+      "ULS-S003",
+      "ULS-S004",
+      "ULS-S010"
+    ],
+    "notes": [
+      "The Public Health page also mentions Hcéres accreditation, but that statement is for the undergraduate Nursing program and was not used as a graduate accreditation item."
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "total_programs": 4,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 4,
+  "tuition_rows_by_faculty_or_school": [],
+  "unmapped_programs": [
+    {
+      "program_id": "lgu-master-business-administration",
+      "reason": "No official graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed LGU sources."
+    },
+    {
+      "program_id": "lgu-master-science-engineering",
+      "reason": "No official graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed LGU sources."
+    },
+    {
+      "program_id": "lgu-master-arts-education",
+      "reason": "No official graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed LGU sources."
+    },
+    {
+      "program_id": "lgu-master-public-health",
+      "reason": "No official graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed LGU sources."
+    }
+  ],
+  "source_ids_used": [
+    "LGU-SRC-003",
+    "LGU-SRC-004",
+    "LGU-SRC-006"
+  ],
+  "notes": [
+    "LGU's official graduate studies page names four master's programs and three doctoral program labels, but it does not publish a graduate tuition table.",
+    "Undergraduate tuition values were not reused for graduate mapping.",
+    "Tuition is therefore kept null for all four in-scope graduate programs."
+  ]
+}

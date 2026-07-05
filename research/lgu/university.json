@@ -1,0 +1,198 @@
+{
+  "id": "lgu",
+  "name": "Lebanese German University",
+  "official_website": "https://www.lgu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-05",
+  "sources_used": [
+    "LGU-SRC-001",
+    "LGU-SRC-002",
+    "LGU-SRC-003",
+    "LGU-SRC-004",
+    "LGU-SRC-005",
+    "LGU-SRC-006",
+    "LGU-SRC-007",
+    "LGU-SRC-008",
+    "LGU-SRC-009",
+    "LGU-SRC-010",
+    "LGU-SRC-011",
+    "LGU-SRC-012",
+    "LGU-SRC-013",
+    "LGU-SRC-014",
+    "LGU-SRC-015"
+  ],
+  "admissions_process": {
+    "summary": "LGU's graduate admissions flow is centralized on the admissions and graduate studies pages: applicants submit an online application, upload required documents, pay the application fee, and complete an interview if required.",
+    "steps": [
+      "Submit the official online graduate application.",
+      "Upload the required supporting documents.",
+      "Pay the graduate application fee.",
+      "Complete an interview if the program requires it.",
+      "Await the admission decision from the university."
+    ],
+    "source_ids": [
+      "LGU-SRC-002",
+      "LGU-SRC-003"
+    ]
+  },
+  "required_documents": {
+    "summary": "LGU lists a small graduate admissions checklist on the graduate studies page and supporting documentation on the financial-aid forms and FAQ pages.",
+    "items": [
+      "Bachelor's degree from an accredited institution",
+      "Minimum GPA of 3.0 or equivalent",
+      "Letters of recommendation",
+      "Statement of purpose",
+      "Official transcript",
+      "Employment or income-related documents when applying for aid",
+      "Copy of ID or passport where applicable"
+    ],
+    "source_ids": [
+      "LGU-SRC-003",
+      "LGU-SRC-009",
+      "LGU-SRC-014",
+      "LGU-SRC-015"
+    ]
+  },
+  "language_requirements": {
+    "summary": "The graduate studies page requires GRE or GMAT depending on program, and the page/FAQ content indicates graduate instruction is offered in English or French with German as an additional asset. No graduate threshold was published.",
+    "notes": [
+      "No official graduate TOEFL/IELTS/DELF threshold was published in the recovered source set.",
+      "The language references are program-level and general, not a graduate-wide numeric requirement."
+    ],
+    "source_ids": [
+      "LGU-SRC-001",
+      "LGU-SRC-003",
+      "LGU-SRC-009"
+    ]
+  },
+  "tuition_model": {
+    "summary": "LGU did not publish a dedicated graduate tuition table or per-credit graduate tuition schedule in the recovered official source set.",
+    "currency": null,
+    "source_ids": [
+      "LGU-SRC-003",
+      "LGU-SRC-004",
+      "LGU-SRC-006"
+    ],
+    "notes": "The undergraduate tuition page provides undergraduate fees only and must not be reused for graduate programs."
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "LGU-SRC-002",
+        "LGU-SRC-003"
+      ],
+      "notes": "The graduate application flow includes a payment step for the application fee, but no numeric amount was published in the reviewed official pages."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "LGU-SRC-002",
+        "LGU-SRC-003",
+        "LGU-SRC-010"
+      ],
+      "notes": "The reviewed official pages reference registration timing and registrar services, but no graduate registration amount was published."
+    }
+  },
+  "payment_methods": {
+    "summary": "LGU's admissions and financial-aid materials reference installment or flexible payment arrangements, but no official graduate payment-method matrix was published.",
+    "items": [
+      "Flexible or installment payment references in financial-aid material"
+    ],
+    "source_ids": [
+      "LGU-SRC-007",
+      "LGU-SRC-009",
+      "LGU-SRC-014",
+      "LGU-SRC-015"
+    ]
+  },
+  "payment_plans": {
+    "summary": "The financial-aid documents and FAQ mention flexible settlement or monthly payment references, but no detailed graduate plan table was published.",
+    "items": [
+      "Flexible payment plan references",
+      "Monthly payment references in aid forms"
+    ],
+    "source_ids": [
+      "LGU-SRC-007",
+      "LGU-SRC-009",
+      "LGU-SRC-014",
+      "LGU-SRC-015"
+    ]
+  },
+  "scholarships": {
+    "summary": "LGU's financial-aid page and forms reference scholarship and aid categories, including merit and athletic support and work-study references.",
+    "items": [
+      "Early Merit Admission Aid",
+      "Athletic Scholarships",
+      "Work-study Grant"
+    ],
+    "source_ids": [
+      "LGU-SRC-007",
+      "LGU-SRC-014",
+      "LGU-SRC-015"
+    ]
+  },
+  "financial_aid": {
+    "summary": "LGU publishes financial-aid guidance and application forms for students, including aid-related document requirements and payment-plan references.",
+    "items": [
+      "Financial-aid application process",
+      "Aid-related supporting documents",
+      "Flexible payment references"
+    ],
+    "source_ids": [
+      "LGU-SRC-007",
+      "LGU-SRC-014",
+      "LGU-SRC-015"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "LGU publishes an official academic calendar page with registration, term, and exam timing. The discovered 2025-2026 calendar is the canonical calendar source for the university.",
+    "items": [
+      "Official academic calendar page",
+      "Registration periods",
+      "Term start and end dates",
+      "Midterm and final exam timing"
+    ],
+    "source_ids": [
+      "LGU-SRC-008"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "No standalone graduate regulations handbook or catalog was recovered. The graduate studies page provides the official admission-rule baseline for the graduate inventory.",
+    "items": [
+      "Bachelor's degree from an accredited institution",
+      "Minimum GPA of 3.0 or equivalent",
+      "Letters of recommendation",
+      "Statement of purpose",
+      "GRE or GMAT depending on program",
+      "Interview if required"
+    ],
+    "source_ids": [
+      "LGU-SRC-003"
+    ]
+  },
+  "international_students": {
+    "summary": "LGU's FAQ references international-student topics, including registration documents and visa-related questions, but no dedicated graduate international policy page was recovered.",
+    "items": [
+      "International student registration documents",
+      "Visa-related FAQ topics",
+      "Language and document questions handled through the general FAQ"
+    ],
+    "source_ids": [
+      "LGU-SRC-009"
+    ]
+  },
+  "accreditation": {
+    "summary": "No explicit institutional or graduate accreditation statement was recovered in the reviewed official source set.",
+    "source_ids": [
+      "LGU-SRC-001",
+      "LGU-SRC-003",
+      "LGU-SRC-005"
+    ]
+  }
+}

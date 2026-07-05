@@ -1,0 +1,36 @@
+{
+  "program_count": 4,
+  "master_count": 4,
+  "phd_count": 0,
+  "out_of_scope_count": 2,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 4,
+  "duplicate_program_ids": [],
+  "duplicate_source_ids": [],
+  "duplicate_source_urls": [],
+  "duplicate_official_program_urls": [],
+  "broken_source_references": [],
+  "shared_data_centralized_in_university_json": true,
+  "schema_compatibility": "V24",
+  "tuition_limitation": "No official graduate tuition schedule published in recovered LGU sources.",
+  "out_of_scope_records": [
+    {
+      "id": "lgu-out-doctor-of-education",
+      "title": "Doctor of Education (Ed.D.)",
+      "degree_type": "DOCTORATE"
+    },
+    {
+      "id": "lgu-out-doctor-of-business-administration",
+      "title": "Doctor of Business Administration (DBA)",
+      "degree_type": "DOCTORATE"
+    }
+  ],
+  "validation": {
+    "json_parse": "pass",
+    "compile": "pass",
+    "source_resolution": "pass",
+    "official_url_check": "pass"
+  },
+  "recommendation": "APPROVE WITH NOTES",
+  "readiness_statement": "LGU is ready for V43 seed generation."
+}
