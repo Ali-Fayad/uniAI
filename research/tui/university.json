@@ -1,0 +1,186 @@
+{
+  "id": "tui",
+  "name": "Tripoli University Institute / University of Tripoli",
+  "official_website": "https://new.ut.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-06",
+  "sources_used": [
+    "TUI_SRC_001",
+    "TUI_SRC_002",
+    "TUI_SRC_003",
+    "TUI_SRC_004",
+    "TUI_SRC_005",
+    "TUI_SRC_006",
+    "TUI_SRC_007",
+    "TUI_SRC_008"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants use the official master's and PhD admissions pages, submit the requested file, and follow the registration and payment procedures published by the university. The doctoral page also publishes the credit-hour and dissertation requirement.",
+    "steps": [
+      "Review the official master's or PhD admissions page for the selected graduate stage.",
+      "Submit the graduate application and the documents requested on the official admissions page.",
+      "Complete the registration procedure and fee-payment steps described by the university.",
+      "For PhD applicants, satisfy the published 42-credit-hour and dissertation requirements and the Faculty of Sharia and Islamic Studies conditions."
+    ],
+    "source_ids": [
+      "TUI_SRC_002",
+      "TUI_SRC_003",
+      "TUI_SRC_004",
+      "TUI_SRC_005"
+    ]
+  },
+  "required_documents": {
+    "summary": "The official master's and PhD admissions pages publish required-document sections, but the captured text did not expose a complete machine-readable checklist that can be reproduced without inference.",
+    "items": [],
+    "source_ids": [
+      "TUI_SRC_003",
+      "TUI_SRC_004"
+    ],
+    "notes": [
+      "The PhD page confirms master-equivalency and other doctoral file requirements in the official admissions flow.",
+      "The captured source set did not expose a stable full checklist for safe structured reproduction."
+    ]
+  },
+  "language_requirements": {
+    "summary": "The PhD admissions page publishes language and competency requirements. No university-wide master's language threshold was captured in the reviewed official pages.",
+    "notes": [
+      "PhD applicants must satisfy published Arabic language competency, English competency, computer competency, and Islamic culture competency requirements.",
+      "No separate graduate-wide master's language threshold was recovered in the captured source set."
+    ],
+    "source_ids": [
+      "TUI_SRC_004"
+    ]
+  },
+  "tuition_model": {
+    "summary": "No official graduate tuition table or stable numeric graduate tuition amount was captured in the reviewed official UT pages. Tuition remains null and is not inferred.",
+    "currency": null,
+    "source_ids": [
+      "TUI_SRC_003",
+      "TUI_SRC_004",
+      "TUI_SRC_005"
+    ],
+    "notes": [
+      "The graduate admissions pages reference payment and fee handling, but the captured text did not expose a structured tuition schedule."
+    ]
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "TUI_SRC_003",
+        "TUI_SRC_004"
+      ],
+      "notes": "The admissions pages reference application and file-processing payment steps, but the captured text did not expose a stable numeric application-fee amount."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "TUI_SRC_003",
+        "TUI_SRC_004"
+      ],
+      "notes": "The admissions pages reference registration and payment procedures, but the captured text did not expose a stable numeric registration-fee amount."
+    },
+    "notes": "The public graduate pages mention fee handling, but no structured graduate fee table was recovered from the captured official source set."
+  },
+  "payment_methods": {
+    "summary": "The captured official pages confirm that payment is part of the graduate registration flow, but no stable cash, bank-transfer, or other payment-method matrix was exposed.",
+    "items": [],
+    "source_ids": [
+      "TUI_SRC_003",
+      "TUI_SRC_004"
+    ],
+    "notes": [
+      "The recovered source set does not publish a clean graduate payment-method table."
+    ]
+  },
+  "payment_plans": {
+    "summary": "No formal graduate installment plan was captured in the official source set.",
+    "items": [],
+    "source_ids": [
+      "TUI_SRC_003",
+      "TUI_SRC_004"
+    ],
+    "notes": [
+      "The admissions pages reference registration and payment steps, but no installment schedule or deferred-payment table was exposed."
+    ]
+  },
+  "scholarships": {
+    "summary": "No graduate scholarship listing was recovered in the captured official source set.",
+    "items": [],
+    "source_ids": [
+      "TUI_SRC_002",
+      "TUI_SRC_005"
+    ],
+    "notes": [
+      "No graduate scholarship categories or award amounts were published on the pages reviewed for this pass."
+    ]
+  },
+  "financial_aid": {
+    "summary": "No graduate financial-aid program was recovered in the captured official source set.",
+    "items": [],
+    "source_ids": [
+      "TUI_SRC_002",
+      "TUI_SRC_005"
+    ],
+    "notes": [
+      "The reviewed pages do not expose a graduate aid application or aid award table."
+    ]
+  },
+  "academic_calendar": {
+    "summary": "The admissions index links to the official academic calendar page, but the captured text did not expose additional graduate calendar details.",
+    "items": [
+      "Official academic calendar page"
+    ],
+    "source_ids": [
+      "TUI_SRC_002",
+      "TUI_SRC_008"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The official graduate admissions pages publish the graduate study system, admission conditions, required documents, registration procedures, thesis or non-thesis track rules, and doctoral dissertation requirements.",
+    "items": [
+      "Master's admissions page",
+      "PhD admissions page",
+      "Registration procedures",
+      "Thesis or non-thesis track rules",
+      "Doctoral 42-credit-hour and dissertation requirement",
+      "Faculty of Sharia and Islamic Studies conditions"
+    ],
+    "source_ids": [
+      "TUI_SRC_003",
+      "TUI_SRC_004",
+      "TUI_SRC_005"
+    ],
+    "notes": [
+      "The captured source set exposes graduate rules through the admissions pages rather than a separate handbook."
+    ]
+  },
+  "international_students": {
+    "summary": "The official foreign-students page is part of the admissions flow and includes graduate academic rules in the international-admissions context.",
+    "items": [
+      "Foreign students admissions page",
+      "Graduate academic rules for international applicants"
+    ],
+    "source_ids": [
+      "TUI_SRC_002",
+      "TUI_SRC_006"
+    ],
+    "notes": [
+      "No separate graduate international-student handbook was recovered in the captured source set."
+    ]
+  },
+  "accreditation": {
+    "summary": "No explicit graduate accreditation statement was recovered in the captured official source set.",
+    "source_ids": [
+      "TUI_SRC_005"
+    ],
+    "notes": [
+      "The official pages reviewed for this pass do not publish a standalone accreditation statement for the graduate inventory."
+    ]
+  }
+}

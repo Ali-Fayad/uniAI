@@ -1,0 +1,112 @@
+{
+  "university": {
+    "id": "gu",
+    "name": "Global University",
+    "official_website": "https://www.gu.edu.lb"
+  },
+  "task_code": "GU_DISCOVERY_001_BROWSER_INV",
+  "generated_at": "2026-07-06",
+  "sources": [
+    {
+      "id": "GU-SRC-001",
+      "title": "Global University Home",
+      "url": "https://www.gu.edu.lb/",
+      "type": "official_page",
+      "scope_relevance": "official site entry point; navigation to admissions, academics, faculties, calendar, financial policies",
+      "evidence_summary": "Home page confirms official GU website and site navigation; not standalone graduate program evidence."
+    },
+    {
+      "id": "GU-SRC-002",
+      "title": "Academics",
+      "url": "https://www.gu.edu.lb/academics",
+      "type": "official_page",
+      "scope_relevance": "graduate program listing",
+      "evidence_summary": "Lists Graduate section with Masters of Business Administration, Masters of Education, and Masters of Arabic Literature. No PhD programs listed on this page."
+    },
+    {
+      "id": "GU-SRC-003",
+      "title": "Graduate Programs / Graduate Admissions",
+      "url": "https://www.gu.edu.lb/graduate-programs",
+      "type": "official_page",
+      "scope_relevance": "graduate admissions and required documents",
+      "evidence_summary": "Provides graduate admissions requirements, including application form, Lebanese Baccalaureate or equivalent, bachelor's degree, bachelor's degree equivalence, transcripts, identity/residency documents, photo, and application fee."
+    },
+    {
+      "id": "GU-SRC-004",
+      "title": "Application",
+      "url": "https://www.gu.edu.lb/apply",
+      "type": "official_page",
+      "scope_relevance": "application form with graduate program options",
+      "evidence_summary": "Application form includes Graduate as a program type and major options including Masters in Business Administration, Masters of Business Administration, Masters in Education, and Masters in Arabic Language and Literature. No PhD application option identified."
+    },
+    {
+      "id": "GU-SRC-005",
+      "title": "Business Department",
+      "url": "https://www.gu.edu.lb/business-department",
+      "type": "official_page",
+      "scope_relevance": "department page mentioning graduate business programs",
+      "evidence_summary": "Business Department states it offers undergraduate and graduate programs and links to MBA contract material."
+    },
+    {
+      "id": "GU-SRC-006",
+      "title": "Education Department",
+      "url": "https://www.gu.edu.lb/education-department",
+      "type": "official_page",
+      "scope_relevance": "official Master of Education page",
+      "evidence_summary": "Lists Master of Education as an advanced program and links a Master of Education contract sheet."
+    },
+    {
+      "id": "GU-SRC-007",
+      "title": "Arabic Language Department",
+      "url": "https://www.gu.edu.lb/arabic-language-department",
+      "type": "official_page",
+      "scope_relevance": "official Master of Arabic Language/Literature page",
+      "evidence_summary": "Arabic page lists the master's program in Arabic language, states it is two years and 30 credits including 7 credits for thesis, and links a contract sheet."
+    },
+    {
+      "id": "GU-SRC-008",
+      "title": "Global University Student's Handbook / University Catalogue 2024-2025",
+      "url": "https://www.gu.edu.lb/wp-content/uploads/2026/01/catalogue.pdf",
+      "type": "official_pdf",
+      "scope_relevance": "catalogue evidence for graduate programs, regulations, fees, policies, and course plans",
+      "evidence_summary": "Catalogue table of contents and program sections list MBA, MBA with thesis/project, multiple Master's in Islamic Studies tracks, academic policies, fees, and scholarships. Text search found no PhD/Doctor/PHD/الدكتوراه matches in parsed catalogue text."
+    },
+    {
+      "id": "GU-SRC-009",
+      "title": "Master in Business Administration Contract Sheet",
+      "url": "https://www.gu.edu.lb/wp-content/uploads/2026/01/MBA-contract-sheet.pdf",
+      "type": "official_pdf",
+      "scope_relevance": "official MBA plan evidence",
+      "evidence_summary": "PDF titled Master in Business Administration, updated July 2024, lists a 39-credit MBA course plan."
+    },
+    {
+      "id": "GU-SRC-010",
+      "title": "Financial Policies",
+      "url": "https://www.gu.edu.lb/financial-policies",
+      "type": "official_page",
+      "scope_relevance": "tuition, payment plan, financial aid, refund policy",
+      "evidence_summary": "Lists 2025-2026 tuition per credit for Masters of Arabic Literature, Masters of Education, Masters of Business Administration, and PHD Arabic; lists fees, installment/payment schedule, deposit, financial aid/scholarships link, and graduate/special student refund rule. PHD Arabic is tuition evidence only, not official program-page evidence."
+    },
+    {
+      "id": "GU-SRC-011",
+      "title": "Academic Calendar",
+      "url": "https://www.gu.edu.lb/calendar",
+      "type": "official_page",
+      "scope_relevance": "academic calendar",
+      "evidence_summary": "Lists the 2026-2027 academic calendar, registration periods, semester starts, final exams, withdrawal deadlines, and holidays."
+    },
+    {
+      "id": "GU-SRC-012",
+      "title": "Accreditation & Equivalence",
+      "url": "https://www.gu.edu.lb/accreditation-and-equivalence",
+      "type": "official_page",
+      "scope_relevance": "accreditation/equivalence context",
+      "evidence_summary": "States GU offers undergraduate and graduate degrees authenticated/accredited by the Directorate of Higher Education in Lebanon and lists Masters in Islamic Studies, Arabic Language and Literature, Education, and Business Administration among accreditation items. Not sufficient alone for current program details."
+    }
+  ],
+  "validation": {
+    "official_gu_urls_only": true,
+    "duplicate_source_ids": false,
+    "duplicate_urls": false
+  }
+}

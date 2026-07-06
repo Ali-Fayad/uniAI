@@ -1,0 +1,56 @@
+{
+  "total_programs": 4,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 4,
+  "tuition_rows_by_faculty_or_school": [
+    {
+      "faculty": "Faculty of Administrative Sciences",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "program_ids": [
+        "gu-master-business-administration"
+      ],
+      "program_count": 1,
+      "source_ids": [
+        "GU-SRC-010"
+      ],
+      "notes": "The Financial Policies page lists Masters of Business Administration tuition at 170 USD per credit hour."
+    },
+    {
+      "faculty": "Faculty of Literature and Humanities",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "program_ids": [
+        "gu-master-education",
+        "gu-master-arabic-language-literature"
+      ],
+      "program_count": 2,
+      "source_ids": [
+        "GU-SRC-010"
+      ],
+      "notes": "The Financial Policies page lists Masters of Education and Masters of Arabic Literature tuition at 170 USD per credit hour."
+    }
+  ],
+  "unmapped_programs": [
+    {
+      "program_id": "gu-master-islamic-studies",
+      "reason": "The reviewed official GU sources did not publish a distinct numeric graduate tuition row for the Islamic Studies master."
+    }
+  ],
+  "source_ids_used": [
+    "GU-SRC-008",
+    "GU-SRC-010",
+    "GU-SRC-012"
+  ],
+  "notes": [
+    "Program-level tuition remains null in research/gu/programs.json because tuition is centralized in research/gu/university.json.",
+    "The Financial Policies page also lists a 'PHD Arabic' tuition row, but no official PhD program evidence was recovered, so that row is not mapped to a program record.",
+    "All mapped tuition rows come from official GU sources only."
+  ]
+}

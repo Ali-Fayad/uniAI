@@ -1,0 +1,80 @@
+{
+  "task_code": "AUOT_DISCOVERY_001_BROWSER_INV",
+  "university": "American University of Technology",
+  "abbreviation_used": "AUOT",
+  "official_domain": "aut.edu",
+  "sources": [
+    {
+      "id": "AUOT_SRC_001",
+      "title": "AUT Homepage",
+      "url": "https://www.aut.edu/",
+      "type": "official_page",
+      "status": "inspected",
+      "relevance": "Navigation, footer official links, LLM link, current catalog/manual/calendar links."
+    },
+    {
+      "id": "AUOT_SRC_002",
+      "title": "AUT Academics",
+      "url": "https://www.aut.edu/aut-academics/",
+      "type": "official_page",
+      "status": "inspected",
+      "relevance": "Official academics landing page; points to catalog and mentions undergraduate and graduate degrees."
+    },
+    {
+      "id": "AUOT_SRC_003",
+      "title": "AUT Admissions",
+      "url": "https://www.aut.edu/admissions/",
+      "type": "official_page",
+      "status": "inspected",
+      "relevance": "Graduate admission criteria, graduate required documents, deadlines, placement/English testing, tuition, financial aid."
+    },
+    {
+      "id": "AUOT_SRC_004",
+      "title": "AUT Catalogue 2025-2026",
+      "url": "https://www.aut.edu/wp-content/uploads/2025/10/Updated-Catalogue-2025-2026-.pdf",
+      "type": "official_pdf",
+      "status": "inspected",
+      "relevance": "Primary current catalog evidence for official graduate programs, graduate admissions, tuition/fees, financial aid, international students, and regulations."
+    },
+    {
+      "id": "AUOT_SRC_005",
+      "title": "Master of Science in Computer Science",
+      "url": "https://www.aut.edu/computer-science-master/",
+      "type": "official_program_page",
+      "status": "inspected",
+      "relevance": "Official Master of Science in Computer Science program page with 39-credit curriculum."
+    },
+    {
+      "id": "AUOT_SRC_006",
+      "title": "LLM Program \"Masters of Laws\"",
+      "url": "https://www.aut.edu/llm-program-masters-of-laws/",
+      "type": "official_program_page",
+      "status": "inspected",
+      "relevance": "Official AUT support page for University of London Master of Laws; treated as support/recognized teaching centre evidence, not an AUT-awarded degree."
+    },
+    {
+      "id": "AUOT_SRC_007",
+      "title": "AUT Student Manual",
+      "url": "https://www.aut.edu/wp-content/uploads/2026/04/AUT-Student-Manual-1.pdf",
+      "type": "official_pdf",
+      "status": "inspected",
+      "relevance": "Official student regulations/manual; no program evidence found."
+    },
+    {
+      "id": "AUOT_SRC_008",
+      "title": "AUT Graduation",
+      "url": "https://www.aut.edu/graduation/",
+      "type": "official_page",
+      "status": "inspected_with_notes",
+      "relevance": "Graduation page lists awarded/ceremony categories including Master of Accounting, MBA, Executive MBA, Master of Science, and UoL LLM; used only as corroborating evidence, not primary program evidence."
+    },
+    {
+      "id": "AUOT_SRC_009",
+      "title": "Financial Aid Application Form",
+      "url": "https://www.aut.edu/fa/",
+      "type": "official_page",
+      "status": "inspected",
+      "relevance": "Financial aid application landing page."
+    }
+  ]
+}

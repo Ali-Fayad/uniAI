@@ -1,0 +1,259 @@
+{
+  "id": "gu",
+  "name": "Global University",
+  "official_website": "https://www.gu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-06",
+  "sources_used": [
+    "GU-SRC-001",
+    "GU-SRC-002",
+    "GU-SRC-003",
+    "GU-SRC-004",
+    "GU-SRC-005",
+    "GU-SRC-006",
+    "GU-SRC-007",
+    "GU-SRC-008",
+    "GU-SRC-009",
+    "GU-SRC-010",
+    "GU-SRC-011",
+    "GU-SRC-012"
+  ],
+  "admissions_process": {
+    "summary": "GU publishes a graduate admissions flow centered on the online application, document review, and program selection for master's applicants. No separate graduate admissions manual was recovered beyond the official pages listed here.",
+    "steps": [
+      "Review the official Graduate Programs page and the selected graduate department page.",
+      "Submit the graduate application form with the required supporting documents.",
+      "Provide any required credential equivalence documents for prior study.",
+      "Follow any program-specific guidance published by the relevant department."
+    ],
+    "source_ids": [
+      "GU-SRC-003",
+      "GU-SRC-004",
+      "GU-SRC-005",
+      "GU-SRC-006",
+      "GU-SRC-007"
+    ]
+  },
+  "required_documents": {
+    "summary": "GU publishes a standard graduate document checklist on the Graduate Programs / Graduate Admissions page.",
+    "items": [
+      "Filled application form",
+      "Certified copy of Lebanese Baccalaureate or equivalent",
+      "Bachelor's degree from a recognized institution of higher learning",
+      "Certified copy of bachelor's degree equivalence",
+      "Official transcript of undergraduate courses",
+      "Recent passport-size photo",
+      "Passport or national identity card for Lebanese applicants",
+      "Family civil status record for Lebanese applicants",
+      "NSSF declaration form for students under 30",
+      "Passport copy for non-Lebanese applicants",
+      "Valid residence permit copy for non-Lebanese applicants"
+    ],
+    "source_ids": [
+      "GU-SRC-003"
+    ]
+  },
+  "language_requirements": {
+    "summary": "No standalone official graduate language-threshold page was recovered in the reviewed GU source set.",
+    "notes": [
+      "The reviewed graduate pages do not publish a TOEFL, IELTS, or equivalent cutoff.",
+      "Program curricula and catalogue materials include English and Arabic course content, but no numeric admission threshold was recovered."
+    ],
+    "source_ids": [
+      "GU-SRC-002",
+      "GU-SRC-003",
+      "GU-SRC-008"
+    ]
+  },
+  "tuition_model": {
+    "summary": "GU publishes 2025-2026 graduate tuition of 170 USD per credit hour for the MBA, Master of Education, and Master in Arabic Language and Literature. The Financial Policies page also lists a 'PHD Arabic' tuition row, but no official PhD program evidence was recovered, so that row is not modeled as a program.",
+    "currency": "USD",
+    "billing_basis": [
+      "PER_CREDIT"
+    ],
+    "source_ids": [
+      "GU-SRC-010"
+    ],
+    "notes": [
+      "Program-level tuition remains null in research/gu/programs.json because tuition is centralized here.",
+      "No official numeric graduate tuition row was recovered for the Islamic Studies master in the reviewed source set."
+    ]
+  },
+  "tuition_table": [
+    {
+      "faculty": "Faculty of Administrative Sciences",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "program_ids": [
+        "gu-master-business-administration"
+      ],
+      "program_count": 1,
+      "source_ids": [
+        "GU-SRC-010"
+      ],
+      "notes": "The Financial Policies page lists Masters of Business Administration tuition at 170 USD per credit hour."
+    },
+    {
+      "faculty": "Faculty of Literature and Humanities",
+      "degree_type": "MASTER",
+      "academic_year": "2025-2026",
+      "currency": "USD",
+      "billing_basis": "PER_CREDIT",
+      "amount": 170,
+      "category": "Graduate Programs",
+      "program_ids": [
+        "gu-master-education",
+        "gu-master-arabic-language-literature"
+      ],
+      "program_count": 2,
+      "source_ids": [
+        "GU-SRC-010"
+      ],
+      "notes": "The Financial Policies page lists Masters of Education and Masters of Arabic Literature tuition at 170 USD per credit hour."
+    }
+  ],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 50,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "GU-SRC-003",
+        "GU-SRC-010"
+      ],
+      "notes": "The graduate admissions page lists a non-refundable 50 USD application fee."
+    },
+    "registration_fees": [
+      {
+        "terms": [
+          "Summer"
+        ],
+        "amount": 75,
+        "currency": "USD",
+        "billing_basis": "FLAT_FEE",
+        "source_ids": [
+          "GU-SRC-010"
+        ],
+        "notes": "The Financial Policies page lists a 75 USD registration fee for Summer."
+      },
+      {
+        "terms": [
+          "Fall",
+          "Spring"
+        ],
+        "amount": 150,
+        "currency": "USD",
+        "billing_basis": "FLAT_FEE",
+        "source_ids": [
+          "GU-SRC-010"
+        ],
+        "notes": "The Financial Policies page lists a 150 USD registration fee for Fall and Spring."
+      }
+    ],
+    "notes": "The official fee page also includes a first-payment schedule, a deferred-payment contract, and a non-refundable 20% seat-reservation deposit."
+  },
+  "payment_methods": {
+    "summary": "No explicit graduate payment-method matrix was recovered in the reviewed GU pages.",
+    "items": [],
+    "source_ids": [
+      "GU-SRC-010"
+    ],
+    "notes": [
+      "The reviewed sources document the fee schedule and deferred-payment process, but not a separate payment-method table."
+    ]
+  },
+  "payment_plans": {
+    "summary": "GU publishes a deferred-payment process and a semester-based first-payment schedule.",
+    "items": [
+      "Students requesting installments complete a deferred payment form.",
+      "Accepted students sign a deferred payment contract.",
+      "First payment is 500 USD in Fall and Spring.",
+      "First payment is 50% of total fees in Summer.",
+      "Accepted students pay 20% of semester tuition to reserve a seat.",
+      "The seat-reservation deposit is non-refundable.",
+      "Graduate and Special Students have no refund available."
+    ],
+    "source_ids": [
+      "GU-SRC-010"
+    ]
+  },
+  "scholarships": {
+    "summary": "The Financial Policies page includes a Financial Aid & Scholarships section, but the linked aid file is external and was not retained in the official GU URL set.",
+    "items": [],
+    "source_ids": [
+      "GU-SRC-010"
+    ],
+    "notes": [
+      "No graduate scholarship award amounts were recovered from official GU URLs only."
+    ]
+  },
+  "financial_aid": {
+    "summary": "The official Financial Policies page references financial aid, but no graduate aid amounts or award rules were recovered from the official GU URL set.",
+    "items": [],
+    "source_ids": [
+      "GU-SRC-010"
+    ],
+    "notes": [
+      "The linked aid file is external to the GU domain and was excluded from the official-source set."
+    ]
+  },
+  "academic_calendar": {
+    "summary": "GU publishes a 2026-2027 academic calendar covering registration periods, semester starts, late registration or add-drop periods, withdrawal deadlines, final exams, and holidays.",
+    "items": [
+      "2026-2027 academic calendar page",
+      "Registration periods",
+      "Semester start dates",
+      "Late registration / add-drop periods",
+      "Withdrawal deadlines",
+      "Final exam periods",
+      "Holidays"
+    ],
+    "source_ids": [
+      "GU-SRC-011"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "GU's catalogue and Financial Policies page centralize graduate academic policies, grading, graduation, advising, course syllabus requirements, tuition and fee policies, transfer or articulation rules, refund policy, and withdrawal policy.",
+    "items": [
+      "Academic policies",
+      "Grading rules",
+      "Graduation requirements",
+      "Advising rules",
+      "Course syllabus requirements",
+      "Tuition and fee policies",
+      "Transfer and articulation rules",
+      "Refund policy",
+      "Withdrawal policy"
+    ],
+    "source_ids": [
+      "GU-SRC-008",
+      "GU-SRC-010"
+    ]
+  },
+  "international_students": {
+    "summary": "GU publishes non-Lebanese applicant document requirements on the graduate admissions page, but no broader standalone international-student policy page was recovered.",
+    "items": [
+      "Passport copy",
+      "Valid residence permit copy"
+    ],
+    "source_ids": [
+      "GU-SRC-003"
+    ]
+  },
+  "accreditation": {
+    "summary": "GU's Accreditation & Equivalence page states that its undergraduate and graduate degrees are authenticated or accredited by the Directorate of Higher Education in Lebanon.",
+    "items": [
+      "Graduate degrees authenticated or accredited by the Directorate of Higher Education in Lebanon"
+    ],
+    "source_ids": [
+      "GU-SRC-012"
+    ],
+    "notes": [
+      "The page also lists master's degree names, including Business Administration, Education, Arabic Language and Literature, and Islamic Studies, as accreditation context."
+    ]
+  }
+}

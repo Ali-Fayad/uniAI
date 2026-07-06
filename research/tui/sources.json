@@ -1,0 +1,82 @@
+[
+  {
+    "id": "TUI_SRC_001",
+    "title": "University of Tripoli official home page",
+    "url": "https://new.ut.edu.lb/",
+    "type": "official_homepage",
+    "scope": "institutional",
+    "evidence": "Official University of Tripoli site; redirects from https://ut.edu.lb to https://new.ut.edu.lb.",
+    "relevance": "Confirms official domain and navigation to admissions, faculties, research, academic calendar, and electronic systems.",
+    "graduate_evidence": false
+  },
+  {
+    "id": "TUI_SRC_002",
+    "title": "القبول والتسجيل",
+    "url": "https://new.ut.edu.lb/pre-registration/",
+    "type": "official_admissions_index",
+    "scope": "admissions",
+    "evidence": "Admissions index lists مرحلة الماجستير and مرحلة الدكتوراه as admissions sections.",
+    "relevance": "Official admissions hub linking to master's and PhD admissions pages.",
+    "graduate_evidence": true
+  },
+  {
+    "id": "TUI_SRC_003",
+    "title": "مرحلة الماجستير",
+    "url": "https://new.ut.edu.lb/pre-registration/master/",
+    "type": "official_graduate_admissions_page",
+    "scope": "master",
+    "evidence": "States that the university grants master's degrees in graduate studies; describes master's requirements, admission conditions, required documents, study system, registration procedures, fees/payment notes, and graduate admissions contact details.",
+    "relevance": "Primary official Master's evidence.",
+    "graduate_evidence": true
+  },
+  {
+    "id": "TUI_SRC_004",
+    "title": "مرحلة الدكتوراه",
+    "url": "https://new.ut.edu.lb/pre-registration/phd/",
+    "type": "official_graduate_admissions_page",
+    "scope": "phd",
+    "evidence": "States doctoral requirements, admission conditions for the Faculty of Sharia and Islamic Studies, required documents, study system, registration procedures, and thesis requirements.",
+    "relevance": "Primary official PhD evidence.",
+    "graduate_evidence": true
+  },
+  {
+    "id": "TUI_SRC_005",
+    "title": "كلية الشريعة والدراسات الإسلامية",
+    "url": "https://new.ut.edu.lb/fac/shriaa/",
+    "type": "official_faculty_page",
+    "scope": "faculty_programs",
+    "evidence": "Faculty page explicitly includes graduate sections for مرحلة الماجستير and مرحلة الدكتوراه. It states the college grants master's degrees in Islamic Sharia and Islamic Studies and doctoral degrees in Islamic Sharia and Islamic Studies, with specialization lists.",
+    "relevance": "Primary official program/faculty evidence for the faculties and programs offering graduate study.",
+    "graduate_evidence": true
+  },
+  {
+    "id": "TUI_SRC_006",
+    "title": "الطلاب الأجانب / Foreign students",
+    "url": "https://new.ut.edu.lb/admission/foreign-students/",
+    "type": "official_international_students_page",
+    "scope": "international_students",
+    "evidence": "Foreign students page includes graduate academic rules copied into the international/admissions context, including master's and doctoral requirements.",
+    "relevance": "Supporting source for international student context; not used as standalone program evidence.",
+    "graduate_evidence": true
+  },
+  {
+    "id": "TUI_SRC_007",
+    "title": "الرسائل الجامعية",
+    "url": "https://new.ut.edu.lb/%D8%A7%D9%84%D8%B1%D8%B3%D8%A7%D8%A6%D9%84-%D8%A7%D9%84%D8%AC%D8%A7%D9%85%D8%B9%D9%8A%D8%A9/",
+    "type": "official_theses_index",
+    "scope": "research_theses",
+    "evidence": "University theses index lists master's theses and doctoral dissertations, including categories for رسائل الماجستير and رسائل الدكتوراه.",
+    "relevance": "Supporting historical/current thesis evidence only; not used alone to infer programs.",
+    "graduate_evidence": true
+  },
+  {
+    "id": "TUI_SRC_008",
+    "title": "الروزنامة الجامعية 2025-2026",
+    "url": "https://new.ut.edu.lb/%d8%a7%d9%84%d8%b1%d9%88%d8%b2%d9%86%d8%a7%d9%85%d8%a9-%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d9%8a%d8%a9-2025-2026/",
+    "type": "official_academic_calendar",
+    "scope": "academic_calendar",
+    "evidence": "Official academic calendar page linked from admissions navigation.",
+    "relevance": "Supporting calendar source; no independent graduate program evidence captured in this discovery.",
+    "graduate_evidence": false
+  }
+]

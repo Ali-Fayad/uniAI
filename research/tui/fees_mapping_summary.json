@@ -1,0 +1,30 @@
+{
+  "total_programs": 4,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 4,
+  "tuition_rows_grouped_by_faculty": [],
+  "unmapped_programs": [
+    {
+      "program_id": "tui-master-islamic-sharia",
+      "reason": "No official graduate tuition table or stable numeric graduate tuition amount was recovered in the reviewed UT sources."
+    },
+    {
+      "program_id": "tui-master-islamic-studies",
+      "reason": "No official graduate tuition table or stable numeric graduate tuition amount was recovered in the reviewed UT sources."
+    },
+    {
+      "program_id": "tui-phd-islamic-sharia",
+      "reason": "No official graduate tuition table or stable numeric graduate tuition amount was recovered in the reviewed UT sources."
+    },
+    {
+      "program_id": "tui-phd-islamic-studies",
+      "reason": "No official graduate tuition table or stable numeric graduate tuition amount was recovered in the reviewed UT sources."
+    }
+  ],
+  "source_ids_used": [
+    "TUI_SRC_003",
+    "TUI_SRC_004",
+    "TUI_SRC_005"
+  ],
+  "notes": "The captured official UT graduate pages reference registration and payment steps, but no structured graduate tuition schedule or stable numeric fee table was recovered. Tuition is therefore kept null for all inventoried programs."
+}

@@ -1,0 +1,68 @@
+{
+  "total_programs": 3,
+  "program_tuition_populated_count": 0,
+  "program_tuition_null_count": 3,
+  "university_fee_rows_count": 4,
+  "fee_rows_grouped_by_faculty": [
+    {
+      "faculty": "University-wide",
+      "rows": 4,
+      "graduate_levels": [
+        "MASTER"
+      ],
+      "source_ids": [
+        "AUOT_SRC_003",
+        "AUOT_SRC_004"
+      ]
+    }
+  ],
+  "shared_tuition_rows": [
+    {
+      "category": "application_fee",
+      "fee_label": "Graduate application fee",
+      "billing_basis": "FLAT_FEE",
+      "currency": "USD",
+      "amount": 50,
+      "source_ids": [
+        "AUOT_SRC_003",
+        "AUOT_SRC_004"
+      ]
+    },
+    {
+      "category": "tuition",
+      "fee_label": "Graduate tuition per credit",
+      "billing_basis": "PER_CREDIT",
+      "currency": "USD",
+      "amount": 315,
+      "source_ids": [
+        "AUOT_SRC_003",
+        "AUOT_SRC_004"
+      ]
+    },
+    {
+      "category": "registration_fee",
+      "fee_label": "Graduate registration fee per semester",
+      "billing_basis": "PER_SEMESTER",
+      "currency": "USD",
+      "amount": 400,
+      "source_ids": [
+        "AUOT_SRC_004"
+      ]
+    },
+    {
+      "category": "student_fee",
+      "fee_label": "Activities / yearbook / technology / internet / library access fee",
+      "billing_basis": "PER_SEMESTER",
+      "currency": "USD",
+      "amount": 250,
+      "source_ids": [
+        "AUOT_SRC_004"
+      ]
+    }
+  ],
+  "source_ids_used": [
+    "AUOT_SRC_003",
+    "AUOT_SRC_004"
+  ],
+  "notes": "Program tuition remains null in research/auot/programs.json because tuition is centralized at university scope. The official sources publish graduate tuition and related fees in the admissions page and 2025-2026 catalog."
+}

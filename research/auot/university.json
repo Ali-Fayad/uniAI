@@ -1,0 +1,192 @@
+{
+  "id": "auot",
+  "name": "American University of Technology",
+  "official_website": "https://www.aut.edu",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-06",
+  "source_ids": [
+    "AUOT_SRC_001",
+    "AUOT_SRC_002",
+    "AUOT_SRC_003",
+    "AUOT_SRC_004",
+    "AUOT_SRC_005",
+    "AUOT_SRC_006",
+    "AUOT_SRC_007",
+    "AUOT_SRC_008",
+    "AUOT_SRC_009"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants review the catalog and admissions page, submit the required file, and complete any placement, English, or departmental review steps described in the official catalog and admissions materials.",
+    "steps": [
+      "Review the AUT graduate program information in the 2025-2026 catalogue.",
+      "Prepare the graduate application file and required supporting documents.",
+      "Complete any required placement or English testing.",
+      "Follow the admissions office instructions for review and enrollment."
+    ],
+    "source_ids": [
+      "AUOT_SRC_003",
+      "AUOT_SRC_004"
+    ]
+  },
+  "required_documents": {
+    "summary": "The admissions page and catalogue publish a standard graduate file including transcript, degree proof, CV, recommendation letters, and equivalency documentation when needed.",
+    "items": [
+      "Certified copy of the university degree",
+      "Updated CV",
+      "Two recommendation letters",
+      "Official bachelor's transcript",
+      "Bachelor's degree equivalency, if needed"
+    ],
+    "source_ids": [
+      "AUOT_SRC_003",
+      "AUOT_SRC_004"
+    ]
+  },
+  "language_requirements": {
+    "summary": "Graduate applicants from non-English instruction institutions may be required to take International TOEFL with a minimum score of 550 or another internationally recognized English test.",
+    "notes": [
+      "The admissions page also references placement and English testing."
+    ],
+    "source_ids": [
+      "AUOT_SRC_003",
+      "AUOT_SRC_004"
+    ]
+  },
+  "tuition_model": {
+    "summary": "AUT publishes graduate tuition in the admissions page and catalog as per-credit tuition and related graduate fee rows. Program-level tuition remains null in the inventory because tuition is centralized at university scope.",
+    "currency": "USD",
+    "source_ids": [
+      "AUOT_SRC_003",
+      "AUOT_SRC_004"
+    ]
+  },
+  "fee_schedule": {
+    "summary": "Official graduate fee rows published in the 2025-2026 catalogue and admissions page.",
+    "items": [
+      {
+        "category": "application_fee",
+        "fee_label": "Graduate application fee",
+        "amount": 50,
+        "currency": "USD",
+        "billing_basis": "FLAT_FEE",
+        "source_ids": [
+          "AUOT_SRC_003",
+          "AUOT_SRC_004"
+        ]
+      },
+      {
+        "category": "tuition",
+        "fee_label": "Graduate tuition per credit",
+        "amount": 315,
+        "currency": "USD",
+        "billing_basis": "PER_CREDIT",
+        "source_ids": [
+          "AUOT_SRC_003",
+          "AUOT_SRC_004"
+        ]
+      },
+      {
+        "category": "registration_fee",
+        "fee_label": "Graduate registration fee per semester",
+        "amount": 400,
+        "currency": "USD",
+        "billing_basis": "PER_SEMESTER",
+        "source_ids": [
+          "AUOT_SRC_004"
+        ]
+      },
+      {
+        "category": "student_fee",
+        "fee_label": "Activities / yearbook / technology / internet / library access fee",
+        "amount": 250,
+        "currency": "USD",
+        "billing_basis": "PER_SEMESTER",
+        "source_ids": [
+          "AUOT_SRC_004"
+        ]
+      }
+    ],
+    "source_ids": [
+      "AUOT_SRC_003",
+      "AUOT_SRC_004"
+    ]
+  },
+  "scholarships": {
+    "summary": "The catalogue and admissions page reference financial aid categories including discounts, merit, sibling, sport, grants, and scholarships, but no numeric graduate scholarship catalogue was published.",
+    "items": [
+      "Discounts",
+      "Merit scholarships",
+      "Sibling scholarships",
+      "Sport scholarships",
+      "Grants",
+      "Financial aid"
+    ],
+    "source_ids": [
+      "AUOT_SRC_003",
+      "AUOT_SRC_004",
+      "AUOT_SRC_009"
+    ]
+  },
+  "financial_aid": {
+    "summary": "Financial aid is available through the admissions process, but no numeric aid table or graduate-wide award schedule was published.",
+    "items": [
+      "Financial aid application form"
+    ],
+    "source_ids": [
+      "AUOT_SRC_003",
+      "AUOT_SRC_004",
+      "AUOT_SRC_009"
+    ]
+  },
+  "payment_methods": {
+    "summary": "The reviewed official sources mention tuition and semester-based fees, but do not publish a separate graduate payment-method list.",
+    "items": [],
+    "source_ids": [
+      "AUOT_SRC_004"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No graduate installment plan or payment schedule was published in the reviewed official sources.",
+    "items": [],
+    "source_ids": [
+      "AUOT_SRC_004",
+      "AUOT_SRC_007"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "The official website links to an academic calendar and the catalog includes calendar/regulatory references, but no separate graduate calendar table was published here.",
+    "items": [
+      "Academic calendar",
+      "Final exam schedule",
+      "Financial calendar"
+    ],
+    "source_ids": [
+      "AUOT_SRC_001",
+      "AUOT_SRC_004"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "Graduate regulations are described in the catalogue and student manual, but no separately published graduate handbook was identified.",
+    "source_ids": [
+      "AUOT_SRC_004",
+      "AUOT_SRC_007"
+    ]
+  },
+  "international_students": {
+    "summary": "International students are addressed in the catalogue, including visa guidance and passport-validity notes, but no separate graduate international-student policy page was found.",
+    "items": [
+      "Passport validity of at least 13 months",
+      "Visa guidance through the Admissions Office"
+    ],
+    "source_ids": [
+      "AUOT_SRC_004",
+      "AUOT_SRC_003"
+    ]
+  },
+  "accreditation": {
+    "summary": "The catalogue states that the MBA is fully accredited by the Ministry of Education and Higher Education, but no broader university-wide graduate accreditation statement was isolated.",
+    "source_ids": [
+      "AUOT_SRC_004"
+    ]
+  }
+}

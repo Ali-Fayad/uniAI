@@ -1,0 +1,15 @@
+[
+  {
+    "id": "auot-llm-support-program",
+    "program_key": "auot-llm-support-program",
+    "title": "University of London Master of Laws (LLM) support program",
+    "degree_type": "MASTER",
+    "faculty": null,
+    "department": null,
+    "official_program_url": "https://www.aut.edu/llm-program-masters-of-laws/",
+    "source_ids": [
+      "AUOT_SRC_006"
+    ],
+    "notes": "AUT describes this as a support/recognized teaching centre arrangement for the University of London LLM rather than an AUT-awarded graduate degree. It is excluded from the in-scope AUT graduate inventory."
+  }
+]

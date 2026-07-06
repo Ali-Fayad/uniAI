@@ -1,0 +1,44 @@
+{
+  "task_code": "FINAL_QA_TUI_001",
+  "university": "Tripoli University Institute / University of Tripoli",
+  "official_websites": [
+    "https://ut.edu.lb",
+    "https://new.ut.edu.lb"
+  ],
+  "date_accessed": "2026-07-06",
+  "counts": {
+    "programs": 4,
+    "master": 2,
+    "phd": 2,
+    "out_of_scope": 0
+  },
+  "tuition": {
+    "populated_count": 0,
+    "null_count": 4,
+    "rows_mapped": 0,
+    "correctly_unmapped": true
+  },
+  "checks": {
+    "json_parses": true,
+    "no_duplicate_program_ids": true,
+    "no_duplicate_source_ids": true,
+    "no_duplicate_source_urls": true,
+    "every_source_reference_resolves": true,
+    "shared_data_centralized": true,
+    "official_ut_urls_only": true,
+    "v24_compatibility": true,
+    "compile_passed": true
+  },
+  "phd_credit_requirement": {
+    "officially_published": true,
+    "credits": 42,
+    "all_phd_records_match": true
+  },
+  "recommendation": "APPROVE WITH NOTES",
+  "notes": [
+    "Both master's programs remain present.",
+    "Both PhD programs remain present.",
+    "Tuition remains unmapped because no official graduate tuition table was captured.",
+    "No unsupported graduate program was introduced."
+  ]
+}

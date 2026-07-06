@@ -1,0 +1,61 @@
+[
+  {
+    "id": "auot-mba",
+    "program_key": "auot-mba",
+    "title": "Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Business Administration",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "AUOT_SRC_004"
+    ],
+    "program_description": "The MBA is the university's graduate business program and is offered with nine official concentrations.",
+    "credits": 39,
+    "concentrations_or_tracks": [
+      "Accounting",
+      "Banking & Finance",
+      "Entrepreneurship",
+      "Hospitality and Tourism Management",
+      "Human Resources Management",
+      "Management",
+      "Management Information Systems",
+      "Marketing",
+      "School Administration"
+    ],
+    "accreditation": "Fully accredited by the Ministry of Education and Higher Education.",
+    "notes": "The official 2025-2026 AUT catalogue lists the MBA as a 39-credit graduate degree and enumerates the concentrations shown here. No dedicated current MBA program page was found in this discovery pass, so official_program_url is null."
+  },
+  {
+    "id": "auot-ms-computer-science",
+    "program_key": "auot-ms-computer-science",
+    "title": "Master of Science in Computer Science",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Applied Science & Technology",
+    "department": "Department of Computer Science",
+    "official_program_url": "https://www.aut.edu/computer-science-master/",
+    "source_ids": [
+      "AUOT_SRC_004",
+      "AUOT_SRC_005"
+    ],
+    "program_description": "A 39-credit graduate program in computer science.",
+    "credits": 39,
+    "concentrations_or_tracks": null,
+    "notes": "The AUT catalogue and the official program page both identify this 39-credit master of science program in Computer Science."
+  },
+  {
+    "id": "auot-ms-information-technology",
+    "program_key": "auot-ms-information-technology",
+    "title": "Master of Science in Information Technology",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Applied Science & Technology",
+    "department": "Department of Computer Science",
+    "official_program_url": null,
+    "source_ids": [
+      "AUOT_SRC_004"
+    ],
+    "program_description": "A graduate program in information technology listed in the official AUT 2025-2026 catalogue.",
+    "concentrations_or_tracks": null,
+    "notes": "The AUT catalogue states that the Department of Computer Science offers a Master of Science in Information Technology. No separate official program page was found in this pass, so official_program_url is null."
+  }
+]
