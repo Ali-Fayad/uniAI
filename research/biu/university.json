@@ -1,0 +1,199 @@
+{
+  "id": "biu",
+  "name": "Beirut Islamic University",
+  "official_website": "https://www.biu.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-06",
+  "sources_used": [
+    "BIU_OFFICIAL_HOME",
+    "BIU_MASTERS_REQUIREMENTS",
+    "BIU_DOCTORATE_REQUIREMENTS",
+    "BIU_ADMISSION_REQUIREMENTS",
+    "BIU_APPLICATIONS",
+    "BIU_SYLLABUS",
+    "BIU_PREP_MASTERS_BOOKS",
+    "BIU_POSTGRAD_GUIDANCE",
+    "BIU_ACCOMPLISHMENTS_RECOGNITION",
+    "BIU_FEES",
+    "BIU_SCHEDULE",
+    "BIU_EXAMS",
+    "BIU_INTERNAL_REGULATIONS"
+  ],
+  "admissions_process": {
+    "summary": "BIU's public graduate pages show the admission flow, document submission, and program application steps for Master's and Doctorate applicants. The recovered sources do not expose a separate detailed graduate admissions manual, so the process is summarized only at the level published officially.",
+    "steps": [
+      "Review the official Master's or Doctorate requirements page for the selected field.",
+      "Submit the official admission documents listed for the relevant stage.",
+      "Use the official application forms page for graduate registration.",
+      "Follow any stage-specific guidance issued through the postgraduate guidance and regulations pages."
+    ],
+    "source_ids": [
+      "BIU_MASTERS_REQUIREMENTS",
+      "BIU_DOCTORATE_REQUIREMENTS",
+      "BIU_ADMISSION_REQUIREMENTS",
+      "BIU_APPLICATIONS",
+      "BIU_POSTGRAD_GUIDANCE",
+      "BIU_INTERNAL_REGULATIONS"
+    ]
+  },
+  "required_documents": {
+    "summary": "BIU publishes stage-specific document requirements for Master's and Doctorate applicants. The public pages do not expose a broader checklist beyond the items listed below.",
+    "items": [
+      "Individual civil registry record",
+      "Secondary certificate or official equivalent",
+      "University high license degree with university transcript",
+      "Four certified personal photos",
+      "Health certificate",
+      "Criminal record",
+      "Master's specialization degree with printed and corrected copy of the thesis"
+    ],
+    "source_ids": [
+      "BIU_ADMISSION_REQUIREMENTS"
+    ],
+    "notes": [
+      "The Doctorate page and admissions page confirm the Master's specialization and thesis copy for Doctorate applicants.",
+      "The inspected sources do not expose additional graduate-wide document items beyond the official lists."
+    ]
+  },
+  "language_requirements": {
+    "summary": "No official graduate language threshold was recovered in the inspected BIU source set.",
+    "notes": [
+      "The recovered Master's, Doctorate, admissions, applications, syllabus, and postgraduate guidance pages do not publish a numeric language requirement.",
+      "The source set also does not expose a university-wide graduate language policy.",
+      "No TOEFL, IELTS, or other equivalent cutoff was recovered."
+    ],
+    "source_ids": [
+      "BIU_MASTERS_REQUIREMENTS",
+      "BIU_DOCTORATE_REQUIREMENTS",
+      "BIU_ADMISSION_REQUIREMENTS",
+      "BIU_APPLICATIONS",
+      "BIU_SYLLABUS",
+      "BIU_POSTGRAD_GUIDANCE"
+    ]
+  },
+  "tuition_model": {
+    "summary": "BIU publishes an annual fees page, but the captured official content did not expose a readable numeric graduate tuition table. Tuition is therefore not populated in the program records and is not inferred here.",
+    "currency": null,
+    "source_ids": [
+      "BIU_FEES"
+    ],
+    "notes": [
+      "The official fees page exists, but the extracted text did not recover machine-readable graduate fee rows.",
+      "Program-level tuition remains null for all inventoried graduate programs."
+    ]
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "BIU_APPLICATIONS",
+        "BIU_ADMISSION_REQUIREMENTS"
+      ],
+      "notes": "The official applications and admissions pages confirm a graduate application flow, but no numeric application-fee amount was recovered."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "BIU_FEES",
+        "BIU_APPLICATIONS"
+      ],
+      "notes": "The official fees page exists, but no readable numeric registration fee was recovered from the captured content."
+    }
+  },
+  "payment_methods": {
+    "summary": "No official graduate payment-method matrix was recovered in the inspected BIU sources.",
+    "items": [],
+    "source_ids": [
+      "BIU_FEES",
+      "BIU_ADMISSION_REQUIREMENTS"
+    ],
+    "notes": [
+      "The recovered sources do not publish a university-wide graduate cash, transfer, or installment policy."
+    ]
+  },
+  "payment_plans": {
+    "summary": "No formal graduate payment-plan details were recovered in the inspected BIU sources.",
+    "items": [],
+    "source_ids": [
+      "BIU_FEES",
+      "BIU_ADMISSION_REQUIREMENTS"
+    ],
+    "notes": [
+      "The recovered sources do not publish an installment schedule or deferred-payment table."
+    ]
+  },
+  "scholarships": {
+    "summary": "No official graduate scholarship listing was recovered in the inspected BIU sources.",
+    "items": [],
+    "source_ids": [
+      "BIU_OFFICIAL_HOME",
+      "BIU_MASTERS_REQUIREMENTS",
+      "BIU_DOCTORATE_REQUIREMENTS"
+    ],
+    "notes": [
+      "Scholarship or award amounts were not published on the recovered graduate pages."
+    ]
+  },
+  "financial_aid": {
+    "summary": "No official graduate financial-aid program was recovered in the inspected BIU sources.",
+    "items": [],
+    "source_ids": [
+      "BIU_OFFICIAL_HOME",
+      "BIU_ADMISSION_REQUIREMENTS",
+      "BIU_APPLICATIONS"
+    ],
+    "notes": [
+      "The recovered source set does not expose a graduate aid application or aid award table."
+    ]
+  },
+  "academic_calendar": {
+    "summary": "BIU exposes official lecture-schedule and exam-schedule pages, but the captured content did not expose detailed graduate dates or a full academic calendar table.",
+    "items": [
+      "Official lecture schedule page",
+      "Official exam schedule page"
+    ],
+    "source_ids": [
+      "BIU_SCHEDULE",
+      "BIU_EXAMS"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "BIU publishes postgraduate guidance and internal regulations pages that cover graduate research-plan preparation, thesis/dissertation formatting guidance, and related source-reference expectations.",
+    "items": [
+      "Research-plan guidance for Master's and Doctorate students",
+      "Thesis/dissertation format guidance",
+      "Source-reference guidance for graduate research",
+      "Internal regulations page for the faculty"
+    ],
+    "source_ids": [
+      "BIU_POSTGRAD_GUIDANCE",
+      "BIU_INTERNAL_REGULATIONS"
+    ]
+  },
+  "international_students": {
+    "summary": "No dedicated graduate international-student policy page was recovered in the inspected BIU sources.",
+    "items": [],
+    "source_ids": [
+      "BIU_OFFICIAL_HOME",
+      "BIU_APPLICATIONS"
+    ],
+    "notes": [
+      "The recovered source set does not publish a separate graduate international-student checklist or policy."
+    ]
+  },
+  "accreditation": {
+    "summary": "BIU's official accomplishments page states that the faculty was recognized in 2006 to grant Master's specializations and Doctorate study in Comparative Fiqh, Usul al-Fiqh, and Islamic Studies.",
+    "source_ids": [
+      "BIU_ACCOMPLISHMENTS_RECOGNITION"
+    ],
+    "notes": [
+      "This is the official recognition evidence recovered in the source set.",
+      "No broader institutional accreditation statement was recovered in the inspected pages."
+    ]
+  }
+}

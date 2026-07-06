@@ -1,0 +1,74 @@
+{
+  "task_code": "FINAL_QA_BIU_001",
+  "verdict": "APPROVE_WITH_NOTES",
+  "json_parse": {
+    "all_research_biu_json_parse": true,
+    "files_checked": [
+      "programs.json",
+      "out_of_scope_programs.json",
+      "university.json",
+      "fees_mapping_summary.json",
+      "sources.json"
+    ]
+  },
+  "counts": {
+    "programs": 6,
+    "master_programs": 3,
+    "phd_programs": 3,
+    "out_of_scope_programs": 2,
+    "tuition_populated": 0,
+    "tuition_null": 6
+  },
+  "report_consistency": {
+    "program_count_consistent": true,
+    "master_count_consistent": true,
+    "phd_count_consistent": true,
+    "inventory_report_count": 6,
+    "enrichment_report_count": 6,
+    "final_qa_report_count": 6
+  },
+  "duplicate_checks": {
+    "program_ids": [],
+    "source_ids": [],
+    "source_urls": [],
+    "official_program_urls": []
+  },
+  "source_validation": {
+    "every_program_has_source": true,
+    "every_source_reference_resolves": true,
+    "official_url_validation": true,
+    "tuition_source_validation": true
+  },
+  "tuition": {
+    "null_program_ids": [
+      "biu-master-usul-al-fiqh",
+      "biu-master-comparative-fiqh",
+      "biu-master-islamic-studies",
+      "biu-phd-usul-al-fiqh",
+      "biu-phd-comparative-fiqh",
+      "biu-phd-islamic-studies"
+    ],
+    "note": "BIU's official fee page was recovered, but the captured content did not expose machine-readable graduate tuition values."
+  },
+  "shared_centralization": {
+    "university_json_centralizes_shared_admissions": true,
+    "university_json_centralizes_required_documents": true,
+    "university_json_centralizes_language_guidance": true,
+    "university_json_centralizes_fees": true,
+    "university_json_centralizes_academic_calendar": true,
+    "university_json_centralizes_regulations": true,
+    "university_json_centralizes_recognition": true
+  },
+  "schema_compatibility_v24": {
+    "degree_type": true,
+    "thesis_or_non_thesis": true,
+    "duration": true,
+    "tuition": true,
+    "language": true
+  },
+  "compile": {
+    "mvnw_compile": "PASS",
+    "workdir": "/Users/alifayad/uni/uniAI/Server"
+  },
+  "recommendation": "APPROVE_WITH_NOTES"
+}

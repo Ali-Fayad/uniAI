@@ -1,0 +1,57 @@
+[
+  {
+    "id": "mub-islamic-studies-master",
+    "program_key": "mub-islamic-studies-master",
+    "title": "Master’s Degree in Islamic Studies",
+    "degree_type": "MASTER",
+    "faculty": "Faculty of Islamic Studies",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "MUB_SRC_003",
+      "MUB_SRC_004"
+    ],
+    "program_description": "A graduate program in Islamic Studies that spans four semesters and is organized into preparatory and regular phases, with the fourth semester dedicated to research and thesis defense.",
+    "duration": "4 semesters",
+    "thesis_or_non_thesis": "THESIS",
+    "admission_requirements": [
+      "Bachelor's degree with a minimum grade of Pass or higher",
+      "Acceptable oration and linguistic communication skills",
+      "Personal statement for graduate study in Islamic Studies",
+      "Personal interview"
+    ],
+    "interview_requirement": "REQUIRED",
+    "concentrations_or_tracks": [
+      "Charitable Institutions Management",
+      "Media and Publishing",
+      "Scientific Research and Academia",
+      "Religious Relations and Conflict Resolution",
+      "Financial Management and Economic Development",
+      "Family Affairs",
+      "Cultural Documentation and Manuscript Management",
+      "Education"
+    ],
+    "notes": "Official graduate program evidence is on the Faculty of Islamic Studies page. The page describes a four-semester master’s structure, preparatory and regular phases, admissions requirements, and focus areas. No standalone dedicated program page was found, so the official_program_url is null."
+  },
+  {
+    "id": "mub-islamic-studies-phd",
+    "program_key": "mub-islamic-studies-phd",
+    "title": "Doctoral Program in Islamic Studies",
+    "degree_type": "PHD",
+    "faculty": "Faculty of Islamic Studies",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "MUB_SRC_003",
+      "MUB_SRC_004"
+    ],
+    "program_description": "A doctoral program in Islamic Studies that requires a minimum of three years of study focused on thesis preparation.",
+    "duration": "minimum 3 years",
+    "thesis_or_non_thesis": "THESIS",
+    "admission_requirements": [
+      "Master's degree in Islamic studies or equivalent with at least a good grade"
+    ],
+    "concentrations_or_tracks": null,
+    "notes": "Official doctoral evidence is on the Faculty of Islamic Studies page. The page describes a doctoral program requiring a minimum of three years focused on thesis preparation and master’s-level admission. No standalone dedicated program page was found, so the official_program_url is null."
+  }
+]

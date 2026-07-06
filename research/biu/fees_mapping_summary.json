@@ -1,0 +1,48 @@
+{
+  "total_programs": 6,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 6,
+  "tuition_rows_grouped_by_faculty_or_school": [],
+  "unmapped_programs": [
+    {
+      "program_id": "biu-master-usul-al-fiqh",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was recovered in the reviewed BIU sources."
+    },
+    {
+      "program_id": "biu-master-comparative-fiqh",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was recovered in the reviewed BIU sources."
+    },
+    {
+      "program_id": "biu-master-islamic-studies",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was recovered in the reviewed BIU sources."
+    },
+    {
+      "program_id": "biu-phd-usul-al-fiqh",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was recovered in the reviewed BIU sources."
+    },
+    {
+      "program_id": "biu-phd-comparative-fiqh",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was recovered in the reviewed BIU sources."
+    },
+    {
+      "program_id": "biu-phd-islamic-studies",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was recovered in the reviewed BIU sources."
+    }
+  ],
+  "source_ids_used": [
+    "BIU_MASTERS_REQUIREMENTS",
+    "BIU_DOCTORATE_REQUIREMENTS",
+    "BIU_ADMISSION_REQUIREMENTS",
+    "BIU_APPLICATIONS",
+    "BIU_SYLLABUS",
+    "BIU_PREP_MASTERS_BOOKS",
+    "BIU_POSTGRAD_GUIDANCE",
+    "BIU_ACCOMPLISHMENTS_RECOGNITION",
+    "BIU_FEES"
+  ],
+  "notes": [
+    "BIU publishes an annual fees page, but the recovered content did not expose a readable graduate tuition table.",
+    "Tuition is therefore kept null for all six inventoried graduate programs.",
+    "No tuition amount was inferred from the official source set."
+  ]
+}

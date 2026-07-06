@@ -1,0 +1,128 @@
+{
+  "total_programs": 2,
+  "program_tuition_populated_count": 0,
+  "program_tuition_null_count": 2,
+  "university_fee_rows_count": 9,
+  "fee_rows_grouped_by_faculty": [
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "rows": 9,
+      "graduate_levels": [
+        "MASTER",
+        "PHD"
+      ],
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    }
+  ],
+  "shared_tuition_rows": [
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "MASTER",
+      "fee_label": "Tuition Fees for first & second year Master Diploma",
+      "category": "tuition",
+      "billing_basis": "PROGRAM_TOTAL",
+      "amount_usd": 2950,
+      "amount_lbp": 66000000,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "MASTER",
+      "fee_label": "Fee per one credit in $",
+      "category": "tuition_per_credit",
+      "billing_basis": "PER_CREDIT",
+      "amount_usd": 120,
+      "amount_lbp": 1790000,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "MASTER",
+      "fee_label": "Defense tuition fee for Master Diploma",
+      "category": "defense_fee",
+      "billing_basis": "ONE_TIME",
+      "amount_usd": 1300,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "PHD",
+      "fee_label": "PHD Diploma Tuition Fees",
+      "category": "tuition",
+      "billing_basis": "PROGRAM_TOTAL",
+      "amount_usd": 6704,
+      "amount_lbp": 150750000,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "PHD",
+      "fee_label": "Fee per one credit in $",
+      "category": "tuition_per_credit",
+      "billing_basis": "PER_CREDIT",
+      "amount_usd": 120,
+      "amount_lbp": 1790000,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "PHD",
+      "fee_label": "Defense tuition fee for PHD Diploma",
+      "category": "defense_fee",
+      "billing_basis": "ONE_TIME",
+      "amount_usd": 3250,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "MASTER",
+      "fee_label": "Application Fees for Master Diploma",
+      "category": "application_fee",
+      "billing_basis": "ONE_TIME",
+      "amount_usd": 25,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "MASTER",
+      "fee_label": "Registration fees/printed matter for Master Diploma",
+      "category": "registration_fee",
+      "billing_basis": "ONE_TIME",
+      "amount_usd": 100,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    },
+    {
+      "faculty": "Faculty of Islamic Studies",
+      "degree_type": "PHD",
+      "fee_label": "Application Fees for PHD Diploma",
+      "category": "application_fee",
+      "billing_basis": "ONE_TIME",
+      "amount_usd": 25,
+      "source_ids": [
+        "MUB_SRC_004"
+      ]
+    }
+  ],
+  "source_ids_used": [
+    "MUB_SRC_004"
+  ],
+  "notes": "MUB publishes graduate tuition on the Faculty of Islamic Studies fee page. This pass centralizes the fee schedule in university.json; program records remain without tuition fields."
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "MUB_SRC_001",
+    "title": "Home | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/",
+    "type": "official_page",
+    "status": "reviewed",
+    "scope_relevance": "Official university homepage; confirms institution identity, faculties, navigation, address, and contact details.",
+    "graduate_evidence": "none_direct",
+    "notes": "The active public website for Makassed University of Beirut is mub.edu.lb. The user-provided makassed.edu.lb appears to correspond to the broader Makassed organization, not the university site used for official university pages."
+  },
+  {
+    "id": "MUB_SRC_002",
+    "title": "Faculties | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/faculties/",
+    "type": "official_page",
+    "status": "reviewed",
+    "scope_relevance": "Official faculty index listing the Faculty of Nursing and Health Sciences, Faculty of Islamic Studies, and Faculty of Teacher Education.",
+    "graduate_evidence": "none_direct",
+    "notes": "Used for recursive discovery routing. Faculty existence alone was not treated as graduate evidence."
+  },
+  {
+    "id": "MUB_SRC_003",
+    "title": "Faculty of Islamic Studies | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/faculty-of-islamic-studies/",
+    "type": "official_program_page",
+    "status": "reviewed",
+    "scope_relevance": "Primary official evidence for graduate offerings in Islamic Studies.",
+    "graduate_evidence": "master_and_phd",
+    "notes": "Page states the faculty focuses exclusively on graduate studies and offers master’s and doctoral programs. It describes master structure, doctoral duration, admissions requirements, and 2025-2026 master schedules."
+  },
+  {
+    "id": "MUB_SRC_004",
+    "title": "Tuition fees | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/tuition-fees/",
+    "type": "official_financial_page",
+    "status": "reviewed",
+    "scope_relevance": "Official tuition page for 2025-2026; includes Faculty of Islamic Studies Master Diploma and PHD Diploma fee rows.",
+    "graduate_evidence": "supporting_master_and_phd",
+    "notes": "Tuition rows support that Islamic Studies graduate-level master/PHD fee categories exist, but program existence is primarily supported by the faculty page."
+  },
+  {
+    "id": "MUB_SRC_005",
+    "title": "Apply Online | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/apply-online/",
+    "type": "official_admissions_form",
+    "status": "partially_reviewed_search_cache_only",
+    "scope_relevance": "Official application form; search cache exposed required document language for students from other universities and private university degree equivalency.",
+    "graduate_evidence": "supporting_admissions_documents_only",
+    "notes": "Direct page fetch was blocked by verification, so it was not used as primary evidence."
+  },
+  {
+    "id": "MUB_SRC_006",
+    "title": "Financial Support | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/financial-support/",
+    "type": "official_financial_support_page",
+    "status": "reviewed",
+    "scope_relevance": "Official financial aid request form; asks about scholarship/support source and amount.",
+    "graduate_evidence": "none_direct",
+    "notes": "No graduate-specific financial aid rule found on the captured page."
+  },
+  {
+    "id": "MUB_SRC_007",
+    "title": "Academic Calendar | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/news-and-events/academic-calendar/",
+    "type": "official_calendar_page",
+    "status": "reviewed",
+    "scope_relevance": "Official 2025-2026 academic calendar/holiday page.",
+    "graduate_evidence": "none_direct",
+    "notes": "Calendar is institution-level; no graduate-specific calendar found."
+  },
+  {
+    "id": "MUB_SRC_008",
+    "title": "Faculty of Nursing and Health Sciences | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/faculty-of-nursing-and-health-sciences/",
+    "type": "official_faculty_page",
+    "status": "reviewed",
+    "scope_relevance": "Official faculty page inspected for graduate program evidence.",
+    "graduate_evidence": "weak_reference_only",
+    "notes": "Mission text references a Masters’ program developed to prepare nurses for advanced practice, but captured faculty programs section is Bachelor-focused. Not sufficient alone for a graduate inventory row without a clear current program listing."
+  },
+  {
+    "id": "MUB_SRC_009",
+    "title": "Faculty of Teacher Education | Makassed University of Beirut",
+    "url": "https://mub.edu.lb/faculties/the-faculty-of-teacher-education/",
+    "type": "official_faculty_page",
+    "status": "reviewed",
+    "scope_relevance": "Official faculty page inspected for graduate program evidence and out-of-scope programs.",
+    "graduate_evidence": "none_in_scope",
+    "notes": "Teaching Diplomas and postgraduate professional certificates were found, but diplomas/certificates are out of scope. Faculty profile references to graduate programs at other universities were ignored."
+  }
+]

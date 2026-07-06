@@ -1,0 +1,21 @@
+{
+  "total_programs": 2,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 2,
+  "tuition_rows_grouped_by_faculty": [],
+  "unmapped_programs": [
+    {
+      "program_id": "auce-master-business-administration",
+      "reason": "No official graduate tuition amount table was published in the inspected AUCE source set."
+    },
+    {
+      "program_id": "auce-master-computer-science",
+      "reason": "No official graduate tuition amount table was published in the inspected AUCE source set."
+    }
+  ],
+  "source_ids_used": [
+    "auce-academics-programs",
+    "auce-admissions"
+  ],
+  "notes": "AUCE publishes a non-refundable $50 USD graduate application fee and general scholarship/aid categories, but no official graduate tuition amount table. Tuition is therefore kept null for all in-scope programs."
+}

@@ -1,0 +1,39 @@
+[
+  {
+    "id": "biu-out-preparatory-master-islamic-studies",
+    "program_key": "preparatory-master-islamic-studies",
+    "title": "Preparatory Master's in Islamic Studies",
+    "official_degree_name": "السنة التحضيرية للماجستير شعبة الدراسات الإسلامية",
+    "degree_type": "PREPARATORY_MASTER",
+    "faculty": "Faculty of Sharia",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "BIU_ADMISSION_REQUIREMENTS",
+      "BIU_APPLICATIONS",
+      "BIU_SYLLABUS",
+      "BIU_PREP_MASTERS_BOOKS"
+    ],
+    "program_description": "Official preparatory master's offering listed in the BIU syllabus and supporting graduate pages.",
+    "concentrations_or_tracks": null,
+    "notes": "Excluded from the in-scope inventory because the task is limited to degree-level MASTER and PHD records."
+  },
+  {
+    "id": "biu-out-preparatory-master-law",
+    "program_key": "preparatory-master-law",
+    "title": "Preparatory Master's in Law",
+    "official_degree_name": "السنة التحضيرية للماجستير شعبة الحقوق",
+    "degree_type": "PREPARATORY_MASTER",
+    "faculty": "Faculty of Sharia",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "BIU_ADMISSION_REQUIREMENTS",
+      "BIU_APPLICATIONS",
+      "BIU_SYLLABUS"
+    ],
+    "program_description": "Official preparatory master's offering listed in the BIU syllabus and supporting graduate pages.",
+    "concentrations_or_tracks": null,
+    "notes": "Excluded from the in-scope inventory because the task is limited to degree-level MASTER and PHD records."
+  }
+]

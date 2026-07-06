@@ -1,0 +1,228 @@
+{
+  "id": "mub",
+  "name": "Makassed University of Beirut",
+  "official_website": "https://mub.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-06",
+  "source_ids": [
+    "MUB_SRC_001",
+    "MUB_SRC_002",
+    "MUB_SRC_003",
+    "MUB_SRC_004",
+    "MUB_SRC_005",
+    "MUB_SRC_006",
+    "MUB_SRC_007",
+    "MUB_SRC_008",
+    "MUB_SRC_009"
+  ],
+  "admissions_process": {
+    "summary": "Graduate applicants apply through the university admissions channel, submit the required file to the Faculty of Islamic Studies, and complete the faculty-specific interview and review steps published on the official page.",
+    "steps": [
+      "Review the Faculty of Islamic Studies graduate offering and the published admission criteria.",
+      "Prepare the application file and submit the required information through the official Apply Online form.",
+      "Complete the faculty interview and admissions review process.",
+      "Follow the faculty instructions for enrollment and fee payment after acceptance."
+    ],
+    "source_ids": [
+      "MUB_SRC_003",
+      "MUB_SRC_005"
+    ]
+  },
+  "required_documents": {
+    "summary": "The official pages do not publish a single graduate checklist, but they do explicitly require identity information, proof of prior degree, and a personal statement for the Faculty of Islamic Studies master’s admission process.",
+    "items": [
+      "ID card or passport information",
+      "Proof of a bachelor's degree for the master’s program",
+      "Personal statement",
+      "Master's degree or equivalent for doctoral applicants"
+    ],
+    "source_ids": [
+      "MUB_SRC_003",
+      "MUB_SRC_005"
+    ]
+  },
+  "language_requirements": {
+    "summary": "No university-wide graduate language threshold was published. The Faculty of Islamic Studies asks applicants to demonstrate acceptable oration and linguistic communication skills, and the program structure includes Arabic language coursework in the preparatory phase.",
+    "notes": [
+      "The reviewed pages do not publish a separate TOEFL/IELTS/French-test threshold for graduate study."
+    ],
+    "source_ids": [
+      "MUB_SRC_003"
+    ]
+  },
+  "tuition_model": {
+    "summary": "MUB publishes graduate tuition only on the Faculty of Islamic Studies tuition page. The fee table is faculty-specific and uses both program-total and per-credit fee language; there is no university-wide graduate tariff.",
+    "currency": "USD",
+    "source_ids": [
+      "MUB_SRC_004"
+    ],
+    "notes": [
+      "The faculty page labels the master's amount as 'Tuition Fees for first & second year Master Diploma' and the doctoral amount as 'PHD Diploma Tuition Fees'.",
+      "The page also publishes a 'Fee per one credit in $' row."
+    ]
+  },
+  "fee_schedule": {
+    "summary": "Official 2025-2026 graduate fee rows published for the Faculty of Islamic Studies.",
+    "items": [
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Application Fees for Master Diploma",
+        "category": "application_fee",
+        "amount": 25,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Registration fees/printed matter for Master Diploma",
+        "category": "registration_fee",
+        "amount": 100,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Tuition Fees for first & second year Master Diploma",
+        "category": "tuition",
+        "amount_usd": 2950,
+        "amount_lbp": 66000000,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Defense tuition fee for Master Diploma",
+        "category": "defense_fee",
+        "amount": 1300,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Application Fees for PHD Diploma",
+        "category": "application_fee",
+        "amount": 25,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Registration Fees/printed matter for PHD Diploma",
+        "category": "registration_fee",
+        "amount": 150,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "PHD Diploma Tuition Fees",
+        "category": "tuition",
+        "amount_usd": 6704,
+        "amount_lbp": 150750000,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Fee per one credit in $",
+        "category": "tuition_per_credit",
+        "amount": 120,
+        "amount_lbp": 1790000,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      },
+      {
+        "faculty": "Faculty of Islamic Studies",
+        "fee_label": "Defense tuition fee for PHD Diploma",
+        "category": "defense_fee",
+        "amount": 3250,
+        "currency": "USD",
+        "source_ids": [
+          "MUB_SRC_004"
+        ]
+      }
+    ],
+    "source_ids": [
+      "MUB_SRC_004"
+    ]
+  },
+  "scholarships": {
+    "summary": "No university-wide graduate scholarship catalogue was published in the reviewed official sources.",
+    "items": [],
+    "source_ids": [
+      "MUB_SRC_006"
+    ]
+  },
+  "financial_aid": {
+    "summary": "The university publishes a financial support form, but no graduate-wide aid policy or award table was published in the reviewed sources.",
+    "items": [],
+    "source_ids": [
+      "MUB_SRC_006"
+    ]
+  },
+  "payment_methods": {
+    "summary": "No graduate payment-method list was published in the reviewed official sources.",
+    "items": [],
+    "source_ids": [
+      "MUB_SRC_004",
+      "MUB_SRC_005"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No graduate installment plan or payment schedule was published in the reviewed official sources.",
+    "items": [],
+    "source_ids": [
+      "MUB_SRC_004"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "The university publishes a 2025-2026 academic calendar/holiday page, but no graduate-specific calendar was published separately.",
+    "items": [
+      "2025-2026 university academic calendar and holidays"
+    ],
+    "source_ids": [
+      "MUB_SRC_007"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The Faculty of Islamic Studies publishes academic rules, student conduct expectations, disciplinary actions, and appeal procedures on its official page.",
+    "notes": [
+      "The reviewed pages do not provide a separate graduate handbook.",
+      "The faculty page also includes research-guidance content emphasizing originality, relevance, supervision, feasibility, and academic integrity."
+    ],
+    "source_ids": [
+      "MUB_SRC_003"
+    ]
+  },
+  "international_students": {
+    "summary": "The online application form includes passport information for foreign applicants, but no standalone graduate international-student policy was published.",
+    "notes": [
+      "The apply-online form explicitly includes a passport number field for foreigners."
+    ],
+    "source_ids": [
+      "MUB_SRC_005"
+    ]
+  },
+  "accreditation": {
+    "summary": "No university-wide graduate accreditation statement was published in the reviewed official sources.",
+    "source_ids": [
+      "MUB_SRC_003"
+    ]
+  }
+}

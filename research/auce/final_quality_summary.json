@@ -1,0 +1,58 @@
+{
+  "task_code": "FINAL_QA_AUCE_001",
+  "university": "American University of Culture & Education",
+  "date_accessed": "2026-07-06",
+  "verdict": "APPROVE_WITH_NOTES",
+  "counts": {
+    "programs": 2,
+    "masters": 2,
+    "phds": 0,
+    "out_of_scope": 0
+  },
+  "tuition_coverage": {
+    "populated": 0,
+    "null": 2,
+    "official_tuition_table_found": false
+  },
+  "validation": {
+    "json_parse": true,
+    "compile": true,
+    "duplicate_program_ids": false,
+    "duplicate_out_of_scope_ids": false,
+    "cross_file_program_id_overlap": false,
+    "broken_source_references": false,
+    "shared_data_centralized": true,
+    "v24_compatibility": true
+  },
+  "source_resolution": {
+    "all_resolve": true,
+    "source_total": 8,
+    "source_ids_referenced_by_structured_data": [
+      "auce-academics-programs",
+      "auce-admissions",
+      "auce-contact-faq"
+    ]
+  },
+  "notes": {
+    "official_programs": [
+      "Master of Business Administration",
+      "Master of Computer Science"
+    ],
+    "intentional_nulls": [
+      "thesis_or_non_thesis",
+      "delivery_mode",
+      "language",
+      "gre_requirement",
+      "gmat_requirement",
+      "portfolio_requirement",
+      "interview_requirement",
+      "experience_requirement",
+      "accreditation"
+    ],
+    "official_source_limitations": [
+      "No official graduate tuition table was published.",
+      "No official PhD program evidence was found.",
+      "Program-level delivery mode and accreditation were not published explicitly enough to normalize without inference."
+    ]
+  }
+}

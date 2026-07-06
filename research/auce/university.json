@@ -1,0 +1,114 @@
+{
+  "id": "auce",
+  "name": "American University of Culture & Education",
+  "official_website": "https://www.auce.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-06",
+  "sources_used": [
+    "auce-academics-programs",
+    "auce-admissions",
+    "auce-contact-faq"
+  ],
+  "admissions_process": {
+    "summary": "AUCE publishes graduate admissions requirements for its current master's programs, including application submission, supporting documents, recommendation letters, an application fee, and English proficiency or entrance testing.",
+    "steps": [
+      "Review the official Academic Programs page for the published master's offerings.",
+      "Complete the official graduate application.",
+      "Submit official university transcript(s).",
+      "Provide two recommendation letters.",
+      "Pay the non-refundable $50 USD application fee.",
+      "Complete the English Entrance Exam or submit TOEFL 97+ / IELTS 7.0+ evidence."
+    ],
+    "source_ids": [
+      "auce-academics-programs",
+      "auce-admissions",
+      "auce-contact-faq"
+    ]
+  },
+  "required_documents": {
+    "summary": "AUCE publishes a limited graduate document list on its Academic Programs and Admissions pages.",
+    "items": [
+      "Official university transcript(s)",
+      "Completed graduate application",
+      "Two recommendation letters"
+    ],
+    "source_ids": [
+      "auce-academics-programs",
+      "auce-admissions"
+    ],
+    "notes": [
+      "The public sources also mention a $50 USD application fee and English proficiency testing, but those are modeled in fee and language sections rather than as documents."
+    ]
+  },
+  "language_requirements": {
+    "summary": "AUCE requires English proficiency for graduate study.",
+    "notes": [
+      "English Entrance Exam or TOEFL 97+.",
+      "IELTS 7.0+ is accepted.",
+      "The Contact / FAQ page confirms the graduate English threshold."
+    ],
+    "source_ids": [
+      "auce-academics-programs",
+      "auce-admissions",
+      "auce-contact-faq"
+    ]
+  },
+  "tuition_model": {
+    "summary": "No official graduate tuition amount table was found in the inspected AUCE source set. Tuition remains null and is not inferred.",
+    "currency": null,
+    "source_ids": [
+      "auce-academics-programs",
+      "auce-admissions"
+    ],
+    "notes": [
+      "The official site exposes graduate admissions requirements and a $50 USD application fee, but no published graduate tuition amount."
+    ]
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": 50,
+      "currency": "USD",
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "auce-academics-programs",
+        "auce-admissions"
+      ],
+      "notes": "The official Academic Programs and Admissions pages state a non-refundable $50 USD graduate application fee."
+    }
+  },
+  "scholarships": {
+    "summary": "AUCE's Admissions page lists general graduate scholarship and aid categories.",
+    "items": [
+      "AUCE Excellence Scholarship",
+      "Lebanon Scholars Program",
+      "Early Bird Scholarship",
+      "Design Challenge Scholarship",
+      "Athletic Scholarship",
+      "Custom Aid Packages"
+    ],
+    "source_ids": [
+      "auce-admissions"
+    ],
+    "notes": [
+      "No program-specific graduate scholarship amounts were published in the inspected source set."
+    ]
+  },
+  "financial_aid": {
+    "summary": "AUCE publishes general graduate financial-aid categories on the Admissions page.",
+    "items": [
+      "AUCE Excellence Scholarship",
+      "Lebanon Scholars Program",
+      "Early Bird Scholarship",
+      "Design Challenge Scholarship",
+      "Athletic Scholarship",
+      "Custom Aid Packages"
+    ],
+    "source_ids": [
+      "auce-admissions"
+    ],
+    "notes": [
+      "No program-specific graduate aid amounts were published in the inspected source set."
+    ]
+  }
+}

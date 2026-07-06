@@ -1,0 +1,41 @@
+[
+  {
+    "id": "mub-teacher-education-teaching-diploma",
+    "program_key": "mub-teacher-education-teaching-diploma",
+    "title": "Teaching Diploma",
+    "degree_type": "DIPLOMA",
+    "faculty": "Faculty of Teacher Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "MUB_SRC_009"
+    ],
+    "notes": "Official Teacher Education page lists Teaching Diploma programs, which are out of scope for the graduate inventory."
+  },
+  {
+    "id": "mub-teacher-education-postgraduate-certificates-special-education",
+    "program_key": "mub-teacher-education-postgraduate-certificates-special-education",
+    "title": "Postgraduate Certificates in Special Education",
+    "degree_type": "CERTIFICATE",
+    "faculty": "Faculty of Teacher Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "MUB_SRC_009"
+    ],
+    "notes": "Official Teacher Education page lists postgraduate certificates in Special Education, which are out of scope for the graduate inventory."
+  },
+  {
+    "id": "mub-teacher-education-postgraduate-professional-certificates-edtech-ai",
+    "program_key": "mub-teacher-education-postgraduate-professional-certificates-edtech-ai",
+    "title": "Postgraduate Professional Certificates in EdTech and AI",
+    "degree_type": "CERTIFICATE",
+    "faculty": "Faculty of Teacher Education",
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "MUB_SRC_009"
+    ],
+    "notes": "Official Teacher Education page lists postgraduate professional certificates in EdTech and AI, which are out of scope for the graduate inventory."
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "auce-home",
+    "url": "https://www.auce.edu.lb/",
+    "title": "AUCE — American University of Culture and Education",
+    "source_type": "official_webpage",
+    "scope": ["overview", "navigation", "program_discovery"],
+    "evidence_summary": "Homepage/navigation lists Graduate links for MBA Program and Master of Computer Science; homepage faculty cards mark Business and Arts & Sciences as Undergraduate & Graduate. Used as navigation signal only, not standalone program evidence."
+  },
+  {
+    "id": "auce-academics-programs",
+    "url": "https://auce.edu.lb/fees-and-tuitions/index.php?page=academics",
+    "title": "Academic Programs",
+    "source_type": "official_webpage",
+    "scope": ["graduate_programs", "admissions", "language_requirements"],
+    "evidence_summary": "Official academics page lists two graduate programs: Master of Business Administration and Master of Computer Science. Both are listed as 39 credits. The MBA is shown as Full-Time (2 Years); MCS is listed as Full-Time. The page also lists graduate admission requirements: official university transcript(s), completed graduate application, 2 recommendation letters, $50 USD application fee, and English Entrance Exam or TOEFL 97 / IELTS 7."
+  },
+  {
+    "id": "auce-admissions",
+    "url": "https://auce.edu.lb/index.php?page=admissions",
+    "title": "Admissions",
+    "source_type": "official_webpage",
+    "scope": ["graduate_admissions", "required_documents", "language_requirements", "scholarships_financial_aid"],
+    "evidence_summary": "Admissions page states Masters Programs admission requirements for MBA and Master of Computer Science applicants, including official transcripts, online application, 2 recommendation letters, $50 USD application fee, and English Entrance Exam or TOEFL 97+ / IELTS 7.0+. It also lists scholarship/financial aid categories."
+  },
+  {
+    "id": "auce-contact-faq",
+    "url": "https://auce.edu.lb/index.php?page=contact",
+    "title": "Contact / FAQ",
+    "source_type": "official_webpage",
+    "scope": ["language_requirements", "admissions_contact"],
+    "evidence_summary": "Contact FAQ states that graduate programs require TOEFL 97+ or IELTS 7.0+. The contact form includes a Graduate Admissions inquiry type."
+  },
+  {
+    "id": "auce-arts-sciences",
+    "url": "https://auce.edu.lb/departements/masters-of-science/index.php?page=faculty-arts-sciences",
+    "title": "Faculty of Arts & Sciences",
+    "source_type": "official_webpage",
+    "scope": ["faculty_context", "program_navigation"],
+    "evidence_summary": "Faculty page describes undergraduate Arts & Sciences majors and includes navigation text to Explore Master of Computer Science. Used as supporting navigation only."
+  },
+  {
+    "id": "auce-business-faculty",
+    "url": "https://auce.edu.lb/4011/index.php?page=faculty-business",
+    "title": "Faculty of Business Administration",
+    "source_type": "official_webpage",
+    "scope": ["faculty_context"],
+    "evidence_summary": "Faculty page describes undergraduate business majors. It is not used as standalone graduate-program evidence."
+  },
+  {
+    "id": "auce-campuses",
+    "url": "https://auce.edu.lb/departements/masters-of-science/index.php?page=campuses",
+    "title": "Campuses",
+    "source_type": "official_webpage",
+    "scope": ["campus_availability_context"],
+    "evidence_summary": "Campus page states Beirut Campus has a full range of undergraduate and graduate programs. This is campus context only, not specific graduate-program evidence."
+  },
+  {
+    "id": "auce-about-accreditation",
+    "url": "https://www.auce.edu.lb/index.php?page=about",
+    "title": "About AUCE",
+    "source_type": "official_webpage",
+    "scope": ["institution_profile", "accreditation"],
+    "evidence_summary": "About page states AUCE is licensed/recognized in Lebanon under government decrees and lists MBA Program and Master of Computer Science in footer navigation. Used for institution context and official-site verification."
+  }
+]

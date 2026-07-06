@@ -1,0 +1,58 @@
+[
+  {
+    "id": "auce-master-business-administration",
+    "program_key": "master-business-administration",
+    "official_title": "Master of Business Administration",
+    "degree_type": "MASTER",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "auce-academics-programs",
+      "auce-admissions"
+    ],
+    "program_description": "Official AUCE Master of Business Administration listed on the Academic Programs page as a 39-credit full-time master's program with the published MBA concentration set.",
+    "credits": 39,
+    "duration": "Full-Time (2 Years)",
+    "concentrations_or_tracks": [
+      "Accounting",
+      "Business Management",
+      "Marketing & Advertising",
+      "Human Resources",
+      "International Hospitality",
+      "International Tourism",
+      "Economics",
+      "Management Information Systems",
+      "Banking & Finance"
+    ],
+    "admission_requirements": "Official university transcript(s); completed graduate application; 2 recommendation letters; $50 USD application fee; English Entrance Exam or TOEFL 97+ / IELTS 7.0+.",
+    "notes": "Official AUCE Academic Programs and Admissions pages identify the MBA as a current master's program. No dedicated program page was recovered in the source set, so official_program_url is null."
+  },
+  {
+    "id": "auce-master-computer-science",
+    "program_key": "master-computer-science",
+    "official_title": "Master of Computer Science",
+    "degree_type": "MASTER",
+    "faculty": null,
+    "department": null,
+    "official_program_url": null,
+    "source_ids": [
+      "auce-academics-programs",
+      "auce-admissions",
+      "auce-contact-faq"
+    ],
+    "program_description": "Official AUCE Master of Computer Science listed on the Academic Programs page as a 39-credit full-time master's program with the published focus areas.",
+    "credits": 39,
+    "duration": "Full-Time",
+    "concentrations_or_tracks": [
+      "Artificial Intelligence",
+      "Cybersecurity",
+      "Data Science",
+      "Cloud Computing",
+      "Software Engineering",
+      "Network Architecture"
+    ],
+    "admission_requirements": "Official university transcript(s); completed graduate application; 2 recommendation letters; $50 USD application fee; English Entrance Exam or TOEFL 97+ / IELTS 7.0+.",
+    "notes": "Official AUCE Academic Programs, Admissions, and Contact/FAQ pages identify the MCS as a current master's program. The academic page presents the listed focus areas, which are recorded here as concentrations_or_tracks. No dedicated program page was recovered in the source set, so official_program_url is null."
+  }
+]

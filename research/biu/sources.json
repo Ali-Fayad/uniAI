@@ -1,0 +1,106 @@
+[
+  {
+    "id": "BIU_OFFICIAL_HOME",
+    "url": "https://www.biu.edu.lb/",
+    "title": "BIU - جامعة بيروت الإسلامية- كلية الشريعة",
+    "type": "official_homepage",
+    "scope": ["overview"],
+    "evidence_summary": "Official BIU homepage navigation exposes Master's, Doctorate, admission, tuition, thesis/dissertation, and postgraduate student links."
+  },
+  {
+    "id": "BIU_MASTERS_REQUIREMENTS",
+    "url": "https://biu.edu.lb/pages/majors/masters/requirements",
+    "title": "متطلبات التسجيل لمرحلة الماجستير",
+    "type": "official_program_requirements_page",
+    "scope": ["MASTER"],
+    "evidence_summary": "Official Master's stage page describes the specialization stage, names Master's-level tracks/specializations, duration, thesis requirement, and admission conditions."
+  },
+  {
+    "id": "BIU_DOCTORATE_REQUIREMENTS",
+    "url": "https://biu.edu.lb/pages/majors/doctorat/requirements",
+    "title": "متطلبات التسجيل مرحلة العالمية الدكتوراه",
+    "type": "official_program_requirements_page",
+    "scope": ["PHD"],
+    "evidence_summary": "Official Doctorate stage page states doctorate study, three-year dissertation preparation, publication requirement, and admission limited to holders of the Master's specialization in the same field."
+  },
+  {
+    "id": "BIU_ADMISSION_REQUIREMENTS",
+    "url": "https://biu.edu.lb/pages/admission/requirements",
+    "title": "متطلبات التسجيل",
+    "type": "official_admissions_page",
+    "scope": ["MASTER", "PHD", "required_documents"],
+    "evidence_summary": "Official admission requirements page lists required documents for Master's, preparatory Master's, and Doctorate stages."
+  },
+  {
+    "id": "BIU_APPLICATIONS",
+    "url": "https://biu.edu.lb/pages/admission/applications",
+    "title": "طلبات التسجيل",
+    "type": "official_application_page",
+    "scope": ["MASTER", "PHD", "application_forms"],
+    "evidence_summary": "Official applications page links registration forms for Master's, preparatory Master's, and Doctorate stages."
+  },
+  {
+    "id": "BIU_SYLLABUS",
+    "url": "https://biu.edu.lb/pages/academics/syllabus",
+    "title": "توصيف المواد",
+    "type": "official_curriculum_index",
+    "scope": ["MASTER", "graduate_curriculum"],
+    "evidence_summary": "Official course-description index contains a postgraduate section listing Islamic Studies, Comparative Fiqh, Sharia Judiciary Master's, and preparatory Master's tracks."
+  },
+  {
+    "id": "BIU_PREP_MASTERS_BOOKS",
+    "url": "https://www.biu.edu.lb/pages/books/prepdirasat",
+    "title": "أسماء الكتب - السنة التحضيرية للماجستير شعبة الدراسات الإسلامية",
+    "type": "official_course_materials_page",
+    "scope": ["MASTER", "preparatory_master"],
+    "evidence_summary": "Official books page lists 2025-2026 preparatory Master's materials for Islamic Studies."
+  },
+  {
+    "id": "BIU_POSTGRAD_GUIDANCE",
+    "url": "https://biu.edu.lb/pages/news/mdinfo",
+    "title": "إرشادات مهمة لطلاب الماجستير والدكتوراه",
+    "type": "official_postgraduate_guidance_page",
+    "scope": ["MASTER", "PHD", "research_guidance"],
+    "evidence_summary": "Official postgraduate guidance page gives research plan, thesis/dissertation format, and source-reference guidance for Master's and Doctorate students."
+  },
+  {
+    "id": "BIU_ACCOMPLISHMENTS_RECOGNITION",
+    "url": "https://biu.edu.lb/pages/about/accomplishment",
+    "title": "انجازات الكلية",
+    "type": "official_recognition_page",
+    "scope": ["MASTER", "PHD", "accreditation_recognition"],
+    "evidence_summary": "Official achievements page states 2006 recognition for granting Master's specializations and Doctorate in Comparative Fiqh, Usul al-Fiqh, and Islamic Studies."
+  },
+  {
+    "id": "BIU_FEES",
+    "url": "https://biu.edu.lb/pages/admission/fees",
+    "title": "الأقساط السنوية",
+    "type": "official_tuition_page",
+    "scope": ["tuition"],
+    "evidence_summary": "Official tuition page states annual fees for academic year 1447 / 2025-2026, but the fee table is rendered as an image in the captured text."
+  },
+  {
+    "id": "BIU_SCHEDULE",
+    "url": "https://biu.edu.lb/pages/academics/schedule",
+    "title": "جدول المحاضرات",
+    "type": "official_schedule_page",
+    "scope": ["academic_schedule"],
+    "evidence_summary": "Official lecture schedule page exists, but the captured content did not expose current schedule details."
+  },
+  {
+    "id": "BIU_EXAMS",
+    "url": "https://biu.edu.lb/pages/academics/examList",
+    "title": "جدول الامتحانات",
+    "type": "official_exam_schedule_page",
+    "scope": ["exam_schedule"],
+    "evidence_summary": "Official exam schedule page exists; captured content indicates an official page but did not expose complete exam details."
+  },
+  {
+    "id": "BIU_INTERNAL_REGULATIONS",
+    "url": "https://biu.edu.lb/pages/administration/internal",
+    "title": "النظام الداخلي",
+    "type": "official_regulations_page",
+    "scope": ["regulations"],
+    "evidence_summary": "Official internal regulations page was included in the recursive inspection for graduate regulation coverage."
+  }
+]
