@@ -10,9 +10,11 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRetrievalPort {
 
     private static final int MAX_RESULTS = 10;
+    private static final int MAX_TEXT_LENGTH = 220;
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -40,20 +43,24 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             return "";
         }
 
+        QueryInterpretation interpretation = interpretQuery(userMessage);
+        if (interpretation.matchedUniversities().isEmpty() && interpretation.matchedDegreeTypes().isEmpty()) {
+            return buildEmptyContext(interpretation, "No matching official data found.");
+        }
+
+        List<ProgramRecord> programs = queryPrograms(interpretation);
+        if (programs.isEmpty()) {
+            return buildEmptyContext(interpretation, "No matching official data found.");
+        }
+
+        return buildStructuredContext(interpretation, programs);
+    }
+
+    private QueryInterpretation interpretQuery(String userMessage) {
         String normalizedMessage = userMessage.toLowerCase(Locale.ROOT);
         List<UniversityCatalog> matchedUniversities = findMatchingUniversities(normalizedMessage);
         Set<String> degreeTypes = detectDegreeTypes(normalizedMessage);
-
-        if (matchedUniversities.isEmpty() && degreeTypes.isEmpty()) {
-            return "";
-        }
-
-        List<ProgramRow> rows = queryPrograms(matchedUniversities, degreeTypes);
-        if (rows.isEmpty()) {
-            return "No matching official graduate data found.";
-        }
-
-        return formatContext(rows);
+        return new QueryInterpretation(userMessage, matchedUniversities, degreeTypes);
     }
 
     private List<UniversityCatalog> findMatchingUniversities(String normalizedMessage) {
@@ -112,18 +119,20 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 || normalizedMessage.contains("masters")
                 || normalizedMessage.contains("mba")
                 || normalizedMessage.contains("m.a.")
-                || normalizedMessage.contains("ma ")
-                || normalizedMessage.contains(" m.a")
+                || normalizedMessage.contains("m.a ")
+                || normalizedMessage.contains(" ma ")
                 || normalizedMessage.contains("m.sc")
-                || normalizedMessage.contains("ms ")) {
+                || normalizedMessage.contains("ms ")
+                || normalizedMessage.endsWith(" ms")
+                || normalizedMessage.contains("master's")) {
             degreeTypes.add("MASTER");
         }
 
         return degreeTypes;
     }
 
-    private List<ProgramRow> queryPrograms(List<UniversityCatalog> matchedUniversities, Set<String> degreeTypes) {
-        List<Long> universityIds = matchedUniversities.stream()
+    private List<ProgramRecord> queryPrograms(QueryInterpretation interpretation) {
+        List<Long> universityIds = interpretation.matchedUniversities().stream()
                 .map(UniversityCatalog::getId)
                 .filter(id -> id != null)
                 .distinct()
@@ -138,118 +147,281 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     gp.id AS program_id,
                     u.name AS university_name,
                     u.acronym AS university_acronym,
-                    dt.code AS degree_type_code,
-                    gp.official_degree_name,
-                    gp.major_category,
-                    gp.major,
-                    fac.name AS faculty_name,
-                    gp.credits,
-                    gp.delivery_mode,
-                    gp.thesis_or_non_thesis,
-                    gp.program_description,
-                    gp.official_program_url,
-                    s.url AS source_url
+                    COALESCE(fac.name, 'Not available in official data') AS faculty_name,
+                    COALESCE(l.name, 'Not available in official data') AS language_name,
+                    COALESCE(dt.code, 'Not available in official data') AS degree_type_code,
+                    COALESCE(gp.official_degree_name, 'Not available in official data') AS official_degree_name,
+                    COALESCE(gp.credits::text, 'Not available in official data') AS credits,
+                    COALESCE(gp.delivery_mode, 'Not available in official data') AS delivery_mode,
+                    COALESCE(gp.thesis_or_non_thesis, 'Not available in official data') AS thesis_or_non_thesis,
+                    COALESCE(tuition.tuition_summary, 'Not available in official data') AS tuition_summary,
+                    COALESCE(admissions.admission_summary, 'Not available in official data') AS admission_summary,
+                    COALESCE(gp.official_program_url, 'Not available in official data') AS official_program_url,
+                    COALESCE(src.source_urls, 'Not available in official data') AS source_urls
                 FROM graduate_program gp
                 JOIN university u ON u.id = gp.university_id
                 LEFT JOIN degree_type dt ON dt.id = gp.degree_type_id
                 LEFT JOIN university_faculty fac ON fac.id = gp.faculty_id
-                LEFT JOIN source s ON s.id = gp.source_id
+                LEFT JOIN language l ON l.id = gp.primary_language_id
+                LEFT JOIN LATERAL (
+                    SELECT STRING_AGG(
+                        CONCAT_WS(
+                            ': ',
+                            COALESCE(gtr.academic_year, 'Not available in official data'),
+                            COALESCE(gtr.category, 'Not available in official data'),
+                            CONCAT(
+                                COALESCE(gtr.amount::text, 'Not available in official data'),
+                                ' ',
+                                COALESCE(gtr.currency, 'Not available in official data'),
+                                ' / ',
+                                COALESCE(gtr.billing_basis, 'Not available in official data')
+                            )
+                        ),
+                        ' | ' ORDER BY gtr.academic_year DESC NULLS LAST, gtr.id DESC
+                    ) AS tuition_summary
+                    FROM graduate_tuition_rate gtr
+                    WHERE gtr.program_id = gp.id
+                ) tuition ON TRUE
+                LEFT JOIN LATERAL (
+                    SELECT STRING_AGG(
+                        CONCAT_WS(
+                            ': ',
+                            COALESCE(gar.requirement_type, 'Not available in official data'),
+                            LEFT(COALESCE(gar.requirement_text, 'Not available in official data'), 220)
+                        ),
+                        ' | ' ORDER BY gar.sort_order NULLS LAST, gar.id ASC
+                    ) AS admission_summary
+                    FROM graduate_admission_requirement gar
+                    WHERE gar.program_id = gp.id
+                ) admissions ON TRUE
+                LEFT JOIN LATERAL (
+                    SELECT STRING_AGG(DISTINCT s.url, ' | ' ORDER BY s.url) AS source_urls
+                    FROM (
+                        SELECT s.url
+                        FROM source s
+                        WHERE s.id = gp.source_id
+                        UNION
+                        SELECT s2.url
+                        FROM graduate_program_source gps
+                        JOIN source s2 ON s2.id = gps.source_id
+                        WHERE gps.program_id = gp.id
+                    ) s
+                ) src ON TRUE
                 WHERE gp.university_id IN (:universityIds)
                 %s
                 ORDER BY u.name ASC, dt.code ASC NULLS LAST, gp.official_degree_name ASC
                 LIMIT :limit
                 """;
 
-        String degreeClause = degreeTypes.isEmpty()
+        String degreeClause = interpretation.matchedDegreeTypes().isEmpty()
                 ? ""
                 : "AND dt.code IN (:degreeTypes)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("universityIds", universityIds)
                 .addValue("limit", MAX_RESULTS);
-        if (!degreeTypes.isEmpty()) {
-            params.addValue("degreeTypes", degreeTypes);
+        if (!interpretation.matchedDegreeTypes().isEmpty()) {
+            params.addValue("degreeTypes", interpretation.matchedDegreeTypes());
         }
 
         return jdbcTemplate.query(
                 String.format(sql, degreeClause),
                 params,
-                (rs, rowNum) -> new ProgramRow(
+                (rs, rowNum) -> new ProgramRecord(
                         rs.getLong("program_id"),
                         rs.getString("university_name"),
                         rs.getString("university_acronym"),
+                        rs.getString("faculty_name"),
+                        rs.getString("language_name"),
                         rs.getString("degree_type_code"),
                         rs.getString("official_degree_name"),
-                        rs.getString("major_category"),
-                        rs.getString("major"),
-                        rs.getString("faculty_name"),
-                        rs.getObject("credits") != null ? rs.getInt("credits") : null,
+                        rs.getString("credits"),
                         rs.getString("delivery_mode"),
                         rs.getString("thesis_or_non_thesis"),
-                        rs.getString("program_description"),
+                        rs.getString("tuition_summary"),
+                        rs.getString("admission_summary"),
                         rs.getString("official_program_url"),
-                        rs.getString("source_url")
+                        rs.getString("source_urls")
                 )
         );
     }
 
-    private String formatContext(List<ProgramRow> rows) {
+    private String buildStructuredContext(QueryInterpretation interpretation, List<ProgramRecord> programs) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Official graduate program context:\n");
-        for (ProgramRow row : rows) {
-            builder.append("- ");
-            builder.append(safe(row.universityName()));
-            if (StringUtils.hasText(row.universityAcronym())) {
-                builder.append(" (").append(row.universityAcronym()).append(")");
-            }
-            builder.append(": ");
-            builder.append(safe(row.officialDegreeName()));
+        appendSectionTitle(builder, "Query interpretation");
+        appendBullet(builder, "User message", interpretation.userMessage());
+        appendBullet(builder, "Matched universities", formatMatchedUniversities(interpretation.matchedUniversities()));
+        appendBullet(builder, "Matched degree type", formatMatchedDegreeTypes(interpretation.matchedDegreeTypes()));
 
-            List<String> details = new ArrayList<>();
-            if (StringUtils.hasText(row.degreeTypeCode())) {
-                details.add(row.degreeTypeCode());
-            }
-            if (StringUtils.hasText(row.facultyName())) {
-                details.add("faculty " + row.facultyName());
-            }
-            if (StringUtils.hasText(row.majorCategory())) {
-                details.add("category " + row.majorCategory());
-            }
-            if (StringUtils.hasText(row.major())) {
-                details.add("major " + row.major());
-            }
-            if (row.credits() != null) {
-                details.add(row.credits() + " credits");
-            }
-            if (StringUtils.hasText(row.deliveryMode())) {
-                details.add("delivery " + row.deliveryMode());
-            }
-            if (StringUtils.hasText(row.thesisOrNonThesis())) {
-                details.add("thesis status " + row.thesisOrNonThesis());
-            }
-            if (StringUtils.hasText(row.programDescription())) {
-                details.add("description: " + safe(row.programDescription()));
-            }
-            if (StringUtils.hasText(row.officialProgramUrl())) {
-                details.add("program url: " + row.officialProgramUrl());
-            }
-            if (StringUtils.hasText(row.sourceUrl())) {
-                details.add("source url: " + row.sourceUrl());
-            }
-
-            if (!details.isEmpty()) {
-                builder.append(" [").append(String.join("; ", details)).append("]");
-            }
-            builder.append('\n');
+        appendSectionTitle(builder, "Programs");
+        int index = 1;
+        for (ProgramRecord program : programs) {
+            builder.append(index++).append(".\n");
+            appendIndentedBullet(builder, "University", formatUniversity(program));
+            appendIndentedBullet(builder, "Faculty/school", program.facultyName());
+            appendIndentedBullet(builder, "Program name", program.officialDegreeName());
+            appendIndentedBullet(builder, "Degree type", program.degreeTypeCode());
+            appendIndentedBullet(builder, "Language", program.languageName());
+            appendIndentedBullet(builder, "Credits", program.credits());
+            appendIndentedBullet(builder, "Delivery mode", program.deliveryMode());
+            appendIndentedBullet(builder, "Thesis status", program.thesisOrNonThesis());
+            appendIndentedBullet(builder, "Tuition summary", program.tuitionSummary());
+            appendIndentedBullet(builder, "Admission summary", program.admissionSummary());
+            appendIndentedBullet(builder, "Official source URL(s)", program.sourceUrls());
+            appendIndentedBullet(builder, "Official program URL", program.officialProgramUrl());
         }
+
+        appendSectionTitle(builder, "Sources");
+        appendSourcesSection(builder, programs);
+
+        appendSectionTitle(builder, "Missing/Unavailable data");
+        appendMissingData(builder, interpretation, programs);
+
         return builder.toString().trim();
     }
 
-    private String safe(String value) {
-        if (!StringUtils.hasText(value)) {
-            return "Unknown";
+    private String buildEmptyContext(QueryInterpretation interpretation, String note) {
+        StringBuilder builder = new StringBuilder();
+        appendSectionTitle(builder, "Query interpretation");
+        appendBullet(builder, "User message", interpretation.userMessage());
+        appendBullet(builder, "Matched universities", formatMatchedUniversities(interpretation.matchedUniversities()));
+        appendBullet(builder, "Matched degree type", formatMatchedDegreeTypes(interpretation.matchedDegreeTypes()));
+
+        appendSectionTitle(builder, "Programs");
+        appendBullet(builder, "Result", note);
+
+        appendSectionTitle(builder, "Sources");
+        appendBullet(builder, "Result", "Not available in official data");
+
+        appendSectionTitle(builder, "Missing/Unavailable data");
+        appendBullet(builder, "Result", note);
+
+        return builder.toString().trim();
+    }
+
+    private void appendSourcesSection(StringBuilder builder, List<ProgramRecord> programs) {
+        Set<String> sources = new LinkedHashSet<>();
+        for (ProgramRecord program : programs) {
+            addSourceUrls(sources, program.sourceUrls());
+            addSourceUrls(sources, program.officialProgramUrl());
         }
-        return value.trim();
+
+        if (sources.isEmpty()) {
+            appendBullet(builder, "Result", "Not available in official data");
+            return;
+        }
+
+        for (String source : sources) {
+            appendBullet(builder, "Source URL", source);
+        }
+    }
+
+    private void appendMissingData(StringBuilder builder, QueryInterpretation interpretation, List<ProgramRecord> programs) {
+        Set<String> notes = new LinkedHashSet<>();
+        if (interpretation.matchedUniversities().isEmpty()) {
+            notes.add("Matched universities: Not available in official data");
+        }
+        if (interpretation.matchedDegreeTypes().isEmpty()) {
+            notes.add("Matched degree type: Not available in official data");
+        }
+
+        for (ProgramRecord program : programs) {
+            addIfMissing(notes, "Faculty/school", program.facultyName());
+            addIfMissing(notes, "Language", program.languageName());
+            addIfMissing(notes, "Credits", program.credits());
+            addIfMissing(notes, "Delivery mode", program.deliveryMode());
+            addIfMissing(notes, "Thesis status", program.thesisOrNonThesis());
+            addIfMissing(notes, "Tuition summary", program.tuitionSummary());
+            addIfMissing(notes, "Admission summary", program.admissionSummary());
+            addIfMissing(notes, "Official program URL", program.officialProgramUrl());
+            addIfMissing(notes, "Official source URL(s)", program.sourceUrls());
+        }
+
+        if (notes.isEmpty()) {
+            appendBullet(builder, "Result", "Not available in official data");
+            return;
+        }
+
+        for (String note : notes) {
+            appendBullet(builder, "Result", note);
+        }
+    }
+
+    private void addIfMissing(Set<String> notes, String label, String value) {
+        if (!StringUtils.hasText(value) || "Not available in official data".equalsIgnoreCase(value.trim())) {
+            notes.add(label + ": Not available in official data");
+        }
+    }
+
+    private void addSourceUrls(Set<String> sources, String value) {
+        if (!StringUtils.hasText(value) || "Not available in official data".equalsIgnoreCase(value.trim())) {
+            return;
+        }
+        for (String url : value.split("\\s*\\|\\s*")) {
+            if (StringUtils.hasText(url)) {
+                sources.add(url.trim());
+            }
+        }
+    }
+
+    private String formatUniversity(ProgramRecord program) {
+        if (!StringUtils.hasText(program.universityName())) {
+            return "Not available in official data";
+        }
+        if (!StringUtils.hasText(program.universityAcronym())) {
+            return program.universityName();
+        }
+        return program.universityName() + " (" + program.universityAcronym() + ")";
+    }
+
+    private String formatMatchedUniversities(List<UniversityCatalog> universities) {
+        if (universities.isEmpty()) {
+            return "Not available in official data";
+        }
+
+        return universities.stream()
+                .map(this::formatUniversity)
+                .collect(Collectors.joining(" | "));
+    }
+
+    private String formatMatchedDegreeTypes(Set<String> degreeTypes) {
+        if (degreeTypes.isEmpty()) {
+            return "Not available in official data";
+        }
+        return String.join(" | ", degreeTypes);
+    }
+
+    private void appendSectionTitle(StringBuilder builder, String title) {
+        if (builder.length() > 0) {
+            builder.append('\n');
+        }
+        builder.append(title).append(':').append('\n');
+    }
+
+    private void appendBullet(StringBuilder builder, String label, String value) {
+        builder.append("- ")
+                .append(label)
+                .append(": ")
+                .append(formatValue(value))
+                .append('\n');
+    }
+
+    private void appendIndentedBullet(StringBuilder builder, String label, String value) {
+        builder.append("  - ")
+                .append(label)
+                .append(": ")
+                .append(formatValue(value))
+                .append('\n');
+    }
+
+    private String formatValue(String value) {
+        if (!StringUtils.hasText(value)) {
+            return "Not available in official data";
+        }
+        String trimmed = value.trim();
+        return trimmed.length() > MAX_TEXT_LENGTH
+                ? trimmed.substring(0, MAX_TEXT_LENGTH - 1) + "…"
+                : trimmed;
     }
 
     private boolean containsWord(String haystack, String needle) {
@@ -266,20 +438,26 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 .collect(Collectors.toList());
     }
 
-    private record ProgramRow(
+    private record QueryInterpretation(
+            String userMessage,
+            List<UniversityCatalog> matchedUniversities,
+            Set<String> matchedDegreeTypes
+    ) {}
+
+    private record ProgramRecord(
             Long programId,
             String universityName,
             String universityAcronym,
+            String facultyName,
+            String languageName,
             String degreeTypeCode,
             String officialDegreeName,
-            String majorCategory,
-            String major,
-            String facultyName,
-            Integer credits,
+            String credits,
             String deliveryMode,
             String thesisOrNonThesis,
-            String programDescription,
+            String tuitionSummary,
+            String admissionSummary,
             String officialProgramUrl,
-            String sourceUrl
+            String sourceUrls
     ) {}
 }
