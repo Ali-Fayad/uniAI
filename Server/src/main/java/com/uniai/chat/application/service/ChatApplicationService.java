@@ -8,6 +8,7 @@ import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
 import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.port.in.*;
+import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.domain.builder.ChatBuilder;
@@ -49,6 +50,7 @@ public class ChatApplicationService implements
     private final UserRepository userRepository;
     private final AiServicePort aiServicePort;
     private final ChatSystemPromptPort chatSystemPromptPort;
+    private final GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
 
     private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 20;
 
@@ -90,11 +92,16 @@ public class ChatApplicationService implements
                 user.getId(),
                 command.getContent()
         );
+        String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(command.getContent());
+        List<String> context = (graduateContext != null && !graduateContext.isBlank())
+                ? List.of(graduateContext)
+                : Collections.emptyList();
 
         AiRequest aiRequest = AiRequest.builder()
                 .userMessage(command.getContent())
                 .systemPrompt(chatSystemPromptPort.getPrompt())
                 .conversationHistory(conversationHistory)
+                .context(context)
                 .build();
 
         AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
