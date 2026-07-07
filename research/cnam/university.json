@@ -1,0 +1,202 @@
+{
+  "id": "cnam",
+  "name": "Cnam Lebanon / ISSAE-Cnam Liban",
+  "official_website": "https://www.cnam-liban.fr",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-07",
+  "sources_used": [
+    "cnam_home",
+    "cnam_catalogue_general",
+    "cnam_master_finance",
+    "cnam_master_data_science",
+    "cnam_master_entrepreneurship_project_management",
+    "cnam_diplomes_mode_emploi",
+    "cnam_documents_procedures",
+    "cnam_financial_aid",
+    "cnam_financial_aid_pdf",
+    "cnam_eicnam_admission_request",
+    "cnam_documents_download"
+  ],
+  "admissions_process": {
+    "summary": "CNAM Lebanon's official pages route graduate applicants through the catalogue and the admissions/document-procedure pages. The Master pages describe dossier-based entry, M1/M2 progression, and centre offering information.",
+    "steps": [
+      "Review the official CNAM Lebanon catalogue and the relevant Master programme page.",
+      "Prepare the admissions file and supporting documents listed on the official documents/procedures page.",
+      "For Master Finance and Science des données, follow the published M1/M2 dossier-based admission path.",
+      "For Master entrepreneuriat et management de projet, follow the published dossier-based selection path."
+    ],
+    "source_ids": [
+      "cnam_catalogue_general",
+      "cnam_master_finance",
+      "cnam_master_data_science",
+      "cnam_master_entrepreneurship_project_management",
+      "cnam_documents_procedures"
+    ]
+  },
+  "required_documents": {
+    "summary": "The official documents/procedures page lists the supporting file for new students and for holders of higher-education diplomas, but the source set does not expose a single graduate checklist that can be normalized further without inference.",
+    "items": [
+      "Certified baccalaureate or equivalent",
+      "Identity document and photos",
+      "Documents supporting higher-education diploma holders",
+      "Certified copy of university/TS/LT diploma when applicable",
+      "Transcript when applicable",
+      "Course descriptions or syllabus when applicable",
+      "CV when applicable"
+    ],
+    "source_ids": [
+      "cnam_documents_procedures"
+    ],
+    "notes": [
+      "The page also includes procedure-specific documents for diploma requests, admission requests, dispensation requests, and mémoire deposit."
+    ]
+  },
+  "language_requirements": {
+    "summary": "The recovered official CNAM pages do not expose a single graduate-wide numeric language threshold for the supported Master programmes. Language attestations appear only within the procedure/document pages.",
+    "notes": [
+      "The documents/procedures page references DELF, BULATS and LINGUASKILL in relevant procedures.",
+      "No official CNAM Lebanon graduate-wide IELTS/TOEFL-style threshold was recovered in this pass."
+    ],
+    "source_ids": [
+      "cnam_documents_procedures"
+    ]
+  },
+  "tuition_model": {
+    "summary": "No official graduate tuition table or stable numeric graduate tuition amount was recovered for the supported CNAM Lebanon Master programmes. Tuition remains null and is not inferred.",
+    "currency": null,
+    "source_ids": [
+      "cnam_master_finance",
+      "cnam_master_data_science",
+      "cnam_master_entrepreneurship_project_management",
+      "cnam_financial_aid",
+      "cnam_financial_aid_pdf"
+    ],
+    "notes": [
+      "The recovered pages show tuition/fee aid requests, but not a published graduate tuition schedule.",
+      "The EICnam admission-exam fee is not treated as graduate tuition for this inventory."
+    ]
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "cnam_documents_procedures",
+        "cnam_financial_aid"
+      ],
+      "notes": "The official pages reference admission and tuition/registration fee handling, but no stable graduate application-fee amount was published for the Master programmes in this pass."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "cnam_documents_procedures",
+        "cnam_financial_aid_pdf"
+      ],
+      "notes": "The financial-aid PDF asks for the amount already paid and due, but the source set does not expose a stable graduate registration-fee amount."
+    },
+    "notes": "Fees are mentioned in the official documents and financial-aid flow, but no machine-readable graduate fee table was recovered."
+  },
+  "payment_methods": {
+    "summary": "The official source set confirms that fees are handled through scolarité and that forms may be submitted electronically, but it does not publish a formal graduate payment-method matrix.",
+    "items": [],
+    "source_ids": [
+      "cnam_financial_aid",
+      "cnam_financial_aid_pdf"
+    ],
+    "notes": [
+      "The pages show fee/aid submission steps rather than a bank-cash-installment payment policy."
+    ]
+  },
+  "payment_plans": {
+    "summary": "No formal graduate payment-plan schedule was recovered from the official CNAM Lebanon source set.",
+    "items": [],
+    "source_ids": [
+      "cnam_financial_aid",
+      "cnam_financial_aid_pdf"
+    ],
+    "notes": [
+      "The financial-aid form records amounts already paid and still due, but not a structured installment schedule."
+    ]
+  },
+  "scholarships": {
+    "summary": "CNAM Lebanon publishes an official financial-aid request page, but the recovered source set does not expose a graduate scholarship table.",
+    "items": [
+      "Financial aid request for tuition/registration fees"
+    ],
+    "source_ids": [
+      "cnam_financial_aid",
+      "cnam_financial_aid_pdf"
+    ],
+    "notes": [
+      "No program-specific scholarship award amounts were published in the captured source set."
+    ]
+  },
+  "financial_aid": {
+    "summary": "The official financial-aid pages provide a mechanism to request aid toward tuition or registration fees, but no numeric graduate aid schedule was recovered.",
+    "items": [
+      "Financial aid request for tuition/registration fees",
+      "Manual or electronic submission to the scolarité office"
+    ],
+    "source_ids": [
+      "cnam_financial_aid",
+      "cnam_financial_aid_pdf"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "The captured CNAM Lebanon source set does not include a dedicated official graduate academic calendar page.",
+    "items": [],
+    "source_ids": [
+      "cnam_home",
+      "cnam_catalogue_general"
+    ],
+    "notes": [
+      "No graduate calendar table or dated admission schedule was recovered in this pass."
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The official download and documents/procedures pages provide the recovered regulation and procedure references for diploma requests, admission requests, dispensations, and mémoire support.",
+    "items": [
+      "Documents and procedures page",
+      "Documents to download hub",
+      "Diploma request procedures",
+      "Admission request procedures",
+      "Dispensation request procedures",
+      "Mémoire deposit procedures"
+    ],
+    "source_ids": [
+      "cnam_documents_procedures",
+      "cnam_documents_download"
+    ]
+  },
+  "international_students": {
+    "summary": "No dedicated graduate international-student policy page was recovered in the captured CNAM Lebanon source set.",
+    "items": [],
+    "source_ids": [
+      "cnam_documents_procedures",
+      "cnam_home"
+    ],
+    "notes": [
+      "International-admissions content was not exposed as a separate graduate policy page in the reviewed sources."
+    ]
+  },
+  "accreditation": {
+    "summary": "The official Master pages state accreditation through 2029-2030 for the supported graduate programmes. No broader university-wide graduate accreditation statement was isolated in the captured source set.",
+    "items": [
+      "Master Finance accredited through 2029-2030",
+      "Master mathématiques appliquées, statistique Parcours Science des données accredited through 2029-2030",
+      "Master entrepreneuriat et management de projet Parcours Management de projet et d'affaires accredited through 2029-2030"
+    ],
+    "source_ids": [
+      "cnam_master_finance",
+      "cnam_master_data_science",
+      "cnam_master_entrepreneurship_project_management"
+    ],
+    "notes": [
+      "The generic diploma-level page mentions Doctorat as a degree level, but it does not evidence an active CNAM Lebanon PhD programme."
+    ]
+  }
+}

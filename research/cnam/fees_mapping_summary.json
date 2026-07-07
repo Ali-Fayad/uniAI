@@ -1,0 +1,29 @@
+{
+  "total_programs": 3,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 3,
+  "tuition_rows_grouped_by_faculty": [],
+  "unmapped_programs": [
+    {
+      "program_id": "cnam-master-finance",
+      "reason": "No official graduate tuition schedule or stable numeric graduate tuition amount was published in the captured CNAM Lebanon source set."
+    },
+    {
+      "program_id": "cnam-master-data-science",
+      "reason": "No official graduate tuition schedule or stable numeric graduate tuition amount was published in the captured CNAM Lebanon source set."
+    },
+    {
+      "program_id": "cnam-master-entrepreneurship-project-management",
+      "reason": "No official graduate tuition schedule or stable numeric graduate tuition amount was published in the captured CNAM Lebanon source set."
+    }
+  ],
+  "source_ids_used": [
+    "cnam_master_finance",
+    "cnam_master_data_science",
+    "cnam_master_entrepreneurship_project_management",
+    "cnam_financial_aid",
+    "cnam_financial_aid_pdf",
+    "cnam_documents_procedures"
+  ],
+  "notes": "The captured CNAM Lebanon graduate pages reference tuition/fee handling and financial aid, but they do not expose a stable graduate tuition table. Tuition is therefore kept null for all inventoried programmes."
+}

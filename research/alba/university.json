@@ -1,0 +1,179 @@
+{
+  "id": "alba",
+  "name": "Académie Libanaise des Beaux-Arts",
+  "official_website": "https://www.alba.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-07",
+  "sources_used": [
+    "ALBA-S002",
+    "ALBA-S003",
+    "ALBA-S005",
+    "ALBA-S006",
+    "ALBA-S007",
+    "ALBA-S008",
+    "ALBA-S009",
+    "ALBA-S010",
+    "ALBA-S011",
+    "ALBA-S012",
+    "ALBA-S015",
+    "ALBA-S016"
+  ],
+  "admissions_process": {
+    "summary": "ALBA publishes a graduate admissions page and an official 2026-2027 Master application PDF. The recovered source set confirms the existence of the master application process, but it does not expose a detailed graduate admissions manual beyond the official pages listed here.",
+    "steps": [
+      "Review the official Admissions et Inscriptions page for graduate admissions information.",
+      "Complete the official Master application PDF for 2026-2027.",
+      "Follow any program-specific guidance published on the relevant school or institute page.",
+      "Use the student booklet or brochure for supporting graduate guidance where applicable."
+    ],
+    "source_ids": [
+      "ALBA-S002",
+      "ALBA-S003",
+      "ALBA-S015",
+      "ALBA-S016"
+    ]
+  },
+  "required_documents": {
+    "summary": "The recovered ALBA source set confirms the existence of a master application form, but it does not expose a stable machine-readable graduate document checklist.",
+    "items": [],
+    "source_ids": [
+      "ALBA-S003",
+      "ALBA-S015"
+    ],
+    "notes": [
+      "The official Master application PDF confirms that applicants must read the conditions required for admission to the Master applied for.",
+      "No separate document list was captured in the discovery report for inclusion here."
+    ]
+  },
+  "language_requirements": {
+    "summary": "No standalone official graduate language requirement was recovered in the inspected ALBA source set.",
+    "notes": [
+      "The reviewed official pages and PDFs do not publish a numeric TOEFL, IELTS, or equivalent cutoff.",
+      "Language evidence in the source set is program- and curriculum-specific rather than a university-wide graduate admission rule."
+    ],
+    "source_ids": [
+      "ALBA-S002",
+      "ALBA-S003",
+      "ALBA-S015"
+    ]
+  },
+  "tuition_model": {
+    "summary": "ALBA's Admissions et Inscriptions page has a Scolarité et Frais section, but the recovered official content did not expose a machine-readable graduate tuition table. Tuition is therefore not populated here and is not inferred.",
+    "currency": null,
+    "source_ids": [
+      "ALBA-S002"
+    ],
+    "notes": [
+      "Program-level tuition remains null in research/alba/programs.json.",
+      "The discovery report confirms the tuition/fees section but not a structured numeric graduate tuition table."
+    ]
+  },
+  "tuition_table": [],
+  "fee_structure": {
+    "application_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "ALBA-S002",
+        "ALBA-S003"
+      ],
+      "notes": "The official admissions page and master application PDF confirm graduate admission processing, but no numeric application fee was recovered from the inspected source set."
+    },
+    "registration_fee": {
+      "amount": null,
+      "currency": null,
+      "billing_basis": "FLAT_FEE",
+      "source_ids": [
+        "ALBA-S002"
+      ],
+      "notes": "The admissions page includes a Scolarité et Frais section, but no readable graduate registration amount was recovered."
+    }
+  },
+  "payment_methods": {
+    "summary": "No official graduate payment-method matrix was recovered in the inspected ALBA sources.",
+    "items": [],
+    "source_ids": [
+      "ALBA-S002"
+    ],
+    "notes": [
+      "The recovered sources reference tuition/fees, but not a formal graduate payment-method table."
+    ]
+  },
+  "payment_plans": {
+    "summary": "No formal graduate payment-plan details were recovered in the inspected ALBA sources.",
+    "items": [],
+    "source_ids": [
+      "ALBA-S002"
+    ],
+    "notes": [
+      "The recovered source set does not expose a graduate installment schedule or deferred-payment table."
+    ]
+  },
+  "scholarships": {
+    "summary": "The official admissions page includes an Aide financière section, but no numeric graduate scholarship table was recovered in the inspected source set.",
+    "items": [],
+    "source_ids": [
+      "ALBA-S002"
+    ],
+    "notes": [
+      "The discovery report references a merit-scholarship search snippet, but the recovered official source text did not yield a stable numeric scholarship table."
+    ]
+  },
+  "financial_aid": {
+    "summary": "ALBA publishes an official financial-aid section on the admissions page, but no machine-readable graduate aid awards or amounts were recovered.",
+    "items": [],
+    "source_ids": [
+      "ALBA-S002"
+    ],
+    "notes": [
+      "The source set confirms the existence of financial-aid guidance, but not a graduate aid schedule."
+    ]
+  },
+  "academic_calendar": {
+    "summary": "No standalone official graduate academic calendar was recovered in the inspected ALBA source set.",
+    "items": [
+      "Student booklet / guidance PDF",
+      "General brochure PDF"
+    ],
+    "source_ids": [
+      "ALBA-S015",
+      "ALBA-S016"
+    ],
+    "notes": [
+      "The booklet and brochure serve as official guidance references, but the discovery report did not recover a dedicated graduate calendar table."
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "ALBA links an official student booklet and general brochure from its site, which serve as the recovered graduate guidance and regulations references in this pass.",
+    "items": [
+      "Student booklet / guidance PDF",
+      "General brochure / catalog-style PDF"
+    ],
+    "source_ids": [
+      "ALBA-S015",
+      "ALBA-S016"
+    ]
+  },
+  "international_students": {
+    "summary": "No dedicated graduate international-student policy page was recovered in the inspected ALBA sources.",
+    "items": [],
+    "source_ids": [
+      "ALBA-S002",
+      "ALBA-S003"
+    ],
+    "notes": [
+      "The recovered source set does not expose a separate graduate international-student checklist."
+    ]
+  },
+  "accreditation": {
+    "summary": "No explicit university-wide graduate accreditation statement was recovered in the inspected ALBA source set.",
+    "source_ids": [
+      "ALBA-S001",
+      "ALBA-S016"
+    ],
+    "notes": [
+      "The reviewed sources confirm ALBA's official site and brochure, but not a distinct graduate accreditation catalogue in this pass."
+    ]
+  }
+}

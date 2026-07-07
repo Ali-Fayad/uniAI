@@ -1,0 +1,76 @@
+{
+  "task_code": "FINAL_QA_ALBA_001",
+  "verdict": "APPROVE_WITH_NOTES",
+  "json_parse": {
+    "all_research_alba_json_parse": true,
+    "files_checked": [
+      "programs.json",
+      "out_of_scope_programs.json",
+      "university.json",
+      "fees_mapping_summary.json",
+      "sources.json"
+    ]
+  },
+  "counts": {
+    "programs": 8,
+    "master_programs": 8,
+    "phd_programs": 0,
+    "out_of_scope_programs": 1,
+    "tuition_populated": 0,
+    "tuition_null": 8
+  },
+  "report_consistency": {
+    "program_count_consistent": true,
+    "master_count_consistent": true,
+    "phd_count_consistent": true,
+    "inventory_report_count": 8,
+    "enrichment_report_count": 8,
+    "final_qa_report_count": 8
+  },
+  "duplicate_checks": {
+    "program_ids": [],
+    "source_ids": [],
+    "source_urls": [],
+    "official_program_urls": []
+  },
+  "source_validation": {
+    "every_program_has_source": true,
+    "every_source_reference_resolves": true,
+    "official_url_validation": true,
+    "tuition_source_validation": true
+  },
+  "tuition": {
+    "null_program_ids": [
+      "alba-master-interior-architecture",
+      "alba-master-global-design",
+      "alba-master-graphic-advertising",
+      "alba-master-illustration-comics",
+      "alba-master-animation-2d-3d",
+      "alba-master-film-direction",
+      "alba-master-audiovisual-production",
+      "alba-master-urban-design"
+    ],
+    "note": "ALBA's official graduate tuition was not exposed in a machine-readable form in the inspected official sources, so program-level tuition remains null."
+  },
+  "shared_centralization": {
+    "university_json_centralizes_shared_admissions": true,
+    "university_json_centralizes_required_documents": true,
+    "university_json_centralizes_language_guidance": true,
+    "university_json_centralizes_fees": true,
+    "university_json_centralizes_academic_calendar": true,
+    "university_json_centralizes_regulations": true,
+    "university_json_centralizes_recognition": true
+  },
+  "schema_compatibility_v24": {
+    "degree_type": true,
+    "thesis_or_non_thesis": true,
+    "duration": true,
+    "tuition": true,
+    "language": true
+  },
+  "compile": {
+    "mvnw_compile": "PASS",
+    "workdir": "/Users/alifayad/uni/uniAI/Server"
+  },
+  "recommendation": "APPROVE_WITH_NOTES"
+}

@@ -1,0 +1,51 @@
+{
+  "total_programs": 8,
+  "tuition_populated_count": 0,
+  "tuition_null_count": 8,
+  "tuition_rows_by_faculty_or_school": [],
+  "unmapped_programs": [
+    {
+      "program_id": "alba-master-interior-architecture",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    },
+    {
+      "program_id": "alba-master-global-design",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    },
+    {
+      "program_id": "alba-master-graphic-advertising",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    },
+    {
+      "program_id": "alba-master-illustration-comics",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    },
+    {
+      "program_id": "alba-master-animation-2d-3d",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    },
+    {
+      "program_id": "alba-master-film-direction",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    },
+    {
+      "program_id": "alba-master-audiovisual-production",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    },
+    {
+      "program_id": "alba-master-urban-design",
+      "reason": "No official numeric graduate tuition amount or per-credit graduate tuition schedule was published in the reviewed ALBA sources."
+    }
+  ],
+  "source_ids_used": [
+    "ALBA-S002",
+    "ALBA-S003",
+    "ALBA-S015",
+    "ALBA-S016"
+  ],
+  "notes": [
+    "ALBA's admissions page exposes tuition/fees and financial-aid sections, but the inspected official content did not yield a machine-readable graduate tuition table.",
+    "Program-level tuition remains null in research/alba/programs.json because tuition is not inferred.",
+    "The official source set does not provide a stable numeric graduate fee schedule to map into shared tuition rows."
+  ]
+}

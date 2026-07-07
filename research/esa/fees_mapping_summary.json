@@ -1,0 +1,64 @@
+{
+  "total_programs": 10,
+  "program_tuition_populated_count": 0,
+  "program_tuition_null_count": 10,
+  "tuition_rows_by_faculty_or_school": [],
+  "unmapped_programs": [
+    {
+      "program_id": "esa-mim",
+      "title": "Master in International Management",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-ment",
+      "title": "Master in Innovation and Entrepreneurship",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-miad",
+      "title": "Specialized Master in International Affairs and Diplomacy",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-mba",
+      "title": "Master in Business Administration",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-emlux",
+      "title": "Executive Master in Luxury Transformation and Leadership",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-mmc",
+      "title": "Specialized Master in Marketing and Communication",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-mems",
+      "title": "Master Exécutif en Management de la Santé / Executive Master in Healthcare Management",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-emfm",
+      "title": "Executive Master in Financial Management",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-emba",
+      "title": "Executive MBA",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    },
+    {
+      "program_id": "esa-dba",
+      "title": "Doctorate in Business Administration",
+      "reason": "No stable numeric tuition row was published in the reviewed official ESA pages."
+    }
+  ],
+  "source_ids_used": [
+    "esa_emfm_en",
+    "esa_mems_fr",
+    "esa_financial_aid_en"
+  ],
+  "notes": "Program tuition remains null for all ESA graduate programs because the reviewed official HTML sources and source map did not expose a stable numeric tuition table. Brochure pointers were noted in discovery, but no numeric tuition values were normalized in this pass."
+}

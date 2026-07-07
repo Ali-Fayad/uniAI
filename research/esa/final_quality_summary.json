@@ -1,0 +1,48 @@
+{
+  "university": "École Supérieure des Affaires",
+  "task_code": "FINAL_QA_ESA_001",
+  "verdict": "APPROVE_WITH_NOTES",
+  "ready_for_seed_generation": true,
+  "programs": {
+    "total": 10,
+    "master": 9,
+    "phd": 1,
+    "out_of_scope": 0
+  },
+  "validation": {
+    "json_parse": true,
+    "duplicate_program_ids": false,
+    "duplicate_source_ids": false,
+    "duplicate_source_urls": false,
+    "broken_source_references": false,
+    "shared_data_centralized": true,
+    "gemba_remains_track": true,
+    "dba_only_doctoral_record": true,
+    "v24_compatibility": true,
+    "compile_passed": true
+  },
+  "tuition": {
+    "program_level_mapped": 0,
+    "program_level_null": 10,
+    "status": "intentionally_unmapped",
+    "notes": [
+      "ESA's reviewed official sources point to brochures for fee details.",
+      "No stable numeric public tuition table was normalized in this pass."
+    ]
+  },
+  "source_coverage": {
+    "total_sources": 18,
+    "used_sources": 14,
+    "orphan_sources": [
+      "esa_home_en",
+      "esa_admissions_en",
+      "esa_financial_aid_en",
+      "esa_financial_aid_pdf_2025_2026"
+    ]
+  },
+  "completeness": {
+    "program_description": "10/10",
+    "duration": "4/10",
+    "concentrations_or_tracks": "1/10"
+  }
+}

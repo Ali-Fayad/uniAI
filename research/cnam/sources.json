@@ -1,0 +1,96 @@
+{
+  "task_code": "CNAM_DISCOVERY_001_BROWSER_INV",
+  "university": "Cnam Lebanon / ISSAE-Cnam Liban",
+  "official_domain": "cnam-liban.fr",
+  "generated_at": "2026-07-07",
+  "sources": [
+    {
+      "id": "cnam_home",
+      "title": "Formations supérieures professionnelles à l'ISSAE-Cnam au Liban",
+      "url": "https://www.cnam-liban.fr/",
+      "type": "official_homepage",
+      "scope": ["overview"],
+      "evidence_summary": "Official homepage for ISSAE-Cnam Liban, with navigation to the training offer, catalogues, departments, documents/procedures, and contact pages."
+    },
+    {
+      "id": "cnam_catalogue_general",
+      "title": "Catalogue général - 349 formations dans le centre Liban",
+      "url": "https://www.cnam-liban.fr/offre-de-formation/catalogue-general/",
+      "type": "official_catalogue",
+      "scope": ["master", "phd_negative_check", "catalogue"],
+      "evidence_summary": "Official catalogue states that results include Cnam Liban formations and distance formations from other Cnam centres, and lists three Master entries with LIB codes. No specific Doctorat/PhD program entry was identified in the catalogue results inspected."
+    },
+    {
+      "id": "cnam_master_finance",
+      "title": "Master Finance Parcours Finance d'entreprise et ingénierie financière",
+      "url": "https://www.cnam-liban.fr/offre-de-formation/catalogue-general/master-finance-parcours-finance-d-entreprise-et-ingenierie-financiere-1497513.kjsp?RF=libcatagene",
+      "type": "official_program_page",
+      "scope": ["master", "admissions", "program_structure"],
+      "evidence_summary": "Official Master page with code MR10701A-LIB, 120 credits, entry level Bac+3/Bac+4, exit level Bac+5, accreditation through 2029-2030, M1/M2 admission requirements, programme, and Liban centre offering years 2026/2027 and 2027/2028."
+    },
+    {
+      "id": "cnam_master_data_science",
+      "title": "Master mathématiques appliquées, statistique Parcours Science des données",
+      "url": "https://www.cnam-liban.fr/offre-de-formation/catalogue-general/master-mathematiques-appliquees-statistique-parcours-science-des-donnees-1497515.kjsp?RF=libcatagene",
+      "type": "official_program_page",
+      "scope": ["master", "admissions", "program_structure"],
+      "evidence_summary": "Official Master page with code MR12303A-LIB, 120 credits, entry level Bac+3/Bac+4, exit level Bac+5, accreditation through 2029-2030, prerequisites, M2 dossier admission, programme, and Liban centre offering years 2026/2027 and 2027/2028."
+    },
+    {
+      "id": "cnam_master_entrepreneurship_project_management",
+      "title": "Master entrepreneuriat et management de projet Parcours Management de projet et d'affaires",
+      "url": "https://www.cnam-liban.fr/offre-de-formation/catalogue-general/master-entrepreneuriat-et-management-de-projet-parcours-management-de-projet-et-d-affaires-1573881.kjsp?RF=libcatagene",
+      "type": "official_program_page",
+      "scope": ["master", "admissions", "program_structure"],
+      "evidence_summary": "Official Master page with code MR12001A-LIB, 120 credits, entry level Bac+3/Bac+4, exit level Bac+5, apprenticeship marked yes, accreditation through 2029-2030, prerequisites and selection-on-file admission text. The page did not show a populated Liban centre offering block in the captured lines, so it is included with a note for verification."
+    },
+    {
+      "id": "cnam_diplomes_mode_emploi",
+      "title": "Obtenir un diplôme, un titre ou un certificat au Cnam",
+      "url": "https://www.cnam-liban.fr/offre-de-formation/diplomes-mode-d-emploi/",
+      "type": "official_policy_page",
+      "scope": ["degree_levels", "admissions", "phd_negative_check"],
+      "evidence_summary": "Explains Cnam diploma model and level nomenclature, including Master 1, Master 2, and Doctorat as national degree levels. This is not evidence of a specific current CNAM Lebanon PhD program."
+    },
+    {
+      "id": "cnam_documents_procedures",
+      "title": "Documents et procédures",
+      "url": "https://www.cnam-liban.fr/documents-et-procedures/documents-et-procedures-784703.kjsp",
+      "type": "official_admissions_documents_page",
+      "scope": ["admissions", "required_documents", "language_requirements"],
+      "evidence_summary": "Lists required documents for new students with baccalaureate or higher-education diplomas, additional documents for higher-degree holders, documents for diploma/dispense/admission requests, and language attestations including DELF/BULATS/LINGUASKILL in relevant procedures."
+    },
+    {
+      "id": "cnam_financial_aid",
+      "title": "Formulaire de demande d'aide financière pour les droits d'inscription",
+      "url": "https://www.cnam-liban.fr/cnam-liban/formulaire-de-demande-d-aide-financiere-pour-les-droits-d-inscription-1455358.kjsp",
+      "type": "official_financial_aid_page",
+      "scope": ["financial_aid", "tuition_fees"],
+      "evidence_summary": "Official page for requesting financial aid toward tuition/registration fees, with instructions to submit the PDF manually or electronically to the scolarité office."
+    },
+    {
+      "id": "cnam_financial_aid_pdf",
+      "title": "Formulaire aide financière 2023-2024 PDF",
+      "url": "https://www.cnam-liban.fr/medias/fichier/formulaire-aide-financiere-2023-2024_1701352067187-pdf",
+      "type": "official_pdf",
+      "scope": ["financial_aid", "tuition_fees"],
+      "evidence_summary": "Official financial-aid PDF form asking for programme/diploma in progress, total tuition fees for the current year, amount already paid, and remaining amount due."
+    },
+    {
+      "id": "cnam_eicnam_admission_request",
+      "title": "Demande d'inscription à l'examen d'admission à l'EiCnam",
+      "url": "https://www.cnam-liban.fr/cnam-liban/demande-d-inscription-a-l-examen-d-admission-a-l-eicnam-1353357.kjsp",
+      "type": "official_admissions_page",
+      "scope": ["admissions", "fees"],
+      "evidence_summary": "Official admission-exam request page for EICnam, noting that a 72 USD application/registration fee is payable to Scolarité and the dossier must be deposited with proof of payment. This relates to EICnam engineering admission, not Master's admission."
+    },
+    {
+      "id": "cnam_documents_download",
+      "title": "Documents à télécharger",
+      "url": "https://www.cnam-liban.fr/documents-et-procedures/documents-a-telecharger-785116.kjsp",
+      "type": "official_documents_page",
+      "scope": ["regulations", "admissions", "documents"],
+      "evidence_summary": "Official download hub mentioning habilitation documents, EICnam candidacy dossier, thesis/memoire support, and engineering diploma regulations. No Master/PhD-specific regulation PDF was identified here in the inspected results."
+    }
+  ]
+}

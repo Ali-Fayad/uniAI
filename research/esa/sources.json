@@ -1,0 +1,146 @@
+[
+  {
+    "id": "esa_home_en",
+    "title": "ESA | Home",
+    "url": "https://www.esa.edu.lb/english/home",
+    "type": "official_webpage",
+    "scope": "context",
+    "notes": "Official ESA home page; lists current graduate programs including MIM, MBA, MEMS, EMBA, EMFM, MMC, GEMBA, and DBA."
+  },
+  {
+    "id": "esa_programs_overview_en",
+    "title": "ESA | Overview",
+    "url": "https://www.esa.edu.lb/en/programs",
+    "type": "official_webpage",
+    "scope": "program_index",
+    "notes": "Official degree-program overview page; states that MIM, MBA, EMBA, specialized masters, and DBA are part of ESA degree programs."
+  },
+  {
+    "id": "esa_programs_overview_fr",
+    "title": "ESA | Aperçu",
+    "url": "https://www.esa.edu.lb/french/formations-diplomantes/apercu",
+    "type": "official_webpage",
+    "scope": "program_index",
+    "notes": "French official degree-program overview page; lists all programs including MIM, MENT, MIAD, MBA, EMLux, MMC, MEMS, EMFM, EMBA, GEMBA, and DBA."
+  },
+  {
+    "id": "esa_mim_en",
+    "title": "ESA | Master in International Management (MIM)",
+    "url": "https://www.esa.edu.lb/english/master-in-international-management",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official MIM program page; confirms diplomas, 24-month duration, schedule, and program structure."
+  },
+  {
+    "id": "esa_ment_en",
+    "title": "ESA | Master in Innovation and Entrepreneurship (MENT)",
+    "url": "https://www.esa.edu.lb/program/master-in-entrepreneurship",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official MENT program page; confirms Master in Innovation and Entrepreneurship co-signed by ESA and HEC Paris, duration, target, and language."
+  },
+  {
+    "id": "esa_miad_en",
+    "title": "ESA | Specialized Master in International Affairs and Diplomacy (MIAD)",
+    "url": "https://www.esa.edu.lb/english/specialized-master-in-international-affairs-and-diplomacy",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official MIAD program page; confirms specialized master co-signed by ESA and UNITAR and 20-month structure."
+  },
+  {
+    "id": "esa_mba_en",
+    "title": "ESA | Master in Business Administration (MBA)",
+    "url": "https://www.esa.edu.lb/master-in-business-administration",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official MBA page; confirms admissions criteria and AMBA/BGA accreditation context."
+  },
+  {
+    "id": "esa_emlux_en",
+    "title": "ESA | Executive Master in Luxury Transformation and Leadership (EMLux)",
+    "url": "https://www.esa.edu.lb/english/executive-master-in-luxury-transformation-and-leadership/emlux",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official EMLux page; confirms an Executive Master program, 15-month part-time format, and target audience."
+  },
+  {
+    "id": "esa_mmc_en",
+    "title": "ESA | Specialized Master in Marketing and Communication (MMC)",
+    "url": "https://www.esa.edu.lb/english/specialized-master-in-marketing-and-communication",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official MMC page; confirms two international Specialized Master diplomas from ESA and ESCP."
+  },
+  {
+    "id": "esa_mems_fr",
+    "title": "ESA | Master Exécutif en Management de la Santé (MEMS)",
+    "url": "https://www.esa.edu.lb/french/formation-diplomante/master-executif-en-management-de-la-sante",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official MEMS page; confirms ESA Executive Master and Université Paris Cité Master 2 AMES, admissions, dates, tuition/aid summary."
+  },
+  {
+    "id": "esa_emfm_en",
+    "title": "ESA | Executive Master in Financial Management (EMFM)",
+    "url": "https://www.esa.edu.lb/english/executive-master-in-financial-management",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official EMFM page; confirms admissions criteria, tuition-fee brochure pointer, scholarships, and financial aid summary."
+  },
+  {
+    "id": "esa_emba_en",
+    "title": "ESA | Executive MBA (EMBA)",
+    "url": "https://www.esa.edu.lb/executivemba",
+    "type": "official_webpage",
+    "scope": "master_program",
+    "notes": "Official EMBA page; confirms Executive MBA program and leadership/professional target."
+  },
+  {
+    "id": "esa_gemba_en",
+    "title": "ESA | Global Executive MBA (GEMBA)",
+    "url": "https://www.esa.edu.lb/english/global-emba",
+    "type": "official_webpage",
+    "scope": "master_program_optional_track",
+    "notes": "Official Global EMBA page; describes optional international program for ESA EMBA participants with ESCP seminars/electives/final project."
+  },
+  {
+    "id": "esa_dba_en",
+    "title": "ESA | Doctorate in Business Administration (DBA)",
+    "url": "https://www.esa.edu.lb/english/program/doctorate-in-business-administration",
+    "type": "official_webpage",
+    "scope": "doctorate_program",
+    "notes": "Official DBA page; confirms Doctorate in Business Administration objectives and doctoral-level research/professional program."
+  },
+  {
+    "id": "esa_admissions_en",
+    "title": "ESA | Admissions",
+    "url": "https://www.esa.edu.lb/english/formation-diplomante/admission",
+    "type": "official_webpage",
+    "scope": "admissions",
+    "notes": "Official admissions/orientation page for degree programs."
+  },
+  {
+    "id": "esa_faq_en",
+    "title": "ESA | FAQs",
+    "url": "https://www.esa.edu.lb/english/formation-diplomante/faqs",
+    "type": "official_webpage",
+    "scope": "admissions_program_details",
+    "notes": "Official FAQ page; summarizes prerequisites, duration, work-experience requirements, schedules, and language notes across programs."
+  },
+  {
+    "id": "esa_financial_aid_en",
+    "title": "ESA | Financial Aid",
+    "url": "https://www.esa.edu.lb/financial-aid",
+    "type": "official_webpage",
+    "scope": "financial_aid",
+    "notes": "Official financial aid page; describes scholarships, solidarity aid, application deadlines/requirements, and exceptions."
+  },
+  {
+    "id": "esa_financial_aid_pdf_2025_2026",
+    "title": "ESA Solidarity Financial Aid Application 2025-2026",
+    "url": "https://www.esa.edu.lb/Library/EditorFiles/ESA%20Solidarity%20Financial%20Aid%20Application%202025-2026%20%28procedure%20and%20list%20of%20required%20documents%29.pdf",
+    "type": "official_pdf",
+    "scope": "financial_aid_required_documents",
+    "notes": "Official PDF with solidarity financial aid procedure and required documents for 2025-2026."
+  }
+]

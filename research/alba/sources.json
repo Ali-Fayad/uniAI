@@ -1,0 +1,136 @@
+{
+  "task_code": "ALBA_DISCOVERY_001_BROWSER_INV",
+  "university": "Académie Libanaise des Beaux-Arts (ALBA)",
+  "official_domain": "alba.edu.lb",
+  "generated_at": "2026-07-07",
+  "sources": [
+    {
+      "id": "ALBA-S001",
+      "title": "ALBA official homepage",
+      "url": "https://alba.edu.lb/",
+      "type": "official_page",
+      "scope": ["homepage", "schools", "navigation"],
+      "evidence_summary": "Official ALBA website landing page with navigation to schools, admissions, fees, financial aid, student life, and official PDFs."
+    },
+    {
+      "id": "ALBA-S002",
+      "title": "Admissions et Inscriptions",
+      "url": "https://alba.edu.lb/sites/ALBA1/InsAdm/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["admissions", "masters", "tuition", "financial_aid", "orientation"],
+      "evidence_summary": "Official admissions page with sections for Licences, Masters, Scolarité et Frais, Demandes d'attestations, Aide financière, and Orientation."
+    },
+    {
+      "id": "ALBA-S003",
+      "title": "Demande Masters 2026-2027 Master PDF",
+      "url": "https://alba.edu.lb/sites/ALBA1/Style%20Library/PDF/Demande%20Masters%202026-2027%20Master%20.pdf?csf=1&e=KO1r9S",
+      "type": "official_pdf",
+      "scope": ["master_admissions", "application_form"],
+      "evidence_summary": "Official ALBA Master application file for 2026-2027. It states that the candidate has read the conditions required for admission to the Master applied for."
+    },
+    {
+      "id": "ALBA-S004",
+      "title": "École d’architecture",
+      "url": "https://alba.edu.lb/sites/ALBA1/ECOLEDARCHITECTURE/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["school_page", "architecture"],
+      "evidence_summary": "Official school page for Architecture. It documents the school and architecture curriculum context, but this discovery did not find a clear separate official Master or PhD admission/program claim on this page."
+    },
+    {
+      "id": "ALBA-S005",
+      "title": "Architecture d’intérieur",
+      "url": "https://alba.edu.lb/sites/ALBA1/ARCHITECTUREDINTERIEUR/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["master_program", "interior_architecture"],
+      "evidence_summary": "Official ALBA section page explicitly listing Master en Architecture d'Intérieur and describing its mission/objectives."
+    },
+    {
+      "id": "ALBA-S006",
+      "title": "École des Arts Décoratifs - Section Design",
+      "url": "https://alba.edu.lb/sites/ALBA1/ECOLEDESARTSDEC/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["master_program", "design"],
+      "evidence_summary": "Official section page listing Master en Design Global and describing it as a two-year program preparing professionals for a changing world."
+    },
+    {
+      "id": "ALBA-S007",
+      "title": "Master in Global Design at ALBA PDF",
+      "url": "https://alba.edu.lb/sites/ALBA1/Style%20Library/PDF/Master%27s%20Text%20-%20Eng.pdf?csf=1&e=c3pqxU",
+      "type": "official_pdf",
+      "scope": ["master_program", "design"],
+      "evidence_summary": "Official ALBA PDF describing the Master in Global Design as a transformative two-year program."
+    },
+    {
+      "id": "ALBA-S008",
+      "title": "Graphisme et Publicité",
+      "url": "https://alba.edu.lb/sites/ALBA1/GRAPHPUBLIC/Pages/GRAPHISME.aspx",
+      "type": "official_page",
+      "scope": ["master_program", "graphic_design", "advertising"],
+      "evidence_summary": "Official page explicitly listing Master en Graphisme et Publicité and describing its mission to train creative directors and related communication professions."
+    },
+    {
+      "id": "ALBA-S009",
+      "title": "Illustration",
+      "url": "https://alba.edu.lb/sites/ALBA1/GRAPHPUBLIC/Pages/ILLUSTRATION.aspx",
+      "type": "official_page",
+      "scope": ["master_program", "illustration", "comics"],
+      "evidence_summary": "Official page explicitly describing the Master en Illustration et Bande Dessinée and its mission."
+    },
+    {
+      "id": "ALBA-S010",
+      "title": "Animation 2D/3D",
+      "url": "https://alba.edu.lb/sites/ALBA1/GRAPHPUBLIC/Pages/ANIMATION.aspx",
+      "type": "official_page",
+      "scope": ["master_program", "animation"],
+      "evidence_summary": "Official page listing Master en Animation 2D/3D and describing the formation of professionals in animated image/cinema fields."
+    },
+    {
+      "id": "ALBA-S011",
+      "title": "École de Cinéma et de Réalisation Audiovisuelle",
+      "url": "https://alba.edu.lb/sites/ALBA1/ECOLEDECINEMAETDEREALISATIONAUDIOVISUELLE/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["master_program", "cinema", "audiovisual_production"],
+      "evidence_summary": "Official page listing Master en Réalisation Cinéma and Master en Production Audiovisuelle; it describes the audiovisual production master as unique in the MENA region and the cinema master as preparation for creative/research/writing/production/post-production work."
+    },
+    {
+      "id": "ALBA-S012",
+      "title": "Institut d’Urbanisme",
+      "url": "https://alba.edu.lb/sites/ALBA1/URBANISME/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["master_program", "urban_design", "landscape"],
+      "evidence_summary": "Official institute page stating that two trainings of Master and Licence levels are offered: design urbain and paysage; it explicitly lists Master en Design Urbain."
+    },
+    {
+      "id": "ALBA-S013",
+      "title": "École des Arts Visuels",
+      "url": "https://alba.edu.lb/sites/ALBA1/ECOLEDESARTSVISUELS/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["school_page", "visual_arts"],
+      "evidence_summary": "Official school page for Visual Arts. Discovery did not find clear official Master or PhD program evidence here."
+    },
+    {
+      "id": "ALBA-S014",
+      "title": "École de Mode",
+      "url": "https://alba.edu.lb/sites/ALBA1/APROPOSDELECOLE/Pages/default.aspx",
+      "type": "official_page",
+      "scope": ["school_page", "fashion"],
+      "evidence_summary": "Official school page for Fashion. It lists Licence en Design de Mode; no official Master or PhD evidence was found on this page."
+    },
+    {
+      "id": "ALBA-S015",
+      "title": "Livret de l'étudiant 2025-2026 PDF",
+      "url": "https://alba.edu.lb/sites/ALBA1/Style%20Library/PDF/Livret-2025-2026.pdf?csf=1&e=ppCf77",
+      "type": "official_pdf",
+      "scope": ["student_life", "regulations", "fees_reference"],
+      "evidence_summary": "Official student booklet linked from the ALBA site for student guidance and institutional/student-life reference."
+    },
+    {
+      "id": "ALBA-S016",
+      "title": "Brochure Générale 2023 PDF",
+      "url": "https://alba.edu.lb/sites/ALBA1/Style%20Library/PDF/BrochureGenerale2023.pdf?csf=1&e=7NqvFs",
+      "type": "official_pdf",
+      "scope": ["catalog", "general_brochure"],
+      "evidence_summary": "Official general brochure linked from the ALBA homepage/student-life area. Useful as supporting catalog-style source, but program pages were preferred as primary evidence for current Master offerings."
+    }
+  ]
+}

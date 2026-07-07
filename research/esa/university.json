@@ -1,0 +1,153 @@
+{
+  "id": "esa",
+  "name": "École Supérieure des Affaires",
+  "official_website": "https://www.esa.edu.lb",
+  "country": "Lebanon",
+  "date_accessed": "2026-07-07",
+  "sources_used": [
+    "esa_home_en",
+    "esa_programs_overview_en",
+    "esa_programs_overview_fr",
+    "esa_mim_en",
+    "esa_ment_en",
+    "esa_miad_en",
+    "esa_mba_en",
+    "esa_emlux_en",
+    "esa_mmc_en",
+    "esa_mems_fr",
+    "esa_emfm_en",
+    "esa_emba_en",
+    "esa_gemba_en",
+    "esa_dba_en",
+    "esa_admissions_en",
+    "esa_faq_en",
+    "esa_financial_aid_en",
+    "esa_financial_aid_pdf_2025_2026"
+  ],
+  "admissions_process": {
+    "summary": "ESA publishes a general admissions/orientation page and program-specific admission criteria on the MBA, EMFM, MEMS, and DBA pages. Applicants are expected to review the relevant program page, meet the stated prerequisites, and complete any interview or entrance-test steps where required.",
+    "steps": [
+      "Review the official ESA program page and the degree-program overview.",
+      "Prepare the admissions file and supporting documents required by the relevant program.",
+      "Complete the program-specific interview, test, or prerequisite review when required.",
+      "Follow ESA's admissions office guidance for registration and enrollment."
+    ],
+    "source_ids": [
+      "esa_admissions_en",
+      "esa_faq_en",
+      "esa_mba_en",
+      "esa_emfm_en",
+      "esa_mems_fr",
+      "esa_dba_en"
+    ]
+  },
+  "required_documents": {
+    "summary": "ESA publishes a public admissions page and a solidarity financial-aid PDF, but the reviewed official sources do not expose one consolidated graduate checklist for all programs.",
+    "items": [
+      "Admissions or application file",
+      "Program-specific supporting documents",
+      "Documents required for solidarity financial-aid applications"
+    ],
+    "source_ids": [
+      "esa_admissions_en",
+      "esa_financial_aid_pdf_2025_2026"
+    ]
+  },
+  "language_requirements": {
+    "summary": "ESA's FAQ indicates that language of instruction varies by program. MBA courses are delivered in English and French, and the Specialized Master in Marketing and Communication is delivered in French with some courses in English.",
+    "notes": [
+      "No single university-wide graduate language threshold was confirmed in the reviewed sources."
+    ],
+    "source_ids": [
+      "esa_faq_en",
+      "esa_mba_en",
+      "esa_mmc_en"
+    ]
+  },
+  "tuition_model": {
+    "summary": "No university-wide numeric graduate tuition table was confirmed in the reviewed official ESA pages. Several program pages point to brochures for fee details, but those amounts were not captured as stable public tuition rows in this pass.",
+    "currency": null,
+    "source_ids": [
+      "esa_emfm_en",
+      "esa_mems_fr",
+      "esa_financial_aid_en"
+    ],
+    "notes": [
+      "Do not infer tuition amounts from brochure pointers alone."
+    ]
+  },
+  "fee_structure": {
+    "summary": "No public university-wide graduate fee schedule with numeric amounts was confirmed in the reviewed official ESA pages.",
+    "source_ids": [
+      "esa_emfm_en",
+      "esa_mems_fr",
+      "esa_financial_aid_en"
+    ]
+  },
+  "scholarships": {
+    "summary": "ESA publishes financial-aid categories including scholarships, early-bird discounts, and solidarity financial aid. The published solidarity-aid text notes exclusions for EMBA and DBA.",
+    "items": [
+      "Scholarships",
+      "Early-bird discounts",
+      "Solidarity financial aid"
+    ],
+    "source_ids": [
+      "esa_financial_aid_en",
+      "esa_financial_aid_pdf_2025_2026",
+      "esa_emfm_en",
+      "esa_mems_fr"
+    ]
+  },
+  "financial_aid": {
+    "summary": "ESA publishes a solidarity financial-aid process and required documents for eligible students.",
+    "source_ids": [
+      "esa_financial_aid_en",
+      "esa_financial_aid_pdf_2025_2026"
+    ]
+  },
+  "payment_methods": {
+    "summary": "The reviewed ESA sources did not publish a detailed graduate payment-method matrix.",
+    "source_ids": [
+      "esa_emfm_en",
+      "esa_mems_fr",
+      "esa_financial_aid_en"
+    ]
+  },
+  "payment_plans": {
+    "summary": "No graduate installment-plan policy page was confirmed in the reviewed official ESA sources.",
+    "source_ids": [
+      "esa_emfm_en",
+      "esa_mems_fr",
+      "esa_financial_aid_en"
+    ]
+  },
+  "academic_calendar": {
+    "summary": "No university-wide graduate academic calendar was confirmed. Some program pages publish cohort-specific dates, but a central graduate calendar was not identified in the reviewed official sources.",
+    "source_ids": [
+      "esa_mems_fr",
+      "esa_faq_en"
+    ]
+  },
+  "graduate_regulations": {
+    "summary": "The official FAQ and degree-program pages provide the available public guidance on duration, prerequisites, schedules, and delivery mode; no standalone graduate regulations handbook was identified.",
+    "source_ids": [
+      "esa_faq_en",
+      "esa_programs_overview_en",
+      "esa_programs_overview_fr"
+    ]
+  },
+  "international_students": {
+    "summary": "No dedicated graduate international-student admissions page was confirmed. Program pages and the overview page mention international components and partnerships, especially for MIM and GEMBA, but not a general graduate policy.",
+    "source_ids": [
+      "esa_mim_en",
+      "esa_gemba_en",
+      "esa_programs_overview_en"
+    ]
+  },
+  "accreditation": {
+    "summary": "ESA's MBA page references AMBA/BGA accreditation context; no broader university-wide graduate accreditation statement was isolated in the reviewed sources.",
+    "source_ids": [
+      "esa_mba_en"
+    ]
+  }
+}

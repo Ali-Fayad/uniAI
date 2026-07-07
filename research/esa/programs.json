@@ -1,0 +1,161 @@
+[
+  {
+    "id": "esa-mim",
+    "program_key": "esa-mim",
+    "title": "Master in International Management",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/english/master-in-international-management",
+    "source_ids": [
+      "esa_programs_overview_en",
+      "esa_mim_en"
+    ],
+    "program_description": "Official ESA Master in International Management program with a 24-month structure and program diplomas/tracks described on the program page.",
+    "duration": "24 months",
+    "notes": "Official ESA degree-program evidence confirms the Master in International Management (MIM). The page also references the program's structure and duration. No separate track list was serialized because the reviewed official text did not expose a stable named list in the source map."
+  },
+  {
+    "id": "esa-ment",
+    "program_key": "esa-ment",
+    "title": "Master in Innovation and Entrepreneurship",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/program/master-in-entrepreneurship",
+    "source_ids": [
+      "esa_programs_overview_fr",
+      "esa_ment_en"
+    ],
+    "program_description": "Official ESA Master in Innovation and Entrepreneurship co-signed by ESA Business School and HEC Paris.",
+    "notes": "Official ESA evidence confirms the Master in Innovation and Entrepreneurship (MENT), co-signed by ESA Business School and HEC Paris."
+  },
+  {
+    "id": "esa-miad",
+    "program_key": "esa-miad",
+    "title": "Specialized Master in International Affairs and Diplomacy",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/english/specialized-master-in-international-affairs-and-diplomacy",
+    "source_ids": [
+      "esa_programs_overview_fr",
+      "esa_miad_en"
+    ],
+    "program_description": "Official ESA Specialized Master in International Affairs and Diplomacy co-signed by ESA Business School and UNITAR.",
+    "duration": "20 months",
+    "notes": "Official ESA evidence confirms the Specialized Master in International Affairs and Diplomacy (MIAD), co-signed by ESA Business School and UNITAR."
+  },
+  {
+    "id": "esa-mba",
+    "program_key": "esa-mba",
+    "title": "Master in Business Administration",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/master-in-business-administration",
+    "source_ids": [
+      "esa_programs_overview_en",
+      "esa_mba_en"
+    ],
+    "program_description": "Official ESA Master in Business Administration program with admissions criteria and AMBA/BGA accreditation context published on the MBA page.",
+    "notes": "Official ESA evidence confirms the Master in Business Administration (MBA). Any MBA variant content was not split into separate program rows because the discovery notes did not confirm a separate degree award."
+  },
+  {
+    "id": "esa-emlux",
+    "program_key": "esa-emlux",
+    "title": "Executive Master in Luxury Transformation and Leadership",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/english/executive-master-in-luxury-transformation-and-leadership/emlux",
+    "source_ids": [
+      "esa_programs_overview_fr",
+      "esa_emlux_en"
+    ],
+    "program_description": "Official ESA Executive Master in Luxury Transformation and Leadership.",
+    "duration": "15 months",
+    "notes": "Official ESA evidence confirms the Executive Master in Luxury Transformation and Leadership (EMLux)."
+  },
+  {
+    "id": "esa-mmc",
+    "program_key": "esa-mmc",
+    "title": "Specialized Master in Marketing and Communication",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/english/specialized-master-in-marketing-and-communication",
+    "source_ids": [
+      "esa_programs_overview_fr",
+      "esa_mmc_en"
+    ],
+    "program_description": "Official ESA Specialized Master in Marketing and Communication co-signed by ESA Business School and ESCP Business School.",
+    "notes": "Official ESA evidence confirms the Specialized Master in Marketing and Communication (MMC), co-signed by ESA Business School and ESCP Business School."
+  },
+  {
+    "id": "esa-mems",
+    "program_key": "esa-mems",
+    "title": "Master Exécutif en Management de la Santé / Executive Master in Healthcare Management",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/french/formation-diplomante/master-executif-en-management-de-la-sante",
+    "source_ids": [
+      "esa_programs_overview_fr",
+      "esa_mems_fr"
+    ],
+    "program_description": "Official ESA Executive Master in Healthcare Management jointly described with Université Paris Cité's Master 2 AMES.",
+    "notes": "Official ESA evidence confirms the MEMS executive master and its connection to Université Paris Cité (Master 2 AMES)."
+  },
+  {
+    "id": "esa-emfm",
+    "program_key": "esa-emfm",
+    "title": "Executive Master in Financial Management",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/english/executive-master-in-financial-management",
+    "source_ids": [
+      "esa_programs_overview_en",
+      "esa_emfm_en"
+    ],
+    "program_description": "Official ESA Executive Master in Financial Management program.",
+    "notes": "Official ESA evidence confirms the Executive Master in Financial Management (EMFM)."
+  },
+  {
+    "id": "esa-emba",
+    "program_key": "esa-emba",
+    "title": "Executive MBA",
+    "degree_type": "MASTER",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/executivemba",
+    "source_ids": [
+      "esa_programs_overview_en",
+      "esa_emba_en",
+      "esa_gemba_en"
+    ],
+    "concentrations_or_tracks": [
+      "Global Executive MBA (GEMBA)"
+    ],
+    "program_description": "Official ESA Executive MBA program for professional participants, with GEMBA described as an optional international pathway.",
+    "notes": "Official ESA evidence confirms the Executive MBA (EMBA). The Global Executive MBA page describes GEMBA as an optional international pathway for EMBA participants rather than a separate degree, so it is modeled here as a track."
+  },
+  {
+    "id": "esa-dba",
+    "program_key": "esa-dba",
+    "title": "Doctorate in Business Administration",
+    "degree_type": "PHD",
+    "faculty": "ESA Business School",
+    "department": null,
+    "official_program_url": "https://www.esa.edu.lb/english/program/doctorate-in-business-administration",
+    "source_ids": [
+      "esa_programs_overview_en",
+      "esa_dba_en",
+      "esa_faq_en"
+    ],
+    "program_description": "Official ESA doctorate-level program for executives and business leaders focused on business administration research.",
+    "duration": null,
+    "notes": "ESA publishes a doctorate-level DBA rather than a separate PhD-branded program, so the doctoral evidence is recorded as a PHD-row degree with the official DBA title."
+  }
+]
