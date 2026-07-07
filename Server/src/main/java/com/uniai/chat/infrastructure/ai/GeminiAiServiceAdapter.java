@@ -137,7 +137,10 @@ public class GeminiAiServiceAdapter implements AiServicePort {
             return;
         }
 
-        String effectiveRole = StringUtils.hasText(role) ? role.trim() : "user";
+        String effectiveRole = normalizeRole(role);
+        if (effectiveRole == null) {
+            return;
+        }
         Map<String, Object> part = new LinkedHashMap<>();
         part.put("text", content);
 
@@ -145,6 +148,21 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         message.put("role", effectiveRole);
         message.put("parts", List.of(part));
         contents.add(message);
+    }
+
+    private String normalizeRole(String role) {
+        if (!StringUtils.hasText(role)) {
+            return "user";
+        }
+
+        String normalized = role.trim().toLowerCase();
+        if ("assistant".equals(normalized)) {
+            return "model";
+        }
+        if ("user".equals(normalized) || "model".equals(normalized)) {
+            return normalized;
+        }
+        return null;
     }
 
     private AiResponse toResponse(String responseBody, String model) throws Exception {

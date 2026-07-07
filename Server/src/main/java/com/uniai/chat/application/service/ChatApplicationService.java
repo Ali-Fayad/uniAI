@@ -1,12 +1,14 @@
 package com.uniai.chat.application.service;
 
 import com.uniai.chat.application.dto.command.SendMessageCommand;
+import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
 import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.port.in.*;
+import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.domain.builder.ChatBuilder;
 import com.uniai.chat.domain.builder.MessageBuilder;
@@ -25,6 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,6 +48,9 @@ public class ChatApplicationService implements
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
     private final AiServicePort aiServicePort;
+    private final ChatSystemPromptPort chatSystemPromptPort;
+
+    private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 20;
 
     // -------------------------------------------------------------------------
     // CreateChatUseCase
@@ -78,8 +85,16 @@ public class ChatApplicationService implements
         Message userMessage = MessageBuilder.userMessage(chat, user.getId(), command.getContent()).build();
         messageRepository.save(userMessage);
 
+        List<AiConversationMessage> conversationHistory = loadRecentConversationHistory(
+                chat.getId(),
+                user.getId(),
+                command.getContent()
+        );
+
         AiRequest aiRequest = AiRequest.builder()
                 .userMessage(command.getContent())
+                .systemPrompt(chatSystemPromptPort.getPrompt())
+                .conversationHistory(conversationHistory)
                 .build();
 
         AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
@@ -182,6 +197,44 @@ public class ChatApplicationService implements
         if (content.length() > 5000) {
             throw new InvalidMessageException("Message content is too long (max 5000 characters)");
         }
+    }
+
+    private List<AiConversationMessage> loadRecentConversationHistory(Long chatId, Long currentUserId, String currentUserContent) {
+        List<Message> messages = messageRepository.findByChatIdOrderByTimestampAsc(chatId);
+        if (messages.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        int endIndex = messages.size();
+        Message lastMessage = messages.get(endIndex - 1);
+        if (lastMessage != null
+                && lastMessage.getSenderId() != null
+                && lastMessage.getSenderId().equals(currentUserId)
+                && lastMessage.getContent() != null
+                && lastMessage.getContent().equals(currentUserContent)) {
+            endIndex--;
+        }
+
+        if (endIndex <= 0) {
+            return Collections.emptyList();
+        }
+
+        int startIndex = Math.max(0, endIndex - MAX_CONVERSATION_HISTORY_MESSAGES);
+        List<AiConversationMessage> history = new ArrayList<>();
+        for (Message message : messages.subList(startIndex, endIndex)) {
+            history.add(AiConversationMessage.builder()
+                    .role(resolveConversationRole(message))
+                    .content(message.getContent())
+                    .build());
+        }
+        return history;
+    }
+
+    private String resolveConversationRole(Message message) {
+        if (message == null || message.getSenderId() == null) {
+            return "user";
+        }
+        return message.getSenderId() == 0L ? "assistant" : "user";
     }
 
     private String generateTitle(String firstMessage) {
