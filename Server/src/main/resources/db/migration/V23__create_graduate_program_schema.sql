@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS source (
     url TEXT NOT NULL,
     source_type VARCHAR(50) NOT NULL DEFAULT 'WEB',
     accessed_at DATE,
+    notes TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     CONSTRAINT fk_source_university

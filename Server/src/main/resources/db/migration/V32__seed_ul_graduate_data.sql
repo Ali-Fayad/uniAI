@@ -1827,7 +1827,7 @@ BEGIN
         updated_at = NOW();
 
     INSERT INTO graduate_fee_item (university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, fee_name, billing_basis, currency, amount, category, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, academic_year, fee_name, billing_basis, currency, amount, category, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, academic_year, fee_name, billing_basis, currency, amount, category, x.notes, s.id
     FROM jsonb_to_recordset($UL_FEE_ITEMS$[
   {
     "record_key": "ul:fee_item:shared_graduate_enrollment_registration_fee",
@@ -1879,7 +1879,7 @@ BEGIN
         updated_at = NOW();
 
     INSERT INTO graduate_admission_requirement (university_id, faculty_id, department_id, program_id, scope_level, record_key, requirement_type, requirement_text, comparison_operator, threshold_value, threshold_unit, is_required, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, requirement_type, requirement_text, comparison_operator, threshold_value, threshold_unit, is_required, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, requirement_type, requirement_text, comparison_operator, threshold_value, threshold_unit, is_required, x.notes, s.id
     FROM jsonb_to_recordset($UL_ADMISSION_REQUIREMENTS$[
   {
     "record_key": "ul:admission:university:general",
@@ -1932,7 +1932,7 @@ BEGIN
         updated_at = NOW();
 
     INSERT INTO graduate_required_document (university_id, faculty_id, department_id, program_id, scope_level, record_key, document_type, document_name, is_optional, sort_order, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, document_type, document_name, is_optional, sort_order, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, document_type, document_name, is_optional, sort_order, x.notes, s.id
     FROM jsonb_to_recordset($UL_REQUIRED_DOCUMENTS$[
   {
     "record_key": "ul:document:01",
@@ -2082,7 +2082,7 @@ BEGIN
         updated_at = NOW();
 
     INSERT INTO graduate_financial_aid (university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, name, description, amount, currency, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, academic_year, name, description, amount, currency, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, academic_year, name, description, amount, currency, x.notes, s.id
     FROM jsonb_to_recordset($UL_FINANCIAL_AID$[
   {
     "record_key": "ul:financial_aid:doctoral_grant_support",
@@ -2120,7 +2120,7 @@ BEGIN
         updated_at = NOW();
 
     INSERT INTO graduate_payment_plan (university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, name, description, installments_count, down_payment_amount, down_payment_currency, interval_label, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, academic_year, name, description, installments_count, down_payment_amount, down_payment_currency, interval_label, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, academic_year, name, description, installments_count, down_payment_amount, down_payment_currency, interval_label, x.notes, s.id
     FROM jsonb_to_recordset($UL_PAYMENT_PLANS$[
   {
     "record_key": "ul:payment_plan:one_installment_enrollment",
@@ -2164,7 +2164,7 @@ BEGIN
         updated_at = NOW();
 
     INSERT INTO graduate_accreditation (university_id, faculty_id, department_id, program_id, scope_level, record_key, name, authority, status, valid_from, valid_until, notes, source_id)
-    SELECT v_university_id, fac.id, NULL, gp.id, scope_level, record_key, name, authority, status, valid_from, valid_until, notes, s.id
+    SELECT v_university_id, fac.id, NULL, gp.id, scope_level, record_key, x.name, authority, status, valid_from, valid_until, x.notes, s.id
     FROM jsonb_to_recordset($UL_ACCREDITATION$[
   {
     "record_key": "ul:accreditation:lu-letters-master-programs",
@@ -2246,8 +2246,8 @@ BEGIN
         source_id = EXCLUDED.source_id,
         updated_at = NOW();
 
-    INSERT INTO graduate_program_track (university_id, faculty_id, department_id, program_id, track_type, track_name, track_order, is_primary, description, source_id, notes)
-    SELECT v_university_id, fac.id, NULL, gp.id, track_type, track_name, track_order, is_primary, description, s.id, notes
+    INSERT INTO graduate_program_track (university_id, program_id, track_type, track_name, track_order, is_primary, description, source_id, notes)
+    SELECT v_university_id, gp.id, track_type, track_name, track_order, is_primary, description, s.id, x.notes
     FROM jsonb_to_recordset($UL_TRACKS$[
   {
     "record_key": "ul:track:lu-fph-master-programs:1",

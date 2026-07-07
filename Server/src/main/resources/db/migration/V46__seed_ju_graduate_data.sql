@@ -378,9 +378,9 @@ BEGIN
 
     INSERT INTO ju_fee_seed (record_key, fee_name, academic_year, billing_basis, currency, amount, category, notes, source_id)
     VALUES
-        ('ju-fee-application', 'Graduate Application Fee', NULL, 'FLAT_FEE', NULL, NULL, 'Graduate Fees', 'Application fees are referenced on the official admission page, but no numeric graduate amount was exposed in the recovered extraction.', 'JU_SRC_004'),
-        ('ju-fee-registration', 'Graduate Registration Fee', NULL, 'FLAT_FEE', NULL, NULL, 'Graduate Fees', 'Registration and first-payment steps are referenced, but no standalone graduate registration amount was exposed in the recovered extraction.', 'JU_SRC_006'),
-        ('ju-fee-foreign-language', 'Remedial Foreign-Language Fee', NULL, 'PER_COURSE', NULL, NULL, 'Foreign Students', 'Foreign-language remedial fees are published on the foreign-students page, but the recovered extraction did not expose a single safe numeric amount.', 'JU_SRC_011');
+        ('ju-fee-application', 'Graduate Application Fee', NULL, 'FLAT_FEE', 'USD', NULL, 'Graduate Fees', 'Application fees are referenced on the official admission page, but no numeric graduate amount was exposed in the recovered extraction.', 'JU_SRC_004'),
+        ('ju-fee-registration', 'Graduate Registration Fee', NULL, 'FLAT_FEE', 'USD', NULL, 'Graduate Fees', 'Registration and first-payment steps are referenced, but no standalone graduate registration amount was exposed in the recovered extraction.', 'JU_SRC_006'),
+        ('ju-fee-foreign-language', 'Remedial Foreign-Language Fee', NULL, 'FLAT_FEE', 'USD', NULL, 'Foreign Students', 'Foreign-language remedial fees are published on the foreign-students page, but the recovered extraction did not expose a single safe numeric amount.', 'JU_SRC_011');
 
     INSERT INTO graduate_fee_item (
         university_id,

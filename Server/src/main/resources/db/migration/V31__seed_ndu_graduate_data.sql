@@ -1624,7 +1624,7 @@ BEGIN
     ON CONFLICT (university_id, record_key) DO UPDATE SET faculty_id = EXCLUDED.faculty_id, department_id = EXCLUDED.department_id, program_id = EXCLUDED.program_id, scope_level = EXCLUDED.scope_level, academic_year = EXCLUDED.academic_year, currency = EXCLUDED.currency, billing_basis = EXCLUDED.billing_basis, amount = EXCLUDED.amount, category = EXCLUDED.category, notes = EXCLUDED.notes, source_id = EXCLUDED.source_id, updated_at = NOW();
 
     INSERT INTO graduate_fee_item (university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, fee_name, billing_basis, currency, amount, category, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, fee_name, billing_basis, currency, amount, category, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, fee_name, billing_basis, currency, amount, category, x.notes, s.id
     FROM jsonb_to_recordset($NDU_FEES$[
   {
     "record_key": "ndu:fee_item:application_fee",
@@ -1775,7 +1775,7 @@ BEGIN
     ON CONFLICT (university_id, record_key) DO UPDATE SET academic_year = EXCLUDED.academic_year, fee_name = EXCLUDED.fee_name, billing_basis = EXCLUDED.billing_basis, currency = EXCLUDED.currency, amount = EXCLUDED.amount, category = EXCLUDED.category, notes = EXCLUDED.notes, source_id = EXCLUDED.source_id, updated_at = NOW();
 
     INSERT INTO graduate_admission_requirement (university_id, faculty_id, department_id, program_id, scope_level, record_key, requirement_type, requirement_text, comparison_operator, threshold_value, threshold_unit, is_required, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, requirement_type, requirement_text, comparison_operator, threshold_value, threshold_unit, is_required, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, scope_level, record_key, requirement_type, requirement_text, comparison_operator, threshold_value, threshold_unit, is_required, x.notes, s.id
     FROM jsonb_to_recordset($NDU_ADMISSIONS$[
   {
     "record_key": "ndu:admission:university:general",
@@ -2275,7 +2275,7 @@ BEGIN
     ON CONFLICT (university_id, record_key) DO UPDATE SET scope_level = EXCLUDED.scope_level, requirement_type = EXCLUDED.requirement_type, requirement_text = EXCLUDED.requirement_text, comparison_operator = EXCLUDED.comparison_operator, threshold_value = EXCLUDED.threshold_value, threshold_unit = EXCLUDED.threshold_unit, is_required = EXCLUDED.is_required, notes = EXCLUDED.notes, source_id = EXCLUDED.source_id, updated_at = NOW();
 
     INSERT INTO graduate_required_document (university_id, faculty_id, department_id, program_id, scope_level, record_key, document_type, document_name, is_optional, sort_order, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, document_type, document_name, is_optional, sort_order, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, document_type, document_name, is_optional, sort_order, x.notes, s.id
     FROM jsonb_to_recordset($NDU_DOCUMENTS$[
   {
     "record_key": "ndu:document:1",
@@ -2393,7 +2393,7 @@ BEGIN
     ON CONFLICT (university_id, record_key) DO UPDATE SET deadline_type = EXCLUDED.deadline_type, term = EXCLUDED.term, deadline_date = EXCLUDED.deadline_date, note = EXCLUDED.note, source_id = EXCLUDED.source_id, updated_at = NOW();
 
     INSERT INTO graduate_scholarship (university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, name, description, coverage, amount, currency, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, name, description, coverage, amount, currency, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, name, description, coverage, amount, currency, x.notes, s.id
     FROM jsonb_to_recordset($NDU_SCHOLARSHIPS$[
   {
     "record_key": "ndu:scholarship:graduate_tuition_reduction",
@@ -2412,7 +2412,7 @@ BEGIN
     ON CONFLICT (university_id, record_key) DO UPDATE SET academic_year = EXCLUDED.academic_year, name = EXCLUDED.name, description = EXCLUDED.description, coverage = EXCLUDED.coverage, amount = EXCLUDED.amount, currency = EXCLUDED.currency, notes = EXCLUDED.notes, source_id = EXCLUDED.source_id, updated_at = NOW();
 
     INSERT INTO graduate_financial_aid (university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, name, description, amount, currency, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, name, description, amount, currency, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, name, description, amount, currency, x.notes, s.id
     FROM jsonb_to_recordset($NDU_AID$[
   {
     "record_key": "ndu:financial_aid:work_study_grant",
@@ -2440,7 +2440,7 @@ BEGIN
     ON CONFLICT (university_id, record_key) DO UPDATE SET academic_year = EXCLUDED.academic_year, name = EXCLUDED.name, description = EXCLUDED.description, amount = EXCLUDED.amount, currency = EXCLUDED.currency, notes = EXCLUDED.notes, source_id = EXCLUDED.source_id, updated_at = NOW();
 
     INSERT INTO graduate_payment_plan (university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, name, description, installments_count, down_payment_amount, down_payment_currency, interval_label, notes, source_id)
-    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, name, description, installments_count, down_payment_amount, down_payment_currency, interval_label, notes, s.id
+    SELECT v_university_id, NULL, NULL, NULL, 'UNIVERSITY', record_key, academic_year, name, description, installments_count, down_payment_amount, down_payment_currency, interval_label, x.notes, s.id
     FROM jsonb_to_recordset($NDU_PAYMENT_PLANS$[
   {
     "record_key": "ndu:payment_plan:graduate_installment_schedule",
@@ -2460,7 +2460,7 @@ BEGIN
     ON CONFLICT (university_id, record_key) DO UPDATE SET academic_year = EXCLUDED.academic_year, name = EXCLUDED.name, description = EXCLUDED.description, installments_count = EXCLUDED.installments_count, down_payment_amount = EXCLUDED.down_payment_amount, down_payment_currency = EXCLUDED.down_payment_currency, interval_label = EXCLUDED.interval_label, notes = EXCLUDED.notes, source_id = EXCLUDED.source_id, updated_at = NOW();
 
     INSERT INTO graduate_accreditation (university_id, faculty_id, department_id, program_id, scope_level, record_key, name, authority, status, valid_from, valid_until, notes, source_id)
-    SELECT v_university_id, fac.id, dep.id, gp.id, scope_level, record_key, name, authority, status, valid_from, valid_until, notes, s.id
+    SELECT v_university_id, fac.id, dep.id, gp.id, scope_level, record_key, x.name, authority, status, valid_from, valid_until, x.notes, s.id
     FROM jsonb_to_recordset($NDU_ACCREDITATION$[
   {
     "record_key": "ndu:accreditation:institutional",
@@ -2540,8 +2540,8 @@ BEGIN
     JOIN source s ON s.university_id = v_university_id AND s.url = ss.url
     ON CONFLICT (university_id, record_key) DO UPDATE SET scope_level = EXCLUDED.scope_level, name = EXCLUDED.name, authority = EXCLUDED.authority, status = EXCLUDED.status, valid_from = EXCLUDED.valid_from, valid_until = EXCLUDED.valid_until, notes = EXCLUDED.notes, source_id = EXCLUDED.source_id, updated_at = NOW();
 
-    INSERT INTO graduate_program_track (university_id, faculty_id, department_id, program_id, track_type, track_name, track_order, is_primary, description, source_id, notes)
-    SELECT v_university_id, fac.id, dep.id, gp.id, track_type, track_name, track_order, is_primary, description, s.id, notes
+    INSERT INTO graduate_program_track (university_id, program_id, track_type, track_name, track_order, is_primary, description, source_id, notes)
+    SELECT v_university_id, gp.id, track_type, track_name, track_order, is_primary, description, s.id, x.notes
     FROM jsonb_to_recordset($NDU_TRACKS$[
   {
     "record_key": "ndu:track:ndu-fh-master-education:1",
@@ -2682,7 +2682,7 @@ BEGIN
     ON CONFLICT (program_id, track_type, track_name) DO UPDATE SET track_order = EXCLUDED.track_order, is_primary = EXCLUDED.is_primary, description = EXCLUDED.description, source_id = EXCLUDED.source_id, notes = EXCLUDED.notes, updated_at = NOW();
 
     INSERT INTO graduate_program_source (university_id, program_id, source_id, source_role, source_order, evidence_text, notes)
-    SELECT v_university_id, gp.id, s.id, source_role, source_order, evidence_text, notes
+    SELECT v_university_id, gp.id, s.id, source_role, source_order, evidence_text, x.notes
     FROM jsonb_to_recordset($NDU_PROGRAM_SOURCES$[
   {
     "record_key": "ndu:program_source:ndu-faad-master-design:1",

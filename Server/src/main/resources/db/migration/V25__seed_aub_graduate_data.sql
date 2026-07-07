@@ -18,6 +18,9 @@ BEGIN
     ORDER BY id
     LIMIT 1;
 
+    -- AUB reuses hub/catalog URLs across multiple graduate programs.
+    ALTER TABLE graduate_program DROP CONSTRAINT IF EXISTS uq_graduate_program_university_url;
+
     INSERT INTO degree_type (code, name)
     VALUES
         ('MASTER', 'Master'),

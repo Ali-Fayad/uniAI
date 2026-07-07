@@ -404,7 +404,7 @@ BEGIN
   {"record_key":"aou-fee-english-placement","fee_name":"English Placement Test Fee","academic_year":"2025-2026","amount":30,"currency":"USD","billing_basis":"FLAT_FEE","category":"Graduate Fees","notes":"Graduate admission fees page lists the English placement fee for MBA applicants.","source_id":"AOU_SRC_004"},
   {"record_key":"aou-fee-gee","fee_name":"Graduate Entrance Exam Fee","academic_year":"2025-2026","amount":30,"currency":"USD","billing_basis":"FLAT_FEE","category":"Graduate Fees","notes":"Graduate admission fees page lists the MBA Graduate Entrance Exam fee.","source_id":"AOU_SRC_004"},
   {"record_key":"aou-fee-operational","fee_name":"Operational Fee","academic_year":"2025-2026","amount":100,"currency":"USD","billing_basis":"PER_SEMESTER","category":"Graduate Fees","notes":"Operational fee shown on the reviewed graduate program detail pages.","source_id":"AOU_SRC_009"},
-  {"record_key":"aou-fee-nssf","fee_name":"NSSF Annual Fee","academic_year":"2025-2026","amount":8400000,"currency":"LBP","billing_basis":"ANNUAL","category":"Graduate Fees","notes":"Annual NSSF amount shown on the reviewed graduate program detail pages.","source_id":"AOU_SRC_009"}
+  {"record_key":"aou-fee-nssf","fee_name":"NSSF Annual Fee","academic_year":"2025-2026","amount":8400000,"currency":"LBP","billing_basis":"PER_YEAR","category":"Graduate Fees","notes":"Annual NSSF amount shown on the reviewed graduate program detail pages.","source_id":"AOU_SRC_009"}
 ]$AOU_FEES$::jsonb) AS x(
         record_key TEXT,
         fee_name TEXT,
@@ -518,7 +518,7 @@ BEGIN
     INSERT INTO aou_required_document_seed (record_key, document_type, document_name, sort_order, notes, source_id)
     VALUES
         ('aou-doc-application', 'APPLICATION', 'Completed graduate application', 1, 'Listed in the official graduate application instructions.', 'AOU_SRC_003'),
-        ('aou-doc-equivalency', 'ACADEMIC', 'Certified copy of bachelor's equivalency or Ministry of Higher Education evaluation where applicable', 2, 'Listed in the official graduate application instructions.', 'AOU_SRC_003'),
+        ('aou-doc-equivalency', 'ACADEMIC', 'Certified copy of bachelor''s equivalency or Ministry of Higher Education evaluation where applicable', 2, 'Listed in the official graduate application instructions.', 'AOU_SRC_003'),
         ('aou-doc-transcript', 'TRANSCRIPT', 'Official transcript', 3, 'Listed in the official graduate application instructions.', 'AOU_SRC_003'),
         ('aou-doc-employment', 'PROFESSIONAL', 'Professional/employment certificates', 4, 'Listed in the official graduate application instructions.', 'AOU_SRC_003'),
         ('aou-doc-cv', 'CV', 'Updated CV or resume', 5, 'Listed in the official graduate application instructions.', 'AOU_SRC_003'),

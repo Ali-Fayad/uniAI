@@ -329,15 +329,13 @@ BEGIN
             ('pu-mba', 'https://pu.edu.lb/majors-and-degrees', 'SECONDARY', 4, 'Majors and Degrees', 'Degree list page.'),
             ('pu-mba', 'https://pu.edu.lb/graduate-tuition-and-fees', 'TUITION', 5, 'Graduate Tuition and Fees', 'MBA tuition page.'),
             ('pu-mba', 'https://pusis.pu.edu.lb/SelfService/Admissions/ApplicationSelectEnabledForm.aspx', 'ADMISSIONS', 6, 'Self-Service Apply', 'MBA self-service application listing.'),
-            ('pu-mba', 'https://pu.edu.lb/graduate-tuition-and-fees', 'TUITION', 7, 'Graduate Tuition and Fees', 'MBA tuition page.'),
             ('pu-llm', 'https://pu.edu.lb/admission-requirements', 'PRIMARY', 1, 'Admission Requirements', 'Graduate admissions index listing LL.M. requirements.'),
             ('pu-llm', 'https://pu.edu.lb/graduate-master-laws-llm-program', 'SECONDARY', 2, 'Graduate LL.M.', 'LL.M. admissions page.'),
             ('pu-llm', 'https://pu.edu.lb/master-laws-llm-commercial-regulation-litigation-and-arbitration', 'SECONDARY', 3, 'LL.M. program page', 'LL.M. program overview page.'),
             ('pu-llm', 'https://pu.edu.lb/college-of-law-and-political-science', 'SECONDARY', 4, 'College of Law and Political Science', 'College listing page.'),
             ('pu-llm', 'https://pu.edu.lb/majors-and-degrees', 'SECONDARY', 5, 'Majors and Degrees', 'Degree list page.'),
             ('pu-llm', 'https://pu.edu.lb/graduate-tuition-and-fees', 'TUITION', 6, 'Graduate Tuition and Fees', 'LL.M. tuition page.'),
-            ('pu-llm', 'https://pusis.pu.edu.lb/SelfService/Admissions/ApplicationSelectEnabledForm.aspx', 'ADMISSIONS', 7, 'Self-Service Apply', 'LL.M. self-service application listing.'),
-            ('pu-llm', 'https://pu.edu.lb/graduate-tuition-and-fees', 'TUITION', 8, 'Graduate Tuition and Fees', 'LL.M. tuition page.')
+            ('pu-llm', 'https://pusis.pu.edu.lb/SelfService/Admissions/ApplicationSelectEnabledForm.aspx', 'ADMISSIONS', 7, 'Self-Service Apply', 'LL.M. self-service application listing.')
     )
     INSERT INTO graduate_program_source (university_id, program_id, source_id, source_role, source_order, evidence_text, notes)
     SELECT

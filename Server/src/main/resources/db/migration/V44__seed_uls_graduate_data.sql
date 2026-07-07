@@ -17,6 +17,9 @@ BEGIN
 
     SELECT id INTO v_university_id FROM university WHERE name = 'Université La Sagesse' ORDER BY id LIMIT 1;
 
+    -- ULS reuses hub/catalog URLs across multiple graduate programs.
+    ALTER TABLE graduate_program DROP CONSTRAINT IF EXISTS uq_graduate_program_university_url;
+
     INSERT INTO degree_type (code, name) VALUES
         ('MASTER', 'Master'),
         ('PHD', 'Doctor of Philosophy'),
@@ -231,7 +234,7 @@ $ULS_SOURCES$::jsonb) AS x(source_id TEXT, title TEXT, url TEXT, source_type TEX
     ) ON COMMIT DROP;
 
     INSERT INTO uls_faculty_seed (name, short_name, faculty_type, official_url, notes)
-    SELECT name, short_name, faculty_type, official_url, notes FROM jsonb_to_recordset($ULS_FACULTIES$
+    SELECT name, short_name, COALESCE(faculty_type, 'FACULTY'), official_url, notes FROM jsonb_to_recordset($ULS_FACULTIES$
 [
   {
     "name": "Faculty of Law",
@@ -801,6 +804,34 @@ $ULS_PROGRAMS$::jsonb) AS x(program_key TEXT, faculty_name TEXT, department_name
         notes = EXCLUDED.notes,
         updated_at = NOW();
 
+    CREATE TEMP TABLE uls_tuition_seed (
+        record_key TEXT PRIMARY KEY,
+        program_key TEXT NOT NULL UNIQUE,
+        faculty_name TEXT NOT NULL,
+        academic_year TEXT,
+        currency TEXT NOT NULL,
+        billing_basis TEXT NOT NULL,
+        amount NUMERIC(12, 2) NOT NULL,
+        category TEXT NOT NULL,
+        notes TEXT,
+        source_id TEXT NOT NULL
+    ) ON COMMIT DROP;
+
+    INSERT INTO uls_tuition_seed (record_key, program_key, faculty_name, academic_year, currency, billing_basis, amount, category, notes, source_id)
+    VALUES
+        ('uls-tuition-law-private-law', 'uls-law-master-private-law', 'Faculty of Law', '2025-2026', 'USD', 'PER_CREDIT', 300, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Law graduate rate as $300 per credit.', 'ULS-S018'),
+        ('uls-tuition-law-public-law', 'uls-law-master-public-law', 'Faculty of Law', '2025-2026', 'USD', 'PER_CREDIT', 300, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Law graduate rate as $300 per credit.', 'ULS-S018'),
+        ('uls-tuition-law-comparative-law', 'uls-law-master-comparative-law', 'Faculty of Law', '2025-2026', 'USD', 'PER_CREDIT', 300, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Law graduate rate as $300 per credit.', 'ULS-S018'),
+        ('uls-tuition-law-digital-law', 'uls-law-master-digital-law', 'Faculty of Law', '2025-2026', 'USD', 'PER_CREDIT', 300, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Law graduate rate as $300 per credit.', 'ULS-S018'),
+        ('uls-tuition-feba-msc-finance', 'uls-feba-master-business-administration-finance-msc', 'Faculty of Economics and Business Administration', '2025-2026', 'USD', 'PER_CREDIT', 230, 'Graduate Tuition', 'Official tuition-fees page lists the MSc Business Administration in Finance graduate rate as $230 per credit.', 'ULS-S018'),
+        ('uls-tuition-feba-mba-finance', 'uls-feba-master-business-administration-finance-mba', 'Faculty of Economics and Business Administration', '2025-2026', 'USD', 'PER_CREDIT', 200, 'Graduate Tuition', 'Official tuition-fees page lists the MBA in Finance graduate rate as $200 per credit.', 'ULS-S018'),
+        ('uls-tuition-polisci-master', 'uls-polisci-master-political-science-international-relations', 'Faculty of Political Science and International Relations', '2025-2026', 'USD', 'PER_CREDIT', 230, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Political Science and International Relations graduate rate as $230 per credit.', 'ULS-S018'),
+        ('uls-tuition-polisci-diplomacy', 'uls-polisci-professional-master-political-science-international-relations-diplomacy-strategic-negotiations', 'Faculty of Political Science and International Relations', '2025-2026', 'USD', 'PER_CREDIT', 230, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Political Science and International Relations graduate rate as $230 per credit.', 'ULS-S018'),
+        ('uls-tuition-polisci-ngo', 'uls-polisci-professional-master-political-science-international-relations-ngo-management', 'Faculty of Political Science and International Relations', '2025-2026', 'USD', 'PER_CREDIT', 230, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Political Science and International Relations graduate rate as $230 per credit.', 'ULS-S018'),
+        ('uls-tuition-public-health', 'uls-public-health-master-hospital-management', 'Faculty of Public Health', '2025-2026', 'USD', 'PER_CREDIT', 230, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Public Health graduate rate as $230 per credit.', 'ULS-S018'),
+        ('uls-tuition-tourism', 'uls-tourism-master-hospitality-management', 'Faculty of Tourism and Hotel Management', '2025-2026', 'USD', 'PER_CREDIT', 300, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Tourism and Hotel Management graduate rate as $300 per credit.', 'ULS-S018'),
+        ('uls-tuition-religious', 'uls-religious-master-ecclesiastical-sciences', 'Faculty of Religious and Theological Sciences', '2025-2026', 'USD', 'PER_CREDIT', 55, 'Graduate Tuition', 'Official tuition-fees page lists the Faculty of Religious and Theological Sciences graduate rate as $55 per credit.', 'ULS-S018');
+
     INSERT INTO graduate_tuition_rate (
         university_id, faculty_id, department_id, program_id, scope_level, record_key, academic_year, currency, billing_basis, amount, category, notes, source_id
     )
@@ -884,7 +915,7 @@ $ULS_PROGRAMS$::jsonb) AS x(program_key TEXT, faculty_name TEXT, department_name
     "faculty_name": "Faculty of Law",
     "program_key": null,
     "academic_year": "2025-2026",
-    "billing_basis": "FLAT_FEE_PLUS_LBP",
+    "billing_basis": "FLAT_FEE",
     "currency": "USD",
     "amount": 300,
     "secondary_amount": 7000000,
@@ -900,7 +931,7 @@ $ULS_PROGRAMS$::jsonb) AS x(program_key TEXT, faculty_name TEXT, department_name
     "faculty_name": "Faculty of Economics and Business Administration",
     "program_key": null,
     "academic_year": "2025-2026",
-    "billing_basis": "FLAT_FEE_PLUS_LBP",
+    "billing_basis": "FLAT_FEE",
     "currency": "USD",
     "amount": 300,
     "secondary_amount": 7000000,
@@ -916,7 +947,7 @@ $ULS_PROGRAMS$::jsonb) AS x(program_key TEXT, faculty_name TEXT, department_name
     "faculty_name": "Faculty of Political Science and International Relations",
     "program_key": null,
     "academic_year": "2025-2026",
-    "billing_basis": "FLAT_FEE_PLUS_LBP",
+    "billing_basis": "FLAT_FEE",
     "currency": "USD",
     "amount": 300,
     "secondary_amount": 7000000,
@@ -932,7 +963,7 @@ $ULS_PROGRAMS$::jsonb) AS x(program_key TEXT, faculty_name TEXT, department_name
     "faculty_name": "Faculty of Public Health",
     "program_key": null,
     "academic_year": "2025-2026",
-    "billing_basis": "FLAT_FEE_PLUS_LBP",
+    "billing_basis": "FLAT_FEE",
     "currency": "USD",
     "amount": 300,
     "secondary_amount": 7000000,
@@ -948,7 +979,7 @@ $ULS_PROGRAMS$::jsonb) AS x(program_key TEXT, faculty_name TEXT, department_name
     "faculty_name": "Faculty of Tourism and Hotel Management",
     "program_key": null,
     "academic_year": "2025-2026",
-    "billing_basis": "FLAT_FEE_PLUS_LBP",
+    "billing_basis": "FLAT_FEE",
     "currency": "USD",
     "amount": 300,
     "secondary_amount": 7000000,
@@ -964,7 +995,7 @@ $ULS_PROGRAMS$::jsonb) AS x(program_key TEXT, faculty_name TEXT, department_name
     "faculty_name": "Faculty of Religious and Theological Sciences",
     "program_key": null,
     "academic_year": "2025-2026",
-    "billing_basis": "FLAT_FEE_PLUS_LBP",
+    "billing_basis": "FLAT_FEE",
     "currency": "USD",
     "amount": 40,
     "secondary_amount": 1000000,

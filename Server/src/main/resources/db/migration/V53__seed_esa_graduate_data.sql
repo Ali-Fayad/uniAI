@@ -793,11 +793,11 @@ BEGIN
         updated_at = NOW();
 
     INSERT INTO graduate_required_document (
-        university_id, faculty_id, department_id, program_id, admission_requirement_id, scope_level, record_key, document_type, document_name,
+        university_id, faculty_id, department_id, program_id, scope_level, record_key, document_type, document_name,
         is_optional, sort_order, notes, source_id
     ) VALUES
-        (v_university_id, NULL, NULL, NULL, v_adm_general_id, 'UNIVERSITY', 'esa-doc-application-file', 'APPLICATION', 'Admissions or application file', FALSE, 1, 'Shared graduate admissions file reference from the official admissions page.', (SELECT id FROM source WHERE university_id = v_university_id AND url = 'https://www.esa.edu.lb/english/formation-diplomante/admission' LIMIT 1)),
-        (v_university_id, NULL, NULL, NULL, v_adm_general_id, 'UNIVERSITY', 'esa-doc-aid-documents', 'APPLICATION', 'Documents required for solidarity financial-aid applications', FALSE, 2, 'Official required-document set for solidarity financial aid.', (SELECT id FROM source WHERE university_id = v_university_id AND url = 'https://www.esa.edu.lb/Library/EditorFiles/ESA%20Solidarity%20Financial%20Aid%20Application%202025-2026%20%28procedure%20and%20list%20of%20required%20documents%29.pdf' LIMIT 1))
+        (v_university_id, NULL, NULL, NULL, 'UNIVERSITY', 'esa-doc-application-file', 'APPLICATION', 'Admissions or application file', FALSE, 1, 'Shared graduate admissions file reference from the official admissions page.', (SELECT id FROM source WHERE university_id = v_university_id AND url = 'https://www.esa.edu.lb/english/formation-diplomante/admission' LIMIT 1)),
+        (v_university_id, NULL, NULL, NULL, 'UNIVERSITY', 'esa-doc-aid-documents', 'APPLICATION', 'Documents required for solidarity financial-aid applications', FALSE, 2, 'Official required-document set for solidarity financial aid.', (SELECT id FROM source WHERE university_id = v_university_id AND url = 'https://www.esa.edu.lb/Library/EditorFiles/ESA%20Solidarity%20Financial%20Aid%20Application%202025-2026%20%28procedure%20and%20list%20of%20required%20documents%29.pdf' LIMIT 1))
     ON CONFLICT (university_id, record_key) DO UPDATE SET
         faculty_id = EXCLUDED.faculty_id,
         department_id = EXCLUDED.department_id,

@@ -114,7 +114,7 @@ BEGIN
     INSERT INTO university_faculty (university_id, name, short_name, faculty_type, official_url, notes) SELECT v_university_id, name, short_name, faculty_type, official_url, notes FROM aul_faculty_seed ON CONFLICT (university_id, name) DO UPDATE SET short_name = EXCLUDED.short_name, faculty_type = EXCLUDED.faculty_type, official_url = EXCLUDED.official_url, notes = EXCLUDED.notes, updated_at = NOW();
 
     CREATE TEMP TABLE aul_program_seed (program_key TEXT PRIMARY KEY, faculty_name TEXT NOT NULL, major_category TEXT, major TEXT, degree_type TEXT NOT NULL, official_degree_name TEXT, thesis_or_non_thesis TEXT, credits INTEGER, duration_value NUMERIC(10, 2), duration_unit TEXT, primary_language_code TEXT, delivery_mode TEXT, program_description TEXT, official_program_url TEXT, source_ids JSONB NOT NULL, notes TEXT) ON COMMIT DROP;
-    INSERT INTO aul_program_seed SELECT program_key, faculty_name, major_category, major, degree_type, official_degree_name, NULL, credits, duration_value, duration_unit, primary_language_code, delivery_mode, program_description, official_program_url, source_ids::jsonb, notes FROM jsonb_to_recordset($AUL_PROGRAMS$[
+    INSERT INTO aul_program_seed SELECT program_key, faculty, major_category, major, degree_type, official_degree_name, NULL, credits, duration_value, duration_unit, primary_language_code, delivery_mode, program_description, official_program_url, source_ids::jsonb, notes FROM jsonb_to_recordset($AUL_PROGRAMS$[
   {
     "id": "aul-mba",
     "program_key": "aul-mba",
@@ -187,7 +187,7 @@ BEGIN
     "major": "Computer Science",
     "primary_source_id": "AUL-005"
   }
-]$AUL_PROGRAMS$) AS x(program_key TEXT, faculty_name TEXT, major_category TEXT, major TEXT, degree_type TEXT, official_degree_name TEXT, thesis_or_non_thesis TEXT, credits INTEGER, duration_value NUMERIC(10,2), duration_unit TEXT, primary_language_code TEXT, delivery_mode TEXT, program_description TEXT, official_program_url TEXT, source_ids JSONB, notes TEXT);
+]$AUL_PROGRAMS$) AS x(program_key TEXT, faculty TEXT, major_category TEXT, major TEXT, degree_type TEXT, official_degree_name TEXT, thesis_or_non_thesis TEXT, credits INTEGER, duration_value NUMERIC(10,2), duration_unit TEXT, primary_language_code TEXT, delivery_mode TEXT, program_description TEXT, official_program_url TEXT, source_ids JSONB, notes TEXT);
 
     INSERT INTO graduate_program (university_id, faculty_id, department_id, degree_type_id, program_key, major_category, major, official_degree_name, thesis_or_non_thesis, credits, duration_value, duration_unit, primary_language_id, delivery_mode, program_description, official_program_url, source_id, notes)
     SELECT
