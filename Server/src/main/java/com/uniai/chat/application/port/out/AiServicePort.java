@@ -1,15 +1,18 @@
 package com.uniai.chat.application.port.out;
 
+import com.uniai.chat.application.dto.ai.AiRequest;
+import com.uniai.chat.application.dto.ai.AiResponse;
+
 /**
  * Outbound port — implemented in infrastructure.
  * Decouples the chat application service from any specific AI provider.
  */
 public interface AiServicePort {
     /**
-     * Generates an AI response for the given user message.
+     * Generates an AI response for the given request.
      *
-     * @param userMessage the content of the user's message
-     * @return the AI-generated response string
+     * @param request the AI request
+     * @return the AI-generated response payload
      */
-    String generateResponse(String userMessage);
+    AiResponse generateResponse(AiRequest request);
 }

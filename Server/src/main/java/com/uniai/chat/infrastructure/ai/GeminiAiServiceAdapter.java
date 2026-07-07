@@ -2,17 +2,21 @@ package com.uniai.chat.infrastructure.ai;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.dto.ai.AiRequest;
+import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.port.out.AiServicePort;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,19 +42,18 @@ public class GeminiAiServiceAdapter implements AiServicePort {
     }
 
     @Override
-    public String generateResponse(String userMessage) {
+    public AiResponse generateResponse(AiRequest request) {
+        String userMessage = request != null ? request.getUserMessage() : null;
         if (!StringUtils.hasText(userMessage)) {
-            return "Please enter a message.";
+            return fallbackResponse("placeholder", "placeholder", "Please enter a message.");
         }
 
         if (!StringUtils.hasText(properties.getApiKey())) {
             logger.warn("Gemini provider selected but ai.gemini.api-key is missing or blank");
-            return "Gemini is not configured. Please set ai.gemini.api-key.";
+            return fallbackResponse("gemini", resolveModel(), "Gemini is not configured. Please set ai.gemini.api-key.");
         }
 
-        String model = StringUtils.hasText(properties.getModel())
-                ? properties.getModel().trim()
-                : "gemini-2.5-flash";
+        String model = resolveModel();
         String baseUrl = normalizeBaseUrl(properties.getBaseUrl());
         String url = baseUrl + "/models/" + model + ":generateContent";
 
@@ -58,62 +61,107 @@ public class GeminiAiServiceAdapter implements AiServicePort {
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
-                    buildRequest(userMessage),
+                    buildRequest(request, userMessage),
                     String.class
             );
 
             if (!response.getStatusCode().is2xxSuccessful() || !StringUtils.hasText(response.getBody())) {
                 logger.warn("Gemini returned an empty or non-success response");
-                return FALLBACK_MESSAGE;
+                return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
             }
 
-            return extractText(response.getBody());
+            return toResponse(response.getBody(), model);
         } catch (RestClientResponseException ex) {
             logger.warn("Gemini request failed with status {}: {}",
                     ex.getStatusCode().value(),
                     safeBody(ex.getResponseBodyAsString()));
-            return FALLBACK_MESSAGE;
+            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
         } catch (ResourceAccessException ex) {
             logger.warn("Gemini request could not be completed: {}", ex.getMessage());
-            return FALLBACK_MESSAGE;
+            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
         } catch (Exception ex) {
             logger.warn("Unexpected Gemini error: {}", ex.getMessage(), ex);
-            return FALLBACK_MESSAGE;
+            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
         }
     }
 
-    private HttpEntity<Map<String, Object>> buildRequest(String userMessage) {
+    private HttpEntity<Map<String, Object>> buildRequest(AiRequest request, String userMessage) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         headers.add("x-goog-api-key", properties.getApiKey());
 
-        Map<String, Object> part = new LinkedHashMap<>();
-        part.put("text", userMessage);
-
-        Map<String, Object> content = new LinkedHashMap<>();
-        content.put("role", "user");
-        content.put("parts", List.of(part));
-
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("contents", List.of(content));
+
+        String systemPrompt = request != null ? request.getSystemPrompt() : null;
+        if (StringUtils.hasText(systemPrompt)) {
+            body.put("system_instruction", systemPrompt);
+        }
+
+        Map<String, Object> generationConfig = new LinkedHashMap<>();
+        if (request != null && request.getTemperature() != null) {
+            generationConfig.put("temperature", request.getTemperature());
+        }
+        if (request != null && request.getMaxTokens() != null) {
+            generationConfig.put("max_output_tokens", request.getMaxTokens());
+        }
+        if (!generationConfig.isEmpty()) {
+            body.put("generation_config", generationConfig);
+        }
+
+        body.put("contents", buildContents(request, userMessage));
 
         return new HttpEntity<>(body, headers);
     }
 
-    private String extractText(String responseBody) throws Exception {
-        JsonNode root = objectMapper.readTree(responseBody);
-        JsonNode candidates = root.path("candidates");
-        if (!candidates.isArray()) {
-            return FALLBACK_MESSAGE;
+    private List<Map<String, Object>> buildContents(AiRequest request, String userMessage) {
+        List<Map<String, Object>> contents = new ArrayList<>();
+
+        if (request != null && request.getConversationHistory() != null) {
+            for (AiConversationMessage historyMessage : request.getConversationHistory()) {
+                addContent(contents, historyMessage != null ? historyMessage.getRole() : null,
+                        historyMessage != null ? historyMessage.getContent() : null);
+            }
         }
 
+        if (request != null && request.getContext() != null && !request.getContext().isEmpty()) {
+            addContent(contents, "user", "Context:\n" + String.join("\n", request.getContext()));
+        }
+
+        addContent(contents, "user", userMessage);
+        return contents;
+    }
+
+    private void addContent(List<Map<String, Object>> contents, String role, String content) {
+        if (!StringUtils.hasText(content)) {
+            return;
+        }
+
+        String effectiveRole = StringUtils.hasText(role) ? role.trim() : "user";
+        Map<String, Object> part = new LinkedHashMap<>();
+        part.put("text", content);
+
+        Map<String, Object> message = new LinkedHashMap<>();
+        message.put("role", effectiveRole);
+        message.put("parts", List.of(part));
+        contents.add(message);
+    }
+
+    private AiResponse toResponse(String responseBody, String model) throws Exception {
+        JsonNode root = objectMapper.readTree(responseBody);
+        JsonNode candidates = root.path("candidates");
+        if (!candidates.isArray() || candidates.isEmpty()) {
+            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+        }
+
+        JsonNode firstCandidate = candidates.get(0);
+        String finishReason = firstCandidate.path("finishReason").isMissingNode()
+                ? null
+                : firstCandidate.path("finishReason").asText(null);
+
         StringBuilder output = new StringBuilder();
-        for (JsonNode candidate : candidates) {
-            JsonNode parts = candidate.path("content").path("parts");
-            if (!parts.isArray()) {
-                continue;
-            }
+        JsonNode parts = firstCandidate.path("content").path("parts");
+        if (parts.isArray()) {
             for (JsonNode part : parts) {
                 JsonNode textNode = part.get("text");
                 if (textNode != null && textNode.isTextual() && StringUtils.hasText(textNode.asText())) {
@@ -126,7 +174,32 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         }
 
         String text = output.toString().trim();
-        return StringUtils.hasText(text) ? text : FALLBACK_MESSAGE;
+        if (!StringUtils.hasText(text)) {
+            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+        }
+
+        return AiResponse.builder()
+                .content(text)
+                .provider("gemini")
+                .model(model)
+                .finishReason(finishReason)
+                .fallback(false)
+                .build();
+    }
+
+    private AiResponse fallbackResponse(String provider, String model, String message) {
+        return AiResponse.builder()
+                .content(message)
+                .provider(provider)
+                .model(model)
+                .fallback(true)
+                .build();
+    }
+
+    private String resolveModel() {
+        return StringUtils.hasText(properties.getModel())
+                ? properties.getModel().trim()
+                : "gemini-2.5-flash";
     }
 
     private String normalizeBaseUrl(String baseUrl) {

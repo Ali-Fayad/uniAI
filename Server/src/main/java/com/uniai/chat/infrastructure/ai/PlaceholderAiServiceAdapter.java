@@ -1,5 +1,7 @@
 package com.uniai.chat.infrastructure.ai;
 
+import com.uniai.chat.application.dto.ai.AiRequest;
+import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.port.out.AiServicePort;
 
 /**
@@ -9,7 +11,13 @@ import com.uniai.chat.application.port.out.AiServicePort;
 public class PlaceholderAiServiceAdapter implements AiServicePort {
 
     @Override
-    public String generateResponse(String userMessage) {
-        return "AI response to: " + userMessage;
+    public AiResponse generateResponse(AiRequest request) {
+        String userMessage = request != null ? request.getUserMessage() : null;
+        return AiResponse.builder()
+                .content("AI response to: " + userMessage)
+                .provider("placeholder")
+                .model("placeholder")
+                .fallback(false)
+                .build();
     }
 }

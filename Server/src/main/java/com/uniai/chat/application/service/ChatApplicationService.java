@@ -1,6 +1,8 @@
 package com.uniai.chat.application.service;
 
 import com.uniai.chat.application.dto.command.SendMessageCommand;
+import com.uniai.chat.application.dto.ai.AiRequest;
+import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
 import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
@@ -76,7 +78,14 @@ public class ChatApplicationService implements
         Message userMessage = MessageBuilder.userMessage(chat, user.getId(), command.getContent()).build();
         messageRepository.save(userMessage);
 
-        String aiContent = aiServicePort.generateResponse(command.getContent());
+        AiRequest aiRequest = AiRequest.builder()
+                .userMessage(command.getContent())
+                .build();
+
+        AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
+        String aiContent = (aiResponse != null && aiResponse.getContent() != null)
+                ? aiResponse.getContent()
+                : "AI service is temporarily unavailable. Please try again later.";
         Message aiMessage = MessageBuilder.aiMessage(chat, aiContent).build();
         messageRepository.save(aiMessage);
 
