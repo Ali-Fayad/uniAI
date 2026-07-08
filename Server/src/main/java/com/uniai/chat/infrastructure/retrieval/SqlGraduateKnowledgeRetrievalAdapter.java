@@ -144,13 +144,34 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         }
 
         String inheritedUniversityHint = findMostRecentUniversityHint(cues);
+        List<UniversityCatalog> currentMatches = matchUniversities(normalizedMessage, allUniversities);
+        if (!currentMatches.isEmpty()) {
+            return currentMatches;
+        }
 
         List<UniversityCatalog> matches = new ArrayList<>();
         for (UniversityCatalog university : allUniversities) {
             if (university == null) {
                 continue;
             }
-            if (matchesUniversity(normalizedMessage, university) || matchesUniversity(inheritedUniversityHint, university)) {
+            if (matchesUniversity(inheritedUniversityHint, university)) {
+                matches.add(university);
+            }
+        }
+        return matches;
+    }
+
+    private List<UniversityCatalog> matchUniversities(String text, List<UniversityCatalog> universities) {
+        if (!StringUtils.hasText(text)) {
+            return List.of();
+        }
+
+        List<UniversityCatalog> matches = new ArrayList<>();
+        for (UniversityCatalog university : universities) {
+            if (university == null) {
+                continue;
+            }
+            if (matchesUniversity(text, university)) {
                 matches.add(university);
             }
         }
@@ -190,11 +211,20 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         Set<String> degreeTypes = new LinkedHashSet<>();
         String inheritedDegreeHint = findMostRecentDegreeHint(cues);
 
-        if (matchesMaster(normalizedMessage) || matchesMaster(inheritedDegreeHint)) {
+        if (matchesMaster(normalizedMessage)) {
             degreeTypes.add("MASTER");
         }
-        if (matchesPhd(normalizedMessage) || matchesPhd(inheritedDegreeHint)) {
+        if (matchesPhd(normalizedMessage)) {
             degreeTypes.add("PHD");
+        }
+
+        if (degreeTypes.isEmpty()) {
+            if (matchesMaster(inheritedDegreeHint)) {
+                degreeTypes.add("MASTER");
+            }
+            if (matchesPhd(inheritedDegreeHint)) {
+                degreeTypes.add("PHD");
+            }
         }
 
         return degreeTypes;
