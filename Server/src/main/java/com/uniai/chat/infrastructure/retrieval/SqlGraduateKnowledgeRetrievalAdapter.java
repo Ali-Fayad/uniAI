@@ -9,9 +9,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -53,7 +58,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             return buildEmptyContext(interpretation, "No matching official data found.");
         }
 
-        return buildStructuredContext(interpretation, programs);
+        List<TuitionAggregationRecord> tuitionAggregations = interpretation.tuitionAggregationIntent()
+                ? queryTuitionAggregations(interpretation)
+                : List.of();
+
+        return buildStructuredContext(interpretation, programs, tuitionAggregations);
     }
 
     private QueryInterpretation interpretQuery(String userMessage, List<AiConversationMessage> recentConversationHistory) {
@@ -62,9 +71,51 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
         List<UniversityCatalog> matchedUniversities = findMatchingUniversities(normalizedMessage, cues);
         Set<String> degreeTypes = detectDegreeTypes(normalizedMessage, cues);
+        boolean tuitionAggregationIntent = detectTuitionAggregationIntent(normalizedMessage, cues);
 
-        String focusDescription = buildFocusDescription(normalizedMessage, cues, matchedUniversities, degreeTypes);
-        return new QueryInterpretation(userMessage, focusDescription, matchedUniversities, degreeTypes);
+        String focusDescription = buildFocusDescription(
+                normalizedMessage,
+                cues,
+                matchedUniversities,
+                degreeTypes,
+                tuitionAggregationIntent
+        );
+        return new QueryInterpretation(userMessage, focusDescription, matchedUniversities, degreeTypes, tuitionAggregationIntent);
+    }
+
+    private boolean detectTuitionAggregationIntent(String normalizedMessage, List<RecentConversationCue> cues) {
+        if (containsAny(normalizedMessage,
+                "average tuition",
+                "avg tuition",
+                "mean tuition",
+                "same tuition",
+                "compare tuition",
+                "tuition comparison",
+                "tuition average",
+                "tuition cost")) {
+            return true;
+        }
+
+        if (normalizedMessage.contains("tuition")
+                && containsAny(normalizedMessage, "average", "avg", "mean", "compare", "comparison")) {
+            return true;
+        }
+
+        String recentTuitionCue = findMostRecentTuitionHint(cues);
+        if (!StringUtils.hasText(recentTuitionCue)) {
+            return false;
+        }
+
+        return containsAny(normalizedMessage,
+                "same",
+                "same at",
+                "is it the same",
+                "what about",
+                "how about",
+                "also",
+                "compare",
+                "comparison",
+                "at ");
     }
 
     private List<RecentConversationCue> extractRecentConversationCues(List<AiConversationMessage> recentConversationHistory) {
@@ -199,6 +250,17 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         return "";
     }
 
+    private String findMostRecentTuitionHint(List<RecentConversationCue> cues) {
+        for (int i = cues.size() - 1; i >= 0; i--) {
+            RecentConversationCue cue = cues.get(i);
+            String text = cue.content();
+            if (containsTuitionKeywords(text)) {
+                return text;
+            }
+        }
+        return "";
+    }
+
     private boolean containsAnyUniversityToken(String text) {
         if (!StringUtils.hasText(text)) {
             return false;
@@ -213,7 +275,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     private String buildFocusDescription(String normalizedMessage, List<RecentConversationCue> cues,
-                                        List<UniversityCatalog> matchedUniversities, Set<String> degreeTypes) {
+                                        List<UniversityCatalog> matchedUniversities, Set<String> degreeTypes,
+                                        boolean tuitionAggregationIntent) {
         List<String> focusParts = new ArrayList<>();
         focusParts.add("current question: " + normalizedMessage);
 
@@ -231,16 +294,15 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         if (!degreeTypes.isEmpty()) {
             focusParts.add("matched degree type: " + String.join(" | ", degreeTypes));
         }
+        if (tuitionAggregationIntent) {
+            focusParts.add("tuition aggregation intent: detected");
+        }
 
         return String.join(" ; ", focusParts);
     }
 
     private List<ProgramRecord> queryPrograms(QueryInterpretation interpretation) {
-        List<Long> universityIds = interpretation.matchedUniversities().stream()
-                .map(UniversityCatalog::getId)
-                .filter(id -> id != null)
-                .distinct()
-                .toList();
+        List<Long> universityIds = resolveUniversityIds(interpretation);
 
         if (universityIds.isEmpty()) {
             return List.of();
@@ -350,13 +412,175 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         );
     }
 
-    private String buildStructuredContext(QueryInterpretation interpretation, List<ProgramRecord> programs) {
+    private List<TuitionAggregationRecord> queryTuitionAggregations(QueryInterpretation interpretation) {
+        List<Long> universityIds = resolveUniversityIds(interpretation);
+        if (universityIds.isEmpty()) {
+            return List.of();
+        }
+
+        String sql = """
+                SELECT
+                    gp.id AS program_id,
+                    u.name AS university_name,
+                    u.acronym AS university_acronym,
+                    COALESCE(dt.code, 'Not available in official data') AS degree_type_code,
+                    COALESCE(gp.official_degree_name, 'Not available in official data') AS official_degree_name,
+                    gtr.amount AS amount,
+                    COALESCE(gtr.currency, 'Not available in official data') AS currency,
+                    COALESCE(gtr.academic_year, 'Not available in official data') AS academic_year,
+                    COALESCE(gtr.category, 'Not available in official data') AS category,
+                    COALESCE(gtr.billing_basis, 'Not available in official data') AS billing_basis,
+                    COALESCE(gtr.notes, 'Not available in official data') AS notes,
+                    COALESCE(gp.official_program_url, 'Not available in official data') AS official_program_url,
+                    COALESCE(src.source_urls, 'Not available in official data') AS source_urls
+                FROM graduate_tuition_rate gtr
+                JOIN graduate_program gp ON gp.id = gtr.program_id
+                JOIN university u ON u.id = gp.university_id
+                LEFT JOIN degree_type dt ON dt.id = gp.degree_type_id
+                LEFT JOIN LATERAL (
+                    SELECT STRING_AGG(DISTINCT s.url, ' | ' ORDER BY s.url) AS source_urls
+                    FROM (
+                        SELECT s.url
+                        FROM source s
+                        WHERE s.id = gp.source_id
+                        UNION
+                        SELECT s2.url
+                        FROM graduate_program_source gps
+                        JOIN source s2 ON s2.id = gps.source_id
+                        WHERE gps.program_id = gp.id
+                    ) s
+                ) src ON TRUE
+                WHERE gp.university_id IN (:universityIds)
+                %s
+                ORDER BY u.name ASC, dt.code ASC NULLS LAST, gp.official_degree_name ASC, gtr.academic_year DESC NULLS LAST, gtr.id ASC
+                LIMIT :limit
+                """;
+
+        String degreeClause = interpretation.matchedDegreeTypes().isEmpty()
+                ? ""
+                : "AND dt.code IN (:degreeTypes)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("universityIds", universityIds)
+                .addValue("limit", 200);
+        if (!interpretation.matchedDegreeTypes().isEmpty()) {
+            params.addValue("degreeTypes", interpretation.matchedDegreeTypes());
+        }
+
+        List<TuitionRawRow> rows = jdbcTemplate.query(
+                String.format(sql, degreeClause),
+                params,
+                (rs, rowNum) -> new TuitionRawRow(
+                        rs.getLong("program_id"),
+                        rs.getString("university_name"),
+                        rs.getString("university_acronym"),
+                        rs.getString("degree_type_code"),
+                        rs.getString("official_degree_name"),
+                        rs.getBigDecimal("amount"),
+                        rs.getString("currency"),
+                        rs.getString("academic_year"),
+                        rs.getString("category"),
+                        rs.getString("billing_basis"),
+                        rs.getString("notes"),
+                        rs.getString("official_program_url"),
+                        rs.getString("source_urls")
+                )
+        );
+
+        if (rows.isEmpty()) {
+            return List.of();
+        }
+
+        Map<TuitionAggregationKey, TuitionAggregationBucket> buckets = new LinkedHashMap<>();
+        for (TuitionRawRow row : rows) {
+            String currencyKey = normalizeCurrency(row.currency());
+            TuitionAggregationKey key = new TuitionAggregationKey(
+                    row.universityName(),
+                    row.universityAcronym(),
+                    row.degreeTypeCode(),
+                    currencyKey
+            );
+
+            TuitionAggregationBucket bucket = buckets.computeIfAbsent(key, ignored -> new TuitionAggregationBucket());
+            bucket.programIds.add(row.programId());
+            bucket.sourceUrls.addAll(splitSources(row.sourceUrls()));
+            bucket.sourceUrls.addAll(splitSources(row.officialProgramUrl()));
+            bucket.totalRows++;
+
+            if (row.amount() == null || !StringUtils.hasText(currencyKey)
+                    || "Not available in official data".equalsIgnoreCase(currencyKey)) {
+                bucket.missingAmountRows++;
+                if (!StringUtils.hasText(currencyKey) || "Not available in official data".equalsIgnoreCase(currencyKey)) {
+                    bucket.missingCurrencyRows++;
+                }
+                continue;
+            }
+
+            bucket.numericRows++;
+            bucket.sum = bucket.sum.add(row.amount());
+        }
+
+        List<TuitionAggregationRecord> records = new ArrayList<>();
+        for (Map.Entry<TuitionAggregationKey, TuitionAggregationBucket> entry : buckets.entrySet()) {
+            TuitionAggregationKey key = entry.getKey();
+            TuitionAggregationBucket bucket = entry.getValue();
+
+            BigDecimal average = null;
+            if (bucket.numericRows > 0 && StringUtils.hasText(key.currency())
+                    && !"Not available in official data".equalsIgnoreCase(key.currency())) {
+                average = bucket.sum.divide(BigDecimal.valueOf(bucket.numericRows), 2, RoundingMode.HALF_UP);
+            }
+
+            records.add(new TuitionAggregationRecord(
+                    key.universityName(),
+                    key.universityAcronym(),
+                    key.degreeTypeCode(),
+                    key.currency(),
+                    bucket.programIds.size(),
+                    bucket.numericRows,
+                    average,
+                    buildTuitionExcludedSummary(bucket, average, key.currency()),
+                    formatSources(bucket.sourceUrls)
+            ));
+        }
+
+        records.sort(Comparator
+                .comparing(TuitionAggregationRecord::numericTuitionRecordsUsed).reversed()
+                .thenComparing(TuitionAggregationRecord::universityName, String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(TuitionAggregationRecord::degreeTypeCode, String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(TuitionAggregationRecord::currency, String.CASE_INSENSITIVE_ORDER));
+
+        return records.size() > MAX_RESULTS ? records.subList(0, MAX_RESULTS) : records;
+    }
+
+    private String buildStructuredContext(QueryInterpretation interpretation, List<ProgramRecord> programs,
+                                          List<TuitionAggregationRecord> tuitionAggregations) {
         StringBuilder builder = new StringBuilder();
         appendSectionTitle(builder, "Query interpretation");
         appendBullet(builder, "User message", interpretation.userMessage());
         appendBullet(builder, "Recent conversation cue", interpretation.focusDescription());
         appendBullet(builder, "Matched universities", formatMatchedUniversities(interpretation.matchedUniversities()));
         appendBullet(builder, "Matched degree type", formatMatchedDegreeTypes(interpretation.matchedDegreeTypes()));
+
+        if (interpretation.tuitionAggregationIntent()) {
+            appendSectionTitle(builder, "Tuition aggregation");
+            if (tuitionAggregations.isEmpty()) {
+                appendBullet(builder, "Result", "Average tuition is not computable from the official stored data.");
+            } else {
+                int index = 1;
+                for (TuitionAggregationRecord record : tuitionAggregations) {
+                    builder.append(index++).append(".\n");
+                    appendIndentedBullet(builder, "University", formatUniversity(record.universityName(), record.universityAcronym()));
+                    appendIndentedBullet(builder, "Degree type", record.degreeTypeCode());
+                    appendIndentedBullet(builder, "Programs considered", String.valueOf(record.programsConsidered()));
+                    appendIndentedBullet(builder, "Numeric tuition records used", String.valueOf(record.numericTuitionRecordsUsed()));
+                    appendIndentedBullet(builder, "Currency", record.currency());
+                    appendIndentedBullet(builder, "Computed average", formatAverage(record.averageTuition()));
+                    appendIndentedBullet(builder, "Excluded records reason summary", record.excludedRecordsReasonSummary());
+                    appendIndentedBullet(builder, "Source URLs", record.sourceUrls());
+                }
+            }
+        }
 
         appendSectionTitle(builder, "Programs");
         int index = 1;
@@ -380,7 +604,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         appendSourcesSection(builder, programs);
 
         appendSectionTitle(builder, "Missing/Unavailable data");
-        appendMissingData(builder, interpretation, programs);
+        appendMissingData(builder, interpretation, programs, tuitionAggregations);
 
         return builder.toString().trim();
     }
@@ -392,6 +616,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         appendBullet(builder, "Recent conversation cue", interpretation.focusDescription());
         appendBullet(builder, "Matched universities", formatMatchedUniversities(interpretation.matchedUniversities()));
         appendBullet(builder, "Matched degree type", formatMatchedDegreeTypes(interpretation.matchedDegreeTypes()));
+
+        if (interpretation.tuitionAggregationIntent()) {
+            appendSectionTitle(builder, "Tuition aggregation");
+            appendBullet(builder, "Result", "Average tuition is not computable from the official stored data.");
+        }
 
         appendSectionTitle(builder, "Programs");
         appendBullet(builder, "Result", note);
@@ -422,13 +651,17 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         }
     }
 
-    private void appendMissingData(StringBuilder builder, QueryInterpretation interpretation, List<ProgramRecord> programs) {
+    private void appendMissingData(StringBuilder builder, QueryInterpretation interpretation, List<ProgramRecord> programs,
+                                   List<TuitionAggregationRecord> tuitionAggregations) {
         Set<String> notes = new LinkedHashSet<>();
         if (interpretation.matchedUniversities().isEmpty()) {
             notes.add("Matched universities: Not available in official data");
         }
         if (interpretation.matchedDegreeTypes().isEmpty()) {
             notes.add("Matched degree type: Not available in official data");
+        }
+        if (interpretation.tuitionAggregationIntent() && tuitionAggregations.isEmpty()) {
+            notes.add("Tuition aggregation: Average tuition is not computable from the official stored data.");
         }
 
         for (ProgramRecord program : programs) {
@@ -441,6 +674,13 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             addIfMissing(notes, "Admission summary", program.admissionSummary());
             addIfMissing(notes, "Official program URL", program.officialProgramUrl());
             addIfMissing(notes, "Official source URL(s)", program.sourceUrls());
+        }
+
+        for (TuitionAggregationRecord aggregation : tuitionAggregations) {
+            addIfMissing(notes, "Tuition aggregation source URLs", aggregation.sourceUrls());
+            if (!StringUtils.hasText(aggregation.averageTuitionText())) {
+                notes.add("Tuition aggregation: Average tuition is not computable from the official stored data.");
+            }
         }
 
         if (notes.isEmpty()) {
@@ -480,13 +720,121 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         return program.universityName() + " (" + program.universityAcronym() + ")";
     }
 
+    private String formatUniversity(String universityName, String universityAcronym) {
+        if (!StringUtils.hasText(universityName)) {
+            return "Not available in official data";
+        }
+        if (!StringUtils.hasText(universityAcronym)) {
+            return universityName;
+        }
+        return universityName + " (" + universityAcronym + ")";
+    }
+
+    private String formatAverage(BigDecimal averageTuition) {
+        if (averageTuition == null) {
+            return "Average tuition is not computable from the official stored data.";
+        }
+        return averageTuition.toPlainString();
+    }
+
+    private List<Long> resolveUniversityIds(QueryInterpretation interpretation) {
+        List<Long> matchedIds = interpretation.matchedUniversities().stream()
+                .map(UniversityCatalog::getId)
+                .filter(id -> id != null)
+                .distinct()
+                .toList();
+
+        if (!matchedIds.isEmpty()) {
+            return matchedIds;
+        }
+
+        if (interpretation.tuitionAggregationIntent() && !interpretation.matchedDegreeTypes().isEmpty()) {
+            return universityCatalogRepository.findAll().stream()
+                    .map(UniversityCatalog::getId)
+                    .filter(id -> id != null)
+                    .distinct()
+                    .toList();
+        }
+
+        return List.of();
+    }
+
+    private boolean containsTuitionKeywords(String text) {
+        if (!StringUtils.hasText(text)) {
+            return false;
+        }
+        String normalizedText = text.toLowerCase(Locale.ROOT);
+        return normalizedText.contains("tuition")
+                || normalizedText.contains("fee")
+                || normalizedText.contains("fees")
+                || normalizedText.contains("cost");
+    }
+
+    private boolean containsAny(String text, String... phrases) {
+        if (!StringUtils.hasText(text) || phrases == null) {
+            return false;
+        }
+        String normalizedText = text.toLowerCase(Locale.ROOT);
+        for (String phrase : phrases) {
+            if (StringUtils.hasText(phrase) && normalizedText.contains(phrase.toLowerCase(Locale.ROOT))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Set<String> splitSources(String value) {
+        Set<String> sources = new LinkedHashSet<>();
+        if (!StringUtils.hasText(value) || "Not available in official data".equalsIgnoreCase(value.trim())) {
+            return sources;
+        }
+        for (String url : value.split("\\s*\\|\\s*")) {
+            if (StringUtils.hasText(url)) {
+                sources.add(url.trim());
+            }
+        }
+        return sources;
+    }
+
+    private String formatSources(Set<String> sources) {
+        if (sources.isEmpty()) {
+            return "Not available in official data";
+        }
+        return String.join(" | ", sources);
+    }
+
+    private String normalizeCurrency(String currency) {
+        if (!StringUtils.hasText(currency)) {
+            return "Not available in official data";
+        }
+        return currency.trim();
+    }
+
+    private String buildTuitionExcludedSummary(TuitionAggregationBucket bucket, BigDecimal average, String currency) {
+        List<String> reasons = new ArrayList<>();
+        int missingAmount = Math.max(0, bucket.totalRows - bucket.numericRows);
+        if (missingAmount > 0) {
+            reasons.add(missingAmount + " records missing numeric amount");
+        }
+        if (!StringUtils.hasText(currency) || "Not available in official data".equalsIgnoreCase(currency.trim())) {
+            reasons.add("currency not available in official data");
+        }
+        if (average == null) {
+            reasons.add("average tuition is not computable from the official stored data");
+        }
+        if (reasons.isEmpty()) {
+            return "None";
+        }
+        return String.join("; ", reasons);
+    }
+
     private String formatMatchedUniversities(List<UniversityCatalog> universities) {
         if (universities.isEmpty()) {
             return "Not available in official data";
         }
 
         return universities.stream()
-                .map(this::formatUniversity)
+                .map(university -> formatUniversity(university.getName(), university.getAcronym()))
                 .collect(Collectors.joining(" | "));
     }
 
@@ -559,7 +907,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             String userMessage,
             String focusDescription,
             List<UniversityCatalog> matchedUniversities,
-            Set<String> matchedDegreeTypes
+            Set<String> matchedDegreeTypes,
+            boolean tuitionAggregationIntent
     ) {}
 
     private record RecentConversationCue(
@@ -583,4 +932,53 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             String officialProgramUrl,
             String sourceUrls
     ) {}
+
+    private record TuitionRawRow(
+            Long programId,
+            String universityName,
+            String universityAcronym,
+            String degreeTypeCode,
+            String officialDegreeName,
+            BigDecimal amount,
+            String currency,
+            String academicYear,
+            String category,
+            String billingBasis,
+            String notes,
+            String officialProgramUrl,
+            String sourceUrls
+    ) {}
+
+    private record TuitionAggregationKey(
+            String universityName,
+            String universityAcronym,
+            String degreeTypeCode,
+            String currency
+    ) {}
+
+    private static final class TuitionAggregationBucket {
+        private final Set<Long> programIds = new LinkedHashSet<>();
+        private final Set<String> sourceUrls = new LinkedHashSet<>();
+        private int totalRows;
+        private int numericRows;
+        private int missingAmountRows;
+        private int missingCurrencyRows;
+        private BigDecimal sum = BigDecimal.ZERO;
+    }
+
+    private record TuitionAggregationRecord(
+            String universityName,
+            String universityAcronym,
+            String degreeTypeCode,
+            String currency,
+            int programsConsidered,
+            int numericTuitionRecordsUsed,
+            BigDecimal averageTuition,
+            String excludedRecordsReasonSummary,
+            String sourceUrls
+    ) {
+        private String averageTuitionText() {
+            return averageTuition == null ? "" : averageTuition.toPlainString();
+        }
+    }
 }
