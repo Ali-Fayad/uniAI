@@ -92,7 +92,11 @@ public class ChatApplicationService implements
                 user.getId(),
                 command.getContent()
         );
-        String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(command.getContent());
+        List<AiConversationMessage> recentConversationWindow = buildRecentConversationWindow(conversationHistory);
+        String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(
+                command.getContent(),
+                recentConversationWindow
+        );
         List<String> context = (graduateContext != null && !graduateContext.isBlank())
                 ? List.of(graduateContext)
                 : Collections.emptyList();
@@ -235,6 +239,15 @@ public class ChatApplicationService implements
                     .build());
         }
         return history;
+    }
+
+    private List<AiConversationMessage> buildRecentConversationWindow(List<AiConversationMessage> conversationHistory) {
+        if (conversationHistory == null || conversationHistory.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        int startIndex = Math.max(0, conversationHistory.size() - 6);
+        return List.copyOf(conversationHistory.subList(startIndex, conversationHistory.size()));
     }
 
     private String resolveConversationRole(Message message) {

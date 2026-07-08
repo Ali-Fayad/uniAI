@@ -2,6 +2,7 @@ package com.uniai.chat.infrastructure.retrieval;
 
 import com.uniai.catalog.domain.model.UniversityCatalog;
 import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
+import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -10,11 +11,9 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -24,6 +23,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private static final int MAX_RESULTS = 10;
     private static final int MAX_TEXT_LENGTH = 220;
+    private static final int MAX_CONVERSATION_WINDOW = 6;
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -38,12 +38,12 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     @Override
-    public String retrieveContext(String userMessage) {
+    public String retrieveContext(String userMessage, List<AiConversationMessage> recentConversationHistory) {
         if (!StringUtils.hasText(userMessage)) {
             return "";
         }
 
-        QueryInterpretation interpretation = interpretQuery(userMessage);
+        QueryInterpretation interpretation = interpretQuery(userMessage, recentConversationHistory);
         if (interpretation.matchedUniversities().isEmpty() && interpretation.matchedDegreeTypes().isEmpty()) {
             return buildEmptyContext(interpretation, "No matching official data found.");
         }
@@ -56,47 +56,77 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         return buildStructuredContext(interpretation, programs);
     }
 
-    private QueryInterpretation interpretQuery(String userMessage) {
+    private QueryInterpretation interpretQuery(String userMessage, List<AiConversationMessage> recentConversationHistory) {
         String normalizedMessage = userMessage.toLowerCase(Locale.ROOT);
-        List<UniversityCatalog> matchedUniversities = findMatchingUniversities(normalizedMessage);
-        Set<String> degreeTypes = detectDegreeTypes(normalizedMessage);
-        return new QueryInterpretation(userMessage, matchedUniversities, degreeTypes);
+        List<RecentConversationCue> cues = extractRecentConversationCues(recentConversationHistory);
+
+        List<UniversityCatalog> matchedUniversities = findMatchingUniversities(normalizedMessage, cues);
+        Set<String> degreeTypes = detectDegreeTypes(normalizedMessage, cues);
+
+        String focusDescription = buildFocusDescription(normalizedMessage, cues, matchedUniversities, degreeTypes);
+        return new QueryInterpretation(userMessage, focusDescription, matchedUniversities, degreeTypes);
     }
 
-    private List<UniversityCatalog> findMatchingUniversities(String normalizedMessage) {
+    private List<RecentConversationCue> extractRecentConversationCues(List<AiConversationMessage> recentConversationHistory) {
+        if (recentConversationHistory == null || recentConversationHistory.isEmpty()) {
+            return List.of();
+        }
+
+        int startIndex = Math.max(0, recentConversationHistory.size() - MAX_CONVERSATION_WINDOW);
+        List<RecentConversationCue> cues = new ArrayList<>();
+        for (AiConversationMessage message : recentConversationHistory.subList(startIndex, recentConversationHistory.size())) {
+            if (message == null || !StringUtils.hasText(message.getContent())) {
+                continue;
+            }
+            cues.add(new RecentConversationCue(
+                    safeRole(message.getRole()),
+                    message.getContent().toLowerCase(Locale.ROOT)
+            ));
+        }
+        return cues;
+    }
+
+    private List<UniversityCatalog> findMatchingUniversities(String normalizedMessage, List<RecentConversationCue> cues) {
         List<UniversityCatalog> allUniversities = universityCatalogRepository.findAll();
         if (allUniversities.isEmpty()) {
             return List.of();
         }
+
+        String inheritedUniversityHint = findMostRecentUniversityHint(cues);
 
         List<UniversityCatalog> matches = new ArrayList<>();
         for (UniversityCatalog university : allUniversities) {
             if (university == null) {
                 continue;
             }
-            if (matchesUniversity(normalizedMessage, university)) {
+            if (matchesUniversity(normalizedMessage, university) || matchesUniversity(inheritedUniversityHint, university)) {
                 matches.add(university);
             }
         }
         return matches;
     }
 
-    private boolean matchesUniversity(String normalizedMessage, UniversityCatalog university) {
+    private boolean matchesUniversity(String text, UniversityCatalog university) {
+        if (!StringUtils.hasText(text)) {
+            return false;
+        }
+
+        String normalizedText = text.toLowerCase(Locale.ROOT);
         if (StringUtils.hasText(university.getAcronym())) {
             String acronym = university.getAcronym().toLowerCase(Locale.ROOT);
-            if (containsWord(normalizedMessage, acronym)) {
+            if (containsWord(normalizedText, acronym)) {
                 return true;
             }
         }
 
         if (StringUtils.hasText(university.getName())) {
             String name = university.getName().toLowerCase(Locale.ROOT);
-            if (normalizedMessage.contains(name)) {
+            if (normalizedText.contains(name)) {
                 return true;
             }
 
             for (String token : tokenize(name)) {
-                if (token.length() > 2 && containsWord(normalizedMessage, token)) {
+                if (token.length() > 2 && containsWord(normalizedText, token)) {
                     return true;
                 }
             }
@@ -105,30 +135,104 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         return false;
     }
 
-    private Set<String> detectDegreeTypes(String normalizedMessage) {
+    private Set<String> detectDegreeTypes(String normalizedMessage, List<RecentConversationCue> cues) {
         Set<String> degreeTypes = new LinkedHashSet<>();
+        String inheritedDegreeHint = findMostRecentDegreeHint(cues);
 
-        if (normalizedMessage.contains("phd")
-                || normalizedMessage.contains("doctor of philosophy")
-                || normalizedMessage.contains("doctoral")
-                || normalizedMessage.contains("doctorate")) {
+        if (matchesMaster(normalizedMessage) || matchesMaster(inheritedDegreeHint)) {
+            degreeTypes.add("MASTER");
+        }
+        if (matchesPhd(normalizedMessage) || matchesPhd(inheritedDegreeHint)) {
             degreeTypes.add("PHD");
         }
 
-        if (normalizedMessage.contains("master")
+        return degreeTypes;
+    }
+
+    private boolean matchesMaster(String text) {
+        if (!StringUtils.hasText(text)) {
+            return false;
+        }
+        String normalizedMessage = text.toLowerCase(Locale.ROOT);
+        return normalizedMessage.contains("master")
                 || normalizedMessage.contains("masters")
+                || normalizedMessage.contains("master's")
                 || normalizedMessage.contains("mba")
                 || normalizedMessage.contains("m.a.")
                 || normalizedMessage.contains("m.a ")
                 || normalizedMessage.contains(" ma ")
                 || normalizedMessage.contains("m.sc")
                 || normalizedMessage.contains("ms ")
-                || normalizedMessage.endsWith(" ms")
-                || normalizedMessage.contains("master's")) {
-            degreeTypes.add("MASTER");
+                || normalizedMessage.endsWith(" ms");
+    }
+
+    private boolean matchesPhd(String text) {
+        if (!StringUtils.hasText(text)) {
+            return false;
+        }
+        String normalizedMessage = text.toLowerCase(Locale.ROOT);
+        return normalizedMessage.contains("phd")
+                || normalizedMessage.contains("doctor of philosophy")
+                || normalizedMessage.contains("doctoral")
+                || normalizedMessage.contains("doctorate");
+    }
+
+    private String findMostRecentUniversityHint(List<RecentConversationCue> cues) {
+        for (int i = cues.size() - 1; i >= 0; i--) {
+            RecentConversationCue cue = cues.get(i);
+            String text = cue.content();
+            if (containsAnyUniversityToken(text)) {
+                return text;
+            }
+        }
+        return "";
+    }
+
+    private String findMostRecentDegreeHint(List<RecentConversationCue> cues) {
+        for (int i = cues.size() - 1; i >= 0; i--) {
+            RecentConversationCue cue = cues.get(i);
+            String text = cue.content();
+            if (matchesMaster(text) || matchesPhd(text)) {
+                return text;
+            }
+        }
+        return "";
+    }
+
+    private boolean containsAnyUniversityToken(String text) {
+        if (!StringUtils.hasText(text)) {
+            return false;
+        }
+        List<UniversityCatalog> universities = universityCatalogRepository.findAll();
+        for (UniversityCatalog university : universities) {
+            if (matchesUniversity(text, university)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String buildFocusDescription(String normalizedMessage, List<RecentConversationCue> cues,
+                                        List<UniversityCatalog> matchedUniversities, Set<String> degreeTypes) {
+        List<String> focusParts = new ArrayList<>();
+        focusParts.add("current question: " + normalizedMessage);
+
+        String inheritedUniversityHint = findMostRecentUniversityHint(cues);
+        if (StringUtils.hasText(inheritedUniversityHint)) {
+            focusParts.add("conversation university hint: " + inheritedUniversityHint);
+        }
+        String inheritedDegreeHint = findMostRecentDegreeHint(cues);
+        if (StringUtils.hasText(inheritedDegreeHint)) {
+            focusParts.add("conversation degree hint: " + inheritedDegreeHint);
+        }
+        if (!matchedUniversities.isEmpty()) {
+            focusParts.add("matched universities: " + formatMatchedUniversities(matchedUniversities));
+        }
+        if (!degreeTypes.isEmpty()) {
+            focusParts.add("matched degree type: " + String.join(" | ", degreeTypes));
         }
 
-        return degreeTypes;
+        return String.join(" ; ", focusParts);
     }
 
     private List<ProgramRecord> queryPrograms(QueryInterpretation interpretation) {
@@ -250,6 +354,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         StringBuilder builder = new StringBuilder();
         appendSectionTitle(builder, "Query interpretation");
         appendBullet(builder, "User message", interpretation.userMessage());
+        appendBullet(builder, "Recent conversation cue", interpretation.focusDescription());
         appendBullet(builder, "Matched universities", formatMatchedUniversities(interpretation.matchedUniversities()));
         appendBullet(builder, "Matched degree type", formatMatchedDegreeTypes(interpretation.matchedDegreeTypes()));
 
@@ -284,6 +389,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         StringBuilder builder = new StringBuilder();
         appendSectionTitle(builder, "Query interpretation");
         appendBullet(builder, "User message", interpretation.userMessage());
+        appendBullet(builder, "Recent conversation cue", interpretation.focusDescription());
         appendBullet(builder, "Matched universities", formatMatchedUniversities(interpretation.matchedUniversities()));
         appendBullet(builder, "Matched degree type", formatMatchedDegreeTypes(interpretation.matchedDegreeTypes()));
 
@@ -438,10 +544,27 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 .collect(Collectors.toList());
     }
 
+    private String safeRole(String role) {
+        if (!StringUtils.hasText(role)) {
+            return "user";
+        }
+        String normalized = role.trim().toLowerCase(Locale.ROOT);
+        if ("assistant".equals(normalized) || "model".equals(normalized)) {
+            return "assistant";
+        }
+        return "user";
+    }
+
     private record QueryInterpretation(
             String userMessage,
+            String focusDescription,
             List<UniversityCatalog> matchedUniversities,
             Set<String> matchedDegreeTypes
+    ) {}
+
+    private record RecentConversationCue(
+            String role,
+            String content
     ) {}
 
     private record ProgramRecord(
