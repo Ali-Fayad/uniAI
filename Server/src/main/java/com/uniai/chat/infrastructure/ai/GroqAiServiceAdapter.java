@@ -46,8 +46,16 @@ public class GroqAiServiceAdapter implements AiServicePort {
 
     @Override
     public AiResponse generateResponse(AiRequest request) {
+        long requestStartNanos = System.nanoTime();
         String userMessage = request != null ? request.getUserMessage() : null;
+        logger.debug("[PROVIDER] Request started provider=groq model={} baseUrl={} messageLength={} historyCount={} contextCount={}",
+                resolveModel(),
+                normalizeBaseUrl(properties.getBaseUrl()),
+                StringUtils.hasText(userMessage) ? userMessage.length() : 0,
+                request != null && request.getConversationHistory() != null ? request.getConversationHistory().size() : 0,
+                request != null && request.getContext() != null ? request.getContext().size() : 0);
         if (!StringUtils.hasText(userMessage)) {
+            logger.warn("[PROVIDER] Empty request received provider=groq model={}", resolveModel());
             return fallbackResponse("groq", resolveModel(), "Please enter a message.");
         }
 
@@ -68,21 +76,41 @@ public class GroqAiServiceAdapter implements AiServicePort {
             );
 
             if (!response.getStatusCode().is2xxSuccessful() || !StringUtils.hasText(response.getBody())) {
-                logger.warn("Groq returned an empty or non-success response");
+                logger.warn("[PROVIDER] Empty or non-success Groq response status={} durationMs={}",
+                        response.getStatusCode().value(),
+                        elapsedMillis(requestStartNanos));
                 return fallbackResponse("groq", model, FALLBACK_MESSAGE);
             }
 
-            return toResponse(response.getBody(), model);
+            AiResponse aiResponse = toResponse(response.getBody(), model);
+            if (Boolean.TRUE.equals(aiResponse.getFallback())) {
+                logger.warn("[PROVIDER] Groq fallback generated model={} durationMs={} responseLength={}",
+                        model,
+                        elapsedMillis(requestStartNanos),
+                        response.getBody().length());
+            } else {
+                logger.debug("[PROVIDER] Request completed provider=groq model={} finishReason={} responseLength={} durationMs={}",
+                        model,
+                        aiResponse.getFinishReason(),
+                        aiResponse.getContent() != null ? aiResponse.getContent().length() : 0,
+                        elapsedMillis(requestStartNanos));
+            }
+            return aiResponse;
         } catch (RestClientResponseException ex) {
-            logger.warn("Groq request failed with status {}: {}",
+            logger.error("[PROVIDER] Groq HTTP failure status={} durationMs={} body={}",
                     ex.getStatusCode().value(),
-                    safeBody(ex.getResponseBodyAsString()));
+                    elapsedMillis(requestStartNanos),
+                    safeBody(ex.getResponseBodyAsString()), ex);
             return fallbackResponse("groq", model, FALLBACK_MESSAGE);
         } catch (ResourceAccessException ex) {
-            logger.warn("Groq request could not be completed: {}", ex.getMessage());
+            logger.warn("[PROVIDER] Groq request could not be completed durationMs={} reason={}",
+                    elapsedMillis(requestStartNanos),
+                    ex.getMessage());
             return fallbackResponse("groq", model, FALLBACK_MESSAGE);
         } catch (Exception ex) {
-            logger.warn("Unexpected Groq error: {}", ex.getMessage(), ex);
+            logger.error("[PROVIDER] Groq parsing or unexpected failure durationMs={} reason={}",
+                    elapsedMillis(requestStartNanos),
+                    ex.getMessage(), ex);
             return fallbackResponse("groq", model, FALLBACK_MESSAGE);
         }
     }
@@ -219,5 +247,9 @@ public class GroqAiServiceAdapter implements AiServicePort {
             return "<empty>";
         }
         return body.length() > 500 ? body.substring(0, 500) + "..." : body;
+    }
+
+    private long elapsedMillis(long startNanos) {
+        return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 }

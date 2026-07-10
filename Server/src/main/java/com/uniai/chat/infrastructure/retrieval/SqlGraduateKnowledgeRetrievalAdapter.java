@@ -4,6 +4,8 @@ import com.uniai.catalog.domain.model.UniversityCatalog;
 import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 @Component
 public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRetrievalPort {
 
+    private static final Logger logger = LogManager.getLogger(SqlGraduateKnowledgeRetrievalAdapter.class);
     private static final int MAX_TEXT_LENGTH = 220;
     private static final int MAX_CONVERSATION_WINDOW = 6;
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
@@ -43,25 +46,53 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     @Override
     public String retrieveContext(String userMessage, List<AiConversationMessage> recentConversationHistory) {
+        long startNanos = System.nanoTime();
         if (!StringUtils.hasText(userMessage)) {
+            logger.warn("[RETRIEVAL] Empty user message received");
             return "";
         }
 
-        QueryInterpretation interpretation = interpretQuery(userMessage, recentConversationHistory);
-        if (interpretation.matchedUniversities().isEmpty() && interpretation.matchedDegreeTypes().isEmpty()) {
-            return buildEmptyContext(interpretation, "No matching official data found.");
+        try {
+            QueryInterpretation interpretation = interpretQuery(userMessage, recentConversationHistory);
+            logger.debug("[RETRIEVAL] Query interpreted universityCount={} degreeTypeCount={} tuitionIntent={}",
+                    interpretation.matchedUniversities().size(),
+                    interpretation.matchedDegreeTypes().size(),
+                    interpretation.tuitionAggregationIntent());
+            logger.debug("[RETRIEVAL] Matched universities={} degreeTypes={}",
+                    formatMatchedUniversities(interpretation.matchedUniversities()),
+                    formatMatchedDegreeTypes(interpretation.matchedDegreeTypes()));
+
+            if (interpretation.matchedUniversities().isEmpty() && interpretation.matchedDegreeTypes().isEmpty()) {
+                logger.warn("[RETRIEVAL] Nothing matched query interpretation");
+                String emptyContext = buildEmptyContext(interpretation, "No matching official data found.");
+                logger.debug("[RETRIEVAL] Context generated length={} durationMs={}", emptyContext.length(), elapsedMillis(startNanos));
+                return emptyContext;
+            }
+
+            List<ProgramRecord> programs = queryPrograms(interpretation);
+            logger.debug("[RETRIEVAL] Programs returned count={}", programs.size());
+            if (programs.isEmpty()) {
+                logger.warn("[RETRIEVAL] No programs found for interpreted query");
+                String emptyContext = buildEmptyContext(interpretation, "No matching official data found.");
+                logger.debug("[RETRIEVAL] Context generated length={} durationMs={}", emptyContext.length(), elapsedMillis(startNanos));
+                return emptyContext;
+            }
+
+            List<TuitionAggregationRecord> tuitionAggregations = interpretation.tuitionAggregationIntent()
+                    ? queryTuitionAggregations(interpretation)
+                    : List.of();
+            logger.debug("[RETRIEVAL] Tuition aggregation count={}", tuitionAggregations.size());
+
+            String context = buildStructuredContext(interpretation, programs, tuitionAggregations);
+            if (!StringUtils.hasText(context)) {
+                logger.warn("[RETRIEVAL] Empty context generated");
+            }
+            logger.debug("[RETRIEVAL] Context generated length={} durationMs={}", context.length(), elapsedMillis(startNanos));
+            return context;
+        } catch (RuntimeException ex) {
+            logger.error("[RETRIEVAL] SQL retrieval failed durationMs={} reason={}", elapsedMillis(startNanos), ex.getMessage(), ex);
+            throw ex;
         }
-
-        List<ProgramRecord> programs = queryPrograms(interpretation);
-        if (programs.isEmpty()) {
-            return buildEmptyContext(interpretation, "No matching official data found.");
-        }
-
-        List<TuitionAggregationRecord> tuitionAggregations = interpretation.tuitionAggregationIntent()
-                ? queryTuitionAggregations(interpretation)
-                : List.of();
-
-        return buildStructuredContext(interpretation, programs, tuitionAggregations);
     }
 
     private QueryInterpretation interpretQuery(String userMessage, List<AiConversationMessage> recentConversationHistory) {
@@ -334,6 +365,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         List<Long> universityIds = resolveUniversityIds(interpretation);
 
         if (universityIds.isEmpty()) {
+            logger.warn("[RETRIEVAL] No university IDs resolved for program query");
             return List.of();
         }
 
@@ -417,7 +449,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             params.addValue("degreeTypes", interpretation.matchedDegreeTypes());
         }
 
-        return jdbcTemplate.query(
+        logger.debug("[RETRIEVAL] Program SQL execution started universityIdCount={} degreeTypeCount={}",
+                universityIds.size(),
+                interpretation.matchedDegreeTypes().size());
+        long startNanos = System.nanoTime();
+        List<ProgramRecord> programs = jdbcTemplate.query(
                 String.format(sql, degreeClause),
                 params,
                 (rs, rowNum) -> new ProgramRecord(
@@ -437,11 +473,16 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                         rs.getString("source_urls")
                 )
         );
+        logger.debug("[RETRIEVAL] Program SQL execution completed rows={} durationMs={}",
+                programs.size(),
+                elapsedMillis(startNanos));
+        return programs;
     }
 
     private List<TuitionAggregationRecord> queryTuitionAggregations(QueryInterpretation interpretation) {
         List<Long> universityIds = resolveUniversityIds(interpretation);
         if (universityIds.isEmpty()) {
+            logger.warn("[RETRIEVAL] No university IDs resolved for tuition aggregation");
             return List.of();
         }
 
@@ -492,6 +533,10 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             params.addValue("degreeTypes", interpretation.matchedDegreeTypes());
         }
 
+        logger.debug("[RETRIEVAL] Tuition aggregation SQL execution started universityIdCount={} degreeTypeCount={}",
+                universityIds.size(),
+                interpretation.matchedDegreeTypes().size());
+        long startNanos = System.nanoTime();
         List<TuitionRawRow> rows = jdbcTemplate.query(
                 String.format(sql, degreeClause),
                 params,
@@ -511,8 +556,12 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                         rs.getString("source_urls")
                 )
         );
+        logger.debug("[RETRIEVAL] Tuition aggregation SQL execution completed rows={} durationMs={}",
+                rows.size(),
+                elapsedMillis(startNanos));
 
         if (rows.isEmpty()) {
+            logger.warn("[RETRIEVAL] No tuition rows found for interpreted query");
             return List.of();
         }
 
@@ -575,6 +624,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 .thenComparing(TuitionAggregationRecord::degreeTypeCode, String.CASE_INSENSITIVE_ORDER)
                 .thenComparing(TuitionAggregationRecord::currency, String.CASE_INSENSITIVE_ORDER));
 
+        logger.debug("[RETRIEVAL] Tuition aggregation records prepared count={}", records.size());
         return records;
     }
 
@@ -926,6 +976,10 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             return "assistant";
         }
         return "user";
+    }
+
+    private long elapsedMillis(long startNanos) {
+        return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 
     private record QueryInterpretation(

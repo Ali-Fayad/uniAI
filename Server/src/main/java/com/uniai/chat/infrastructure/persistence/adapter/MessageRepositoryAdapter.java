@@ -3,6 +3,8 @@ package com.uniai.chat.infrastructure.persistence.adapter;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.MessageRepository;
 import com.uniai.chat.infrastructure.persistence.repository.MessageJpaRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageRepositoryAdapter implements MessageRepository {
 
+    private static final Logger logger = LogManager.getLogger(MessageRepositoryAdapter.class);
     private final MessageJpaRepository jpaRepository;
 
     @Override
@@ -59,6 +62,25 @@ public class MessageRepositoryAdapter implements MessageRepository {
 
     @Override
     public Message save(Message message) {
-        return jpaRepository.save(message);
+        long startNanos = System.nanoTime();
+        try {
+            Message saved = jpaRepository.save(message);
+            logger.debug("[PERSISTENCE] Message saved id={} chatId={} senderId={} contentLength={} durationMs={}",
+                    saved != null ? saved.getId() : null,
+                    saved != null ? saved.getChatId() : null,
+                    saved != null ? saved.getSenderId() : null,
+                    saved != null && saved.getContent() != null ? saved.getContent().length() : 0,
+                    elapsedMillis(startNanos));
+            return saved;
+        } catch (RuntimeException ex) {
+            logger.error("[PERSISTENCE] Message save failed durationMs={} reason={}",
+                    elapsedMillis(startNanos),
+                    ex.getMessage(), ex);
+            throw ex;
+        }
+    }
+
+    private long elapsedMillis(long startNanos) {
+        return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 }

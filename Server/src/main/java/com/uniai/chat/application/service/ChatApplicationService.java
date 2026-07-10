@@ -23,9 +23,12 @@ import com.uniai.shared.exception.InvalidMessageException;
 import com.uniai.shared.exception.UnauthorizedAccessException;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,6 +48,7 @@ public class ChatApplicationService implements
         DeleteChatUseCase,
         DeleteAllChatsUseCase {
 
+    private static final Logger logger = LogManager.getLogger(ChatApplicationService.class);
     private final ChatRepository chatRepository;
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
@@ -74,54 +78,156 @@ public class ChatApplicationService implements
     @Override
     @Transactional
     public MessageResponseDto sendMessage(String email, SendMessageCommand command) {
-        validateContent(command.getContent());
+        long requestStartNanos = System.nanoTime();
+        Long chatId = command != null ? command.getChatId() : null;
+        Long userId = null;
+        logger.info("[CHAT] Request received chatId={} messageLength={}",
+                chatId,
+                command != null && command.getContent() != null ? command.getContent().length() : 0);
 
-        Chat chat = chatRepository.findById(command.getChatId())
-                .orElseThrow(() -> new ChatNotFoundException("Chat not found"));
+        try {
+            validateContent(command.getContent());
 
-        User user = getUser(email);
-        validateOwnership(chat, user);
+            Chat chat = chatRepository.findById(command.getChatId())
+                    .orElseThrow(() -> new ChatNotFoundException("Chat not found"));
 
-        boolean isFirstMessage = (chat.getTitle() == null);
+            User user = getUser(email);
+            userId = user.getId();
+            validateOwnership(chat, user);
 
-        Message userMessage = MessageBuilder.userMessage(chat, user.getId(), command.getContent()).build();
-        messageRepository.save(userMessage);
+            logger.info("[CHAT] Request started userId={} chatId={} messageLength={}",
+                    user.getId(),
+                    chat.getId(),
+                    command.getContent() != null ? command.getContent().length() : 0);
 
-        List<AiConversationMessage> conversationHistory = loadRecentConversationHistory(
-                chat.getId(),
-                user.getId(),
-                command.getContent()
-        );
-        List<AiConversationMessage> recentConversationWindow = buildRecentConversationWindow(conversationHistory);
-        String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(
-                command.getContent(),
-                recentConversationWindow
-        );
-        List<String> context = (graduateContext != null && !graduateContext.isBlank())
-                ? List.of(graduateContext)
-                : Collections.emptyList();
+            boolean isFirstMessage = (chat.getTitle() == null);
 
-        AiRequest aiRequest = AiRequest.builder()
-                .userMessage(command.getContent())
-                .systemPrompt(chatSystemPromptPort.getPrompt())
-                .conversationHistory(conversationHistory)
-                .context(context)
-                .build();
+            Message userMessage = MessageBuilder.userMessage(chat, user.getId(), command.getContent()).build();
+            long userSaveStartNanos = System.nanoTime();
+            Message persistedUserMessage = messageRepository.save(userMessage);
+            logger.debug("[PERSISTENCE] User message saved id={} chatId={} durationMs={}",
+                    persistedUserMessage != null ? persistedUserMessage.getId() : null,
+                    chat.getId(),
+                    elapsedMillis(userSaveStartNanos));
 
-        AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
-        String aiContent = (aiResponse != null && aiResponse.getContent() != null)
-                ? aiResponse.getContent()
-                : "AI service error : this message is from ChatApplicationService. Please try again later.";
-        Message aiMessage = MessageBuilder.aiMessage(chat, aiContent).build();
-        messageRepository.save(aiMessage);
+            logger.debug("[CHAT] History retrieval started chatId={}", chat.getId());
+            long historyStartNanos = System.nanoTime();
+            List<AiConversationMessage> conversationHistory = loadRecentConversationHistory(
+                    chat.getId(),
+                    user.getId(),
+                    command.getContent()
+            );
+            logger.debug("[CHAT] History retrieval completed chatId={} messageCount={} durationMs={}",
+                    chat.getId(),
+                    conversationHistory.size(),
+                    elapsedMillis(historyStartNanos));
 
-        if (isFirstMessage) {
-            chat.setTitle(generateTitle(command.getContent()));
+            List<AiConversationMessage> recentConversationWindow = buildRecentConversationWindow(conversationHistory);
+            logger.debug("[CHAT] Recent conversation window prepared chatId={} windowMessageCount={}",
+                    chat.getId(),
+                    recentConversationWindow.size());
+            logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
+                    chat.getId(),
+                    recentConversationWindow.size());
+            long retrievalStartNanos = System.nanoTime();
+            String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(
+                    command.getContent(),
+                    recentConversationWindow
+            );
+            long retrievalDurationMs = elapsedMillis(retrievalStartNanos);
+            logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
+                    chat.getId(),
+                    graduateContext != null ? graduateContext.length() : 0,
+                    retrievalDurationMs);
+            List<String> context = (graduateContext != null && !graduateContext.isBlank())
+                    ? List.of(graduateContext)
+                    : Collections.emptyList();
+            if (context.isEmpty()) {
+                logger.warn("[RETRIEVAL] Empty context returned chatId={}", chat.getId());
+            }
+
+            String systemPrompt = chatSystemPromptPort.getPrompt();
+            logger.debug("[PROMPT] System prompt loaded promptLength={}",
+                    StringUtils.hasText(systemPrompt) ? systemPrompt.length() : 0);
+
+            logger.debug("[AI] Request creation started chatId={} providerBean={}",
+                    chat.getId(),
+                    aiServicePort.getClass().getSimpleName());
+            AiRequest aiRequest = AiRequest.builder()
+                    .userMessage(command.getContent())
+                    .systemPrompt(systemPrompt)
+                    .conversationHistory(conversationHistory)
+                    .context(context)
+                    .build();
+
+            logger.debug("[AI] Provider invocation started chatId={} providerBean={} historyCount={} contextCount={}",
+                    chat.getId(),
+                    aiServicePort.getClass().getSimpleName(),
+                    conversationHistory.size(),
+                    context.size());
+            long providerStartNanos = System.nanoTime();
+            AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
+            long providerDurationMs = elapsedMillis(providerStartNanos);
+            String aiContent = (aiResponse != null && aiResponse.getContent() != null)
+                    ? aiResponse.getContent()
+                    : "AI service error : this message is from ChatApplicationService. Please try again later.";
+            if (aiResponse == null) {
+                logger.warn("[AI] Provider returned null response chatId={} durationMs={}", chat.getId(), providerDurationMs);
+            } else {
+                if (!StringUtils.hasText(aiResponse.getContent())) {
+                    logger.warn("[AI] Provider returned empty response provider={} model={} chatId={} durationMs={}",
+                            aiResponse.getProvider(),
+                            aiResponse.getModel(),
+                            chat.getId(),
+                            providerDurationMs);
+                }
+                if (Boolean.TRUE.equals(aiResponse.getFallback())) {
+                    logger.warn("[AI] Provider fallback used provider={} model={} chatId={} durationMs={}",
+                            aiResponse.getProvider(),
+                            aiResponse.getModel(),
+                            chat.getId(),
+                            providerDurationMs);
+                } else {
+                    logger.debug("[AI] Provider success provider={} model={} finishReason={} responseLength={} chatId={} durationMs={}",
+                            aiResponse.getProvider(),
+                            aiResponse.getModel(),
+                            aiResponse.getFinishReason(),
+                            aiContent.length(),
+                            chat.getId(),
+                            providerDurationMs);
+                }
+            }
+            Message aiMessage = MessageBuilder.aiMessage(chat, aiContent).build();
+            long aiSaveStartNanos = System.nanoTime();
+            Message persistedAiMessage = messageRepository.save(aiMessage);
+            logger.debug("[PERSISTENCE] Assistant message saved id={} chatId={} durationMs={}",
+                    persistedAiMessage != null ? persistedAiMessage.getId() : null,
+                    chat.getId(),
+                    elapsedMillis(aiSaveStartNanos));
+
+            if (isFirstMessage) {
+                chat.setTitle(generateTitle(command.getContent()));
+            }
+            chat.setUpdatedAt(LocalDateTime.now());
+            chatRepository.save(chat);
+
+            logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
+                    user.getId(),
+                    chat.getId(),
+                    persistedAiMessage != null ? persistedAiMessage.getId() : null,
+                    aiContent.length(),
+                    elapsedMillis(requestStartNanos));
+
+            return toDto(aiMessage);
+        } catch (RuntimeException ex) {
+            logger.error("[CHAT] Request failed userId={} chatId={} durationMs={} reason={}",
+                    userId,
+                    chatId,
+                    elapsedMillis(requestStartNanos),
+                    ex.getMessage(),
+                    ex);
+            throw ex;
         }
-        chat.setUpdatedAt(LocalDateTime.now());
-        chatRepository.save(chat);
-
-        return toDto(aiMessage);
     }
 
     // -------------------------------------------------------------------------
@@ -239,6 +345,10 @@ public class ChatApplicationService implements
                     .build());
         }
         return history;
+    }
+
+    private long elapsedMillis(long startNanos) {
+        return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 
     private List<AiConversationMessage> buildRecentConversationWindow(List<AiConversationMessage> conversationHistory) {

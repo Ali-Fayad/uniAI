@@ -42,8 +42,16 @@ public class GeminiAiServiceAdapter implements AiServicePort {
 
     @Override
     public AiResponse generateResponse(AiRequest request) {
+        long requestStartNanos = System.nanoTime();
         String userMessage = request != null ? request.getUserMessage() : null;
+        logger.debug("[PROVIDER] Request started provider=gemini model={} baseUrl={} messageLength={} historyCount={} contextCount={}",
+                resolveModel(),
+                normalizeBaseUrl(properties.getBaseUrl()),
+                StringUtils.hasText(userMessage) ? userMessage.length() : 0,
+                request != null && request.getConversationHistory() != null ? request.getConversationHistory().size() : 0,
+                request != null && request.getContext() != null ? request.getContext().size() : 0);
         if (!StringUtils.hasText(userMessage)) {
+            logger.warn("[PROVIDER] Empty request received provider=gemini model={}", resolveModel());
             return fallbackResponse("placeholder", "placeholder", "Please enter a message.");
         }
 
@@ -65,21 +73,42 @@ public class GeminiAiServiceAdapter implements AiServicePort {
             );
 
             if (!response.getStatusCode().is2xxSuccessful() || !StringUtils.hasText(response.getBody())) {
-                logger.warn("Gemini returned an empty or non-success response");
+                logger.warn("[PROVIDER] Empty or non-success Gemini response status={} durationMs={}",
+                        response.getStatusCode().value(),
+                        elapsedMillis(requestStartNanos));
                 return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
             }
 
-            return toResponse(response.getBody(), model);
+            AiResponse aiResponse = toResponse(response.getBody(), model);
+            if (Boolean.TRUE.equals(aiResponse.getFallback())) {
+                logger.warn("[PROVIDER] Gemini fallback generated model={} durationMs={} responseLength={}",
+                        model,
+                        elapsedMillis(requestStartNanos),
+                        response.getBody().length());
+            } else {
+                logger.debug("[PROVIDER] Request completed provider=gemini model={} finishReason={} responseLength={} durationMs={}",
+                        model,
+                        aiResponse.getFinishReason(),
+                        aiResponse.getContent() != null ? aiResponse.getContent().length() : 0,
+                        elapsedMillis(requestStartNanos));
+            }
+            return aiResponse;
         } catch (RestClientResponseException ex) {
-            logger.error("Gemini Status: {}", ex.getStatusCode());
-            logger.error("Gemini Response: {}", ex.getResponseBodyAsString(), ex);
+            logger.error("[PROVIDER] Gemini HTTP failure status={} durationMs={} body={}",
+                    ex.getStatusCode().value(),
+                    elapsedMillis(requestStartNanos),
+                    safeBody(ex.getResponseBodyAsString()), ex);
 
             return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
         } catch (ResourceAccessException ex) {
-            logger.warn("Gemini request could not be completed: {}", ex.getMessage());
+            logger.warn("[PROVIDER] Gemini request could not be completed durationMs={} reason={}",
+                    elapsedMillis(requestStartNanos),
+                    ex.getMessage());
             return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
         } catch (Exception ex) {
-            logger.warn("Unexpected Gemini error: {}", ex.getMessage(), ex);
+            logger.error("[PROVIDER] Gemini parsing or unexpected failure durationMs={} reason={}",
+                    elapsedMillis(requestStartNanos),
+                    ex.getMessage(), ex);
             return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
         }
     }
@@ -246,5 +275,9 @@ public class GeminiAiServiceAdapter implements AiServicePort {
             return "<empty>";
         }
         return body.length() > 500 ? body.substring(0, 500) + "..." : body;
+    }
+
+    private long elapsedMillis(long startNanos) {
+        return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 }

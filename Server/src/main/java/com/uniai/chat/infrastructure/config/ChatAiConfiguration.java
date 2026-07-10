@@ -24,16 +24,25 @@ public class ChatAiConfiguration {
             GroqAiProperties groqAiProperties
     ) {
         if ("gemini".equalsIgnoreCase(provider)) {
-            logger.info("Using Gemini AI provider");
-            return new GeminiAiServiceAdapter(geminiAiProperties, new com.fasterxml.jackson.databind.ObjectMapper());
+            logger.info("[AI] Provider selected provider=gemini model={}", geminiAiProperties.getModel());
+            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, new com.fasterxml.jackson.databind.ObjectMapper());
+            logger.info("[AI] Provider initialized successfully provider=gemini model={}", geminiAiProperties.getModel());
+            return aiServicePort;
         }
 
         if ("groq".equalsIgnoreCase(provider)) {
-            logger.info("Using Groq AI provider");
-            return new GroqAiServiceAdapter(groqAiProperties);
+            logger.info("[AI] Provider selected provider=groq model={}", groqAiProperties.getModel());
+            AiServicePort aiServicePort = new GroqAiServiceAdapter(groqAiProperties);
+            logger.info("[AI] Provider initialized successfully provider=groq model={}", groqAiProperties.getModel());
+            return aiServicePort;
         }
 
-        logger.info("Using placeholder AI provider");
-        return new PlaceholderAiServiceAdapter();
+        if (!"placeholder".equalsIgnoreCase(provider)) {
+            logger.warn("[AI] Unsupported provider configured provider={} falling back to placeholder", provider);
+        }
+        logger.info("[AI] Provider selected provider=placeholder model=placeholder");
+        AiServicePort aiServicePort = new PlaceholderAiServiceAdapter();
+        logger.info("[AI] Provider initialized successfully provider=placeholder model=placeholder");
+        return aiServicePort;
     }
 }

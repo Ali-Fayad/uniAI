@@ -3,6 +3,8 @@ package com.uniai.chat.infrastructure.persistence.adapter;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.repository.ChatRepository;
 import com.uniai.chat.infrastructure.persistence.repository.ChatJpaRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatRepositoryAdapter implements ChatRepository {
 
+    private static final Logger logger = LogManager.getLogger(ChatRepositoryAdapter.class);
     private final ChatJpaRepository jpaRepository;
 
     @Override
@@ -35,7 +38,20 @@ public class ChatRepositoryAdapter implements ChatRepository {
 
     @Override
     public Chat save(Chat chat) {
-        return jpaRepository.save(chat);
+        long startNanos = System.nanoTime();
+        try {
+            Chat saved = jpaRepository.save(chat);
+            logger.debug("[PERSISTENCE] Chat saved id={} userId={} durationMs={}",
+                    saved != null ? saved.getId() : null,
+                    saved != null && saved.getUser() != null ? saved.getUser().getId() : null,
+                    elapsedMillis(startNanos));
+            return saved;
+        } catch (RuntimeException ex) {
+            logger.error("[PERSISTENCE] Chat save failed durationMs={} reason={}",
+                    elapsedMillis(startNanos),
+                    ex.getMessage(), ex);
+            throw ex;
+        }
     }
 
     @Override
@@ -56,5 +72,9 @@ public class ChatRepositoryAdapter implements ChatRepository {
     @Override
     public long countByUserId(Long userId) {
         return jpaRepository.countByUserId(userId);
+    }
+
+    private long elapsedMillis(long startNanos) {
+        return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 }
