@@ -3,6 +3,7 @@ package com.uniai.chat.infrastructure.config;
 import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiTokenEstimator;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GeminiAiServiceAdapter;
@@ -62,6 +63,11 @@ public class ChatAiConfiguration {
             @Value("${ai.provider:placeholder}") String provider
     ) {
         return new AiContextBudgetManager(configuration, estimator, provider);
+    }
+
+    @Bean
+    public GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter() {
+        return new GraduateKnowledgeQueryInterpreter();
     }
 
     @Bean

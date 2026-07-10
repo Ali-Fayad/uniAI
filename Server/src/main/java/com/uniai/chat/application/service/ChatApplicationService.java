@@ -13,12 +13,16 @@ import com.uniai.chat.application.port.in.*;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.domain.builder.ChatBuilder;
 import com.uniai.chat.domain.builder.MessageBuilder;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.ChatRepository;
 import com.uniai.chat.domain.repository.MessageRepository;
+import com.uniai.catalog.domain.model.UniversityCatalog;
+import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
 import com.uniai.shared.exception.ChatNotFoundException;
 import com.uniai.shared.exception.EmailNotFoundException;
 import com.uniai.shared.exception.InvalidMessageException;
@@ -57,6 +61,8 @@ public class ChatApplicationService implements
     private final AiServicePort aiServicePort;
     private final ChatSystemPromptPort chatSystemPromptPort;
     private final GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
+    private final UniversityCatalogRepository universityCatalogRepository;
+    private final GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
     private final AiContextBudgetManager aiContextBudgetManager;
 
     private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 20;
@@ -133,10 +139,21 @@ public class ChatApplicationService implements
                     chat.getId(),
                     recentConversationWindow.size());
             long retrievalStartNanos = System.nanoTime();
-            String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(
+            List<UniversityCatalog> universityCatalogs = universityCatalogRepository.findAll();
+            GraduateKnowledgeQuery graduateKnowledgeQuery = graduateKnowledgeQueryInterpreter.interpret(
                     command.getContent(),
-                    recentConversationWindow
+                    recentConversationWindow,
+                    universityCatalogs
             );
+            logger.debug("[RETRIEVAL] Query interpreted chatId={} intent={} universityCount={} degreeTypeCount={} followUpResolved={} ambiguous={} detailLevel={}",
+                    chat.getId(),
+                    graduateKnowledgeQuery.intent(),
+                    graduateKnowledgeQuery.resolvedUniversities().size(),
+                    graduateKnowledgeQuery.degreeTypes().size(),
+                    graduateKnowledgeQuery.followUpResolved(),
+                    graduateKnowledgeQuery.ambiguous(),
+                    graduateKnowledgeQuery.detailLevel());
+            String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
             long retrievalDurationMs = elapsedMillis(retrievalStartNanos);
             logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
                     chat.getId(),

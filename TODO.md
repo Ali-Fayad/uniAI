@@ -34,8 +34,16 @@ Implement a reusable context budget manager that:
 **Validation:** `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest,ChatApplicationServiceTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
 **Commit:** `fix(chat): correct AI context budget boundaries`
 
-### TODO-002 — Intent-aware Retrieval ⭐⭐⭐⭐⭐
+### ✅ TODO-002 — Intent-aware Retrieval ⭐⭐⭐⭐⭐
+**Priority:** Critical
+
 Retrieve only the information needed for the user's intent instead of entire datasets.
+
+**Status:** Completed
+**Main files:** `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateKnowledgeIntent.java`, `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateProgramDetailLevel.java`, `Server/src/main/java/com/uniai/chat/application/retrieval/ResolvedUniversity.java`, `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateKnowledgeQuery.java`, `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateKnowledgeQueryInterpreter.java`, `Server/src/main/java/com/uniai/chat/application/port/out/GraduateKnowledgeRetrievalPort.java`, `Server/src/main/java/com/uniai/chat/application/service/ChatApplicationService.java`, `Server/src/main/java/com/uniai/chat/infrastructure/retrieval/SqlGraduateKnowledgeRetrievalAdapter.java`
+**Behavior:** Uses an application-owned deterministic interpreter to resolve graduate intent, universities, and degree types from the current message plus a bounded recent conversation window, passes a structured `GraduateKnowledgeQuery` into the retrieval port, executes intent-specific SQL for program lookup and tuition aggregation, keeps program list projections narrow, performs tuition averages in SQL, preserves source URLs, and returns conditional context sections only for the requested intent.
+**Validation:** `./mvnw -q -Dtest=GraduateKnowledgeQueryInterpreterTest,SqlGraduateKnowledgeRetrievalAdapterTest,ChatApplicationServiceTest test`, `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
+**Commit:** `feat(chat): add intent-aware graduate retrieval`
 
 ### TODO-003 — Retrieval Ranking ⭐⭐⭐⭐☆
 Rank retrieved rows by relevance before building context.

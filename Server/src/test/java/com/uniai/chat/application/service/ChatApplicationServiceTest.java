@@ -11,10 +11,17 @@ import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
+import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
+import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.ChatRepository;
 import com.uniai.chat.domain.repository.MessageRepository;
+import com.uniai.catalog.domain.model.UniversityCatalog;
+import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,8 +46,10 @@ class ChatApplicationServiceTest {
     private InMemoryChatRepository chatRepository;
     private InMemoryMessageRepository messageRepository;
     private InMemoryUserRepository userRepository;
+    private InMemoryUniversityCatalogRepository universityCatalogRepository;
     private RecordingAiServicePort aiServicePort;
     private FixedChatSystemPromptPort chatSystemPromptPort;
+    private RecordingGraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
     private RecordingGraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
     private AiContextBudgetManager aiContextBudgetManager;
     private ChatApplicationService chatApplicationService;
@@ -50,8 +59,10 @@ class ChatApplicationServiceTest {
         chatRepository = new InMemoryChatRepository();
         messageRepository = new InMemoryMessageRepository();
         userRepository = new InMemoryUserRepository();
+        universityCatalogRepository = new InMemoryUniversityCatalogRepository();
         aiServicePort = new RecordingAiServicePort();
         chatSystemPromptPort = new FixedChatSystemPromptPort("Static uniAI system prompt");
+        graduateKnowledgeQueryInterpreter = new RecordingGraduateKnowledgeQueryInterpreter();
         graduateKnowledgeRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort("Structured graduate context");
         aiContextBudgetManager = budgetManager("gemini", 200000, 2000, 12000, 120000, 4, 128);
 
@@ -62,6 +73,8 @@ class ChatApplicationServiceTest {
                 aiServicePort,
                 chatSystemPromptPort,
                 graduateKnowledgeRetrievalPort,
+                universityCatalogRepository,
+                graduateKnowledgeQueryInterpreter,
                 aiContextBudgetManager
         );
     }
@@ -98,8 +111,6 @@ class ChatApplicationServiceTest {
         ), aiServicePort.lastRequest.getConversationHistory().stream().map(AiConversationMessage::getContent).toList());
 
         assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
-        assertEquals("What about USJ?", graduateKnowledgeRetrievalPort.lastUserMessage);
-        assertEquals(6, graduateKnowledgeRetrievalPort.lastRecentConversationWindow.size());
         assertEquals(List.of(
                 "AUB master's answer",
                 "What about tuition?",
@@ -107,13 +118,24 @@ class ChatApplicationServiceTest {
                 "And admission?",
                 "AUB admission answer",
                 "Any scholarships?"
-        ), graduateKnowledgeRetrievalPort.lastRecentConversationWindow.stream().map(AiConversationMessage::getContent).toList());
-        assertFalse(graduateKnowledgeRetrievalPort.lastRecentConversationWindow.stream()
+        ), graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.stream().map(AiConversationMessage::getContent).toList());
+        assertFalse(graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.stream()
                 .anyMatch(message -> "Other chat message".equals(message.getContent())));
+        assertEquals(1, universityCatalogRepository.findAllCount);
+        assertEquals("What about USJ?", graduateKnowledgeQueryInterpreter.lastUserMessage);
+        assertEquals(6, graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.size());
+        assertEquals(3, graduateKnowledgeQueryInterpreter.lastUniversityCatalogs.size());
+        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeQueryInterpreter.lastQuery.intent());
+        assertEquals(GraduateProgramDetailLevel.LIST, graduateKnowledgeQueryInterpreter.lastQuery.detailLevel());
+        assertEquals(1, graduateKnowledgeQueryInterpreter.lastQuery.resolvedUniversities().size());
+        assertEquals("USJ", graduateKnowledgeQueryInterpreter.lastQuery.resolvedUniversities().get(0).acronym());
 
         assertEquals("Here is the official answer.", result.getContent());
         assertEquals("Here is the official answer.", messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).get(messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size() - 1).getContent());
         assertEquals(1, aiServicePort.callCount);
+        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeRetrievalPort.lastQuery.intent());
+        assertEquals(1, graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().size());
+        assertEquals("USJ", graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().get(0).acronym());
         assertEquals(4, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).stream()
                 .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
                 .count());
@@ -166,7 +188,7 @@ class ChatApplicationServiceTest {
 
         assertFalse(aiServicePort.lastRequest.getConversationHistory().stream()
                 .anyMatch(message -> message.getContent().contains("Other chat")));
-        assertFalse(graduateKnowledgeRetrievalPort.lastRecentConversationWindow.stream()
+        assertFalse(graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.stream()
                 .anyMatch(message -> message.getContent().contains("Other chat")));
     }
 
@@ -180,6 +202,8 @@ class ChatApplicationServiceTest {
                 aiServicePort,
                 chatSystemPromptPort,
                 graduateKnowledgeRetrievalPort,
+                universityCatalogRepository,
+                graduateKnowledgeQueryInterpreter,
                 smallBudgetManager
         );
 
@@ -201,6 +225,7 @@ class ChatApplicationServiceTest {
         assertEquals(1, messages.stream()
                 .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
                 .count());
+        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeQueryInterpreter.lastQuery.intent());
     }
 
     @Test
@@ -287,6 +312,59 @@ class ChatApplicationServiceTest {
         return new AiContextBudgetManager(configuration, new AiTokenEstimator(configuration), provider);
     }
 
+    private static final class RecordingGraduateKnowledgeQueryInterpreter extends GraduateKnowledgeQueryInterpreter {
+        private String lastUserMessage;
+        private List<AiConversationMessage> lastRecentConversationWindow = Collections.emptyList();
+        private List<UniversityCatalog> lastUniversityCatalogs = Collections.emptyList();
+        private GraduateKnowledgeQuery lastQuery = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS,
+                List.of(),
+                List.of(),
+                null,
+                false,
+                true
+        );
+
+        @Override
+        public GraduateKnowledgeQuery interpret(String userMessage, List<AiConversationMessage> recentConversationHistory, List<UniversityCatalog> universityCatalogs) {
+            lastUserMessage = userMessage;
+            lastRecentConversationWindow = recentConversationHistory == null
+                    ? Collections.emptyList()
+                    : List.copyOf(recentConversationHistory);
+            lastUniversityCatalogs = universityCatalogs == null
+                    ? Collections.emptyList()
+                    : List.copyOf(universityCatalogs);
+            lastQuery = new GraduateKnowledgeQuery(
+                    GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                    List.of(new ResolvedUniversity(2L, "Université Saint-Joseph", "USJ")),
+                    List.of("MASTER"),
+                    GraduateProgramDetailLevel.LIST,
+                    true,
+                    false
+            );
+            return lastQuery;
+        }
+    }
+
+    private static final class InMemoryUniversityCatalogRepository implements UniversityCatalogRepository {
+        private int findAllCount;
+
+        @Override
+        public List<UniversityCatalog> findAll() {
+            findAllCount++;
+            return List.of(
+                    UniversityCatalog.builder().id(1L).name("American University of Beirut").acronym("AUB").build(),
+                    UniversityCatalog.builder().id(2L).name("Université Saint-Joseph").acronym("USJ").build(),
+                    UniversityCatalog.builder().id(3L).name("Lebanese National Conservatory").acronym("LNC").build()
+            );
+        }
+
+        @Override
+        public List<UniversityCatalog> searchByName(String search) {
+            return findAll().stream().filter(university -> search != null && (university.getName().contains(search) || (university.getAcronym() != null && university.getAcronym().contains(search)))).toList();
+        }
+    }
+
     private Chat chat(Long id, User user, String title) {
         return Chat.builder()
                 .id(id)
@@ -334,20 +412,16 @@ class ChatApplicationServiceTest {
     private static final class RecordingGraduateKnowledgeRetrievalPort implements GraduateKnowledgeRetrievalPort {
         private final String context;
         private int callCount;
-        private String lastUserMessage;
-        private List<AiConversationMessage> lastRecentConversationWindow = Collections.emptyList();
+        private GraduateKnowledgeQuery lastQuery;
 
         private RecordingGraduateKnowledgeRetrievalPort(String context) {
             this.context = context;
         }
 
         @Override
-        public String retrieveContext(String userMessage, List<AiConversationMessage> recentConversationHistory) {
+        public String retrieveContext(GraduateKnowledgeQuery query) {
             callCount++;
-            lastUserMessage = userMessage;
-            lastRecentConversationWindow = recentConversationHistory == null
-                    ? Collections.emptyList()
-                    : List.copyOf(recentConversationHistory);
+            lastQuery = query;
             return context;
         }
     }

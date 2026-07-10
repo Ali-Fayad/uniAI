@@ -1,8 +1,9 @@
 package com.uniai.chat.infrastructure.retrieval;
 
-import com.uniai.catalog.domain.model.UniversityCatalog;
-import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
-import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
+import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,267 +29,177 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SqlGraduateKnowledgeRetrievalAdapterTest {
 
     private SqlGraduateKnowledgeRetrievalAdapter adapter;
+    private FakeNamedParameterJdbcTemplate jdbcTemplate;
 
     @BeforeEach
     void setUp() {
-        UniversityCatalogRepository repository = new UniversityCatalogRepository() {
-            @Override
-            public List<UniversityCatalog> findAll() {
-                return universities();
-            }
-
-            @Override
-            public List<UniversityCatalog> searchByName(String search) {
-                if (search == null) {
-                    return List.of();
-                }
-                String normalized = search.toLowerCase(Locale.ROOT);
-                return universities().stream()
-                        .filter(university -> university.getName().toLowerCase(Locale.ROOT).contains(normalized)
-                                || (university.getAcronym() != null && university.getAcronym().toLowerCase(Locale.ROOT).contains(normalized)))
-                        .collect(Collectors.toList());
-            }
-        };
-        NamedParameterJdbcTemplate jdbcTemplate = new FakeNamedParameterJdbcTemplate();
-        adapter = new SqlGraduateKnowledgeRetrievalAdapter(jdbcTemplate, repository);
+        jdbcTemplate = new FakeNamedParameterJdbcTemplate();
+        adapter = new SqlGraduateKnowledgeRetrievalAdapter(jdbcTemplate);
     }
 
     @Test
-    void retrieveContextShouldReturnStructuredProgramAndSourceSectionsForAubMasters() {
-        String context = adapter.retrieveContext("What master's programs does AUB offer?", List.of());
+    void retrieveContextShouldReturnOnlyProgramsForRequestedUniversityAndDegreeTypes() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                GraduateProgramDetailLevel.LIST,
+                false,
+                false
+        );
+
+        String context = adapter.retrieveContext(query);
 
         assertTrue(context.contains("Programs:"), context);
         assertTrue(context.contains("Sources:"), context);
         assertTrue(context.contains("American University of Beirut"), context);
-        assertTrue(context.contains("AUB"), context);
         assertTrue(context.contains("MASTER"), context);
+        assertFalse(context.contains("Tuition summary:"), context);
+        assertFalse(context.contains("Admission summary:"), context);
+        assertTrue(jdbcTemplate.lastSql.contains("graduate_program"), jdbcTemplate.lastSql);
+        assertFalse(jdbcTemplate.lastSql.contains("AVG("), jdbcTemplate.lastSql);
+        assertEquals(List.of(1L), jdbcTemplate.universityIds());
+        assertEquals(List.of("MASTER"), jdbcTemplate.degreeTypes());
     }
 
     @Test
-    void retrieveContextShouldReturnUnavailableMessageWhenNoOfficialDataMatches() {
-        String context = adapter.retrieveContext("Does LNC have PhD programs?", List.of());
-
-        assertTrue(context.contains("No matching official data found."), context);
-        assertTrue(context.contains("Missing/Unavailable data:"), context);
-    }
-
-    @Test
-    void retrieveContextShouldUseRecentConversationForFollowUpUniversityAndDegreeInference() {
-        List<AiConversationMessage> history = List.of(
-                AiConversationMessage.builder()
-                        .role("user")
-                        .content("What master's programs does AUB offer?")
-                        .build(),
-                AiConversationMessage.builder()
-                        .role("assistant")
-                        .content("Here are the master's programs at AUB.")
-                        .build()
+    void retrieveContextShouldUseDetailsProjectionOnlyWhenRequested() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                GraduateProgramDetailLevel.DETAILS,
+                false,
+                false
         );
 
-        String context = adapter.retrieveContext("What about USJ?", history);
+        String context = adapter.retrieveContext(query);
 
-        assertTrue(context.contains("Université Saint-Joseph"), context);
-        assertTrue(context.contains("USJ"), context);
-        assertTrue(context.contains("MASTER"), context);
-        assertFalse(context.contains("No matching official data found."), context);
+        assertTrue(context.contains("Tuition summary:"), context);
+        assertTrue(context.contains("Admission summary:"), context);
+        assertTrue(jdbcTemplate.lastSql.contains("tuition_summary"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("admission_summary"), jdbcTemplate.lastSql);
     }
 
     @Test
-    void retrieveContextShouldIncludeTuitionAggregationWithComputedAverages() {
-        String context = adapter.retrieveContext("Give me the average tuition at AUB.", List.of());
+    void retrieveContextShouldCalculateTuitionAggregatesInSqlAndSeparateCurrencies() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.TUITION_AGGREGATION,
+                List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                null,
+                false,
+                false
+        );
+
+        String context = adapter.retrieveContext(query);
 
         assertTrue(context.contains("Tuition aggregation:"), context);
-        assertTrue(context.contains("Computed average: 120.00"), context);
-        assertTrue(context.contains("Computed average: 200.00"), context);
-    }
-
-    @Test
-    void retrieveContextShouldKeepDifferentCurrenciesSeparatedWhenAggregatingTuition() {
-        String context = adapter.retrieveContext("Compare tuition at AUB.", List.of());
-
         assertTrue(context.contains("Currency: USD"), context);
         assertTrue(context.contains("Currency: EUR"), context);
         assertTrue(context.contains("Computed average: 120.00"), context);
         assertTrue(context.contains("Computed average: 200.00"), context);
+        assertFalse(context.contains("Programs:"), context);
+        assertTrue(jdbcTemplate.lastSql.contains("AVG("), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("GROUP BY"), jdbcTemplate.lastSql);
+        assertEquals(List.of(1L), jdbcTemplate.universityIds());
+        assertEquals(List.of("MASTER"), jdbcTemplate.degreeTypes());
     }
 
     @Test
-    void retrieveContextShouldReportWhenAverageTuitionCannotBeComputed() {
-        String context = adapter.retrieveContext("What is the average tuition for PhD programs?", List.of());
+    void retrieveContextShouldReturnNotComputableWhenNoTuitionRowsMatch() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.TUITION_AGGREGATION,
+                List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                List.of("PHD"),
+                null,
+                false,
+                false
+        );
+
+        String context = adapter.retrieveContext(query);
 
         assertTrue(context.contains("Tuition aggregation:"), context);
         assertTrue(context.contains("Average tuition is not computable from the official stored data."), context);
     }
 
     @Test
-    void retrieveContextShouldNotCapProgramsAtTenForAubTuitionAggregation() {
-        String context = adapter.retrieveContext("Give me the average tuition at AUB.", List.of());
+    void retrieveContextShouldKeepComparisonQueriesBoundedToSelectedUniversities() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                List.of(
+                        new ResolvedUniversity(1L, "American University of Beirut", "AUB"),
+                        new ResolvedUniversity(2L, "Université Saint-Joseph", "USJ")
+                ),
+                List.of("MASTER"),
+                GraduateProgramDetailLevel.LIST,
+                true,
+                false
+        );
 
-        assertTrue(context.contains("Programs considered: 12"), context);
-        assertTrue(countOccurrences(context, "  - Program name:") > 10, context);
-        assertTrue(context.contains("Computed average: 120.00"), context);
+        String context = adapter.retrieveContext(query);
+
+        assertTrue(context.contains("American University of Beirut"), context);
+        assertTrue(context.contains("Université Saint-Joseph"), context);
+        assertFalse(context.contains("Lebanese National Conservatory"), context);
+        assertEquals(List.of(1L, 2L), jdbcTemplate.universityIds());
+    }
+
+    @Test
+    void retrieveContextShouldReturnMinimalContextForAmbiguousQueryWithoutBroadRetrieval() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS,
+                List.of(),
+                List.of(),
+                null,
+                false,
+                true
+        );
+
+        String context = adapter.retrieveContext(query);
+
+        assertTrue(context.contains("Unable to determine a specific graduate-information intent."), context);
+        assertEquals(0, jdbcTemplate.callCount);
     }
 
     private List<Map<String, Object>> programRows() {
-        List<Map<String, Object>> rows = new ArrayList<>();
-        IntStream.rangeClosed(1, 12).forEach(index -> {
-            long programId = 100L + index;
-            BigDecimal amount = index % 2 == 0 ? new BigDecimal("140") : new BigDecimal("100");
-            rows.add(programRow(
-                    programId,
-                    1L,
-                    "American University of Beirut",
-                    "AUB",
-                    "Maroun Semaan Faculty of Engineering and Architecture",
-                    "English",
-                    "MASTER",
-                    "Master of Science in Computer Science " + index,
-                    "30",
-                    "On campus",
-                    "Thesis",
-                    amount.stripTrailingZeros().toPlainString() + " USD / credit",
-                    "Applicants must hold a relevant bachelor's degree.",
-                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx",
-                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx | https://www.aub.edu.lb/registrar/tuition"
-            ));
-        });
-
-        rows.add(programRow(
-                200L,
-                1L,
-                "American University of Beirut",
-                "AUB",
-                "Faculty of Arts and Sciences",
-                "English",
-                "MASTER",
-                "Master of Science in Environmental Policy",
-                "36",
-                "On campus",
-                "Thesis",
-                "200 EUR / credit",
-                "Applicants must hold a relevant bachelor's degree.",
-                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx",
-                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx | https://www.aub.edu.lb/registrar/tuition"
-        ));
-
-        rows.add(programRow(
-                300L,
-                2L,
-                "Université Saint-Joseph",
-                "USJ",
-                "Faculty of Science",
-                "French",
-                "MASTER",
-                "Master in Data Science",
-                "36",
-                "On campus",
-                "Non-thesis",
-                "Not available in official data",
-                "Not available in official data",
-                "https://www.usj.edu.lb/programs/data-science",
-                "https://www.usj.edu.lb/programs/data-science"
-        ));
-
-        rows.add(programRow(
-                301L,
-                1L,
-                "American University of Beirut",
-                "AUB",
-                "Faculty of Arts and Sciences",
-                "English",
-                "PHD",
-                "PhD in Biology",
-                "48",
-                "On campus",
-                "Thesis",
-                "Not available in official data",
-                "Not available in official data",
-                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx",
-                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx"
-        ));
-
-        return rows;
+        return List.of(
+                programRow(101L, 1L, "American University of Beirut", "AUB", "Maroun Semaan Faculty of Engineering and Architecture", "MASTER", "Master of Science in Computer Science", "English", "30", "ON_CAMPUS", "THESIS", "120 USD / credit | 140 USD / credit", "General admission requirements", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/fine/cs-masters | https://www.aub.edu.lb/registrar/tuition"),
+                programRow(102L, 1L, "American University of Beirut", "AUB", "Faculty of Arts and Sciences", "MASTER", "Master of Science in Environmental Policy", "English", "36", "ON_CAMPUS", "THESIS", "200 EUR / credit", "Additional documents", "https://www.aub.edu.lb/fas/environment/master", "https://www.aub.edu.lb/fas/environment/master | https://www.aub.edu.lb/registrar/tuition"),
+                programRow(201L, 2L, "Université Saint-Joseph", "USJ", "Faculty of Science", "MASTER", "Master in Data Science", "French", "36", "ON_CAMPUS", "NON_THESIS", "Not available in official data", "Not available in official data", "https://www.usj.edu.lb/programs/data-science", "https://www.usj.edu.lb/programs/data-science"),
+                programRow(301L, 1L, "American University of Beirut", "AUB", "Faculty of Arts and Sciences", "PHD", "PhD in Biology", "English", "48", "ON_CAMPUS", "THESIS", "Not available in official data", "Not available in official data", "https://www.aub.edu.lb/fas/biology/phd", "https://www.aub.edu.lb/fas/biology/phd")
+        );
     }
 
     private List<Map<String, Object>> tuitionRows() {
-        List<Map<String, Object>> rows = new ArrayList<>();
-        IntStream.rangeClosed(1, 12).forEach(index -> {
-            BigDecimal amount = index % 2 == 0 ? new BigDecimal("140") : new BigDecimal("100");
-            rows.add(tuitionRow(
-                    100L + index,
-                    1L,
-                    "American University of Beirut",
-                    "AUB",
-                    "MASTER",
-                    "Master of Science in Computer Science " + index,
-                    amount,
-                    "USD",
-                    "2024-2025",
-                    "Tuition",
-                    "Credit",
-                    "Official tuition sheet",
-                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx",
-                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx | https://www.aub.edu.lb/registrar/tuition"
-            ));
-        });
-
-        rows.add(tuitionRow(
-                200L,
-                1L,
-                "American University of Beirut",
-                "AUB",
-                "MASTER",
-                "Master of Science in Environmental Policy",
-                new BigDecimal("200"),
-                "EUR",
-                "2024-2025",
-                "Tuition",
-                "Credit",
-                "Official tuition sheet",
-                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx",
-                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx | https://www.aub.edu.lb/registrar/tuition"
-        ));
-
-        rows.add(tuitionRow(
-                301L,
-                1L,
-                "American University of Beirut",
-                "AUB",
-                "PHD",
-                "PhD in Biology",
-                null,
-                "USD",
-                "2024-2025",
-                "Tuition",
-                "Credit",
-                "Tuition not published",
-                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx",
-                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx"
-        ));
-
-        return rows;
+        return List.of(
+                tuitionRow(101L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("100"), "USD", "2024-2025", "Tuition", "Credit", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(102L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("140"), "USD", "2024-2025", "Tuition", "Credit", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(103L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Environmental Policy", new BigDecimal("200"), "EUR", "2024-2025", "Tuition", "Credit", "Official tuition sheet", "https://www.aub.edu.lb/fas/environment/master", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(301L, 1L, "American University of Beirut", "AUB", "PHD", "PhD in Biology", null, "USD", "2024-2025", "Tuition", "Credit", "Tuition not published", "https://www.aub.edu.lb/fas/biology/phd", "https://www.aub.edu.lb/fas/biology/phd")
+        );
     }
 
     private Map<String, Object> programRow(Long programId, Long universityId, String universityName, String universityAcronym,
-                                           String facultyName, String languageName, String degreeTypeCode,
-                                           String officialDegreeName, String credits, String deliveryMode,
-                                           String thesisOrNonThesis, String tuitionSummary, String admissionSummary,
-                                           String officialProgramUrl, String sourceUrls) {
+                                           String facultyName, String degreeTypeCode, String officialDegreeName, String languageName,
+                                           String credits, String deliveryMode, String thesisOrNonThesis, String tuitionSummary,
+                                           String admissionSummary, String officialProgramUrl, String sourceUrls) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("program_id", programId);
         row.put("university_id", universityId);
         row.put("university_name", universityName);
         row.put("university_acronym", universityAcronym);
         row.put("faculty_name", facultyName);
-        row.put("language_name", languageName);
         row.put("degree_type_code", degreeTypeCode);
         row.put("official_degree_name", officialDegreeName);
+        row.put("language_name", languageName);
         row.put("credits", credits);
         row.put("delivery_mode", deliveryMode);
         row.put("thesis_or_non_thesis", thesisOrNonThesis);
@@ -299,9 +211,9 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
     }
 
     private Map<String, Object> tuitionRow(Long programId, Long universityId, String universityName, String universityAcronym,
-                                           String degreeTypeCode, String officialDegreeName, BigDecimal amount,
-                                           String currency, String academicYear, String category, String billingBasis,
-                                           String notes, String officialProgramUrl, String sourceUrls) {
+                                           String degreeTypeCode, String officialDegreeName, BigDecimal amount, String currency,
+                                           String academicYear, String category, String billingBasis, String notes,
+                                           String officialProgramUrl, String sourceUrls) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("program_id", programId);
         row.put("university_id", universityId);
@@ -321,6 +233,10 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
     }
 
     private final class FakeNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate {
+        private String lastSql = "";
+        private MapSqlParameterSource lastParams = new MapSqlParameterSource();
+        private int callCount;
+
         private FakeNamedParameterJdbcTemplate() {
             super(new DriverManagerDataSource());
         }
@@ -328,12 +244,12 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         @Override
         @SuppressWarnings("unchecked")
         public <T> List<T> query(String sql, SqlParameterSource paramSource, RowMapper<T> rowMapper) {
-            MapSqlParameterSource params = (MapSqlParameterSource) paramSource;
-            boolean tuitionQuery = sql.contains("gtr.amount AS amount");
-            List<Map<String, Object>> rows = tuitionQuery
-                    ? filterTuitionRows(params)
-                    : filterProgramRows(params);
-
+            callCount++;
+            lastSql = sql;
+            lastParams = (MapSqlParameterSource) paramSource;
+            List<Map<String, Object>> rows = sql.contains("AVG(")
+                    ? aggregateTuitionRows(lastParams)
+                    : filterProgramRows(lastParams);
             List<T> mapped = new ArrayList<>();
             for (int i = 0; i < rows.size(); i++) {
                 try {
@@ -344,12 +260,78 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
             }
             return mapped;
         }
+
+        private List<Long> universityIds() {
+            return toLongList(lastParams.getValue("universityIds"));
+        }
+
+        private List<String> degreeTypes() {
+            return toStringList(lastParams.getValue("degreeTypes"));
+        }
+    }
+
+    private List<Map<String, Object>> aggregateTuitionRows(MapSqlParameterSource params) {
+        List<Map<String, Object>> filtered = filterTuitionRows(params);
+        Map<String, List<Map<String, Object>>> grouped = filtered.stream()
+                .collect(Collectors.groupingBy(
+                        row -> stringValue(row.get("university_id")) + "|" +
+                                stringValue(row.get("university_name")) + "|" +
+                                stringValue(row.get("university_acronym")) + "|" +
+                                stringValue(row.get("degree_type_code")) + "|" +
+                                stringValue(row.get("currency")),
+                        LinkedHashMap::new,
+                        Collectors.toList()
+                ));
+
+        List<Map<String, Object>> aggregated = new ArrayList<>();
+        for (List<Map<String, Object>> group : grouped.values()) {
+            if (group.isEmpty()) {
+                continue;
+            }
+            Map<String, Object> first = group.get(0);
+            long numericCount = group.stream().filter(row -> row.get("amount") != null).count();
+            BigDecimal sum = group.stream()
+                    .map(row -> toBigDecimal(row.get("amount")))
+                    .filter(value -> value != null)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            BigDecimal average = numericCount > 0 ? sum.divide(BigDecimal.valueOf(numericCount), 2, java.math.RoundingMode.HALF_UP) : null;
+            Set<String> sources = group.stream()
+                    .flatMap(row -> sourceValues(row.get("source_urls")).stream())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+
+            Map<String, Object> aggregatedRow = new LinkedHashMap<>();
+            aggregatedRow.put("university_id", first.get("university_id"));
+            aggregatedRow.put("university_name", first.get("university_name"));
+            aggregatedRow.put("university_acronym", first.get("university_acronym"));
+            aggregatedRow.put("degree_type_code", first.get("degree_type_code"));
+            aggregatedRow.put("currency", first.get("currency"));
+            aggregatedRow.put("record_count", group.size());
+            aggregatedRow.put("numeric_tuition_records_used", numericCount);
+            aggregatedRow.put("average_amount", average);
+            aggregatedRow.put("source_urls", String.join(" | ", sources));
+            aggregatedRow.put("program_id", first.get("program_id"));
+            aggregatedRow.put("official_degree_name", first.get("official_degree_name"));
+            aggregatedRow.put("official_program_url", first.get("official_program_url"));
+            aggregatedRow.put("academic_year", first.get("academic_year"));
+            aggregatedRow.put("category", first.get("category"));
+            aggregatedRow.put("billing_basis", first.get("billing_basis"));
+            aggregatedRow.put("notes", first.get("notes"));
+            aggregated.add(aggregatedRow);
+        }
+        return aggregated;
+    }
+
+    private List<String> sourceValues(Object value) {
+        String text = stringValue(value);
+        if (text == null || text.isBlank()) {
+            return List.of();
+        }
+        return List.of(text.split("\\s*\\|\\s*"));
     }
 
     private List<Map<String, Object>> filterProgramRows(MapSqlParameterSource params) {
         Set<Long> universityIds = toLongSet(params.getValue("universityIds"));
-        Set<String> degreeTypes = toStringSet(params.hasValue("degreeTypes") ? params.getValue("degreeTypes") : null);
-
+        Set<String> degreeTypes = toStringSet(params.getValue("degreeTypes"));
         return programRows().stream()
                 .filter(row -> universityIds.isEmpty() || universityIds.contains(toLong(row.get("university_id"))))
                 .filter(row -> degreeTypes.isEmpty() || degreeTypes.contains(stringValue(row.get("degree_type_code")).toUpperCase(Locale.ROOT)))
@@ -358,8 +340,7 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
 
     private List<Map<String, Object>> filterTuitionRows(MapSqlParameterSource params) {
         Set<Long> universityIds = toLongSet(params.getValue("universityIds"));
-        Set<String> degreeTypes = toStringSet(params.hasValue("degreeTypes") ? params.getValue("degreeTypes") : null);
-
+        Set<String> degreeTypes = toStringSet(params.getValue("degreeTypes"));
         return tuitionRows().stream()
                 .filter(row -> universityIds.isEmpty() || universityIds.contains(toLong(row.get("university_id"))))
                 .filter(row -> degreeTypes.isEmpty() || degreeTypes.contains(stringValue(row.get("degree_type_code")).toUpperCase(Locale.ROOT)))
@@ -394,33 +375,11 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         );
     }
 
-    private List<UniversityCatalog> universities() {
-        return List.of(
-                UniversityCatalog.builder()
-                        .id(1L)
-                        .name("American University of Beirut")
-                        .acronym("AUB")
-                        .build(),
-                UniversityCatalog.builder()
-                        .id(2L)
-                        .name("Université Saint-Joseph")
-                        .acronym("USJ")
-                        .build(),
-                UniversityCatalog.builder()
-                        .id(3L)
-                        .name("Lebanese National Conservatory")
-                        .acronym("LNC")
-                        .build()
-        );
-    }
-
     private Set<Long> toLongSet(Object value) {
         if (!(value instanceof Collection<?> collection)) {
             return Set.of();
         }
-        return collection.stream()
-                .map(this::toLong)
-                .collect(Collectors.toSet());
+        return collection.stream().map(this::toLong).collect(Collectors.toSet());
     }
 
     private Set<String> toStringSet(Object value) {
@@ -432,6 +391,20 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 .filter(text -> text != null && !text.isBlank())
                 .map(text -> text.toUpperCase(Locale.ROOT))
                 .collect(Collectors.toSet());
+    }
+
+    private List<Long> toLongList(Object value) {
+        if (!(value instanceof Collection<?> collection)) {
+            return List.of();
+        }
+        return collection.stream().map(this::toLong).toList();
+    }
+
+    private List<String> toStringList(Object value) {
+        if (!(value instanceof Collection<?> collection)) {
+            return List.of();
+        }
+        return collection.stream().map(this::stringValue).toList();
     }
 
     private long toLong(Object value) {
@@ -487,19 +460,5 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
             return '\0';
         }
         return null;
-    }
-
-    private long countOccurrences(String text, String token) {
-        if (text == null || token == null || token.isEmpty()) {
-            return 0L;
-        }
-
-        long count = 0L;
-        int index = 0;
-        while ((index = text.indexOf(token, index)) >= 0) {
-            count++;
-            index += token.length();
-        }
-        return count;
     }
 }
