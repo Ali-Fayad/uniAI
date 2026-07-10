@@ -206,6 +206,7 @@ Screenshots improve onboarding and make the README visually attractive.
   - run tests,
   - optionally update `Server/client/dist` artifacts or produce an artifact/ release.
 - Consider a short CONTRIBUTING.md and issue templates to onboard contributors.
+- Ollama is optional and not installed by this task; use `AI_PROVIDER=ollama` only after pulling a local model and starting the Ollama server.
 
 ---
 
