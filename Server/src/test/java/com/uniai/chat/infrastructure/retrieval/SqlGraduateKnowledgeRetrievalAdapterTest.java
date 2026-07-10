@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -124,129 +125,153 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertTrue(context.contains("Average tuition is not computable from the official stored data."), context);
     }
 
+    @Test
+    void retrieveContextShouldNotCapProgramsAtTenForAubTuitionAggregation() {
+        String context = adapter.retrieveContext("Give me the average tuition at AUB.", List.of());
+
+        assertTrue(context.contains("Programs considered: 12"), context);
+        assertTrue(countOccurrences(context, "  - Program name:") > 10, context);
+        assertTrue(context.contains("Computed average: 120.00"), context);
+    }
+
     private List<Map<String, Object>> programRows() {
-        return List.of(
-                programRow(
-                        101L,
-                        1L,
-                        "American University of Beirut",
-                        "AUB",
-                        "Maroun Semaan Faculty of Engineering and Architecture",
-                        "English",
-                        "MASTER",
-                        "Master of Science in Computer Science",
-                        "30",
-                        "On campus",
-                        "Thesis",
-                        "2024-2025: 100 USD / credit | 2024-2025: 140 USD / credit",
-                        "Applicants must hold a relevant bachelor's degree.",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx | https://www.aub.edu.lb/registrar/tuition"
-                ),
-                programRow(
-                        102L,
-                        2L,
-                        "Université Saint-Joseph",
-                        "USJ",
-                        "Faculty of Science",
-                        "French",
-                        "MASTER",
-                        "Master in Data Science",
-                        "36",
-                        "On campus",
-                        "Non-thesis",
-                        "Not available in official data",
-                        "Not available in official data",
-                        "https://www.usj.edu.lb/programs/data-science",
-                        "https://www.usj.edu.lb/programs/data-science"
-                ),
-                programRow(
-                        103L,
-                        1L,
-                        "American University of Beirut",
-                        "AUB",
-                        "Faculty of Arts and Sciences",
-                        "English",
-                        "PHD",
-                        "PhD in Biology",
-                        "48",
-                        "On campus",
-                        "Thesis",
-                        "Not available in official data",
-                        "Not available in official data",
-                        "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx",
-                        "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx"
-                )
-        );
+        List<Map<String, Object>> rows = new ArrayList<>();
+        IntStream.rangeClosed(1, 12).forEach(index -> {
+            long programId = 100L + index;
+            BigDecimal amount = index % 2 == 0 ? new BigDecimal("140") : new BigDecimal("100");
+            rows.add(programRow(
+                    programId,
+                    1L,
+                    "American University of Beirut",
+                    "AUB",
+                    "Maroun Semaan Faculty of Engineering and Architecture",
+                    "English",
+                    "MASTER",
+                    "Master of Science in Computer Science " + index,
+                    "30",
+                    "On campus",
+                    "Thesis",
+                    amount.stripTrailingZeros().toPlainString() + " USD / credit",
+                    "Applicants must hold a relevant bachelor's degree.",
+                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx",
+                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx | https://www.aub.edu.lb/registrar/tuition"
+            ));
+        });
+
+        rows.add(programRow(
+                200L,
+                1L,
+                "American University of Beirut",
+                "AUB",
+                "Faculty of Arts and Sciences",
+                "English",
+                "MASTER",
+                "Master of Science in Environmental Policy",
+                "36",
+                "On campus",
+                "Thesis",
+                "200 EUR / credit",
+                "Applicants must hold a relevant bachelor's degree.",
+                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx",
+                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx | https://www.aub.edu.lb/registrar/tuition"
+        ));
+
+        rows.add(programRow(
+                300L,
+                2L,
+                "Université Saint-Joseph",
+                "USJ",
+                "Faculty of Science",
+                "French",
+                "MASTER",
+                "Master in Data Science",
+                "36",
+                "On campus",
+                "Non-thesis",
+                "Not available in official data",
+                "Not available in official data",
+                "https://www.usj.edu.lb/programs/data-science",
+                "https://www.usj.edu.lb/programs/data-science"
+        ));
+
+        rows.add(programRow(
+                301L,
+                1L,
+                "American University of Beirut",
+                "AUB",
+                "Faculty of Arts and Sciences",
+                "English",
+                "PHD",
+                "PhD in Biology",
+                "48",
+                "On campus",
+                "Thesis",
+                "Not available in official data",
+                "Not available in official data",
+                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx",
+                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx"
+        ));
+
+        return rows;
     }
 
     private List<Map<String, Object>> tuitionRows() {
-        return List.of(
-                tuitionRow(
-                        101L,
-                        1L,
-                        "American University of Beirut",
-                        "AUB",
-                        "MASTER",
-                        "Master of Science in Computer Science",
-                        new BigDecimal("100"),
-                        "USD",
-                        "2024-2025",
-                        "Tuition",
-                        "Credit",
-                        "Official tuition sheet",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx | https://www.aub.edu.lb/registrar/tuition"
-                ),
-                tuitionRow(
-                        101L,
-                        1L,
-                        "American University of Beirut",
-                        "AUB",
-                        "MASTER",
-                        "Master of Science in Computer Science",
-                        new BigDecimal("140"),
-                        "USD",
-                        "2024-2025",
-                        "Tuition",
-                        "Credit",
-                        "Official tuition sheet",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx | https://www.aub.edu.lb/registrar/tuition"
-                ),
-                tuitionRow(
-                        101L,
-                        1L,
-                        "American University of Beirut",
-                        "AUB",
-                        "MASTER",
-                        "Master of Science in Computer Science",
-                        new BigDecimal("200"),
-                        "EUR",
-                        "2024-2025",
-                        "Tuition",
-                        "Credit",
-                        "Official tuition sheet",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx",
-                        "https://www.aub.edu.lb/fine/Pages/cs-masters.aspx | https://www.aub.edu.lb/registrar/tuition"
-                ),
-                tuitionRow(
-                        103L,
-                        1L,
-                        "American University of Beirut",
-                        "AUB",
-                        "PHD",
-                        "PhD in Biology",
-                        null,
-                        "USD",
-                        "2024-2025",
-                        "Tuition",
-                        "Credit",
-                        "Tuition not published",
-                        "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx",
-                        "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx"
-                )
-        );
+        List<Map<String, Object>> rows = new ArrayList<>();
+        IntStream.rangeClosed(1, 12).forEach(index -> {
+            BigDecimal amount = index % 2 == 0 ? new BigDecimal("140") : new BigDecimal("100");
+            rows.add(tuitionRow(
+                    100L + index,
+                    1L,
+                    "American University of Beirut",
+                    "AUB",
+                    "MASTER",
+                    "Master of Science in Computer Science " + index,
+                    amount,
+                    "USD",
+                    "2024-2025",
+                    "Tuition",
+                    "Credit",
+                    "Official tuition sheet",
+                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx",
+                    "https://www.aub.edu.lb/fine/Pages/cs-masters-" + index + ".aspx | https://www.aub.edu.lb/registrar/tuition"
+            ));
+        });
+
+        rows.add(tuitionRow(
+                200L,
+                1L,
+                "American University of Beirut",
+                "AUB",
+                "MASTER",
+                "Master of Science in Environmental Policy",
+                new BigDecimal("200"),
+                "EUR",
+                "2024-2025",
+                "Tuition",
+                "Credit",
+                "Official tuition sheet",
+                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx",
+                "https://www.aub.edu.lb/fas/environment/Pages/master.aspx | https://www.aub.edu.lb/registrar/tuition"
+        ));
+
+        rows.add(tuitionRow(
+                301L,
+                1L,
+                "American University of Beirut",
+                "AUB",
+                "PHD",
+                "PhD in Biology",
+                null,
+                "USD",
+                "2024-2025",
+                "Tuition",
+                "Credit",
+                "Tuition not published",
+                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx",
+                "https://www.aub.edu.lb/fas/biology/Pages/phd.aspx"
+        ));
+
+        return rows;
     }
 
     private Map<String, Object> programRow(Long programId, Long universityId, String universityName, String universityAcronym,
@@ -462,5 +487,19 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
             return '\0';
         }
         return null;
+    }
+
+    private long countOccurrences(String text, String token) {
+        if (text == null || token == null || token.isEmpty()) {
+            return 0L;
+        }
+
+        long count = 0L;
+        int index = 0;
+        while ((index = text.indexOf(token, index)) >= 0) {
+            count++;
+            index += token.length();
+        }
+        return count;
     }
 }

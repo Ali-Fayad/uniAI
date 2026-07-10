@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 @Component
 public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRetrievalPort {
 
-    private static final int MAX_RESULTS = 10;
     private static final int MAX_TEXT_LENGTH = 220;
     private static final int MAX_CONVERSATION_WINDOW = 6;
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
@@ -385,7 +384,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                             COALESCE(gar.requirement_type, 'Not available in official data'),
                             LEFT(COALESCE(gar.requirement_text, 'Not available in official data'), 220)
                         ),
-                        ' | ' ORDER BY gar.sort_order NULLS LAST, gar.id ASC
+                        ' | ' ORDER BY gar.id ASC
                     ) AS admission_summary
                     FROM graduate_admission_requirement gar
                     WHERE gar.program_id = gp.id
@@ -406,7 +405,6 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 WHERE gp.university_id IN (:universityIds)
                 %s
                 ORDER BY u.name ASC, dt.code ASC NULLS LAST, gp.official_degree_name ASC
-                LIMIT :limit
                 """;
 
         String degreeClause = interpretation.matchedDegreeTypes().isEmpty()
@@ -414,8 +412,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 : "AND dt.code IN (:degreeTypes)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
-                .addValue("universityIds", universityIds)
-                .addValue("limit", MAX_RESULTS);
+                .addValue("universityIds", universityIds);
         if (!interpretation.matchedDegreeTypes().isEmpty()) {
             params.addValue("degreeTypes", interpretation.matchedDegreeTypes());
         }
@@ -483,7 +480,6 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 WHERE gp.university_id IN (:universityIds)
                 %s
                 ORDER BY u.name ASC, dt.code ASC NULLS LAST, gp.official_degree_name ASC, gtr.academic_year DESC NULLS LAST, gtr.id ASC
-                LIMIT :limit
                 """;
 
         String degreeClause = interpretation.matchedDegreeTypes().isEmpty()
@@ -491,8 +487,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 : "AND dt.code IN (:degreeTypes)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
-                .addValue("universityIds", universityIds)
-                .addValue("limit", 200);
+                .addValue("universityIds", universityIds);
         if (!interpretation.matchedDegreeTypes().isEmpty()) {
             params.addValue("degreeTypes", interpretation.matchedDegreeTypes());
         }
@@ -580,7 +575,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 .thenComparing(TuitionAggregationRecord::degreeTypeCode, String.CASE_INSENSITIVE_ORDER)
                 .thenComparing(TuitionAggregationRecord::currency, String.CASE_INSENSITIVE_ORDER));
 
-        return records.size() > MAX_RESULTS ? records.subList(0, MAX_RESULTS) : records;
+        return records;
     }
 
     private String buildStructuredContext(QueryInterpretation interpretation, List<ProgramRecord> programs,

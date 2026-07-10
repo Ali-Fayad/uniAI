@@ -111,7 +111,7 @@ public class ChatApplicationService implements
         AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
         String aiContent = (aiResponse != null && aiResponse.getContent() != null)
                 ? aiResponse.getContent()
-                : "AI service is temporarily unavailable. Please try again later.";
+                : "AI service error : this message is from ChatApplicationService. Please try again later.";
         Message aiMessage = MessageBuilder.aiMessage(chat, aiContent).build();
         messageRepository.save(aiMessage);
 

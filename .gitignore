@@ -43,8 +43,17 @@ Client/dist-ssr/
 *.sln
 *.sw?
 *.m2
-
+*.codex
 
 .faketarget-old-docker/
 
 .fake
+
+# ───────────────────────────────
+# Environment files
+# ───────────────────────────────
+
+# Environment files
+.env
+.env.*
+!.env.example

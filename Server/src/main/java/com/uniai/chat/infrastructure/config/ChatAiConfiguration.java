@@ -1,9 +1,10 @@
 package com.uniai.chat.infrastructure.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GeminiAiServiceAdapter;
+import com.uniai.chat.infrastructure.ai.GroqAiProperties;
+import com.uniai.chat.infrastructure.ai.GroqAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,11 +21,16 @@ public class ChatAiConfiguration {
     public AiServicePort aiServicePort(
             @Value("${ai.provider:placeholder}") String provider,
             GeminiAiProperties geminiAiProperties,
-            ObjectMapper objectMapper
+            GroqAiProperties groqAiProperties
     ) {
         if ("gemini".equalsIgnoreCase(provider)) {
             logger.info("Using Gemini AI provider");
-            return new GeminiAiServiceAdapter(geminiAiProperties, objectMapper);
+            return new GeminiAiServiceAdapter(geminiAiProperties, new com.fasterxml.jackson.databind.ObjectMapper());
+        }
+
+        if ("groq".equalsIgnoreCase(provider)) {
+            logger.info("Using Groq AI provider");
+            return new GroqAiServiceAdapter(groqAiProperties);
         }
 
         logger.info("Using placeholder AI provider");

@@ -28,8 +28,7 @@ import java.util.Map;
 public class GeminiAiServiceAdapter implements AiServicePort {
 
     private static final Logger logger = LogManager.getLogger(GeminiAiServiceAdapter.class);
-    private static final String FALLBACK_MESSAGE =
-            "AI service is temporarily unavailable. Please try again later.";
+    private static final String FALLBACK_MESSAGE = "AI service error : this message is from GeminiAiServiceAdapter. Please try again later.";
 
     private final GeminiAiProperties properties;
     private final ObjectMapper objectMapper;
@@ -72,9 +71,9 @@ public class GeminiAiServiceAdapter implements AiServicePort {
 
             return toResponse(response.getBody(), model);
         } catch (RestClientResponseException ex) {
-            logger.warn("Gemini request failed with status {}: {}",
-                    ex.getStatusCode().value(),
-                    safeBody(ex.getResponseBodyAsString()));
+            logger.error("Gemini Status: {}", ex.getStatusCode());
+            logger.error("Gemini Response: {}", ex.getResponseBodyAsString(), ex);
+
             return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
         } catch (ResourceAccessException ex) {
             logger.warn("Gemini request could not be completed: {}", ex.getMessage());
@@ -94,8 +93,13 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         Map<String, Object> body = new LinkedHashMap<>();
 
         String systemPrompt = request != null ? request.getSystemPrompt() : null;
+
         if (StringUtils.hasText(systemPrompt)) {
-            body.put("system_instruction", systemPrompt);
+            body.put("system_instruction", Map.of(
+                    "parts", List.of(
+                            Map.of("text", systemPrompt)
+                    )
+            ));
         }
 
         Map<String, Object> generationConfig = new LinkedHashMap<>();

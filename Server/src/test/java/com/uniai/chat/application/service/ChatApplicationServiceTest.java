@@ -131,10 +131,10 @@ class ChatApplicationServiceTest {
                 SendMessageCommand.builder().chatId(chat.getId()).content("Hello").build()
         );
 
-        assertEquals("AI service is temporarily unavailable. Please try again later.", result.getContent());
+        assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", result.getContent());
         List<Message> messages = messageRepository.findByChatIdOrderByTimestampAsc(chat.getId());
         assertEquals(2, messages.size());
-        assertEquals("AI service is temporarily unavailable. Please try again later.", messages.get(1).getContent());
+        assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", messages.get(1).getContent());
         assertTrue(aiServicePort.lastRequest.getConversationHistory().isEmpty());
         assertEquals("Static uniAI system prompt", aiServicePort.lastRequest.getSystemPrompt());
     }
