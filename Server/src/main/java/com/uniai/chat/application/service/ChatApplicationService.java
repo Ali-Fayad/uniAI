@@ -2,6 +2,8 @@ package com.uniai.chat.application.service;
 
 import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.budget.AiContextBudgetManager;
+import com.uniai.chat.application.budget.AiContextBudgetResult;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
@@ -55,6 +57,7 @@ public class ChatApplicationService implements
     private final AiServicePort aiServicePort;
     private final ChatSystemPromptPort chatSystemPromptPort;
     private final GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
+    private final AiContextBudgetManager aiContextBudgetManager;
 
     private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 20;
 
@@ -160,18 +163,64 @@ public class ChatApplicationService implements
                     .context(context)
                     .build();
 
-            logger.debug("[AI] Provider invocation started chatId={} providerBean={} historyCount={} contextCount={}",
+            logger.debug("[AI] Budget evaluation started chatId={} providerBean={}",
                     chat.getId(),
-                    aiServicePort.getClass().getSimpleName(),
-                    conversationHistory.size(),
-                    context.size());
-            long providerStartNanos = System.nanoTime();
-            AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
-            long providerDurationMs = elapsedMillis(providerStartNanos);
+                    aiServicePort.getClass().getSimpleName());
+            AiContextBudgetResult budgetResult = aiContextBudgetManager.budget(aiRequest);
+            logger.debug("[AI] Budget evaluation completed chatId={} provider={} requestFits={} originalEstimatedInputTokens={} finalEstimatedInputTokens={} historyTrimmed={} contextTrimmed={} finalHistoryCount={} finalContextCount={}",
+                    chat.getId(),
+                    budgetResult.activeProvider(),
+                    budgetResult.requestFits(),
+                    budgetResult.originalEstimatedInputTokens(),
+                    budgetResult.finalEstimatedInputTokens(),
+                    budgetResult.historyTrimmed(),
+                    budgetResult.contextTrimmed(),
+                    budgetResult.finalHistoryCount(),
+                    budgetResult.finalContextCount());
+
+            AiResponse aiResponse;
+            boolean budgetRejected = false;
+            long providerDurationMs = 0L;
+            if (!budgetResult.requestFits()) {
+                budgetRejected = true;
+                logger.warn("[AI] Budget rejection chatId={} provider={} category={} originalEstimatedInputTokens={} finalEstimatedInputTokens={} maxInputTokens={} reservedOutputTokens={} historyTrimmed={} contextTrimmed={} requestFits={}",
+                        chat.getId(),
+                        budgetResult.activeProvider(),
+                        budgetResult.diagnosticCategory(),
+                        budgetResult.originalEstimatedInputTokens(),
+                        budgetResult.finalEstimatedInputTokens(),
+                        budgetResult.maxInputTokens(),
+                        budgetResult.reservedOutputTokens(),
+                        budgetResult.historyTrimmed(),
+                        budgetResult.contextTrimmed(),
+                        budgetResult.requestFits());
+                aiResponse = AiResponse.builder()
+                        .content("AI service error : this message is from ChatApplicationService. Please try again later.")
+                        .provider(budgetResult.activeProvider())
+                        .fallback(true)
+                        .build();
+            } else {
+                AiRequest budgetedRequest = budgetResult.request();
+                logger.debug("[AI] Provider invocation started chatId={} providerBean={} historyCount={} contextCount={} maxTokens={}",
+                        chat.getId(),
+                        aiServicePort.getClass().getSimpleName(),
+                        budgetedRequest.getConversationHistory() != null ? budgetedRequest.getConversationHistory().size() : 0,
+                        budgetedRequest.getContext() != null ? budgetedRequest.getContext().size() : 0,
+                        budgetedRequest.getMaxTokens());
+                long providerStartNanos = System.nanoTime();
+                aiResponse = aiServicePort.generateResponse(budgetedRequest);
+                providerDurationMs = elapsedMillis(providerStartNanos);
+            }
+
             String aiContent = (aiResponse != null && aiResponse.getContent() != null)
                     ? aiResponse.getContent()
                     : "AI service error : this message is from ChatApplicationService. Please try again later.";
-            if (aiResponse == null) {
+            if (budgetRejected) {
+                logger.debug("[AI] Budget fallback response prepared chatId={} provider={} responseLength={}",
+                        chat.getId(),
+                        aiResponse != null ? aiResponse.getProvider() : budgetResult.activeProvider(),
+                        aiContent.length());
+            } else if (aiResponse == null) {
                 logger.warn("[AI] Provider returned null response chatId={} durationMs={}", chat.getId(), providerDurationMs);
             } else {
                 if (!StringUtils.hasText(aiResponse.getContent())) {

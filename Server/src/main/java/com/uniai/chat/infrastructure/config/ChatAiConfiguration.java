@@ -1,5 +1,8 @@
 package com.uniai.chat.infrastructure.config;
 
+import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
+import com.uniai.chat.application.budget.AiContextBudgetManager;
+import com.uniai.chat.application.budget.AiTokenEstimator;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GeminiAiServiceAdapter;
@@ -14,12 +17,52 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Locale;
 
 @Configuration
 public class ChatAiConfiguration {
 
     private static final Logger logger = LogManager.getLogger(ChatAiConfiguration.class);
+
+    @Bean
+    public AiContextBudgetConfiguration aiContextBudgetConfiguration(AiContextBudgetProperties properties) {
+        Map<String, AiContextBudgetConfiguration.ProviderBudget> providerBudgets = new LinkedHashMap<>();
+        if (properties != null && properties.getProviders() != null) {
+            properties.getProviders().forEach((provider, budget) -> providerBudgets.put(provider, new AiContextBudgetConfiguration.ProviderBudget(
+                    budget != null ? budget.getMaxInputTokens() : null,
+                    budget != null ? budget.getReservedOutputTokens() : null,
+                    budget != null ? budget.getMaxHistoryTokens() : null,
+                    budget != null ? budget.getMaxRetrievalTokens() : null,
+                    budget != null ? budget.getRequestOverheadTokens() : null
+            )));
+        }
+
+        return new AiContextBudgetConfiguration(
+                properties != null ? properties.getMaxInputTokens() : 200000,
+                properties != null ? properties.getReservedOutputTokens() : 2000,
+                properties != null ? properties.getMaxHistoryTokens() : 12000,
+                properties != null ? properties.getMaxRetrievalTokens() : 120000,
+                properties != null ? properties.getCharactersPerToken() : 4,
+                properties != null ? properties.getRequestOverheadTokens() : 128,
+                providerBudgets
+        );
+    }
+
+    @Bean
+    public AiTokenEstimator aiTokenEstimator(AiContextBudgetConfiguration configuration) {
+        return new AiTokenEstimator(configuration);
+    }
+
+    @Bean
+    public AiContextBudgetManager aiContextBudgetManager(
+            AiContextBudgetConfiguration configuration,
+            AiTokenEstimator estimator,
+            @Value("${ai.provider:placeholder}") String provider
+    ) {
+        return new AiContextBudgetManager(configuration, estimator, provider);
+    }
 
     @Bean
     public AiServicePort aiServicePort(

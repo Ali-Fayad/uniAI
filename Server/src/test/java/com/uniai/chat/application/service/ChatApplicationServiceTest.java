@@ -1,6 +1,9 @@
 package com.uniai.chat.application.service;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
+import com.uniai.chat.application.budget.AiContextBudgetManager;
+import com.uniai.chat.application.budget.AiTokenEstimator;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.dto.command.SendMessageCommand;
@@ -28,6 +31,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ChatApplicationServiceTest {
@@ -38,6 +42,7 @@ class ChatApplicationServiceTest {
     private RecordingAiServicePort aiServicePort;
     private FixedChatSystemPromptPort chatSystemPromptPort;
     private RecordingGraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
+    private AiContextBudgetManager aiContextBudgetManager;
     private ChatApplicationService chatApplicationService;
 
     @BeforeEach
@@ -48,6 +53,7 @@ class ChatApplicationServiceTest {
         aiServicePort = new RecordingAiServicePort();
         chatSystemPromptPort = new FixedChatSystemPromptPort("Static uniAI system prompt");
         graduateKnowledgeRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort("Structured graduate context");
+        aiContextBudgetManager = budgetManager("gemini", 200000, 2000, 12000, 120000, 4, 128);
 
         chatApplicationService = new ChatApplicationService(
                 chatRepository,
@@ -55,7 +61,8 @@ class ChatApplicationServiceTest {
                 userRepository,
                 aiServicePort,
                 chatSystemPromptPort,
-                graduateKnowledgeRetrievalPort
+                graduateKnowledgeRetrievalPort,
+                aiContextBudgetManager
         );
     }
 
@@ -76,6 +83,7 @@ class ChatApplicationServiceTest {
         assertEquals("Static uniAI system prompt", aiServicePort.lastRequest.getSystemPrompt());
         assertEquals("What about USJ?", aiServicePort.lastRequest.getUserMessage());
         assertEquals("Structured graduate context", aiServicePort.lastRequest.getContext().get(0));
+        assertEquals(2000, aiServicePort.lastRequest.getMaxTokens());
         assertEquals(7, aiServicePort.lastRequest.getConversationHistory().size());
         assertFalse(aiServicePort.lastRequest.getConversationHistory().stream()
                 .anyMatch(message -> "What about USJ?".equals(message.getContent())));
@@ -162,6 +170,56 @@ class ChatApplicationServiceTest {
                 .anyMatch(message -> message.getContent().contains("Other chat")));
     }
 
+    @Test
+    void sendMessageShouldSkipProviderWhenBudgetCannotFitRequiredContent() {
+        AiContextBudgetManager smallBudgetManager = budgetManager("gemini", 12, 10, 10, 10, 4, 0);
+        ChatApplicationService budgetLimitedService = new ChatApplicationService(
+                chatRepository,
+                messageRepository,
+                userRepository,
+                aiServicePort,
+                chatSystemPromptPort,
+                graduateKnowledgeRetrievalPort,
+                smallBudgetManager
+        );
+
+        User user = user(4L, "dan", "dan@example.com");
+        Chat chat = chat(40L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+
+        MessageResponseDto result = budgetLimitedService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Hello").build()
+        );
+
+        assertEquals(0, aiServicePort.callCount);
+        assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", result.getContent());
+        List<Message> messages = messageRepository.findByChatIdOrderByTimestampAsc(chat.getId());
+        assertEquals(2, messages.size());
+        assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", messages.get(1).getContent());
+        assertEquals(1, messages.stream()
+                .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
+                .count());
+    }
+
+    @Test
+    void sendMessageShouldHandleProviderFailuresSeparatelyFromBudgetRejection() {
+        User user = user(5L, "erin", "erin@example.com");
+        Chat chat = chat(50L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        aiServicePort.nextRuntimeException = new IllegalStateException("provider unavailable");
+
+        assertThrows(IllegalStateException.class, () -> chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Hello").build()
+        ));
+
+        assertEquals(1, aiServicePort.callCount);
+        assertEquals(1, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+    }
+
     private void seedChatMessages(Chat chat, User user, long baseMinutesAgo, int existingMessageCount) {
         List<String> contents = List.of(
                 "What master's programs does AUB offer?",
@@ -202,6 +260,33 @@ class ChatApplicationServiceTest {
                 .build();
     }
 
+    private AiContextBudgetManager budgetManager(
+            String provider,
+            int maxInputTokens,
+            int reservedOutputTokens,
+            int maxHistoryTokens,
+            int maxRetrievalTokens,
+            int charactersPerToken,
+            int requestOverheadTokens
+    ) {
+        AiContextBudgetConfiguration configuration = new AiContextBudgetConfiguration(
+                maxInputTokens,
+                reservedOutputTokens,
+                maxHistoryTokens,
+                maxRetrievalTokens,
+                charactersPerToken,
+                requestOverheadTokens,
+                Map.of(provider, new AiContextBudgetConfiguration.ProviderBudget(
+                        maxInputTokens,
+                        reservedOutputTokens,
+                        maxHistoryTokens,
+                        maxRetrievalTokens,
+                        requestOverheadTokens
+                ))
+        );
+        return new AiContextBudgetManager(configuration, new AiTokenEstimator(configuration), provider);
+    }
+
     private Chat chat(Long id, User user, String title) {
         return Chat.builder()
                 .id(id)
@@ -215,6 +300,7 @@ class ChatApplicationServiceTest {
     private static final class RecordingAiServicePort implements AiServicePort {
         private AiRequest lastRequest;
         private int callCount;
+        private RuntimeException nextRuntimeException;
         private AiResponse nextResponse = AiResponse.builder()
                 .content("Here is the official answer.")
                 .provider("gemini")
@@ -225,6 +311,9 @@ class ChatApplicationServiceTest {
         public AiResponse generateResponse(AiRequest request) {
             callCount++;
             lastRequest = request;
+            if (nextRuntimeException != null) {
+                throw nextRuntimeException;
+            }
             return nextResponse;
         }
     }
