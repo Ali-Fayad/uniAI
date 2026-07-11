@@ -555,23 +555,36 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private void appendProgramsSection(StringBuilder builder, List<ProgramRecord> programs, boolean details) {
         appendSectionTitle(builder, "Programs");
+        if (programs.isEmpty()) {
+            appendBullet(builder, "Result", "No matching official data found.");
+            return;
+        }
+
         int index = 1;
-        for (ProgramRecord program : programs) {
-            builder.append(index++).append(".\n");
-            appendIndentedBullet(builder, "University", formatUniversity(program.universityName(), program.universityAcronym()));
-            appendIndentedBullet(builder, "Faculty/school", program.facultyName());
-            appendIndentedBullet(builder, "Program name", program.officialDegreeName());
-            appendIndentedBullet(builder, "Degree type", program.degreeTypeCode());
-            if (details) {
-                appendIndentedBullet(builder, "Language", program.languageName());
-                appendIndentedBullet(builder, "Credits", program.credits());
-                appendIndentedBullet(builder, "Delivery mode", program.deliveryMode());
-                appendIndentedBullet(builder, "Thesis status", program.thesisOrNonThesis());
-                appendIndentedBullet(builder, "Tuition summary", program.tuitionSummary());
-                appendIndentedBullet(builder, "Admission summary", program.admissionSummary());
+        int cursor = 0;
+        while (cursor < programs.size()) {
+            int groupEnd = cursor + 1;
+            while (groupEnd < programs.size()
+                    && sameProgramCompressionGroup(programs.get(groupEnd - 1), programs.get(groupEnd), details)) {
+                groupEnd++;
             }
-            appendIndentedBullet(builder, "Official source URL(s)", program.sourceUrls());
-            appendIndentedBullet(builder, "Official program URL", program.officialProgramUrl());
+
+            ProgramRecord first = programs.get(cursor);
+            appendProgramCompressionHeader(builder, first, details);
+            for (int i = cursor; i < groupEnd; i++) {
+                ProgramRecord program = programs.get(i);
+                builder.append(index++).append(".\n");
+                appendIndentedBullet(builder, "Program name", program.officialDegreeName());
+                if (details) {
+                    appendIndentedBullet(builder, "Credits", program.credits());
+                    appendIndentedBullet(builder, "Tuition summary", program.tuitionSummary());
+                    appendIndentedBullet(builder, "Admission summary", program.admissionSummary());
+                }
+                appendIndentedBullet(builder, "Official source URL(s)", program.sourceUrls());
+                appendIndentedBullet(builder, "Official program URL", program.officialProgramUrl());
+            }
+
+            cursor = groupEnd;
         }
     }
 
@@ -599,16 +612,92 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         }
 
         int index = 1;
-        for (TuitionAggregationRecord aggregation : aggregations) {
-            builder.append(index++).append(".\n");
-            appendIndentedBullet(builder, "University", formatUniversity(aggregation.universityName(), aggregation.universityAcronym()));
-            appendIndentedBullet(builder, "Degree type", aggregation.degreeTypeCode());
-            appendIndentedBullet(builder, "Record count", String.valueOf(aggregation.recordCount()));
-            appendIndentedBullet(builder, "Numeric tuition records used", String.valueOf(aggregation.numericTuitionRecordsUsed()));
-            appendIndentedBullet(builder, "Currency", aggregation.currency());
-            appendIndentedBullet(builder, "Computed average", formatAverage(aggregation.averageTuition()));
-            appendIndentedBullet(builder, "Source URLs", aggregation.sourceUrls());
+        int cursor = 0;
+        while (cursor < aggregations.size()) {
+            int groupEnd = cursor + 1;
+            while (groupEnd < aggregations.size()
+                    && sameTuitionCompressionGroup(aggregations.get(groupEnd - 1), aggregations.get(groupEnd))) {
+                groupEnd++;
+            }
+
+            TuitionAggregationRecord first = aggregations.get(cursor);
+            appendBullet(builder, "University", formatUniversity(first.universityName(), first.universityAcronym()));
+            int degreeCursor = cursor;
+            while (degreeCursor < groupEnd) {
+                int degreeEnd = degreeCursor + 1;
+                while (degreeEnd < groupEnd
+                        && sameTuitionDegreeGroup(aggregations.get(degreeEnd - 1), aggregations.get(degreeEnd))) {
+                    degreeEnd++;
+                }
+
+                TuitionAggregationRecord degreeFirst = aggregations.get(degreeCursor);
+                appendIndentedBullet(builder, "Degree type", degreeFirst.degreeTypeCode());
+                for (int i = degreeCursor; i < degreeEnd; i++) {
+                    TuitionAggregationRecord aggregation = aggregations.get(i);
+                    builder.append(index++).append(".\n");
+                    appendIndentedBullet(builder, "Record count", String.valueOf(aggregation.recordCount()));
+                    appendIndentedBullet(builder, "Numeric tuition records used", String.valueOf(aggregation.numericTuitionRecordsUsed()));
+                    appendIndentedBullet(builder, "Currency", aggregation.currency());
+                    appendIndentedBullet(builder, "Computed average", formatAverage(aggregation.averageTuition()));
+                    appendIndentedBullet(builder, "Source URLs", aggregation.sourceUrls());
+                }
+
+                degreeCursor = degreeEnd;
+            }
+
+            cursor = groupEnd;
         }
+    }
+
+    private void appendProgramCompressionHeader(StringBuilder builder, ProgramRecord program, boolean details) {
+        appendBullet(builder, "University", formatUniversity(program.universityName(), program.universityAcronym()));
+        appendIndentedBullet(builder, "Faculty/school", program.facultyName());
+        appendIndentedBullet(builder, "Degree type", program.degreeTypeCode());
+        if (details) {
+            appendIndentedBullet(builder, "Language", program.languageName());
+            appendIndentedBullet(builder, "Delivery mode", program.deliveryMode());
+            appendIndentedBullet(builder, "Thesis status", program.thesisOrNonThesis());
+        }
+    }
+
+    private boolean sameProgramCompressionGroup(ProgramRecord previous, ProgramRecord current, boolean details) {
+        if (previous == null || current == null) {
+            return false;
+        }
+        return Objects.equals(previous.universityId(), current.universityId())
+                && sameText(previous.universityName(), current.universityName())
+                && sameText(previous.universityAcronym(), current.universityAcronym())
+                && sameText(previous.facultyName(), current.facultyName())
+                && sameText(previous.degreeTypeCode(), current.degreeTypeCode())
+                && (!details || (
+                sameText(previous.languageName(), current.languageName())
+                        && sameText(previous.deliveryMode(), current.deliveryMode())
+                        && sameText(previous.thesisOrNonThesis(), current.thesisOrNonThesis())
+        ));
+    }
+
+    private boolean sameTuitionCompressionGroup(TuitionAggregationRecord previous, TuitionAggregationRecord current) {
+        if (previous == null || current == null) {
+            return false;
+        }
+        return Objects.equals(previous.universityId(), current.universityId())
+                && sameText(previous.universityName(), current.universityName())
+                && sameText(previous.universityAcronym(), current.universityAcronym());
+    }
+
+    private boolean sameTuitionDegreeGroup(TuitionAggregationRecord previous, TuitionAggregationRecord current) {
+        if (previous == null || current == null) {
+            return false;
+        }
+        return sameText(previous.degreeTypeCode(), current.degreeTypeCode());
+    }
+
+    private boolean sameText(String left, String right) {
+        return Objects.equals(normalizeText(left), normalizeText(right));
+    }
+
+    private String normalizeText(String value) {
+        return value == null ? "" : value.trim().toUpperCase(Locale.ROOT);
     }
 
     private void appendTuitionSourcesSection(StringBuilder builder, List<TuitionAggregationRecord> aggregations) {

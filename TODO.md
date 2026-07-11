@@ -128,6 +128,12 @@ Compression should happen after retrieval and ranking, while preserving:
 - Missing-data notes
 - Source traceability
 
+**Status:** Completed
+**Main files:** `Server/src/main/java/com/uniai/chat/infrastructure/retrieval/SqlGraduateKnowledgeRetrievalAdapter.java`, `Server/src/test/java/com/uniai/chat/infrastructure/retrieval/SqlGraduateKnowledgeRetrievalAdapterCompressionTest.java`
+**Behavior:** Deterministically compresses ranked graduate retrieval evidence inside the SQL retrieval adapter by hoisting repeated university and shared program metadata before formatting, while preserving every program and tuition aggregate, university comparison order, currencies, source ownership, and missing-data notes.
+**Validation:** `./mvnw -q -Dtest=SqlGraduateKnowledgeRetrievalAdapterTest,SqlGraduateKnowledgeRetrievalAdapterRankingTest,SqlGraduateKnowledgeRetrievalAdapterCompressionTest test`, `./mvnw -q -Dtest=GraduateQueryInterpretationValidatorTest,GraduateKnowledgeQueryInterpreterTest,ChatApplicationServiceTest test`, `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest,GraduateQueryInterpretationBudgetTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
+**Commit:** `feat(chat): compress retrieved graduate context`
+
 ### TODO-006 — Token Estimation ⭐⭐⭐⭐☆
 Create a reusable token estimation utility for all providers and AI request types.
 
