@@ -99,7 +99,7 @@ Suggested prompt file:
 **Validation:** `./mvnw -q -Dtest=GraduateQueryInterpretationValidatorTest,GraduateQueryInterpretationBudgetTest,AiGraduateQueryInterpretationAdapterTest,GraduateQueryInterpreterPromptProviderTest,GraduateKnowledgeQueryInterpreterTest,ChatApplicationServiceTest,SqlGraduateKnowledgeRetrievalAdapterTest,AiContextBudgetManagerTest,GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
 **Commit:** `feat(chat): add AI query interpretation`
 
-### TODO-004 — Retrieval Ranking ⭐⭐⭐⭐☆
+### ✅ TODO-004 — Retrieval Ranking ⭐⭐⭐⭐☆
 Rank retrieved evidence by relevance before building context.
 
 Ranking should:
@@ -118,7 +118,7 @@ Ranking should:
 **Validation:** `./mvnw -q -Dtest=SqlGraduateKnowledgeRetrievalAdapterTest,SqlGraduateKnowledgeRetrievalAdapterRankingTest test`, `./mvnw -q -Dtest=GraduateQueryInterpretationValidatorTest,GraduateKnowledgeQueryInterpreterTest,ChatApplicationServiceTest test`, `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest,GraduateQueryInterpretationBudgetTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
 **Commit:** `feat(chat): rank retrieved graduate evidence`
 
-### TODO-005 — Context Compression ⭐⭐⭐⭐☆
+### ✅ TODO-005 — Context Compression ⭐⭐⭐⭐☆
 Summarize or group repetitive retrieval results to reduce prompt size.
 
 Compression should happen after retrieval and ranking, while preserving:
@@ -134,7 +134,7 @@ Compression should happen after retrieval and ranking, while preserving:
 **Validation:** `./mvnw -q -Dtest=SqlGraduateKnowledgeRetrievalAdapterTest,SqlGraduateKnowledgeRetrievalAdapterRankingTest,SqlGraduateKnowledgeRetrievalAdapterCompressionTest test`, `./mvnw -q -Dtest=GraduateQueryInterpretationValidatorTest,GraduateKnowledgeQueryInterpreterTest,ChatApplicationServiceTest test`, `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest,GraduateQueryInterpretationBudgetTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
 **Commit:** `feat(chat): compress retrieved graduate context`
 
-### TODO-006 — Token Estimation ⭐⭐⭐⭐☆
+### ✅ TODO-006 — Token Estimation ⭐⭐⭐⭐☆
 Create a reusable token estimation utility for all providers and AI request types.
 
 It should support:
@@ -143,7 +143,11 @@ It should support:
 - Future provider fallback requests
 - Provider-specific estimation strategies where needed
 
----
+**Status:** Completed
+**Main files:** `Server/src/main/java/com/uniai/chat/application/budget/AiTokenEstimator.java`, `Server/src/main/java/com/uniai/chat/application/budget/AiContextBudgetConfiguration.java`, `Server/src/main/java/com/uniai/chat/application/budget/AiContextBudgetManager.java`, `Server/src/main/java/com/uniai/chat/application/budget/GraduateQueryInterpretationBudgetManager.java`, `Server/src/main/java/com/uniai/chat/infrastructure/config/ChatAiConfiguration.java`
+**Behavior:** Provides a single reusable application-owned token estimation utility based on a configurable character-per-token heuristic. The estimator is shared by both the main AI response budgeting flow and the AI query interpretation budgeting flow, remains provider-agnostic, supports future provider fallback requests without duplication, and keeps provider-specific capacity policies separate inside the budget configuration rather than the estimation algorithm.
+**Validation:** `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest,GraduateQueryInterpretationBudgetTest test`, `./mvnw -q -Dtest=ChatApplicationServiceTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
+**Commit:** `docs(chat): mark reusable token estimation as completed`
 
 ## Phase 2 — Conversation Intelligence
 
