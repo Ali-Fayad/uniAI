@@ -4,12 +4,21 @@ import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiContextBudgetResult;
+import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
+import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetResult;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationStatus;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
 import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.port.in.*;
+import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
+import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
@@ -60,6 +69,10 @@ public class ChatApplicationService implements
     private final UserRepository userRepository;
     private final AiServicePort aiServicePort;
     private final ChatSystemPromptPort chatSystemPromptPort;
+    private final GraduateQueryInterpretationPort graduateQueryInterpretationPort;
+    private final GraduateQueryInterpreterPromptPort graduateQueryInterpreterPromptPort;
+    private final GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager;
+    private final GraduateQueryInterpretationValidator graduateQueryInterpretationValidator;
     private final GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
     private final UniversityCatalogRepository universityCatalogRepository;
     private final GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
@@ -135,16 +148,67 @@ public class ChatApplicationService implements
             logger.debug("[CHAT] Recent conversation window prepared chatId={} windowMessageCount={}",
                     chat.getId(),
                     recentConversationWindow.size());
-            logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
-                    chat.getId(),
-                    recentConversationWindow.size());
-            long retrievalStartNanos = System.nanoTime();
             List<UniversityCatalog> universityCatalogs = universityCatalogRepository.findAll();
-            GraduateKnowledgeQuery graduateKnowledgeQuery = graduateKnowledgeQueryInterpreter.interpret(
+            GraduateQueryInterpretationResult interpretationResult = interpretGraduateQuery(
+                    chat.getId(),
                     command.getContent(),
                     recentConversationWindow,
                     universityCatalogs
             );
+            logger.debug("[RETRIEVAL] Interpretation completed chatId={} status={} fallbackUsed={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={} failureCategory={}",
+                    chat.getId(),
+                    interpretationResult.status(),
+                    interpretationResult.fallbackUsed(),
+                    interpretationResult.resolvedUniversityCount(),
+                    interpretationResult.degreeTypeCount(),
+                    interpretationResult.ambiguous(),
+                    interpretationResult.failureCategory());
+
+            if (interpretationResult.status() == GraduateQueryInterpretationStatus.AMBIGUOUS
+                    || interpretationResult.status() == GraduateQueryInterpretationStatus.UNSUPPORTED) {
+                String safeContent = StringUtils.hasText(interpretationResult.safeMessage())
+                        ? interpretationResult.safeMessage()
+                        : buildSafeInterpretationMessage(interpretationResult.status());
+                logger.info("[CHAT] Interpretation stopped before retrieval chatId={} status={} reason={}",
+                        chat.getId(),
+                        interpretationResult.status(),
+                        interpretationResult.failureCategory());
+                Message aiMessage = MessageBuilder.aiMessage(chat, safeContent).build();
+                long aiSaveStartNanos = System.nanoTime();
+                Message persistedAiMessage = messageRepository.save(aiMessage);
+                logger.debug("[PERSISTENCE] Assistant message saved id={} chatId={} durationMs={}",
+                        persistedAiMessage != null ? persistedAiMessage.getId() : null,
+                        chat.getId(),
+                        elapsedMillis(aiSaveStartNanos));
+
+                if (isFirstMessage) {
+                    chat.setTitle(generateTitle(command.getContent()));
+                }
+                chat.setUpdatedAt(LocalDateTime.now());
+                chatRepository.save(chat);
+
+                logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
+                        user.getId(),
+                        chat.getId(),
+                        persistedAiMessage != null ? persistedAiMessage.getId() : null,
+                        safeContent.length(),
+                        elapsedMillis(requestStartNanos));
+
+                return toDto(aiMessage);
+            }
+
+            logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
+                    chat.getId(),
+                    recentConversationWindow.size());
+            long retrievalStartNanos = System.nanoTime();
+            GraduateKnowledgeQuery graduateKnowledgeQuery = interpretationResult.query();
+            if (graduateKnowledgeQuery == null) {
+                graduateKnowledgeQuery = graduateKnowledgeQueryInterpreter.interpret(
+                        command.getContent(),
+                        recentConversationWindow,
+                        universityCatalogs
+                );
+            }
             logger.debug("[RETRIEVAL] Query interpreted chatId={} intent={} universityCount={} degreeTypeCount={} followUpResolved={} ambiguous={} detailLevel={}",
                     chat.getId(),
                     graduateKnowledgeQuery.intent(),
@@ -424,6 +488,115 @@ public class ChatApplicationService implements
 
         int startIndex = Math.max(0, conversationHistory.size() - 6);
         return List.copyOf(conversationHistory.subList(startIndex, conversationHistory.size()));
+    }
+
+    private GraduateQueryInterpretationResult interpretGraduateQuery(
+            Long chatId,
+            String currentMessage,
+            List<AiConversationMessage> recentConversationWindow,
+            List<UniversityCatalog> universityCatalogs
+    ) {
+        String prompt = graduateQueryInterpreterPromptPort.getPrompt();
+        GraduateQueryInterpretationRequest request = new GraduateQueryInterpretationRequest(currentMessage, recentConversationWindow);
+        GraduateQueryInterpretationBudgetResult budgetResult = graduateQueryInterpretationBudgetManager.budget(request, prompt);
+
+        logger.debug("[AI_INTERPRETATION] Budget evaluation chatId={} provider={} requestFits={} originalEstimatedInputTokens={} finalEstimatedInputTokens={} historyTrimmed={} finalHistoryCount={} reservedOutputTokens={}",
+                chatId,
+                aiServicePort.getClass().getSimpleName(),
+                budgetResult.requestFits(),
+                budgetResult.originalEstimatedInputTokens(),
+                budgetResult.finalEstimatedInputTokens(),
+                budgetResult.historyTrimmed(),
+                budgetResult.finalHistoryCount(),
+                budgetResult.reservedOutputTokens());
+
+        if (!budgetResult.requestFits()) {
+            logger.warn("[AI_INTERPRETATION] Budget rejected chatId={} category={}",
+                    chatId,
+                    budgetResult.diagnosticCategory());
+            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
+        }
+
+        try {
+            GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
+            GraduateQueryInterpretationResult result = graduateQueryInterpretationValidator.validate(rawInterpretation, universityCatalogs);
+            logger.debug("[AI_INTERPRETATION] Validation completed chatId={} status={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={}",
+                    chatId,
+                    result.status(),
+                    result.resolvedUniversityCount(),
+                    result.degreeTypeCount(),
+                    result.ambiguous());
+            return result;
+        } catch (RuntimeException ex) {
+            logger.warn("[AI_INTERPRETATION] Provider interpretation failed chatId={} reason={}", chatId, ex.getMessage());
+            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
+        }
+    }
+
+    private GraduateQueryInterpretationResult fallbackInterpretation(
+            String currentMessage,
+            List<AiConversationMessage> recentConversationWindow,
+            List<UniversityCatalog> universityCatalogs,
+            String failureCategory
+    ) {
+        if (isUnsupportedGraduateDegreeRequest(currentMessage)) {
+            return GraduateQueryInterpretationResult.unsupported(
+                    buildUnsupportedGraduateMessage(),
+                    0,
+                    0,
+                    List.of("BACHELOR", "UNDERGRADUATE")
+            );
+        }
+
+        GraduateKnowledgeQuery fallbackQuery = graduateKnowledgeQueryInterpreter.interpret(
+                currentMessage,
+                recentConversationWindow,
+                universityCatalogs
+        );
+
+        if (fallbackQuery.intent() == null || fallbackQuery.intent() == com.uniai.chat.application.retrieval.GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
+                || fallbackQuery.ambiguous()
+                || fallbackQuery.resolvedUniversities().isEmpty()) {
+            return GraduateQueryInterpretationResult.ambiguous(
+                    buildAmbiguousGraduateMessage(),
+                    fallbackQuery.resolvedUniversities().size(),
+                    fallbackQuery.degreeTypes().size(),
+                    fallbackQuery
+            );
+        }
+
+        return GraduateQueryInterpretationResult.fallbackUsed(fallbackQuery, buildFallbackUsedMessage(failureCategory));
+    }
+
+    private boolean isUnsupportedGraduateDegreeRequest(String message) {
+        if (!StringUtils.hasText(message)) {
+            return false;
+        }
+        String normalized = message.trim().toLowerCase();
+        return normalized.contains("bachelor")
+                || normalized.contains("bachlour")
+                || normalized.contains("bachlor")
+                || normalized.contains("undergraduate")
+                || normalized.contains("undergrad");
+    }
+
+    private String buildUnsupportedGraduateMessage() {
+        return "I can help with master's and PhD graduate questions only.";
+    }
+
+    private String buildAmbiguousGraduateMessage() {
+        return "I need a clearer university reference to answer safely.";
+    }
+
+    private String buildFallbackUsedMessage(String failureCategory) {
+        return "Graduate query interpretation fell back to deterministic logic.";
+    }
+
+    private String buildSafeInterpretationMessage(GraduateQueryInterpretationStatus status) {
+        if (status == GraduateQueryInterpretationStatus.UNSUPPORTED) {
+            return buildUnsupportedGraduateMessage();
+        }
+        return buildAmbiguousGraduateMessage();
     }
 
     private String resolveConversationRole(Message message) {

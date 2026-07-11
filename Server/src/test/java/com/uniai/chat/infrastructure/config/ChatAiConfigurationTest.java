@@ -7,6 +7,7 @@ import com.uniai.chat.infrastructure.ai.GroqAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.OllamaAiProperties;
 import com.uniai.chat.infrastructure.ai.OllamaAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -21,7 +22,7 @@ class ChatAiConfigurationTest {
         GroqAiProperties groq = new GroqAiProperties();
         OllamaAiProperties ollama = new OllamaAiProperties();
 
-        AiServicePort aiServicePort = configuration.aiServicePort("ollama", gemini, groq, ollama);
+        AiServicePort aiServicePort = configuration.aiServicePort("ollama", gemini, groq, ollama, new ObjectMapper());
 
         assertInstanceOf(OllamaAiServiceAdapter.class, aiServicePort);
     }
@@ -32,7 +33,7 @@ class ChatAiConfigurationTest {
         GroqAiProperties groq = new GroqAiProperties();
         OllamaAiProperties ollama = new OllamaAiProperties();
 
-        AiServicePort aiServicePort = configuration.aiServicePort("not-a-provider", gemini, groq, ollama);
+        AiServicePort aiServicePort = configuration.aiServicePort("not-a-provider", gemini, groq, ollama, new ObjectMapper());
 
         assertInstanceOf(PlaceholderAiServiceAdapter.class, aiServicePort);
     }

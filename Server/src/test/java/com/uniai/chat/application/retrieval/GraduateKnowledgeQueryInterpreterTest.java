@@ -20,7 +20,7 @@ class GraduateKnowledgeQueryInterpreterTest {
     void setUp() {
         interpreter = new GraduateKnowledgeQueryInterpreter();
         catalogs = List.of(
-                university(1L, "American University of Beirut", "AUB"),
+                UniversityCatalog.builder().id(1L).name("American University of Beirut").nameAr("الجامعة الأميركية في بيروت").acronym("AUB").build(),
                 university(2L, "Université Saint-Joseph", "USJ"),
                 university(3L, "Lebanese American University", "LAU"),
                 university(4L, "Lebanese National Conservatory", "LNC")
@@ -58,6 +58,16 @@ class GraduateKnowledgeQueryInterpreterTest {
         assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, query.intent());
         assertEquals(1, query.resolvedUniversities().size());
         assertEquals("LAU", query.resolvedUniversities().get(0).acronym());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveProgramLookupForArabicUniversityName() {
+        GraduateKnowledgeQuery query = interpreter.interpret("ما هي برامج الجامعة الأميركية في بيروت؟", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, query.intent());
+        assertEquals(1, query.resolvedUniversities().size());
+        assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
         assertFalse(query.ambiguous());
     }
 

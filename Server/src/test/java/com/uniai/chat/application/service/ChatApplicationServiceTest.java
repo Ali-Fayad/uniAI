@@ -4,12 +4,19 @@ import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiTokenEstimator;
+import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
+import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
+import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
+import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
@@ -49,9 +56,13 @@ class ChatApplicationServiceTest {
     private InMemoryUniversityCatalogRepository universityCatalogRepository;
     private RecordingAiServicePort aiServicePort;
     private FixedChatSystemPromptPort chatSystemPromptPort;
+    private FixedGraduateQueryInterpreterPromptPort graduateQueryInterpreterPromptPort;
+    private RecordingGraduateQueryInterpretationPort graduateQueryInterpretationPort;
     private RecordingGraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
     private RecordingGraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
     private AiContextBudgetManager aiContextBudgetManager;
+    private GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager;
+    private GraduateQueryInterpretationValidator graduateQueryInterpretationValidator;
     private ChatApplicationService chatApplicationService;
 
     @BeforeEach
@@ -62,9 +73,27 @@ class ChatApplicationServiceTest {
         universityCatalogRepository = new InMemoryUniversityCatalogRepository();
         aiServicePort = new RecordingAiServicePort();
         chatSystemPromptPort = new FixedChatSystemPromptPort("Static uniAI system prompt");
+        graduateQueryInterpreterPromptPort = new FixedGraduateQueryInterpreterPromptPort("Interpretation prompt");
+        graduateQueryInterpretationPort = new RecordingGraduateQueryInterpretationPort(
+                new GraduateQueryInterpretation(
+                        1,
+                        "PROGRAM_LOOKUP",
+                        List.of("USJ"),
+                        List.of("MASTER"),
+                        "LIST",
+                        true,
+                        false,
+                        List.of(),
+                        false,
+                        null,
+                        List.of()
+                )
+        );
         graduateKnowledgeQueryInterpreter = new RecordingGraduateKnowledgeQueryInterpreter();
         graduateKnowledgeRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort("Structured graduate context");
         aiContextBudgetManager = budgetManager("gemini", 200000, 2000, 12000, 120000, 4, 128);
+        graduateQueryInterpretationBudgetManager = interpretationBudgetManager("gemini", 1500, 250, 4, 0);
+        graduateQueryInterpretationValidator = new GraduateQueryInterpretationValidator();
 
         chatApplicationService = new ChatApplicationService(
                 chatRepository,
@@ -72,6 +101,10 @@ class ChatApplicationServiceTest {
                 userRepository,
                 aiServicePort,
                 chatSystemPromptPort,
+                graduateQueryInterpretationPort,
+                graduateQueryInterpreterPromptPort,
+                graduateQueryInterpretationBudgetManager,
+                graduateQueryInterpretationValidator,
                 graduateKnowledgeRetrievalPort,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
@@ -110,25 +143,15 @@ class ChatApplicationServiceTest {
                 "Any scholarships?"
         ), aiServicePort.lastRequest.getConversationHistory().stream().map(AiConversationMessage::getContent).toList());
 
+        assertEquals(1, graduateQueryInterpretationPort.callCount);
+        assertEquals("What about USJ?", graduateQueryInterpretationPort.lastRequest.userMessage());
+        assertEquals(4, graduateQueryInterpretationPort.lastRequest.recentConversationHistory().size());
+
         assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
-        assertEquals(List.of(
-                "AUB master's answer",
-                "What about tuition?",
-                "AUB tuition answer",
-                "And admission?",
-                "AUB admission answer",
-                "Any scholarships?"
-        ), graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.stream().map(AiConversationMessage::getContent).toList());
-        assertFalse(graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.stream()
-                .anyMatch(message -> "Other chat message".equals(message.getContent())));
+        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeRetrievalPort.lastQuery.intent());
+        assertEquals(1, graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().size());
+        assertEquals("USJ", graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().get(0).acronym());
         assertEquals(1, universityCatalogRepository.findAllCount);
-        assertEquals("What about USJ?", graduateKnowledgeQueryInterpreter.lastUserMessage);
-        assertEquals(6, graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.size());
-        assertEquals(3, graduateKnowledgeQueryInterpreter.lastUniversityCatalogs.size());
-        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeQueryInterpreter.lastQuery.intent());
-        assertEquals(GraduateProgramDetailLevel.LIST, graduateKnowledgeQueryInterpreter.lastQuery.detailLevel());
-        assertEquals(1, graduateKnowledgeQueryInterpreter.lastQuery.resolvedUniversities().size());
-        assertEquals("USJ", graduateKnowledgeQueryInterpreter.lastQuery.resolvedUniversities().get(0).acronym());
 
         assertEquals("Here is the official answer.", result.getContent());
         assertEquals("Here is the official answer.", messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).get(messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size() - 1).getContent());
@@ -188,7 +211,7 @@ class ChatApplicationServiceTest {
 
         assertFalse(aiServicePort.lastRequest.getConversationHistory().stream()
                 .anyMatch(message -> message.getContent().contains("Other chat")));
-        assertFalse(graduateKnowledgeQueryInterpreter.lastRecentConversationWindow.stream()
+        assertFalse(graduateQueryInterpretationPort.lastRequest.recentConversationHistory().stream()
                 .anyMatch(message -> message.getContent().contains("Other chat")));
     }
 
@@ -201,6 +224,10 @@ class ChatApplicationServiceTest {
                 userRepository,
                 aiServicePort,
                 chatSystemPromptPort,
+                graduateQueryInterpretationPort,
+                graduateQueryInterpreterPromptPort,
+                graduateQueryInterpretationBudgetManager,
+                graduateQueryInterpretationValidator,
                 graduateKnowledgeRetrievalPort,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
@@ -225,7 +252,7 @@ class ChatApplicationServiceTest {
         assertEquals(1, messages.stream()
                 .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
                 .count());
-        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeQueryInterpreter.lastQuery.intent());
+        assertEquals(1, graduateQueryInterpretationPort.callCount);
     }
 
     @Test
@@ -243,6 +270,47 @@ class ChatApplicationServiceTest {
 
         assertEquals(1, aiServicePort.callCount);
         assertEquals(1, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+        assertEquals(1, graduateQueryInterpretationPort.callCount);
+    }
+
+    @Test
+    void sendMessageShouldUseDeterministicFallbackWhenInterpretationFails() {
+        User user = user(6L, "frank", "frank@example.com");
+        Chat chat = chat(60L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextRuntimeException = new IllegalStateException("interpretation unavailable");
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("What master's programs does AUB offer?").build()
+        );
+
+        assertEquals("Here is the official answer.", result.getContent());
+        assertEquals(1, aiServicePort.callCount);
+        assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(1, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).stream()
+                .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
+                .count());
+    }
+
+    @Test
+    void sendMessageShouldSkipRetrievalForUnsupportedDegreeRequestsWhenInterpretationFails() {
+        User user = user(7L, "grace", "grace@example.com");
+        Chat chat = chat(70L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextRuntimeException = new IllegalStateException("interpretation unavailable");
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Give me bachlour degrees for AUB").build()
+        );
+
+        assertEquals("I can help with master's and PhD graduate questions only.", result.getContent());
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(0, aiServicePort.callCount);
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
     }
 
     private void seedChatMessages(Chat chat, User user, long baseMinutesAgo, int existingMessageCount) {
@@ -312,6 +380,38 @@ class ChatApplicationServiceTest {
         return new AiContextBudgetManager(configuration, new AiTokenEstimator(configuration), provider);
     }
 
+    private GraduateQueryInterpretationBudgetManager interpretationBudgetManager(
+            String provider,
+            long maxInputTokens,
+            int maxOutputTokens,
+            int historyMessageLimit,
+            int requestOverheadTokens
+    ) {
+        GraduateQueryInterpretationBudgetConfiguration configuration = new GraduateQueryInterpretationBudgetConfiguration(
+                true,
+                maxInputTokens,
+                maxOutputTokens,
+                historyMessageLimit,
+                "prompts/graduate-query-interpreter-prompt.txt"
+        );
+        AiContextBudgetConfiguration estimatorConfiguration = new AiContextBudgetConfiguration(
+                200000,
+                2000,
+                12000,
+                120000,
+                4,
+                requestOverheadTokens,
+                Map.of(provider, new AiContextBudgetConfiguration.ProviderBudget(
+                        200000,
+                        2000,
+                        12000,
+                        120000,
+                        requestOverheadTokens
+                ))
+        );
+        return new GraduateQueryInterpretationBudgetManager(configuration, new AiTokenEstimator(estimatorConfiguration), provider);
+    }
+
     private static final class RecordingGraduateKnowledgeQueryInterpreter extends GraduateKnowledgeQueryInterpreter {
         private String lastUserMessage;
         private List<AiConversationMessage> lastRecentConversationWindow = Collections.emptyList();
@@ -343,6 +443,27 @@ class ChatApplicationServiceTest {
                     false
             );
             return lastQuery;
+        }
+    }
+
+    private static final class RecordingGraduateQueryInterpretationPort implements GraduateQueryInterpretationPort {
+        private GraduateQueryInterpretation nextInterpretation;
+        private RuntimeException nextRuntimeException;
+        private int callCount;
+        private GraduateQueryInterpretationRequest lastRequest;
+
+        private RecordingGraduateQueryInterpretationPort(GraduateQueryInterpretation nextInterpretation) {
+            this.nextInterpretation = nextInterpretation;
+        }
+
+        @Override
+        public GraduateQueryInterpretation interpret(GraduateQueryInterpretationRequest request) {
+            callCount++;
+            lastRequest = request;
+            if (nextRuntimeException != null) {
+                throw nextRuntimeException;
+            }
+            return nextInterpretation;
         }
     }
 
@@ -400,6 +521,19 @@ class ChatApplicationServiceTest {
         private final String prompt;
 
         private FixedChatSystemPromptPort(String prompt) {
+            this.prompt = prompt;
+        }
+
+        @Override
+        public String getPrompt() {
+            return prompt;
+        }
+    }
+
+    private static final class FixedGraduateQueryInterpreterPromptPort implements GraduateQueryInterpreterPromptPort {
+        private final String prompt;
+
+        private FixedGraduateQueryInterpreterPromptPort(String prompt) {
             this.prompt = prompt;
         }
 

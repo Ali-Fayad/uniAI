@@ -3,8 +3,12 @@ package com.uniai.chat.infrastructure.config;
 import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiTokenEstimator;
+import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
+import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GeminiAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.GroqAiProperties;
@@ -12,6 +16,8 @@ import com.uniai.chat.infrastructure.ai.GroqAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.OllamaAiProperties;
 import com.uniai.chat.infrastructure.ai.OllamaAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
+import com.uniai.chat.infrastructure.interpretation.AiGraduateQueryInterpretationAdapter;
+import com.uniai.chat.infrastructure.prompt.GraduateQueryInterpreterPromptProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +27,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Locale;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class ChatAiConfiguration {
@@ -71,17 +79,45 @@ public class ChatAiConfiguration {
     }
 
     @Bean
+    public GraduateQueryInterpretationBudgetConfiguration graduateQueryInterpretationBudgetConfiguration(
+            GraduateQueryInterpretationProperties properties
+    ) {
+        return new GraduateQueryInterpretationBudgetConfiguration(
+                properties != null && properties.isEnabled(),
+                properties != null ? properties.getMaxInputTokens() : 1500L,
+                properties != null ? properties.getMaxOutputTokens() : 250,
+                properties != null ? properties.getHistoryMessageLimit() : 4,
+                properties != null ? properties.getPromptPath() : "prompts/graduate-query-interpreter-prompt.txt"
+        );
+    }
+
+    @Bean
+    public GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager(
+            GraduateQueryInterpretationBudgetConfiguration configuration,
+            AiTokenEstimator estimator,
+            @Value("${ai.provider:placeholder}") String provider
+    ) {
+        return new GraduateQueryInterpretationBudgetManager(configuration, estimator, provider);
+    }
+
+    @Bean
+    public GraduateQueryInterpretationValidator graduateQueryInterpretationValidator() {
+        return new GraduateQueryInterpretationValidator();
+    }
+
+    @Bean
     public AiServicePort aiServicePort(
             @Value("${ai.provider:placeholder}") String provider,
             GeminiAiProperties geminiAiProperties,
             GroqAiProperties groqAiProperties,
-            OllamaAiProperties ollamaAiProperties
+            OllamaAiProperties ollamaAiProperties,
+            ObjectMapper objectMapper
     ) {
         String normalizedProvider = normalizeProvider(provider);
 
         if ("gemini".equals(normalizedProvider)) {
             logger.info("[AI] Provider selected provider=gemini model={}", geminiAiProperties.getModel());
-            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, new com.fasterxml.jackson.databind.ObjectMapper());
+            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, objectMapper);
             logger.info("[AI] Provider initialized successfully provider=gemini model={}", geminiAiProperties.getModel());
             return aiServicePort;
         }
@@ -107,6 +143,28 @@ public class ChatAiConfiguration {
         AiServicePort aiServicePort = new PlaceholderAiServiceAdapter();
         logger.info("[AI] Provider initialized successfully provider=placeholder model=placeholder");
         return aiServicePort;
+    }
+
+    @Bean
+    public GraduateQueryInterpretationPort graduateQueryInterpretationPort(
+            @Value("${ai.provider:placeholder}") String provider,
+            AiServicePort aiServicePort,
+            GraduateQueryInterpreterPromptProvider promptProvider,
+            GraduateQueryInterpretationBudgetConfiguration configuration,
+            ObjectMapper objectMapper
+    ) {
+        if (!configuration.enabled() || "placeholder".equals(normalizeProvider(provider))) {
+            logger.info("[AI_INTERPRETATION] Interpretation disabled enabled={} provider={}", configuration.enabled(), provider);
+            return request -> {
+                throw new IllegalStateException("Graduate query interpretation is disabled");
+            };
+        }
+
+        logger.info("[AI_INTERPRETATION] Interpretation initialized provider={} maxOutputTokens={} historyMessageLimit={}",
+                provider,
+                configuration.maxOutputTokens(),
+                configuration.historyMessageLimit());
+        return new AiGraduateQueryInterpretationAdapter(aiServicePort, promptProvider, configuration, objectMapper);
     }
 
     private String normalizeProvider(String provider) {

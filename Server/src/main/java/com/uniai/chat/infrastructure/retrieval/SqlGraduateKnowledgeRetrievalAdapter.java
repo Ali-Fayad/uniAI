@@ -16,10 +16,13 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -64,7 +67,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             if (safeQuery.intent() == GraduateKnowledgeIntent.PROGRAM_LOOKUP) {
                 List<ProgramRecord> programs = queryPrograms(safeQuery);
                 logger.debug("[RETRIEVAL] Program SQL completed rows={} strategy=PROGRAM_LOOKUP", programs.size());
-                String context = buildProgramContext(safeQuery, programs);
+                List<ProgramRecord> rankedPrograms = rankProgramRecords(safeQuery, programs);
+                String context = buildProgramContext(safeQuery, rankedPrograms);
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=PROGRAM_LOOKUP contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
@@ -75,7 +79,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 List<TuitionAggregationRecord> tuitionAggregations = queryTuitionAggregations(safeQuery);
                 logger.debug("[RETRIEVAL] Tuition aggregation SQL completed rows={} strategy=TUITION_AGGREGATION",
                         tuitionAggregations.size());
-                String context = buildTuitionContext(safeQuery, tuitionAggregations);
+                List<TuitionAggregationRecord> rankedTuitionAggregations = rankTuitionAggregations(safeQuery, tuitionAggregations);
+                String context = buildTuitionContext(safeQuery, rankedTuitionAggregations);
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=TUITION_AGGREGATION contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
@@ -182,6 +187,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private RowMapper<ProgramRecord> programRowMapper(boolean details) {
         return (rs, rowNum) -> new ProgramRecord(
+                rs.getLong("university_id"),
                 rs.getLong("program_id"),
                 rs.getString("university_name"),
                 rs.getString("university_acronym"),
@@ -202,6 +208,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     private String programListSql(String degreeClause) {
         return """
                 SELECT
+                    u.id AS university_id,
                     gp.id AS program_id,
                     u.name AS university_name,
                     u.acronym AS university_acronym,
@@ -236,6 +243,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     private String programDetailsSql(String degreeClause) {
         return """
                 SELECT
+                    u.id AS university_id,
                     gp.id AS program_id,
                     u.name AS university_name,
                     u.acronym AS university_acronym,
@@ -303,6 +311,206 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 %s
                 ORDER BY u.name ASC, dt.code ASC NULLS LAST, gp.official_degree_name ASC
                 """.formatted(degreeClause);
+    }
+
+    private List<ProgramRecord> rankProgramRecords(GraduateKnowledgeQuery query, List<ProgramRecord> programs) {
+        if (programs == null || programs.size() <= 1) {
+            return programs == null ? List.of() : List.copyOf(programs);
+        }
+
+        Map<Long, Integer> universityOrder = universityOrder(query.resolvedUniversities());
+        List<IndexedProgramRecord> ranked = new ArrayList<>(programs.size());
+        for (int index = 0; index < programs.size(); index++) {
+            ranked.add(new IndexedProgramRecord(programs.get(index), index));
+        }
+
+        Map<Long, List<IndexedProgramRecord>> buckets = bucketProgramsByUniversity(ranked, universityOrder);
+        List<ProgramRecord> ordered = new ArrayList<>(programs.size());
+        Comparator<IndexedProgramRecord> comparator = Comparator
+                .comparingInt((IndexedProgramRecord candidate) -> programScore(query, candidate.record())).reversed()
+                .thenComparing(candidate -> normalize(candidate.record().degreeTypeCode()))
+                .thenComparing(candidate -> normalize(candidate.record().officialDegreeName()))
+                .thenComparingInt(IndexedProgramRecord::originalIndex);
+
+        for (ResolvedUniversity university : query.resolvedUniversities()) {
+            List<IndexedProgramRecord> bucket = buckets.get(university.id());
+            if (bucket == null || bucket.isEmpty()) {
+                continue;
+            }
+            bucket.sort(comparator);
+            ordered.addAll(bucket.stream().map(IndexedProgramRecord::record).toList());
+        }
+
+        if (!buckets.isEmpty()) {
+            List<IndexedProgramRecord> unbucketed = buckets.get(null);
+            if (unbucketed != null && !unbucketed.isEmpty()) {
+                unbucketed.sort(comparator);
+                ordered.addAll(unbucketed.stream().map(IndexedProgramRecord::record).toList());
+            }
+        }
+
+        if (ordered.size() != programs.size()) {
+            return List.copyOf(programs);
+        }
+
+        logger.debug("[RETRIEVAL] Program ranking applied rankingStrategy=DETERMINISTIC_EVIDENCE buckets={} candidates={}",
+                query.resolvedUniversities().size(),
+                programs.size());
+        return List.copyOf(ordered);
+    }
+
+    private List<TuitionAggregationRecord> rankTuitionAggregations(GraduateKnowledgeQuery query, List<TuitionAggregationRecord> aggregations) {
+        if (aggregations == null || aggregations.size() <= 1) {
+            return aggregations == null ? List.of() : List.copyOf(aggregations);
+        }
+
+        Map<Long, Integer> universityOrder = universityOrder(query.resolvedUniversities());
+        List<IndexedTuitionAggregationRecord> ranked = new ArrayList<>(aggregations.size());
+        for (int index = 0; index < aggregations.size(); index++) {
+            ranked.add(new IndexedTuitionAggregationRecord(aggregations.get(index), index));
+        }
+
+        Map<Long, List<IndexedTuitionAggregationRecord>> buckets = bucketTuitionByUniversity(ranked, universityOrder);
+        List<TuitionAggregationRecord> ordered = new ArrayList<>(aggregations.size());
+        Comparator<IndexedTuitionAggregationRecord> comparator = Comparator
+                .comparingInt((IndexedTuitionAggregationRecord candidate) -> tuitionScore(candidate.record())).reversed()
+                .thenComparing(candidate -> normalize(candidate.record().degreeTypeCode()))
+                .thenComparing(candidate -> normalize(candidate.record().currency()))
+                .thenComparingInt(IndexedTuitionAggregationRecord::originalIndex);
+
+        for (ResolvedUniversity university : query.resolvedUniversities()) {
+            List<IndexedTuitionAggregationRecord> bucket = buckets.get(university.id());
+            if (bucket == null || bucket.isEmpty()) {
+                continue;
+            }
+            bucket.sort(comparator);
+            ordered.addAll(bucket.stream().map(IndexedTuitionAggregationRecord::record).toList());
+        }
+
+        List<IndexedTuitionAggregationRecord> unbucketed = buckets.get(null);
+        if (unbucketed != null && !unbucketed.isEmpty()) {
+            unbucketed.sort(comparator);
+            ordered.addAll(unbucketed.stream().map(IndexedTuitionAggregationRecord::record).toList());
+        }
+
+        if (ordered.size() != aggregations.size()) {
+            return List.copyOf(aggregations);
+        }
+
+        logger.debug("[RETRIEVAL] Tuition ranking applied rankingStrategy=DETERMINISTIC_EVIDENCE buckets={} candidates={}",
+                query.resolvedUniversities().size(),
+                aggregations.size());
+        return List.copyOf(ordered);
+    }
+
+    private Map<Long, Integer> universityOrder(List<ResolvedUniversity> universities) {
+        Map<Long, Integer> order = new LinkedHashMap<>();
+        if (universities == null) {
+            return order;
+        }
+        for (int index = 0; index < universities.size(); index++) {
+            ResolvedUniversity university = universities.get(index);
+            if (university != null && university.id() != null && !order.containsKey(university.id())) {
+                order.put(university.id(), index);
+            }
+        }
+        return order;
+    }
+
+    private Map<Long, List<IndexedProgramRecord>> bucketProgramsByUniversity(
+            List<IndexedProgramRecord> programs,
+            Map<Long, Integer> universityOrder
+    ) {
+        Map<Long, List<IndexedProgramRecord>> buckets = new LinkedHashMap<>();
+        for (IndexedProgramRecord candidate : programs) {
+            Long universityId = candidate.record().universityId();
+            if (universityId == null || !universityOrder.containsKey(universityId)) {
+                buckets.computeIfAbsent(null, ignored -> new ArrayList<>()).add(candidate);
+                continue;
+            }
+            buckets.computeIfAbsent(universityId, ignored -> new ArrayList<>()).add(candidate);
+        }
+        return buckets;
+    }
+
+    private Map<Long, List<IndexedTuitionAggregationRecord>> bucketTuitionByUniversity(
+            List<IndexedTuitionAggregationRecord> aggregations,
+            Map<Long, Integer> universityOrder
+    ) {
+        Map<Long, List<IndexedTuitionAggregationRecord>> buckets = new LinkedHashMap<>();
+        for (IndexedTuitionAggregationRecord candidate : aggregations) {
+            Long universityId = candidate.record().universityId();
+            if (universityId == null || !universityOrder.containsKey(universityId)) {
+                buckets.computeIfAbsent(null, ignored -> new ArrayList<>()).add(candidate);
+                continue;
+            }
+            buckets.computeIfAbsent(universityId, ignored -> new ArrayList<>()).add(candidate);
+        }
+        return buckets;
+    }
+
+    private int programScore(GraduateKnowledgeQuery query, ProgramRecord record) {
+        int score = 0;
+        if (query.degreeTypes() != null && !query.degreeTypes().isEmpty()
+                && query.degreeTypes().stream().anyMatch(degreeType -> degreeType != null
+                && degreeType.trim().equalsIgnoreCase(record.degreeTypeCode()))) {
+            score += 6;
+        }
+        if (StringUtils.hasText(record.officialDegreeName())) {
+            score += 4;
+        }
+        if (StringUtils.hasText(record.facultyName())) {
+            score += 2;
+        }
+        if (StringUtils.hasText(record.officialProgramUrl())) {
+            score += 4;
+        }
+        score += Math.min(sourceUrlCount(record.sourceUrls()), 3) * 2;
+        if (query.detailLevel() == GraduateProgramDetailLevel.DETAILS) {
+            score += textScore(record.languageName());
+            score += textScore(record.credits());
+            score += textScore(record.deliveryMode());
+            score += textScore(record.thesisOrNonThesis());
+            score += textScore(record.tuitionSummary());
+            score += textScore(record.admissionSummary());
+        }
+        return score;
+    }
+
+    private int tuitionScore(TuitionAggregationRecord record) {
+        int score = 0;
+        if (record.averageTuition() != null) {
+            score += 6;
+        }
+        if (record.numericTuitionRecordsUsed() > 0) {
+            score += Math.min((int) record.numericTuitionRecordsUsed(), 3) * 2;
+        }
+        if (record.recordCount() > 0) {
+            score += Math.min((int) record.recordCount(), 3);
+        }
+        score += Math.min(sourceUrlCount(record.sourceUrls()), 3) * 2;
+        return score;
+    }
+
+    private int sourceUrlCount(String value) {
+        if (!StringUtils.hasText(value) || "Not available in official data".equalsIgnoreCase(value.trim())) {
+            return 0;
+        }
+        int count = 0;
+        for (String url : value.split("\\s*\\|\\s*")) {
+            if (StringUtils.hasText(url)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int textScore(String value) {
+        return StringUtils.hasText(value) && !"Not available in official data".equalsIgnoreCase(value.trim()) ? 1 : 0;
+    }
+
+    private String normalize(String value) {
+        return StringUtils.hasText(value) ? value.trim().toUpperCase(Locale.ROOT) : "";
     }
 
     private String buildProgramContext(GraduateKnowledgeQuery query, List<ProgramRecord> programs) {
@@ -573,6 +781,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     private record ProgramRecord(
+            Long universityId,
             Long programId,
             String universityName,
             String universityAcronym,
@@ -601,5 +810,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             BigDecimal averageTuition,
             String sourceUrls
     ) {
+    }
+
+    private record IndexedProgramRecord(ProgramRecord record, int originalIndex) {
+    }
+
+    private record IndexedTuitionAggregationRecord(TuitionAggregationRecord record, int originalIndex) {
     }
 }

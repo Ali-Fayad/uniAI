@@ -18,6 +18,14 @@ public class GraduateKnowledgeQueryInterpreter {
 
     private static final int MAX_RECENT_HISTORY_MESSAGES = 6;
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
+    private static final Set<String> GENERIC_UNIVERSITY_TOKENS = Set.of(
+            "university",
+            "college",
+            "institute",
+            "school",
+            "faculty",
+            "department"
+    );
 
     public GraduateKnowledgeQuery interpret(
             String userMessage,
@@ -353,6 +361,8 @@ public class GraduateKnowledgeQueryInterpreter {
         return containsAny(normalizedMessage,
                 "program",
                 "programs",
+                "برنامج",
+                "برامج",
                 "graduate",
                 "degree",
                 "degrees",
@@ -434,9 +444,16 @@ public class GraduateKnowledgeQueryInterpreter {
             }
 
             for (String token : tokenize(name)) {
-                if (token.length() > 2 && containsWord(normalizedText, token)) {
+                if (token.length() > 2 && !GENERIC_UNIVERSITY_TOKENS.contains(token) && containsWord(normalizedText, token)) {
                     return true;
                 }
+            }
+        }
+
+        if (university.getNameAr() != null && !university.getNameAr().isBlank()) {
+            String nameAr = university.getNameAr().trim().toLowerCase(Locale.ROOT);
+            if (normalizedText.contains(nameAr)) {
+                return true;
             }
         }
 
