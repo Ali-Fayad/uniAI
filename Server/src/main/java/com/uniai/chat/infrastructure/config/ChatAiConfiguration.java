@@ -3,12 +3,22 @@ package com.uniai.chat.infrastructure.config;
 import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiTokenEstimator;
+import com.uniai.chat.application.budget.ConversationMemoryBudgetConfiguration;
+import com.uniai.chat.application.budget.ConversationMemoryBudgetManager;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
+import com.uniai.chat.application.memory.ConversationMemoryManager;
+import com.uniai.chat.application.memory.ConversationMemoryMergePolicy;
+import com.uniai.chat.application.memory.ConversationMemoryTriggerPolicy;
+import com.uniai.chat.application.memory.ConversationMemoryValidator;
+import com.uniai.chat.application.memory.ConversationMemoryUpdatePort;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
+import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
+import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
+import com.uniai.chat.infrastructure.memory.AiConversationMemoryUpdateAdapter;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GeminiAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.GroqAiProperties;
@@ -18,6 +28,8 @@ import com.uniai.chat.infrastructure.ai.OllamaAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
 import com.uniai.chat.infrastructure.interpretation.AiGraduateQueryInterpretationAdapter;
 import com.uniai.chat.infrastructure.prompt.GraduateQueryInterpreterPromptProvider;
+import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
+import com.uniai.chat.domain.repository.MessageRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,6 +86,25 @@ public class ChatAiConfiguration {
     }
 
     @Bean
+    public ConversationMemoryBudgetConfiguration conversationMemoryBudgetConfiguration(ConversationMemoryProperties properties) {
+        return new ConversationMemoryBudgetConfiguration(
+                properties != null && properties.isEnabled(),
+                properties != null ? properties.getMaxInputTokens() : 1200L,
+                properties != null ? properties.getMaxOutputTokens() : 250,
+                properties != null ? properties.getPromptPath() : "prompts/conversation-memory-updater-prompt.txt"
+        );
+    }
+
+    @Bean
+    public ConversationMemoryBudgetManager conversationMemoryBudgetManager(
+            ConversationMemoryBudgetConfiguration configuration,
+            AiTokenEstimator estimator,
+            @Value("${ai.provider:placeholder}") String provider
+    ) {
+        return new ConversationMemoryBudgetManager(configuration, estimator, provider);
+    }
+
+    @Bean
     public GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter() {
         return new GraduateKnowledgeQueryInterpreter();
     }
@@ -103,6 +134,58 @@ public class ChatAiConfiguration {
     @Bean
     public GraduateQueryInterpretationValidator graduateQueryInterpretationValidator() {
         return new GraduateQueryInterpretationValidator();
+    }
+
+    @Bean
+    public ConversationMemoryValidator conversationMemoryValidator() {
+        return new ConversationMemoryValidator();
+    }
+
+    @Bean
+    public ConversationMemoryMergePolicy conversationMemoryMergePolicy() {
+        return new ConversationMemoryMergePolicy();
+    }
+
+    @Bean
+    public ConversationMemoryTriggerPolicy conversationMemoryTriggerPolicy() {
+        return new ConversationMemoryTriggerPolicy();
+    }
+
+    @Bean
+    public ConversationMemoryUpdatePort conversationMemoryUpdatePort(
+            AiServicePort aiServicePort,
+            ConversationMemoryPromptPort promptPort,
+            ConversationMemoryBudgetConfiguration budgetConfiguration,
+            ObjectMapper objectMapper
+    ) {
+        return new AiConversationMemoryUpdateAdapter(aiServicePort, promptPort, budgetConfiguration, objectMapper);
+    }
+
+    @Bean
+    public ConversationMemoryManager conversationMemoryManager(
+            ConversationMemoryPersistencePort persistencePort,
+            ConversationMemoryUpdatePort updatePort,
+            ConversationMemoryBudgetManager budgetManager,
+            ConversationMemoryValidator validator,
+            ConversationMemoryMergePolicy mergePolicy,
+            ConversationMemoryTriggerPolicy triggerPolicy,
+            UniversityCatalogRepository universityCatalogRepository,
+            MessageRepository messageRepository,
+            ConversationMemoryPromptPort promptPort,
+            ConversationMemoryBudgetConfiguration budgetConfiguration
+    ) {
+        return new ConversationMemoryManager(
+                persistencePort,
+                updatePort,
+                budgetManager,
+                validator,
+                mergePolicy,
+                triggerPolicy,
+                universityCatalogRepository,
+                messageRepository,
+                promptPort,
+                budgetConfiguration
+        );
     }
 
     @Bean

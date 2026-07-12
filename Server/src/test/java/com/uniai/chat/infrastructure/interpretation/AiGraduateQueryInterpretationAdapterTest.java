@@ -2,6 +2,7 @@ package com.uniai.chat.infrastructure.interpretation;
 
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.port.out.AiServicePort;
@@ -36,7 +37,7 @@ class AiGraduateQueryInterpretationAdapterTest {
 
         AiGraduateQueryInterpretationAdapter adapter = adapter(aiServicePort);
 
-        GraduateQueryInterpretation interpretation = adapter.interpret(new GraduateQueryInterpretationRequest("What programs does AUB offer?", List.of()));
+        GraduateQueryInterpretation interpretation = adapter.interpret(new GraduateQueryInterpretationRequest("What programs does AUB offer?", List.of(), ConversationMemory.empty()));
 
         assertEquals(1, aiServicePort.callCount);
         assertEquals(1, interpretation.schemaVersion());
@@ -58,7 +59,7 @@ class AiGraduateQueryInterpretationAdapterTest {
                 ```
                 """));
 
-        GraduateQueryInterpretation interpretation = adapter.interpret(new GraduateQueryInterpretationRequest("What is the tuition at USJ?", List.of()));
+        GraduateQueryInterpretation interpretation = adapter.interpret(new GraduateQueryInterpretationRequest("What is the tuition at USJ?", List.of(), ConversationMemory.empty()));
 
         assertEquals("TUITION_AGGREGATION", interpretation.intent());
         assertEquals(List.of("USJ"), interpretation.universities());
@@ -69,8 +70,8 @@ class AiGraduateQueryInterpretationAdapterTest {
         AiGraduateQueryInterpretationAdapter blankAdapter = adapter(new RecordingAiServicePort("   "));
         AiGraduateQueryInterpretationAdapter invalidAdapter = adapter(new RecordingAiServicePort("{ not json }"));
 
-        assertThrows(IllegalStateException.class, () -> blankAdapter.interpret(new GraduateQueryInterpretationRequest("Hello", List.of())));
-        assertThrows(IllegalStateException.class, () -> invalidAdapter.interpret(new GraduateQueryInterpretationRequest("Hello", List.of())));
+        assertThrows(IllegalStateException.class, () -> blankAdapter.interpret(new GraduateQueryInterpretationRequest("Hello", List.of(), ConversationMemory.empty())));
+        assertThrows(IllegalStateException.class, () -> invalidAdapter.interpret(new GraduateQueryInterpretationRequest("Hello", List.of(), ConversationMemory.empty())));
     }
 
     private AiGraduateQueryInterpretationAdapter adapter(RecordingAiServicePort aiServicePort) {

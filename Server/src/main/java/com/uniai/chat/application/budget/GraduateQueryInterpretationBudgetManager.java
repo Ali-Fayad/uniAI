@@ -2,6 +2,7 @@ package com.uniai.chat.application.budget;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.memory.ConversationMemory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,21 +41,23 @@ public class GraduateQueryInterpretationBudgetManager {
         long availableInputBudget = Math.max(0L, maxInputTokens - reservedOutputTokens);
         long overheadTokens = estimator.resolveOverheadTokens();
 
+        ConversationMemory conversationMemory = request.conversationMemory();
         long promptTokens = estimator.estimateTokens(prompt);
+        long memoryTokens = estimator.estimateTokens(conversationMemory);
         long userTokens = estimator.estimateTokens(request.userMessage());
         long originalHistoryTokens = estimator.estimateConversationTokens(originalHistory);
-        long originalTotal = promptTokens + userTokens + originalHistoryTokens + overheadTokens;
+        long originalTotal = promptTokens + memoryTokens + userTokens + originalHistoryTokens + overheadTokens;
 
         boolean historyTrimmed = budgetedHistory.size() != originalHistory.size();
         while (!budgetedHistory.isEmpty()
-                && (promptTokens + userTokens + estimator.estimateConversationTokens(budgetedHistory) + overheadTokens) > availableInputBudget) {
+                && (promptTokens + memoryTokens + userTokens + estimator.estimateConversationTokens(budgetedHistory) + overheadTokens) > availableInputBudget) {
             budgetedHistory.remove(0);
             historyTrimmed = true;
         }
 
         long finalHistoryTokens = estimator.estimateConversationTokens(budgetedHistory);
-        long finalEstimatedInputTokens = promptTokens + userTokens + finalHistoryTokens + overheadTokens;
-        boolean requestFits = promptTokens + userTokens + overheadTokens <= availableInputBudget
+        long finalEstimatedInputTokens = promptTokens + memoryTokens + userTokens + finalHistoryTokens + overheadTokens;
+        boolean requestFits = promptTokens + memoryTokens + userTokens + overheadTokens <= availableInputBudget
                 && finalEstimatedInputTokens <= availableInputBudget;
 
         if (!requestFits) {
@@ -68,14 +71,16 @@ public class GraduateQueryInterpretationBudgetManager {
 
         GraduateQueryInterpretationRequest budgetedRequest = new GraduateQueryInterpretationRequest(
                 request.userMessage(),
-                List.copyOf(budgetedHistory)
+                List.copyOf(budgetedHistory),
+                conversationMemory
         );
 
-        logger.debug("[AI_INTERPRETATION_BUDGET] Evaluation completed provider={} originalEstimatedTokens={} finalEstimatedTokens={} promptTokens={} userTokens={} historyTokens={} historyTrimmed={} requestFits={} durationMs={}",
+        logger.debug("[AI_INTERPRETATION_BUDGET] Evaluation completed provider={} originalEstimatedTokens={} finalEstimatedTokens={} promptTokens={} memoryTokens={} userTokens={} historyTokens={} historyTrimmed={} requestFits={} durationMs={}",
                 activeProvider,
                 originalTotal,
                 finalEstimatedInputTokens,
                 promptTokens,
+                memoryTokens,
                 userTokens,
                 finalHistoryTokens,
                 historyTrimmed,

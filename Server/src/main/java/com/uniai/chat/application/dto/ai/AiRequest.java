@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.uniai.chat.application.memory.ConversationMemory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class AiRequest {
 
     @Builder.Default
     private List<AiConversationMessage> conversationHistory = new ArrayList<>();
+
+    private ConversationMemory conversationMemory;
 
     private Double temperature;
     private Integer maxTokens;

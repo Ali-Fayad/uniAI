@@ -10,6 +10,8 @@ import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
+import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.application.memory.ConversationMemoryManager;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
@@ -60,6 +62,7 @@ class ChatApplicationServiceTest {
     private RecordingGraduateQueryInterpretationPort graduateQueryInterpretationPort;
     private RecordingGraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
     private RecordingGraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
+    private RecordingConversationMemoryManager conversationMemoryManager;
     private AiContextBudgetManager aiContextBudgetManager;
     private GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager;
     private GraduateQueryInterpretationValidator graduateQueryInterpretationValidator;
@@ -91,6 +94,19 @@ class ChatApplicationServiceTest {
         );
         graduateKnowledgeQueryInterpreter = new RecordingGraduateKnowledgeQueryInterpreter();
         graduateKnowledgeRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort("Structured graduate context");
+        conversationMemoryManager = new RecordingConversationMemoryManager();
+        conversationMemoryManager.loadedMemory = new ConversationMemory(
+                ConversationMemory.SCHEMA_VERSION,
+                List.of(new com.uniai.chat.application.memory.MemoryUniversityRef(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                "PROGRAM_LOOKUP",
+                false,
+                List.of(),
+                List.of("tuition"),
+                List.of(),
+                List.of(),
+                new com.uniai.chat.application.memory.ConversationPreferences("ENGLISH", null, null)
+        );
         aiContextBudgetManager = budgetManager("gemini", 200000, 2000, 12000, 120000, 4, 128);
         graduateQueryInterpretationBudgetManager = interpretationBudgetManager("gemini", 1500, 250, 4, 0);
         graduateQueryInterpretationValidator = new GraduateQueryInterpretationValidator();
@@ -108,7 +124,8 @@ class ChatApplicationServiceTest {
                 graduateKnowledgeRetrievalPort,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
-                aiContextBudgetManager
+                aiContextBudgetManager,
+                conversationMemoryManager
         );
     }
 
@@ -130,11 +147,10 @@ class ChatApplicationServiceTest {
         assertEquals("What about USJ?", aiServicePort.lastRequest.getUserMessage());
         assertEquals("Structured graduate context", aiServicePort.lastRequest.getContext().get(0));
         assertEquals(2000, aiServicePort.lastRequest.getMaxTokens());
-        assertEquals(7, aiServicePort.lastRequest.getConversationHistory().size());
+        assertEquals(6, aiServicePort.lastRequest.getConversationHistory().size());
         assertFalse(aiServicePort.lastRequest.getConversationHistory().stream()
                 .anyMatch(message -> "What about USJ?".equals(message.getContent())));
         assertEquals(List.of(
-                "What master's programs does AUB offer?",
                 "AUB master's answer",
                 "What about tuition?",
                 "AUB tuition answer",
@@ -146,6 +162,8 @@ class ChatApplicationServiceTest {
         assertEquals(1, graduateQueryInterpretationPort.callCount);
         assertEquals("What about USJ?", graduateQueryInterpretationPort.lastRequest.userMessage());
         assertEquals(4, graduateQueryInterpretationPort.lastRequest.recentConversationHistory().size());
+        assertEquals(conversationMemoryManager.loadedMemory, graduateQueryInterpretationPort.lastRequest.conversationMemory());
+        assertEquals(1, conversationMemoryManager.loadCallCount);
 
         assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
         assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeRetrievalPort.lastQuery.intent());
@@ -156,6 +174,8 @@ class ChatApplicationServiceTest {
         assertEquals("Here is the official answer.", result.getContent());
         assertEquals("Here is the official answer.", messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).get(messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size() - 1).getContent());
         assertEquals(1, aiServicePort.callCount);
+        assertEquals(conversationMemoryManager.loadedMemory, aiServicePort.lastRequest.getConversationMemory());
+        assertEquals(1, conversationMemoryManager.updateCallCount);
         assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, graduateKnowledgeRetrievalPort.lastQuery.intent());
         assertEquals(1, graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().size());
         assertEquals("USJ", graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().get(0).acronym());
@@ -231,7 +251,8 @@ class ChatApplicationServiceTest {
                 graduateKnowledgeRetrievalPort,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
-                smallBudgetManager
+                smallBudgetManager,
+                conversationMemoryManager
         );
 
         User user = user(4L, "dan", "dan@example.com");
@@ -416,6 +437,7 @@ class ChatApplicationServiceTest {
         private String lastUserMessage;
         private List<AiConversationMessage> lastRecentConversationWindow = Collections.emptyList();
         private List<UniversityCatalog> lastUniversityCatalogs = Collections.emptyList();
+        private ConversationMemory lastConversationMemory = ConversationMemory.empty();
         private GraduateKnowledgeQuery lastQuery = new GraduateKnowledgeQuery(
                 GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS,
                 List.of(),
@@ -427,6 +449,11 @@ class ChatApplicationServiceTest {
 
         @Override
         public GraduateKnowledgeQuery interpret(String userMessage, List<AiConversationMessage> recentConversationHistory, List<UniversityCatalog> universityCatalogs) {
+            return interpret(userMessage, recentConversationHistory, universityCatalogs, ConversationMemory.empty());
+        }
+
+        @Override
+        public GraduateKnowledgeQuery interpret(String userMessage, List<AiConversationMessage> recentConversationHistory, List<UniversityCatalog> universityCatalogs, ConversationMemory conversationMemory) {
             lastUserMessage = userMessage;
             lastRecentConversationWindow = recentConversationHistory == null
                     ? Collections.emptyList()
@@ -434,6 +461,7 @@ class ChatApplicationServiceTest {
             lastUniversityCatalogs = universityCatalogs == null
                     ? Collections.emptyList()
                     : List.copyOf(universityCatalogs);
+            lastConversationMemory = conversationMemory == null ? ConversationMemory.empty() : conversationMemory;
             lastQuery = new GraduateKnowledgeQuery(
                     GraduateKnowledgeIntent.PROGRAM_LOOKUP,
                     List.of(new ResolvedUniversity(2L, "Université Saint-Joseph", "USJ")),
@@ -443,6 +471,38 @@ class ChatApplicationServiceTest {
                     false
             );
             return lastQuery;
+        }
+    }
+
+    private static final class RecordingConversationMemoryManager extends ConversationMemoryManager {
+        private ConversationMemory loadedMemory = ConversationMemory.empty();
+        private int loadCallCount;
+        private int updateCallCount;
+
+        private RecordingConversationMemoryManager() {
+            super(
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    new com.uniai.chat.application.budget.ConversationMemoryBudgetConfiguration(false, 1, 1, "prompts/conversation-memory-updater-prompt.txt")
+            );
+        }
+
+        @Override
+        public ConversationMemory loadMemory(Long chatId) {
+            loadCallCount++;
+            return loadedMemory;
+        }
+
+        @Override
+        public void updateMemoryIfNeeded(Long chatId, ConversationMemory previousMemory, String currentUserMessage, String assistantResponse, com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult interpretationResult) {
+            updateCallCount++;
         }
     }
 
@@ -661,6 +721,11 @@ class ChatApplicationServiceTest {
         @Override
         public Optional<Chat> findById(Long id) {
             return Optional.ofNullable(chats.get(id));
+        }
+
+        @Override
+        public Optional<Chat> findByIdForUpdate(Long id) {
+            return findById(id);
         }
 
         @Override

@@ -13,6 +13,8 @@ public interface ChatRepository {
 
     Optional<Chat> findById(Long id);
 
+    Optional<Chat> findByIdForUpdate(Long id);
+
     List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username);
 
     String findTitleById(Long chatId);

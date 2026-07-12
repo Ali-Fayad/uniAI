@@ -2,6 +2,7 @@ package com.uniai.chat.application.budget;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiRequest;
+import com.uniai.chat.application.memory.ConversationMemory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,21 +42,24 @@ public class AiContextBudgetManager {
 
         List<AiConversationMessage> originalHistory = copyHistory(request.getConversationHistory());
         List<String> originalContext = copyContext(request.getContext());
+        ConversationMemory conversationMemory = request.getConversationMemory();
 
         long originalSystemTokens = estimator.estimateTokens(request.getSystemPrompt());
+        long originalMemoryTokens = estimator.estimateTokens(conversationMemory);
         long originalUserTokens = estimator.estimateTokens(request.getUserMessage());
         long originalHistoryTokens = estimator.estimateConversationTokens(originalHistory);
         long originalContextTokens = estimator.estimateContextTokens(originalContext);
-        long originalTotal = originalSystemTokens + originalUserTokens + originalHistoryTokens + originalContextTokens + overheadTokens;
+        long originalTotal = originalSystemTokens + originalMemoryTokens + originalUserTokens + originalHistoryTokens + originalContextTokens + overheadTokens;
 
         logger.debug("[AI_BUDGET] Evaluation started provider={} maxInputTokens={} reservedOutputTokens={} overheadTokens={}",
                 activeProvider,
                 maxInputTokens,
                 reservedOutputTokens,
                 overheadTokens);
-        logger.debug("[AI_BUDGET] Original estimate total={} system={} history={} retrieval={} user={} contextCount={} historyCount={}",
+        logger.debug("[AI_BUDGET] Original estimate total={} system={} memory={} history={} retrieval={} user={} contextCount={} historyCount={}",
                 originalTotal,
                 originalSystemTokens,
+                originalMemoryTokens,
                 originalHistoryTokens,
                 originalContextTokens,
                 originalUserTokens,
@@ -76,8 +80,9 @@ public class AiContextBudgetManager {
         long finalHistoryTokens = estimator.estimateConversationTokens(budgetedHistory);
         long finalContextTokens = estimator.estimateContextTokens(budgetedContext);
         long finalSystemTokens = estimator.estimateTokens(request.getSystemPrompt());
+        long finalMemoryTokens = estimator.estimateTokens(conversationMemory);
         long finalUserTokens = estimator.estimateTokens(request.getUserMessage());
-        long finalTotal = finalSystemTokens + finalUserTokens + finalHistoryTokens + finalContextTokens + overheadTokens;
+        long finalTotal = finalSystemTokens + finalMemoryTokens + finalUserTokens + finalHistoryTokens + finalContextTokens + overheadTokens;
 
         if (finalTotal > availableInputBudget) {
             TrimState overallHistoryTrimState = trimHistoryToFitOverallBudget(
@@ -98,12 +103,12 @@ public class AiContextBudgetManager {
 
             finalHistoryTokens = estimator.estimateConversationTokens(budgetedHistory);
             finalContextTokens = estimator.estimateContextTokens(budgetedContext);
-            finalTotal = finalSystemTokens + finalUserTokens + finalHistoryTokens + finalContextTokens + overheadTokens;
+            finalTotal = finalSystemTokens + finalMemoryTokens + finalUserTokens + finalHistoryTokens + finalContextTokens + overheadTokens;
         }
 
         long finalEstimatedInputTokens = finalTotal;
         boolean requestFits = finalEstimatedInputTokens <= availableInputBudget
-                && finalSystemTokens + finalUserTokens + overheadTokens <= availableInputBudget;
+                && finalSystemTokens + finalMemoryTokens + finalUserTokens + overheadTokens <= availableInputBudget;
 
         if (historyTrimmed) {
             logger.warn("[AI_BUDGET] History trimmed originalCount={} finalCount={} estimatedTokensRemoved={}",
@@ -132,6 +137,7 @@ public class AiContextBudgetManager {
                 .systemPrompt(request.getSystemPrompt())
                 .conversationHistory(List.copyOf(budgetedHistory))
                 .context(List.copyOf(budgetedContext))
+                .conversationMemory(conversationMemory)
                 .temperature(request.getTemperature())
                 .maxTokens(request.getMaxTokens() != null && request.getMaxTokens() > 0
                         ? request.getMaxTokens()

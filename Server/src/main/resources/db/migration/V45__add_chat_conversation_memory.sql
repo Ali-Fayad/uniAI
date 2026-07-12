@@ -1,0 +1,4 @@
+ALTER TABLE chats
+    ADD COLUMN IF NOT EXISTS conversation_memory JSONB,
+    ADD COLUMN IF NOT EXISTS memory_updated_at TIMESTAMP,
+    ADD COLUMN IF NOT EXISTS memory_version BIGINT NOT NULL DEFAULT 0;

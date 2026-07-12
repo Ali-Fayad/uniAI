@@ -16,6 +16,8 @@ import com.uniai.chat.application.interpretation.GraduateQueryInterpretationVali
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
 import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
+import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.application.memory.ConversationMemoryManager;
 import com.uniai.chat.application.port.in.*;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
@@ -43,6 +45,8 @@ import org.apache.logging.log4j.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -77,8 +81,10 @@ public class ChatApplicationService implements
     private final UniversityCatalogRepository universityCatalogRepository;
     private final GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
     private final AiContextBudgetManager aiContextBudgetManager;
+    private final ConversationMemoryManager conversationMemoryManager;
 
-    private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 20;
+    private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 6;
+    private static final int MAX_INTERPRETATION_HISTORY_MESSAGES = 4;
 
     // -------------------------------------------------------------------------
     // CreateChatUseCase
@@ -116,6 +122,9 @@ public class ChatApplicationService implements
             User user = getUser(email);
             userId = user.getId();
             validateOwnership(chat, user);
+            ConversationMemory conversationMemory = conversationMemoryManager == null
+                    ? ConversationMemory.empty()
+                    : conversationMemoryManager.loadMemory(chat.getId());
 
             logger.info("[CHAT] Request started userId={} chatId={} messageLength={}",
                     user.getId(),
@@ -153,7 +162,8 @@ public class ChatApplicationService implements
                     chat.getId(),
                     command.getContent(),
                     recentConversationWindow,
-                    universityCatalogs
+                    universityCatalogs,
+                    conversationMemory
             );
             logger.debug("[RETRIEVAL] Interpretation completed chatId={} status={} fallbackUsed={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={} failureCategory={}",
                     chat.getId(),
@@ -186,6 +196,7 @@ public class ChatApplicationService implements
                 }
                 chat.setUpdatedAt(LocalDateTime.now());
                 chatRepository.save(chat);
+                registerConversationMemoryUpdate(chat.getId(), conversationMemory, command.getContent(), safeContent, interpretationResult);
 
                 logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
                         user.getId(),
@@ -242,6 +253,7 @@ public class ChatApplicationService implements
                     .systemPrompt(systemPrompt)
                     .conversationHistory(conversationHistory)
                     .context(context)
+                    .conversationMemory(conversationMemory)
                     .build();
 
             logger.debug("[AI] Budget evaluation started chatId={} providerBean={}",
@@ -340,6 +352,7 @@ public class ChatApplicationService implements
             }
             chat.setUpdatedAt(LocalDateTime.now());
             chatRepository.save(chat);
+            registerConversationMemoryUpdate(chat.getId(), conversationMemory, command.getContent(), aiContent, interpretationResult);
 
             logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
                     user.getId(),
@@ -486,7 +499,7 @@ public class ChatApplicationService implements
             return Collections.emptyList();
         }
 
-        int startIndex = Math.max(0, conversationHistory.size() - 6);
+        int startIndex = Math.max(0, conversationHistory.size() - MAX_INTERPRETATION_HISTORY_MESSAGES);
         return List.copyOf(conversationHistory.subList(startIndex, conversationHistory.size()));
     }
 
@@ -494,10 +507,11 @@ public class ChatApplicationService implements
             Long chatId,
             String currentMessage,
             List<AiConversationMessage> recentConversationWindow,
-            List<UniversityCatalog> universityCatalogs
+            List<UniversityCatalog> universityCatalogs,
+            ConversationMemory conversationMemory
     ) {
         String prompt = graduateQueryInterpreterPromptPort.getPrompt();
-        GraduateQueryInterpretationRequest request = new GraduateQueryInterpretationRequest(currentMessage, recentConversationWindow);
+        GraduateQueryInterpretationRequest request = new GraduateQueryInterpretationRequest(currentMessage, recentConversationWindow, conversationMemory);
         GraduateQueryInterpretationBudgetResult budgetResult = graduateQueryInterpretationBudgetManager.budget(request, prompt);
 
         logger.debug("[AI_INTERPRETATION] Budget evaluation chatId={} provider={} requestFits={} originalEstimatedInputTokens={} finalEstimatedInputTokens={} historyTrimmed={} finalHistoryCount={} reservedOutputTokens={}",
@@ -514,7 +528,7 @@ public class ChatApplicationService implements
             logger.warn("[AI_INTERPRETATION] Budget rejected chatId={} category={}",
                     chatId,
                     budgetResult.diagnosticCategory());
-            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
+            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
         }
 
         try {
@@ -529,7 +543,7 @@ public class ChatApplicationService implements
             return result;
         } catch (RuntimeException ex) {
             logger.warn("[AI_INTERPRETATION] Provider interpretation failed chatId={} reason={}", chatId, ex.getMessage());
-            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
+            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
         }
     }
 
@@ -537,6 +551,7 @@ public class ChatApplicationService implements
             String currentMessage,
             List<AiConversationMessage> recentConversationWindow,
             List<UniversityCatalog> universityCatalogs,
+            ConversationMemory conversationMemory,
             String failureCategory
     ) {
         if (isUnsupportedGraduateDegreeRequest(currentMessage)) {
@@ -551,7 +566,8 @@ public class ChatApplicationService implements
         GraduateKnowledgeQuery fallbackQuery = graduateKnowledgeQueryInterpreter.interpret(
                 currentMessage,
                 recentConversationWindow,
-                universityCatalogs
+                universityCatalogs,
+                conversationMemory
         );
 
         if (fallbackQuery.intent() == null || fallbackQuery.intent() == com.uniai.chat.application.retrieval.GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
@@ -597,6 +613,37 @@ public class ChatApplicationService implements
             return buildUnsupportedGraduateMessage();
         }
         return buildAmbiguousGraduateMessage();
+    }
+
+    private void registerConversationMemoryUpdate(
+            Long chatId,
+            ConversationMemory previousMemory,
+            String currentUserMessage,
+            String assistantResponse,
+            GraduateQueryInterpretationResult interpretationResult
+    ) {
+        if (conversationMemoryManager == null || chatId == null) {
+            return;
+        }
+
+        Runnable task = () -> {
+            try {
+                conversationMemoryManager.updateMemoryIfNeeded(chatId, previousMemory, currentUserMessage, assistantResponse, interpretationResult);
+            } catch (RuntimeException ex) {
+                logger.warn("[AI_MEMORY] Memory update failed chatId={} reason={}", chatId, ex.getMessage());
+            }
+        };
+
+        if (TransactionSynchronizationManager.isSynchronizationActive()) {
+            TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    task.run();
+                }
+            });
+        } else {
+            task.run();
+        }
     }
 
     private String resolveConversationRole(Message message) {

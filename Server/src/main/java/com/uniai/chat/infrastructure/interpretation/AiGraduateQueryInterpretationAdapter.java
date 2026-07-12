@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.port.out.AiServicePort;
@@ -45,18 +47,22 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
         String prompt = promptPort.getPrompt();
         String userMessage = request != null ? request.userMessage() : null;
         List<AiConversationMessage> history = request != null ? request.recentConversationHistory() : List.of();
+        ConversationMemory conversationMemory = request != null ? request.conversationMemory() : ConversationMemory.empty();
+        String systemPrompt = appendMemory(prompt, conversationMemory);
 
-        logger.debug("[AI_INTERPRETATION] Request started providerBean={} promptLength={} messageLength={} historyCount={} maxTokens={}",
+        logger.debug("[AI_INTERPRETATION] Request started providerBean={} promptLength={} memoryLength={} messageLength={} historyCount={} maxTokens={}",
                 aiServicePort.getClass().getSimpleName(),
                 StringUtils.hasText(prompt) ? prompt.length() : 0,
+                ConversationMemoryPromptFormatter.render(conversationMemory).length(),
                 StringUtils.hasText(userMessage) ? userMessage.length() : 0,
                 history.size(),
                 budgetConfiguration != null ? budgetConfiguration.maxOutputTokens() : 0);
 
         AiRequest aiRequest = AiRequest.builder()
-                .systemPrompt(prompt)
+                .systemPrompt(systemPrompt)
                 .userMessage(userMessage)
                 .conversationHistory(history)
+                .conversationMemory(conversationMemory)
                 .temperature(0.0)
                 .maxTokens(budgetConfiguration != null ? budgetConfiguration.maxOutputTokens() : 250)
                 .build();
@@ -115,6 +121,20 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
             }
         }
         return trimmed;
+    }
+
+    private String appendMemory(String prompt, ConversationMemory conversationMemory) {
+        if (conversationMemory == null || conversationMemory.isEmpty()) {
+            return prompt;
+        }
+        String memoryText = ConversationMemoryPromptFormatter.render(conversationMemory);
+        if (!StringUtils.hasText(memoryText)) {
+            return prompt;
+        }
+        if (!StringUtils.hasText(prompt)) {
+            return "Trusted conversation memory:\n" + memoryText;
+        }
+        return prompt + "\n\nTrusted conversation memory:\n" + memoryText;
     }
 
     private long elapsedMillis(long startNanos) {

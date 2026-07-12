@@ -2,6 +2,8 @@ package com.uniai.chat.application.budget;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiRequest;
+import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 
 import java.util.List;
 
@@ -28,6 +30,13 @@ public class AiTokenEstimator {
 
     public long estimateTokens(AiConversationMessage message) {
         return message == null ? 0L : estimateTokens(message.getContent());
+    }
+
+    public long estimateTokens(ConversationMemory memory) {
+        if (memory == null) {
+            return 0L;
+        }
+        return estimateTokens(ConversationMemoryPromptFormatter.render(memory));
     }
 
     public long estimateConversationTokens(List<AiConversationMessage> messages) {

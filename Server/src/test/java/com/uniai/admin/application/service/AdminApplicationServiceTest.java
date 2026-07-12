@@ -488,6 +488,11 @@ class AdminApplicationServiceTest {
             }
 
             @Override
+            public Optional<Chat> findByIdForUpdate(Long id) {
+                return findById(id);
+            }
+
+            @Override
             public List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username) {
                 return chats.stream()
                         .filter(chat -> chat.getUser() != null

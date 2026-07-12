@@ -1,6 +1,8 @@
 package com.uniai.chat.application.retrieval;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.application.memory.MemoryUniversityRef;
 import com.uniai.catalog.domain.model.UniversityCatalog;
 
 import java.util.ArrayList;
@@ -32,9 +34,18 @@ public class GraduateKnowledgeQueryInterpreter {
             List<AiConversationMessage> recentConversationHistory,
             List<UniversityCatalog> universityCatalogs
     ) {
+        return interpret(userMessage, recentConversationHistory, universityCatalogs, ConversationMemory.empty());
+    }
+
+    public GraduateKnowledgeQuery interpret(
+            String userMessage,
+            List<AiConversationMessage> recentConversationHistory,
+            List<UniversityCatalog> universityCatalogs,
+            ConversationMemory conversationMemory
+    ) {
         String normalizedMessage = normalize(userMessage);
         List<UniversityCatalog> catalog = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
-        HistorySignals historySignals = analyzeHistory(recentConversationHistory, catalog);
+        HistorySignals historySignals = analyzeHistory(recentConversationHistory, catalog, conversationMemory);
 
         List<ResolvedUniversity> currentUniversities = resolveUniversities(normalizedMessage, catalog);
         List<String> currentDegreeTypes = detectDegreeTypes(normalizedMessage);
@@ -281,9 +292,9 @@ public class GraduateKnowledgeQueryInterpreter {
         return GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;
     }
 
-    private HistorySignals analyzeHistory(List<AiConversationMessage> recentConversationHistory, List<UniversityCatalog> catalogs) {
+    private HistorySignals analyzeHistory(List<AiConversationMessage> recentConversationHistory, List<UniversityCatalog> catalogs, ConversationMemory conversationMemory) {
         if (recentConversationHistory == null || recentConversationHistory.isEmpty()) {
-            return HistorySignals.empty();
+            return seedFromMemory(HistorySignals.empty(), conversationMemory);
         }
 
         int startIndex = Math.max(0, recentConversationHistory.size() - MAX_RECENT_HISTORY_MESSAGES);
@@ -316,7 +327,68 @@ public class GraduateKnowledgeQueryInterpreter {
             }
         }
 
+        return seedFromMemory(new HistorySignals(distinctUniversities, latestUniversity, latestDegreeType, latestIntent), conversationMemory);
+    }
+
+    private HistorySignals seedFromMemory(HistorySignals base, ConversationMemory conversationMemory) {
+        if (conversationMemory == null || conversationMemory.isEmpty()) {
+            return base;
+        }
+
+        List<ResolvedUniversity> memoryUniversities = memoryUniversities(conversationMemory.activeUniversities());
+        List<ResolvedUniversity> distinctUniversities = base.distinctUniversities();
+        if (memoryUniversities != null && !memoryUniversities.isEmpty()) {
+            distinctUniversities = mergeUniversities(memoryUniversities, distinctUniversities);
+        }
+
+        ResolvedUniversity latestUniversity = base.latestUniversity();
+        if (latestUniversity == null && memoryUniversities != null && !memoryUniversities.isEmpty()) {
+            latestUniversity = memoryUniversities.get(memoryUniversities.size() - 1);
+        }
+
+        String latestDegreeType = base.latestDegreeType();
+        if (latestDegreeType == null && conversationMemory.activeDegreeTypes() != null && !conversationMemory.activeDegreeTypes().isEmpty()) {
+            latestDegreeType = conversationMemory.activeDegreeTypes().get(conversationMemory.activeDegreeTypes().size() - 1);
+        }
+
+        GraduateKnowledgeIntent latestIntent = base.latestIntent();
+        if (latestIntent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS) {
+            latestIntent = conversationMemory.lastIntentEnum();
+        }
+
         return new HistorySignals(distinctUniversities, latestUniversity, latestDegreeType, latestIntent);
+    }
+
+    private List<ResolvedUniversity> memoryUniversities(List<MemoryUniversityRef> refs) {
+        if (refs == null || refs.isEmpty()) {
+            return List.of();
+        }
+        List<ResolvedUniversity> universities = new ArrayList<>();
+        for (MemoryUniversityRef ref : refs) {
+            if (ref != null && ref.id() != null) {
+                universities.add(new ResolvedUniversity(ref.id(), ref.name(), ref.acronym()));
+            }
+        }
+        return universities;
+    }
+
+    private List<ResolvedUniversity> mergeUniversities(List<ResolvedUniversity> left, List<ResolvedUniversity> right) {
+        Map<Long, ResolvedUniversity> byId = new LinkedHashMap<>();
+        if (left != null) {
+            for (ResolvedUniversity university : left) {
+                if (university != null && university.id() != null) {
+                    byId.putIfAbsent(university.id(), university);
+                }
+            }
+        }
+        if (right != null) {
+            for (ResolvedUniversity university : right) {
+                if (university != null && university.id() != null) {
+                    byId.putIfAbsent(university.id(), university);
+                }
+            }
+        }
+        return new ArrayList<>(byId.values());
     }
 
     private List<ResolvedUniversity> resolveUniversities(String normalizedMessage, List<UniversityCatalog> catalogs) {

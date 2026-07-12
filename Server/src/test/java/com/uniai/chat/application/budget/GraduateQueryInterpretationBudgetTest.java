@@ -1,6 +1,7 @@
 package com.uniai.chat.application.budget;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,8 @@ class GraduateQueryInterpretationBudgetTest {
                         msg("assistant", "two two two two"),
                         msg("user", "three three three three"),
                         msg("assistant", "four four four four")
-                )
+                ),
+                ConversationMemory.empty()
         );
 
         GraduateQueryInterpretationBudgetResult result = manager.budget(request, "interpretation prompt");
@@ -40,7 +42,8 @@ class GraduateQueryInterpretationBudgetTest {
         GraduateQueryInterpretationBudgetManager manager = manager(5, 2, 4, "gemini", 0);
         GraduateQueryInterpretationRequest request = new GraduateQueryInterpretationRequest(
                 "What programs does AUB offer?",
-                List.of()
+                List.of(),
+                ConversationMemory.empty()
         );
 
         GraduateQueryInterpretationBudgetResult result = manager.budget(request, "very long prompt content");

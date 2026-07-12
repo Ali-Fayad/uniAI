@@ -27,6 +27,11 @@ public class ChatRepositoryAdapter implements ChatRepository {
     }
 
     @Override
+    public Optional<Chat> findByIdForUpdate(Long id) {
+        return jpaRepository.findByIdForUpdate(id);
+    }
+
+    @Override
     public List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username) {
         return jpaRepository.findByUserUsernameOrderByUpdatedAtDesc(username);
     }

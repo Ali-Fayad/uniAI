@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.port.out.AiServicePort;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -121,7 +123,7 @@ public class GeminiAiServiceAdapter implements AiServicePort {
 
         Map<String, Object> body = new LinkedHashMap<>();
 
-        String systemPrompt = request != null ? request.getSystemPrompt() : null;
+        String systemPrompt = composeSystemPrompt(request);
 
         if (StringUtils.hasText(systemPrompt)) {
             body.put("system_instruction", Map.of(
@@ -245,6 +247,22 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 .model(model)
                 .fallback(true)
                 .build();
+    }
+
+    private String composeSystemPrompt(AiRequest request) {
+        String systemPrompt = request != null ? request.getSystemPrompt() : null;
+        ConversationMemory conversationMemory = request != null ? request.getConversationMemory() : null;
+        if (conversationMemory == null || conversationMemory.isEmpty()) {
+            return systemPrompt;
+        }
+        String memoryText = ConversationMemoryPromptFormatter.render(conversationMemory);
+        if (!StringUtils.hasText(memoryText)) {
+            return systemPrompt;
+        }
+        if (!StringUtils.hasText(systemPrompt)) {
+            return "Trusted conversation memory:\n" + memoryText;
+        }
+        return systemPrompt + "\n\nTrusted conversation memory:\n" + memoryText;
     }
 
     private String resolveModel() {

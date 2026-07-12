@@ -152,7 +152,23 @@ It should support:
 ## Phase 2 — Conversation Intelligence
 
 ### TODO-007 — Better Conversation Memory ⭐⭐⭐⭐☆
-Separate conversation memory from retrieved knowledge.
+Introduce a compact, structured, backend-authoritative conversation memory per chat.
+
+Memory should:
+- Live on the chat aggregate as JSONB
+- Stay separate from retrieved knowledge and recent raw history
+- Be updated through AI-proposed patches
+- Be validated and merged by the backend
+- Be loaded on every message request
+- Be injected into interpretation and the main AI request
+- Preserve a small recent raw-message window
+- Fail safely without breaking the user’s answer
+
+**Status:** Completed
+**Main files:** `Server/src/main/java/com/uniai/chat/domain/model/Chat.java`, `Server/src/main/java/com/uniai/chat/application/memory/ConversationMemory.java`, `Server/src/main/java/com/uniai/chat/application/memory/ConversationMemoryManager.java`, `Server/src/main/java/com/uniai/chat/application/memory/ConversationMemoryValidator.java`, `Server/src/main/java/com/uniai/chat/application/memory/ConversationMemoryMergePolicy.java`, `Server/src/main/java/com/uniai/chat/application/memory/ConversationMemoryTriggerPolicy.java`, `Server/src/main/java/com/uniai/chat/application/budget/ConversationMemoryBudgetConfiguration.java`, `Server/src/main/java/com/uniai/chat/application/budget/ConversationMemoryBudgetManager.java`, `Server/src/main/java/com/uniai/chat/application/service/ChatApplicationService.java`, `Server/src/main/java/com/uniai/chat/infrastructure/memory/AiConversationMemoryUpdateAdapter.java`, `Server/src/main/java/com/uniai/chat/infrastructure/persistence/adapter/ConversationMemoryPersistenceAdapter.java`, `Server/src/main/resources/db/migration/V45__add_chat_conversation_memory.sql`, `Server/src/main/resources/prompts/conversation-memory-updater-prompt.txt`
+**Behavior:** Stores trusted conversation memory as JSONB on the chat aggregate, keeps memory authoritative on the backend with typed validation and deterministic merge rules, loads memory on every message request, injects memory into both interpretation and main AI requests, preserves a bounded recent raw-history window, updates memory through a best-effort post-response AI patch flow, and keeps memory failures isolated from the user-facing answer path.
+**Validation:** `./mvnw -q -Dtest=ConversationMemoryValidatorTest,ConversationMemoryMergePolicyTest,ConversationMemoryTriggerPolicyTest,ConversationMemoryBudgetTest,ConversationMemoryPersistenceTest,AiConversationMemoryUpdateAdapterTest test`, `./mvnw -q -Dtest=GraduateQueryInterpretationBudgetTest,AiGraduateQueryInterpretationAdapterTest,ChatApplicationServiceTest test`, `./mvnw -q -Dtest=SqlGraduateKnowledgeRetrievalAdapterTest,SqlGraduateKnowledgeRetrievalAdapterRankingTest,SqlGraduateKnowledgeRetrievalAdapterCompressionTest test`, `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`
+**Commit:** `feat(chat): add structured conversation memory`
 
 ### TODO-008 — Follow-up Resolution ⭐⭐⭐⭐☆
 Improve reference resolution for follow-up questions.
