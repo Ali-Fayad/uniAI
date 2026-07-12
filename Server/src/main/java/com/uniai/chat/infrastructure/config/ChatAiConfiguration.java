@@ -21,12 +21,14 @@ import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
 import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
 import com.uniai.chat.application.port.out.ChatTitlePromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.infrastructure.memory.AiConversationMemoryUpdateAdapter;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GeminiAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.GroqAiProperties;
 import com.uniai.chat.infrastructure.ai.GroqAiServiceAdapter;
+import com.uniai.chat.infrastructure.ai.InMemoryAiProviderStatusRegistry;
 import com.uniai.chat.infrastructure.ai.OllamaAiProperties;
 import com.uniai.chat.infrastructure.ai.OllamaAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
@@ -242,32 +244,38 @@ public class ChatAiConfiguration {
     }
 
     @Bean
+    public AiProviderStatusPort aiProviderStatusPort() {
+        return new InMemoryAiProviderStatusRegistry();
+    }
+
+    @Bean
     public AiServicePort aiServicePort(
             @Value("${ai.provider:placeholder}") String provider,
             GeminiAiProperties geminiAiProperties,
             GroqAiProperties groqAiProperties,
             OllamaAiProperties ollamaAiProperties,
+            AiProviderStatusPort aiProviderStatusPort,
             ObjectMapper objectMapper
     ) {
         String normalizedProvider = normalizeProvider(provider);
 
         if ("gemini".equals(normalizedProvider)) {
             logger.info("[AI] Provider selected provider=gemini model={}", geminiAiProperties.getModel());
-            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, objectMapper);
+            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, objectMapper, aiProviderStatusPort);
             logger.info("[AI] Provider initialized successfully provider=gemini model={}", geminiAiProperties.getModel());
             return aiServicePort;
         }
 
         if ("groq".equals(normalizedProvider)) {
             logger.info("[AI] Provider selected provider=groq model={}", groqAiProperties.getModel());
-            AiServicePort aiServicePort = new GroqAiServiceAdapter(groqAiProperties);
+            AiServicePort aiServicePort = new GroqAiServiceAdapter(groqAiProperties, objectMapper, aiProviderStatusPort);
             logger.info("[AI] Provider initialized successfully provider=groq model={}", groqAiProperties.getModel());
             return aiServicePort;
         }
 
         if ("ollama".equals(normalizedProvider)) {
             logger.info("[AI] Provider selected provider=ollama model={}", ollamaAiProperties.getModel());
-            AiServicePort aiServicePort = new OllamaAiServiceAdapter(ollamaAiProperties);
+            AiServicePort aiServicePort = new OllamaAiServiceAdapter(ollamaAiProperties, objectMapper, aiProviderStatusPort);
             logger.info("[AI] Provider initialized successfully provider=ollama model={}", ollamaAiProperties.getModel());
             return aiServicePort;
         }
@@ -276,7 +284,7 @@ public class ChatAiConfiguration {
             logger.warn("[AI] Unsupported provider configured provider={} falling back to placeholder", provider);
         }
         logger.info("[AI] Provider selected provider=placeholder model=placeholder");
-        AiServicePort aiServicePort = new PlaceholderAiServiceAdapter();
+        AiServicePort aiServicePort = new PlaceholderAiServiceAdapter(aiProviderStatusPort);
         logger.info("[AI] Provider initialized successfully provider=placeholder model=placeholder");
         return aiServicePort;
     }

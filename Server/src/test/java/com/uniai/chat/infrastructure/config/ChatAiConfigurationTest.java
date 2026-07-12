@@ -4,6 +4,7 @@ import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GroqAiProperties;
 import com.uniai.chat.infrastructure.ai.GroqAiServiceAdapter;
+import com.uniai.chat.infrastructure.ai.InMemoryAiProviderStatusRegistry;
 import com.uniai.chat.infrastructure.ai.OllamaAiProperties;
 import com.uniai.chat.infrastructure.ai.OllamaAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
@@ -23,8 +24,9 @@ class ChatAiConfigurationTest {
         GeminiAiProperties gemini = new GeminiAiProperties();
         GroqAiProperties groq = new GroqAiProperties();
         OllamaAiProperties ollama = new OllamaAiProperties();
+        InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
 
-        AiServicePort aiServicePort = configuration.aiServicePort("ollama", gemini, groq, ollama, new ObjectMapper());
+        AiServicePort aiServicePort = configuration.aiServicePort("ollama", gemini, groq, ollama, registry, new ObjectMapper());
 
         assertInstanceOf(OllamaAiServiceAdapter.class, aiServicePort);
     }
@@ -34,8 +36,9 @@ class ChatAiConfigurationTest {
         GeminiAiProperties gemini = new GeminiAiProperties();
         GroqAiProperties groq = new GroqAiProperties();
         OllamaAiProperties ollama = new OllamaAiProperties();
+        InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
 
-        AiServicePort aiServicePort = configuration.aiServicePort("not-a-provider", gemini, groq, ollama, new ObjectMapper());
+        AiServicePort aiServicePort = configuration.aiServicePort("not-a-provider", gemini, groq, ollama, registry, new ObjectMapper());
 
         assertInstanceOf(PlaceholderAiServiceAdapter.class, aiServicePort);
     }

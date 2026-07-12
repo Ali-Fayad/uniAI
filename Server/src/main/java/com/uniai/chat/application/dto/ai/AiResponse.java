@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.uniai.chat.application.provider.AiProviderFailureCategory;
 
 @Data
 @Builder
@@ -16,4 +17,8 @@ public class AiResponse {
     private String model;
     private String finishReason;
     private Boolean fallback;
+    @Builder.Default
+    private AiProviderFailureCategory failureCategory = AiProviderFailureCategory.UNKNOWN;
+    @Builder.Default
+    private Boolean retryable = Boolean.FALSE;
 }

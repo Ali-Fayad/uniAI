@@ -7,7 +7,9 @@ import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
+import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.provider.AiProviderFailureCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.*;
@@ -35,11 +37,21 @@ public class GeminiAiServiceAdapter implements AiServicePort {
     private final GeminiAiProperties properties;
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
+    private final AiProviderStatusPort statusPort;
 
     public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper) {
+        this(properties, objectMapper, buildRestTemplate(), null);
+    }
+
+    GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
+        this(properties, objectMapper, buildRestTemplate(), statusPort);
+    }
+
+    GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
         this.properties = properties;
         this.objectMapper = objectMapper;
-        this.restTemplate = buildRestTemplate();
+        this.restTemplate = restTemplate;
+        this.statusPort = statusPort;
     }
 
     @Override
@@ -54,12 +66,13 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 request != null && request.getContext() != null ? request.getContext().size() : 0);
         if (!StringUtils.hasText(userMessage)) {
             logger.warn("[PROVIDER] Empty request received provider=gemini model={}", resolveModel());
-            return fallbackResponse("placeholder", "placeholder", "Please enter a message.");
+            return failureResponse("gemini", resolveModel(), "Please enter a message.", AiProviderFailureCategory.UNKNOWN, false, requestStartNanos, false);
         }
 
         if (!StringUtils.hasText(properties.getApiKey())) {
             logger.warn("Gemini provider selected but ai.gemini.api-key is missing or blank");
-            return fallbackResponse("gemini", resolveModel(), "Gemini is not configured. Please set ai.gemini.api-key.");
+            return failureResponse("gemini", resolveModel(), "Gemini is not configured. Please set ai.gemini.api-key.",
+                    AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true);
         }
 
         String model = resolveModel();
@@ -78,10 +91,13 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 logger.warn("[PROVIDER] Empty or non-success Gemini response status={} durationMs={}",
                         response.getStatusCode().value(),
                         elapsedMillis(requestStartNanos));
-                return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+                AiProviderFailureCategory failureCategory = !StringUtils.hasText(response.getBody())
+                        ? AiProviderFailureClassifier.classifyEmptyResponse()
+                        : AiProviderFailureClassifier.classifyHttpStatus(response.getStatusCode().value());
+                return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
             }
 
-            AiResponse aiResponse = toResponse(response.getBody(), model);
+            AiResponse aiResponse = toResponse(response.getBody(), model, requestStartNanos);
             if (Boolean.TRUE.equals(aiResponse.getFallback())) {
                 logger.warn("[PROVIDER] Gemini fallback generated model={} durationMs={} responseLength={}",
                         model,
@@ -93,25 +109,35 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                         aiResponse.getFinishReason(),
                         aiResponse.getContent() != null ? aiResponse.getContent().length() : 0,
                         elapsedMillis(requestStartNanos));
+                recordSuccess("gemini", aiResponse.getModel(), requestStartNanos);
             }
             return aiResponse;
         } catch (RestClientResponseException ex) {
-            logger.error("[PROVIDER] Gemini HTTP failure status={} durationMs={} body={}",
+            logger.error("[PROVIDER] Gemini HTTP failure status={} durationMs={}",
                     ex.getStatusCode().value(),
-                    elapsedMillis(requestStartNanos),
-                    safeBody(ex.getResponseBodyAsString()), ex);
-
-            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+                    elapsedMillis(requestStartNanos));
+            AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyHttpStatus(ex.getStatusCode().value());
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
         } catch (ResourceAccessException ex) {
             logger.warn("[PROVIDER] Gemini request could not be completed durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
                     ex.getMessage());
-            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+            AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyThrowable(ex);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+        } catch (IllegalArgumentException ex) {
+            logger.warn("[PROVIDER] Gemini configuration error durationMs={} reason={}",
+                    elapsedMillis(requestStartNanos),
+                    ex.getMessage());
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true);
         } catch (Exception ex) {
             logger.error("[PROVIDER] Gemini parsing or unexpected failure durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
                     ex.getMessage(), ex);
-            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+            AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyThrowable(ex);
+            if (failureCategory == AiProviderFailureCategory.UNKNOWN) {
+                failureCategory = AiProviderFailureClassifier.classifyParseFailure();
+            }
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
         }
     }
 
@@ -200,11 +226,11 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         return null;
     }
 
-    private AiResponse toResponse(String responseBody, String model) throws Exception {
+    private AiResponse toResponse(String responseBody, String model, long requestStartNanos) throws Exception {
         JsonNode root = objectMapper.readTree(responseBody);
         JsonNode candidates = root.path("candidates");
         if (!candidates.isArray() || candidates.isEmpty()) {
-            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyParseFailure(), true, requestStartNanos, true);
         }
 
         JsonNode firstCandidate = candidates.get(0);
@@ -228,7 +254,7 @@ public class GeminiAiServiceAdapter implements AiServicePort {
 
         String text = output.toString().trim();
         if (!StringUtils.hasText(text)) {
-            return fallbackResponse("gemini", model, FALLBACK_MESSAGE);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyEmptyResponse(), true, requestStartNanos, true);
         }
 
         return AiResponse.builder()
@@ -237,15 +263,22 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 .model(model)
                 .finishReason(finishReason)
                 .fallback(false)
+                .failureCategory(AiProviderFailureCategory.NONE)
+                .retryable(false)
                 .build();
     }
 
-    private AiResponse fallbackResponse(String provider, String model, String message) {
+    private AiResponse failureResponse(String provider, String model, String message, AiProviderFailureCategory failureCategory, boolean retryable, long requestStartNanos, boolean updateStatus) {
+        if (updateStatus) {
+            recordFailure(provider, model, failureCategory, requestStartNanos);
+        }
         return AiResponse.builder()
                 .content(message)
                 .provider(provider)
                 .model(model)
                 .fallback(true)
+                .failureCategory(failureCategory)
+                .retryable(retryable)
                 .build();
     }
 
@@ -280,7 +313,7 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 : effectiveBaseUrl;
     }
 
-    private RestTemplate buildRestTemplate() {
+    private static RestTemplate buildRestTemplate() {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         int timeoutMillis = (int) Duration.ofSeconds(20).toMillis();
         factory.setConnectTimeout(timeoutMillis);
@@ -288,11 +321,16 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         return new RestTemplate(factory);
     }
 
-    private String safeBody(String body) {
-        if (!StringUtils.hasText(body)) {
-            return "<empty>";
+    private void recordSuccess(String provider, String model, long startNanos) {
+        if (statusPort != null) {
+            statusPort.recordSuccess(provider, model, elapsedMillis(startNanos));
         }
-        return body.length() > 500 ? body.substring(0, 500) + "..." : body;
+    }
+
+    private void recordFailure(String provider, String model, AiProviderFailureCategory failureCategory, long startNanos) {
+        if (statusPort != null) {
+            statusPort.recordFailure(provider, model, failureCategory, elapsedMillis(startNanos));
+        }
     }
 
     private long elapsedMillis(long startNanos) {

@@ -3,6 +3,8 @@ package com.uniai.chat.infrastructure.ai;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.provider.AiProviderFailureCategory;
+import com.uniai.chat.application.provider.AiProviderRuntimeStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -30,9 +32,10 @@ class GroqAiServiceAdapterTest {
         properties.setModel("llama-3.3-70b-versatile");
         properties.setBaseUrl("https://api.groq.com/openai/v1");
 
+        InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
         RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
         MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
-        GroqAiServiceAdapter adapter = new GroqAiServiceAdapter(properties, new com.fasterxml.jackson.databind.ObjectMapper(), restTemplate);
+        GroqAiServiceAdapter adapter = new GroqAiServiceAdapter(properties, new com.fasterxml.jackson.databind.ObjectMapper(), restTemplate, registry);
 
         AiRequest request = AiRequest.builder()
                 .systemPrompt("You are uniAI.")
@@ -79,9 +82,12 @@ class GroqAiServiceAdapterTest {
 
         server.verify();
         assertFalse(response.getFallback());
+        assertEquals(AiProviderFailureCategory.NONE, response.getFailureCategory());
+        assertFalse(response.getRetryable());
         assertEquals("groq", response.getProvider());
         assertEquals("llama-3.3-70b-versatile", response.getModel());
         assertEquals("AUB offers several master's programs.", response.getContent());
         assertEquals("stop", response.getFinishReason());
+        assertEquals(AiProviderRuntimeStatus.AVAILABLE, registry.getStatus("groq").status());
     }
 }

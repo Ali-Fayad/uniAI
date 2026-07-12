@@ -2,7 +2,9 @@ package com.uniai.chat.infrastructure.ai;
 
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.provider.AiProviderFailureCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.StringUtils;
@@ -14,6 +16,15 @@ import org.springframework.util.StringUtils;
 public class PlaceholderAiServiceAdapter implements AiServicePort {
 
     private static final Logger logger = LogManager.getLogger(PlaceholderAiServiceAdapter.class);
+    private final AiProviderStatusPort statusPort;
+
+    public PlaceholderAiServiceAdapter() {
+        this(null);
+    }
+
+    public PlaceholderAiServiceAdapter(AiProviderStatusPort statusPort) {
+        this.statusPort = statusPort;
+    }
 
     @Override
     public AiResponse generateResponse(AiRequest request) {
@@ -22,14 +33,23 @@ public class PlaceholderAiServiceAdapter implements AiServicePort {
                 StringUtils.hasText(userMessage) ? userMessage.length() : 0,
                 request != null && request.getConversationHistory() != null ? request.getConversationHistory().size() : 0,
                 request != null && request.getContext() != null ? request.getContext().size() : 0);
+        recordSuccess("placeholder", "placeholder");
         AiResponse response = AiResponse.builder()
                 .content("AI response to: " + userMessage)
                 .provider("placeholder")
                 .model("placeholder")
                 .fallback(false)
+                .failureCategory(AiProviderFailureCategory.NONE)
+                .retryable(false)
                 .build();
         logger.debug("[PROVIDER] Request completed provider=placeholder responseLength={}",
                 response.getContent() != null ? response.getContent().length() : 0);
         return response;
+    }
+
+    private void recordSuccess(String provider, String model) {
+        if (statusPort != null) {
+            statusPort.recordSuccess(provider, model, 0L);
+        }
     }
 }

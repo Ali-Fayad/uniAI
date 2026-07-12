@@ -7,7 +7,9 @@ import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
+import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.provider.AiProviderFailureCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.*;
@@ -35,15 +37,29 @@ public class OllamaAiServiceAdapter implements AiServicePort {
     private final OllamaAiProperties properties;
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
+    private final AiProviderStatusPort statusPort;
 
     public OllamaAiServiceAdapter(OllamaAiProperties properties) {
-        this(properties, new ObjectMapper(), buildRestTemplate(properties));
+        this(properties, new ObjectMapper(), buildRestTemplate(properties), null);
+    }
+
+    OllamaAiServiceAdapter(OllamaAiProperties properties, AiProviderStatusPort statusPort) {
+        this(properties, new ObjectMapper(), buildRestTemplate(properties), statusPort);
+    }
+
+    OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
+        this(properties, objectMapper, buildRestTemplate(properties), statusPort);
     }
 
     OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate) {
+        this(properties, objectMapper, restTemplate, null);
+    }
+
+    OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
         this.properties = properties;
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;
+        this.statusPort = statusPort;
     }
 
     @Override
@@ -65,7 +81,7 @@ public class OllamaAiServiceAdapter implements AiServicePort {
 
         if (!StringUtils.hasText(userMessage)) {
             logger.warn("[PROVIDER] Empty request received provider=ollama model={}", model);
-            return fallbackResponse("ollama", model, "Please enter a message.");
+            return failureResponse("ollama", model, "Please enter a message.", AiProviderFailureCategory.UNKNOWN, false, requestStartNanos, false);
         }
 
         String url = baseUrl + "/api/chat";
@@ -81,10 +97,13 @@ public class OllamaAiServiceAdapter implements AiServicePort {
                 logger.warn("[PROVIDER] Empty or non-success Ollama response status={} durationMs={}",
                         response.getStatusCode().value(),
                         elapsedMillis(requestStartNanos));
-                return fallbackResponse("ollama", model, FALLBACK_MESSAGE);
+                AiProviderFailureCategory failureCategory = !StringUtils.hasText(response.getBody())
+                        ? AiProviderFailureClassifier.classifyEmptyResponse()
+                        : AiProviderFailureClassifier.classifyHttpStatus(response.getStatusCode().value());
+                return failureResponse("ollama", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
             }
 
-            AiResponse aiResponse = toResponse(response.getBody(), model);
+            AiResponse aiResponse = toResponse(response.getBody(), model, requestStartNanos);
             if (Boolean.TRUE.equals(aiResponse.getFallback())) {
                 logger.warn("[PROVIDER] Ollama fallback generated model={} durationMs={} responseLength={}",
                         aiResponse.getModel(),
@@ -98,29 +117,42 @@ public class OllamaAiServiceAdapter implements AiServicePort {
                         elapsedMillis(requestStartNanos),
                         extractLong(response.getBody(), "prompt_eval_count"),
                         extractLong(response.getBody(), "eval_count"));
+                recordSuccess("ollama", aiResponse.getModel(), requestStartNanos);
             }
             return aiResponse;
         } catch (RestClientResponseException ex) {
-            logger.error("[PROVIDER] Ollama HTTP failure status={} durationMs={} baseUrl={} body={} category=OLLAMA_UNAVAILABLE",
+            logger.error("[PROVIDER] Ollama HTTP failure status={} durationMs={} baseUrl={} category=OLLAMA_UNAVAILABLE",
                     ex.getStatusCode().value(),
                     elapsedMillis(requestStartNanos),
-                    baseUrl,
-                    safeBody(ex.getResponseBodyAsString()), ex);
-            return fallbackResponse("ollama", model, FALLBACK_MESSAGE);
+                    baseUrl);
+            AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyHttpStatus(ex.getStatusCode().value());
+            return failureResponse("ollama", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
         } catch (ResourceAccessException ex) {
             logger.warn("[PROVIDER] Ollama connection failed provider=ollama model={} baseUrl={} durationMs={} category=OLLAMA_UNAVAILABLE reason={}",
                     model,
                     baseUrl,
                     elapsedMillis(requestStartNanos),
                     ex.getMessage());
-            return fallbackResponse("ollama", model, FALLBACK_MESSAGE);
+            AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyThrowable(ex);
+            return failureResponse("ollama", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+        } catch (IllegalArgumentException ex) {
+            logger.warn("[PROVIDER] Ollama configuration error provider=ollama model={} baseUrl={} durationMs={} reason={}",
+                    model,
+                    baseUrl,
+                    elapsedMillis(requestStartNanos),
+                    ex.getMessage());
+            return failureResponse("ollama", model, FALLBACK_MESSAGE, AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true);
         } catch (Exception ex) {
             logger.error("[PROVIDER] Ollama parsing or unexpected failure provider=ollama model={} baseUrl={} durationMs={} reason={}",
                     model,
                     baseUrl,
                     elapsedMillis(requestStartNanos),
                     ex.getMessage(), ex);
-            return fallbackResponse("ollama", model, FALLBACK_MESSAGE);
+            AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyThrowable(ex);
+            if (failureCategory == AiProviderFailureCategory.UNKNOWN) {
+                failureCategory = AiProviderFailureClassifier.classifyParseFailure();
+            }
+            return failureResponse("ollama", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
         }
     }
 
@@ -193,7 +225,7 @@ public class OllamaAiServiceAdapter implements AiServicePort {
         return "user";
     }
 
-    private AiResponse toResponse(String responseBody, String configuredModel) throws Exception {
+    private AiResponse toResponse(String responseBody, String configuredModel, long requestStartNanos) throws Exception {
         JsonNode root = objectMapper.readTree(responseBody);
         JsonNode messageNode = root.path("message");
         String content = messageNode.path("content").asText(null);
@@ -203,7 +235,7 @@ public class OllamaAiServiceAdapter implements AiServicePort {
                 : root.path("done_reason").asText(null);
 
         if (!StringUtils.hasText(content)) {
-            return fallbackResponse("ollama", configuredModel, FALLBACK_MESSAGE);
+            return failureResponse("ollama", configuredModel, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyEmptyResponse(), true, requestStartNanos, true);
         }
 
         return AiResponse.builder()
@@ -212,15 +244,22 @@ public class OllamaAiServiceAdapter implements AiServicePort {
                 .model(StringUtils.hasText(returnedModel) ? returnedModel : configuredModel)
                 .finishReason(finishReason)
                 .fallback(false)
+                .failureCategory(AiProviderFailureCategory.NONE)
+                .retryable(false)
                 .build();
     }
 
-    private AiResponse fallbackResponse(String provider, String model, String message) {
+    private AiResponse failureResponse(String provider, String model, String message, AiProviderFailureCategory failureCategory, boolean retryable, long requestStartNanos, boolean updateStatus) {
+        if (updateStatus) {
+            recordFailure(provider, model, failureCategory, requestStartNanos);
+        }
         return AiResponse.builder()
                 .content(message)
                 .provider(provider)
                 .model(model)
                 .fallback(true)
+                .failureCategory(failureCategory)
+                .retryable(retryable)
                 .build();
     }
 
@@ -299,10 +338,15 @@ public class OllamaAiServiceAdapter implements AiServicePort {
         }
     }
 
-    private String safeBody(String body) {
-        if (!StringUtils.hasText(body)) {
-            return "<empty>";
+    private void recordSuccess(String provider, String model, long startNanos) {
+        if (statusPort != null) {
+            statusPort.recordSuccess(provider, model, elapsedMillis(startNanos));
         }
-        return body.length() > 500 ? body.substring(0, 500) + "..." : body;
+    }
+
+    private void recordFailure(String provider, String model, AiProviderFailureCategory failureCategory, long startNanos) {
+        if (statusPort != null) {
+            statusPort.recordFailure(provider, model, failureCategory, elapsedMillis(startNanos));
+        }
     }
 }

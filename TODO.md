@@ -195,31 +195,75 @@ Generate meaningful titles based on conversation content.
 
 ---
 
-## Phase 3 — AI Providers
+## Phase 3 — AI Provider Resilience
 
-### TODO-010 — Provider Health Monitoring ⭐⭐⭐☆☆
-Expose runtime provider availability and status.
+### ✅ TODO-010 — Provider Health Monitoring ⭐⭐⭐☆☆
+Status: Completed as a narrow provider-resilience foundation.
 
-### TODO-011 — Provider Capability Registry ⭐⭐⭐⭐☆
-Centralize provider capabilities, including:
-- Context size
-- Streaming support
-- Structured JSON support
-- Tool support
-- Vision support
-- Suitable models for lightweight interpretation
-- Suitable models for final response generation
+Implemented:
+- provider failure taxonomy
+- passive in-memory provider runtime status
+- real-request status updates
+- fallback-ready provider result metadata
+- no active polling
+- no persistence
+- no public endpoint
 
-### TODO-012 — Automatic Provider Fallback ⭐⭐⭐⭐☆
-Automatically retry with another provider when appropriate.
+Main files:
+- `Server/src/main/java/com/uniai/chat/application/dto/ai/AiResponse.java`
+- `Server/src/main/java/com/uniai/chat/application/provider/AiProviderFailureCategory.java`
+- `Server/src/main/java/com/uniai/chat/application/provider/AiProviderRuntimeStatus.java`
+- `Server/src/main/java/com/uniai/chat/application/provider/AiProviderStatusSnapshot.java`
+- `Server/src/main/java/com/uniai/chat/application/port/out/AiProviderStatusPort.java`
+- `Server/src/main/java/com/uniai/chat/infrastructure/ai/AiProviderFailureClassifier.java`
+- `Server/src/main/java/com/uniai/chat/infrastructure/ai/InMemoryAiProviderStatusRegistry.java`
+- `Server/src/main/java/com/uniai/chat/infrastructure/ai/GeminiAiServiceAdapter.java`
+- `Server/src/main/java/com/uniai/chat/infrastructure/ai/GroqAiServiceAdapter.java`
+- `Server/src/main/java/com/uniai/chat/infrastructure/ai/OllamaAiServiceAdapter.java`
+- `Server/src/main/java/com/uniai/chat/infrastructure/ai/PlaceholderAiServiceAdapter.java`
+- `Server/src/main/java/com/uniai/chat/infrastructure/config/ChatAiConfiguration.java`
 
-Fallback behavior should distinguish:
-- Query interpretation failures
-- Invalid structured output
-- Main answer-generation failures
-- Provider unavailability
-- Rate limits
-- Local budget rejection
+Behavior:
+- classifies provider outcomes into a small application-owned failure taxonomy
+- updates a thread-safe in-memory provider status snapshot from real provider calls
+- keeps placeholder predictable and available as configured
+- records only safe metadata such as provider, model, failure category, status, latency, and retryability
+- keeps the existing user-facing chat flow unchanged
+
+Validation:
+- `./mvnw -q -Dtest=GeminiAiServiceAdapterTest,GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest,AiProviderStatusRegistryTest,ChatAiConfigurationTest test`
+- `./mvnw -q -Dtest=AiGraduateQueryInterpretationAdapterTest,ChatApplicationServiceTest test`
+- `./mvnw -q -DskipTests compile`
+
+Commit:
+- `feat(ai): add provider resilience foundation`
+
+### ⏸ TODO-011 — Provider Capability Registry ⭐⭐⭐⭐☆
+Status: Skipped / Deferred.
+
+Reason:
+- existing configuration and budget policies already own the relevant capability data
+- a standalone registry would duplicate source-of-truth values
+- no current consumer justifies tool, vision, streaming, or dynamic model discovery metadata
+
+### ⏸ TODO-012 — Automatic Provider Fallback ⭐⭐⭐⭐☆
+Status: Deferred.
+
+Foundation completed:
+- provider failures are classified consistently
+- runtime provider status is available in memory
+- result metadata is fallback-ready
+
+Not implemented:
+- no retries
+- no second provider
+- no fallback chain
+- no provider routing
+- no local-to-cloud transition
+
+Reason:
+- current deterministic interpretation fallback and best-effort auxiliary flows are sufficient
+- automatic fallback should wait for production evidence and a separate policy decision
 
 ---
 

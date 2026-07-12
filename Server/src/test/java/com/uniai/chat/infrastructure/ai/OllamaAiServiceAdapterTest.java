@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.provider.AiProviderFailureCategory;
+import com.uniai.chat.application.provider.AiProviderRuntimeStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -34,9 +36,10 @@ class OllamaAiServiceAdapterTest {
         properties.setModel("gemma3:4b");
         properties.setTimeoutSeconds(120);
 
+        InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
         RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
         MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
-        OllamaAiServiceAdapter adapter = new OllamaAiServiceAdapter(properties, objectMapper, restTemplate);
+        OllamaAiServiceAdapter adapter = new OllamaAiServiceAdapter(properties, objectMapper, restTemplate, registry);
 
         AiRequest request = AiRequest.builder()
                 .systemPrompt("You are uniAI.")
@@ -86,10 +89,13 @@ class OllamaAiServiceAdapterTest {
 
         server.verify();
         assertFalse(response.getFallback());
+        assertEquals(AiProviderFailureCategory.NONE, response.getFailureCategory());
+        assertFalse(response.getRetryable());
         assertEquals("ollama", response.getProvider());
         assertEquals("llama3.2", response.getModel());
         assertEquals("AUB offers several master's programs.", response.getContent());
         assertEquals("stop", response.getFinishReason());
+        assertEquals(AiProviderRuntimeStatus.AVAILABLE, registry.getStatus("ollama").status());
     }
 
     @Test
@@ -99,9 +105,10 @@ class OllamaAiServiceAdapterTest {
         properties.setModel("gemma3:4b");
         properties.setTimeoutSeconds(120);
 
+        InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
         RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
         MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
-        OllamaAiServiceAdapter adapter = new OllamaAiServiceAdapter(properties, objectMapper, restTemplate);
+        OllamaAiServiceAdapter adapter = new OllamaAiServiceAdapter(properties, objectMapper, restTemplate, registry);
 
         AiRequest request = AiRequest.builder()
                 .systemPrompt("You are uniAI.")
@@ -122,9 +129,12 @@ class OllamaAiServiceAdapterTest {
 
         server.verify();
         assertTrue(response.getFallback());
+        assertEquals(AiProviderFailureCategory.EMPTY_RESPONSE, response.getFailureCategory());
+        assertTrue(response.getRetryable());
         assertEquals("ollama", response.getProvider());
         assertEquals("gemma3:4b", response.getModel());
         assertTrue(response.getContent().contains("temporarily unavailable"));
+        assertEquals(AiProviderRuntimeStatus.UNAVAILABLE, registry.getStatus("ollama").status());
     }
 
     @Test
@@ -135,7 +145,8 @@ class OllamaAiServiceAdapterTest {
         properties.setTimeoutSeconds(120);
 
         RestTemplate restTemplate = new ThrowingRestTemplate();
-        OllamaAiServiceAdapter adapter = new OllamaAiServiceAdapter(properties, objectMapper, restTemplate);
+        InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
+        OllamaAiServiceAdapter adapter = new OllamaAiServiceAdapter(properties, objectMapper, restTemplate, registry);
 
         AiRequest request = AiRequest.builder()
                 .systemPrompt("You are uniAI.")
@@ -145,9 +156,12 @@ class OllamaAiServiceAdapterTest {
         AiResponse response = adapter.generateResponse(request);
 
         assertTrue(response.getFallback());
+        assertEquals(AiProviderFailureCategory.UNAVAILABLE, response.getFailureCategory());
+        assertTrue(response.getRetryable());
         assertEquals("ollama", response.getProvider());
         assertEquals("gemma3:4b", response.getModel());
         assertTrue(response.getContent().contains("temporarily unavailable"));
+        assertEquals(AiProviderRuntimeStatus.UNAVAILABLE, registry.getStatus("ollama").status());
     }
 
     private static class ThrowingRestTemplate extends RestTemplate {

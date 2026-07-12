@@ -12,6 +12,7 @@ import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationStatus;
+import com.uniai.chat.application.provider.AiProviderFailureCategory;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
 import com.uniai.chat.application.dto.response.ChatCreationResponseDto;
 import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
@@ -295,6 +296,8 @@ public class ChatApplicationService implements
                         .content("AI service error : this message is from ChatApplicationService. Please try again later.")
                         .provider(budgetResult.activeProvider())
                         .fallback(true)
+                        .failureCategory(AiProviderFailureCategory.UNKNOWN)
+                        .retryable(false)
                         .build();
             } else {
                 AiRequest budgetedRequest = budgetResult.request();
@@ -328,9 +331,11 @@ public class ChatApplicationService implements
                             providerDurationMs);
                 }
                 if (Boolean.TRUE.equals(aiResponse.getFallback())) {
-                    logger.warn("[AI] Provider fallback used provider={} model={} chatId={} durationMs={}",
+                    logger.warn("[AI] Provider fallback used provider={} model={} failureCategory={} retryable={} chatId={} durationMs={}",
                             aiResponse.getProvider(),
                             aiResponse.getModel(),
+                            aiResponse.getFailureCategory(),
+                            aiResponse.getRetryable(),
                             chat.getId(),
                             providerDurationMs);
                 } else {
