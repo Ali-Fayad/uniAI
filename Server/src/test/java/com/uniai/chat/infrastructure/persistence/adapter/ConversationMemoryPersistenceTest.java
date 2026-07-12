@@ -95,6 +95,11 @@ class ConversationMemoryPersistenceTest {
             }
 
             @Override
+            public boolean updateTitleIfAbsent(Long chatId, String title) {
+                return false;
+            }
+
+            @Override
             public Chat save(Chat chat) {
                 return chat;
             }
@@ -160,6 +165,16 @@ class ConversationMemoryPersistenceTest {
         @Override
         public Optional<Chat> findByIdForUpdate(Long id) {
             return findById(id);
+        }
+
+        @Override
+        public boolean updateTitleIfAbsent(Long chatId, String title) {
+            Chat chat = storage.get(chatId);
+            if (chat == null || chat.getTitle() != null) {
+                return false;
+            }
+            chat.setTitle(title);
+            return true;
         }
 
         @Override

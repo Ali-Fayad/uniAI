@@ -10,7 +10,9 @@ import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ChatAiConfigurationTest {
 
@@ -36,5 +38,15 @@ class ChatAiConfigurationTest {
         AiServicePort aiServicePort = configuration.aiServicePort("not-a-provider", gemini, groq, ollama, new ObjectMapper());
 
         assertInstanceOf(PlaceholderAiServiceAdapter.class, aiServicePort);
+    }
+
+    @Test
+    void chatTitleGenerationConfigurationShouldDisablePlaceholderProvider() {
+        assertFalse(configuration.chatTitleGenerationConfiguration("placeholder").enabled());
+    }
+
+    @Test
+    void chatTitleGenerationConfigurationShouldEnableSupportedProvider() {
+        assertTrue(configuration.chatTitleGenerationConfiguration("gemini").enabled());
     }
 }

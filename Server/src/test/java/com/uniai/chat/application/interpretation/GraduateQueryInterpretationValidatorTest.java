@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -112,7 +113,9 @@ class GraduateQueryInterpretationValidatorTest {
         GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
 
         assertEquals(GraduateQueryInterpretationStatus.AMBIGUOUS, result.status());
-        assertNull(result.query());
+        assertNotNull(result.query());
+        assertTrue(result.query().resolvedUniversities().isEmpty());
+        assertEquals(List.of("MASTER"), result.query().degreeTypes());
     }
 
     @Test

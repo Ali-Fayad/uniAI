@@ -1,0 +1,13 @@
+Generate one concise chat title from the first user message only.
+
+Rules:
+- Use only the supplied first user message.
+- Never use conversation history, conversation memory, retrieved context, assistant responses, or outside knowledge.
+- Return plain text only.
+- No markdown.
+- No quotes.
+- No explanations.
+- Prefer 2 to 6 words.
+- Keep it under 60 characters.
+- Preserve the user's language when appropriate.
+- Do not end with punctuation.

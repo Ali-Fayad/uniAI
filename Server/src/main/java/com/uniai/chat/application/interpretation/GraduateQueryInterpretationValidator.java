@@ -77,12 +77,18 @@ public class GraduateQueryInterpretationValidator {
         }
 
         List<ResolvedUniversity> resolvedUniversities = resolveUniversities(normalizedUniversities, catalogs);
+        GraduateKnowledgeQuery partialQuery = buildQuery(
+                intent,
+                resolvedUniversities,
+                normalizedDegrees,
+                interpretation
+        );
         if (requiresUniversity(intent) && resolvedUniversities.isEmpty()) {
             return GraduateQueryInterpretationResult.ambiguous(
                     buildAmbiguousMessage(intent),
                     0,
                     countSupportedDegrees(normalizedDegrees),
-                    null
+                    partialQuery
             );
         }
 
@@ -91,18 +97,11 @@ public class GraduateQueryInterpretationValidator {
                     buildAmbiguousMessage(intent),
                     resolvedUniversities.size(),
                     countSupportedDegrees(normalizedDegrees),
-                    null
+                    partialQuery
             );
         }
 
-        GraduateKnowledgeQuery query = buildQuery(
-                intent,
-                resolvedUniversities,
-                normalizedDegrees,
-                interpretation
-        );
-
-        return GraduateQueryInterpretationResult.valid(query, resolvedUniversities.size(), countSupportedDegrees(normalizedDegrees));
+        return GraduateQueryInterpretationResult.valid(partialQuery, resolvedUniversities.size(), countSupportedDegrees(normalizedDegrees));
     }
 
     private GraduateKnowledgeQuery buildQuery(

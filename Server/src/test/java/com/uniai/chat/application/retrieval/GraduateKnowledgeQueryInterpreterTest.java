@@ -108,6 +108,24 @@ class GraduateKnowledgeQueryInterpreterTest {
     }
 
     @Test
+    void shouldIgnoreAssistantTurnsWhenInferringFollowUpSignals() {
+        List<AiConversationMessage> history = List.of(
+                message("user", "What master's programs does AUB offer?"),
+                message("assistant", "LAU also offers several PhD programs."),
+                message("user", "AUB programs answer")
+        );
+
+        GraduateKnowledgeQuery query = interpreter.interpret("How much does it cost?", history, catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, query.intent());
+        assertTrue(query.followUpResolved());
+        assertEquals(1, query.resolvedUniversities().size());
+        assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
+        assertEquals(List.of("MASTER"), query.degreeTypes());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
     void shouldResolveCompareItWithUsjUsingLatestProgramIntent() {
         List<AiConversationMessage> history = List.of(
                 message("user", "What master's programs does AUB offer?"),

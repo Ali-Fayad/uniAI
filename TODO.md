@@ -178,8 +178,20 @@ This task should build on:
 - The bounded recent conversation window
 - Validated universities, degree types, and intents
 
-### TODO-009 — Automatic Chat Titles ⭐⭐⭐☆☆
+**Status:** Completed
+**Main files:** `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateFollowUpResolver.java`, `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateFollowUpResolutionResult.java`, `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateFollowUpResolutionStatus.java`, `Server/src/main/java/com/uniai/chat/application/retrieval/GraduateKnowledgeResolutionSupport.java`, `Server/src/main/java/com/uniai/chat/application/interpretation/GraduateQueryInterpretationValidator.java`, `Server/src/main/java/com/uniai/chat/application/service/ChatApplicationService.java`, `Server/src/main/java/com/uniai/chat/infrastructure/config/ChatAiConfiguration.java`
+**Behavior:** Adds a dedicated application-layer follow-up resolver that runs on the main AI-success path before retrieval, resolves explicit follow-up references against current input, recent history, trusted conversation memory, and the university catalog, preserves explicit current values over inherited state, clarifies when comparison ordinals or singular pronouns are ambiguous, keeps the fallback interpreter working through shared deterministic helpers, and returns a safe clarification result instead of broadening retrieval when a unique resolution cannot be proven.
+**Validation:** `./mvnw -q -Dtest=GraduateFollowUpResolverTest,GraduateKnowledgeQueryInterpreterTest,ChatApplicationServiceTest test`, `./mvnw -q -Dtest=GraduateQueryInterpretationValidatorTest,GraduateQueryInterpretationBudgetTest,AiGraduateQueryInterpretationAdapterTest test`, `./mvnw -q -Dtest=ConversationMemoryValidatorTest,ConversationMemoryMergePolicyTest,ConversationMemoryTriggerPolicyTest,ConversationMemoryPersistenceTest test`, `./mvnw -q -Dtest=SqlGraduateKnowledgeRetrievalAdapterTest,SqlGraduateKnowledgeRetrievalAdapterRankingTest,SqlGraduateKnowledgeRetrievalAdapterCompressionTest test`, `./mvnw -q -Dtest=AiTokenEstimatorTest,AiContextBudgetManagerTest,ConversationMemoryBudgetTest test`, `./mvnw -q -Dtest=GroqAiServiceAdapterTest,OllamaAiServiceAdapterTest test`, `./mvnw -q -DskipTests compile`, `git diff --check`
+**Commit:** `feat(chat): add follow-up reference resolution`
+
+### ✅ TODO-009 — Automatic Chat Titles ⭐⭐⭐☆☆
 Generate meaningful titles based on conversation content.
+
+**Status:** Completed
+**Main files:** `Server/src/main/java/com/uniai/chat/application/service/ChatApplicationService.java`, `Server/src/main/java/com/uniai/chat/application/title/ChatTitleGenerationManager.java`, `Server/src/main/java/com/uniai/chat/application/title/ChatTitleGenerationConfiguration.java`, `Server/src/main/java/com/uniai/chat/application/port/out/ChatTitlePromptPort.java`, `Server/src/main/java/com/uniai/chat/infrastructure/prompt/ChatTitlePromptProvider.java`, `Server/src/main/java/com/uniai/chat/infrastructure/config/ChatAiConfiguration.java`, `Server/src/main/java/com/uniai/chat/domain/repository/ChatRepository.java`, `Server/src/main/java/com/uniai/chat/infrastructure/persistence/adapter/ChatRepositoryAdapter.java`, `Server/src/main/resources/prompts/chat-title-generator-prompt.txt`
+**Behavior:** Replaces first-message substring titles with a best-effort AI-generated title created after the first successful chat turn commits, using only the first user message, a dedicated prompt, a tiny independent budget, and guarded persistence that runs once per chat and silently skips on provider, budget, validation, or concurrency failure without affecting the chat response.
+**Validation:** `./mvnw -q -Dtest=ChatTitleGenerationManagerTest,ChatApplicationServiceTest,ConversationMemoryPersistenceTest test`, `./mvnw -q -DskipTests compile`, `git diff --check`
+**Commit:** `feat(chat): generate AI chat titles`
 
 ---
 

@@ -493,6 +493,11 @@ class AdminApplicationServiceTest {
             }
 
             @Override
+            public boolean updateTitleIfAbsent(Long chatId, String title) {
+                return false;
+            }
+
+            @Override
             public List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username) {
                 return chats.stream()
                         .filter(chat -> chat.getUser() != null

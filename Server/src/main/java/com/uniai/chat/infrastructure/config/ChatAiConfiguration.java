@@ -13,9 +13,13 @@ import com.uniai.chat.application.memory.ConversationMemoryMergePolicy;
 import com.uniai.chat.application.memory.ConversationMemoryTriggerPolicy;
 import com.uniai.chat.application.memory.ConversationMemoryValidator;
 import com.uniai.chat.application.memory.ConversationMemoryUpdatePort;
+import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
+import com.uniai.chat.application.title.ChatTitleGenerationConfiguration;
+import com.uniai.chat.application.title.ChatTitleGenerationManager;
 import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
 import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
+import com.uniai.chat.application.port.out.ChatTitlePromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.infrastructure.memory.AiConversationMemoryUpdateAdapter;
@@ -30,6 +34,7 @@ import com.uniai.chat.infrastructure.interpretation.AiGraduateQueryInterpretatio
 import com.uniai.chat.infrastructure.prompt.GraduateQueryInterpreterPromptProvider;
 import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
 import com.uniai.chat.domain.repository.MessageRepository;
+import com.uniai.chat.domain.repository.ChatRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +44,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -107,6 +114,11 @@ public class ChatAiConfiguration {
     @Bean
     public GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter() {
         return new GraduateKnowledgeQueryInterpreter();
+    }
+
+    @Bean
+    public GraduateFollowUpResolver graduateFollowUpResolver() {
+        return new GraduateFollowUpResolver();
     }
 
     @Bean
@@ -185,6 +197,47 @@ public class ChatAiConfiguration {
                 messageRepository,
                 promptPort,
                 budgetConfiguration
+        );
+    }
+
+    @Bean
+    public ChatTitleGenerationConfiguration chatTitleGenerationConfiguration(
+            @Value("${ai.provider:placeholder}") String provider
+    ) {
+        String normalizedProvider = normalizeProvider(provider);
+        boolean enabled = "gemini".equals(normalizedProvider)
+                || "groq".equals(normalizedProvider)
+                || "ollama".equals(normalizedProvider);
+        return new ChatTitleGenerationConfiguration(enabled, 300L, 24, 60);
+    }
+
+    @Bean(destroyMethod = "shutdown")
+    public Executor chatTitleExecutor() {
+        return Executors.newSingleThreadExecutor(runnable -> {
+            Thread thread = new Thread(runnable, "chat-title-generator");
+            thread.setDaemon(true);
+            return thread;
+        });
+    }
+
+    @Bean
+    public ChatTitleGenerationManager chatTitleGenerationManager(
+            ChatRepository chatRepository,
+            AiServicePort aiServicePort,
+            ChatTitlePromptPort promptPort,
+            AiTokenEstimator estimator,
+            ChatTitleGenerationConfiguration configuration,
+            @Value("${ai.provider:placeholder}") String provider,
+            Executor chatTitleExecutor
+    ) {
+        return new ChatTitleGenerationManager(
+                chatRepository,
+                aiServicePort,
+                promptPort,
+                estimator,
+                configuration,
+                chatTitleExecutor,
+                provider
         );
     }
 

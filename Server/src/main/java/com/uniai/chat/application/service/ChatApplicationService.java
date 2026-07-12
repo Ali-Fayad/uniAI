@@ -18,12 +18,16 @@ import com.uniai.chat.application.dto.response.ChatSummaryResponseDto;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryManager;
+import com.uniai.chat.application.title.ChatTitleGenerationManager;
 import com.uniai.chat.application.port.in.*;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionResult;
+import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionStatus;
+import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.domain.builder.ChatBuilder;
@@ -80,8 +84,10 @@ public class ChatApplicationService implements
     private final GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
     private final UniversityCatalogRepository universityCatalogRepository;
     private final GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
+    private final GraduateFollowUpResolver graduateFollowUpResolver;
     private final AiContextBudgetManager aiContextBudgetManager;
     private final ConversationMemoryManager conversationMemoryManager;
+    private final ChatTitleGenerationManager chatTitleGenerationManager;
 
     private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 6;
     private static final int MAX_INTERPRETATION_HISTORY_MESSAGES = 4;
@@ -131,8 +137,6 @@ public class ChatApplicationService implements
                     chat.getId(),
                     command.getContent() != null ? command.getContent().length() : 0);
 
-            boolean isFirstMessage = (chat.getTitle() == null);
-
             Message userMessage = MessageBuilder.userMessage(chat, user.getId(), command.getContent()).build();
             long userSaveStartNanos = System.nanoTime();
             Message persistedUserMessage = messageRepository.save(userMessage);
@@ -140,6 +144,8 @@ public class ChatApplicationService implements
                     persistedUserMessage != null ? persistedUserMessage.getId() : null,
                     chat.getId(),
                     elapsedMillis(userSaveStartNanos));
+
+            boolean isFirstUserTurn = messageRepository.countByChatId(chat.getId()) == 1L;
 
             logger.debug("[CHAT] History retrieval started chatId={}", chat.getId());
             long historyStartNanos = System.nanoTime();
@@ -191,11 +197,9 @@ public class ChatApplicationService implements
                         chat.getId(),
                         elapsedMillis(aiSaveStartNanos));
 
-                if (isFirstMessage) {
-                    chat.setTitle(generateTitle(command.getContent()));
-                }
                 chat.setUpdatedAt(LocalDateTime.now());
                 chatRepository.save(chat);
+                registerChatTitleGeneration(chat.getId(), command.getContent(), isFirstUserTurn);
                 registerConversationMemoryUpdate(chat.getId(), conversationMemory, command.getContent(), safeContent, interpretationResult);
 
                 logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
@@ -347,11 +351,9 @@ public class ChatApplicationService implements
                     chat.getId(),
                     elapsedMillis(aiSaveStartNanos));
 
-            if (isFirstMessage) {
-                chat.setTitle(generateTitle(command.getContent()));
-            }
             chat.setUpdatedAt(LocalDateTime.now());
             chatRepository.save(chat);
+            registerChatTitleGeneration(chat.getId(), command.getContent(), isFirstUserTurn);
             registerConversationMemoryUpdate(chat.getId(), conversationMemory, command.getContent(), aiContent, interpretationResult);
 
             logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
@@ -528,22 +530,25 @@ public class ChatApplicationService implements
             logger.warn("[AI_INTERPRETATION] Budget rejected chatId={} category={}",
                     chatId,
                     budgetResult.diagnosticCategory());
-            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
+            GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
+            return resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
         }
 
         try {
             GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
             GraduateQueryInterpretationResult result = graduateQueryInterpretationValidator.validate(rawInterpretation, universityCatalogs);
+            GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, result, null);
             logger.debug("[AI_INTERPRETATION] Validation completed chatId={} status={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={}",
                     chatId,
-                    result.status(),
-                    result.resolvedUniversityCount(),
-                    result.degreeTypeCount(),
-                    result.ambiguous());
-            return result;
+                    resolved.status(),
+                    resolved.resolvedUniversityCount(),
+                    resolved.degreeTypeCount(),
+                    resolved.ambiguous());
+            return resolved;
         } catch (RuntimeException ex) {
             logger.warn("[AI_INTERPRETATION] Provider interpretation failed chatId={} reason={}", chatId, ex.getMessage());
-            return fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
+            GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
+            return resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
         }
     }
 
@@ -582,6 +587,83 @@ public class ChatApplicationService implements
         }
 
         return GraduateQueryInterpretationResult.fallbackUsed(fallbackQuery, buildFallbackUsedMessage(failureCategory));
+    }
+
+    private GraduateQueryInterpretationResult resolveFollowUpInterpretation(
+            String currentMessage,
+            List<AiConversationMessage> recentConversationWindow,
+            List<UniversityCatalog> universityCatalogs,
+            ConversationMemory conversationMemory,
+            GraduateQueryInterpretationResult interpretationResult,
+            String fallbackFailureCategory
+    ) {
+        if (interpretationResult == null
+                || interpretationResult.status() == GraduateQueryInterpretationStatus.UNSUPPORTED
+                || interpretationResult.status() == GraduateQueryInterpretationStatus.INVALID) {
+            return interpretationResult;
+        }
+
+        GraduateKnowledgeQuery candidateQuery = interpretationResult.query();
+        if (candidateQuery == null || graduateFollowUpResolver == null) {
+            return interpretationResult;
+        }
+
+        GraduateFollowUpResolutionResult resolution = graduateFollowUpResolver.resolve(
+                currentMessage,
+                candidateQuery,
+                recentConversationWindow,
+                conversationMemory,
+                universityCatalogs
+        );
+
+        if (resolution.status() == GraduateFollowUpResolutionStatus.CLARIFICATION_REQUIRED) {
+            GraduateKnowledgeQuery clarificationQuery = resolution.resolvedQuery() != null ? resolution.resolvedQuery() : candidateQuery;
+            return GraduateQueryInterpretationResult.ambiguous(
+                    buildClarificationMessage(resolution.clarificationReason()),
+                    clarificationQuery.resolvedUniversities().size(),
+                    clarificationQuery.degreeTypes().size(),
+                    clarificationQuery
+            );
+        }
+
+        if (resolution.status() == GraduateFollowUpResolutionStatus.UNSUPPORTED) {
+            return GraduateQueryInterpretationResult.unsupported(
+                    buildUnsupportedGraduateMessage(),
+                    candidateQuery.resolvedUniversities().size(),
+                    candidateQuery.degreeTypes().size(),
+                    List.of()
+            );
+        }
+
+        GraduateKnowledgeQuery resolvedQuery = resolution.resolvedQuery() != null ? resolution.resolvedQuery() : candidateQuery;
+        if (interpretationResult.status() == GraduateQueryInterpretationStatus.FALLBACK_USED) {
+            return GraduateQueryInterpretationResult.fallbackUsed(resolvedQuery, buildFallbackUsedMessage(fallbackFailureCategory));
+        }
+        return GraduateQueryInterpretationResult.valid(
+                resolvedQuery,
+                resolvedQuery.resolvedUniversities().size(),
+                resolvedQuery.degreeTypes().size()
+        );
+    }
+
+    private String buildClarificationMessage(String reason) {
+        if (reason == null) {
+            return buildAmbiguousGraduateMessage();
+        }
+        String normalized = reason.trim().toUpperCase();
+        if (normalized.contains("DEGREE")) {
+            return "Which degree type should I use?";
+        }
+        if (normalized.contains("COMPARISON")) {
+            return "Do you mean the first or second university?";
+        }
+        if (normalized.contains("INTENT")) {
+            return "Do you mean programs or tuition?";
+        }
+        if (normalized.contains("UNIVERSITY")) {
+            return "Which university are you referring to?";
+        }
+        return buildAmbiguousGraduateMessage();
     }
 
     private boolean isUnsupportedGraduateDegreeRequest(String message) {
@@ -653,11 +735,6 @@ public class ChatApplicationService implements
         return message.getSenderId() == 0L ? "assistant" : "user";
     }
 
-    private String generateTitle(String firstMessage) {
-        int maxLen = Math.min(30, firstMessage.length());
-        return firstMessage.substring(0, maxLen) + (firstMessage.length() > 30 ? "..." : "");
-    }
-
     private MessageResponseDto toDto(Message message) {
         return MessageResponseDto.builder()
                 .messageId(message.getId())
@@ -675,5 +752,30 @@ public class ChatApplicationService implements
                 .createdAt(chat.getCreatedAt())
                 .updatedAt(chat.getUpdatedAt())
                 .build();
+    }
+
+    private void registerChatTitleGeneration(Long chatId, String firstUserMessage, boolean shouldGenerate) {
+        if (chatTitleGenerationManager == null || chatId == null || !shouldGenerate) {
+            return;
+        }
+
+        Runnable task = () -> {
+            try {
+                chatTitleGenerationManager.generateTitleIfNeeded(chatId, firstUserMessage);
+            } catch (RuntimeException ex) {
+                logger.warn("[CHAT_TITLE] Title generation failed chatId={} reason={}", chatId, ex.getMessage());
+            }
+        };
+
+        if (TransactionSynchronizationManager.isSynchronizationActive()) {
+            TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    task.run();
+                }
+            });
+        } else {
+            task.run();
+        }
     }
 }

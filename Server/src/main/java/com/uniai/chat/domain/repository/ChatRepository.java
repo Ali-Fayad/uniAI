@@ -15,6 +15,8 @@ public interface ChatRepository {
 
     Optional<Chat> findByIdForUpdate(Long id);
 
+    boolean updateTitleIfAbsent(Long chatId, String title);
+
     List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username);
 
     String findTitleById(Long chatId);

@@ -20,11 +20,15 @@ import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
+import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionResult;
+import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
+import com.uniai.chat.application.title.ChatTitleGenerationConfiguration;
+import com.uniai.chat.application.title.ChatTitleGenerationManager;
 import com.uniai.chat.domain.model.Chat;
 import com.uniai.chat.domain.model.Message;
 import com.uniai.chat.domain.repository.ChatRepository;
@@ -35,6 +39,7 @@ import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -61,8 +66,10 @@ class ChatApplicationServiceTest {
     private FixedGraduateQueryInterpreterPromptPort graduateQueryInterpreterPromptPort;
     private RecordingGraduateQueryInterpretationPort graduateQueryInterpretationPort;
     private RecordingGraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
+    private RecordingGraduateFollowUpResolver graduateFollowUpResolver;
     private RecordingGraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
     private RecordingConversationMemoryManager conversationMemoryManager;
+    private RecordingChatTitleGenerationManager chatTitleGenerationManager;
     private AiContextBudgetManager aiContextBudgetManager;
     private GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager;
     private GraduateQueryInterpretationValidator graduateQueryInterpretationValidator;
@@ -95,6 +102,7 @@ class ChatApplicationServiceTest {
         graduateKnowledgeQueryInterpreter = new RecordingGraduateKnowledgeQueryInterpreter();
         graduateKnowledgeRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort("Structured graduate context");
         conversationMemoryManager = new RecordingConversationMemoryManager();
+        chatTitleGenerationManager = new RecordingChatTitleGenerationManager();
         conversationMemoryManager.loadedMemory = new ConversationMemory(
                 ConversationMemory.SCHEMA_VERSION,
                 List.of(new com.uniai.chat.application.memory.MemoryUniversityRef(1L, "American University of Beirut", "AUB")),
@@ -110,6 +118,7 @@ class ChatApplicationServiceTest {
         aiContextBudgetManager = budgetManager("gemini", 200000, 2000, 12000, 120000, 4, 128);
         graduateQueryInterpretationBudgetManager = interpretationBudgetManager("gemini", 1500, 250, 4, 0);
         graduateQueryInterpretationValidator = new GraduateQueryInterpretationValidator();
+        graduateFollowUpResolver = new RecordingGraduateFollowUpResolver();
 
         chatApplicationService = new ChatApplicationService(
                 chatRepository,
@@ -124,8 +133,10 @@ class ChatApplicationServiceTest {
                 graduateKnowledgeRetrievalPort,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
+                graduateFollowUpResolver,
                 aiContextBudgetManager,
-                conversationMemoryManager
+                conversationMemoryManager,
+                chatTitleGenerationManager
         );
     }
 
@@ -170,6 +181,7 @@ class ChatApplicationServiceTest {
         assertEquals(1, graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().size());
         assertEquals("USJ", graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().get(0).acronym());
         assertEquals(1, universityCatalogRepository.findAllCount);
+        assertEquals(1, graduateFollowUpResolver.callCount);
 
         assertEquals("Here is the official answer.", result.getContent());
         assertEquals("Here is the official answer.", messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).get(messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size() - 1).getContent());
@@ -184,6 +196,56 @@ class ChatApplicationServiceTest {
                 .count());
         assertEquals("What about USJ?", aiServicePort.lastRequest.getUserMessage());
         assertEquals("Structured graduate context", aiServicePort.lastRequest.getContext().get(0));
+        assertEquals(0, chatTitleGenerationManager.callCount);
+    }
+
+    @Test
+    void sendMessageShouldScheduleTitleGenerationOnlyForFirstPersistedUserTurn() {
+        User user = user(11L, "mona", "mona@example.com");
+        Chat chat = chat(110L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+
+        chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Compare AUB and LAU tuition").build()
+        );
+
+        assertEquals(1, chatTitleGenerationManager.callCount);
+        assertEquals(chat.getId(), chatTitleGenerationManager.lastChatId);
+        assertEquals("Compare AUB and LAU tuition", chatTitleGenerationManager.lastFirstUserMessage);
+        assertFalse(chatTitleGenerationManager.transactionActiveAtCall);
+
+        chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("And admissions?").build()
+        );
+
+        assertEquals(1, chatTitleGenerationManager.callCount);
+    }
+
+    @Test
+    void sendMessageShouldNotRetryTitleGenerationAfterFirstAttemptFailure() {
+        User user = user(12L, "nora", "nora@example.com");
+        Chat chat = chat(120L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        chatTitleGenerationManager.failNextCall = true;
+
+        MessageResponseDto firstResult = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Compare AUB and LAU tuition").build()
+        );
+
+        assertNotNull(firstResult.getContent());
+        assertEquals(1, chatTitleGenerationManager.callCount);
+
+        chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("And admissions?").build()
+        );
+
+        assertEquals(1, chatTitleGenerationManager.callCount);
     }
 
     @Test
@@ -251,8 +313,10 @@ class ChatApplicationServiceTest {
                 graduateKnowledgeRetrievalPort,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
+                graduateFollowUpResolver,
                 smallBudgetManager,
-                conversationMemoryManager
+                conversationMemoryManager,
+                chatTitleGenerationManager
         );
 
         User user = user(4L, "dan", "dan@example.com");
@@ -332,6 +396,189 @@ class ChatApplicationServiceTest {
         assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
         assertEquals(0, aiServicePort.callCount);
         assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+    }
+
+    @Test
+    void sendMessageShouldClarifyUnresolvedComparisonPronounBeforeRetrieval() {
+        User user = user(8L, "hannah", "hannah@example.com");
+        Chat chat = chat(80L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        conversationMemoryManager.loadedMemory = new ConversationMemory(
+                ConversationMemory.SCHEMA_VERSION,
+                List.of(
+                        new com.uniai.chat.application.memory.MemoryUniversityRef(1L, "American University of Beirut", "AUB"),
+                        new com.uniai.chat.application.memory.MemoryUniversityRef(2L, "Université Saint-Joseph", "USJ")
+                ),
+                List.of("MASTER"),
+                "PROGRAM_LOOKUP",
+                true,
+                List.of(
+                        new com.uniai.chat.application.memory.MemoryUniversityRef(1L, "American University of Beirut", "AUB"),
+                        new com.uniai.chat.application.memory.MemoryUniversityRef(2L, "Université Saint-Joseph", "USJ")
+                ),
+                List.of(),
+                List.of(),
+                List.of(),
+                new com.uniai.chat.application.memory.ConversationPreferences("ENGLISH", null, null)
+        );
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                "PROGRAM_LOOKUP",
+                List.of(),
+                List.of(),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("it").build()
+        );
+
+        assertEquals("Do you mean the first or second university?", result.getContent());
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(0, aiServicePort.callCount);
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+        assertEquals(1, graduateFollowUpResolver.callCount);
+    }
+
+    @Test
+    void sendMessageShouldClarifyUnknownUniversityBeforeRetrieval() {
+        User user = user(9L, "ivan", "ivan@example.com");
+        Chat chat = chat(90L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        conversationMemoryManager.loadedMemory = new ConversationMemory(
+                ConversationMemory.SCHEMA_VERSION,
+                List.of(new com.uniai.chat.application.memory.MemoryUniversityRef(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                "PROGRAM_LOOKUP",
+                false,
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                new com.uniai.chat.application.memory.ConversationPreferences("ENGLISH", null, null)
+        );
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                "PROGRAM_LOOKUP",
+                List.of("AUB"),
+                List.of("MASTER"),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("What about XYZ University?").build()
+        );
+
+        assertEquals("Which university are you referring to?", result.getContent());
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(0, aiServicePort.callCount);
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+        assertEquals(1, graduateFollowUpResolver.callCount);
+    }
+
+    @Test
+    void sendMessageShouldClarifyUnknownDegreeBeforeRetrieval() {
+        User user = user(10L, "julia", "julia@example.com");
+        Chat chat = chat(100L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        conversationMemoryManager.loadedMemory = new ConversationMemory(
+                ConversationMemory.SCHEMA_VERSION,
+                List.of(new com.uniai.chat.application.memory.MemoryUniversityRef(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                "PROGRAM_LOOKUP",
+                false,
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                new com.uniai.chat.application.memory.ConversationPreferences("ENGLISH", null, null)
+        );
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                "PROGRAM_LOOKUP",
+                List.of("AUB"),
+                List.of("MASTER"),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("What about the graduate diploma?").build()
+        );
+
+        assertEquals("Which degree type should I use?", result.getContent());
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(0, aiServicePort.callCount);
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+        assertEquals(1, graduateFollowUpResolver.callCount);
+    }
+
+    @Test
+    void sendMessageShouldIgnoreAssistantHistoryWhenResolvingFollowUp() {
+        User user = user(11L, "kate", "kate@example.com");
+        Chat chat = chat(110L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        messageRepository.save(Message.builder()
+                .chat(chat)
+                .senderId(user.getId())
+                .content("What master's programs does AUB offer?")
+                .timestamp(LocalDateTime.now().minusMinutes(5))
+                .build());
+        messageRepository.save(Message.builder()
+                .chat(chat)
+                .senderId(0L)
+                .content("LAU also offers several PhD programs.")
+                .timestamp(LocalDateTime.now().minusMinutes(4))
+                .build());
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                "TUITION_AGGREGATION",
+                List.of(),
+                List.of(),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("How much does it cost?").build()
+        );
+
+        assertEquals("Here is the official answer.", result.getContent());
+        assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals("AUB", graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().get(0).acronym());
+        assertEquals(List.of("MASTER"), graduateKnowledgeRetrievalPort.lastQuery.degreeTypes());
+        assertEquals(1, aiServicePort.callCount);
+        assertEquals(1, graduateFollowUpResolver.callCount);
     }
 
     private void seedChatMessages(Chat chat, User user, long baseMinutesAgo, int existingMessageCount) {
@@ -506,6 +753,37 @@ class ChatApplicationServiceTest {
         }
     }
 
+    private static final class RecordingChatTitleGenerationManager extends ChatTitleGenerationManager {
+        private int callCount;
+        private Long lastChatId;
+        private String lastFirstUserMessage;
+        private boolean transactionActiveAtCall;
+        private boolean failNextCall;
+
+        private RecordingChatTitleGenerationManager() {
+            super(
+                    null,
+                    null,
+                    null,
+                    null,
+                    new ChatTitleGenerationConfiguration(false, 1, 1, 60),
+                    Runnable::run
+            );
+        }
+
+        @Override
+        public void generateTitleIfNeeded(Long chatId, String firstUserMessage) {
+            callCount++;
+            lastChatId = chatId;
+            lastFirstUserMessage = firstUserMessage;
+            transactionActiveAtCall = TransactionSynchronizationManager.isActualTransactionActive();
+            if (failNextCall) {
+                failNextCall = false;
+                throw new IllegalStateException("title generation failed");
+            }
+        }
+    }
+
     private static final class RecordingGraduateQueryInterpretationPort implements GraduateQueryInterpretationPort {
         private GraduateQueryInterpretation nextInterpretation;
         private RuntimeException nextRuntimeException;
@@ -524,6 +802,28 @@ class ChatApplicationServiceTest {
                 throw nextRuntimeException;
             }
             return nextInterpretation;
+        }
+    }
+
+    private static final class RecordingGraduateFollowUpResolver extends GraduateFollowUpResolver {
+        private int callCount;
+        private String lastCurrentMessage;
+        private GraduateKnowledgeQuery lastCandidateQuery;
+        private GraduateFollowUpResolutionResult lastResult;
+
+        @Override
+        public GraduateFollowUpResolutionResult resolve(
+                String currentUserMessage,
+                GraduateKnowledgeQuery candidateQuery,
+                List<AiConversationMessage> recentConversationHistory,
+                ConversationMemory conversationMemory,
+                List<UniversityCatalog> universityCatalogs
+        ) {
+            callCount++;
+            lastCurrentMessage = currentUserMessage;
+            lastCandidateQuery = candidateQuery;
+            lastResult = super.resolve(currentUserMessage, candidateQuery, recentConversationHistory, conversationMemory, universityCatalogs);
+            return lastResult;
         }
     }
 
@@ -726,6 +1026,16 @@ class ChatApplicationServiceTest {
         @Override
         public Optional<Chat> findByIdForUpdate(Long id) {
             return findById(id);
+        }
+
+        @Override
+        public boolean updateTitleIfAbsent(Long chatId, String title) {
+            Chat chat = chats.get(chatId);
+            if (chat == null || chat.getTitle() != null) {
+                return false;
+            }
+            chat.setTitle(title);
+            return true;
         }
 
         @Override

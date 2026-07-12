@@ -6,7 +6,9 @@ import com.uniai.chat.infrastructure.persistence.repository.ChatJpaRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,29 @@ public class ChatRepositoryAdapter implements ChatRepository {
     @Override
     public Optional<Chat> findByIdForUpdate(Long id) {
         return jpaRepository.findByIdForUpdate(id);
+    }
+
+    @Override
+    @Transactional
+    public boolean updateTitleIfAbsent(Long chatId, String title) {
+        if (chatId == null || !StringUtils.hasText(title)) {
+            return false;
+        }
+
+        Optional<Chat> lockedChat = jpaRepository.findByIdForUpdate(chatId);
+        if (lockedChat.isEmpty()) {
+            return false;
+        }
+
+        Chat chat = lockedChat.get();
+        if (StringUtils.hasText(chat.getTitle())) {
+            return false;
+        }
+
+        chat.setTitle(title);
+        jpaRepository.save(chat);
+        logger.debug("[PERSISTENCE] Chat title updated id={} titleLength={}", chatId, title.length());
+        return true;
     }
 
     @Override

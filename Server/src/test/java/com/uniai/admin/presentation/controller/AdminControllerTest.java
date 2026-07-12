@@ -323,6 +323,7 @@ class AdminControllerTest {
     private static final class NoopChatRepository implements ChatRepository {
         @Override public Optional<Chat> findById(Long id) { return Optional.empty(); }
         @Override public Optional<Chat> findByIdForUpdate(Long id) { return Optional.empty(); }
+        @Override public boolean updateTitleIfAbsent(Long chatId, String title) { return false; }
         @Override public List<Chat> findByUserUsernameOrderByUpdatedAtDesc(String username) { return List.of(); }
         @Override public String findTitleById(Long chatId) { return null; }
         @Override public Chat save(Chat chat) { return chat; }
