@@ -43,19 +43,19 @@ public class OllamaAiServiceAdapter implements AiServicePort {
         this(properties, new ObjectMapper(), buildRestTemplate(properties), null);
     }
 
-    OllamaAiServiceAdapter(OllamaAiProperties properties, AiProviderStatusPort statusPort) {
+    public OllamaAiServiceAdapter(OllamaAiProperties properties, AiProviderStatusPort statusPort) {
         this(properties, new ObjectMapper(), buildRestTemplate(properties), statusPort);
     }
 
-    OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
+    public OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
         this(properties, objectMapper, buildRestTemplate(properties), statusPort);
     }
 
-    OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate) {
+    public OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate) {
         this(properties, objectMapper, restTemplate, null);
     }
 
-    OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
+    public OllamaAiServiceAdapter(OllamaAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
         this.properties = properties;
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;

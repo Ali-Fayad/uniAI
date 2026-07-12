@@ -436,19 +436,6 @@ final class GraduateKnowledgeResolutionSupport {
         return false;
     }
 
-    private static List<String> tokenize(String value) {
-        if (value == null || value.isBlank()) {
-            return List.of();
-        }
-        List<String> tokens = new ArrayList<>();
-        for (String token : WORD_SPLIT.split(value)) {
-            if (token != null && !token.isBlank()) {
-                tokens.add(token);
-            }
-        }
-        return tokens;
-    }
-
     private static void addDistinctUniversities(List<ResolvedUniversity> target, List<ResolvedUniversity> matches) {
         Map<Long, ResolvedUniversity> byId = target.stream()
                 .filter(university -> university != null && university.id() != null)

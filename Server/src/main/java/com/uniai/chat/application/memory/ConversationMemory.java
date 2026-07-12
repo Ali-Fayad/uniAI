@@ -1,5 +1,6 @@
 package com.uniai.chat.application.memory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public record ConversationMemory(
         );
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return activeUniversities.isEmpty()
                 && activeDegreeTypes.isEmpty()

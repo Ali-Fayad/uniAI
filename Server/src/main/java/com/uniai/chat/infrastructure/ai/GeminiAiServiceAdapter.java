@@ -43,11 +43,11 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         this(properties, objectMapper, buildRestTemplate(), null);
     }
 
-    GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
+    public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
         this(properties, objectMapper, buildRestTemplate(), statusPort);
     }
 
-    GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
+    public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
         this.properties = properties;
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;

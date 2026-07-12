@@ -3,6 +3,8 @@ package com.uniai.chat.application.memory;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public record ConversationMemoryPatch(
         Integer schemaVersion,
         String setLastIntent,
@@ -38,6 +40,7 @@ public record ConversationMemoryPatch(
         schemaVersion = schemaVersion == null || schemaVersion <= 0 ? ConversationMemory.SCHEMA_VERSION : schemaVersion;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return setLastIntent == null
                 && setComparisonActive == null

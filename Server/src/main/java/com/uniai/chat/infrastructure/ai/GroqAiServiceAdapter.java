@@ -43,19 +43,19 @@ public class GroqAiServiceAdapter implements AiServicePort {
         this(properties, new ObjectMapper(), buildRestTemplate(), null);
     }
 
-    GroqAiServiceAdapter(GroqAiProperties properties, AiProviderStatusPort statusPort) {
+    public GroqAiServiceAdapter(GroqAiProperties properties, AiProviderStatusPort statusPort) {
         this(properties, new ObjectMapper(), buildRestTemplate(), statusPort);
     }
 
-    GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
+    public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
         this(properties, objectMapper, buildRestTemplate(), statusPort);
     }
 
-    GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate) {
+    public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate) {
         this(properties, objectMapper, restTemplate, null);
     }
 
-    GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
+    public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
         this.properties = properties;
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;

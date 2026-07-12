@@ -1,5 +1,7 @@
 package com.uniai.chat.application.memory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public record ConversationPreferences(
         String preferredLanguage,
         String affordabilityPriority,
@@ -15,6 +17,7 @@ public record ConversationPreferences(
         return value == null || value.isBlank() ? null : value.trim();
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return preferredLanguage == null
                 && affordabilityPriority == null
