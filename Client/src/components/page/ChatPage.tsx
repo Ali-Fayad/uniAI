@@ -7,15 +7,19 @@ import ChatMessage from "../chat/ChatMessage";
 import ChatInput from "../chat/ChatInput";
 import TypingIndicator from "../chat/TypingIndicator";
 import LoadingSpinner from "../common/LoadingSpinner";
-import { PageTransition, StaggerContainer, staggerItemVariants } from "../animations";
+import {
+  PageTransition,
+  StaggerContainer,
+  staggerItemVariants,
+} from "../animations";
 
 /**
  * ChatPage Component
- * 
+ *
  * Responsibilities:
  * - Render chat interface layout
  * - Compose chat components (sidebar, messages, input)
- * 
+ *
  * All business logic is encapsulated in useChat hook.
  */
 const ChatPage: React.FC = () => {
@@ -24,6 +28,7 @@ const ChatPage: React.FC = () => {
     messages,
     isLoadingMessages,
     isSendingMessage,
+    streamingMessageId,
     messagesEndRef,
     handleNewChat,
     handleSelectChat,
@@ -35,7 +40,7 @@ const ChatPage: React.FC = () => {
     <PageTransition>
       <div className="flex h-[calc(100vh-64px)]">
         {/* Sidebar */}
-        <motion.div 
+        <motion.div
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
@@ -50,7 +55,7 @@ const ChatPage: React.FC = () => {
         </motion.div>
 
         {/* Main Chat Area */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -65,7 +70,7 @@ const ChatPage: React.FC = () => {
             ) : (
               <div className="max-w-4xl mx-auto">
                 {messages.length === 0 && !currentChatId ? (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 }}
@@ -74,33 +79,46 @@ const ChatPage: React.FC = () => {
                     <span className="material-symbols-outlined text-6xl mb-4 text-[var(--color-primary)]">
                       {TEXT.chat.emptyState.icon}
                     </span>
+
                     <p className="text-xl font-medium">
                       {TEXT.chat.emptyState.message}
                     </p>
                   </motion.div>
                 ) : (
                   <>
-                    <StaggerContainer staggerDelay={0.05} initialDelay={0}>
+                    <StaggerContainer
+                      staggerDelay={0.05}
+                      initialDelay={0}
+                    >
                       {messages.map((message, index) => (
-                        <motion.div key={message.messageId} variants={staggerItemVariants}>
+                        <motion.div
+                          key={message.messageId}
+                          variants={staggerItemVariants}
+                        >
                           <ChatMessage
                             message={message}
                             isAI={message.senderId === 0}
                             index={index}
+                            stream={
+                              message.senderId === 0 &&
+                              message.messageId === streamingMessageId
+                            }
                           />
                         </motion.div>
                       ))}
                     </StaggerContainer>
+
                     {isSendingMessage && <TypingIndicator />}
                   </>
                 )}
+
                 <div ref={messagesEndRef} />
               </div>
             )}
           </div>
 
           {/* Input Area - Fixed at bottom */}
-          <motion.div 
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}

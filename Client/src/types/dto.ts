@@ -210,6 +210,19 @@ export interface MessageResponseDto {
   senderId: number; // 0 = AI, user ID = user
   content: string;
   timestamp: string;
+  citations: CitationDto[];
+}
+
+export interface CitationDto {
+  citationId: string;
+  label: string;
+  title: string;
+  url: string;
+  sourceType: string;
+  universityId: number | null;
+  universityName: string;
+  programId: number | null;
+  programName: string;
 }
 
 export interface Chat {
