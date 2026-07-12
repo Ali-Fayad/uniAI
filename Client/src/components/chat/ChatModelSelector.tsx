@@ -25,11 +25,11 @@ const ChatModelSelector: React.FC = () => {
   });
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="relative shrink-0" ref={menuRef}>
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-surface)] hover:bg-[var(--color-surfaceHover)] text-xs font-medium text-[var(--color-textSecondary)] transition-colors border border-[var(--color-border)]"
+        className="flex items-center gap-1.5 whitespace-nowrap px-3 py-1.5 rounded-full bg-[var(--color-surface)] hover:bg-[var(--color-surfaceHover)] text-xs font-medium text-[var(--color-textSecondary)] transition-colors border border-[var(--color-border)]"
         aria-haspopup="menu"
         aria-expanded={isOpen}
       >

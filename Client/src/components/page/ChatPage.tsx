@@ -38,7 +38,7 @@ const ChatPage: React.FC = () => {
 
   return (
     <PageTransition>
-      <div className="flex h-[calc(100vh-64px)]">
+      <div className="flex h-[calc(100vh-64px)] min-w-0">
         {/* Sidebar */}
         <motion.div
           initial={{ x: -20, opacity: 0 }}
@@ -59,16 +59,16 @@ const ChatPage: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex-1 flex flex-col bg-[var(--color-background)] relative"
+          className="flex-1 min-w-0 flex flex-col bg-[var(--color-background)] relative"
         >
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-6 pb-32">
+          <div className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden p-6 pb-32">
             {isLoadingMessages ? (
               <div className="h-full flex items-center justify-center">
                 <LoadingSpinner text={TEXT.chat.loading} />
               </div>
             ) : (
-              <div className="max-w-4xl mx-auto">
+              <div className="mx-auto w-full max-w-4xl min-w-0">
                 {messages.length === 0 && !currentChatId ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -122,7 +122,7 @@ const ChatPage: React.FC = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="absolute bottom-0 left-0 right-0"
+            className="absolute bottom-0 left-0 right-0 min-w-0"
           >
             <ChatInput
               onSendMessage={handleSendMessage}

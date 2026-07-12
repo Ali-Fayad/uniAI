@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import type { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { MessageResponseDto } from "../../types/dto";
 import { buildCitationRows } from "./citationUtils.js";
@@ -24,7 +25,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
 
   useEffect(() => {
     if (!stream || !isAI) {
-      setDisplayedContent(message.content);
       return;
     }
 
@@ -63,6 +63,21 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
     isAI && displayedContent.length === message.content.length
       ? buildCitationRows(message.citations)
       : [];
+  const assistantContent = stream ? displayedContent : message.content;
+
+  const markdownComponents: Components = {
+    a: (props) => (
+      <a {...props} target="_blank" rel="noreferrer noopener" />
+    ),
+    pre: ({ className, ...props }) => (
+      <pre {...props} className={`chat-markdown__pre ${className ?? ""}`} />
+    ),
+    table: (props) => (
+      <div className="chat-markdown__table-scroll">
+        <table {...props} />
+      </div>
+    ),
+  };
 
   return (
     <motion.div
@@ -73,7 +88,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
         delay: index * 0.05,
         ease: "easeOut",
       }}
-      className={`flex gap-3 mb-4 ${
+      className={`chat-message-row flex gap-3 mb-4 min-w-0 ${
         isAI ? "justify-start" : "justify-end"
       }`}
     >
@@ -94,27 +109,19 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
         initial={{ scale: 0.95 }}
         animate={{ scale: 1 }}
         transition={{ delay: index * 0.05 + 0.15 }}
-        className={`max-w-[70%] px-4 py-3 rounded-2xl shadow-sm ${
+        className={`min-w-0 ${
           isAI
-            ? "bg-[var(--color-surface)] text-[var(--color-textPrimary)] rounded-tl-none"
-            : "bg-[var(--color-primary)] text-[var(--color-background)] rounded-tr-none"
+            ? "chat-message-assistant flex-1 px-0 py-1 text-[var(--color-textPrimary)]"
+            : "chat-message-user max-w-[70%] px-4 py-3 rounded-2xl shadow-sm bg-[var(--color-primary)] text-[var(--color-background)] rounded-tr-none"
         }`}
       >
         {isAI ? (
-          <div className="chat-markdown text-sm leading-relaxed break-words">
+          <div className="chat-markdown text-sm leading-relaxed">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              components={{
-                a: (props) => (
-                  <a
-                    {...props}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                ),
-              }}
+              components={markdownComponents}
             >
-              {displayedContent}
+              {assistantContent}
             </ReactMarkdown>
           </div>
         ) : (

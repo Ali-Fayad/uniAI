@@ -32,18 +32,18 @@ const ChatInput: React.FC<ChatInputProps> = ({
   } = useChatInputState({ disabled, onSendMessage });
 
   return (
-    <div className="w-full relative pt-10 pb-6 px-4 overflow-hidden">
+    <div className="w-full min-w-0 relative pt-10 pb-6 px-4 overflow-hidden">
 
       <ChatInputBackground />
 
-      <div className="max-w-3xl mx-auto relative z-10">
+      <div className="relative z-10 mx-auto w-full max-w-4xl min-w-0">
         <motion.form
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.3 }}
           onSubmit={handleSubmit}
           className={`
-            relative bg-[var(--color-surface)] rounded-[26px] shadow-lg border border-[var(--color-border)]
+            relative w-full min-w-0 bg-[var(--color-surface)] rounded-[26px] shadow-lg border border-[var(--color-border)]
             transition-all duration-200
             ${disabled ? "opacity-70 cursor-not-allowed" : ""}
           `}
@@ -57,12 +57,13 @@ const ChatInput: React.FC<ChatInputProps> = ({
             placeholder="Message uniAI..."
             disabled={disabled}
             rows={1}
-            className="w-full bg-transparent border-none px-5 py-4 text-[var(--color-textPrimary)] placeholder-[var(--color-textSecondary)] focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none focus-visible:shadow-none focus-visible:border-[var(--color-border)] resize-none min-h-[60px] max-h-[200px] scrollbar-thin scrollbar-thumb-[var(--color-border)]"
+            wrap="soft"
+            className="block w-full min-w-0 bg-transparent border-none px-5 py-4 text-[var(--color-textPrimary)] placeholder-[var(--color-textSecondary)] focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none focus-visible:shadow-none focus-visible:border-[var(--color-border)] resize-none overflow-x-hidden overflow-y-auto min-h-[60px] max-h-[200px] scrollbar-thin scrollbar-thumb-[var(--color-border)]"
             style={{ height: "60px" }}
           />
 
           {/* Bottom Bar: Model Selector & Send Button */}
-          <div className="flex justify-between items-center px-3 pb-3 pt-1">
+          <div className="flex min-w-0 items-center justify-between gap-3 px-3 pb-3 pt-1">
             <ChatModelSelector />
 
             {/* Send Button */}
@@ -70,7 +71,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
               type="submit"
               disabled={!canSend}
               className={`
-                p-2 rounded-full transition-all duration-200 flex items-center justify-center
+                flex-shrink-0 p-2 rounded-full transition-all duration-200 flex items-center justify-center
                 ${
                   canSend
                     ? "bg-[var(--color-primary)] text-[var(--color-surface)] shadow-md hover:bg-[var(--color-primaryHover)] transform hover:scale-105"
