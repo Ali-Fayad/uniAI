@@ -1,5 +1,7 @@
 package com.uniai.chat.infrastructure.retrieval;
 
+import com.uniai.chat.application.citation.GraduateCitation;
+import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
@@ -39,7 +41,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     @Override
-    public String retrieveContext(GraduateKnowledgeQuery query) {
+    public GraduateKnowledgeRetrievalResult retrieveContext(GraduateKnowledgeQuery query) {
         long startNanos = System.nanoTime();
         GraduateKnowledgeQuery safeQuery = query == null
                 ? new GraduateKnowledgeQuery(GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS, List.of(), List.of(), null, false, true)
@@ -61,7 +63,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                         emptyContext.length(),
                         elapsedMillis(startNanos));
-                return emptyContext;
+                return new GraduateKnowledgeRetrievalResult(emptyContext, List.of());
             }
 
             if (safeQuery.intent() == GraduateKnowledgeIntent.PROGRAM_LOOKUP) {
@@ -69,10 +71,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 logger.debug("[RETRIEVAL] Program SQL completed rows={} strategy=PROGRAM_LOOKUP", programs.size());
                 List<ProgramRecord> rankedPrograms = rankProgramRecords(safeQuery, programs);
                 String context = buildProgramContext(safeQuery, rankedPrograms);
+                List<GraduateCitation> citations = buildProgramCitations(rankedPrograms);
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=PROGRAM_LOOKUP contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
-                return context;
+                return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
             if (safeQuery.intent() == GraduateKnowledgeIntent.TUITION_AGGREGATION) {
@@ -81,17 +84,18 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                         tuitionAggregations.size());
                 List<TuitionAggregationRecord> rankedTuitionAggregations = rankTuitionAggregations(safeQuery, tuitionAggregations);
                 String context = buildTuitionContext(safeQuery, rankedTuitionAggregations);
+                List<GraduateCitation> citations = buildTuitionCitations(rankedTuitionAggregations);
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=TUITION_AGGREGATION contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
-                return context;
+                return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
             String emptyContext = buildEmptyContext(safeQuery, "Unable to determine a specific graduate-information intent.");
             logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                     emptyContext.length(),
                     elapsedMillis(startNanos));
-            return emptyContext;
+            return new GraduateKnowledgeRetrievalResult(emptyContext, List.of());
         } catch (RuntimeException ex) {
             logger.error("[RETRIEVAL] SQL retrieval failed durationMs={} reason={}", elapsedMillis(startNanos), ex.getMessage(), ex);
             throw ex;
@@ -713,6 +717,112 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         for (String source : sources) {
             appendBullet(builder, "Source URL", source);
         }
+    }
+
+    private List<GraduateCitation> buildProgramCitations(List<ProgramRecord> programs) {
+        if (programs == null || programs.isEmpty()) {
+            return List.of();
+        }
+
+        List<GraduateCitation> citations = new ArrayList<>(programs.size());
+        for (int index = 0; index < programs.size(); index++) {
+            ProgramRecord program = programs.get(index);
+            if (program == null) {
+                continue;
+            }
+            citations.add(new GraduateCitation(
+                    buildProgramCitationId(program, index + 1),
+                    "S" + (index + 1),
+                    buildProgramCitationTitle(program),
+                    buildPrimaryProgramCitationUrl(program),
+                    "PROGRAM",
+                    program.universityId(),
+                    program.universityName(),
+                    program.programId(),
+                    program.officialDegreeName()
+            ));
+        }
+        return List.copyOf(citations);
+    }
+
+    private List<GraduateCitation> buildTuitionCitations(List<TuitionAggregationRecord> aggregations) {
+        if (aggregations == null || aggregations.isEmpty()) {
+            return List.of();
+        }
+
+        List<GraduateCitation> citations = new ArrayList<>(aggregations.size());
+        for (int index = 0; index < aggregations.size(); index++) {
+            TuitionAggregationRecord aggregation = aggregations.get(index);
+            if (aggregation == null) {
+                continue;
+            }
+            citations.add(new GraduateCitation(
+                    buildTuitionCitationId(aggregation, index + 1),
+                    "S" + (index + 1),
+                    buildTuitionCitationTitle(aggregation),
+                    firstSourceUrl(aggregation.sourceUrls()),
+                    "TUITION",
+                    aggregation.universityId(),
+                    aggregation.universityName(),
+                    null,
+                    aggregation.degreeTypeCode()
+            ));
+        }
+        return List.copyOf(citations);
+    }
+
+    private String buildProgramCitationId(ProgramRecord program, int index) {
+        return "program-" + safeId(program.universityId()) + "-" + safeId(program.programId()) + "-" + index;
+    }
+
+    private String buildTuitionCitationId(TuitionAggregationRecord aggregation, int index) {
+        return "tuition-" + safeId(aggregation.universityId()) + "-" + normalizeText(aggregation.degreeTypeCode()) + "-" + index;
+    }
+
+    private String buildProgramCitationTitle(ProgramRecord program) {
+        String university = formatUniversity(program.universityName(), program.universityAcronym());
+        if (!StringUtils.hasText(program.officialDegreeName())) {
+            return university;
+        }
+        return university + " " + program.officialDegreeName();
+    }
+
+    private String buildTuitionCitationTitle(TuitionAggregationRecord aggregation) {
+        String university = formatUniversity(aggregation.universityName(), aggregation.universityAcronym());
+        if (!StringUtils.hasText(aggregation.degreeTypeCode())
+                || "Not available in official data".equalsIgnoreCase(aggregation.degreeTypeCode().trim())) {
+            return university + " tuition";
+        }
+        return university + " " + aggregation.degreeTypeCode().trim() + " tuition";
+    }
+
+    private String buildPrimaryProgramCitationUrl(ProgramRecord program) {
+        String primaryUrl = firstSourceUrl(program.sourceUrls());
+        if (StringUtils.hasText(primaryUrl)) {
+            return primaryUrl;
+        }
+        String officialUrl = program.officialProgramUrl();
+        return isAvailableUrl(officialUrl) ? officialUrl.trim() : "";
+    }
+
+    private String firstSourceUrl(String value) {
+        if (!StringUtils.hasText(value) || "Not available in official data".equalsIgnoreCase(value.trim())) {
+            return "";
+        }
+        for (String url : value.split("\\s*\\|\\s*")) {
+            if (StringUtils.hasText(url)) {
+                return url.trim();
+            }
+        }
+        return "";
+    }
+
+    private boolean isAvailableUrl(String value) {
+        return StringUtils.hasText(value) && !"Not available in official data".equalsIgnoreCase(value.trim());
+    }
+
+    private String safeId(Long value) {
+        return value == null ? "unknown" : String.valueOf(value);
     }
 
     private void appendMissingDataSection(StringBuilder builder, GraduateKnowledgeQuery query, List<ProgramRecord> programs) {

@@ -6,6 +6,8 @@ import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiTokenEstimator;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
+import com.uniai.chat.application.citation.GraduateCitation;
+import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.dto.command.SendMessageCommand;
@@ -100,7 +102,22 @@ class ChatApplicationServiceTest {
                 )
         );
         graduateKnowledgeQueryInterpreter = new RecordingGraduateKnowledgeQueryInterpreter();
-        graduateKnowledgeRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort("Structured graduate context");
+        graduateKnowledgeRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort(
+                new GraduateKnowledgeRetrievalResult(
+                        "Structured graduate context",
+                        List.of(new GraduateCitation(
+                                "program-1-10-1",
+                                "S1",
+                                "AUB Master of Science in Computer Science",
+                                "https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx",
+                                "PROGRAM",
+                                1L,
+                                "American University of Beirut",
+                                10L,
+                                "Master of Science in Computer Science"
+                        ))
+                )
+        );
         conversationMemoryManager = new RecordingConversationMemoryManager();
         chatTitleGenerationManager = new RecordingChatTitleGenerationManager();
         conversationMemoryManager.loadedMemory = new ConversationMemory(
@@ -154,7 +171,10 @@ class ChatApplicationServiceTest {
 
         MessageResponseDto result = chatApplicationService.sendMessage(user.getEmail(), command);
 
-        assertEquals("Static uniAI system prompt", aiServicePort.lastRequest.getSystemPrompt());
+        assertTrue(aiServicePort.lastRequest.getSystemPrompt().contains("Static uniAI system prompt"));
+        assertTrue(aiServicePort.lastRequest.getSystemPrompt().contains("Citation instructions:"));
+        assertTrue(aiServicePort.lastRequest.getSystemPrompt().contains("Sources:"));
+        assertTrue(aiServicePort.lastRequest.getSystemPrompt().contains("[S1] AUB Master of Science in Computer Science"));
         assertEquals("What about USJ?", aiServicePort.lastRequest.getUserMessage());
         assertEquals("Structured graduate context", aiServicePort.lastRequest.getContext().get(0));
         assertEquals(2000, aiServicePort.lastRequest.getMaxTokens());
@@ -184,6 +204,7 @@ class ChatApplicationServiceTest {
         assertEquals(1, graduateFollowUpResolver.callCount);
 
         assertEquals("Here is the official answer.", result.getContent());
+        assertEquals(0, result.getCitations().size());
         assertEquals("Here is the official answer.", messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).get(messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size() - 1).getContent());
         assertEquals(1, aiServicePort.callCount);
         assertEquals(conversationMemoryManager.loadedMemory, aiServicePort.lastRequest.getConversationMemory());
@@ -271,7 +292,154 @@ class ChatApplicationServiceTest {
         assertEquals(2, messages.size());
         assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", messages.get(1).getContent());
         assertTrue(aiServicePort.lastRequest.getConversationHistory().isEmpty());
-        assertEquals("Static uniAI system prompt", aiServicePort.lastRequest.getSystemPrompt());
+        assertTrue(aiServicePort.lastRequest.getSystemPrompt().contains("Static uniAI system prompt"));
+    }
+
+    @Test
+    void sendMessageShouldReturnOnlyValidatedCitationLabelsFromAssistantResponse() {
+        User user = user(22L, "sara", "sara@example.com");
+        Chat chat = chat(220L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        aiServicePort.nextResponse = AiResponse.builder()
+                .content("Please review [S1], [S1], [S99], and https://example.com.")
+                .provider("gemini")
+                .model("gemini-2.5-flash")
+                .build();
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Tell me about AUB CS").build()
+        );
+
+        assertEquals(1, result.getCitations().size());
+        assertEquals("S1", result.getCitations().get(0).label());
+        assertEquals("AUB Master of Science in Computer Science", result.getCitations().get(0).title());
+        assertEquals("https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx", result.getCitations().get(0).url());
+        assertEquals(1, result.getCitations().stream().filter(citation -> "S1".equals(citation.label())).count());
+    }
+
+    @Test
+    void sendMessageShouldFilterCitationsToTheFinalBudgetedContext() {
+        User user = user(23L, "tariq", "tariq@example.com");
+        Chat chat = chat(230L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+
+        RecordingAiServicePort budgetAwareAiServicePort = new RecordingAiServicePort();
+        budgetAwareAiServicePort.nextResponse = AiResponse.builder()
+                .content("Please review [S1] and [S3].")
+                .provider("gemini")
+                .model("gemini-2.5-flash")
+                .build();
+
+        RecordingGraduateKnowledgeRetrievalPort budgetAwareRetrievalPort = new RecordingGraduateKnowledgeRetrievalPort(
+                new GraduateKnowledgeRetrievalResult(
+                        """
+                                AUB Master of Science in Computer Science
+                                Query interpretation:
+                                Intent: PROGRAM_LOOKUP
+                                Resolved universities: American University of Beirut (AUB)
+                                Degree types: MASTER
+
+                                Programs:
+                                1.
+                                  Program name: Master of Science in Computer Science
+                                  Official source URL(s): https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx
+                                  Official program URL: https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx
+                                  Extra context for the first program that should survive trimming.
+                                  Extra context for the first program that should survive trimming.
+                                  Extra context for the first program that should survive trimming.
+                                2.
+                                  Program name: Master of Science in Artificial Intelligence
+                                  Official source URL(s): https://www.aub.edu.lb/fas/ai/Pages/msai.aspx
+                                  Official program URL: https://www.aub.edu.lb/fas/ai/Pages/msai.aspx
+                                  Extra context for the second program that should be removed by trimming.
+                                  Extra context for the second program that should be removed by trimming.
+                                  Extra context for the second program that should be removed by trimming.
+                                3.
+                                  Program name: Master of Science in Data Science
+                                  Official source URL(s): https://www.aub.edu.lb/fas/ds/Pages/msds.aspx
+                                  Official program URL: https://www.aub.edu.lb/fas/ds/Pages/msds.aspx
+                                  Extra context for the third program that should be removed by trimming.
+                                """,
+                        List.of(
+                                new GraduateCitation(
+                                        "program-1-10-1",
+                                        "S1",
+                                        "AUB Master of Science in Computer Science",
+                                        "https://www.aub.edu.lb/fas/cs/Pages/cmps_graduate.aspx",
+                                        "PROGRAM",
+                                        1L,
+                                        "American University of Beirut",
+                                        10L,
+                                        "Master of Science in Computer Science"
+                                ),
+                                new GraduateCitation(
+                                        "program-1-11-2",
+                                        "S2",
+                                        "AUB Master of Science in Artificial Intelligence",
+                                        "https://www.aub.edu.lb/fas/ai/Pages/msai.aspx",
+                                        "PROGRAM",
+                                        1L,
+                                        "American University of Beirut",
+                                        11L,
+                                        "Master of Science in Artificial Intelligence"
+                                ),
+                                new GraduateCitation(
+                                        "program-1-12-3",
+                                        "S3",
+                                        "AUB Master of Science in Data Science",
+                                        "https://www.aub.edu.lb/fas/ds/Pages/msds.aspx",
+                                        "PROGRAM",
+                                        1L,
+                                        "American University of Beirut",
+                                        12L,
+                                        "Master of Science in Data Science"
+                                )
+                        )
+                )
+        );
+
+        AiContextBudgetManager trimmingBudgetManager = budgetManager("gemini", 260, 60, 40, 28, 4, 0);
+        ChatApplicationService trimmingService = new ChatApplicationService(
+                chatRepository,
+                messageRepository,
+                userRepository,
+                budgetAwareAiServicePort,
+                chatSystemPromptPort,
+                graduateQueryInterpretationPort,
+                graduateQueryInterpreterPromptPort,
+                graduateQueryInterpretationBudgetManager,
+                graduateQueryInterpretationValidator,
+                budgetAwareRetrievalPort,
+                universityCatalogRepository,
+                graduateKnowledgeQueryInterpreter,
+                graduateFollowUpResolver,
+                trimmingBudgetManager,
+                conversationMemoryManager,
+                chatTitleGenerationManager
+        );
+
+        MessageResponseDto result = trimmingService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Tell me about AUB graduate programs").build()
+        );
+
+        assertEquals(1, budgetAwareAiServicePort.callCount);
+        assertNotNull(budgetAwareAiServicePort.lastRequest);
+        assertTrue(budgetAwareAiServicePort.lastRequest.getContext().stream()
+                .anyMatch(context -> context.contains("Master of Science in Computer Science")));
+        assertFalse(budgetAwareAiServicePort.lastRequest.getContext().stream()
+                .anyMatch(context -> context.contains("Master of Science in Artificial Intelligence")));
+        assertTrue(budgetAwareAiServicePort.lastRequest.getSystemPrompt().contains("[S1]"));
+        assertFalse(budgetAwareAiServicePort.lastRequest.getSystemPrompt().contains("[S2]"));
+        assertFalse(budgetAwareAiServicePort.lastRequest.getSystemPrompt().contains("[S3]"));
+        assertEquals(1, result.getCitations().size());
+        assertEquals("S1", result.getCitations().get(0).label());
+        assertEquals(1, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).stream()
+                .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
+                .count());
     }
 
     @Test
@@ -331,6 +499,7 @@ class ChatApplicationServiceTest {
 
         assertEquals(0, aiServicePort.callCount);
         assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", result.getContent());
+        assertEquals(0, result.getCitations().size());
         List<Message> messages = messageRepository.findByChatIdOrderByTimestampAsc(chat.getId());
         assertEquals(2, messages.size());
         assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", messages.get(1).getContent());
@@ -904,19 +1073,19 @@ class ChatApplicationServiceTest {
     }
 
     private static final class RecordingGraduateKnowledgeRetrievalPort implements GraduateKnowledgeRetrievalPort {
-        private final String context;
+        private final GraduateKnowledgeRetrievalResult result;
         private int callCount;
         private GraduateKnowledgeQuery lastQuery;
 
-        private RecordingGraduateKnowledgeRetrievalPort(String context) {
-            this.context = context;
+        private RecordingGraduateKnowledgeRetrievalPort(GraduateKnowledgeRetrievalResult result) {
+            this.result = result;
         }
 
         @Override
-        public String retrieveContext(GraduateKnowledgeQuery query) {
+        public GraduateKnowledgeRetrievalResult retrieveContext(GraduateKnowledgeQuery query) {
             callCount++;
             lastQuery = query;
-            return context;
+            return result;
         }
     }
 

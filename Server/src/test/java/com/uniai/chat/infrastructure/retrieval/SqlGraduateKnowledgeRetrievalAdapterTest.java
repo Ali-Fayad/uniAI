@@ -1,5 +1,6 @@
 package com.uniai.chat.infrastructure.retrieval;
 
+import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
@@ -55,7 +56,8 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("Programs:"), context);
         assertTrue(context.contains("Sources:"), context);
@@ -67,6 +69,8 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertFalse(jdbcTemplate.lastSql.contains("AVG("), jdbcTemplate.lastSql);
         assertEquals(List.of(1L), jdbcTemplate.universityIds());
         assertEquals(List.of("MASTER"), jdbcTemplate.degreeTypes());
+        assertEquals(2, result.citations().size());
+        assertEquals("S1", result.citations().get(0).label());
     }
 
     @Test
@@ -80,7 +84,8 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("Tuition summary:"), context);
         assertTrue(context.contains("Admission summary:"), context);
@@ -99,7 +104,8 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("Tuition aggregation:"), context);
         assertTrue(context.contains("Currency: USD"), context);
@@ -111,6 +117,8 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertTrue(jdbcTemplate.lastSql.contains("GROUP BY"), jdbcTemplate.lastSql);
         assertEquals(List.of(1L), jdbcTemplate.universityIds());
         assertEquals(List.of("MASTER"), jdbcTemplate.degreeTypes());
+        assertEquals(2, result.citations().size());
+        assertEquals("S1", result.citations().get(0).label());
     }
 
     @Test
@@ -124,10 +132,12 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("Tuition aggregation:"), context);
         assertTrue(context.contains("Average tuition is not computable from the official stored data."), context);
+        assertEquals(1, result.citations().size());
     }
 
     @Test
@@ -144,12 +154,14 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("American University of Beirut"), context);
         assertTrue(context.contains("Université Saint-Joseph"), context);
         assertFalse(context.contains("Lebanese National Conservatory"), context);
         assertEquals(List.of(1L, 2L), jdbcTemplate.universityIds());
+        assertEquals(3, result.citations().size());
     }
 
     @Test
@@ -163,10 +175,12 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 true
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("Unable to determine a specific graduate-information intent."), context);
         assertEquals(0, jdbcTemplate.callCount);
+        assertEquals(0, result.citations().size());
     }
 
     private List<Map<String, Object>> programRows() {

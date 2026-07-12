@@ -4,6 +4,10 @@ import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiContextBudgetResult;
+import com.uniai.chat.application.citation.GraduateCitation;
+import com.uniai.chat.application.citation.GraduateCitationDto;
+import com.uniai.chat.application.citation.GraduateCitationEngine;
+import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetResult;
 import com.uniai.chat.application.dto.ai.AiRequest;
@@ -58,6 +62,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Application service for all chat use cases.
@@ -210,7 +215,7 @@ public class ChatApplicationService implements
                         safeContent.length(),
                         elapsedMillis(requestStartNanos));
 
-                return toDto(aiMessage);
+                return toDto(aiMessage, List.of());
             }
 
             logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
@@ -233,7 +238,11 @@ public class ChatApplicationService implements
                     graduateKnowledgeQuery.followUpResolved(),
                     graduateKnowledgeQuery.ambiguous(),
                     graduateKnowledgeQuery.detailLevel());
-            String graduateContext = graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
+            GraduateKnowledgeRetrievalResult graduateKnowledgeRetrievalResult = graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
+            String graduateContext = graduateKnowledgeRetrievalResult != null ? graduateKnowledgeRetrievalResult.formattedContext() : null;
+            List<GraduateCitation> graduateCitations = graduateKnowledgeRetrievalResult != null
+                    ? graduateKnowledgeRetrievalResult.citations()
+                    : List.of();
             long retrievalDurationMs = elapsedMillis(retrievalStartNanos);
             logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
                     chat.getId(),
@@ -246,7 +255,7 @@ public class ChatApplicationService implements
                 logger.warn("[RETRIEVAL] Empty context returned chatId={}", chat.getId());
             }
 
-            String systemPrompt = chatSystemPromptPort.getPrompt();
+            String systemPrompt = GraduateCitationEngine.appendCitationInstructions(chatSystemPromptPort.getPrompt(), graduateCitations);
             logger.debug("[PROMPT] System prompt loaded promptLength={}",
                     StringUtils.hasText(systemPrompt) ? systemPrompt.length() : 0);
 
@@ -279,6 +288,17 @@ public class ChatApplicationService implements
             AiResponse aiResponse;
             boolean budgetRejected = false;
             long providerDurationMs = 0L;
+            AiRequest budgetedRequest = budgetResult.request();
+            List<GraduateCitation> activeGraduateCitations = budgetResult.contextTrimmed()
+                    ? GraduateCitationEngine.filterCitationsPresentInContext(
+                    graduateCitations,
+                    budgetedRequest != null ? budgetedRequest.getContext() : List.of()
+            )
+                    : graduateCitations;
+            String activeSystemPrompt = GraduateCitationEngine.appendCitationInstructions(
+                    chatSystemPromptPort.getPrompt(),
+                    activeGraduateCitations
+            );
             if (!budgetResult.requestFits()) {
                 budgetRejected = true;
                 logger.warn("[AI] Budget rejection chatId={} provider={} category={} originalEstimatedInputTokens={} finalEstimatedInputTokens={} maxInputTokens={} reservedOutputTokens={} historyTrimmed={} contextTrimmed={} requestFits={}",
@@ -300,15 +320,25 @@ public class ChatApplicationService implements
                         .retryable(false)
                         .build();
             } else {
-                AiRequest budgetedRequest = budgetResult.request();
+                AiRequest effectiveRequest = budgetedRequest == null
+                        ? null
+                        : AiRequest.builder()
+                        .userMessage(budgetedRequest.getUserMessage())
+                        .systemPrompt(activeSystemPrompt)
+                        .conversationHistory(budgetedRequest.getConversationHistory())
+                        .context(budgetedRequest.getContext())
+                        .conversationMemory(budgetedRequest.getConversationMemory())
+                        .temperature(budgetedRequest.getTemperature())
+                        .maxTokens(budgetedRequest.getMaxTokens())
+                        .build();
                 logger.debug("[AI] Provider invocation started chatId={} providerBean={} historyCount={} contextCount={} maxTokens={}",
                         chat.getId(),
                         aiServicePort.getClass().getSimpleName(),
-                        budgetedRequest.getConversationHistory() != null ? budgetedRequest.getConversationHistory().size() : 0,
-                        budgetedRequest.getContext() != null ? budgetedRequest.getContext().size() : 0,
-                        budgetedRequest.getMaxTokens());
+                        effectiveRequest != null && effectiveRequest.getConversationHistory() != null ? effectiveRequest.getConversationHistory().size() : 0,
+                        effectiveRequest != null && effectiveRequest.getContext() != null ? effectiveRequest.getContext().size() : 0,
+                        effectiveRequest != null ? effectiveRequest.getMaxTokens() : null);
                 long providerStartNanos = System.nanoTime();
-                aiResponse = aiServicePort.generateResponse(budgetedRequest);
+                aiResponse = aiServicePort.generateResponse(effectiveRequest);
                 providerDurationMs = elapsedMillis(providerStartNanos);
             }
 
@@ -348,6 +378,9 @@ public class ChatApplicationService implements
                             providerDurationMs);
                 }
             }
+            List<GraduateCitationDto> responseCitations = toCitationDtos(
+                    GraduateCitationEngine.extractCitations(aiContent, activeGraduateCitations)
+            );
             Message aiMessage = MessageBuilder.aiMessage(chat, aiContent).build();
             long aiSaveStartNanos = System.nanoTime();
             Message persistedAiMessage = messageRepository.save(aiMessage);
@@ -368,7 +401,7 @@ public class ChatApplicationService implements
                     aiContent.length(),
                     elapsedMillis(requestStartNanos));
 
-            return toDto(aiMessage);
+            return toDto(aiMessage, responseCitations);
         } catch (RuntimeException ex) {
             logger.error("[CHAT] Request failed userId={} chatId={} durationMs={} reason={}",
                     userId,
@@ -741,13 +774,28 @@ public class ChatApplicationService implements
     }
 
     private MessageResponseDto toDto(Message message) {
+        return toDto(message, List.of());
+    }
+
+    private MessageResponseDto toDto(Message message, List<GraduateCitationDto> citations) {
         return MessageResponseDto.builder()
                 .messageId(message.getId())
                 .chatId(message.getChatId())
                 .senderId(message.getSenderId())
                 .content(message.getContent())
                 .timestamp(message.getTimestamp())
+                .citations(citations == null ? List.of() : List.copyOf(citations))
                 .build();
+    }
+
+    private List<GraduateCitationDto> toCitationDtos(List<GraduateCitation> citations) {
+        if (citations == null || citations.isEmpty()) {
+            return List.of();
+        }
+        return citations.stream()
+                .map(GraduateCitationDto::from)
+                .filter(Objects::nonNull)
+                .toList();
     }
 
     private ChatSummaryResponseDto toSummaryDto(Chat chat) {

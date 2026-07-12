@@ -1,5 +1,6 @@
 package com.uniai.chat.infrastructure.retrieval;
 
+import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
@@ -65,7 +66,8 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertEquals(1, countOccurrences(context, "Faculty/school: Maroun Semaan Faculty of Engineering and Architecture"), context);
         assertEquals(1, countOccurrences(context, "Language: English"), context);
@@ -77,6 +79,7 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
         assertEquals(1, countOccurrences(context, "Master of Science in Computer Science"), context);
         assertEquals(1, countOccurrences(context, "Master of Science in Artificial Intelligence"), context);
         assertFalse(context.contains("Tuition summary: Not available in official data"), context);
+        assertEquals(2, result.citations().size());
     }
 
     @Test
@@ -103,7 +106,8 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertEquals(1, countOccurrences(context, "Faculty/school: Maroun Semaan Faculty of Engineering and Architecture"), context);
         assertEquals(1, countOccurrences(context, "Faculty/school: Faculty of Arts and Sciences"), context);
@@ -112,6 +116,7 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
         assertEquals(1, countOccurrences(context, "Master of Science in Computer Science"), context);
         assertEquals(1, countOccurrences(context, "Master of Arts in Media Studies"), context);
         assertEquals(2, countOccurrences(context, "University: American University of Beirut (AUB)"), context);
+        assertEquals(2, result.citations().size());
     }
 
     @Test
@@ -138,7 +143,8 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertEquals(1, countOccurrences(context, "Degree type: MASTER"), context);
         assertEquals(1, countOccurrences(context, "Degree type: PHD"), context);
@@ -146,6 +152,7 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
         assertTrue(context.contains("Official program URL: https://aub.edu.lb/biology-phd"), context);
         assertEquals(1, countOccurrences(context, "Master of Science in Biology"), context);
         assertEquals(1, countOccurrences(context, "PhD in Biology"), context);
+        assertEquals(2, result.citations().size());
     }
 
     @Test
@@ -171,7 +178,8 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertEquals(1, countOccurrences(context, "University: American University of Beirut (AUB)"), context);
         assertEquals(1, countOccurrences(context, "University: Université Saint-Joseph (USJ)"), context);
@@ -187,6 +195,7 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
         assertTrue(context.contains("Source URLs: https://aub.edu.lb/phd-tuition"), context);
         assertTrue(context.contains("Source URLs: https://usj.edu.lb/tuition"), context);
         assertFalse(context.contains("Average tuition is not computable from the official stored data."), context);
+        assertEquals(3, result.citations().size());
     }
 
     @Test
@@ -207,7 +216,8 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("Master of Science in Biology"), context);
         assertTrue(context.contains("Credits: 36"), context);
@@ -217,6 +227,7 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
         assertTrue(context.contains("Official source URL(s): https://aub.edu.lb/biology"), context);
         assertEquals(1, countOccurrences(context, "Master of Science in Biology"), context);
         assertEquals(1, countOccurrences(context, "University: American University of Beirut (AUB)"), context);
+        assertEquals(1, result.citations().size());
     }
 
     @Test
@@ -230,11 +241,13 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
                 false
         );
 
-        String context = adapter.retrieveContext(query);
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
 
         assertTrue(context.contains("Missing/Unavailable data:"), context);
         assertTrue(context.contains("No matching official data found."), context);
         assertEquals(1, jdbcTemplate.queryCount);
+        assertEquals(0, result.citations().size());
     }
 
     private int countOccurrences(String text, String needle) {

@@ -270,13 +270,50 @@ Reason:
 ## Phase 4 — RAG Evolution
 
 ### TODO-013 — Hybrid Retrieval ⭐⭐⭐⭐⭐
-Combine SQL retrieval with vector search.
+Status: Deferred.
+
+Reason:
+- Current SQL retrieval sufficiently covers structured graduate-information use cases.
+- The descriptive corpus is uneven and does not yet justify semantic retrieval, embedding generation, hybrid result merging, or vector infrastructure.
+- A future first step should evaluate PostgreSQL lexical or full-text search for topical discovery before vectors.
+
+Not implemented:
+- no vector search
+- no pgvector
+- no embeddings
+- no hybrid result merging
 
 ### TODO-014 — pgvector Integration ⭐⭐⭐⭐☆
-Introduce semantic search using pgvector.
+Status: Deferred / merged conceptually into TODO-013.
+
+Reason:
+- pgvector has no standalone product value.
+- It should only be considered as a possible implementation detail if hybrid semantic retrieval later becomes justified.
+
+Not implemented:
+- no PostgreSQL vector extension
+- no vector schema
+- no embedding model
+- no embedding pipeline
+- no vector indexes
 
 ### TODO-015 — Citation Engine ⭐⭐⭐⭐☆
-Return structured citations with sources and metadata.
+Status: Completed as a narrow structured citation engine.
+
+Behavior:
+- backend-owned citation labels and source metadata
+- structured retrieval result
+- citation-aware context formatting
+- post-budget citation registry filtering
+- validation of model-returned labels
+- response-only citations
+- compact frontend source rendering
+
+Deferred:
+- citation persistence
+- citation history replay
+- sentence-level attribution
+- rich source UI
 
 ---
 
