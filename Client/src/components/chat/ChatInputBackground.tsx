@@ -2,7 +2,7 @@
  * ChatInputBackground
  *
  * Responsibility:
- * - Render the decorative background behind the chat input area.
+ * - Render a subtle decorative glow behind the floating chat composer.
  *
  * Does NOT:
  * - Manage input state
@@ -14,20 +14,17 @@ import React from "react";
 
 const ChatInputBackground: React.FC = () => {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none">
+    <div
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32 overflow-visible"
+      aria-hidden="true"
+    >
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute bottom-0 left-1/2 h-24 w-[min(42rem,88vw)] -translate-x-1/2 rounded-full opacity-15 blur-3xl"
         style={{
-          backgroundImage: `linear-gradient(135deg, var(--color-primary) 25%, transparent 25%),
-                              linear-gradient(225deg, var(--color-primary) 25%, transparent 25%),
-                              linear-gradient(45deg, var(--color-primary) 25%, transparent 25%),
-                              linear-gradient(315deg, var(--color-primary) 25%, transparent 25%)`,
-          backgroundPosition: "10px 0, 10px 0, 0 0, 0 0",
-          backgroundSize: "20px 20px",
-          backgroundRepeat: "repeat",
+          background:
+            "radial-gradient(circle at center, color-mix(in srgb, var(--color-primary) 45%, transparent) 0%, transparent 70%)",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-background)] via-[var(--color-background)] to-transparent" />
     </div>
   );
 };

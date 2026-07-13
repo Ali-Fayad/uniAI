@@ -206,7 +206,7 @@ const ChatPage: React.FC = () => {
           className="flex-1 min-w-0 flex flex-col bg-[var(--color-background)] relative"
         >
           {/* Messages Area */}
-          <div className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden p-6 pb-32">
+          <div className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden p-6 pb-72 md:pb-80">
             {isLoadingMessages ? (
               <div className="h-full flex items-center justify-center">
                 <LoadingSpinner text={TEXT.chat.loading} />
