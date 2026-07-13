@@ -3,6 +3,7 @@ package com.uniai.chat.infrastructure.memory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiRequest;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.memory.ConversationMemoryPatch;
@@ -47,6 +48,7 @@ public class AiConversationMemoryUpdateAdapter implements ConversationMemoryUpda
                 .systemPrompt(prompt)
                 .userMessage(request.currentUserMessage())
                 .context(buildContext(memoryText, request))
+                .operation(AiOperation.MEMORY_UPDATE)
                 .maxTokens(maxTokens)
                 .build();
 

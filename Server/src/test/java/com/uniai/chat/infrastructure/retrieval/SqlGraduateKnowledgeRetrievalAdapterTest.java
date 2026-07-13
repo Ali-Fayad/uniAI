@@ -5,6 +5,7 @@ import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,11 +39,13 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
 
     private SqlGraduateKnowledgeRetrievalAdapter adapter;
     private FakeNamedParameterJdbcTemplate jdbcTemplate;
+    private SimpleMeterRegistry meterRegistry;
 
     @BeforeEach
     void setUp() {
         jdbcTemplate = new FakeNamedParameterJdbcTemplate();
-        adapter = new SqlGraduateKnowledgeRetrievalAdapter(jdbcTemplate);
+        meterRegistry = new SimpleMeterRegistry();
+        adapter = new SqlGraduateKnowledgeRetrievalAdapter(jdbcTemplate, meterRegistry);
     }
 
     @Test
@@ -71,6 +74,18 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertEquals(List.of("MASTER"), jdbcTemplate.degreeTypes());
         assertEquals(2, result.citations().size());
         assertEquals("S1", result.citations().get(0).label());
+        assertEquals(1.0, meterRegistry.find("uniai.retrieval.requests")
+                .tags("retrieval_strategy", "program_lookup", "intent", "program_lookup")
+                .counter()
+                .count());
+        assertEquals(1.0, meterRegistry.find("uniai.retrieval.ranking.candidates")
+                .tags("retrieval_strategy", "program_lookup", "intent", "program_lookup")
+                .summary()
+                .count());
+        assertEquals(1.0, meterRegistry.find("uniai.retrieval.ranking.selected")
+                .tags("retrieval_strategy", "program_lookup", "intent", "program_lookup")
+                .summary()
+                .count());
     }
 
     @Test
@@ -181,6 +196,10 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertTrue(context.contains("Unable to determine a specific graduate-information intent."), context);
         assertEquals(0, jdbcTemplate.callCount);
         assertEquals(0, result.citations().size());
+        assertEquals(1.0, meterRegistry.find("uniai.retrieval.empty")
+                .tags("retrieval_strategy", "unknown_or_ambiguous", "intent", "unknown_or_ambiguous")
+                .counter()
+                .count());
     }
 
     private List<Map<String, Object>> programRows() {

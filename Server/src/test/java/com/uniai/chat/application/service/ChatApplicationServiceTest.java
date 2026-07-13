@@ -39,6 +39,8 @@ import com.uniai.catalog.domain.model.UniversityCatalog;
 import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -72,6 +74,7 @@ class ChatApplicationServiceTest {
     private RecordingGraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
     private RecordingConversationMemoryManager conversationMemoryManager;
     private RecordingChatTitleGenerationManager chatTitleGenerationManager;
+    private SimpleMeterRegistry meterRegistry;
     private AiContextBudgetManager aiContextBudgetManager;
     private GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager;
     private GraduateQueryInterpretationValidator graduateQueryInterpretationValidator;
@@ -120,6 +123,7 @@ class ChatApplicationServiceTest {
         );
         conversationMemoryManager = new RecordingConversationMemoryManager();
         chatTitleGenerationManager = new RecordingChatTitleGenerationManager();
+        meterRegistry = new SimpleMeterRegistry();
         conversationMemoryManager.loadedMemory = new ConversationMemory(
                 ConversationMemory.SCHEMA_VERSION,
                 List.of(new com.uniai.chat.application.memory.MemoryUniversityRef(1L, "American University of Beirut", "AUB")),
@@ -153,7 +157,9 @@ class ChatApplicationServiceTest {
                 graduateFollowUpResolver,
                 aiContextBudgetManager,
                 conversationMemoryManager,
-                chatTitleGenerationManager
+                chatTitleGenerationManager,
+                null,
+                meterRegistry
         );
     }
 
@@ -218,6 +224,10 @@ class ChatApplicationServiceTest {
         assertEquals("What about USJ?", aiServicePort.lastRequest.getUserMessage());
         assertEquals("Structured graduate context", aiServicePort.lastRequest.getContext().get(0));
         assertEquals(0, chatTitleGenerationManager.callCount);
+        assertEquals(1L, meterRegistry.find("uniai.chat.request.duration")
+                .tags("outcome", "success")
+                .timer()
+                .count());
     }
 
     @Test
@@ -418,7 +428,9 @@ class ChatApplicationServiceTest {
                 graduateFollowUpResolver,
                 trimmingBudgetManager,
                 conversationMemoryManager,
-                chatTitleGenerationManager
+                chatTitleGenerationManager,
+                null,
+                meterRegistry
         );
 
         MessageResponseDto result = trimmingService.sendMessage(
@@ -484,7 +496,9 @@ class ChatApplicationServiceTest {
                 graduateFollowUpResolver,
                 smallBudgetManager,
                 conversationMemoryManager,
-                chatTitleGenerationManager
+                chatTitleGenerationManager,
+                null,
+                meterRegistry
         );
 
         User user = user(4L, "dan", "dan@example.com");
@@ -507,6 +521,10 @@ class ChatApplicationServiceTest {
                 .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
                 .count());
         assertEquals(1, graduateQueryInterpretationPort.callCount);
+        assertEquals(1L, meterRegistry.find("uniai.ai.budget.rejections")
+                .tags("operation", "main_response", "provider", "gemini")
+                .counter()
+                .count());
     }
 
     @Test
@@ -615,6 +633,12 @@ class ChatApplicationServiceTest {
         assertEquals(0, aiServicePort.callCount);
         assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
         assertEquals(1, graduateFollowUpResolver.callCount);
+        assertEquals(0.0d, counterCount(
+                "uniai.ai.interpretation.invalid",
+                "provider", "unknown",
+                "model", "unknown",
+                "reason", "malformed_json"
+        ));
     }
 
     @Test
@@ -703,6 +727,48 @@ class ChatApplicationServiceTest {
         assertEquals(0, aiServicePort.callCount);
         assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
         assertEquals(1, graduateFollowUpResolver.callCount);
+    }
+
+    @Test
+    void sendMessageShouldRecordInvalidInterpretationMetricsWithoutTreatingAmbiguityAsInvalid() {
+        User user = user(13L, "lina", "lina@example.com");
+        Chat chat = chat(130L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                null,
+                List.of(),
+                List.of(),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Tell me about AUB graduate programs").build()
+        );
+
+        assertEquals("Here is the official answer.", result.getContent());
+        assertEquals(1, aiServicePort.callCount);
+        assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(1.0d, counterCount(
+                "uniai.ai.interpretation.invalid",
+                "provider", "unknown",
+                "model", "unknown",
+                "reason", "AI_QUERY_INTERPRETATION_INVALID_INTENT"
+        ));
+        assertEquals(0.0d, counterCount(
+                "uniai.ai.interpretation.invalid",
+                "provider", "unknown",
+                "model", "unknown",
+                "reason", "malformed_json"
+        ));
     }
 
     @Test
@@ -799,6 +865,19 @@ class ChatApplicationServiceTest {
             int charactersPerToken,
             int requestOverheadTokens
     ) {
+        return budgetManager(provider, maxInputTokens, reservedOutputTokens, maxHistoryTokens, maxRetrievalTokens, charactersPerToken, requestOverheadTokens, meterRegistry);
+    }
+
+    private AiContextBudgetManager budgetManager(
+            String provider,
+            int maxInputTokens,
+            int reservedOutputTokens,
+            int maxHistoryTokens,
+            int maxRetrievalTokens,
+            int charactersPerToken,
+            int requestOverheadTokens,
+            SimpleMeterRegistry metrics
+    ) {
         AiContextBudgetConfiguration configuration = new AiContextBudgetConfiguration(
                 maxInputTokens,
                 reservedOutputTokens,
@@ -814,7 +893,7 @@ class ChatApplicationServiceTest {
                         requestOverheadTokens
                 ))
         );
-        return new AiContextBudgetManager(configuration, new AiTokenEstimator(configuration), provider);
+        return new AiContextBudgetManager(configuration, new AiTokenEstimator(configuration), provider, metrics);
     }
 
     private GraduateQueryInterpretationBudgetManager interpretationBudgetManager(
@@ -1044,6 +1123,11 @@ class ChatApplicationServiceTest {
             }
             return nextResponse;
         }
+    }
+
+    private double counterCount(String metric, String... tags) {
+        Counter counter = meterRegistry.find(metric).tags(tags).counter();
+        return counter == null ? 0.0d : counter.count();
     }
 
     private static final class FixedChatSystemPromptPort implements ChatSystemPromptPort {

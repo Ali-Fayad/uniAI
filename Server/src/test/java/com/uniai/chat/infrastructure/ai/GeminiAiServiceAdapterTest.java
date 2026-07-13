@@ -3,6 +3,7 @@ package com.uniai.chat.infrastructure.ai;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.provider.AiProviderFailureCategory;
 import com.uniai.chat.application.provider.AiProviderRuntimeStatus;
 import com.uniai.chat.application.provider.AiProviderStatusSnapshot;
@@ -14,6 +15,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
 import java.net.SocketTimeoutException;
 
@@ -37,13 +39,15 @@ class GeminiAiServiceAdapterTest {
         properties.setBaseUrl("https://generativelanguage.googleapis.com/v1beta");
 
         InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
+        SimpleMeterRegistry metrics = new SimpleMeterRegistry();
         RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
         MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
-        GeminiAiServiceAdapter adapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), restTemplate, registry);
+        GeminiAiServiceAdapter adapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), restTemplate, registry, metrics);
 
         AiRequest request = AiRequest.builder()
                 .userMessage("Hello")
                 .systemPrompt("You are uniAI.")
+                .operation(AiOperation.MAIN_RESPONSE)
                 .build();
 
         server.expect(requestTo("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"))
@@ -70,6 +74,10 @@ class GeminiAiServiceAdapterTest {
         AiProviderStatusSnapshot snapshot = registry.getStatus("gemini");
         assertEquals(AiProviderRuntimeStatus.AVAILABLE, snapshot.status());
         assertEquals(AiProviderFailureCategory.NONE, snapshot.lastFailureCategory());
+        assertEquals(1.0, metrics.find("uniai.ai.provider.requests")
+                .tags("provider", "gemini", "model", "gemini-2.5-flash", "operation", "main_response", "outcome", "attempt")
+                .counter()
+                .count());
     }
 
     @Test
@@ -80,9 +88,10 @@ class GeminiAiServiceAdapterTest {
         properties.setBaseUrl("https://generativelanguage.googleapis.com/v1beta");
 
         InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
-        GeminiAiServiceAdapter adapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), registry);
+        SimpleMeterRegistry metrics = new SimpleMeterRegistry();
+        GeminiAiServiceAdapter adapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), registry, metrics);
 
-        AiResponse response = adapter.generateResponse(AiRequest.builder().userMessage("Hello").build());
+        AiResponse response = adapter.generateResponse(AiRequest.builder().userMessage("Hello").operation(AiOperation.MAIN_RESPONSE).build());
 
         assertTrue(response.getFallback());
         assertEquals(AiProviderFailureCategory.MISCONFIGURED, response.getFailureCategory());
@@ -97,26 +106,31 @@ class GeminiAiServiceAdapterTest {
         properties.setModel("gemini-2.5-flash");
 
         InMemoryAiProviderStatusRegistry registry = new InMemoryAiProviderStatusRegistry();
+        SimpleMeterRegistry metrics = new SimpleMeterRegistry();
         RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
         MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
-        GeminiAiServiceAdapter adapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), restTemplate, registry);
+        GeminiAiServiceAdapter adapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), restTemplate, registry, metrics);
 
         server.expect(requestTo("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"))
                 .andRespond(withStatus(HttpStatus.TOO_MANY_REQUESTS).contentType(MediaType.APPLICATION_JSON).body("{}"));
 
-        AiResponse rateLimited = adapter.generateResponse(AiRequest.builder().userMessage("Hello").build());
+        AiResponse rateLimited = adapter.generateResponse(AiRequest.builder().userMessage("Hello").operation(AiOperation.MAIN_RESPONSE).build());
         assertEquals(AiProviderFailureCategory.RATE_LIMITED, rateLimited.getFailureCategory());
         assertTrue(rateLimited.getRetryable());
         assertEquals(AiProviderRuntimeStatus.UNAVAILABLE, registry.getStatus("gemini").status());
+        assertEquals(1.0, metrics.find("uniai.ai.provider.failures")
+                .tags("provider", "gemini", "model", "gemini-2.5-flash", "operation", "main_response", "failure_category", "rate_limited")
+                .counter()
+                .count());
         server.verify();
 
         RestTemplate serverErrorTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
         MockRestServiceServer serverError = MockRestServiceServer.bindTo(serverErrorTemplate).build();
-        GeminiAiServiceAdapter serverErrorAdapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), serverErrorTemplate, registry);
+        GeminiAiServiceAdapter serverErrorAdapter = new GeminiAiServiceAdapter(properties, new ObjectMapper(), serverErrorTemplate, registry, metrics);
         serverError.expect(requestTo("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"))
                 .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON).body("{}"));
 
-        AiResponse serverFailure = serverErrorAdapter.generateResponse(AiRequest.builder().userMessage("Hello").build());
+        AiResponse serverFailure = serverErrorAdapter.generateResponse(AiRequest.builder().userMessage("Hello").operation(AiOperation.MAIN_RESPONSE).build());
         assertEquals(AiProviderFailureCategory.HTTP_SERVER_ERROR, serverFailure.getFailureCategory());
         assertTrue(serverFailure.getRetryable());
         assertEquals(AiProviderRuntimeStatus.UNAVAILABLE, registry.getStatus("gemini").status());

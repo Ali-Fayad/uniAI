@@ -3,6 +3,7 @@ package com.uniai.chat.infrastructure.interpretation;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
@@ -13,8 +14,10 @@ import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -28,6 +31,7 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
     private final GraduateQueryInterpreterPromptPort promptPort;
     private final GraduateQueryInterpretationBudgetConfiguration budgetConfiguration;
     private final ObjectMapper objectMapper;
+    private final MeterRegistry meterRegistry;
 
     public AiGraduateQueryInterpretationAdapter(
             AiServicePort aiServicePort,
@@ -35,10 +39,21 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
             GraduateQueryInterpretationBudgetConfiguration budgetConfiguration,
             ObjectMapper objectMapper
     ) {
+        this(aiServicePort, promptPort, budgetConfiguration, objectMapper, null);
+    }
+
+    public AiGraduateQueryInterpretationAdapter(
+            AiServicePort aiServicePort,
+            GraduateQueryInterpreterPromptPort promptPort,
+            GraduateQueryInterpretationBudgetConfiguration budgetConfiguration,
+            ObjectMapper objectMapper,
+            MeterRegistry meterRegistry
+    ) {
         this.aiServicePort = aiServicePort;
         this.promptPort = promptPort;
         this.budgetConfiguration = budgetConfiguration;
         this.objectMapper = objectMapper.copy().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.meterRegistry = meterRegistry;
     }
 
     @Override
@@ -63,6 +78,7 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
                 .userMessage(userMessage)
                 .conversationHistory(history)
                 .conversationMemory(conversationMemory)
+                .operation(AiOperation.INTERPRETATION)
                 .temperature(0.0)
                 .maxTokens(budgetConfiguration != null ? budgetConfiguration.maxOutputTokens() : 250)
                 .build();
@@ -103,6 +119,17 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
                     aiResponse.getModel(),
                     elapsedMillis(startNanos),
                     ex.getMessage());
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.INTERPRETATION_INVALID,
+                    "Structured-output interpretation failures",
+                    "provider",
+                    ChatAiMetrics.normalizeTagValue(aiResponse.getProvider()),
+                    "model",
+                    ChatAiMetrics.normalizeTagValue(aiResponse.getModel()),
+                    "reason",
+                    "malformed_json"
+            );
             throw new IllegalStateException("Failed to parse graduate query interpretation JSON", ex);
         }
     }

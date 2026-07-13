@@ -1,7 +1,9 @@
 package com.uniai.chat.application.budget;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiRequest;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -204,6 +206,47 @@ class AiContextBudgetManagerTest {
         assertEquals("AI_CONTEXT_BUDGET_EXCEEDED", result.diagnosticCategory());
         assertEquals("abcde", result.request().getSystemPrompt());
         assertEquals("efgh", result.request().getUserMessage());
+    }
+
+    @Test
+    void budgetShouldRecordTokenSummariesAndRejections() {
+        AiContextBudgetConfiguration configuration = configuration(
+                10,
+                2,
+                10,
+                10,
+                1,
+                0,
+                Map.of("gemini", new AiContextBudgetConfiguration.ProviderBudget(10, 2, 10, 10, 0))
+        );
+        SimpleMeterRegistry meterRegistry = new SimpleMeterRegistry();
+        AiContextBudgetManager manager = new AiContextBudgetManager(configuration, new AiTokenEstimator(configuration), "gemini", meterRegistry);
+        AiRequest request = AiRequest.builder()
+                .operation(AiOperation.MAIN_RESPONSE)
+                .systemPrompt("abcdef")
+                .userMessage("ghijkl")
+                .context(List.of("mnopqr"))
+                .build();
+
+        AiContextBudgetResult result = manager.budget(request);
+
+        assertFalse(result.requestFits());
+        assertEquals(1.0, meterRegistry.find("uniai.ai.request.estimated_tokens")
+                .tags("operation", "main_response", "provider", "gemini", "stage", "original")
+                .summary()
+                .count());
+        assertEquals(1.0, meterRegistry.find("uniai.ai.request.estimated_tokens")
+                .tags("operation", "main_response", "provider", "gemini", "stage", "final")
+                .summary()
+                .count());
+        assertEquals(1.0, meterRegistry.find("uniai.ai.request.estimated_tokens")
+                .tags("operation", "main_response", "provider", "gemini", "stage", "reserved_output")
+                .summary()
+                .count());
+        assertEquals(1.0, meterRegistry.find("uniai.ai.budget.rejections")
+                .tags("operation", "main_response", "provider", "gemini")
+                .counter()
+                .count());
     }
 
     @Test

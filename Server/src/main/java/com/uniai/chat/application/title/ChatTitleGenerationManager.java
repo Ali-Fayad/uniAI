@@ -1,13 +1,16 @@
 package com.uniai.chat.application.title;
 
 import com.uniai.chat.application.budget.AiTokenEstimator;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.ChatTitlePromptPort;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import com.uniai.chat.domain.repository.ChatRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.Locale;
 import java.util.concurrent.Executor;
@@ -23,6 +26,7 @@ public class ChatTitleGenerationManager {
     private final ChatTitleGenerationConfiguration configuration;
     private final Executor executor;
     private final String activeProvider;
+    private final MeterRegistry meterRegistry;
 
     public ChatTitleGenerationManager(
             ChatRepository chatRepository,
@@ -32,7 +36,7 @@ public class ChatTitleGenerationManager {
             ChatTitleGenerationConfiguration configuration,
             Executor executor
     ) {
-        this(chatRepository, aiServicePort, promptPort, estimator, configuration, executor, null);
+        this(chatRepository, aiServicePort, promptPort, estimator, configuration, executor, null, null);
     }
 
     public ChatTitleGenerationManager(
@@ -44,6 +48,19 @@ public class ChatTitleGenerationManager {
             Executor executor,
             String activeProvider
     ) {
+        this(chatRepository, aiServicePort, promptPort, estimator, configuration, executor, activeProvider, null);
+    }
+
+    public ChatTitleGenerationManager(
+            ChatRepository chatRepository,
+            AiServicePort aiServicePort,
+            ChatTitlePromptPort promptPort,
+            AiTokenEstimator estimator,
+            ChatTitleGenerationConfiguration configuration,
+            Executor executor,
+            String activeProvider,
+            MeterRegistry meterRegistry
+    ) {
         this.chatRepository = chatRepository;
         this.aiServicePort = aiServicePort;
         this.promptPort = promptPort;
@@ -51,6 +68,7 @@ public class ChatTitleGenerationManager {
         this.configuration = configuration;
         this.executor = executor;
         this.activeProvider = normalizeProvider(activeProvider);
+        this.meterRegistry = meterRegistry;
     }
 
     public void generateTitleIfNeeded(Long chatId, String firstUserMessage) {
@@ -76,12 +94,22 @@ public class ChatTitleGenerationManager {
             String prompt = promptPort != null ? promptPort.getPrompt() : "";
             if (!budgetFits(prompt, firstUserMessage)) {
                 logger.warn("[CHAT_TITLE] Title budget rejected chatId={} category=CHAT_TITLE_BUDGET_EXCEEDED", chatId);
+                ChatAiMetrics.incrementCounter(
+                        meterRegistry,
+                        ChatAiMetrics.BUDGET_REJECTIONS,
+                        "Budget rejections for AI requests",
+                        "operation",
+                        "title_generation",
+                        "provider",
+                        hasText(activeProvider) ? activeProvider : "unknown"
+                );
                 return;
             }
 
             AiRequest request = AiRequest.builder()
                     .systemPrompt(prompt)
                     .userMessage(firstUserMessage)
+                    .operation(AiOperation.TITLE_GENERATION)
                     .temperature(0.0)
                     .maxTokens(configuration.maxOutputTokens())
                     .build();

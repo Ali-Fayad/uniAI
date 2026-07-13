@@ -3,8 +3,10 @@ package com.uniai.chat.application.budget;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +20,26 @@ public class GraduateQueryInterpretationBudgetManager {
     private final GraduateQueryInterpretationBudgetConfiguration configuration;
     private final AiTokenEstimator estimator;
     private final String activeProvider;
+    private final MeterRegistry meterRegistry;
 
     public GraduateQueryInterpretationBudgetManager(
             GraduateQueryInterpretationBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             String activeProvider
     ) {
+        this(configuration, estimator, activeProvider, null);
+    }
+
+    public GraduateQueryInterpretationBudgetManager(
+            GraduateQueryInterpretationBudgetConfiguration configuration,
+            AiTokenEstimator estimator,
+            String activeProvider,
+            MeterRegistry meterRegistry
+    ) {
         this.configuration = configuration;
         this.estimator = estimator;
         this.activeProvider = activeProvider == null ? "placeholder" : activeProvider.trim().toLowerCase();
+        this.meterRegistry = meterRegistry;
     }
 
     public GraduateQueryInterpretationBudgetResult budget(GraduateQueryInterpretationRequest request, String prompt) {
@@ -60,6 +73,46 @@ public class GraduateQueryInterpretationBudgetManager {
         boolean requestFits = promptTokens + memoryTokens + userTokens + overheadTokens <= availableInputBudget
                 && finalEstimatedInputTokens <= availableInputBudget;
 
+        ChatAiMetrics.recordSummary(
+                meterRegistry,
+                ChatAiMetrics.ESTIMATED_TOKENS,
+                "Estimated token usage for AI requests",
+                "tokens",
+                originalTotal,
+                "operation",
+                "interpretation",
+                "provider",
+                activeProvider,
+                "stage",
+                "original"
+        );
+        ChatAiMetrics.recordSummary(
+                meterRegistry,
+                ChatAiMetrics.ESTIMATED_TOKENS,
+                "Estimated token usage for AI requests",
+                "tokens",
+                finalEstimatedInputTokens,
+                "operation",
+                "interpretation",
+                "provider",
+                activeProvider,
+                "stage",
+                "final"
+        );
+        ChatAiMetrics.recordSummary(
+                meterRegistry,
+                ChatAiMetrics.ESTIMATED_TOKENS,
+                "Estimated token usage for AI requests",
+                "tokens",
+                reservedOutputTokens,
+                "operation",
+                "interpretation",
+                "provider",
+                activeProvider,
+                "stage",
+                "reserved_output"
+        );
+
         if (!requestFits) {
             logger.warn("[AI_INTERPRETATION_BUDGET] Request cannot fit provider={} maxInputTokens={} reservedOutputTokens={} finalEstimatedTokens={} category={}",
                     activeProvider,
@@ -67,6 +120,15 @@ public class GraduateQueryInterpretationBudgetManager {
                     reservedOutputTokens,
                     finalEstimatedInputTokens,
                     BUDGET_EXCEEDED_CATEGORY);
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.BUDGET_REJECTIONS,
+                    "Budget rejections for AI requests",
+                    "operation",
+                    "interpretation",
+                    "provider",
+                    activeProvider
+            );
         }
 
         GraduateQueryInterpretationRequest budgetedRequest = new GraduateQueryInterpretationRequest(

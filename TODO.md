@@ -365,34 +365,46 @@ Build a benchmark suite to evaluate:
 ## Phase 6 — Production Readiness
 
 ### TODO-019 — Streaming Responses ⭐⭐⭐☆☆
-Support incremental response streaming for the main answer-generation call.
+Status: Skipped for the current project stage.
 
-The query interpretation call should remain non-streaming and structured.
+Reason:
+- the frontend already includes lightweight visual streaming
+- true transport-level streaming would require provider, backend transport, persistence, citation, and frontend changes
+- the added complexity is not justified yet
 
 ### TODO-020 — Response Cache ⭐⭐⭐☆☆
-Cache common AI responses.
+Status: Skipped for the current project stage.
 
-Do not cache raw interpretation output without including:
-- Interpreter prompt version
-- Schema version
-- Provider/model
-- Relevant recent-history signature
+Reason:
+- safe cache keys would need to account for conversation history, memory, retrieval data, prompt/schema state, provider/model, and changing official data
+- invalidation and citation freshness risk outweigh the current value
 
 ### TODO-021 — Metrics Dashboard ⭐⭐⭐☆☆
-Track:
-- Provider latency
-- Query interpretation latency
-- Main response latency
-- Retrieval latency
-- Token estimates
-- Interpretation token usage
-- Main response token usage
-- Context size
-- Provider usage
-- Fallbacks
-- Invalid structured outputs
-- Retrieval success rate
-- Ranking candidate/selected counts
+Status: Completed as narrow Actuator-backed Micrometer instrumentation.
+
+Implemented:
+- Micrometer timers for chat request, interpretation, main response, and retrieval durations
+- Micrometer counters for provider requests, provider failures, fallbacks, invalid structured interpretations, retrieval requests/empty results, and budget rejections
+- selected distribution summaries for estimated tokens, retrieval context size, and ranking counts
+- protected `/actuator/metrics` exposure
+- bounded, privacy-safe tags only
+
+Not implemented:
+- no visual dashboard
+- no Prometheus
+- no Grafana
+- no persistence
+- no alerts
+- no SLO infrastructure
+
+Validation:
+- `./mvnw -q -Dtest=ChatApplicationServiceTest,SqlGraduateKnowledgeRetrievalAdapterTest,AiContextBudgetManagerTest,GraduateQueryInterpretationBudgetTest,ConversationMemoryBudgetTest,GeminiAiServiceAdapterTest test`
+- `./mvnw -q -Dtest=ActuatorLoggerSecurityTest,ActuatorMetricsSecurityTest test`
+- `./mvnw -q -Dtest=ChatApplicationServiceIntegrationTest,SqlGraduateKnowledgeRetrievalAdapterIntegrationTest test`
+- `./mvnw -q -DskipTests compile`
+
+Commit:
+- `feat(ai): add narrow pipeline metrics`
 
 ---
 

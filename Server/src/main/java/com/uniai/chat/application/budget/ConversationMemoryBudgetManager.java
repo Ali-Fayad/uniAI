@@ -3,8 +3,10 @@ package com.uniai.chat.application.budget;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.memory.ConversationMemoryUpdateRequest;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
 
 public class ConversationMemoryBudgetManager {
 
@@ -12,15 +14,26 @@ public class ConversationMemoryBudgetManager {
     private final ConversationMemoryBudgetConfiguration configuration;
     private final AiTokenEstimator estimator;
     private final String provider;
+    private final MeterRegistry meterRegistry;
 
     public ConversationMemoryBudgetManager(
             ConversationMemoryBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             String provider
     ) {
+        this(configuration, estimator, provider, null);
+    }
+
+    public ConversationMemoryBudgetManager(
+            ConversationMemoryBudgetConfiguration configuration,
+            AiTokenEstimator estimator,
+            String provider,
+            MeterRegistry meterRegistry
+    ) {
         this.configuration = configuration;
         this.estimator = estimator;
         this.provider = provider == null ? "placeholder" : provider.trim().toLowerCase();
+        this.meterRegistry = meterRegistry;
     }
 
     public ConversationMemoryBudgetResult budget(ConversationMemoryUpdateRequest request, String prompt) {
@@ -40,6 +53,17 @@ public class ConversationMemoryBudgetManager {
         long maxInputTokens = configuration.maxInputTokens();
         long reservedOutputTokens = configuration.maxOutputTokens();
         boolean requestFits = original + reservedOutputTokens <= maxInputTokens;
+        if (!requestFits) {
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.BUDGET_REJECTIONS,
+                    "Budget rejections for AI requests",
+                    "operation",
+                    "memory_update",
+                    "provider",
+                    provider
+            );
+        }
         logger.debug("[AI_MEMORY_BUDGET] Evaluation completed provider={} requestFits={} originalEstimatedTokens={} maxInputTokens={} reservedOutputTokens={} durationMs={}",
                 provider,
                 requestFits,

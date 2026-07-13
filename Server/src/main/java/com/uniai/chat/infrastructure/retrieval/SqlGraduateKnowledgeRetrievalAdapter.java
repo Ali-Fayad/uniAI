@@ -7,8 +7,11 @@ import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -35,9 +38,16 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     private static final int MAX_TEXT_LENGTH = 220;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final MeterRegistry meterRegistry;
 
     public SqlGraduateKnowledgeRetrievalAdapter(NamedParameterJdbcTemplate jdbcTemplate) {
+        this(jdbcTemplate, null);
+    }
+
+    @Autowired
+    public SqlGraduateKnowledgeRetrievalAdapter(NamedParameterJdbcTemplate jdbcTemplate, MeterRegistry meterRegistry) {
         this.jdbcTemplate = jdbcTemplate;
+        this.meterRegistry = meterRegistry;
     }
 
     @Override
@@ -46,6 +56,17 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         GraduateKnowledgeQuery safeQuery = query == null
                 ? new GraduateKnowledgeQuery(GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS, List.of(), List.of(), null, false, true)
                 : query;
+        String retrievalStrategy = safeStrategy(safeQuery);
+        String intent = safeIntent(safeQuery);
+        ChatAiMetrics.incrementCounter(
+                meterRegistry,
+                ChatAiMetrics.RETRIEVAL_REQUESTS,
+                "AI retrieval requests",
+                "retrieval_strategy",
+                retrievalStrategy,
+                "intent",
+                intent
+        );
 
         logger.debug("[RETRIEVAL] Retrieval started intent={} universityCount={} degreeTypeCount={} followUpResolved={} ambiguous={} detailLevel={}",
                 safeQuery.intent(),
@@ -63,6 +84,16 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                         emptyContext.length(),
                         elapsedMillis(startNanos));
+                ChatAiMetrics.incrementCounter(
+                        meterRegistry,
+                        ChatAiMetrics.RETRIEVAL_EMPTY,
+                        "Empty retrieval results",
+                        "retrieval_strategy",
+                        retrievalStrategy,
+                        "intent",
+                        intent
+                );
+                recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "empty", 0L, 0L, emptyContext.length());
                 return new GraduateKnowledgeRetrievalResult(emptyContext, List.of());
             }
 
@@ -75,6 +106,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=PROGRAM_LOOKUP contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
+                recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "success", programs.size(), citations.size(), context.length());
                 return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
@@ -88,6 +120,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=TUITION_AGGREGATION contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
+                recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "success", tuitionAggregations.size(), citations.size(), context.length());
                 return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
@@ -95,9 +128,20 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                     emptyContext.length(),
                     elapsedMillis(startNanos));
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.RETRIEVAL_EMPTY,
+                    "Empty retrieval results",
+                    "retrieval_strategy",
+                    retrievalStrategy,
+                    "intent",
+                    intent
+            );
+            recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "empty", 0L, 0L, emptyContext.length());
             return new GraduateKnowledgeRetrievalResult(emptyContext, List.of());
         } catch (RuntimeException ex) {
             logger.error("[RETRIEVAL] SQL retrieval failed durationMs={} reason={}", elapsedMillis(startNanos), ex.getMessage(), ex);
+            recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "failure", 0L, 0L, 0L);
             throw ex;
         }
     }
@@ -977,6 +1021,72 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private long elapsedMillis(long startNanos) {
         return (System.nanoTime() - startNanos) / 1_000_000L;
+    }
+
+    private void recordRetrievalMetrics(long startNanos, String retrievalStrategy, String intent, String outcome, long candidates, long selected, long contextSize) {
+        ChatAiMetrics.recordTimer(
+                meterRegistry,
+                ChatAiMetrics.RETRIEVAL_DURATION,
+                "Duration of SQL graduate retrieval",
+                System.nanoTime() - startNanos,
+                "retrieval_strategy",
+                retrievalStrategy,
+                "intent",
+                intent,
+                "outcome",
+                outcome
+        );
+        if (candidates > 0) {
+            ChatAiMetrics.recordSummary(
+                    meterRegistry,
+                    ChatAiMetrics.RANKING_CANDIDATES,
+                    "Candidate evidence rows before ranking",
+                    "items",
+                    candidates,
+                    "retrieval_strategy",
+                    retrievalStrategy,
+                    "intent",
+                    intent
+            );
+        }
+        if (selected >= 0) {
+            ChatAiMetrics.recordSummary(
+                    meterRegistry,
+                    ChatAiMetrics.RANKING_SELECTED,
+                    "Selected evidence rows after ranking",
+                    "items",
+                    selected,
+                    "retrieval_strategy",
+                    retrievalStrategy,
+                    "intent",
+                    intent
+            );
+        }
+        ChatAiMetrics.recordSummary(
+                meterRegistry,
+                ChatAiMetrics.CONTEXT_SIZE,
+                "Final retrieval context size in characters",
+                "characters",
+                contextSize,
+                "retrieval_strategy",
+                retrievalStrategy,
+                "intent",
+                intent
+        );
+    }
+
+    private String safeStrategy(GraduateKnowledgeQuery query) {
+        if (query == null || query.intent() == null) {
+            return "unknown";
+        }
+        return query.intent().name().toLowerCase(Locale.ROOT);
+    }
+
+    private String safeIntent(GraduateKnowledgeQuery query) {
+        if (query == null || query.intent() == null) {
+            return "unknown";
+        }
+        return query.intent().name().toLowerCase(Locale.ROOT);
     }
 
     private record ProgramRecord(

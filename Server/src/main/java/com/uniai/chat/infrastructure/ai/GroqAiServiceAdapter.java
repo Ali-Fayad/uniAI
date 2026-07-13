@@ -3,6 +3,7 @@ package com.uniai.chat.infrastructure.ai;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
@@ -10,8 +11,10 @@ import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.provider.AiProviderFailureCategory;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.StringUtils;
@@ -38,34 +41,46 @@ public class GroqAiServiceAdapter implements AiServicePort {
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
     private final AiProviderStatusPort statusPort;
+    private final MeterRegistry meterRegistry;
 
     public GroqAiServiceAdapter(GroqAiProperties properties) {
-        this(properties, new ObjectMapper(), buildRestTemplate(), null);
+        this(properties, new ObjectMapper(), buildRestTemplate(), null, null);
     }
 
     public GroqAiServiceAdapter(GroqAiProperties properties, AiProviderStatusPort statusPort) {
-        this(properties, new ObjectMapper(), buildRestTemplate(), statusPort);
+        this(properties, new ObjectMapper(), statusPort, null);
+    }
+
+    public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort, MeterRegistry meterRegistry) {
+        this(properties, objectMapper, buildRestTemplate(), statusPort, meterRegistry);
     }
 
     public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
-        this(properties, objectMapper, buildRestTemplate(), statusPort);
+        this(properties, objectMapper, buildRestTemplate(), statusPort, null);
     }
 
     public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate) {
-        this(properties, objectMapper, restTemplate, null);
+        this(properties, objectMapper, restTemplate, null, null);
     }
 
     public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
+        this(properties, objectMapper, restTemplate, statusPort, null);
+    }
+
+    public GroqAiServiceAdapter(GroqAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort, MeterRegistry meterRegistry) {
         this.properties = properties;
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;
         this.statusPort = statusPort;
+        this.meterRegistry = meterRegistry;
     }
 
     @Override
     public AiResponse generateResponse(AiRequest request) {
         long requestStartNanos = System.nanoTime();
         String userMessage = request != null ? request.getUserMessage() : null;
+        String operation = resolveOperation(request);
+        recordRequest(resolveModel(), operation);
         logger.debug("[PROVIDER] Request started provider=groq model={} baseUrl={} messageLength={} historyCount={} contextCount={}",
                 resolveModel(),
                 normalizeBaseUrl(properties.getBaseUrl()),
@@ -74,13 +89,13 @@ public class GroqAiServiceAdapter implements AiServicePort {
                 request != null && request.getContext() != null ? request.getContext().size() : 0);
         if (!StringUtils.hasText(userMessage)) {
             logger.warn("[PROVIDER] Empty request received provider=groq model={}", resolveModel());
-            return failureResponse("groq", resolveModel(), "Please enter a message.", AiProviderFailureCategory.UNKNOWN, false, requestStartNanos, false);
+            return failureResponse("groq", resolveModel(), "Please enter a message.", AiProviderFailureCategory.UNKNOWN, false, requestStartNanos, false, operation);
         }
 
         if (!StringUtils.hasText(properties.getApiKey())) {
             logger.warn("Groq provider selected but ai.groq.api-key is missing or blank");
             return failureResponse("groq", resolveModel(), "Groq is not configured. Please set ai.groq.api-key.",
-                    AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true);
+                    AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true, operation);
         }
 
         String model = resolveModel();
@@ -101,10 +116,10 @@ public class GroqAiServiceAdapter implements AiServicePort {
                 AiProviderFailureCategory failureCategory = !StringUtils.hasText(response.getBody())
                         ? AiProviderFailureClassifier.classifyEmptyResponse()
                         : AiProviderFailureClassifier.classifyHttpStatus(response.getStatusCode().value());
-                return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+                return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
             }
 
-            AiResponse aiResponse = toResponse(response.getBody(), model, requestStartNanos);
+            AiResponse aiResponse = toResponse(response.getBody(), model, requestStartNanos, operation);
             if (Boolean.TRUE.equals(aiResponse.getFallback())) {
                 logger.warn("[PROVIDER] Groq fallback generated model={} durationMs={} responseLength={}",
                         model,
@@ -124,18 +139,18 @@ public class GroqAiServiceAdapter implements AiServicePort {
                     ex.getStatusCode().value(),
                     elapsedMillis(requestStartNanos));
             AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyHttpStatus(ex.getStatusCode().value());
-            return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+            return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
         } catch (ResourceAccessException ex) {
             logger.warn("[PROVIDER] Groq request could not be completed durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
                     ex.getMessage());
             AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyThrowable(ex);
-            return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+            return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
         } catch (IllegalArgumentException ex) {
             logger.warn("[PROVIDER] Groq configuration error durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
                     ex.getMessage());
-            return failureResponse("groq", model, FALLBACK_MESSAGE, AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true);
+            return failureResponse("groq", model, FALLBACK_MESSAGE, AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true, operation);
         } catch (Exception ex) {
             logger.error("[PROVIDER] Groq parsing or unexpected failure durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
@@ -144,7 +159,7 @@ public class GroqAiServiceAdapter implements AiServicePort {
             if (failureCategory == AiProviderFailureCategory.UNKNOWN) {
                 failureCategory = AiProviderFailureClassifier.classifyParseFailure();
             }
-            return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+            return failureResponse("groq", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
         }
     }
 
@@ -231,11 +246,11 @@ public class GroqAiServiceAdapter implements AiServicePort {
         return systemPrompt + "\n\nTrusted conversation memory:\n" + memoryText;
     }
 
-    private AiResponse toResponse(String responseBody, String model, long requestStartNanos) throws Exception {
+    private AiResponse toResponse(String responseBody, String model, long requestStartNanos, String operation) throws Exception {
         JsonNode root = objectMapper.readTree(responseBody);
         JsonNode choices = root.path("choices");
         if (!choices.isArray() || choices.isEmpty()) {
-            return failureResponse("groq", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyParseFailure(), true, requestStartNanos, true);
+            return failureResponse("groq", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyParseFailure(), true, requestStartNanos, true, operation);
         }
 
         JsonNode firstChoice = choices.get(0);
@@ -245,7 +260,7 @@ public class GroqAiServiceAdapter implements AiServicePort {
         String content = firstChoice.path("message").path("content").asText(null);
 
         if (!StringUtils.hasText(content)) {
-            return failureResponse("groq", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyEmptyResponse(), true, requestStartNanos, true);
+            return failureResponse("groq", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyEmptyResponse(), true, requestStartNanos, true, operation);
         }
 
         return AiResponse.builder()
@@ -259,9 +274,31 @@ public class GroqAiServiceAdapter implements AiServicePort {
                 .build();
     }
 
-    private AiResponse failureResponse(String provider, String model, String message, AiProviderFailureCategory failureCategory, boolean retryable, long requestStartNanos, boolean updateStatus) {
+    private AiResponse failureResponse(String provider, String model, String message, AiProviderFailureCategory failureCategory, boolean retryable, long requestStartNanos, boolean updateStatus, String operation) {
         if (updateStatus) {
             recordFailure(provider, model, failureCategory, requestStartNanos);
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.PROVIDER_FAILURES,
+                    "AI provider failures",
+                    "provider",
+                    provider,
+                    "model",
+                    ChatAiMetrics.normalizeTagValue(model),
+                    "operation",
+                    ChatAiMetrics.normalizeTagValue(operation),
+                    "failure_category",
+                    ChatAiMetrics.normalizeEnumName(failureCategory)
+            );
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.FALLBACKS,
+                    "AI fallback usage",
+                    "operation",
+                    ChatAiMetrics.normalizeTagValue(operation),
+                    "reason",
+                    "provider_fallback"
+            );
         }
         return AiResponse.builder()
                 .content(message)
@@ -306,6 +343,27 @@ public class GroqAiServiceAdapter implements AiServicePort {
         if (statusPort != null) {
             statusPort.recordFailure(provider, model, failureCategory, elapsedMillis(startNanos));
         }
+    }
+
+    private void recordRequest(String model, String operation) {
+        ChatAiMetrics.incrementCounter(
+                meterRegistry,
+                ChatAiMetrics.PROVIDER_REQUESTS,
+                "AI provider requests",
+                "provider",
+                "groq",
+                "model",
+                ChatAiMetrics.normalizeTagValue(model),
+                "operation",
+                ChatAiMetrics.normalizeTagValue(operation),
+                "outcome",
+                "attempt"
+        );
+    }
+
+    private String resolveOperation(AiRequest request) {
+        AiOperation operation = request != null ? request.getOperation() : AiOperation.UNKNOWN;
+        return ChatAiMetrics.normalizeEnumName(operation);
     }
 
     private long elapsedMillis(long startNanos) {

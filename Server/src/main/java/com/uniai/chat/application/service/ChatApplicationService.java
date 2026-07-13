@@ -2,6 +2,7 @@ package com.uniai.chat.application.service;
 
 import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiContextBudgetResult;
 import com.uniai.chat.application.citation.GraduateCitation;
@@ -25,6 +26,7 @@ import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryManager;
 import com.uniai.chat.application.title.ChatTitleGenerationManager;
 import com.uniai.chat.application.port.in.*;
+import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
@@ -51,13 +53,17 @@ import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import lombok.RequiredArgsConstructor;
+import com.uniai.chat.application.provider.AiProviderStatusSnapshot;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.StringUtils;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,7 +74,6 @@ import java.util.Objects;
  * Application service for all chat use cases.
  */
 @Service
-@RequiredArgsConstructor
 public class ChatApplicationService implements
         CreateChatUseCase,
         SendMessageUseCase,
@@ -94,9 +99,92 @@ public class ChatApplicationService implements
     private final AiContextBudgetManager aiContextBudgetManager;
     private final ConversationMemoryManager conversationMemoryManager;
     private final ChatTitleGenerationManager chatTitleGenerationManager;
+    private final AiProviderStatusPort aiProviderStatusPort;
+    private final MeterRegistry meterRegistry;
 
     private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 6;
     private static final int MAX_INTERPRETATION_HISTORY_MESSAGES = 4;
+
+    @Autowired
+    public ChatApplicationService(
+            ChatRepository chatRepository,
+            MessageRepository messageRepository,
+            UserRepository userRepository,
+            AiServicePort aiServicePort,
+            ChatSystemPromptPort chatSystemPromptPort,
+            GraduateQueryInterpretationPort graduateQueryInterpretationPort,
+            GraduateQueryInterpreterPromptPort graduateQueryInterpreterPromptPort,
+            GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager,
+            GraduateQueryInterpretationValidator graduateQueryInterpretationValidator,
+            GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort,
+            UniversityCatalogRepository universityCatalogRepository,
+            GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter,
+            GraduateFollowUpResolver graduateFollowUpResolver,
+            AiContextBudgetManager aiContextBudgetManager,
+            ConversationMemoryManager conversationMemoryManager,
+            ChatTitleGenerationManager chatTitleGenerationManager,
+            AiProviderStatusPort aiProviderStatusPort,
+            MeterRegistry meterRegistry
+    ) {
+        this.chatRepository = chatRepository;
+        this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
+        this.aiServicePort = aiServicePort;
+        this.chatSystemPromptPort = chatSystemPromptPort;
+        this.graduateQueryInterpretationPort = graduateQueryInterpretationPort;
+        this.graduateQueryInterpreterPromptPort = graduateQueryInterpreterPromptPort;
+        this.graduateQueryInterpretationBudgetManager = graduateQueryInterpretationBudgetManager;
+        this.graduateQueryInterpretationValidator = graduateQueryInterpretationValidator;
+        this.graduateKnowledgeRetrievalPort = graduateKnowledgeRetrievalPort;
+        this.universityCatalogRepository = universityCatalogRepository;
+        this.graduateKnowledgeQueryInterpreter = graduateKnowledgeQueryInterpreter;
+        this.graduateFollowUpResolver = graduateFollowUpResolver;
+        this.aiContextBudgetManager = aiContextBudgetManager;
+        this.conversationMemoryManager = conversationMemoryManager;
+        this.chatTitleGenerationManager = chatTitleGenerationManager;
+        this.aiProviderStatusPort = aiProviderStatusPort;
+        this.meterRegistry = meterRegistry;
+    }
+
+    public ChatApplicationService(
+            ChatRepository chatRepository,
+            MessageRepository messageRepository,
+            UserRepository userRepository,
+            AiServicePort aiServicePort,
+            ChatSystemPromptPort chatSystemPromptPort,
+            GraduateQueryInterpretationPort graduateQueryInterpretationPort,
+            GraduateQueryInterpreterPromptPort graduateQueryInterpreterPromptPort,
+            GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager,
+            GraduateQueryInterpretationValidator graduateQueryInterpretationValidator,
+            GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort,
+            UniversityCatalogRepository universityCatalogRepository,
+            GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter,
+            GraduateFollowUpResolver graduateFollowUpResolver,
+            AiContextBudgetManager aiContextBudgetManager,
+            ConversationMemoryManager conversationMemoryManager,
+            ChatTitleGenerationManager chatTitleGenerationManager
+    ) {
+        this(
+                chatRepository,
+                messageRepository,
+                userRepository,
+                aiServicePort,
+                chatSystemPromptPort,
+                graduateQueryInterpretationPort,
+                graduateQueryInterpreterPromptPort,
+                graduateQueryInterpretationBudgetManager,
+                graduateQueryInterpretationValidator,
+                graduateKnowledgeRetrievalPort,
+                universityCatalogRepository,
+                graduateKnowledgeQueryInterpreter,
+                graduateFollowUpResolver,
+                aiContextBudgetManager,
+                conversationMemoryManager,
+                chatTitleGenerationManager,
+                null,
+                null
+        );
+    }
 
     // -------------------------------------------------------------------------
     // CreateChatUseCase
@@ -121,6 +209,7 @@ public class ChatApplicationService implements
         long requestStartNanos = System.nanoTime();
         Long chatId = command != null ? command.getChatId() : null;
         Long userId = null;
+        String chatOutcome = "failure";
         logger.info("[CHAT] Request received chatId={} messageLength={}",
                 chatId,
                 command != null && command.getContent() != null ? command.getContent().length() : 0);
@@ -191,6 +280,9 @@ public class ChatApplicationService implements
                 String safeContent = StringUtils.hasText(interpretationResult.safeMessage())
                         ? interpretationResult.safeMessage()
                         : buildSafeInterpretationMessage(interpretationResult.status());
+                chatOutcome = interpretationResult.status() == GraduateQueryInterpretationStatus.UNSUPPORTED
+                        ? "unsupported"
+                        : "clarification";
                 logger.info("[CHAT] Interpretation stopped before retrieval chatId={} status={} reason={}",
                         chat.getId(),
                         interpretationResult.status(),
@@ -268,6 +360,7 @@ public class ChatApplicationService implements
                     .conversationHistory(conversationHistory)
                     .context(context)
                     .conversationMemory(conversationMemory)
+                    .operation(AiOperation.MAIN_RESPONSE)
                     .build();
 
             logger.debug("[AI] Budget evaluation started chatId={} providerBean={}",
@@ -301,6 +394,16 @@ public class ChatApplicationService implements
             );
             if (!budgetResult.requestFits()) {
                 budgetRejected = true;
+                chatOutcome = "budget_rejected";
+                ChatAiMetrics.incrementCounter(
+                        meterRegistry,
+                        ChatAiMetrics.FALLBACKS,
+                        "AI fallback usage",
+                        "operation",
+                        "main_response",
+                        "reason",
+                        "budget_rejected"
+                );
                 logger.warn("[AI] Budget rejection chatId={} provider={} category={} originalEstimatedInputTokens={} finalEstimatedInputTokens={} maxInputTokens={} reservedOutputTokens={} historyTrimmed={} contextTrimmed={} requestFits={}",
                         chat.getId(),
                         budgetResult.activeProvider(),
@@ -328,6 +431,7 @@ public class ChatApplicationService implements
                         .conversationHistory(budgetedRequest.getConversationHistory())
                         .context(budgetedRequest.getContext())
                         .conversationMemory(budgetedRequest.getConversationMemory())
+                        .operation(AiOperation.MAIN_RESPONSE)
                         .temperature(budgetedRequest.getTemperature())
                         .maxTokens(budgetedRequest.getMaxTokens())
                         .build();
@@ -340,6 +444,7 @@ public class ChatApplicationService implements
                 long providerStartNanos = System.nanoTime();
                 aiResponse = aiServicePort.generateResponse(effectiveRequest);
                 providerDurationMs = elapsedMillis(providerStartNanos);
+                recordMainResponseDuration(budgetResult.activeProvider(), aiResponse, providerDurationMs);
             }
 
             String aiContent = (aiResponse != null && aiResponse.getContent() != null)
@@ -351,6 +456,7 @@ public class ChatApplicationService implements
                         aiResponse != null ? aiResponse.getProvider() : budgetResult.activeProvider(),
                         aiContent.length());
             } else if (aiResponse == null) {
+                chatOutcome = "failure";
                 logger.warn("[AI] Provider returned null response chatId={} durationMs={}", chat.getId(), providerDurationMs);
             } else {
                 if (!StringUtils.hasText(aiResponse.getContent())) {
@@ -361,6 +467,7 @@ public class ChatApplicationService implements
                             providerDurationMs);
                 }
                 if (Boolean.TRUE.equals(aiResponse.getFallback())) {
+                    chatOutcome = "provider_fallback";
                     logger.warn("[AI] Provider fallback used provider={} model={} failureCategory={} retryable={} chatId={} durationMs={}",
                             aiResponse.getProvider(),
                             aiResponse.getModel(),
@@ -369,6 +476,7 @@ public class ChatApplicationService implements
                             chat.getId(),
                             providerDurationMs);
                 } else {
+                    chatOutcome = interpretationResult.fallbackUsed() ? "provider_fallback" : "success";
                     logger.debug("[AI] Provider success provider={} model={} finishReason={} responseLength={} chatId={} durationMs={}",
                             aiResponse.getProvider(),
                             aiResponse.getModel(),
@@ -403,6 +511,7 @@ public class ChatApplicationService implements
 
             return toDto(aiMessage, responseCitations);
         } catch (RuntimeException ex) {
+            chatOutcome = "failure";
             logger.error("[CHAT] Request failed userId={} chatId={} durationMs={} reason={}",
                     userId,
                     chatId,
@@ -410,6 +519,8 @@ public class ChatApplicationService implements
                     ex.getMessage(),
                     ex);
             throw ex;
+        } finally {
+            recordChatRequestDuration(requestStartNanos, chatOutcome);
         }
     }
 
@@ -550,6 +661,7 @@ public class ChatApplicationService implements
             List<UniversityCatalog> universityCatalogs,
             ConversationMemory conversationMemory
     ) {
+        long interpretationStartNanos = System.nanoTime();
         String prompt = graduateQueryInterpreterPromptPort.getPrompt();
         GraduateQueryInterpretationRequest request = new GraduateQueryInterpretationRequest(currentMessage, recentConversationWindow, conversationMemory);
         GraduateQueryInterpretationBudgetResult budgetResult = graduateQueryInterpretationBudgetManager.budget(request, prompt);
@@ -569,12 +681,17 @@ public class ChatApplicationService implements
                     chatId,
                     budgetResult.diagnosticCategory());
             GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
-            return resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
+            GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
+            recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, "budget_rejected");
+            return resolved;
         }
 
         try {
             GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
             GraduateQueryInterpretationResult result = graduateQueryInterpretationValidator.validate(rawInterpretation, universityCatalogs);
+            if (result.status() == GraduateQueryInterpretationStatus.INVALID) {
+                incrementInterpretationInvalid(resolveCurrentProviderName(), result.failureCategory());
+            }
             GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, result, null);
             logger.debug("[AI_INTERPRETATION] Validation completed chatId={} status={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={}",
                     chatId,
@@ -582,11 +699,14 @@ public class ChatApplicationService implements
                     resolved.resolvedUniversityCount(),
                     resolved.degreeTypeCount(),
                     resolved.ambiguous());
+            recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, mapInterpretationOutcome(resolved));
             return resolved;
         } catch (RuntimeException ex) {
             logger.warn("[AI_INTERPRETATION] Provider interpretation failed chatId={} reason={}", chatId, ex.getMessage());
             GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
-            return resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
+            GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
+            recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, "provider_failure");
+            return resolved;
         }
     }
 
@@ -733,6 +853,132 @@ public class ChatApplicationService implements
             return buildUnsupportedGraduateMessage();
         }
         return buildAmbiguousGraduateMessage();
+    }
+
+    private void recordChatRequestDuration(long startNanos, String outcome) {
+        ChatAiMetrics.recordTimer(
+                meterRegistry,
+                ChatAiMetrics.CHAT_REQUEST_DURATION,
+                "Total duration of ChatApplicationService.sendMessage",
+                System.nanoTime() - startNanos,
+                "outcome",
+                ChatAiMetrics.normalizeTagValue(outcome)
+        );
+    }
+
+    private void recordMainResponseDuration(String provider, AiResponse response, long durationMs) {
+        if (durationMs < 0) {
+            return;
+        }
+        String resolvedProvider = StringUtils.hasText(provider) ? provider : "unknown";
+        AiProviderStatusSnapshot snapshot = resolveProviderSnapshot(resolvedProvider);
+        String model = response != null && StringUtils.hasText(response.getModel())
+                ? response.getModel()
+                : snapshot != null && StringUtils.hasText(snapshot.model()) ? snapshot.model() : "unknown";
+        String outcome;
+        if (response == null) {
+            outcome = "failure";
+        } else if (Boolean.TRUE.equals(response.getFallback())) {
+            outcome = "provider_fallback";
+        } else if (!StringUtils.hasText(response.getContent())) {
+            outcome = "failure";
+        } else {
+            outcome = "success";
+        }
+        ChatAiMetrics.recordTimer(
+                meterRegistry,
+                ChatAiMetrics.RESPONSE_DURATION,
+                "Duration of the main answer-generation provider call",
+                Duration.ofMillis(durationMs).toNanos(),
+                "provider",
+                resolvedProvider,
+                "model",
+                model,
+                "outcome",
+                outcome,
+                "failure_category",
+                response != null && response.getFailureCategory() != null
+                        ? ChatAiMetrics.normalizeEnumName(response.getFailureCategory())
+                        : "unknown"
+        );
+    }
+
+    private void recordInterpretationMetrics(long startNanos, String provider, GraduateQueryInterpretationResult interpretationResult, String outcome) {
+        String resolvedProvider = StringUtils.hasText(provider) ? provider : "unknown";
+        AiProviderStatusSnapshot snapshot = resolveProviderSnapshot(resolvedProvider);
+        String model = snapshot != null && StringUtils.hasText(snapshot.model()) ? snapshot.model() : "unknown";
+        ChatAiMetrics.recordTimer(
+                meterRegistry,
+                ChatAiMetrics.INTERPRETATION_DURATION,
+                "Duration of graduate-query interpretation",
+                System.nanoTime() - startNanos,
+                "provider",
+                resolvedProvider,
+                "model",
+                model,
+                "outcome",
+                ChatAiMetrics.normalizeTagValue(outcome)
+        );
+    }
+
+    private void incrementInterpretationInvalid(String provider, String reason) {
+        AiProviderStatusSnapshot snapshot = resolveProviderSnapshot(provider);
+        incrementInterpretationInvalid(provider, reason, snapshot != null && StringUtils.hasText(snapshot.model()) ? snapshot.model() : "unknown");
+    }
+
+    private void incrementInterpretationInvalid(String provider, String reason, String model) {
+        ChatAiMetrics.incrementCounter(
+                meterRegistry,
+                ChatAiMetrics.INTERPRETATION_INVALID,
+                "Structured-output interpretation failures",
+                "provider",
+                ChatAiMetrics.normalizeTagValue(provider),
+                "model",
+                ChatAiMetrics.normalizeTagValue(model),
+                "reason",
+                ChatAiMetrics.normalizeTagValue(reason)
+        );
+    }
+
+    private String mapInterpretationOutcome(GraduateQueryInterpretationResult interpretationResult) {
+        if (interpretationResult == null) {
+            return "failure";
+        }
+        return switch (interpretationResult.status()) {
+            case VALID -> "valid";
+            case FALLBACK_USED -> "fallback";
+            case AMBIGUOUS, UNSUPPORTED -> "fallback";
+            case INVALID -> "invalid";
+        };
+    }
+
+    private String resolveCurrentProviderName() {
+        if (aiServicePort == null) {
+            return "unknown";
+        }
+        String simpleName = aiServicePort.getClass().getSimpleName();
+        String lower = simpleName == null ? "" : simpleName.toLowerCase();
+        if (lower.contains("gemini")) {
+            return "gemini";
+        }
+        if (lower.contains("groq")) {
+            return "groq";
+        }
+        if (lower.contains("ollama")) {
+            return "ollama";
+        }
+        if (lower.contains("placeholder")) {
+            return "placeholder";
+        }
+        return "unknown";
+    }
+
+    private AiProviderStatusSnapshot resolveProviderSnapshot(String provider) {
+        if (aiProviderStatusPort == null || !StringUtils.hasText(provider)) {
+            return AiProviderStatusSnapshot.unknown(StringUtils.hasText(provider) ? provider : "unknown");
+        }
+        AiProviderStatusSnapshot snapshot = aiProviderStatusPort.getStatus(provider);
+        return snapshot == null ? AiProviderStatusSnapshot.unknown(provider) : snapshot;
     }
 
     private void registerConversationMemoryUpdate(

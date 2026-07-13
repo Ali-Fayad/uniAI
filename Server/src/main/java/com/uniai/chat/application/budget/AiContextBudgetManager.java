@@ -1,10 +1,13 @@
 package com.uniai.chat.application.budget;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.memory.ConversationMemory;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +23,26 @@ public class AiContextBudgetManager {
     private final AiContextBudgetConfiguration configuration;
     private final AiTokenEstimator estimator;
     private final String activeProvider;
+    private final MeterRegistry meterRegistry;
 
     public AiContextBudgetManager(
             AiContextBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             String activeProvider
     ) {
+        this(configuration, estimator, activeProvider, null);
+    }
+
+    public AiContextBudgetManager(
+            AiContextBudgetConfiguration configuration,
+            AiTokenEstimator estimator,
+            String activeProvider,
+            MeterRegistry meterRegistry
+    ) {
         this.configuration = configuration;
         this.estimator = estimator;
         this.activeProvider = normalizeProvider(activeProvider);
+        this.meterRegistry = meterRegistry;
     }
 
     public AiContextBudgetResult budget(AiRequest request) {
@@ -50,6 +64,7 @@ public class AiContextBudgetManager {
         long originalHistoryTokens = estimator.estimateConversationTokens(originalHistory);
         long originalContextTokens = estimator.estimateContextTokens(originalContext);
         long originalTotal = originalSystemTokens + originalMemoryTokens + originalUserTokens + originalHistoryTokens + originalContextTokens + overheadTokens;
+        AiOperation operation = request.getOperation() == null ? AiOperation.UNKNOWN : request.getOperation();
 
         logger.debug("[AI_BUDGET] Evaluation started provider={} maxInputTokens={} reservedOutputTokens={} overheadTokens={}",
                 activeProvider,
@@ -106,6 +121,10 @@ public class AiContextBudgetManager {
             finalTotal = finalSystemTokens + finalMemoryTokens + finalUserTokens + finalHistoryTokens + finalContextTokens + overheadTokens;
         }
 
+        recordEstimatedTokens(operation, "original", originalTotal);
+        recordEstimatedTokens(operation, "final", finalTotal);
+        recordEstimatedTokens(operation, "reserved_output", reservedOutputTokens);
+
         long finalEstimatedInputTokens = finalTotal;
         boolean requestFits = finalEstimatedInputTokens <= availableInputBudget
                 && finalSystemTokens + finalMemoryTokens + finalUserTokens + overheadTokens <= availableInputBudget;
@@ -130,6 +149,15 @@ public class AiContextBudgetManager {
                     reservedOutputTokens,
                     finalEstimatedInputTokens,
                     BUDGET_EXCEEDED_CATEGORY);
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.BUDGET_REJECTIONS,
+                    "Budget rejections for AI requests",
+                    "operation",
+                    ChatAiMetrics.normalizeEnumName(operation),
+                    "provider",
+                    activeProvider
+            );
         }
 
         AiRequest budgetedRequest = AiRequest.builder()
@@ -168,6 +196,22 @@ public class AiContextBudgetManager {
                 requestFits,
                 activeProvider,
                 requestFits ? null : BUDGET_EXCEEDED_CATEGORY
+        );
+    }
+
+    private void recordEstimatedTokens(AiOperation operation, String stage, long value) {
+        ChatAiMetrics.recordSummary(
+                meterRegistry,
+                ChatAiMetrics.ESTIMATED_TOKENS,
+                "Estimated token usage for AI requests",
+                "tokens",
+                value,
+                "operation",
+                ChatAiMetrics.normalizeEnumName(operation),
+                "provider",
+                activeProvider,
+                "stage",
+                ChatAiMetrics.normalizeTagValue(stage)
         );
     }
 

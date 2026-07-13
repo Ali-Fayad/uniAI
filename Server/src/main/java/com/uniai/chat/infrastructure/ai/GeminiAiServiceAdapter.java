@@ -3,6 +3,7 @@ package com.uniai.chat.infrastructure.ai;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
+import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
@@ -10,8 +11,10 @@ import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.provider.AiProviderFailureCategory;
+import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.StringUtils;
@@ -38,26 +41,38 @@ public class GeminiAiServiceAdapter implements AiServicePort {
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
     private final AiProviderStatusPort statusPort;
+    private final MeterRegistry meterRegistry;
 
     public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper) {
-        this(properties, objectMapper, buildRestTemplate(), null);
+        this(properties, objectMapper, buildRestTemplate(), null, null);
     }
 
     public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort) {
-        this(properties, objectMapper, buildRestTemplate(), statusPort);
+        this(properties, objectMapper, statusPort, null);
+    }
+
+    public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, AiProviderStatusPort statusPort, MeterRegistry meterRegistry) {
+        this(properties, objectMapper, buildRestTemplate(), statusPort, meterRegistry);
     }
 
     public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort) {
+        this(properties, objectMapper, restTemplate, statusPort, null);
+    }
+
+    public GeminiAiServiceAdapter(GeminiAiProperties properties, ObjectMapper objectMapper, RestTemplate restTemplate, AiProviderStatusPort statusPort, MeterRegistry meterRegistry) {
         this.properties = properties;
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;
         this.statusPort = statusPort;
+        this.meterRegistry = meterRegistry;
     }
 
     @Override
     public AiResponse generateResponse(AiRequest request) {
         long requestStartNanos = System.nanoTime();
         String userMessage = request != null ? request.getUserMessage() : null;
+        String operation = resolveOperation(request);
+        recordRequest(request, resolveModel(), operation);
         logger.debug("[PROVIDER] Request started provider=gemini model={} baseUrl={} messageLength={} historyCount={} contextCount={}",
                 resolveModel(),
                 normalizeBaseUrl(properties.getBaseUrl()),
@@ -66,13 +81,13 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 request != null && request.getContext() != null ? request.getContext().size() : 0);
         if (!StringUtils.hasText(userMessage)) {
             logger.warn("[PROVIDER] Empty request received provider=gemini model={}", resolveModel());
-            return failureResponse("gemini", resolveModel(), "Please enter a message.", AiProviderFailureCategory.UNKNOWN, false, requestStartNanos, false);
+            return failureResponse("gemini", resolveModel(), "Please enter a message.", AiProviderFailureCategory.UNKNOWN, false, requestStartNanos, false, operation);
         }
 
         if (!StringUtils.hasText(properties.getApiKey())) {
             logger.warn("Gemini provider selected but ai.gemini.api-key is missing or blank");
             return failureResponse("gemini", resolveModel(), "Gemini is not configured. Please set ai.gemini.api-key.",
-                    AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true);
+                    AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true, operation);
         }
 
         String model = resolveModel();
@@ -94,10 +109,10 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 AiProviderFailureCategory failureCategory = !StringUtils.hasText(response.getBody())
                         ? AiProviderFailureClassifier.classifyEmptyResponse()
                         : AiProviderFailureClassifier.classifyHttpStatus(response.getStatusCode().value());
-                return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+                return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
             }
 
-            AiResponse aiResponse = toResponse(response.getBody(), model, requestStartNanos);
+            AiResponse aiResponse = toResponse(response.getBody(), model, requestStartNanos, operation);
             if (Boolean.TRUE.equals(aiResponse.getFallback())) {
                 logger.warn("[PROVIDER] Gemini fallback generated model={} durationMs={} responseLength={}",
                         model,
@@ -117,18 +132,18 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                     ex.getStatusCode().value(),
                     elapsedMillis(requestStartNanos));
             AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyHttpStatus(ex.getStatusCode().value());
-            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
         } catch (ResourceAccessException ex) {
             logger.warn("[PROVIDER] Gemini request could not be completed durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
                     ex.getMessage());
             AiProviderFailureCategory failureCategory = AiProviderFailureClassifier.classifyThrowable(ex);
-            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
         } catch (IllegalArgumentException ex) {
             logger.warn("[PROVIDER] Gemini configuration error durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
                     ex.getMessage());
-            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureCategory.MISCONFIGURED, false, requestStartNanos, true, operation);
         } catch (Exception ex) {
             logger.error("[PROVIDER] Gemini parsing or unexpected failure durationMs={} reason={}",
                     elapsedMillis(requestStartNanos),
@@ -137,7 +152,7 @@ public class GeminiAiServiceAdapter implements AiServicePort {
             if (failureCategory == AiProviderFailureCategory.UNKNOWN) {
                 failureCategory = AiProviderFailureClassifier.classifyParseFailure();
             }
-            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, failureCategory, failureCategory.isRetryable(), requestStartNanos, true, operation);
         }
     }
 
@@ -226,11 +241,11 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         return null;
     }
 
-    private AiResponse toResponse(String responseBody, String model, long requestStartNanos) throws Exception {
+    private AiResponse toResponse(String responseBody, String model, long requestStartNanos, String operation) throws Exception {
         JsonNode root = objectMapper.readTree(responseBody);
         JsonNode candidates = root.path("candidates");
         if (!candidates.isArray() || candidates.isEmpty()) {
-            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyParseFailure(), true, requestStartNanos, true);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyParseFailure(), true, requestStartNanos, true, operation);
         }
 
         JsonNode firstCandidate = candidates.get(0);
@@ -254,7 +269,7 @@ public class GeminiAiServiceAdapter implements AiServicePort {
 
         String text = output.toString().trim();
         if (!StringUtils.hasText(text)) {
-            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyEmptyResponse(), true, requestStartNanos, true);
+            return failureResponse("gemini", model, FALLBACK_MESSAGE, AiProviderFailureClassifier.classifyEmptyResponse(), true, requestStartNanos, true, operation);
         }
 
         return AiResponse.builder()
@@ -268,9 +283,31 @@ public class GeminiAiServiceAdapter implements AiServicePort {
                 .build();
     }
 
-    private AiResponse failureResponse(String provider, String model, String message, AiProviderFailureCategory failureCategory, boolean retryable, long requestStartNanos, boolean updateStatus) {
+    private AiResponse failureResponse(String provider, String model, String message, AiProviderFailureCategory failureCategory, boolean retryable, long requestStartNanos, boolean updateStatus, String operation) {
         if (updateStatus) {
             recordFailure(provider, model, failureCategory, requestStartNanos);
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.PROVIDER_FAILURES,
+                    "AI provider failures",
+                    "provider",
+                    provider,
+                    "model",
+                    ChatAiMetrics.normalizeTagValue(model),
+                    "operation",
+                    ChatAiMetrics.normalizeTagValue(operation),
+                    "failure_category",
+                    ChatAiMetrics.normalizeEnumName(failureCategory)
+            );
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.FALLBACKS,
+                    "AI fallback usage",
+                    "operation",
+                    ChatAiMetrics.normalizeTagValue(operation),
+                    "reason",
+                    "provider_fallback"
+            );
         }
         return AiResponse.builder()
                 .content(message)
@@ -331,6 +368,27 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         if (statusPort != null) {
             statusPort.recordFailure(provider, model, failureCategory, elapsedMillis(startNanos));
         }
+    }
+
+    private void recordRequest(AiRequest request, String model, String operation) {
+        ChatAiMetrics.incrementCounter(
+                meterRegistry,
+                ChatAiMetrics.PROVIDER_REQUESTS,
+                "AI provider requests",
+                "provider",
+                "gemini",
+                "model",
+                ChatAiMetrics.normalizeTagValue(model),
+                "operation",
+                ChatAiMetrics.normalizeTagValue(operation),
+                "outcome",
+                "attempt"
+        );
+    }
+
+    private String resolveOperation(AiRequest request) {
+        AiOperation operation = request != null ? request.getOperation() : AiOperation.UNKNOWN;
+        return ChatAiMetrics.normalizeEnumName(operation);
     }
 
     private long elapsedMillis(long startNanos) {

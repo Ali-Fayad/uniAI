@@ -42,6 +42,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -89,9 +90,10 @@ public class ChatAiConfiguration {
     public AiContextBudgetManager aiContextBudgetManager(
             AiContextBudgetConfiguration configuration,
             AiTokenEstimator estimator,
-            @Value("${ai.provider:placeholder}") String provider
+            @Value("${ai.provider:placeholder}") String provider,
+            MeterRegistry meterRegistry
     ) {
-        return new AiContextBudgetManager(configuration, estimator, provider);
+        return new AiContextBudgetManager(configuration, estimator, provider, meterRegistry);
     }
 
     @Bean
@@ -108,9 +110,10 @@ public class ChatAiConfiguration {
     public ConversationMemoryBudgetManager conversationMemoryBudgetManager(
             ConversationMemoryBudgetConfiguration configuration,
             AiTokenEstimator estimator,
-            @Value("${ai.provider:placeholder}") String provider
+            @Value("${ai.provider:placeholder}") String provider,
+            MeterRegistry meterRegistry
     ) {
-        return new ConversationMemoryBudgetManager(configuration, estimator, provider);
+        return new ConversationMemoryBudgetManager(configuration, estimator, provider, meterRegistry);
     }
 
     @Bean
@@ -140,9 +143,10 @@ public class ChatAiConfiguration {
     public GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager(
             GraduateQueryInterpretationBudgetConfiguration configuration,
             AiTokenEstimator estimator,
-            @Value("${ai.provider:placeholder}") String provider
+            @Value("${ai.provider:placeholder}") String provider,
+            MeterRegistry meterRegistry
     ) {
-        return new GraduateQueryInterpretationBudgetManager(configuration, estimator, provider);
+        return new GraduateQueryInterpretationBudgetManager(configuration, estimator, provider, meterRegistry);
     }
 
     @Bean
@@ -230,7 +234,8 @@ public class ChatAiConfiguration {
             AiTokenEstimator estimator,
             ChatTitleGenerationConfiguration configuration,
             @Value("${ai.provider:placeholder}") String provider,
-            Executor chatTitleExecutor
+            Executor chatTitleExecutor,
+            MeterRegistry meterRegistry
     ) {
         return new ChatTitleGenerationManager(
                 chatRepository,
@@ -239,7 +244,8 @@ public class ChatAiConfiguration {
                 estimator,
                 configuration,
                 chatTitleExecutor,
-                provider
+                provider,
+                meterRegistry
         );
     }
 
@@ -255,27 +261,28 @@ public class ChatAiConfiguration {
             GroqAiProperties groqAiProperties,
             OllamaAiProperties ollamaAiProperties,
             AiProviderStatusPort aiProviderStatusPort,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            MeterRegistry meterRegistry
     ) {
         String normalizedProvider = normalizeProvider(provider);
 
         if ("gemini".equals(normalizedProvider)) {
             logger.info("[AI] Provider selected provider=gemini model={}", geminiAiProperties.getModel());
-            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, objectMapper, aiProviderStatusPort);
+            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, objectMapper, aiProviderStatusPort, meterRegistry);
             logger.info("[AI] Provider initialized successfully provider=gemini model={}", geminiAiProperties.getModel());
             return aiServicePort;
         }
 
         if ("groq".equals(normalizedProvider)) {
             logger.info("[AI] Provider selected provider=groq model={}", groqAiProperties.getModel());
-            AiServicePort aiServicePort = new GroqAiServiceAdapter(groqAiProperties, objectMapper, aiProviderStatusPort);
+            AiServicePort aiServicePort = new GroqAiServiceAdapter(groqAiProperties, objectMapper, aiProviderStatusPort, meterRegistry);
             logger.info("[AI] Provider initialized successfully provider=groq model={}", groqAiProperties.getModel());
             return aiServicePort;
         }
 
         if ("ollama".equals(normalizedProvider)) {
             logger.info("[AI] Provider selected provider=ollama model={}", ollamaAiProperties.getModel());
-            AiServicePort aiServicePort = new OllamaAiServiceAdapter(ollamaAiProperties, objectMapper, aiProviderStatusPort);
+            AiServicePort aiServicePort = new OllamaAiServiceAdapter(ollamaAiProperties, objectMapper, aiProviderStatusPort, meterRegistry);
             logger.info("[AI] Provider initialized successfully provider=ollama model={}", ollamaAiProperties.getModel());
             return aiServicePort;
         }
@@ -284,9 +291,28 @@ public class ChatAiConfiguration {
             logger.warn("[AI] Unsupported provider configured provider={} falling back to placeholder", provider);
         }
         logger.info("[AI] Provider selected provider=placeholder model=placeholder");
-        AiServicePort aiServicePort = new PlaceholderAiServiceAdapter(aiProviderStatusPort);
+        AiServicePort aiServicePort = new PlaceholderAiServiceAdapter(aiProviderStatusPort, meterRegistry);
         logger.info("[AI] Provider initialized successfully provider=placeholder model=placeholder");
         return aiServicePort;
+    }
+
+    public AiServicePort aiServicePort(
+            String provider,
+            GeminiAiProperties geminiAiProperties,
+            GroqAiProperties groqAiProperties,
+            OllamaAiProperties ollamaAiProperties,
+            AiProviderStatusPort aiProviderStatusPort,
+            ObjectMapper objectMapper
+    ) {
+        return aiServicePort(
+                provider,
+                geminiAiProperties,
+                groqAiProperties,
+                ollamaAiProperties,
+                aiProviderStatusPort,
+                objectMapper,
+                null
+        );
     }
 
     @Bean
@@ -295,7 +321,8 @@ public class ChatAiConfiguration {
             AiServicePort aiServicePort,
             GraduateQueryInterpreterPromptProvider promptProvider,
             GraduateQueryInterpretationBudgetConfiguration configuration,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            MeterRegistry meterRegistry
     ) {
         if (!configuration.enabled() || "placeholder".equals(normalizeProvider(provider))) {
             logger.info("[AI_INTERPRETATION] Interpretation disabled enabled={} provider={}", configuration.enabled(), provider);
@@ -308,7 +335,7 @@ public class ChatAiConfiguration {
                 provider,
                 configuration.maxOutputTokens(),
                 configuration.historyMessageLimit());
-        return new AiGraduateQueryInterpretationAdapter(aiServicePort, promptProvider, configuration, objectMapper);
+        return new AiGraduateQueryInterpretationAdapter(aiServicePort, promptProvider, configuration, objectMapper, meterRegistry);
     }
 
     private String normalizeProvider(String provider) {

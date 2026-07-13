@@ -7,10 +7,12 @@ import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -80,6 +82,7 @@ class ConversationMemoryBudgetTest {
 
     @Test
     void budgetShouldRejectImpossibleRequests() {
+        SimpleMeterRegistry meterRegistry = new SimpleMeterRegistry();
         ConversationMemoryBudgetManager budgetManager = new ConversationMemoryBudgetManager(
                 new ConversationMemoryBudgetConfiguration(true, 5, 2, "prompts/conversation-memory-updater-prompt.txt"),
                 new AiTokenEstimator(new AiContextBudgetConfiguration(
@@ -91,7 +94,8 @@ class ConversationMemoryBudgetTest {
                         128,
                         java.util.Map.of("gemini", new AiContextBudgetConfiguration.ProviderBudget(2000, 200, 1000, 1000, 128))
                 )),
-                "gemini"
+                "gemini",
+                meterRegistry
         );
 
         ConversationMemoryUpdateRequest request = new ConversationMemoryUpdateRequest(
@@ -103,5 +107,9 @@ class ConversationMemoryBudgetTest {
 
         ConversationMemoryBudgetResult result = budgetManager.budget(request, "prompt");
         assertFalse(result.requestFits());
+        assertEquals(1.0, meterRegistry.find("uniai.ai.budget.rejections")
+                .tags("operation", "memory_update", "provider", "gemini")
+                .counter()
+                .count());
     }
 }

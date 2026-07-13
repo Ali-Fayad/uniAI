@@ -26,6 +26,9 @@ public class AiRequest {
 
     private ConversationMemory conversationMemory;
 
+    @Builder.Default
+    private AiOperation operation = AiOperation.UNKNOWN;
+
     private Double temperature;
     private Integer maxTokens;
 }
