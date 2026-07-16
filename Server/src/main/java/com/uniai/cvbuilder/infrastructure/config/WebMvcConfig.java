@@ -21,6 +21,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                     "/api/cv/personal-info", 
                     "/api/cv/personal-info/**",
+                    "/api/cv/templates",
+                    "/api/cv/templates/**",
                     "/api/cv/skills",
                     "/api/cv/positions",
                     "/api/cv/universities",

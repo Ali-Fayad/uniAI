@@ -109,6 +109,41 @@ class GraduateFollowUpResolverTest {
     }
 
     @Test
+    void shouldPreserveGraduateOverviewWhenSameQuestionReplacesOnlyUniversity() {
+        ConversationMemory memory = new ConversationMemory(
+                ConversationMemory.SCHEMA_VERSION,
+                List.of(new MemoryUniversityRef(5L, "Al Maaref University", "MU")),
+                List.of(),
+                "GRADUATE_OVERVIEW",
+                false,
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                new ConversationPreferences("ENGLISH", null, null)
+        );
+        List<AiConversationMessage> history = List.of(
+                message("user", "What do you know about MU?"),
+                message("assistant", "MU overview")
+        );
+        GraduateKnowledgeQuery candidate = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS,
+                List.of(),
+                List.of(),
+                null,
+                false,
+                false
+        );
+
+        GraduateFollowUpResolutionResult result = resolver.resolve("same question for AUB?", candidate, history, memory, catalogs);
+
+        assertEquals(GraduateFollowUpResolutionStatus.RESOLVED, result.status());
+        assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, result.resolvedQuery().intent());
+        assertEquals(List.of("AUB"), result.resolvedQuery().resolvedUniversities().stream().map(ResolvedUniversity::acronym).toList());
+        assertFalse(result.resolvedQuery().ambiguous());
+    }
+
+    @Test
     void shouldResolveComparisonOrdinalsFromActiveComparisonState() {
         ConversationMemory memory = new ConversationMemory(
                 ConversationMemory.SCHEMA_VERSION,

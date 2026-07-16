@@ -221,6 +221,34 @@ class ChatApplicationServiceIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
+    void sendMessageShouldHandleGraduateOverviewWithRealDatabaseRetrieval() {
+        ProgramFixture fixture = discoverProgramFixture();
+        interpretationPort.nextInterpretation = overviewInterpretation(fixture);
+
+        User user = userRepository.save(user("overview@example.com", "overview-user"));
+        Chat chat = chatRepository.save(Chat.builder().user(user).build());
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder()
+                        .chatId(chat.getId())
+                        .content("What do you know about " + fixture.universityMention() + "?")
+                        .build()
+        );
+
+        assertEquals(MAIN_SUCCESS_CONTENT, result.getContent());
+        assertFalse(result.getCitations().isEmpty());
+        assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, retrievalPort.lastQuery.intent());
+        assertEquals(1, retrievalPort.callCount);
+        assertEquals(1, aiServicePort.mainCallCount);
+        assertTrue(aiServicePort.lastMainRequest.getContext().stream().anyMatch(entry -> entry.contains("Programs:")));
+        assertTrue(aiServicePort.lastMainRequest.getContext().stream().anyMatch(entry -> entry.contains("Tuition aggregation:")));
+        assertEquals(1, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).stream()
+                .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
+                .count());
+    }
+
+    @Test
     void sendMessageShouldClarifyAmbiguousUniversityWithoutRetrievalOrMainCall() {
         interpretationPort.nextInterpretation = ambiguousInterpretation();
 
@@ -441,6 +469,22 @@ class ChatApplicationServiceIntegrationTest extends PostgresIntegrationTest {
                 "TUITION_AGGREGATION",
                 List.of(fixture.universityMention()),
                 List.of(fixture.degreeTypeCode()),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+    }
+
+    private GraduateQueryInterpretation overviewInterpretation(ProgramFixture fixture) {
+        return new GraduateQueryInterpretation(
+                1,
+                "GRADUATE_OVERVIEW",
+                List.of(fixture.universityMention()),
+                List.of(),
                 null,
                 false,
                 false,

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { cvService } from '../../../services/cv';
@@ -16,6 +17,7 @@ import {
 
 export interface UseCVBuilderControllerReturn {
   isLoading: boolean;
+  isProfileComplete: boolean;
   isSaving: boolean;
   isExporting: boolean;
   error: string | null;
@@ -106,12 +108,12 @@ type Html2PdfOptions = {
 
 export const useCVBuilderController = (
   cvId: number | null,
-  isProfileComplete = true,
 ): UseCVBuilderControllerReturn => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -127,74 +129,114 @@ export const useCVBuilderController = (
   const [itemsOrder, setItemsOrder] = useState<ItemsOrderDto>(getInitialItemsOrder());
 
   useEffect(() => {
-    if (!isProfileComplete) {
-      setIsLoading(false);
-      return;
-    }
+    let isActive = true;
 
     const loadData = async () => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const [info, templateList] = await Promise.all([cvService.getPersonalInfo(), cvService.getTemplates()]);
-        setPersonalInfo(info);
+        const [profileStatus, templateList] = await Promise.all([
+          cvService.getPersonalInfoStatus(),
+          cvService.getTemplates(),
+        ]);
+
+        if (!isActive) {
+          return;
+        }
+
         setTemplates(templateList);
+        setIsProfileComplete(profileStatus.isFilled);
 
         const modernTemplate = templateList.find((template) => template.componentName === 'ModernTemplate');
         setSelectedTemplateId(modernTemplate?.id ?? templateList[0]?.id ?? null);
 
-        if (!cvId && info) {
-          setSelectedItems(buildSelectedItemsFromPersonalInfo(info));
-        }
+        if (profileStatus.isFilled) {
+          try {
+            const [info, cv] = await Promise.all([
+              cvService.getPersonalInfo({ profileIncompleteHandling: 'local' }),
+              cvId ? cvService.getCV(cvId, { profileIncompleteHandling: 'local' }) : Promise.resolve(null),
+            ]);
 
+            if (!isActive) {
+              return;
+            }
 
-        if (cvId) {
-          const cv = await cvService.getCV(cvId);
-          setCvName(cv.cvName || 'My CV');
+            setPersonalInfo(info);
 
-          const savedOrder = (cv.sectionsOrder ?? []).filter(Boolean) as CVSectionKey[];
-          const mergedOrder = [
-            ...savedOrder,
-            ...DEFAULT_CV_SECTIONS_ORDER.filter((section) => !savedOrder.includes(section)),
-          ];
+            if (!cvId) {
+              setSelectedItems(buildSelectedItemsFromPersonalInfo(info));
+            } else if (cv) {
+              setCvName(cv.cvName || 'My CV');
 
-          const nextEnabled = getInitialEnabledSections();
-          (Object.keys(nextEnabled) as CVSectionKey[]).forEach((section) => {
-            nextEnabled[section] = savedOrder.length === 0 ? true : savedOrder.includes(section);
-          });
+              const savedOrder = (cv.sectionsOrder ?? []).filter(Boolean) as CVSectionKey[];
+              const mergedOrder = [
+                ...savedOrder,
+                ...DEFAULT_CV_SECTIONS_ORDER.filter((section) => !savedOrder.includes(section)),
+              ];
 
-          setSectionOrder(mergedOrder);
-          setSectionEnabled(nextEnabled);
+              const nextEnabled = getInitialEnabledSections();
+              (Object.keys(nextEnabled) as CVSectionKey[]).forEach((section) => {
+                nextEnabled[section] = savedOrder.length === 0 ? true : savedOrder.includes(section);
+              });
 
-          if (cv.selectedItems) {
-            setSelectedItems(cv.selectedItems);
-          } else {
-            // Keep existing selectedItems state if none persisted for this CV
-          }
+              setSectionOrder(mergedOrder);
+              setSectionEnabled(nextEnabled);
 
-          if (cv.itemsOrder) {
-            setItemsOrder(cv.itemsOrder);
-          }
+              if (cv.selectedItems) {
+                setSelectedItems(cv.selectedItems);
+              }
 
-          if (cv.templateId) {
-            setSelectedTemplateId(cv.templateId);
-          } else if (cv.templateComponentName) {
-            const selected = templateList.find((template) => template.componentName === cv.templateComponentName);
-            if (selected) {
-              setSelectedTemplateId(selected.id);
+              if (cv.itemsOrder) {
+                setItemsOrder(cv.itemsOrder);
+              }
+
+              if (cv.templateId) {
+                setSelectedTemplateId(cv.templateId);
+              } else if (cv.templateComponentName) {
+                const selected = templateList.find((template) => template.componentName === cv.templateComponentName);
+                if (selected) {
+                  setSelectedTemplateId(selected.id);
+                }
+              }
+            }
+          } catch (protectedLoadError) {
+            if (isAxiosError(protectedLoadError) && protectedLoadError.response?.status === 410) {
+              if (!isActive) {
+                return;
+              }
+
+              setIsProfileComplete(false);
+              setPersonalInfo(null);
+              setSelectedItems(getInitialSelectedItems());
+              setItemsOrder(getInitialItemsOrder());
+            } else {
+              throw protectedLoadError;
             }
           }
         }
       } catch {
+        if (!isActive) {
+          return;
+        }
+
         setError('Failed to load CV builder data. Please try again.');
       } finally {
+        // no-op: loading state is finalized below so eslint does not flag
+        // early returns inside the finally block.
+      }
+
+      if (isActive) {
         setIsLoading(false);
       }
     };
 
     void loadData();
-  }, [cvId, isProfileComplete]);
+
+    return () => {
+      isActive = false;
+    };
+  }, [cvId]);
 
   const selectedSectionsOrder = useMemo(
     () => sectionOrder.filter((section) => sectionEnabled[section]),
@@ -227,11 +269,24 @@ export const useCVBuilderController = (
   };
 
   const refreshPersonalInfo = async () => {
-    const info = await cvService.getPersonalInfo();
-    setPersonalInfo(info);
-    
-    setSelectedItems((prev) => appendNewPersonalInfoItems(prev, info));
-    setItemsOrder((prevOrder) => appendNewPersonalInfoItems(prevOrder, info));
+    if (!isProfileComplete) {
+      return;
+    }
+
+    try {
+      const info = await cvService.getPersonalInfo({ profileIncompleteHandling: 'local' });
+      setPersonalInfo(info);
+
+      setSelectedItems((prev) => appendNewPersonalInfoItems(prev, info));
+      setItemsOrder((prevOrder) => appendNewPersonalInfoItems(prevOrder, info));
+    } catch (refreshError) {
+      if (isAxiosError(refreshError) && refreshError.response?.status === 410) {
+        setIsProfileComplete(false);
+        setError('Complete your profile before continuing with CV Builder.');
+      } else {
+        setError('Failed to refresh profile information. Please try again.');
+      }
+    }
   };
 
   const reorderSections = (activeId: string, overId: string) => {
@@ -257,6 +312,11 @@ export const useCVBuilderController = (
       return;
     }
 
+    if (!isProfileComplete) {
+      setError('Complete your profile before saving this CV.');
+      return;
+    }
+
     if (selectedSectionsOrder.length === 0) {
       setError('Please keep at least one section enabled.');
       return;
@@ -267,25 +327,37 @@ export const useCVBuilderController = (
 
     try {
       if (cvId) {
-        await cvService.updateCV(cvId, {
-          cvName,
-          templateId: selectedTemplateId,
-          sectionsOrder: selectedSectionsOrder,
-          selectedItems,
-          itemsOrder,
-        });
+        await cvService.updateCV(
+          cvId,
+          {
+            cvName,
+            templateId: selectedTemplateId,
+            sectionsOrder: selectedSectionsOrder,
+            selectedItems,
+            itemsOrder,
+          },
+          { profileIncompleteHandling: 'local' },
+        );
       } else {
-        const created = await cvService.createCV({
-          cvName,
-          templateId: selectedTemplateId,
-          sectionsOrder: selectedSectionsOrder,
-          selectedItems,
-          itemsOrder,
-        });
+        const created = await cvService.createCV(
+          {
+            cvName,
+            templateId: selectedTemplateId,
+            sectionsOrder: selectedSectionsOrder,
+            selectedItems,
+            itemsOrder,
+          },
+          { profileIncompleteHandling: 'local' },
+        );
         navigate(`${ROUTES.CV_BUILDER}/${created.id}`, { replace: true });
       }
-    } catch {
-      setError('Failed to save CV configuration. Please try again.');
+    } catch (saveError) {
+      if (isAxiosError(saveError) && saveError.response?.status === 410) {
+        setIsProfileComplete(false);
+        setError('Complete your profile before saving this CV.');
+      } else {
+        setError('Failed to save CV configuration. Please try again.');
+      }
     } finally {
       setIsSaving(false);
     }
@@ -342,6 +414,7 @@ export const useCVBuilderController = (
 
   return {
     isLoading,
+    isProfileComplete,
     isSaving,
     isExporting,
     error,

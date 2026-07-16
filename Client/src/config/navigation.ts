@@ -34,7 +34,7 @@ export const APP_NAVIGATION_ITEMS: readonly AppNavigationItem[] = [
   {
     id: "cvs",
     label: "CVs",
-    route: ROUTES.CVS,
+    route: ROUTES.CV_BUILDER,
     icon: Files,
     requiresAuth: true,
     activeRoutes: [ROUTES.CVS, ROUTES.CV_BUILDER],

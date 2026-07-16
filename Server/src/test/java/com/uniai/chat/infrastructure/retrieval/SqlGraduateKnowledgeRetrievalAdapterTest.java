@@ -137,6 +137,32 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
     }
 
     @Test
+    void retrieveContextShouldCombineProgramsAndTuitionForGraduateOverview() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.GRADUATE_OVERVIEW,
+                List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                null,
+                false,
+                false
+        );
+
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
+
+        assertTrue(context.contains("Programs:"), context);
+        assertTrue(context.contains("Tuition aggregation:"), context);
+        assertTrue(context.contains("[S1]"), context);
+        assertTrue(context.contains("[S2]"), context);
+        assertTrue(context.contains("[S3]"), context);
+        assertTrue(context.contains("[S4]"), context);
+        assertEquals(2, jdbcTemplate.callCount);
+        assertEquals(4, result.citations().size());
+        assertEquals("S1", result.citations().get(0).label());
+        assertEquals("S4", result.citations().get(3).label());
+    }
+
+    @Test
     void retrieveContextShouldReturnNotComputableWhenNoTuitionRowsMatch() {
         GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
                 GraduateKnowledgeIntent.TUITION_AGGREGATION,

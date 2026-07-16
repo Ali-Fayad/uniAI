@@ -130,13 +130,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
           </p>
         )}
 
-        <p className="text-xs opacity-60 mt-1">
-          {new Date(message.timestamp).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </p>
-
         {citationRows.length > 0 && (
           <div className="mt-3 pt-3 border-t border-current/10">
             <p className="text-xs font-semibold uppercase tracking-wide opacity-70 mb-2">
@@ -159,6 +152,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
             </ul>
           </div>
         )}
+
+        <p className="text-xs opacity-60 mt-1">
+          {new Date(message.timestamp).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </p>
       </motion.div>
 
       {!isAI && (

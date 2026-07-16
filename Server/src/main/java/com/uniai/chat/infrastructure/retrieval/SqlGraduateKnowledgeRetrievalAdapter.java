@@ -124,6 +124,33 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
+            if (safeQuery.intent() == GraduateKnowledgeIntent.GRADUATE_OVERVIEW) {
+                List<ProgramRecord> programs = queryPrograms(safeQuery);
+                logger.debug("[RETRIEVAL] Program SQL completed rows={} strategy=GRADUATE_OVERVIEW", programs.size());
+                List<ProgramRecord> rankedPrograms = rankProgramRecords(safeQuery, programs);
+
+                List<TuitionAggregationRecord> tuitionAggregations = queryTuitionAggregations(safeQuery);
+                logger.debug("[RETRIEVAL] Tuition aggregation SQL completed rows={} strategy=GRADUATE_OVERVIEW",
+                        tuitionAggregations.size());
+                List<TuitionAggregationRecord> rankedTuitionAggregations = rankTuitionAggregations(safeQuery, tuitionAggregations);
+
+                String context = buildOverviewContext(safeQuery, rankedPrograms, rankedTuitionAggregations);
+                List<GraduateCitation> citations = buildOverviewCitations(rankedPrograms, rankedTuitionAggregations);
+                logger.debug("[RETRIEVAL] Retrieval completed strategy=GRADUATE_OVERVIEW contextLength={} durationMs={}",
+                        context.length(),
+                        elapsedMillis(startNanos));
+                recordRetrievalMetrics(
+                        startNanos,
+                        retrievalStrategy,
+                        intent,
+                        "success",
+                        programs.size() + tuitionAggregations.size(),
+                        citations.size(),
+                        context.length()
+                );
+                return new GraduateKnowledgeRetrievalResult(context, citations);
+            }
+
             String emptyContext = buildEmptyContext(safeQuery, "Unable to determine a specific graduate-information intent.");
             logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                     emptyContext.length(),
@@ -583,6 +610,29 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         return builder.toString().trim();
     }
 
+    private String buildOverviewContext(
+            GraduateKnowledgeQuery query,
+            List<ProgramRecord> programs,
+            List<TuitionAggregationRecord> aggregations
+    ) {
+        StringBuilder builder = new StringBuilder();
+        appendQueryInterpretation(builder, query);
+
+        int citationIndex = 1;
+        citationIndex = appendProgramsSection(
+                builder,
+                programs,
+                false,
+                true,
+                citationIndex,
+                "No graduate programs are currently available in the official data."
+        );
+        appendTuitionSection(builder, aggregations, true, citationIndex);
+        appendOverviewSourcesSection(builder, programs, aggregations);
+        appendOverviewMissingDataSection(builder, query, programs, aggregations);
+        return builder.toString().trim();
+    }
+
     private String buildEmptyContext(GraduateKnowledgeQuery query, String note) {
         StringBuilder builder = new StringBuilder();
         appendQueryInterpretation(builder, query);
@@ -601,14 +651,25 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         appendBullet(builder, "Detail level", query.detailLevel() == null ? "Not available in official data" : query.detailLevel().name());
     }
 
-    private void appendProgramsSection(StringBuilder builder, List<ProgramRecord> programs, boolean details) {
+    private int appendProgramsSection(StringBuilder builder, List<ProgramRecord> programs, boolean details) {
+        return appendProgramsSection(builder, programs, details, false, 1, "No matching official data found.");
+    }
+
+    private int appendProgramsSection(
+            StringBuilder builder,
+            List<ProgramRecord> programs,
+            boolean details,
+            boolean includeCitationLabels,
+            int nextCitationIndex,
+            String emptyMessage
+    ) {
         appendSectionTitle(builder, "Programs");
         if (programs.isEmpty()) {
-            appendBullet(builder, "Result", "No matching official data found.");
-            return;
+            appendBullet(builder, "Result", emptyMessage);
+            return nextCitationIndex;
         }
 
-        int index = 1;
+        int index = nextCitationIndex;
         int cursor = 0;
         while (cursor < programs.size()) {
             int groupEnd = cursor + 1;
@@ -621,6 +682,9 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             appendProgramCompressionHeader(builder, first, details);
             for (int i = cursor; i < groupEnd; i++) {
                 ProgramRecord program = programs.get(i);
+                if (includeCitationLabels) {
+                    appendIndentedBullet(builder, "Citation label", "[S" + index + "]");
+                }
                 builder.append(index++).append(".\n");
                 appendIndentedBullet(builder, "Program name", program.officialDegreeName());
                 if (details) {
@@ -634,6 +698,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
             cursor = groupEnd;
         }
+        return index;
     }
 
     private void appendSourcesSection(StringBuilder builder, List<ProgramRecord> programs) {
@@ -652,14 +717,23 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         }
     }
 
-    private void appendTuitionSection(StringBuilder builder, List<TuitionAggregationRecord> aggregations) {
+    private int appendTuitionSection(StringBuilder builder, List<TuitionAggregationRecord> aggregations) {
+        return appendTuitionSection(builder, aggregations, false, 1);
+    }
+
+    private int appendTuitionSection(
+            StringBuilder builder,
+            List<TuitionAggregationRecord> aggregations,
+            boolean includeCitationLabels,
+            int nextCitationIndex
+    ) {
         appendSectionTitle(builder, "Tuition aggregation");
         if (aggregations.isEmpty()) {
             appendBullet(builder, "Result", "Average tuition is not computable from the official stored data.");
-            return;
+            return nextCitationIndex;
         }
 
-        int index = 1;
+        int index = nextCitationIndex;
         int cursor = 0;
         while (cursor < aggregations.size()) {
             int groupEnd = cursor + 1;
@@ -682,6 +756,9 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 appendIndentedBullet(builder, "Degree type", degreeFirst.degreeTypeCode());
                 for (int i = degreeCursor; i < degreeEnd; i++) {
                     TuitionAggregationRecord aggregation = aggregations.get(i);
+                    if (includeCitationLabels) {
+                        appendIndentedBullet(builder, "Citation label", "[S" + index + "]");
+                    }
                     builder.append(index++).append(".\n");
                     appendIndentedBullet(builder, "Record count", String.valueOf(aggregation.recordCount()));
                     appendIndentedBullet(builder, "Numeric tuition records used", String.valueOf(aggregation.numericTuitionRecordsUsed()));
@@ -695,6 +772,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
             cursor = groupEnd;
         }
+        return index;
     }
 
     private void appendProgramCompressionHeader(StringBuilder builder, ProgramRecord program, boolean details) {
@@ -763,6 +841,73 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         }
     }
 
+    private void appendOverviewSourcesSection(
+            StringBuilder builder,
+            List<ProgramRecord> programs,
+            List<TuitionAggregationRecord> aggregations
+    ) {
+        appendSectionTitle(builder, "Sources");
+        Set<String> sources = new LinkedHashSet<>();
+        for (ProgramRecord program : programs) {
+            addSourceUrls(sources, program.sourceUrls());
+            addSourceUrls(sources, program.officialProgramUrl());
+        }
+        for (TuitionAggregationRecord aggregation : aggregations) {
+            addSourceUrls(sources, aggregation.sourceUrls());
+        }
+        if (sources.isEmpty()) {
+            appendBullet(builder, "Result", "Not available in official data");
+            return;
+        }
+        for (String source : sources) {
+            appendBullet(builder, "Source URL", source);
+        }
+    }
+
+    private void appendOverviewMissingDataSection(
+            StringBuilder builder,
+            GraduateKnowledgeQuery query,
+            List<ProgramRecord> programs,
+            List<TuitionAggregationRecord> aggregations
+    ) {
+        Set<String> notes = new LinkedHashSet<>();
+        if (query.resolvedUniversities().isEmpty()) {
+            notes.add("Resolved universities: Not available in official data");
+        }
+        if (programs.isEmpty()) {
+            notes.add("Programs: No graduate programs are currently available in the official data.");
+        }
+        for (ProgramRecord program : programs) {
+            addIfMissing(notes, "Faculty/school", program.facultyName());
+            if (query.detailLevel() == GraduateProgramDetailLevel.DETAILS) {
+                addIfMissing(notes, "Language", program.languageName());
+                addIfMissing(notes, "Credits", program.credits());
+                addIfMissing(notes, "Delivery mode", program.deliveryMode());
+                addIfMissing(notes, "Thesis status", program.thesisOrNonThesis());
+                addIfMissing(notes, "Tuition summary", program.tuitionSummary());
+                addIfMissing(notes, "Admission summary", program.admissionSummary());
+            }
+            addIfMissing(notes, "Official program URL", program.officialProgramUrl());
+            addIfMissing(notes, "Official source URL(s)", program.sourceUrls());
+        }
+        if (aggregations.isEmpty()) {
+            notes.add("Tuition aggregation: Average tuition is not computable from the official stored data.");
+        }
+        for (TuitionAggregationRecord aggregation : aggregations) {
+            addIfMissing(notes, "Tuition aggregation source URLs", aggregation.sourceUrls());
+            if (aggregation.averageTuition() == null) {
+                notes.add("Tuition aggregation: Average tuition is not computable from the official stored data.");
+            }
+        }
+        if (notes.isEmpty()) {
+            return;
+        }
+        appendSectionTitle(builder, "Missing/Unavailable data");
+        for (String note : notes) {
+            appendBullet(builder, "Result", note);
+        }
+    }
+
     private List<GraduateCitation> buildProgramCitations(List<ProgramRecord> programs) {
         if (programs == null || programs.isEmpty()) {
             return List.of();
@@ -813,6 +958,42 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             ));
         }
         return List.copyOf(citations);
+    }
+
+    private List<GraduateCitation> buildOverviewCitations(
+            List<ProgramRecord> programs,
+            List<TuitionAggregationRecord> aggregations
+    ) {
+        List<GraduateCitation> merged = new ArrayList<>();
+        merged.addAll(buildProgramCitations(programs));
+        merged.addAll(buildTuitionCitations(aggregations));
+        return renumberCitations(merged);
+    }
+
+    private List<GraduateCitation> renumberCitations(List<GraduateCitation> citations) {
+        if (citations == null || citations.isEmpty()) {
+            return List.of();
+        }
+
+        List<GraduateCitation> renumbered = new ArrayList<>(citations.size());
+        for (int index = 0; index < citations.size(); index++) {
+            GraduateCitation citation = citations.get(index);
+            if (citation == null) {
+                continue;
+            }
+            renumbered.add(new GraduateCitation(
+                    citation.citationId(),
+                    "S" + (index + 1),
+                    citation.title(),
+                    citation.url(),
+                    citation.sourceType(),
+                    citation.universityId(),
+                    citation.universityName(),
+                    citation.programId(),
+                    citation.programName()
+            ));
+        }
+        return List.copyOf(renumbered);
     }
 
     private String buildProgramCitationId(ProgramRecord program, int index) {

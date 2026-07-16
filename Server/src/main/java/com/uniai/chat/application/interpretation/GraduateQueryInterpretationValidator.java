@@ -124,7 +124,9 @@ public class GraduateQueryInterpretationValidator {
     }
 
     private boolean requiresUniversity(GraduateKnowledgeIntent intent) {
-        return intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP || intent == GraduateKnowledgeIntent.TUITION_AGGREGATION;
+        return intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP
+                || intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                || intent == GraduateKnowledgeIntent.GRADUATE_OVERVIEW;
     }
 
     private GraduateKnowledgeIntent normalizeIntent(String intent) {

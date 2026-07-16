@@ -2,6 +2,12 @@ import type { AxiosError } from 'axios';
 import { Storage } from '../utils/Storage';
 import { requestNavigation } from '../events/navigationEvents';
 
+type ProfileIncompleteHandling = 'local' | 'navigate';
+
+type ProfileAwareRequestConfig = {
+  profileIncompleteHandling?: ProfileIncompleteHandling;
+};
+
 /**
  * handleResponseError
  *
@@ -46,13 +52,17 @@ export function handleResponseError(error: AxiosError): never {
   }
 
   if (status === 410) {
-    console.error('Profile incomplete:', error.response?.data);
-    const currentPath = window.location.pathname;
-    if (!currentPath.startsWith('/personal-info')) {
-      requestNavigation({
-        path: `/personal-info?returnTo=${encodeURIComponent(currentPath)}`,
-        reason: 'profile-incomplete',
-      });
+    const profileHandling = (error.config as ProfileAwareRequestConfig | undefined)?.profileIncompleteHandling;
+
+    if (profileHandling !== 'local') {
+      console.error('Profile incomplete:', error.response?.data);
+      const currentPath = window.location.pathname;
+      if (!currentPath.startsWith('/personal-info')) {
+        requestNavigation({
+          path: `/personal-info?returnTo=${encodeURIComponent(currentPath)}`,
+          reason: 'profile-incomplete',
+        });
+      }
     }
   }
 

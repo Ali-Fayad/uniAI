@@ -32,6 +32,7 @@ public class GraduateKnowledgeQueryInterpreter {
         List<String> currentDegreeTypes = detectDegreeTypes(normalizedMessage);
         boolean currentTuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
         boolean currentProgramIntent = detectProgramLookupIntent(normalizedMessage, currentDegreeTypes, currentTuitionIntent);
+        boolean currentOverviewIntent = GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, currentProgramIntent, currentTuitionIntent);
         boolean currentFollowUp = isFollowUpMessage(normalizedMessage);
         boolean explicitComparison = containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between", "with");
 
@@ -45,7 +46,16 @@ public class GraduateKnowledgeQueryInterpreter {
 
         GraduateKnowledgeIntent inheritedHistoryIntent = historySignals.latestIntent();
 
-        if (currentTuitionIntent
+        if (currentOverviewIntent
+                || (currentFollowUp && inheritedHistoryIntent == GraduateKnowledgeIntent.GRADUATE_OVERVIEW)) {
+            intent = GraduateKnowledgeIntent.GRADUATE_OVERVIEW;
+            followUpResolved = currentFollowUp || (currentOverviewIntent && currentUniversities.isEmpty() && historySignals.latestUniversity() != null);
+            resolvedUniversities = resolveOverviewUniversities(currentUniversities, historySignals);
+            resolvedDegreeTypes = currentFollowUp
+                    ? resolveDegreeTypesForFollowUp(currentDegreeTypes, historySignals)
+                    : new ArrayList<>(currentDegreeTypes);
+            ambiguous = resolvedUniversities.isEmpty();
+        } else if (currentTuitionIntent
                 || (currentFollowUp && inheritedHistoryIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION)
                 || (explicitComparison && inheritedHistoryIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION && currentUniversities.isEmpty())) {
             intent = GraduateKnowledgeIntent.TUITION_AGGREGATION;
@@ -135,6 +145,19 @@ public class GraduateKnowledgeQueryInterpreter {
                 followUpResolved,
                 ambiguous
         );
+    }
+
+    private List<ResolvedUniversity> resolveOverviewUniversities(
+            List<ResolvedUniversity> currentUniversities,
+            GraduateKnowledgeResolutionSupport.HistorySignals historySignals
+    ) {
+        if (!currentUniversities.isEmpty()) {
+            return GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities);
+        }
+        if (historySignals.latestUniversity() != null) {
+            return List.of(historySignals.latestUniversity());
+        }
+        return List.of();
     }
 
     private GraduateProgramDetailLevel resolveDetailLevel(String normalizedMessage) {
@@ -271,10 +294,15 @@ public class GraduateKnowledgeQueryInterpreter {
     }
 
     private GraduateKnowledgeIntent latestIntentCue(String normalizedMessage) {
-        if (detectTuitionAggregationIntent(normalizedMessage)) {
+        boolean tuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
+        boolean programIntent = detectProgramLookupIntent(normalizedMessage, detectDegreeTypes(normalizedMessage), tuitionIntent);
+        if (GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, programIntent, tuitionIntent)) {
+            return GraduateKnowledgeIntent.GRADUATE_OVERVIEW;
+        }
+        if (tuitionIntent) {
             return GraduateKnowledgeIntent.TUITION_AGGREGATION;
         }
-        if (detectProgramLookupIntent(normalizedMessage, detectDegreeTypes(normalizedMessage), false)) {
+        if (programIntent) {
             return GraduateKnowledgeIntent.PROGRAM_LOOKUP;
         }
         return GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;

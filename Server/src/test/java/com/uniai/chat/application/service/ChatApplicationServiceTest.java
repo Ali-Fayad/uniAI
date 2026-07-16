@@ -209,7 +209,7 @@ class ChatApplicationServiceTest {
         assertEquals(1, universityCatalogRepository.findAllCount);
         assertEquals(1, graduateFollowUpResolver.callCount);
 
-        assertEquals("Here is the official answer.", result.getContent());
+        assertTrue(result.getContent().startsWith("Here is the official answer."));
         assertEquals(0, result.getCitations().size());
         assertEquals("Here is the official answer.", messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).get(messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size() - 1).getContent());
         assertEquals(1, aiServicePort.callCount);
@@ -227,6 +227,46 @@ class ChatApplicationServiceTest {
         assertEquals(1L, meterRegistry.find("uniai.chat.request.duration")
                 .tags("outcome", "success")
                 .timer()
+                .count());
+    }
+
+    @Test
+    void sendMessageShouldHandleGraduateOverviewRequests() {
+        User user = user(14L, "omar", "omar@example.com");
+        Chat chat = chat(140L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        aiServicePort.nextResponse = AiResponse.builder()
+                .content("Here is the official answer. [S1]")
+                .provider("gemini")
+                .model("gemini-2.5-flash")
+                .build();
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                "GRADUATE_OVERVIEW",
+                List.of("AUB"),
+                List.of(),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("What do you know about AUB?").build()
+        );
+
+        assertTrue(result.getContent().startsWith("Here is the official answer."));
+        assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, graduateKnowledgeRetrievalPort.lastQuery.intent());
+        assertEquals(1, graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().size());
+        assertEquals("AUB", graduateKnowledgeRetrievalPort.lastQuery.resolvedUniversities().get(0).acronym());
+        assertEquals(1, result.getCitations().size());
+        assertEquals(1, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).stream()
+                .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
                 .count());
     }
 

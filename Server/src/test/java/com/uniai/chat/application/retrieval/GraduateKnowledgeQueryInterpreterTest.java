@@ -23,7 +23,8 @@ class GraduateKnowledgeQueryInterpreterTest {
                 UniversityCatalog.builder().id(1L).name("American University of Beirut").nameAr("الجامعة الأميركية في بيروت").acronym("AUB").build(),
                 university(2L, "Université Saint-Joseph", "USJ"),
                 university(3L, "Lebanese American University", "LAU"),
-                university(4L, "Lebanese National Conservatory", "LNC")
+                university(4L, "Lebanese National Conservatory", "LNC"),
+                university(5L, "Al Maaref University", "MU")
         );
     }
 
@@ -58,6 +59,33 @@ class GraduateKnowledgeQueryInterpreterTest {
         assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, query.intent());
         assertEquals(1, query.resolvedUniversities().size());
         assertEquals("LAU", query.resolvedUniversities().get(0).acronym());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveGraduateOverviewForBroadUniversityQuestion() {
+        GraduateKnowledgeQuery query = interpreter.interpret("What do you know about MU?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, query.intent());
+        assertEquals(1, query.resolvedUniversities().size());
+        assertEquals("MU", query.resolvedUniversities().get(0).acronym());
+        assertFalse(query.followUpResolved());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveGraduateOverviewFromBothUsingLatestUniversity() {
+        List<AiConversationMessage> history = List.of(
+                message("user", "What do you know about AUB?"),
+                message("assistant", "AUB overview")
+        );
+
+        GraduateKnowledgeQuery query = interpreter.interpret("both please", history, catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, query.intent());
+        assertTrue(query.followUpResolved());
+        assertEquals(1, query.resolvedUniversities().size());
+        assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
         assertFalse(query.ambiguous());
     }
 
@@ -152,6 +180,22 @@ class GraduateKnowledgeQueryInterpreterTest {
         assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, query.intent());
         assertTrue(query.followUpResolved());
         assertEquals(List.of("PHD"), query.degreeTypes());
+        assertEquals(1, query.resolvedUniversities().size());
+        assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldPreserveGraduateOverviewWhenSameQuestionReplacesOnlyUniversity() {
+        List<AiConversationMessage> history = List.of(
+                message("user", "What do you know about MU?"),
+                message("assistant", "MU overview")
+        );
+
+        GraduateKnowledgeQuery query = interpreter.interpret("same question for AUB?", history, catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, query.intent());
+        assertTrue(query.followUpResolved());
         assertEquals(1, query.resolvedUniversities().size());
         assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
         assertFalse(query.ambiguous());

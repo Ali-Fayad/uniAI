@@ -22,6 +22,7 @@ public class ConversationMemoryValidator {
     private static final Set<String> ALLOWED_INTENTS = Set.of(
             "PROGRAM_LOOKUP",
             "TUITION_AGGREGATION",
+            "GRADUATE_OVERVIEW",
             "UNKNOWN_OR_AMBIGUOUS"
     );
     private static final Set<String> ALLOWED_DEGREE_TYPES = Set.of("MASTER", "PHD");

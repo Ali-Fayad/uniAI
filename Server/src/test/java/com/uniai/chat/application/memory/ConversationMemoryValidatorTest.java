@@ -43,6 +43,35 @@ class ConversationMemoryValidatorTest {
     }
 
     @Test
+    void validatePatchShouldAcceptGraduateOverviewIntent() {
+        ConversationMemoryPatch patch = new ConversationMemoryPatch(
+                ConversationMemory.SCHEMA_VERSION,
+                "GRADUATE_OVERVIEW",
+                false,
+                List.of("AUB"),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                List.of(),
+                null,
+                List.of()
+        );
+
+        ConversationMemoryValidator.ValidationResult result = validator.validatePatch(
+                patch,
+                List.of(UniversityCatalog.builder().id(1L).name("American University of Beirut").acronym("AUB").build())
+        );
+
+        assertTrue(result.isValid());
+    }
+
+    @Test
     void validatePatchShouldRejectInventedUniversityAndUnsupportedDegree() {
         ConversationMemoryPatch inventedUniversity = new ConversationMemoryPatch(
                 ConversationMemory.SCHEMA_VERSION,

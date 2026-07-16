@@ -86,6 +86,31 @@ class SqlGraduateKnowledgeRetrievalAdapterIntegrationTest extends PostgresIntegr
         assertEquals("S1", result.citations().get(0).label());
     }
 
+    @Test
+    void retrieveContextShouldCombineProgramsAndTuitionForGraduateOverviewFromRealDatabase() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.GRADUATE_OVERVIEW,
+                List.of(new ResolvedUniversity(
+                        programFixture.universityId(),
+                        programFixture.universityName(),
+                        programFixture.universityAcronym()
+                )),
+                List.of(programFixture.degreeTypeCode()),
+                null,
+                false,
+                false
+        );
+
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+
+        assertTrue(result.formattedContext().contains("Programs:"), result.formattedContext());
+        assertTrue(result.formattedContext().contains("Tuition aggregation:"), result.formattedContext());
+        assertTrue(result.formattedContext().contains("[S1]"), result.formattedContext());
+        assertFalse(result.citations().isEmpty());
+        assertEquals("S1", result.citations().get(0).label());
+        assertTrue(result.citations().stream().anyMatch(citation -> "TUITION".equals(citation.sourceType())));
+    }
+
     private ProgramFixture discoverProgramFixture() {
         Map<String, Object> row = jdbcTemplate.queryForMap("""
                 SELECT gp.id AS program_id,

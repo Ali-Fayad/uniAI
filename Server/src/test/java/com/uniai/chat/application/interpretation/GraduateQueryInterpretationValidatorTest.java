@@ -1,6 +1,7 @@
 package com.uniai.chat.application.interpretation;
 
 import com.uniai.catalog.domain.model.UniversityCatalog;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -69,6 +70,29 @@ class GraduateQueryInterpretationValidatorTest {
 
         assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
         assertEquals("AUB", result.query().resolvedUniversities().get(0).acronym());
+    }
+
+    @Test
+    void shouldValidateGraduateOverviewForBroadUniversityQuestion() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1,
+                "GRADUATE_OVERVIEW",
+                List.of("AUB"),
+                List.of(),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, result.query().intent());
+        assertEquals(1, result.resolvedUniversityCount());
     }
 
     @Test

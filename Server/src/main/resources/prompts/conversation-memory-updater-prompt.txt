@@ -49,6 +49,7 @@ Required JSON shape:
 
 Rules:
 - schemaVersion must be 1
+- setLastIntent may be PROGRAM_LOOKUP, TUITION_AGGREGATION, GRADUATE_OVERVIEW, or UNKNOWN_OR_AMBIGUOUS
 - never store program facts or tuition values
 - never store source URLs
 - never store provider internals

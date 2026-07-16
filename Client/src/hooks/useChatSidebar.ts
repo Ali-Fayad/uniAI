@@ -34,15 +34,33 @@ export const useChatSidebar = (
 ): UseChatSidebarReturn => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const userId = user?.id;
 
   const [chats, setChats] = useState<Chat[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement | null>(null);
+  const previousUserIdRef = useRef<number | null | undefined>(undefined);
 
-  /** Reload chats whenever the selected chat changes (e.g. new chat created). */
+  /** Reload chats whenever the selected chat changes or the active user changes. */
   useEffect(() => {
+    if (userId == null) {
+      previousUserIdRef.current = undefined;
+      setChats([]);
+      setIsLoading(false);
+      return;
+    }
+
+    const hasUserChanged = previousUserIdRef.current !== userId;
+    previousUserIdRef.current = userId;
+
+    if (hasUserChanged) {
+      setChats([]);
+    }
+
+    setIsLoading(true);
+
     const loadChats = async () => {
       try {
         const data = await chatService.getChats();
@@ -55,7 +73,7 @@ export const useChatSidebar = (
     };
 
     loadChats();
-  }, [selectedChatId]);
+  }, [selectedChatId, userId]);
 
   /** Close the profile menu when the user clicks outside it. */
   useOnClickOutside(profileMenuRef, () => setProfileMenuOpen(false), {

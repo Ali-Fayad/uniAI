@@ -16,7 +16,7 @@ export const mapJwtPayloadToUserData = (payload: JwtPayload): UserData => {
     lastName: String(payload.lastName ?? ''),
     email: String(payload.email ?? payload.sub ?? ''),
     username: String(payload.username ?? payload.preferred_username ?? ''),
-    isVerified: Boolean(payload.isVerified),
+    isVerified: payload.isVerified !== false,
     isTwoFacAuth,
     twoFactorEnabled: isTwoFacAuth,
     role: isUserRole(payload.role) ? payload.role : 'USER',

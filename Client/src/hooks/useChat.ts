@@ -12,6 +12,7 @@ import type { MessageResponseDto, SendMessageDto } from "../types/dto";
 
 export const useChat = () => {
   const { user } = useAuth();
+  const userId = user?.id;
 
   const [currentChatId, setCurrentChatId] = useState<number | null>(null);
   const [messages, setMessages] = useState<MessageResponseDto[]>([]);
@@ -31,6 +32,14 @@ export const useChat = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isSendingMessage]);
+
+  useEffect(() => {
+    skipNextMessageLoadRef.current = false;
+    setCurrentChatId(null);
+    setMessages([]);
+    setStreamingMessageId(null);
+    setIsLoadingMessages(false);
+  }, [userId]);
 
   // Load messages when an existing chat is selected
   useEffect(() => {

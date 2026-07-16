@@ -11,6 +11,13 @@ import type {
   UpdatePersonalInfoDto,
   UniversityCatalogDto,
 } from '../types/dto';
+import type { AxiosRequestConfig } from 'axios';
+
+type ProfileIncompleteHandling = 'local' | 'navigate';
+
+export type ProfileAwareRequestConfig = AxiosRequestConfig & {
+  profileIncompleteHandling?: ProfileIncompleteHandling;
+};
 
 /**
  * ICVService
@@ -19,7 +26,7 @@ import type {
  */
 export interface ICVService {
   getPersonalInfoStatus(): Promise<PersonalInfoStatusDto>;
-  getPersonalInfo(): Promise<PersonalInfoResponseDto>;
+  getPersonalInfo(requestConfig?: ProfileAwareRequestConfig): Promise<PersonalInfoResponseDto>;
   updatePersonalInfo(data: UpdatePersonalInfoDto): Promise<PersonalInfoResponseDto>;
   getUniversities(search?: string): Promise<UniversityCatalogDto[]>;
   getSkills(search?: string): Promise<SkillCatalogDto[]>;
@@ -28,8 +35,8 @@ export interface ICVService {
   getTemplates(): Promise<CVTemplateDto[]>;
   getTemplate(templateId: number): Promise<CVTemplateDto>;
   getCVs(): Promise<CVDto[]>;
-  getCV(cvId: number): Promise<CVDto>;
-  createCV(data: CreateCVDto): Promise<CVDto>;
-  updateCV(cvId: number, data: UpdateCVDto): Promise<CVDto>;
+  getCV(cvId: number, requestConfig?: ProfileAwareRequestConfig): Promise<CVDto>;
+  createCV(data: CreateCVDto, requestConfig?: ProfileAwareRequestConfig): Promise<CVDto>;
+  updateCV(cvId: number, data: UpdateCVDto, requestConfig?: ProfileAwareRequestConfig): Promise<CVDto>;
   deleteCV(cvId: number): Promise<void>;
 }

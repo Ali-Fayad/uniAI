@@ -14,6 +14,13 @@ import type {
   UniversityCatalogDto,
 } from '../types/dto';
 import type { ICVService } from '../interfaces';
+import type { AxiosRequestConfig } from 'axios';
+
+type ProfileIncompleteHandling = 'local' | 'navigate';
+
+type ProfileAwareRequestConfig = AxiosRequestConfig & {
+  profileIncompleteHandling?: ProfileIncompleteHandling;
+};
 
 /**
  * CV service for personal profile information and CV lookup endpoints.
@@ -24,8 +31,13 @@ export const cvService: ICVService = {
     return response.data;
   },
 
-  async getPersonalInfo(): Promise<PersonalInfoResponseDto> {
-    const response = await apiClient.get<PersonalInfoResponseDto>(ENDPOINTS.CV.PERSONAL_INFO);
+  async getPersonalInfo(
+    requestConfig?: ProfileAwareRequestConfig,
+  ): Promise<PersonalInfoResponseDto> {
+    const response = await apiClient.get<PersonalInfoResponseDto>(
+      ENDPOINTS.CV.PERSONAL_INFO,
+      requestConfig,
+    );
     return response.data;
   },
 
@@ -77,18 +89,39 @@ export const cvService: ICVService = {
     return response.data;
   },
 
-  async getCV(cvId: number): Promise<CVDto> {
-    const response = await apiClient.get<CVDto>(ENDPOINTS.CV.CV_BY_ID(cvId));
+  async getCV(
+    cvId: number,
+    requestConfig?: ProfileAwareRequestConfig,
+  ): Promise<CVDto> {
+    const response = await apiClient.get<CVDto>(
+      ENDPOINTS.CV.CV_BY_ID(cvId),
+      requestConfig,
+    );
     return response.data;
   },
 
-  async createCV(data: CreateCVDto): Promise<CVDto> {
-    const response = await apiClient.post<CVDto>(ENDPOINTS.CV.BASE, data);
+  async createCV(
+    data: CreateCVDto,
+    requestConfig?: ProfileAwareRequestConfig,
+  ): Promise<CVDto> {
+    const response = await apiClient.post<CVDto>(
+      ENDPOINTS.CV.BASE,
+      data,
+      requestConfig,
+    );
     return response.data;
   },
 
-  async updateCV(cvId: number, data: UpdateCVDto): Promise<CVDto> {
-    const response = await apiClient.put<CVDto>(ENDPOINTS.CV.CV_BY_ID(cvId), data);
+  async updateCV(
+    cvId: number,
+    data: UpdateCVDto,
+    requestConfig?: ProfileAwareRequestConfig,
+  ): Promise<CVDto> {
+    const response = await apiClient.put<CVDto>(
+      ENDPOINTS.CV.CV_BY_ID(cvId),
+      data,
+      requestConfig,
+    );
     return response.data;
   },
 

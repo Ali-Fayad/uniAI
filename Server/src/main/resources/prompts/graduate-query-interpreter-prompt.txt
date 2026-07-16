@@ -7,6 +7,7 @@ Use schemaVersion 1 exactly.
 Supported intent values:
 - PROGRAM_LOOKUP
 - TUITION_AGGREGATION
+- GRADUATE_OVERVIEW
 - UNKNOWN_OR_AMBIGUOUS
 
 Supported degree values:
@@ -40,6 +41,8 @@ Rules:
 - schemaVersion must be 1
 - universities must contain only free-text references
 - intent must be one of the supported values
+- use GRADUATE_OVERVIEW for broad university questions and for combined programs-plus-tuition requests
+- if the user asks "both" or an equivalent combined follow-up and the university can be inherited safely, use GRADUATE_OVERVIEW
 - degreeTypes should contain only recognized degree words when present
 - detailLevel should be LIST or DETAILS when helpful
 - topicKeywords is diagnostic only

@@ -343,13 +343,43 @@ final class GraduateKnowledgeResolutionSupport {
     }
 
     private static GraduateKnowledgeIntent latestIntentCue(String normalizedMessage) {
-        if (detectTuitionAggregationIntent(normalizedMessage)) {
+        boolean tuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
+        boolean programIntent = detectProgramLookupIntent(normalizedMessage, detectDegreeTypes(normalizedMessage), tuitionIntent);
+        if (detectGraduateOverviewIntent(normalizedMessage, programIntent, tuitionIntent)) {
+            return GraduateKnowledgeIntent.GRADUATE_OVERVIEW;
+        }
+        if (tuitionIntent) {
             return GraduateKnowledgeIntent.TUITION_AGGREGATION;
         }
-        if (detectProgramLookupIntent(normalizedMessage, detectDegreeTypes(normalizedMessage), false)) {
+        if (programIntent) {
             return GraduateKnowledgeIntent.PROGRAM_LOOKUP;
         }
         return GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;
+    }
+
+    static boolean detectGraduateOverviewIntent(String text, boolean currentProgramIntent, boolean currentTuitionIntent) {
+        if (text == null || text.isBlank()) {
+            return false;
+        }
+
+        String normalized = normalize(text);
+        if (containsStandaloneTokenOrPhrase(normalized, "both", "both please")) {
+            return true;
+        }
+        if (containsAny(normalized, "tuition and programs", "programs and tuition")) {
+            return true;
+        }
+        if (currentProgramIntent || currentTuitionIntent) {
+            return false;
+        }
+        return containsAny(normalized,
+                "what do you know about",
+                "what can you tell me about",
+                "tell me about",
+                "give me an overview",
+                "overview of",
+                "graduate overview",
+                "overview");
     }
 
     private static boolean matchesUniversity(String normalizedText, UniversityCatalog university) {
