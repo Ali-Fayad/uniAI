@@ -7,6 +7,7 @@ import ChatSidebarProfileMenu from "./ChatSidebarProfileMenu";
 
 interface ChatSidebarProps {
   selectedChatId: number | null;
+  chatListRefreshKey: number;
   onSelectChat: (chatId: number) => void;
   onNewChat: () => void;
   onDeleteChat: (chatId: number) => void;
@@ -30,6 +31,7 @@ interface ChatSidebarProps {
 
 const ChatSidebar: React.FC<ChatSidebarProps> = ({
   selectedChatId,
+  chatListRefreshKey,
   onSelectChat,
   onNewChat,
   onDeleteChat,
@@ -51,7 +53,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
     handleDeleteChat,
     handleLogout,
     handleNavigateSettings,
-  } = useChatSidebar(selectedChatId, onDeleteChat);
+  } = useChatSidebar(chatListRefreshKey, onDeleteChat);
 
   return (
     <>

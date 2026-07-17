@@ -54,6 +54,23 @@ class GraduateFollowUpResolverTest {
     }
 
     @Test
+    void shouldLeaveGeneralChatOutsideGraduateFollowUpResolution() {
+        GraduateKnowledgeQuery candidate = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.GENERAL_CHAT,
+                List.of(),
+                List.of(),
+                null,
+                false,
+                false
+        );
+
+        GraduateFollowUpResolutionResult result = resolver.resolve("tell me a joke", candidate, List.of(), ConversationMemory.empty(), catalogs);
+
+        assertEquals(GraduateFollowUpResolutionStatus.UNCHANGED, result.status());
+        assertEquals(GraduateKnowledgeIntent.GENERAL_CHAT, result.resolvedQuery().intent());
+    }
+
+    @Test
     void shouldIgnoreAssistantTurnsWhenInferringFollowUpSignals() {
         ConversationMemory memory = ConversationMemory.empty();
         List<AiConversationMessage> history = List.of(

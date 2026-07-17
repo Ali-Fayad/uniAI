@@ -107,4 +107,22 @@ class ConversationMemoryTriggerPolicyTest {
         assertTrue(policy.shouldUpdate(previous, comparisonChanged, 1L, "Hello"));
         assertTrue(policy.shouldUpdate(previous, sameState, 1L, "I prefer online programs"));
     }
+
+    @Test
+    void shouldNotReplaceGraduateMemoryForGeneralChat() {
+        GraduateQueryInterpretationResult generalChat = GraduateQueryInterpretationResult.valid(
+                new GraduateKnowledgeQuery(
+                        GraduateKnowledgeIntent.GENERAL_CHAT,
+                        List.of(),
+                        List.of(),
+                        null,
+                        false,
+                        false
+                ),
+                0,
+                0
+        );
+
+        assertFalse(policy.shouldUpdate(ConversationMemory.empty(), generalChat, 5L, "Thanks!"));
+    }
 }

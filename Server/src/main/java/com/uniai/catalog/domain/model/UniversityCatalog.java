@@ -30,4 +30,10 @@ public class UniversityCatalog {
     private String nameAr;
 
     private String acronym;
+
+    @Column(name = "campus_name")
+    private String campusName;
+
+    @Column(name = "campus_type")
+    private String campusType;
 }

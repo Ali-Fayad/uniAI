@@ -5,6 +5,7 @@ Return JSON only. Do not answer the user. Do not explain reasoning. Do not use m
 Use schemaVersion 1 exactly.
 
 Supported intent values:
+- GENERAL_CHAT
 - PROGRAM_LOOKUP
 - TUITION_AGGREGATION
 - GRADUATE_OVERVIEW
@@ -41,6 +42,8 @@ Rules:
 - schemaVersion must be 1
 - universities must contain only free-text references
 - intent must be one of the supported values
+- use GENERAL_CHAT for casual conversation and clearly harmless non-graduate requests; use empty universities and degreeTypes for it
+- never use GENERAL_CHAT when the message includes a known university, graduate degree, tuition or program request, a graduate comparison, or a graduate follow-up cue with usable history
 - use GRADUATE_OVERVIEW for broad university questions and for combined programs-plus-tuition requests
 - if the user asks "both" or an equivalent combined follow-up and the university can be inherited safely, use GRADUATE_OVERVIEW
 - degreeTypes should contain only recognized degree words when present

@@ -89,10 +89,10 @@ class SqlGraduateKnowledgeRetrievalAdapterRankingTest {
     @Test
     void retrieveContextShouldRankTuitionEvidenceWithinUniversityBuckets() {
         jdbcTemplate.tuitionRows = List.of(
-                tuitionRow(1L, "American University of Beirut", "AUB", "MASTER", "USD", 1L, 0L, null, ""),
-                tuitionRow(1L, "American University of Beirut", "AUB", "PHD", "USD", 4L, 3L, new BigDecimal("120.00"),
+                tuitionRow(1L, "American University of Beirut", "AUB", "MASTER", "USD", "PER_CREDIT", "2024-2025", 1L, 0L, null, ""),
+                tuitionRow(1L, "American University of Beirut", "AUB", "PHD", "USD", "PER_CREDIT", "2024-2025", 4L, 3L, new BigDecimal("120.00"),
                         "https://aub.edu.lb/tuition | https://aub.edu.lb/registrar"),
-                tuitionRow(2L, "Université Saint-Joseph", "USJ", "MASTER", "EUR", 2L, 2L, new BigDecimal("200.00"),
+                tuitionRow(2L, "Université Saint-Joseph", "USJ", "MASTER", "EUR", "PER_CREDIT", "2024-2025", 2L, 2L, new BigDecimal("200.00"),
                         "https://usj.edu.lb/tuition")
         );
 
@@ -112,7 +112,7 @@ class SqlGraduateKnowledgeRetrievalAdapterRankingTest {
         String context = result.formattedContext();
 
         assertTrue(context.contains("Tuition aggregation:"), context);
-        assertTrue(context.indexOf("Computed average: 120.00") < context.indexOf("Average tuition is not computable from the official stored data."), context);
+        assertTrue(context.indexOf("Computed average: 120.00 USD per credit | Academic Year 2024-2025") < context.indexOf("Average tuition is not computable from the official stored data."), context);
         assertTrue(context.contains("Source URLs: https://aub.edu.lb/tuition | https://aub.edu.lb/registrar"), context);
         assertEquals(3, result.citations().size());
     }
@@ -160,7 +160,8 @@ class SqlGraduateKnowledgeRetrievalAdapterRankingTest {
     }
 
     private Map<String, Object> tuitionRow(Long universityId, String universityName, String universityAcronym,
-                                           String degreeTypeCode, String currency, Long recordCount, Long numericTuitionRecordsUsed,
+                                           String degreeTypeCode, String currency, String billingBasis, String academicYear,
+                                           Long recordCount, Long numericTuitionRecordsUsed,
                                            BigDecimal averageAmount, String sourceUrls) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("university_id", universityId);
@@ -168,6 +169,8 @@ class SqlGraduateKnowledgeRetrievalAdapterRankingTest {
         row.put("university_acronym", universityAcronym);
         row.put("degree_type_code", degreeTypeCode);
         row.put("currency", currency);
+        row.put("billing_basis", billingBasis);
+        row.put("academic_year", academicYear);
         row.put("record_count", recordCount);
         row.put("numeric_tuition_records_used", numericTuitionRecordsUsed);
         row.put("average_amount", averageAmount);

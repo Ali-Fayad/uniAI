@@ -40,6 +40,7 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
     private SqlGraduateKnowledgeRetrievalAdapter adapter;
     private FakeNamedParameterJdbcTemplate jdbcTemplate;
     private SimpleMeterRegistry meterRegistry;
+    private List<Map<String, Object>> tuitionRowsOverride = List.of();
 
     @BeforeEach
     void setUp() {
@@ -125,8 +126,10 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertTrue(context.contains("Tuition aggregation:"), context);
         assertTrue(context.contains("Currency: USD"), context);
         assertTrue(context.contains("Currency: EUR"), context);
-        assertTrue(context.contains("Computed average: 120.00"), context);
-        assertTrue(context.contains("Computed average: 200.00"), context);
+        assertTrue(context.contains("Billing basis: per credit"), context);
+        assertTrue(context.contains("Academic year: 2024-2025"), context);
+        assertTrue(context.contains("Computed average: 120.00 USD per credit | Academic Year 2024-2025"), context);
+        assertTrue(context.contains("Computed average: 200.00 EUR per credit | Academic Year 2024-2025"), context);
         assertFalse(context.contains("Programs:"), context);
         assertTrue(jdbcTemplate.lastSql.contains("AVG("), jdbcTemplate.lastSql);
         assertTrue(jdbcTemplate.lastSql.contains("GROUP BY"), jdbcTemplate.lastSql);
@@ -134,6 +137,36 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertEquals(List.of("MASTER"), jdbcTemplate.degreeTypes());
         assertEquals(2, result.citations().size());
         assertEquals("S1", result.citations().get(0).label());
+    }
+
+    @Test
+    void retrieveContextShouldSeparateTuitionByBillingBasisAndAcademicYear() {
+        tuitionRowsOverride = List.of(
+                tuitionRow(101L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("100"), "USD", "2024-2025", "Tuition", "PER_CREDIT", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(102L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("160"), "USD", "2024-2025", "Tuition", "PER_SEMESTER", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(103L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("180"), "USD", "2025-2026", "Tuition", "PER_CREDIT", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition")
+        );
+
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.TUITION_AGGREGATION,
+                List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                null,
+                false,
+                false
+        );
+
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+        String context = result.formattedContext();
+
+        assertTrue(context.contains("Billing basis: per credit"), context);
+        assertTrue(context.contains("Billing basis: per semester"), context);
+        assertTrue(context.contains("Academic year: 2024-2025"), context);
+        assertTrue(context.contains("Academic year: 2025-2026"), context);
+        assertTrue(context.contains("Computed average: 100.00 USD per credit | Academic Year 2024-2025"), context);
+        assertTrue(context.contains("Computed average: 160.00 USD per semester | Academic Year 2024-2025"), context);
+        assertTrue(context.contains("Computed average: 180.00 USD per credit | Academic Year 2025-2026"), context);
+        assertEquals(3, result.citations().size());
     }
 
     @Test
@@ -238,11 +271,14 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
     }
 
     private List<Map<String, Object>> tuitionRows() {
+        if (!tuitionRowsOverride.isEmpty()) {
+            return tuitionRowsOverride;
+        }
         return List.of(
-                tuitionRow(101L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("100"), "USD", "2024-2025", "Tuition", "Credit", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
-                tuitionRow(102L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("140"), "USD", "2024-2025", "Tuition", "Credit", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
-                tuitionRow(103L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Environmental Policy", new BigDecimal("200"), "EUR", "2024-2025", "Tuition", "Credit", "Official tuition sheet", "https://www.aub.edu.lb/fas/environment/master", "https://www.aub.edu.lb/registrar/tuition"),
-                tuitionRow(301L, 1L, "American University of Beirut", "AUB", "PHD", "PhD in Biology", null, "USD", "2024-2025", "Tuition", "Credit", "Tuition not published", "https://www.aub.edu.lb/fas/biology/phd", "https://www.aub.edu.lb/fas/biology/phd")
+                tuitionRow(101L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("100"), "USD", "2024-2025", "Tuition", "PER_CREDIT", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(102L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Computer Science", new BigDecimal("140"), "USD", "2024-2025", "Tuition", "PER_CREDIT", "Official tuition sheet", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(103L, 1L, "American University of Beirut", "AUB", "MASTER", "Master of Science in Environmental Policy", new BigDecimal("200"), "EUR", "2024-2025", "Tuition", "PER_CREDIT", "Official tuition sheet", "https://www.aub.edu.lb/fas/environment/master", "https://www.aub.edu.lb/registrar/tuition"),
+                tuitionRow(301L, 1L, "American University of Beirut", "AUB", "PHD", "PhD in Biology", null, "USD", "2024-2025", "Tuition", "PER_CREDIT", "Tuition not published", "https://www.aub.edu.lb/fas/biology/phd", "https://www.aub.edu.lb/fas/biology/phd")
         );
     }
 
@@ -337,7 +373,9 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                                 stringValue(row.get("university_name")) + "|" +
                                 stringValue(row.get("university_acronym")) + "|" +
                                 stringValue(row.get("degree_type_code")) + "|" +
-                                stringValue(row.get("currency")),
+                                stringValue(row.get("currency")) + "|" +
+                                stringValue(row.get("billing_basis")) + "|" +
+                                stringValue(row.get("academic_year")),
                         LinkedHashMap::new,
                         Collectors.toList()
                 ));

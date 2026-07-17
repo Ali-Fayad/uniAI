@@ -27,6 +27,10 @@ public class GraduateFollowUpResolver {
             return GraduateFollowUpResolutionResult.clarificationRequired("NO_CANDIDATE_QUERY", null, List.of("current message"));
         }
 
+        if (candidateQuery.intent() == GraduateKnowledgeIntent.GENERAL_CHAT) {
+            return GraduateFollowUpResolutionResult.unchanged(candidateQuery, List.of("current message"));
+        }
+
         String normalizedMessage = normalize(currentUserMessage);
         List<UniversityCatalog> catalogs = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
         GraduateKnowledgeResolutionSupport.HistorySignals historySignals =

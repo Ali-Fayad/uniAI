@@ -15,6 +15,7 @@ export const useChat = () => {
   const userId = user?.id;
 
   const [currentChatId, setCurrentChatId] = useState<number | null>(null);
+  const [chatListRefreshKey, setChatListRefreshKey] = useState(0);
   const [messages, setMessages] = useState<MessageResponseDto[]>([]);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
   const [isSendingMessage, setIsSendingMessage] = useState(false);
@@ -126,8 +127,9 @@ export const useChat = () => {
         const newChat = await chatService.createChat();
         targetChatId = newChat.chatId;
 
-        skipNextMessageLoadRef.current = true;
         setCurrentChatId(targetChatId);
+        setChatListRefreshKey((current) => current + 1);
+        skipNextMessageLoadRef.current = true;
       }
 
       const data: SendMessageDto = {
@@ -167,6 +169,7 @@ export const useChat = () => {
 
   return {
     currentChatId,
+    chatListRefreshKey,
     messages,
     isLoadingMessages,
     isSendingMessage,

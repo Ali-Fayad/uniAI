@@ -158,11 +158,11 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
     @Test
     void retrieveContextShouldCompressTuitionEvidenceByUniversityWithoutDroppingAggregates() {
         jdbcTemplate.tuitionRows = List.of(
-                tuitionRow(1L, "American University of Beirut", "AUB", "MASTER", "USD", 10L, 8L, new BigDecimal("24000.00"),
+                tuitionRow(1L, "American University of Beirut", "AUB", "MASTER", "USD", "PER_CREDIT", "2024-2025", 10L, 8L, new BigDecimal("24000.00"),
                         "https://aub.edu.lb/tuition | https://aub.edu.lb/registrar"),
-                tuitionRow(1L, "American University of Beirut", "AUB", "PHD", "USD", 4L, 3L, new BigDecimal("28000.00"),
+                tuitionRow(1L, "American University of Beirut", "AUB", "PHD", "USD", "PER_CREDIT", "2024-2025", 4L, 3L, new BigDecimal("28000.00"),
                         "https://aub.edu.lb/phd-tuition"),
-                tuitionRow(2L, "Université Saint-Joseph", "USJ", "MASTER", "EUR", 7L, 7L, new BigDecimal("12000.00"),
+                tuitionRow(2L, "Université Saint-Joseph", "USJ", "MASTER", "EUR", "PER_SEMESTER", "2024-2025", 7L, 7L, new BigDecimal("12000.00"),
                         "https://usj.edu.lb/tuition")
         );
 
@@ -184,13 +184,15 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
         assertEquals(1, countOccurrences(context, "University: American University of Beirut (AUB)"), context);
         assertEquals(1, countOccurrences(context, "University: Université Saint-Joseph (USJ)"), context);
         assertTrue(context.indexOf("University: American University of Beirut (AUB)") < context.indexOf("University: Université Saint-Joseph (USJ)"), context);
-        assertTrue(context.contains("Computed average: 24000.00"), context);
-        assertTrue(context.contains("Computed average: 28000.00"), context);
-        assertTrue(context.contains("Computed average: 12000.00"), context);
+        assertTrue(context.contains("Computed average: 24000.00 USD per credit | Academic Year 2024-2025"), context);
+        assertTrue(context.contains("Computed average: 28000.00 USD per credit | Academic Year 2024-2025"), context);
+        assertTrue(context.contains("Computed average: 12000.00 EUR per semester | Academic Year 2024-2025"), context);
         assertTrue(context.contains("Record count: 10"), context);
         assertTrue(context.contains("Numeric tuition records used: 8"), context);
         assertTrue(context.contains("Degree type: MASTER"), context);
         assertTrue(context.contains("Degree type: PHD"), context);
+        assertTrue(context.contains("Billing basis: per credit"), context);
+        assertTrue(context.contains("Billing basis: per semester"), context);
         assertTrue(context.contains("Source URLs: https://aub.edu.lb/tuition | https://aub.edu.lb/registrar"), context);
         assertTrue(context.contains("Source URLs: https://aub.edu.lb/phd-tuition"), context);
         assertTrue(context.contains("Source URLs: https://usj.edu.lb/tuition"), context);
@@ -284,7 +286,8 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
     }
 
     private Map<String, Object> tuitionRow(Long universityId, String universityName, String universityAcronym,
-                                           String degreeTypeCode, String currency, Long recordCount, Long numericTuitionRecordsUsed,
+                                           String degreeTypeCode, String currency, String billingBasis, String academicYear,
+                                           Long recordCount, Long numericTuitionRecordsUsed,
                                            BigDecimal averageAmount, String sourceUrls) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("university_id", universityId);
@@ -292,6 +295,8 @@ class SqlGraduateKnowledgeRetrievalAdapterCompressionTest {
         row.put("university_acronym", universityAcronym);
         row.put("degree_type_code", degreeTypeCode);
         row.put("currency", currency);
+        row.put("billing_basis", billingBasis);
+        row.put("academic_year", academicYear);
         row.put("record_count", recordCount);
         row.put("numeric_tuition_records_used", numericTuitionRecordsUsed);
         row.put("average_amount", averageAmount);

@@ -29,7 +29,7 @@ export interface UseChatSidebarReturn {
 }
 
 export const useChatSidebar = (
-  selectedChatId: number | null,
+  chatListRefreshKey: number,
   onDeleteChat: (chatId: number) => void,
 ): UseChatSidebarReturn => {
   const navigate = useNavigate();
@@ -42,8 +42,9 @@ export const useChatSidebar = (
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement | null>(null);
   const previousUserIdRef = useRef<number | null | undefined>(undefined);
+  const latestRequestIdRef = useRef(0);
 
-  /** Reload chats whenever the selected chat changes or the active user changes. */
+  /** Reload chats whenever the active user changes or an explicit refresh is requested. */
   useEffect(() => {
     if (userId == null) {
       previousUserIdRef.current = undefined;
@@ -59,21 +60,26 @@ export const useChatSidebar = (
       setChats([]);
     }
 
+    const requestId = ++latestRequestIdRef.current;
     setIsLoading(true);
 
     const loadChats = async () => {
       try {
         const data = await chatService.getChats();
-        setChats(data);
+        if (requestId === latestRequestIdRef.current) {
+          setChats(data);
+        }
       } catch (error) {
         console.error('Failed to load chats:', error);
       } finally {
-        setIsLoading(false);
+        if (requestId === latestRequestIdRef.current) {
+          setIsLoading(false);
+        }
       }
     };
 
     loadChats();
-  }, [selectedChatId, userId]);
+  }, [chatListRefreshKey, userId]);
 
   /** Close the profile menu when the user clicks outside it. */
   useOnClickOutside(profileMenuRef, () => setProfileMenuOpen(false), {

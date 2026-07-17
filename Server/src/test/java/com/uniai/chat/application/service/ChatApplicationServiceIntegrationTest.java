@@ -249,6 +249,30 @@ class ChatApplicationServiceIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
+    void sendMessageShouldBypassGraduateRetrievalForGeneralChat() {
+        interpretationPort.nextInterpretation = generalChatInterpretation();
+
+        User user = userRepository.save(user("general@example.com", "general-user"));
+        Chat chat = chatRepository.save(Chat.builder().user(user).build());
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder()
+                        .chatId(chat.getId())
+                        .content("Tell me a joke")
+                        .build()
+        );
+
+        assertEquals(MAIN_SUCCESS_CONTENT, result.getContent());
+        assertTrue(result.getCitations().isEmpty());
+        assertEquals(0, retrievalPort.callCount);
+        assertEquals(1, aiServicePort.mainCallCount);
+        assertTrue(aiServicePort.lastMainRequest.getContext().isEmpty());
+        assertFalse(aiServicePort.lastMainRequest.getSystemPrompt().contains("Citation instructions:"));
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+    }
+
+    @Test
     void sendMessageShouldClarifyAmbiguousUniversityWithoutRetrievalOrMainCall() {
         interpretationPort.nextInterpretation = ambiguousInterpretation();
 
@@ -484,6 +508,22 @@ class ChatApplicationServiceIntegrationTest extends PostgresIntegrationTest {
                 1,
                 "GRADUATE_OVERVIEW",
                 List.of(fixture.universityMention()),
+                List.of(),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+    }
+
+    private GraduateQueryInterpretation generalChatInterpretation() {
+        return new GraduateQueryInterpretation(
+                1,
+                "GENERAL_CHAT",
+                List.of(),
                 List.of(),
                 null,
                 false,

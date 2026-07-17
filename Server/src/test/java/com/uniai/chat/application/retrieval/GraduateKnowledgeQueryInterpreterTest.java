@@ -90,6 +90,17 @@ class GraduateKnowledgeQueryInterpreterTest {
     }
 
     @Test
+    void shouldClassifyObviousCasualMessagesAsGeneralChat() {
+        for (String message : List.of("hi", "hello", "thank you", "how are you?", "what can you do?")) {
+            GraduateKnowledgeQuery query = interpreter.interpret(message, List.of(), catalogs);
+
+            assertEquals(GraduateKnowledgeIntent.GENERAL_CHAT, query.intent(), message);
+            assertTrue(query.resolvedUniversities().isEmpty(), message);
+            assertFalse(query.ambiguous(), message);
+        }
+    }
+
+    @Test
     void shouldResolveProgramLookupForArabicUniversityName() {
         GraduateKnowledgeQuery query = interpreter.interpret("ما هي برامج الجامعة الأميركية في بيروت؟", List.of(), catalogs);
 

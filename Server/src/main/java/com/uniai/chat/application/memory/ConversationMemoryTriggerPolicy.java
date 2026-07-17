@@ -23,6 +23,11 @@ public final class ConversationMemoryTriggerPolicy {
             return false;
         }
 
+        GraduateKnowledgeQuery query = interpretationResult.query();
+        if (query != null && query.intent() == com.uniai.chat.application.retrieval.GraduateKnowledgeIntent.GENERAL_CHAT) {
+            return false;
+        }
+
         if (completedTurnCount > 0 && completedTurnCount % SAFETY_REFRESH_TURN_INTERVAL == 0) {
             return true;
         }
@@ -32,7 +37,6 @@ public final class ConversationMemoryTriggerPolicy {
             return false;
         }
 
-        GraduateKnowledgeQuery query = interpretationResult.query();
         if (query == null) {
             return false;
         }

@@ -36,6 +36,24 @@ public class GraduateKnowledgeQueryInterpreter {
         boolean currentFollowUp = isFollowUpMessage(normalizedMessage);
         boolean explicitComparison = containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between", "with");
 
+        if (isDeterministicGeneralChatMessage(normalizedMessage)
+                && currentUniversities.isEmpty()
+                && currentDegreeTypes.isEmpty()
+                && !currentTuitionIntent
+                && !currentProgramIntent
+                && !currentOverviewIntent
+                && !currentFollowUp
+                && !explicitComparison) {
+            return new GraduateKnowledgeQuery(
+                    GraduateKnowledgeIntent.GENERAL_CHAT,
+                    List.of(),
+                    List.of(),
+                    null,
+                    false,
+                    false
+            );
+        }
+
         GraduateKnowledgeIntent intent = GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;
         GraduateProgramDetailLevel detailLevel = GraduateProgramDetailLevel.LIST;
 
@@ -334,6 +352,48 @@ public class GraduateKnowledgeQueryInterpreter {
 
     private boolean isFollowUpMessage(String normalizedMessage) {
         return GraduateKnowledgeResolutionSupport.isFollowUpMessage(normalizedMessage);
+    }
+
+    public static boolean isDeterministicGeneralChatMessage(String message) {
+        String normalized = message == null ? "" : message.trim().toLowerCase().replaceAll("[!?.,]+$", "");
+        return switch (normalized) {
+            case "hi", "hello", "hey", "good morning", "good afternoon", "good evening",
+                    "thanks", "thank you", "bye", "goodbye", "how are you", "what can you do", "who are you" -> true;
+            default -> false;
+        };
+    }
+
+    public boolean hasGraduateSignal(
+            String userMessage,
+            List<AiConversationMessage> recentConversationHistory,
+            List<UniversityCatalog> universityCatalogs,
+            ConversationMemory conversationMemory
+    ) {
+        String normalizedMessage = normalize(userMessage);
+        List<UniversityCatalog> catalog = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
+        List<String> degreeTypes = detectDegreeTypes(normalizedMessage);
+        boolean tuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
+        boolean programIntent = detectProgramLookupIntent(normalizedMessage, degreeTypes, tuitionIntent);
+        if (!resolveUniversities(normalizedMessage, catalog).isEmpty()
+                || !degreeTypes.isEmpty()
+                || tuitionIntent
+                || programIntent
+                || GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, programIntent, tuitionIntent)
+                || containsAny(normalizedMessage, "university", "college", "institute", "school", "faculty", "department")
+                || containsAny(normalizedMessage, "bachelor", "undergraduate", "undergrad")) {
+            return true;
+        }
+
+        if (!isFollowUpMessage(normalizedMessage)) {
+            return false;
+        }
+        GraduateKnowledgeResolutionSupport.HistorySignals historySignals = analyzeHistory(
+                recentConversationHistory,
+                catalog,
+                conversationMemory
+        );
+        return historySignals.latestIntent() != GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
+                || (conversationMemory != null && conversationMemory.lastIntentEnum() != GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS);
     }
 
     private String normalize(String text) {

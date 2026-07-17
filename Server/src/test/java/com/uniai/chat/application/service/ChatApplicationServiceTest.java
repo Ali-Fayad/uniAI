@@ -271,6 +271,122 @@ class ChatApplicationServiceTest {
     }
 
     @Test
+    void sendMessageShouldRouteGreetingToMainAiWithoutGraduateRetrieval() {
+        User user = user(15L, "lina", "lina@example.com");
+        Chat chat = chat(150L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        aiServicePort.nextResponse = AiResponse.builder()
+                .content("Hi! How can I help you today?")
+                .provider("gemini")
+                .model("gemini-2.5-flash")
+                .build();
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("hi").build()
+        );
+
+        assertEquals("Hi! How can I help you today?", result.getContent());
+        assertTrue(result.getCitations().isEmpty());
+        assertEquals(0, graduateQueryInterpretationPort.callCount);
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(1, aiServicePort.callCount);
+        assertTrue(aiServicePort.lastRequest.getContext().isEmpty());
+        assertFalse(aiServicePort.lastRequest.getSystemPrompt().contains("Citation instructions:"));
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+        assertEquals(1L, meterRegistry.find("uniai.chat.request.duration")
+                .tags("outcome", "general_chat")
+                .timer()
+                .count());
+    }
+
+    @Test
+    void sendMessageShouldRouteAiClassifiedGeneralQuestionWithoutGraduateRetrieval() {
+        User user = user(16L, "rima", "rima@example.com");
+        Chat chat = chat(160L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                "GENERAL_CHAT",
+                List.of(),
+                List.of(),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+        aiServicePort.nextResponse = AiResponse.builder()
+                .content("Why did the byte cross the bus? To get to the other side.")
+                .provider("gemini")
+                .model("gemini-2.5-flash")
+                .build();
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Tell me a joke").build()
+        );
+
+        assertEquals(1, graduateQueryInterpretationPort.callCount);
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(1, aiServicePort.callCount);
+        assertTrue(aiServicePort.lastRequest.getContext().isEmpty());
+        assertTrue(result.getCitations().isEmpty());
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+    }
+
+    @Test
+    void sendMessageShouldKeepGeneralChatProviderFallbackCitationFree() {
+        User user = user(17L, "maya", "maya@example.com");
+        Chat chat = chat(170L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1, "GENERAL_CHAT", List.of(), List.of(), null, false, false, List.of(), false, null, List.of()
+        );
+        aiServicePort.nextResponse = AiResponse.builder()
+                .content("AI service error : this message is from ChatApplicationService. Please try again later.")
+                .provider("gemini")
+                .model("gemini-2.5-flash")
+                .fallback(true)
+                .build();
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("Explain recursion").build()
+        );
+
+        assertTrue(result.getCitations().isEmpty());
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(1, aiServicePort.callCount);
+        assertEquals(2, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).size());
+    }
+
+    @Test
+    void sendMessageShouldRejectGeneralChatRoutingForGraduateSignals() {
+        User user = user(18L, "nour", "nour@example.com");
+        Chat chat = chat(180L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1, "GENERAL_CHAT", List.of(), List.of(), null, false, false, List.of(), false, null, List.of()
+        );
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder().chatId(chat.getId()).content("What is tuition at AUB?").build()
+        );
+
+        assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, graduateKnowledgeRetrievalPort.lastQuery.intent());
+        assertEquals(1, aiServicePort.callCount);
+    }
+
+    @Test
     void sendMessageShouldScheduleTitleGenerationOnlyForFirstPersistedUserTurn() {
         User user = user(11L, "mona", "mona@example.com");
         Chat chat = chat(110L, user, null);
@@ -334,7 +450,7 @@ class ChatApplicationServiceTest {
 
         MessageResponseDto result = chatApplicationService.sendMessage(
                 user.getEmail(),
-                SendMessageCommand.builder().chatId(chat.getId()).content("Hello").build()
+                SendMessageCommand.builder().chatId(chat.getId()).content("What programs does USJ offer?").build()
         );
 
         assertEquals("AI service error : this message is from ChatApplicationService. Please try again later.", result.getContent());
@@ -548,7 +664,7 @@ class ChatApplicationServiceTest {
 
         MessageResponseDto result = budgetLimitedService.sendMessage(
                 user.getEmail(),
-                SendMessageCommand.builder().chatId(chat.getId()).content("Hello").build()
+                SendMessageCommand.builder().chatId(chat.getId()).content("What programs does USJ offer?").build()
         );
 
         assertEquals(0, aiServicePort.callCount);
@@ -577,7 +693,7 @@ class ChatApplicationServiceTest {
 
         assertThrows(IllegalStateException.class, () -> chatApplicationService.sendMessage(
                 user.getEmail(),
-                SendMessageCommand.builder().chatId(chat.getId()).content("Hello").build()
+                SendMessageCommand.builder().chatId(chat.getId()).content("What programs does USJ offer?").build()
         ));
 
         assertEquals(1, aiServicePort.callCount);

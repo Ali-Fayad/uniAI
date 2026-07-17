@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -93,6 +94,30 @@ class GraduateQueryInterpretationValidatorTest {
         assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
         assertEquals(GraduateKnowledgeIntent.GRADUATE_OVERVIEW, result.query().intent());
         assertEquals(1, result.resolvedUniversityCount());
+    }
+
+    @Test
+    void shouldValidateGeneralChatWithoutGraduateEntities() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1,
+                "GENERAL_CHAT",
+                List.of(),
+                List.of(),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of()
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(GraduateKnowledgeIntent.GENERAL_CHAT, result.query().intent());
+        assertTrue(result.query().resolvedUniversities().isEmpty());
+        assertFalse(result.query().ambiguous());
     }
 
     @Test

@@ -68,6 +68,7 @@ const ChatPage: React.FC = () => {
 
   const {
     currentChatId,
+    chatListRefreshKey,
     messages,
     isLoadingMessages,
     isSendingMessage,
@@ -185,6 +186,7 @@ const ChatPage: React.FC = () => {
         >
           <ChatSidebar
             selectedChatId={currentChatId}
+            chatListRefreshKey={chatListRefreshKey}
             onSelectChat={handleSelectChat}
             onNewChat={handleNewChat}
             onDeleteChat={handleDeleteChat}

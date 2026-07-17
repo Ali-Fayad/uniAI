@@ -1,11 +1,16 @@
 package com.uniai.user.infrastructure.notification;
 
+import com.uniai.shared.infrastructure.email.EmailConfigurationDiagnostics;
 import com.uniai.shared.infrastructure.email.EmailProperties;
 import com.uniai.user.application.port.out.NotificationPort;
 import com.uniai.user.domain.valueobject.VerificationCodeType;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.boot.mail.autoconfigure.MailProperties;
+import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -20,15 +25,19 @@ import org.thymeleaf.context.Context;
 @RequiredArgsConstructor
 public class EmailNotificationAdapter implements NotificationPort {
 
+    private static final Logger logger = LogManager.getLogger(EmailNotificationAdapter.class);
+
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
     private final EmailProperties emailProperties;
+    private final MailProperties mailProperties;
 
     @Override
     public void sendVerificationEmail(String toEmail, VerificationCodeType type, String code) {
         EmailProperties.EmailMessage message = getEmailMessage(type);
         Context context = buildContext(code, message);
-        sendEmail(toEmail, message.getSubject(), context);
+        String messageKey = typeToKey(type);
+        sendEmail(toEmail, type, messageKey, message.getSubject(), context);
     }
 
     private EmailProperties.EmailMessage getEmailMessage(VerificationCodeType type) {
@@ -49,6 +58,7 @@ public class EmailNotificationAdapter implements NotificationPort {
         context.setVariable("code", code);
         context.setVariable("baseUrl", emailProperties.getBaseUrl());
         context.setVariable("supportUrl", emailProperties.getSupportUrl());
+        context.setVariable("expiryMinutes",emailProperties.getCodeExpiryMinutes());
 
         EmailProperties.Footer footer = emailProperties.getFooter();
         context.setVariable("footerSupportText", footer.getSupportText());
@@ -59,7 +69,7 @@ public class EmailNotificationAdapter implements NotificationPort {
         return context;
     }
 
-    private void sendEmail(String to, String subject, Context context) {
+    private void sendEmail(String to, VerificationCodeType type, String messageKey, String subject, Context context) {
         try {
             String html = templateEngine.process("verification_email", context);
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -68,7 +78,28 @@ public class EmailNotificationAdapter implements NotificationPort {
             helper.setFrom(emailProperties.getFrom());
             helper.setSubject(subject);
             helper.setText(html, true);
-            mailSender.send(mimeMessage);
+            logger.info("[EMAIL] Send started {}", EmailConfigurationDiagnostics.buildSendStartedSummary(
+                    type.name(),
+                    messageKey,
+                    to,
+                    mailProperties,
+                    emailProperties,
+                    "verification_email"
+            ));
+            long startedAt = System.currentTimeMillis();
+            try {
+                mailSender.send(mimeMessage);
+            } catch (MailAuthenticationException ex) {
+                long durationMs = System.currentTimeMillis() - startedAt;
+                logger.warn("[EMAIL] SMTP authentication failed {}",
+                        EmailConfigurationDiagnostics.buildAuthenticationFailureSummary(
+                                mailProperties,
+                                emailProperties,
+                                durationMs,
+                                ex.getCause()
+                        ));
+                throw ex;
+            }
         } catch (MessagingException e) {
             throw new IllegalStateException("Email sending failed", e);
         }

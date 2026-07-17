@@ -18,6 +18,7 @@ class GraduateQueryInterpreterPromptProviderTest {
         assertTrue(provider.getPrompt().contains("schemaVersion 1"));
         assertTrue(provider.getPrompt().contains("PROGRAM_LOOKUP"));
         assertTrue(provider.getPrompt().contains("GRADUATE_OVERVIEW"));
+        assertTrue(provider.getPrompt().contains("GENERAL_CHAT"));
     }
 
     @Test

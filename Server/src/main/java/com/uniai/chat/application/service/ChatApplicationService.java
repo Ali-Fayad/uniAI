@@ -37,6 +37,7 @@ import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionStatus;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.domain.builder.ChatBuilder;
 import com.uniai.chat.domain.builder.MessageBuilder;
 import com.uniai.chat.domain.model.Chat;
@@ -310,10 +311,6 @@ public class ChatApplicationService implements
                 return toDto(aiMessage, List.of());
             }
 
-            logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
-                    chat.getId(),
-                    recentConversationWindow.size());
-            long retrievalStartNanos = System.nanoTime();
             GraduateKnowledgeQuery graduateKnowledgeQuery = interpretationResult.query();
             if (graduateKnowledgeQuery == null) {
                 graduateKnowledgeQuery = graduateKnowledgeQueryInterpreter.interpret(
@@ -330,24 +327,37 @@ public class ChatApplicationService implements
                     graduateKnowledgeQuery.followUpResolved(),
                     graduateKnowledgeQuery.ambiguous(),
                     graduateKnowledgeQuery.detailLevel());
-            GraduateKnowledgeRetrievalResult graduateKnowledgeRetrievalResult = graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
-            String graduateContext = graduateKnowledgeRetrievalResult != null ? graduateKnowledgeRetrievalResult.formattedContext() : null;
-            List<GraduateCitation> graduateCitations = graduateKnowledgeRetrievalResult != null
-                    ? graduateKnowledgeRetrievalResult.citations()
-                    : List.of();
-            long retrievalDurationMs = elapsedMillis(retrievalStartNanos);
-            logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
-                    chat.getId(),
-                    graduateContext != null ? graduateContext.length() : 0,
-                    retrievalDurationMs);
+            boolean generalChat = graduateKnowledgeQuery.intent() == GraduateKnowledgeIntent.GENERAL_CHAT;
+            String graduateContext = null;
+            List<GraduateCitation> graduateCitations = List.of();
+            if (generalChat) {
+                logger.debug("[RETRIEVAL] Bypassed for general chat chatId={}", chat.getId());
+            } else {
+                logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
+                        chat.getId(),
+                        recentConversationWindow.size());
+                long retrievalStartNanos = System.nanoTime();
+                GraduateKnowledgeRetrievalResult graduateKnowledgeRetrievalResult = graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
+                graduateContext = graduateKnowledgeRetrievalResult != null ? graduateKnowledgeRetrievalResult.formattedContext() : null;
+                graduateCitations = graduateKnowledgeRetrievalResult != null
+                        ? graduateKnowledgeRetrievalResult.citations()
+                        : List.of();
+                logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
+                        chat.getId(),
+                        graduateContext != null ? graduateContext.length() : 0,
+                        elapsedMillis(retrievalStartNanos));
+            }
             List<String> context = (graduateContext != null && !graduateContext.isBlank())
                     ? List.of(graduateContext)
                     : Collections.emptyList();
-            if (context.isEmpty()) {
+            if (!generalChat && context.isEmpty()) {
                 logger.warn("[RETRIEVAL] Empty context returned chatId={}", chat.getId());
             }
 
-            String systemPrompt = GraduateCitationEngine.appendCitationInstructions(chatSystemPromptPort.getPrompt(), graduateCitations);
+            String baseSystemPrompt = chatSystemPromptPort.getPrompt();
+            String systemPrompt = generalChat
+                    ? baseSystemPrompt
+                    : GraduateCitationEngine.appendCitationInstructions(baseSystemPrompt, graduateCitations);
             logger.debug("[PROMPT] System prompt loaded promptLength={}",
                     StringUtils.hasText(systemPrompt) ? systemPrompt.length() : 0);
 
@@ -382,16 +392,17 @@ public class ChatApplicationService implements
             boolean budgetRejected = false;
             long providerDurationMs = 0L;
             AiRequest budgetedRequest = budgetResult.request();
-            List<GraduateCitation> activeGraduateCitations = budgetResult.contextTrimmed()
+            List<GraduateCitation> activeGraduateCitations = generalChat
+                    ? List.of()
+                    : budgetResult.contextTrimmed()
                     ? GraduateCitationEngine.filterCitationsPresentInContext(
                     graduateCitations,
                     budgetedRequest != null ? budgetedRequest.getContext() : List.of()
             )
                     : graduateCitations;
-            String activeSystemPrompt = GraduateCitationEngine.appendCitationInstructions(
-                    chatSystemPromptPort.getPrompt(),
-                    activeGraduateCitations
-            );
+            String activeSystemPrompt = generalChat
+                    ? baseSystemPrompt
+                    : GraduateCitationEngine.appendCitationInstructions(baseSystemPrompt, activeGraduateCitations);
             if (!budgetResult.requestFits()) {
                 budgetRejected = true;
                 chatOutcome = "budget_rejected";
@@ -476,7 +487,9 @@ public class ChatApplicationService implements
                             chat.getId(),
                             providerDurationMs);
                 } else {
-                    chatOutcome = interpretationResult.fallbackUsed() ? "provider_fallback" : "success";
+                    chatOutcome = interpretationResult.fallbackUsed()
+                            ? "provider_fallback"
+                            : generalChat ? "general_chat" : "success";
                     logger.debug("[AI] Provider success provider={} model={} finishReason={} responseLength={} chatId={} durationMs={}",
                             aiResponse.getProvider(),
                             aiResponse.getModel(),
@@ -662,6 +675,20 @@ public class ChatApplicationService implements
             ConversationMemory conversationMemory
     ) {
         long interpretationStartNanos = System.nanoTime();
+        if (GraduateKnowledgeQueryInterpreter.isDeterministicGeneralChatMessage(currentMessage)) {
+            return GraduateQueryInterpretationResult.valid(
+                    new GraduateKnowledgeQuery(
+                            GraduateKnowledgeIntent.GENERAL_CHAT,
+                            List.of(),
+                            List.of(),
+                            null,
+                            false,
+                            false
+                    ),
+                    0,
+                    0
+            );
+        }
         String prompt = graduateQueryInterpreterPromptPort.getPrompt();
         GraduateQueryInterpretationRequest request = new GraduateQueryInterpretationRequest(currentMessage, recentConversationWindow, conversationMemory);
         GraduateQueryInterpretationBudgetResult budgetResult = graduateQueryInterpretationBudgetManager.budget(request, prompt);
@@ -689,6 +716,25 @@ public class ChatApplicationService implements
         try {
             GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
             GraduateQueryInterpretationResult result = graduateQueryInterpretationValidator.validate(rawInterpretation, universityCatalogs);
+            if (isUnsafeGeneralChatRouting(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, result)) {
+                GraduateQueryInterpretationResult fallback = fallbackInterpretation(
+                        currentMessage,
+                        recentConversationWindow,
+                        universityCatalogs,
+                        conversationMemory,
+                        "AI_QUERY_INTERPRETATION_GENERAL_CHAT_REJECTED"
+                );
+                GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(
+                        currentMessage,
+                        recentConversationWindow,
+                        universityCatalogs,
+                        conversationMemory,
+                        fallback,
+                        "AI_QUERY_INTERPRETATION_GENERAL_CHAT_REJECTED"
+                );
+                recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, "fallback");
+                return resolved;
+            }
             if (result.status() == GraduateQueryInterpretationStatus.INVALID) {
                 incrementInterpretationInvalid(resolveCurrentProviderName(), result.failureCategory());
             }
@@ -733,7 +779,11 @@ public class ChatApplicationService implements
                 conversationMemory
         );
 
-        if (fallbackQuery.intent() == null || fallbackQuery.intent() == com.uniai.chat.application.retrieval.GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
+        if (fallbackQuery.intent() == GraduateKnowledgeIntent.GENERAL_CHAT) {
+            return GraduateQueryInterpretationResult.fallbackUsed(fallbackQuery, buildFallbackUsedMessage(failureCategory));
+        }
+
+        if (fallbackQuery.intent() == null || fallbackQuery.intent() == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
                 || fallbackQuery.ambiguous()
                 || fallbackQuery.resolvedUniversities().isEmpty()) {
             return GraduateQueryInterpretationResult.ambiguous(
@@ -801,6 +851,26 @@ public class ChatApplicationService implements
                 resolvedQuery,
                 resolvedQuery.resolvedUniversities().size(),
                 resolvedQuery.degreeTypes().size()
+        );
+    }
+
+    private boolean isUnsafeGeneralChatRouting(
+            String currentMessage,
+            List<AiConversationMessage> recentConversationWindow,
+            List<UniversityCatalog> universityCatalogs,
+            ConversationMemory conversationMemory,
+            GraduateQueryInterpretationResult interpretationResult
+    ) {
+        if (interpretationResult == null
+                || interpretationResult.query() == null
+                || interpretationResult.query().intent() != GraduateKnowledgeIntent.GENERAL_CHAT) {
+            return false;
+        }
+        return graduateKnowledgeQueryInterpreter.hasGraduateSignal(
+                currentMessage,
+                recentConversationWindow,
+                universityCatalogs,
+                conversationMemory
         );
     }
 

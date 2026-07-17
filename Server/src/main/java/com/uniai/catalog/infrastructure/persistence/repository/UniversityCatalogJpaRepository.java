@@ -9,5 +9,9 @@ import java.util.List;
 @Repository
 public interface UniversityCatalogJpaRepository extends JpaRepository<UniversityCatalog, Long> {
 
-    List<UniversityCatalog> findByNameContainingIgnoreCaseOrderByNameAsc(String search);
+    List<UniversityCatalog> findByNameContainingIgnoreCaseOrAcronymContainingIgnoreCaseOrNameArContainingIgnoreCaseOrderByNameAsc(
+            String name,
+            String acronym,
+            String nameAr
+    );
 }
