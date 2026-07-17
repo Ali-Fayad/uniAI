@@ -97,6 +97,56 @@ class GraduateQueryInterpretationValidatorTest {
     }
 
     @Test
+    void shouldValidateTypedProgramRoutingMetadata() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1,
+                "PROGRAM_LOOKUP",
+                List.of("AUB"),
+                List.of("MASTER"),
+                "LIST",
+                false,
+                false,
+                List.of("computer science"),
+                false,
+                null,
+                List.of(),
+                "PROGRAM",
+                "LIST"
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals("PROGRAM", result.query().resource().name());
+        assertEquals("LIST", result.query().operation().name());
+        assertEquals(List.of("computer science"), result.query().topicKeywords());
+    }
+
+    @Test
+    void shouldRejectTypedMetadataThatConflictsWithIntent() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1,
+                "PROGRAM_LOOKUP",
+                List.of("AUB"),
+                List.of("MASTER"),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of(),
+                "UNIVERSITY",
+                "COUNT"
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.INVALID, result.status());
+        assertEquals("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED", result.failureCategory());
+    }
+
+    @Test
     void shouldValidateGeneralChatWithoutGraduateEntities() {
         GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
                 1,

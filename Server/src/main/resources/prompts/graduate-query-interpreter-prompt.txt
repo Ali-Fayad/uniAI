@@ -11,6 +11,28 @@ Supported intent values:
 - GRADUATE_OVERVIEW
 - UNKNOWN_OR_AMBIGUOUS
 
+Intent is the bounded routing concept. Also return typed retrieval metadata
+when the intent is a graduate knowledge request.
+
+Supported resource values:
+- NONE
+- UNIVERSITY
+- CAMPUS
+- PROGRAM
+- FACULTY
+- DEPARTMENT
+- GRADUATE_OVERVIEW
+
+Supported operation values:
+- NONE
+- LIST
+- COUNT
+- EXISTS
+- DETAILS
+- AGGREGATE
+- COMPARE
+- OVERVIEW
+
 Supported degree values:
 - MASTER
 - PHD
@@ -27,6 +49,8 @@ Required JSON shape:
 {
   "schemaVersion": 1,
   "intent": "PROGRAM_LOOKUP",
+  "resource": "PROGRAM",
+  "operation": "LIST",
   "universities": ["AUB"],
   "degreeTypes": ["MASTER"],
   "detailLevel": "LIST",
@@ -42,6 +66,12 @@ Rules:
 - schemaVersion must be 1
 - universities must contain only free-text references
 - intent must be one of the supported values
+- resource and operation must be present together
+- GENERAL_CHAT and UNKNOWN_OR_AMBIGUOUS use resource NONE and operation NONE
+- PROGRAM_LOOKUP uses PROGRAM with LIST or DETAILS
+- TUITION_AGGREGATION uses PROGRAM with AGGREGATE
+- GRADUATE_OVERVIEW uses GRADUATE_OVERVIEW with OVERVIEW; this is a composite graduate route and must not be reduced to PROGRAM or UNIVERSITY
+- CAMPUS, FACULTY, and DEPARTMENT resources may be described only when the user explicitly asks for them; retrieval support will be added incrementally
 - use GENERAL_CHAT for casual conversation and clearly harmless non-graduate requests; use empty universities and degreeTypes for it
 - never use GENERAL_CHAT when the message includes a known university, graduate degree, tuition or program request, a graduate comparison, or a graduate follow-up cue with usable history
 - use GRADUATE_OVERVIEW for broad university questions and for combined programs-plus-tuition requests

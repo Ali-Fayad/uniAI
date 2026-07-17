@@ -2,7 +2,10 @@ package com.uniai.chat.application.interpretation;
 
 import com.uniai.catalog.domain.model.UniversityCatalog;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeFilters;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 
@@ -51,7 +54,9 @@ public class GraduateQueryInterpretationValidator {
 
         if (tooLong(interpretation.intent())
                 || tooLong(interpretation.detailLevel())
-                || tooLong(interpretation.clarificationNeeded())) {
+                || tooLong(interpretation.clarificationNeeded())
+                || tooLong(interpretation.resource())
+                || tooLong(interpretation.operation())) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_VALUE_TOO_LONG");
         }
 
@@ -77,12 +82,18 @@ public class GraduateQueryInterpretationValidator {
         }
 
         List<ResolvedUniversity> resolvedUniversities = resolveUniversities(normalizedUniversities, catalogs);
-        GraduateKnowledgeQuery partialQuery = buildQuery(
-                intent,
-                resolvedUniversities,
-                normalizedDegrees,
-                interpretation
-        );
+        GraduateKnowledgeQuery partialQuery;
+        try {
+            partialQuery = buildQuery(
+                    intent,
+                    resolvedUniversities,
+                    normalizedDegrees,
+                    normalizedTopicKeywords,
+                    interpretation
+            );
+        } catch (IllegalArgumentException ex) {
+            return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED");
+        }
         if (requiresUniversity(intent) && resolvedUniversities.isEmpty()) {
             return GraduateQueryInterpretationResult.ambiguous(
                     buildAmbiguousMessage(intent),
@@ -108,19 +119,66 @@ public class GraduateQueryInterpretationValidator {
             GraduateKnowledgeIntent intent,
             List<ResolvedUniversity> resolvedUniversities,
             List<String> degreeTypes,
+            List<String> topicKeywords,
             GraduateQueryInterpretation interpretation
     ) {
         GraduateProgramDetailLevel detailLevel = normalizeDetailLevel(interpretation.detailLevel());
         boolean followUpResolved = Boolean.TRUE.equals(interpretation.followUp()) || Boolean.TRUE.equals(interpretation.comparison());
         List<String> normalizedDegrees = normalizeSupportedDegrees(degreeTypes);
-        return new GraduateKnowledgeQuery(
-                intent,
+        GraduateKnowledgeFilters filters = new GraduateKnowledgeFilters(
                 resolvedUniversities,
                 normalizedDegrees,
-                intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
+                topicKeywords
+        );
+        GraduateProgramDetailLevel queryDetailLevel = intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null;
+        String resourceValue = normalizeOptionalValue(interpretation.resource());
+        String operationValue = normalizeOptionalValue(interpretation.operation());
+        if (resourceValue == null && operationValue == null) {
+            return new GraduateKnowledgeQuery(
+                    intent,
+                    GraduateKnowledgeQuery.resourceFor(intent),
+                    GraduateKnowledgeQuery.operationFor(intent, queryDetailLevel),
+                    filters,
+                    queryDetailLevel,
+                    followUpResolved,
+                    false
+            );
+        }
+        if (resourceValue == null || operationValue == null) {
+            throw new IllegalArgumentException("Both resource and operation are required when typed routing metadata is supplied");
+        }
+
+        GraduateKnowledgeResource resource = GraduateKnowledgeResource.valueOf(resourceValue);
+        GraduateKnowledgeOperation operation = GraduateKnowledgeOperation.valueOf(operationValue);
+        if (!GraduateKnowledgeQuery.isCompatible(resource, operation) || !matchesIntent(intent, resource, operation)) {
+            throw new IllegalArgumentException("Unsupported graduate resource/operation combination");
+        }
+        return new GraduateKnowledgeQuery(
+                intent,
+                resource,
+                operation,
+                filters,
+                queryDetailLevel,
                 followUpResolved,
                 false
         );
+    }
+
+    private boolean matchesIntent(
+            GraduateKnowledgeIntent intent,
+            GraduateKnowledgeResource resource,
+            GraduateKnowledgeOperation operation
+    ) {
+        return switch (intent) {
+            case GENERAL_CHAT, UNKNOWN_OR_AMBIGUOUS -> resource == GraduateKnowledgeResource.NONE
+                    && operation == GraduateKnowledgeOperation.NONE;
+            case PROGRAM_LOOKUP -> resource == GraduateKnowledgeResource.PROGRAM
+                    && (operation == GraduateKnowledgeOperation.LIST || operation == GraduateKnowledgeOperation.DETAILS);
+            case TUITION_AGGREGATION -> resource == GraduateKnowledgeResource.PROGRAM
+                    && operation == GraduateKnowledgeOperation.AGGREGATE;
+            case GRADUATE_OVERVIEW -> resource == GraduateKnowledgeResource.GRADUATE_OVERVIEW
+                    && operation == GraduateKnowledgeOperation.OVERVIEW;
+        };
     }
 
     private boolean requiresUniversity(GraduateKnowledgeIntent intent) {
@@ -139,6 +197,10 @@ public class GraduateQueryInterpretationValidator {
         } catch (IllegalArgumentException ex) {
             return null;
         }
+    }
+
+    private String normalizeOptionalValue(String value) {
+        return value == null || value.isBlank() ? null : value.trim().toUpperCase(Locale.ROOT);
     }
 
     private GraduateProgramDetailLevel normalizeDetailLevel(String detailLevel) {
