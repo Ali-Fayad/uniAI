@@ -1,12 +1,11 @@
 /**
  * Application Router Configuration
- * 
+ *
  * Centralized routing configuration separated from App.tsx
  * following separation of concerns principles.
  */
 
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PublicRoute from "./components/common/PublicRoute";
 import { PageTransition } from "./components/animations";
@@ -36,159 +35,220 @@ import WelcomeOnboarding from "./components/page/auth/WelcomeOnboarding";
 
 /**
  * Application Router Component
- * 
+ *
  * Defines all application routes in a centralized location.
  * Protected routes use the ProtectedRoute wrapper component.
- * AnimatePresence enables smooth page transitions.
+ *
+ * Page-level transitions remain owned by PageTransition wrappers.
+ * The router does not coordinate route exit animations because authentication
+ * state changes and navigation can happen during the same render cycle.
  */
 export const AppRouter = () => {
-  const location = useLocation();
-
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        {/* Main landing page - has its own PageTransition */}
-        <Route path="/" element={<MainPage />} />
+    <Routes>
+      {/* Main landing page - has its own PageTransition */}
+      <Route path="/" element={<MainPage />} />
 
-        {/* Auth Routes */}
-        <Route
-          path="/auth"
-          element={
-            <PublicRoute>
-              <PageTransition>
-                <AuthLanding />
-              </PageTransition>
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <PublicRoute>
-              <SignIn />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <PublicRoute>
-              <SignUp />
-            </PublicRoute>
-          }
-        />
-        <Route path="/verify" element={<PageTransition><Verify /></PageTransition>} />
-        <Route path="/2fa/verify" element={<PageTransition><Verify2FA /></PageTransition>} />
-        <Route path="/forgot-password" element={<PageTransition><ForgotPassword /></PageTransition>} />
-        <Route path="/forgot-password/confirm" element={<PageTransition><ForgotPasswordConfirm /></PageTransition>} />
-
-        {/* OAuth Callback */}
-        <Route path="/google/callback" element={<PageTransition><GoogleCallback /></PageTransition>} />
-
-        {/* Protected Chat Route - has its own PageTransition */}
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              <ChatPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/welcome"
-          element={
-            <ProtectedRoute>
-              <PageTransition>
-                <WelcomeOnboarding />
-              </PageTransition>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/personal-info"
-          element={
-            <ProtectedRoute>
-              <PageTransition>
-                <PersonalInfoPage />
-              </PageTransition>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/cvs"
-          element={
-            <ProtectedRoute>
-              <PageTransition>
-                <CVListPage />
-              </PageTransition>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/cv-builder"
-          element={
-            <ProtectedRoute>
-              <PageTransition>
-                <CVBuilderPage />
-              </PageTransition>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/cv-builder/:cvId"
-          element={
-            <ProtectedRoute>
-              <PageTransition>
-                <CVBuilderPage />
-              </PageTransition>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute requiredRole="ADMIN">
-              <PageTransition>
-                <AdminDashboardPage />
-              </PageTransition>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/forbidden"
-          element={
+      {/* Auth Routes */}
+      <Route
+        path="/auth"
+        element={
+          <PublicRoute>
             <PageTransition>
-              <ForbiddenPage />
+              <AuthLanding />
             </PageTransition>
-          }
-        />
+          </PublicRoute>
+        }
+      />
 
-        {/* Settings Page */}
-        <Route path="/settings" element={<PageTransition><SettingsPage /></PageTransition>} />
+      <Route
+        path="/signin"
+        element={
+          <PublicRoute>
+            <SignIn />
+          </PublicRoute>
+        }
+      />
 
-        {/* Map Page */}
-        <Route path="/map" element={<PageTransition><MapPage /></PageTransition>} />
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <SignUp />
+          </PublicRoute>
+        }
+      />
 
-        {/* About Page */}
-        <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+      <Route
+        path="/verify"
+        element={
+          <PageTransition>
+            <Verify />
+          </PageTransition>
+        }
+      />
 
-        {/* Fallback to main page */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </AnimatePresence>
+      <Route
+        path="/2fa/verify"
+        element={
+          <PageTransition>
+            <Verify2FA />
+          </PageTransition>
+        }
+      />
+
+      <Route
+        path="/forgot-password"
+        element={
+          <PageTransition>
+            <ForgotPassword />
+          </PageTransition>
+        }
+      />
+
+      <Route
+        path="/forgot-password/confirm"
+        element={
+          <PageTransition>
+            <ForgotPasswordConfirm />
+          </PageTransition>
+        }
+      />
+
+      {/* OAuth Callback */}
+      <Route
+        path="/google/callback"
+        element={
+          <PageTransition>
+            <GoogleCallback />
+          </PageTransition>
+        }
+      />
+
+      {/* Protected Chat Route - ChatPage owns its PageTransition */}
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/welcome"
+        element={
+          <ProtectedRoute>
+            <PageTransition>
+              <WelcomeOnboarding />
+            </PageTransition>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/personal-info"
+        element={
+          <ProtectedRoute>
+            <PageTransition>
+              <PersonalInfoPage />
+            </PageTransition>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/cvs"
+        element={
+          <ProtectedRoute>
+            <PageTransition>
+              <CVListPage />
+            </PageTransition>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/cv-builder"
+        element={
+          <ProtectedRoute>
+            <PageTransition>
+              <CVBuilderPage />
+            </PageTransition>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/cv-builder/:cvId"
+        element={
+          <ProtectedRoute>
+            <PageTransition>
+              <CVBuilderPage />
+            </PageTransition>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute requiredRole="ADMIN">
+            <PageTransition>
+              <AdminDashboardPage />
+            </PageTransition>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/forbidden"
+        element={
+          <PageTransition>
+            <ForbiddenPage />
+          </PageTransition>
+        }
+      />
+
+      {/* Settings Page */}
+      <Route
+        path="/settings"
+        element={
+          <PageTransition>
+            <SettingsPage />
+          </PageTransition>
+        }
+      />
+
+      {/* Map Page */}
+      <Route
+        path="/map"
+        element={
+          <PageTransition>
+            <MapPage />
+          </PageTransition>
+        }
+      />
+
+      {/* About Page */}
+      <Route
+        path="/about"
+        element={
+          <PageTransition>
+            <AboutPage />
+          </PageTransition>
+        }
+      />
+
+      {/* Fallback to main page */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 };
 
 /**
  * Route Path Constants
- * 
+ *
  * Centralized route paths for type-safe navigation.
  * Use these constants instead of hardcoded strings in navigate() calls.
  */
@@ -215,4 +275,4 @@ export const ROUTES = {
 } as const;
 
 export type RouteKey = keyof typeof ROUTES;
-export type RoutePath = typeof ROUTES[RouteKey];
+export type RoutePath = (typeof ROUTES)[RouteKey];
