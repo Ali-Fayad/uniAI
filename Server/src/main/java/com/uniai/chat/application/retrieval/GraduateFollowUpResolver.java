@@ -197,7 +197,7 @@ public class GraduateFollowUpResolver {
         );
 
         GraduateKnowledgeQuery resolvedQuery;
-        if (hasProgramDetailFilters(candidateQuery.filters())) {
+        if (hasProgramDetailFilters(candidateQuery.filters()) || resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION) {
             GraduateKnowledgeFilters filters = new GraduateKnowledgeFilters(
                     universityResolution.resolvedUniversities,
                     resolvedDegreeTypes,
@@ -207,13 +207,26 @@ public class GraduateFollowUpResolver {
                     candidateQuery.filters().departmentName(),
                     candidateQuery.filters().languages(),
                     candidateQuery.filters().admissionRequirementTypes(),
-                    candidateQuery.filters().programName()
+                    candidateQuery.filters().programName(),
+                    candidateQuery.filters().currency(),
+                    candidateQuery.filters().billingBasis(),
+                    candidateQuery.filters().academicYear(),
+                    candidateQuery.filters().tuitionScopeLevel(),
+                    candidateQuery.filters().thresholdOperator(),
+                    candidateQuery.filters().thresholdValue()
             );
             resolvedQuery = new GraduateKnowledgeQuery(
                     resolvedIntent,
                     candidateQuery.resource(),
                     candidateQuery.operation(),
                     filters,
+                    resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                            ? safeTuitionAggregation(candidateQuery) : GraduateKnowledgeQuery.aggregationFor(resolvedIntent),
+                    resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                            ? candidateQuery.sort() : GraduateKnowledgeSort.empty(),
+                    resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                            ? candidateQuery.limit() : null,
+                    candidateQuery.followUpContext(),
                     resolvedIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
                     followUpResolved,
                     ambiguous
@@ -281,6 +294,14 @@ public class GraduateFollowUpResolver {
                 && (!filters.languages().isEmpty()
                 || !filters.admissionRequirementTypes().isEmpty()
                 || filters.programName() != null);
+    }
+
+    private GraduateKnowledgeAggregation safeTuitionAggregation(GraduateKnowledgeQuery query) {
+        if (query.aggregation() == null || query.aggregation().function() == GraduateKnowledgeAggregationFunction.NONE
+                || query.aggregation().function() == GraduateKnowledgeAggregationFunction.COUNT) {
+            return GraduateKnowledgeQuery.aggregationFor(GraduateKnowledgeIntent.TUITION_AGGREGATION);
+        }
+        return query.aggregation();
     }
 
     private List<String> resolveDegreeTypes(

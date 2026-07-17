@@ -4,12 +4,19 @@ import com.uniai.catalog.domain.model.UniversityCatalog;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeFilters;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeAggregation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeAggregationFunction;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeSort;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeSortDirection;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeSortField;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeThresholdOperator;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 
 import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -39,6 +46,11 @@ public class GraduateQueryInterpretationValidator {
             "GENERAL", "GRE", "GMAT", "ENGLISH", "PORTFOLIO", "INTERVIEW",
             "EXPERIENCE", "ACADEMIC", "PREREQUISITE", "OTHER"
     );
+    private static final Set<String> SUPPORTED_BILLING_BASES = Set.of(
+            "PER_CREDIT", "PER_SEMESTER", "PER_YEAR", "PER_TERM", "PER_PROGRAM",
+            "FLAT_FEE", "PER_APPLICATION", "PER_ACADEMIC_YEAR"
+    );
+    private static final Set<String> SUPPORTED_TUITION_SCOPES = Set.of("UNIVERSITY", "FACULTY", "DEPARTMENT", "PROGRAM");
 
     public GraduateQueryInterpretationResult validate(
             GraduateQueryInterpretation interpretation,
@@ -159,17 +171,27 @@ public class GraduateQueryInterpretationValidator {
         GraduateProgramDetailLevel detailLevel = normalizeDetailLevel(interpretation.detailLevel());
         boolean followUpResolved = Boolean.TRUE.equals(interpretation.followUp()) || Boolean.TRUE.equals(interpretation.comparison());
         List<String> normalizedDegrees = normalizeSupportedDegrees(degreeTypes);
+        GraduateKnowledgeAggregation aggregation = parseAggregation(intent, interpretation.aggregation());
+        GraduateKnowledgeThresholdOperator thresholdOperator = parseThresholdOperator(interpretation.thresholdOperator());
+        BigDecimal thresholdValue = parseThresholdValue(interpretation.thresholdValue(), thresholdOperator);
+        String currency = normalizeTuitionDimension(interpretation.currency(), "currency");
+        String billingBasis = normalizeTuitionDimension(interpretation.billingBasis(), "billing basis");
+        String academicYear = normalizeTuitionDimension(interpretation.academicYear(), "academic year");
+        String tuitionScope = normalizeTuitionDimension(interpretation.tuitionScopeLevel(), "tuition scope");
+        if (billingBasis != null && !SUPPORTED_BILLING_BASES.contains(billingBasis)) {
+            throw new IllegalArgumentException("Unsupported billing basis");
+        }
+        if (tuitionScope != null && !SUPPORTED_TUITION_SCOPES.contains(tuitionScope)) {
+            throw new IllegalArgumentException("Unsupported tuition scope");
+        }
         GraduateKnowledgeFilters filters = new GraduateKnowledgeFilters(
-                resolvedUniversities,
-                normalizedDegrees,
-                topicKeywords,
-                city,
-                faculty,
-                department,
-                languages,
-                admissionRequirementTypes,
-                programName
+                resolvedUniversities, normalizedDegrees, topicKeywords, city, faculty, department,
+                languages, admissionRequirementTypes, programName, currency,
+                billingBasis, academicYear, tuitionScope,
+                thresholdOperator, thresholdValue
         );
+        GraduateKnowledgeSort sort = parseSort(interpretation.sortField(), interpretation.sortDirection());
+        Integer limit = parseLimit(interpretation.limit());
         GraduateProgramDetailLevel queryDetailLevel = intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null;
         String resourceValue = normalizeOptionalValue(interpretation.resource());
         String operationValue = normalizeOptionalValue(interpretation.operation());
@@ -182,6 +204,10 @@ public class GraduateQueryInterpretationValidator {
                     GraduateKnowledgeQuery.resourceFor(intent),
                     GraduateKnowledgeQuery.operationFor(intent, queryDetailLevel),
                     filters,
+                    aggregation,
+                    sort,
+                    limit,
+                    com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext.empty(),
                     queryDetailLevel,
                     followUpResolved,
                     false
@@ -201,10 +227,100 @@ public class GraduateQueryInterpretationValidator {
                 resource,
                 operation,
                 filters,
+                aggregation,
+                sort,
+                limit,
+                com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext.empty(),
                 queryDetailLevel,
                 followUpResolved,
                 false
         );
+    }
+
+    private GraduateKnowledgeAggregation parseAggregation(GraduateKnowledgeIntent intent, String value) {
+        if (intent != GraduateKnowledgeIntent.TUITION_AGGREGATION) {
+            return GraduateKnowledgeAggregation.empty();
+        }
+        if (value == null || value.isBlank()) {
+            return new GraduateKnowledgeAggregation(GraduateKnowledgeAggregationFunction.AVG, "tuition");
+        }
+        try {
+            GraduateKnowledgeAggregationFunction function = GraduateKnowledgeAggregationFunction.valueOf(value.trim().toUpperCase(Locale.ROOT));
+            if (function == GraduateKnowledgeAggregationFunction.AVG
+                    || function == GraduateKnowledgeAggregationFunction.MIN
+                    || function == GraduateKnowledgeAggregationFunction.MAX
+                    || function == GraduateKnowledgeAggregationFunction.RANGE) {
+                return new GraduateKnowledgeAggregation(function, "tuition");
+            }
+        } catch (IllegalArgumentException ignored) {
+            // Report all unsupported values through the normal interpretation validation path.
+        }
+        throw new IllegalArgumentException("Unsupported tuition aggregation");
+    }
+
+    private GraduateKnowledgeThresholdOperator parseThresholdOperator(String value) {
+        if (value == null || value.isBlank()) return GraduateKnowledgeThresholdOperator.NONE;
+        try {
+            GraduateKnowledgeThresholdOperator operator = GraduateKnowledgeThresholdOperator.valueOf(value.trim().toUpperCase(Locale.ROOT));
+            if (operator != GraduateKnowledgeThresholdOperator.NONE) return operator;
+        } catch (IllegalArgumentException ignored) {
+            // Report all unsupported values through the normal interpretation validation path.
+        }
+        throw new IllegalArgumentException("Unsupported tuition threshold operator");
+    }
+
+    private BigDecimal parseThresholdValue(String value, GraduateKnowledgeThresholdOperator operator) {
+        if (operator == GraduateKnowledgeThresholdOperator.NONE) {
+            if (value != null && !value.isBlank()) throw new IllegalArgumentException("Threshold value requires an operator");
+            return null;
+        }
+        if (value == null || value.isBlank()) throw new IllegalArgumentException("Threshold value is required");
+        try {
+            BigDecimal parsed = new BigDecimal(value.trim());
+            if (parsed.signum() < 0) throw new IllegalArgumentException("Threshold must not be negative");
+            return parsed;
+        } catch (NumberFormatException ex) {
+            throw new IllegalArgumentException("Invalid tuition threshold");
+        }
+    }
+
+    private GraduateKnowledgeSort parseSort(String field, String direction) {
+        if (field == null || field.isBlank()) return GraduateKnowledgeSort.empty();
+        try {
+            GraduateKnowledgeSortField parsedField = GraduateKnowledgeSortField.valueOf(field.trim().toUpperCase(Locale.ROOT));
+            GraduateKnowledgeSortDirection parsedDirection = direction == null || direction.isBlank()
+                    ? GraduateKnowledgeSortDirection.ASC
+                    : GraduateKnowledgeSortDirection.valueOf(direction.trim().toUpperCase(Locale.ROOT));
+            if (parsedField == GraduateKnowledgeSortField.TUITION
+                    || parsedField == GraduateKnowledgeSortField.NAME
+                    || parsedField == GraduateKnowledgeSortField.UNIVERSITY
+                    || parsedField == GraduateKnowledgeSortField.DEGREE_TYPE) {
+                return new GraduateKnowledgeSort(parsedField, parsedDirection);
+            }
+        } catch (IllegalArgumentException ignored) {
+            // Report all unsupported values through the normal interpretation validation path.
+        }
+        throw new IllegalArgumentException("Unsupported tuition sort");
+    }
+
+    private Integer parseLimit(Integer limit) {
+        if (limit == null) return null;
+        if (limit < 1 || limit > GraduateKnowledgeQuery.MAX_LIMIT) {
+            throw new IllegalArgumentException("Query limit is outside the supported range");
+        }
+        return limit;
+    }
+
+    private String normalizeTuitionDimension(String value, String name) {
+        if (value == null || value.isBlank()) return null;
+        String normalized = value.trim().toUpperCase(Locale.ROOT);
+        if (normalized.length() > MAX_STRING_LENGTH || normalized.contains("\n") || normalized.contains("\r")) {
+            throw new IllegalArgumentException("Invalid " + name);
+        }
+        if ("currency".equals(name) && !normalized.matches("[A-Z0-9][A-Z0-9_-]{0,9}")) {
+            throw new IllegalArgumentException("Invalid currency");
+        }
+        return normalized;
     }
 
     private boolean matchesIntent(

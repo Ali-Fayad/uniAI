@@ -67,7 +67,17 @@ Required JSON shape:
   "department": null,
   "languages": [],
   "admissionRequirementTypes": [],
-  "programName": null
+  "programName": null,
+  "aggregation": "AVG",
+  "thresholdOperator": null,
+  "thresholdValue": null,
+  "currency": null,
+  "billingBasis": null,
+  "academicYear": null,
+  "tuitionScopeLevel": null,
+  "sortField": null,
+  "sortDirection": null,
+  "limit": null
 }
 
 Rules:
@@ -78,6 +88,10 @@ Rules:
 - GENERAL_CHAT and UNKNOWN_OR_AMBIGUOUS use resource NONE and operation NONE
 - PROGRAM_LOOKUP uses PROGRAM with LIST or DETAILS
 - TUITION_AGGREGATION uses PROGRAM with AGGREGATE
+- TUITION_AGGREGATION supports only AVG, MIN, MAX, or RANGE; RANGE is one grouped result containing minimum and maximum
+- tuition thresholds use only LT, LTE, GT, or GTE with a non-negative numeric thresholdValue
+- compare tuition only within the requested compatible currency, billing basis, academic year, scope, and entity grouping; never convert currencies or billing units
+- tuition result limits default to 5 and must not exceed 20; sorting and threshold filtering remain structured retrieval concerns
 - GRADUATE_OVERVIEW uses GRADUATE_OVERVIEW with OVERVIEW; this is a composite graduate route and must not be reduced to PROGRAM or UNIVERSITY
 - LOCATION_LOOKUP uses CAMPUS or UNIVERSITY with LIST, COUNT, or EXISTS
 - use LOCATION_LOOKUP only for explicit structured campus or university-by-city questions

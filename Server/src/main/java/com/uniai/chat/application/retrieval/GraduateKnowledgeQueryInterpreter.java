@@ -207,14 +207,43 @@ public class GraduateKnowledgeQueryInterpreter {
             );
         }
 
-        return new GraduateKnowledgeQuery(
-                intent,
-                resolvedUniversities,
-                resolvedDegreeTypes,
-                intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
-                followUpResolved,
-                ambiguous
-        );
+        if (intent == GraduateKnowledgeIntent.TUITION_AGGREGATION) {
+            GraduateKnowledgeFilters tuitionFilters = new GraduateKnowledgeFilters(
+                    resolvedUniversities,
+                    resolvedDegreeTypes,
+                    List.of(),
+                    null,
+                    null,
+                    null,
+                    List.of(),
+                    List.of(),
+                    null,
+                    GraduateKnowledgeResolutionSupport.detectTuitionCurrency(normalizedMessage),
+                    GraduateKnowledgeResolutionSupport.detectTuitionBillingBasis(normalizedMessage),
+                    GraduateKnowledgeResolutionSupport.detectTuitionAcademicYear(normalizedMessage),
+                    GraduateKnowledgeResolutionSupport.detectTuitionScope(normalizedMessage),
+                    GraduateKnowledgeResolutionSupport.detectTuitionThresholdOperator(normalizedMessage),
+                    GraduateKnowledgeResolutionSupport.detectTuitionThresholdValue(normalizedMessage)
+            );
+            GraduateKnowledgeAggregationFunction function = GraduateKnowledgeResolutionSupport.detectTuitionAggregation(normalizedMessage);
+            GraduateKnowledgeSort sort = GraduateKnowledgeResolutionSupport.detectTuitionSort(normalizedMessage);
+            Integer limit = GraduateKnowledgeResolutionSupport.detectTuitionLimit(normalizedMessage);
+            return new GraduateKnowledgeQuery(
+                    intent,
+                    GraduateKnowledgeResource.PROGRAM,
+                    GraduateKnowledgeOperation.AGGREGATE,
+                    tuitionFilters,
+                    new GraduateKnowledgeAggregation(function, "tuition"),
+                    sort,
+                    limit,
+                    GraduateKnowledgeFollowUpContext.empty(),
+                    null,
+                    followUpResolved,
+                    ambiguous
+            );
+        }
+        return new GraduateKnowledgeQuery(intent, resolvedUniversities, resolvedDegreeTypes,
+                intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null, followUpResolved, ambiguous);
     }
 
     private List<ResolvedUniversity> resolveOverviewUniversities(

@@ -2,11 +2,15 @@ package com.uniai.chat.infrastructure.retrieval;
 
 import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeAggregation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeAggregationFunction;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeFilters;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeSort;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
@@ -294,6 +298,36 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
                 .count());
     }
 
+    @Test
+    void retrieveContextShouldRenderRangeAsOneGroupedResultAndKeepAnalyticsInSql() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.TUITION_AGGREGATION,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.AGGREGATE,
+                new GraduateKnowledgeFilters(
+                        List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                        List.of("MASTER"), List.of(), null, null, null, List.of(), List.of(), null,
+                        "USD", "PER_CREDIT", "2024-2025", null,
+                        com.uniai.chat.application.retrieval.GraduateKnowledgeThresholdOperator.NONE, null
+                ),
+                new GraduateKnowledgeAggregation(GraduateKnowledgeAggregationFunction.RANGE, "tuition"),
+                GraduateKnowledgeSort.empty(),
+                5,
+                GraduateKnowledgeFollowUpContext.empty(),
+                null,
+                false,
+                false
+        );
+
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+
+        assertTrue(result.formattedContext().contains("Computed range:"), result.formattedContext());
+        assertEquals(1, result.citations().size());
+        assertTrue(jdbcTemplate.lastSql.contains("MIN("), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("MAX("), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("LIMIT 5"), jdbcTemplate.lastSql);
+    }
+
     private List<Map<String, Object>> programRows() {
         return List.of(
                 programRow(101L, 1L, "American University of Beirut", "AUB", "Maroun Semaan Faculty of Engineering and Architecture", "MASTER", "Master of Science in Computer Science", "English", "30", "ON_CAMPUS", "THESIS", "120 USD / credit | 140 USD / credit", "General admission requirements", "https://www.aub.edu.lb/fine/cs-masters", "https://www.aub.edu.lb/fine/cs-masters | https://www.aub.edu.lb/registrar/tuition"),
@@ -438,6 +472,10 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
             aggregatedRow.put("record_count", group.size());
             aggregatedRow.put("numeric_tuition_records_used", numericCount);
             aggregatedRow.put("average_amount", average);
+            BigDecimal minimum = group.stream().map(row -> toBigDecimal(row.get("amount"))).filter(value -> value != null).min(BigDecimal::compareTo).orElse(null);
+            BigDecimal maximum = group.stream().map(row -> toBigDecimal(row.get("amount"))).filter(value -> value != null).max(BigDecimal::compareTo).orElse(null);
+            aggregatedRow.put("minimum_amount", minimum);
+            aggregatedRow.put("maximum_amount", maximum);
             aggregatedRow.put("source_urls", String.join(" | ", sources));
             aggregatedRow.put("program_id", first.get("program_id"));
             aggregatedRow.put("official_degree_name", first.get("official_degree_name"));
@@ -474,7 +512,18 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         return tuitionRows().stream()
                 .filter(row -> universityIds.isEmpty() || universityIds.contains(toLong(row.get("university_id"))))
                 .filter(row -> degreeTypes.isEmpty() || degreeTypes.contains(stringValue(row.get("degree_type_code")).toUpperCase(Locale.ROOT)))
+                .filter(row -> paramValue(params, "tuitionCurrency") == null || stringValue(paramValue(params, "tuitionCurrency")).equalsIgnoreCase(stringValue(row.get("currency"))))
+                .filter(row -> paramValue(params, "tuitionBillingBasis") == null || stringValue(paramValue(params, "tuitionBillingBasis")).equalsIgnoreCase(stringValue(row.get("billing_basis"))))
+                .filter(row -> paramValue(params, "tuitionAcademicYear") == null || stringValue(paramValue(params, "tuitionAcademicYear")).equals(stringValue(row.get("academic_year"))))
                 .collect(Collectors.toList());
+    }
+
+    private Object paramValue(MapSqlParameterSource params, String name) {
+        try {
+            return params.getValue(name);
+        } catch (IllegalArgumentException ignored) {
+            return null;
+        }
     }
 
     private ResultSet mockResultSet(Map<String, Object> row) {

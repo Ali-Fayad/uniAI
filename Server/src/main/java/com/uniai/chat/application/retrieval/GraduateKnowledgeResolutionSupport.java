@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.math.BigDecimal;
 
 final class GraduateKnowledgeResolutionSupport {
 
@@ -94,6 +95,83 @@ final class GraduateKnowledgeResolutionSupport {
                 "tuition cost")
                 || (normalized.contains("tuition")
                 && containsAny(normalized, "average", "avg", "mean", "compare", "comparison", "same", "cheaper", "cost"));
+    }
+
+    static GraduateKnowledgeAggregationFunction detectTuitionAggregation(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "range", "minimum and maximum", "min and max")) return GraduateKnowledgeAggregationFunction.RANGE;
+        if (containsAny(normalized, "most expensive", "highest tuition", "maximum tuition", "max tuition")) return GraduateKnowledgeAggregationFunction.MAX;
+        if (containsAny(normalized, "cheapest", "lowest tuition", "minimum tuition", "min tuition")) return GraduateKnowledgeAggregationFunction.MIN;
+        return GraduateKnowledgeAggregationFunction.AVG;
+    }
+
+    static GraduateKnowledgeThresholdOperator detectTuitionThresholdOperator(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "at most", "no more than", "less than or equal")) return GraduateKnowledgeThresholdOperator.LTE;
+        if (containsAny(normalized, "at least", "no less than", "greater than or equal")) return GraduateKnowledgeThresholdOperator.GTE;
+        if (containsAny(normalized, "under", "below", "less than")) return GraduateKnowledgeThresholdOperator.LT;
+        if (containsAny(normalized, "over", "above", "more than", "greater than")) return GraduateKnowledgeThresholdOperator.GT;
+        return GraduateKnowledgeThresholdOperator.NONE;
+    }
+
+    static BigDecimal detectTuitionThresholdValue(String text) {
+        if (text == null || text.isBlank()) return null;
+        java.util.regex.Matcher matcher = Pattern.compile("(?:under|below|over|above|at most|at least|less than|more than)\\s+(?:usd|eur|lbp|ll|\\$|€)?\\s*([0-9][0-9,]*(?:\\.[0-9]+)?)", Pattern.CASE_INSENSITIVE).matcher(text);
+        if (!matcher.find()) return null;
+        try { return new BigDecimal(matcher.group(1).replace(",", "")); } catch (NumberFormatException ex) { return null; }
+    }
+
+    static String detectTuitionCurrency(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "usd", "dollar", "dollars", "$")) return "USD";
+        if (containsAny(normalized, "eur", "euro", "euros", "€")) return "EUR";
+        if (containsAny(normalized, "lbp", "l.l.", "lebanese pound", "lebanese pounds")) return "LBP";
+        if (containsWord(normalized, "ll")) return "LL";
+        return null;
+    }
+
+    static String detectTuitionBillingBasis(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "per credit", "credit hour", "credit")) return "PER_CREDIT";
+        if (containsAny(normalized, "per semester", "semester")) return "PER_SEMESTER";
+        if (containsAny(normalized, "per year", "yearly", "annual", "annually")) return "PER_YEAR";
+        if (containsAny(normalized, "per term", "term")) return "PER_TERM";
+        if (containsAny(normalized, "per program", "program cost", "total program")) return "PER_PROGRAM";
+        return null;
+    }
+
+    static String detectTuitionAcademicYear(String text) {
+        if (text == null) return null;
+        java.util.regex.Matcher matcher = Pattern.compile("\\b(20\\d{2}\\s*[-/]\\s*20\\d{2})\\b").matcher(text);
+        return matcher.find() ? matcher.group(1).replaceAll("\\s+", "") : null;
+    }
+
+    static String detectTuitionScope(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "by program", "program-level")) return "PROGRAM";
+        if (containsAny(normalized, "by department", "department-level")) return "DEPARTMENT";
+        if (containsAny(normalized, "by faculty", "faculty-level")) return "FACULTY";
+        if (containsAny(normalized, "university-level", "university wide", "university-wide")) return "UNIVERSITY";
+        return null;
+    }
+
+    static GraduateKnowledgeSort detectTuitionSort(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "cheapest", "lowest tuition", "sort by lowest", "ascending tuition")) {
+            return new GraduateKnowledgeSort(GraduateKnowledgeSortField.TUITION, GraduateKnowledgeSortDirection.ASC);
+        }
+        if (containsAny(normalized, "most expensive", "highest tuition", "sort by highest", "descending tuition")) {
+            return new GraduateKnowledgeSort(GraduateKnowledgeSortField.TUITION, GraduateKnowledgeSortDirection.DESC);
+        }
+        return GraduateKnowledgeSort.empty();
+    }
+
+    static Integer detectTuitionLimit(String text) {
+        if (text == null) return null;
+        java.util.regex.Matcher matcher = Pattern.compile("\\b(?:top|bottom|first|show)\\s+(\\d{1,2})\\b").matcher(normalize(text));
+        if (!matcher.find()) return null;
+        int value = Integer.parseInt(matcher.group(1));
+        return value >= 1 && value <= GraduateKnowledgeQuery.MAX_LIMIT ? value : null;
     }
 
     static boolean detectProgramLookupIntent(String text, List<String> degreeTypes, boolean tuitionIntent) {

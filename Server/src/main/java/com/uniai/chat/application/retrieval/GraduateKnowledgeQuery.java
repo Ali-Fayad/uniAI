@@ -15,6 +15,9 @@ public record GraduateKnowledgeQuery(
         boolean followUpResolved,
         boolean ambiguous
 ) {
+    public static final int DEFAULT_TUITION_LIMIT = 5;
+    public static final int MAX_LIMIT = 20;
+
     public GraduateKnowledgeQuery {
         intent = intent == null ? GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS : intent;
         resource = resource == null ? resourceFor(intent) : resource;
@@ -23,12 +26,19 @@ public record GraduateKnowledgeQuery(
         aggregation = aggregation == null ? aggregationFor(intent) : aggregation;
         sort = sort == null ? GraduateKnowledgeSort.empty() : sort;
         followUpContext = followUpContext == null ? GraduateKnowledgeFollowUpContext.empty() : followUpContext;
-        if (limit != null && limit < 1) {
+        if (limit != null && (limit < 1 || limit > MAX_LIMIT)) {
             throw new IllegalArgumentException("Query limit must be positive");
         }
         if (!isCompatible(resource, operation)) {
             throw new IllegalArgumentException("Unsupported graduate resource/operation combination: "
                     + resource + "/" + operation);
+        }
+        if (intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                && aggregation.function() != GraduateKnowledgeAggregationFunction.AVG
+                && aggregation.function() != GraduateKnowledgeAggregationFunction.MIN
+                && aggregation.function() != GraduateKnowledgeAggregationFunction.MAX
+                && aggregation.function() != GraduateKnowledgeAggregationFunction.RANGE) {
+            throw new IllegalArgumentException("Unsupported tuition aggregation function");
         }
         if (intent == GraduateKnowledgeIntent.GENERAL_CHAT
                 || intent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS) {

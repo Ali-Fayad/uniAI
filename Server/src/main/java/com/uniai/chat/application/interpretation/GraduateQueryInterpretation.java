@@ -21,7 +21,17 @@ public record GraduateQueryInterpretation(
         String department,
         List<String> languages,
         List<String> admissionRequirementTypes,
-        String programName
+        String programName,
+        String aggregation,
+        String thresholdOperator,
+        String thresholdValue,
+        String currency,
+        String billingBasis,
+        String academicYear,
+        String tuitionScopeLevel,
+        String sortField,
+        String sortDirection,
+        Integer limit
 ) {
     public GraduateQueryInterpretation {
         universities = universities == null ? List.of() : List.copyOf(universities);
@@ -65,6 +75,16 @@ public record GraduateQueryInterpretation(
                 null,
                 List.of(),
                 List.of(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null
         );
     }
@@ -88,7 +108,8 @@ public record GraduateQueryInterpretation(
     ) {
         this(schemaVersion, intent, universities, degreeTypes, detailLevel, followUp, comparison,
                 topicKeywords, ambiguous, clarificationNeeded, unsupportedConstraints,
-                resource, operation, city, null, null, List.of(), List.of(), null);
+                resource, operation, city, null, null, List.of(), List.of(), null,
+                null, null, null, null, null, null, null, null, null, null);
     }
 
     /** Compatibility constructor for the schema used before typed routing metadata. */
@@ -124,7 +145,30 @@ public record GraduateQueryInterpretation(
                 null,
                 List.of(),
                 List.of(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null
         );
+    }
+
+    /** Compatibility constructor for the location, academic, language, and admission schema. */
+    public GraduateQueryInterpretation(
+            Integer schemaVersion, String intent, List<String> universities, List<String> degreeTypes,
+            String detailLevel, Boolean followUp, Boolean comparison, List<String> topicKeywords,
+            Boolean ambiguous, String clarificationNeeded, List<String> unsupportedConstraints,
+            String resource, String operation, String city, String faculty, String department,
+            List<String> languages, List<String> admissionRequirementTypes, String programName
+    ) {
+        this(schemaVersion, intent, universities, degreeTypes, detailLevel, followUp, comparison, topicKeywords,
+                ambiguous, clarificationNeeded, unsupportedConstraints, resource, operation, city, faculty, department,
+                languages, admissionRequirementTypes, programName, null, null, null, null, null, null, null, null, null, null);
     }
 }
