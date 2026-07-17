@@ -10,6 +10,7 @@ Supported intent values:
 - TUITION_AGGREGATION
 - GRADUATE_OVERVIEW
 - LOCATION_LOOKUP
+- ACADEMIC_STRUCTURE_LOOKUP
 - UNKNOWN_OR_AMBIGUOUS
 
 Intent is the bounded routing concept. Also return typed retrieval metadata
@@ -61,7 +62,12 @@ Required JSON shape:
   "ambiguous": false,
   "clarificationNeeded": null,
   "unsupportedConstraints": [],
-  "city": null
+  "city": null,
+  "faculty": null,
+  "department": null,
+  "languages": [],
+  "admissionRequirementTypes": [],
+  "programName": null
 }
 
 Rules:
@@ -75,6 +81,14 @@ Rules:
 - GRADUATE_OVERVIEW uses GRADUATE_OVERVIEW with OVERVIEW; this is a composite graduate route and must not be reduced to PROGRAM or UNIVERSITY
 - LOCATION_LOOKUP uses CAMPUS or UNIVERSITY with LIST, COUNT, or EXISTS
 - use LOCATION_LOOKUP only for explicit structured campus or university-by-city questions
+- use ACADEMIC_STRUCTURE_LOOKUP only for bounded structured questions about PROGRAM, FACULTY, or DEPARTMENT resources
+- ACADEMIC_STRUCTURE_LOOKUP uses only LIST, COUNT, or EXISTS operations
+- use exact structured faculty and department names; do not invent aliases or use fuzzy academic-entity matching
+- keep program topic keywords short and bounded, and return faculty or department only when explicitly requested
+- languages are exact structured primary-language filters; never infer language from program prose
+- admissionRequirementTypes may contain only GENERAL, GRE, GMAT, ENGLISH, PORTFOLIO, INTERVIEW, EXPERIENCE, ACADEMIC, PREREQUISITE, or OTHER
+- use PROGRAM with DETAILS for admission requirements and documents; preserve broader university, faculty, or department scope in the answer
+- return programName only when the program identity is unambiguous from the request or history
 - return the requested city in the optional city field; do not infer a region or location from a university name
 - CAMPUS, FACULTY, and DEPARTMENT resources may be described only when the user explicitly asks for them; only CAMPUS and UNIVERSITY location retrieval are currently supported
 - use GENERAL_CHAT for casual conversation and clearly harmless non-graduate requests; use empty universities and degreeTypes for it

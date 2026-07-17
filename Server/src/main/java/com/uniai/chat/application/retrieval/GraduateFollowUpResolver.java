@@ -62,6 +62,37 @@ public class GraduateFollowUpResolver {
             );
         }
 
+        if (candidateQuery.intent() == GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP) {
+            List<UniversityCatalog> catalogs = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
+            List<ResolvedUniversity> explicitUniversities = GraduateKnowledgeResolutionSupport.resolveUniversities(
+                    normalize(currentUserMessage), catalogs);
+            if (!explicitUniversities.isEmpty()) {
+                GraduateKnowledgeQuery replaced = new GraduateKnowledgeQuery(
+                        candidateQuery.intent(),
+                        candidateQuery.resource(),
+                        candidateQuery.operation(),
+                        new GraduateKnowledgeFilters(
+                                explicitUniversities,
+                                candidateQuery.degreeTypes(),
+                                candidateQuery.topicKeywords(),
+                                candidateQuery.filters().city(),
+                                candidateQuery.filters().facultyName(),
+                                candidateQuery.filters().departmentName()
+                        ),
+                        candidateQuery.detailLevel(),
+                        true,
+                        false
+                );
+                return GraduateFollowUpResolutionResult.resolved(replaced, List.of("current message"));
+            }
+            if (!candidateQuery.resolvedUniversities().isEmpty()) {
+                return GraduateFollowUpResolutionResult.unchanged(candidateQuery, List.of("current message"));
+            }
+            return GraduateFollowUpResolutionResult.clarificationRequired(
+                    "ACADEMIC_SCOPE_REQUIRED", candidateQuery, List.of("current message")
+            );
+        }
+
         String normalizedMessage = normalize(currentUserMessage);
         List<UniversityCatalog> catalogs = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
         GraduateKnowledgeResolutionSupport.HistorySignals historySignals =
@@ -165,14 +196,38 @@ public class GraduateFollowUpResolver {
                 currentUserMessage
         );
 
-        GraduateKnowledgeQuery resolvedQuery = new GraduateKnowledgeQuery(
-                resolvedIntent,
-                universityResolution.resolvedUniversities,
-                resolvedDegreeTypes,
-                resolvedIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
-                followUpResolved,
-                ambiguous
-        );
+        GraduateKnowledgeQuery resolvedQuery;
+        if (hasProgramDetailFilters(candidateQuery.filters())) {
+            GraduateKnowledgeFilters filters = new GraduateKnowledgeFilters(
+                    universityResolution.resolvedUniversities,
+                    resolvedDegreeTypes,
+                    candidateQuery.topicKeywords(),
+                    candidateQuery.filters().city(),
+                    candidateQuery.filters().facultyName(),
+                    candidateQuery.filters().departmentName(),
+                    candidateQuery.filters().languages(),
+                    candidateQuery.filters().admissionRequirementTypes(),
+                    candidateQuery.filters().programName()
+            );
+            resolvedQuery = new GraduateKnowledgeQuery(
+                    resolvedIntent,
+                    candidateQuery.resource(),
+                    candidateQuery.operation(),
+                    filters,
+                    resolvedIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
+                    followUpResolved,
+                    ambiguous
+            );
+        } else {
+            resolvedQuery = new GraduateKnowledgeQuery(
+                    resolvedIntent,
+                    universityResolution.resolvedUniversities,
+                    resolvedDegreeTypes,
+                    resolvedIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
+                    followUpResolved,
+                    ambiguous
+            );
+        }
 
         if (ambiguous) {
             return GraduateFollowUpResolutionResult.clarificationRequired(
@@ -219,6 +274,13 @@ public class GraduateFollowUpResolver {
             return memoryIntent;
         }
         return GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;
+    }
+
+    private boolean hasProgramDetailFilters(GraduateKnowledgeFilters filters) {
+        return filters != null
+                && (!filters.languages().isEmpty()
+                || !filters.admissionRequirementTypes().isEmpty()
+                || filters.programName() != null);
     }
 
     private List<String> resolveDegreeTypes(

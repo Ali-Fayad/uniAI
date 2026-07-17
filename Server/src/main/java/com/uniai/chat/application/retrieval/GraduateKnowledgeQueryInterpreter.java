@@ -36,6 +36,11 @@ public class GraduateKnowledgeQueryInterpreter {
         GraduateKnowledgeResource currentLocationResource = GraduateKnowledgeResolutionSupport.detectLocationResource(normalizedMessage);
         GraduateKnowledgeOperation currentLocationOperation = GraduateKnowledgeResolutionSupport.detectLocationOperation(normalizedMessage);
         String currentCity = GraduateKnowledgeResolutionSupport.detectRequestedCity(normalizedMessage, catalog);
+        boolean currentAcademicIntent = GraduateKnowledgeResolutionSupport.detectAcademicStructureLookupIntent(normalizedMessage);
+        GraduateKnowledgeResource currentAcademicResource = GraduateKnowledgeResolutionSupport.detectAcademicResource(normalizedMessage);
+        GraduateKnowledgeOperation currentAcademicOperation = GraduateKnowledgeResolutionSupport.detectAcademicOperation(normalizedMessage);
+        String currentFacultyName = GraduateKnowledgeResolutionSupport.detectFacultyName(normalizedMessage);
+        String currentDepartmentName = GraduateKnowledgeResolutionSupport.detectDepartmentName(normalizedMessage);
         boolean currentOverviewIntent = GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, currentProgramIntent, currentTuitionIntent);
         boolean currentFollowUp = isFollowUpMessage(normalizedMessage);
         boolean explicitComparison = containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between", "with");
@@ -68,7 +73,12 @@ public class GraduateKnowledgeQueryInterpreter {
 
         GraduateKnowledgeIntent inheritedHistoryIntent = historySignals.latestIntent();
 
-        if (currentLocationIntent) {
+        if (currentAcademicIntent) {
+            intent = GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP;
+            resolvedUniversities = GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities);
+            resolvedDegreeTypes = new ArrayList<>(currentDegreeTypes);
+            ambiguous = resolvedUniversities.isEmpty();
+        } else if (currentLocationIntent) {
             intent = GraduateKnowledgeIntent.LOCATION_LOOKUP;
             resolvedUniversities = GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities);
             resolvedDegreeTypes = List.of();
@@ -172,6 +182,25 @@ public class GraduateKnowledgeQueryInterpreter {
                     currentLocationResource,
                     currentLocationOperation,
                     new GraduateKnowledgeFilters(resolvedUniversities, List.of(), List.of(), currentCity),
+                    null,
+                    followUpResolved,
+                    ambiguous
+            );
+        }
+
+        if (intent == GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP) {
+            return new GraduateKnowledgeQuery(
+                    intent,
+                    currentAcademicResource,
+                    currentAcademicOperation,
+                    new GraduateKnowledgeFilters(
+                            resolvedUniversities,
+                            resolvedDegreeTypes,
+                            List.of(),
+                            null,
+                            currentFacultyName,
+                            currentDepartmentName
+                    ),
                     null,
                     followUpResolved,
                     ambiguous
@@ -338,6 +367,9 @@ public class GraduateKnowledgeQueryInterpreter {
         if (GraduateKnowledgeResolutionSupport.detectLocationLookupIntent(normalizedMessage)) {
             return GraduateKnowledgeIntent.LOCATION_LOOKUP;
         }
+        if (GraduateKnowledgeResolutionSupport.detectAcademicStructureLookupIntent(normalizedMessage)) {
+            return GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP;
+        }
         boolean tuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
         boolean programIntent = detectProgramLookupIntent(normalizedMessage, detectDegreeTypes(normalizedMessage), tuitionIntent);
         if (GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, programIntent, tuitionIntent)) {
@@ -406,6 +438,7 @@ public class GraduateKnowledgeQueryInterpreter {
                 || programIntent
                 || GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, programIntent, tuitionIntent)
                 || GraduateKnowledgeResolutionSupport.detectLocationLookupIntent(normalizedMessage)
+                || GraduateKnowledgeResolutionSupport.detectAcademicStructureLookupIntent(normalizedMessage)
                 || containsAny(normalizedMessage, "university", "college", "institute", "school", "faculty", "department")
                 || containsAny(normalizedMessage, "bachelor", "undergraduate", "undergrad")) {
             return true;

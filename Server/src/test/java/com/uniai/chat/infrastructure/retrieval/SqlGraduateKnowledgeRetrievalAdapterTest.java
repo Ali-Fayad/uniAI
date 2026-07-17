@@ -2,8 +2,11 @@ package com.uniai.chat.infrastructure.retrieval;
 
 import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeFilters;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,6 +110,36 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertTrue(context.contains("Admission summary:"), context);
         assertTrue(jdbcTemplate.lastSql.contains("tuition_summary"), jdbcTemplate.lastSql);
         assertTrue(jdbcTemplate.lastSql.contains("admission_summary"), jdbcTemplate.lastSql);
+    }
+
+    @Test
+    void detailsProjectionSupportsExactLanguageAndAdmissionFilters() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.DETAILS,
+                new GraduateKnowledgeFilters(
+                        List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                        List.of("MASTER"),
+                        List.of(),
+                        null,
+                        null,
+                        null,
+                        List.of("English"),
+                        List.of("GMAT"),
+                        "Master of Science in Computer Science"
+                ),
+                GraduateProgramDetailLevel.DETAILS,
+                false,
+                false
+        );
+
+        adapter.retrieveContext(query);
+
+        assertTrue(jdbcTemplate.lastSql.contains("language"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("admissionRequirementTypes"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("documents"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("scope_level"), jdbcTemplate.lastSql);
     }
 
     @Test

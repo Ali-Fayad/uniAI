@@ -35,6 +35,10 @@ public class GraduateQueryInterpretationValidator {
             "faculty",
             "department"
     );
+    private static final Set<String> SUPPORTED_ADMISSION_TYPES = Set.of(
+            "GENERAL", "GRE", "GMAT", "ENGLISH", "PORTFOLIO", "INTERVIEW",
+            "EXPERIENCE", "ACADEMIC", "PREREQUISITE", "OTHER"
+    );
 
     public GraduateQueryInterpretationResult validate(
             GraduateQueryInterpretation interpretation,
@@ -58,7 +62,9 @@ public class GraduateQueryInterpretationValidator {
                 || tooLong(interpretation.clarificationNeeded())
                 || tooLong(interpretation.resource())
                 || tooLong(interpretation.operation())
-                || tooLong(interpretation.city())) {
+                || tooLong(interpretation.city())
+                || tooLong(interpretation.faculty())
+                || tooLong(interpretation.department())) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_VALUE_TOO_LONG");
         }
 
@@ -67,11 +73,18 @@ public class GraduateQueryInterpretationValidator {
         List<String> normalizedTopicKeywords = normalizeAndCapStrings(interpretation.topicKeywords(), MAX_TOPIC_KEYWORDS);
         List<String> normalizedUnsupportedConstraints = normalizeAndCapStrings(interpretation.unsupportedConstraints(), MAX_UNSUPPORTED_CONSTRAINTS);
         String normalizedCity = normalizeOptionalText(interpretation.city(), MAX_CITY_LENGTH);
+        String normalizedFaculty = normalizeOptionalText(interpretation.faculty(), MAX_STRING_LENGTH);
+        String normalizedDepartment = normalizeOptionalText(interpretation.department(), MAX_STRING_LENGTH);
+        List<String> normalizedLanguages = normalizeAndCapStrings(interpretation.languages(), 4);
+        List<String> normalizedAdmissionTypes = normalizeAndCapStrings(interpretation.admissionRequirementTypes(), 5);
+        String normalizedProgramName = normalizeOptionalText(interpretation.programName(), MAX_STRING_LENGTH);
 
         if (normalizedUniversities == null
                 || normalizedDegrees == null
                 || normalizedTopicKeywords == null
-                || normalizedUnsupportedConstraints == null) {
+                || normalizedUnsupportedConstraints == null
+                || normalizedLanguages == null
+                || normalizedAdmissionTypes == null) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_TOO_LARGE");
         }
 
@@ -84,6 +97,12 @@ public class GraduateQueryInterpretationValidator {
             );
         }
 
+        if (normalizedAdmissionTypes.stream()
+                .map(value -> value.toUpperCase(Locale.ROOT))
+                .anyMatch(value -> !SUPPORTED_ADMISSION_TYPES.contains(value))) {
+            return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_ADMISSION_TYPE_UNSUPPORTED");
+        }
+
         List<ResolvedUniversity> resolvedUniversities = resolveUniversities(normalizedUniversities, catalogs);
         GraduateKnowledgeQuery partialQuery;
         try {
@@ -93,7 +112,12 @@ public class GraduateQueryInterpretationValidator {
                     normalizedDegrees,
                     normalizedTopicKeywords,
                     interpretation,
-                    normalizedCity
+                    normalizedCity,
+                    normalizedFaculty,
+                    normalizedDepartment,
+                    normalizedLanguages,
+                    normalizedAdmissionTypes,
+                    normalizedProgramName
             );
         } catch (IllegalArgumentException ex) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED");
@@ -125,7 +149,12 @@ public class GraduateQueryInterpretationValidator {
             List<String> degreeTypes,
             List<String> topicKeywords,
             GraduateQueryInterpretation interpretation,
-            String city
+            String city,
+            String faculty,
+            String department,
+            List<String> languages,
+            List<String> admissionRequirementTypes,
+            String programName
     ) {
         GraduateProgramDetailLevel detailLevel = normalizeDetailLevel(interpretation.detailLevel());
         boolean followUpResolved = Boolean.TRUE.equals(interpretation.followUp()) || Boolean.TRUE.equals(interpretation.comparison());
@@ -134,12 +163,20 @@ public class GraduateQueryInterpretationValidator {
                 resolvedUniversities,
                 normalizedDegrees,
                 topicKeywords,
-                city
+                city,
+                faculty,
+                department,
+                languages,
+                admissionRequirementTypes,
+                programName
         );
         GraduateProgramDetailLevel queryDetailLevel = intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null;
         String resourceValue = normalizeOptionalValue(interpretation.resource());
         String operationValue = normalizeOptionalValue(interpretation.operation());
         if (resourceValue == null && operationValue == null) {
+            if (intent == GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP) {
+                throw new IllegalArgumentException("Academic structure routing metadata is required");
+            }
             return new GraduateKnowledgeQuery(
                     intent,
                     GraduateKnowledgeQuery.resourceFor(intent),
@@ -189,13 +226,20 @@ public class GraduateQueryInterpretationValidator {
                     && (operation == GraduateKnowledgeOperation.LIST
                     || operation == GraduateKnowledgeOperation.COUNT
                     || operation == GraduateKnowledgeOperation.EXISTS);
+            case ACADEMIC_STRUCTURE_LOOKUP -> (resource == GraduateKnowledgeResource.PROGRAM
+                    || resource == GraduateKnowledgeResource.FACULTY
+                    || resource == GraduateKnowledgeResource.DEPARTMENT)
+                    && (operation == GraduateKnowledgeOperation.LIST
+                    || operation == GraduateKnowledgeOperation.COUNT
+                    || operation == GraduateKnowledgeOperation.EXISTS);
         };
     }
 
     private boolean requiresUniversity(GraduateKnowledgeIntent intent) {
         return intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP
                 || intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
-                || intent == GraduateKnowledgeIntent.GRADUATE_OVERVIEW;
+                || intent == GraduateKnowledgeIntent.GRADUATE_OVERVIEW
+                || intent == GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP;
     }
 
     private GraduateKnowledgeIntent normalizeIntent(String intent) {

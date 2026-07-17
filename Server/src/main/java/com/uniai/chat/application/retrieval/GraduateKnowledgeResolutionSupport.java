@@ -20,6 +20,8 @@ final class GraduateKnowledgeResolutionSupport {
 
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
     private static final Pattern CITY_AFTER_IN = Pattern.compile("\\bin\\s+([\\p{L}][\\p{L}\\s'\\-]{1,60}?)(?:[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern FACULTY_NAME = Pattern.compile("(?:faculty|school)\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DEPARTMENT_NAME = Pattern.compile("department\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Set<String> GENERIC_UNIVERSITY_TOKENS = Set.of(
             "university",
             "college",
@@ -134,6 +136,58 @@ final class GraduateKnowledgeResolutionSupport {
                 "which universities are in", "which university is in",
                 "universities in", "university in", "universities located in",
                 "university located in");
+    }
+
+    static boolean detectAcademicStructureLookupIntent(String text) {
+        if (text == null || text.isBlank()) {
+            return false;
+        }
+        String normalized = normalize(text);
+        boolean facultyOrDepartment = containsAny(normalized, "faculty", "faculties", "school of", "department", "departments");
+        boolean boundedProgramCheck = containsAny(normalized, "how many", "number of", "is there", "are there", "exist")
+                && containsAny(normalized, "program", "programs", "degree", "degrees");
+        return facultyOrDepartment || boundedProgramCheck;
+    }
+
+    static GraduateKnowledgeResource detectAcademicResource(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "department", "departments")) {
+            return GraduateKnowledgeResource.DEPARTMENT;
+        }
+        if (containsAny(normalized, "faculty", "faculties", "school of")) {
+            return GraduateKnowledgeResource.FACULTY;
+        }
+        return GraduateKnowledgeResource.PROGRAM;
+    }
+
+    static GraduateKnowledgeOperation detectAcademicOperation(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "what faculties", "which faculties", "what departments", "which departments")) {
+            return GraduateKnowledgeOperation.LIST;
+        }
+        if (containsAny(normalized, "how many", "number of", "count")) {
+            return GraduateKnowledgeOperation.COUNT;
+        }
+        if (containsAny(normalized, "does ", "do ", "is there", "are there", "exist", "offer", "offers")) {
+            return GraduateKnowledgeOperation.EXISTS;
+        }
+        return GraduateKnowledgeOperation.LIST;
+    }
+
+    static String detectFacultyName(String text) {
+        return extractNamedStructure(text, FACULTY_NAME);
+    }
+
+    static String detectDepartmentName(String text) {
+        return extractNamedStructure(text, DEPARTMENT_NAME);
+    }
+
+    private static String extractNamedStructure(String text, Pattern pattern) {
+        if (text == null || text.isBlank()) {
+            return null;
+        }
+        java.util.regex.Matcher matcher = pattern.matcher(text.trim());
+        return matcher.find() && matcher.group(1) != null ? matcher.group(1).trim() : null;
     }
 
     static GraduateKnowledgeResource detectLocationResource(String text) {
@@ -406,6 +460,9 @@ final class GraduateKnowledgeResolutionSupport {
     private static GraduateKnowledgeIntent latestIntentCue(String normalizedMessage) {
         if (detectLocationLookupIntent(normalizedMessage)) {
             return GraduateKnowledgeIntent.LOCATION_LOOKUP;
+        }
+        if (detectAcademicStructureLookupIntent(normalizedMessage)) {
+            return GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP;
         }
         boolean tuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
         boolean programIntent = detectProgramLookupIntent(normalizedMessage, detectDegreeTypes(normalizedMessage), tuitionIntent);

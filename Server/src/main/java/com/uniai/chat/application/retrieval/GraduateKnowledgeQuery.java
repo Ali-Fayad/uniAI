@@ -116,7 +116,7 @@ public record GraduateKnowledgeQuery(
             case PROGRAM_LOOKUP, TUITION_AGGREGATION -> GraduateKnowledgeResource.PROGRAM;
             case GRADUATE_OVERVIEW -> GraduateKnowledgeResource.GRADUATE_OVERVIEW;
             case LOCATION_LOOKUP -> GraduateKnowledgeResource.CAMPUS;
-            case GENERAL_CHAT, UNKNOWN_OR_AMBIGUOUS -> GraduateKnowledgeResource.NONE;
+            case ACADEMIC_STRUCTURE_LOOKUP, GENERAL_CHAT, UNKNOWN_OR_AMBIGUOUS -> GraduateKnowledgeResource.NONE;
         };
     }
 
@@ -134,7 +134,7 @@ public record GraduateKnowledgeQuery(
             case TUITION_AGGREGATION -> GraduateKnowledgeOperation.AGGREGATE;
             case GRADUATE_OVERVIEW -> GraduateKnowledgeOperation.OVERVIEW;
             case LOCATION_LOOKUP -> GraduateKnowledgeOperation.LIST;
-            case GENERAL_CHAT, UNKNOWN_OR_AMBIGUOUS -> GraduateKnowledgeOperation.NONE;
+            case ACADEMIC_STRUCTURE_LOOKUP, GENERAL_CHAT, UNKNOWN_OR_AMBIGUOUS -> GraduateKnowledgeOperation.NONE;
         };
     }
 
@@ -156,6 +156,11 @@ public record GraduateKnowledgeQuery(
         }
         if (resource == GraduateKnowledgeResource.GRADUATE_OVERVIEW) {
             return operation == GraduateKnowledgeOperation.OVERVIEW;
+        }
+        if (resource == GraduateKnowledgeResource.FACULTY || resource == GraduateKnowledgeResource.DEPARTMENT) {
+            return operation == GraduateKnowledgeOperation.LIST
+                    || operation == GraduateKnowledgeOperation.COUNT
+                    || operation == GraduateKnowledgeOperation.EXISTS;
         }
         if (operation == GraduateKnowledgeOperation.OVERVIEW
                 || operation == GraduateKnowledgeOperation.NONE) {

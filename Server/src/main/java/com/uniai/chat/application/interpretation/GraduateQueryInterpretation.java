@@ -16,7 +16,12 @@ public record GraduateQueryInterpretation(
         List<String> unsupportedConstraints,
         String resource,
         String operation,
-        String city
+        String city,
+        String faculty,
+        String department,
+        List<String> languages,
+        List<String> admissionRequirementTypes,
+        String programName
 ) {
     public GraduateQueryInterpretation {
         universities = universities == null ? List.of() : List.copyOf(universities);
@@ -55,8 +60,35 @@ public record GraduateQueryInterpretation(
                 unsupportedConstraints,
                 resource,
                 operation,
+                null,
+                null,
+                null,
+                List.of(),
+                List.of(),
                 null
         );
+    }
+
+    /** Compatibility constructor for the location-aware schema. */
+    public GraduateQueryInterpretation(
+            Integer schemaVersion,
+            String intent,
+            List<String> universities,
+            List<String> degreeTypes,
+            String detailLevel,
+            Boolean followUp,
+            Boolean comparison,
+            List<String> topicKeywords,
+            Boolean ambiguous,
+            String clarificationNeeded,
+            List<String> unsupportedConstraints,
+            String resource,
+            String operation,
+            String city
+    ) {
+        this(schemaVersion, intent, universities, degreeTypes, detailLevel, followUp, comparison,
+                topicKeywords, ambiguous, clarificationNeeded, unsupportedConstraints,
+                resource, operation, city, null, null, List.of(), List.of(), null);
     }
 
     /** Compatibility constructor for the schema used before typed routing metadata. */
@@ -87,6 +119,11 @@ public record GraduateQueryInterpretation(
                 unsupportedConstraints,
                 null,
                 null,
+                null,
+                null,
+                null,
+                List.of(),
+                List.of(),
                 null
         );
     }

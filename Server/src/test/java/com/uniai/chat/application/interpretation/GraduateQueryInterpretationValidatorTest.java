@@ -124,6 +124,39 @@ class GraduateQueryInterpretationValidatorTest {
     }
 
     @Test
+    void shouldValidateTypedAcademicStructureRouting() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1,
+                "ACADEMIC_STRUCTURE_LOOKUP",
+                List.of("AUB"),
+                List.of("MASTER"),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of(),
+                "DEPARTMENT",
+                "EXISTS",
+                null,
+                null,
+                "Computer Science",
+                List.of(),
+                List.of(),
+                null
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP, result.query().intent());
+        assertEquals("DEPARTMENT", result.query().resource().name());
+        assertEquals("EXISTS", result.query().operation().name());
+        assertEquals("Computer Science", result.query().filters().departmentName());
+    }
+
+    @Test
     void shouldValidateLocationLookupWithoutUniversityWhenCityIsProvided() {
         GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
                 1,

@@ -154,6 +154,38 @@ class GraduateKnowledgeQueryInterpreterTest {
     }
 
     @Test
+    void shouldResolveAcademicProgramCountWithTypedRouting() {
+        GraduateKnowledgeQuery query = interpreter.interpret("How many master's programs does AUB offer?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.PROGRAM, query.resource());
+        assertEquals(GraduateKnowledgeOperation.COUNT, query.operation());
+        assertEquals(List.of("MASTER"), query.degreeTypes());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveFacultyListWithoutFuzzyAcademicMatching() {
+        GraduateKnowledgeQuery query = interpreter.interpret("What faculties does AUB have?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.FACULTY, query.resource());
+        assertEquals(GraduateKnowledgeOperation.LIST, query.operation());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveExactDepartmentExistenceRequest() {
+        GraduateKnowledgeQuery query = interpreter.interpret("Does AUB have a department of Computer Science?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.DEPARTMENT, query.resource());
+        assertEquals(GraduateKnowledgeOperation.EXISTS, query.operation());
+        assertEquals("computer science", query.filters().departmentName());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
     void shouldResolveTuitionAggregationForAubAndUsjComparison() {
         GraduateKnowledgeQuery query = interpreter.interpret("Compare tuition at AUB and USJ.", List.of(), catalogs);
 
