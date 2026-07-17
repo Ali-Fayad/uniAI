@@ -24,6 +24,7 @@ public class GraduateQueryInterpretationValidator {
     private static final int MAX_DEGREE_TYPES = 4;
     private static final int MAX_TOPIC_KEYWORDS = 5;
     private static final int MAX_UNSUPPORTED_CONSTRAINTS = 5;
+    private static final int MAX_CITY_LENGTH = 120;
     private static final int MAX_STRING_LENGTH = 120;
     private static final Pattern WORD_SPLIT = Pattern.compile("[^\\p{L}\\p{N}+]+");
     private static final Set<String> GENERIC_UNIVERSITY_TOKENS = Set.of(
@@ -56,7 +57,8 @@ public class GraduateQueryInterpretationValidator {
                 || tooLong(interpretation.detailLevel())
                 || tooLong(interpretation.clarificationNeeded())
                 || tooLong(interpretation.resource())
-                || tooLong(interpretation.operation())) {
+                || tooLong(interpretation.operation())
+                || tooLong(interpretation.city())) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_VALUE_TOO_LONG");
         }
 
@@ -64,6 +66,7 @@ public class GraduateQueryInterpretationValidator {
         List<String> normalizedDegrees = normalizeAndCapStrings(interpretation.degreeTypes(), MAX_DEGREE_TYPES);
         List<String> normalizedTopicKeywords = normalizeAndCapStrings(interpretation.topicKeywords(), MAX_TOPIC_KEYWORDS);
         List<String> normalizedUnsupportedConstraints = normalizeAndCapStrings(interpretation.unsupportedConstraints(), MAX_UNSUPPORTED_CONSTRAINTS);
+        String normalizedCity = normalizeOptionalText(interpretation.city(), MAX_CITY_LENGTH);
 
         if (normalizedUniversities == null
                 || normalizedDegrees == null
@@ -89,7 +92,8 @@ public class GraduateQueryInterpretationValidator {
                     resolvedUniversities,
                     normalizedDegrees,
                     normalizedTopicKeywords,
-                    interpretation
+                    interpretation,
+                    normalizedCity
             );
         } catch (IllegalArgumentException ex) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED");
@@ -120,7 +124,8 @@ public class GraduateQueryInterpretationValidator {
             List<ResolvedUniversity> resolvedUniversities,
             List<String> degreeTypes,
             List<String> topicKeywords,
-            GraduateQueryInterpretation interpretation
+            GraduateQueryInterpretation interpretation,
+            String city
     ) {
         GraduateProgramDetailLevel detailLevel = normalizeDetailLevel(interpretation.detailLevel());
         boolean followUpResolved = Boolean.TRUE.equals(interpretation.followUp()) || Boolean.TRUE.equals(interpretation.comparison());
@@ -128,7 +133,8 @@ public class GraduateQueryInterpretationValidator {
         GraduateKnowledgeFilters filters = new GraduateKnowledgeFilters(
                 resolvedUniversities,
                 normalizedDegrees,
-                topicKeywords
+                topicKeywords,
+                city
         );
         GraduateProgramDetailLevel queryDetailLevel = intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null;
         String resourceValue = normalizeOptionalValue(interpretation.resource());
@@ -178,6 +184,11 @@ public class GraduateQueryInterpretationValidator {
                     && operation == GraduateKnowledgeOperation.AGGREGATE;
             case GRADUATE_OVERVIEW -> resource == GraduateKnowledgeResource.GRADUATE_OVERVIEW
                     && operation == GraduateKnowledgeOperation.OVERVIEW;
+            case LOCATION_LOOKUP -> (resource == GraduateKnowledgeResource.CAMPUS
+                    || resource == GraduateKnowledgeResource.UNIVERSITY)
+                    && (operation == GraduateKnowledgeOperation.LIST
+                    || operation == GraduateKnowledgeOperation.COUNT
+                    || operation == GraduateKnowledgeOperation.EXISTS);
         };
     }
 
@@ -201,6 +212,14 @@ public class GraduateQueryInterpretationValidator {
 
     private String normalizeOptionalValue(String value) {
         return value == null || value.isBlank() ? null : value.trim().toUpperCase(Locale.ROOT);
+    }
+
+    private String normalizeOptionalText(String value, int maxLength) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        String normalized = value.trim();
+        return normalized.length() > maxLength ? null : normalized;
     }
 
     private GraduateProgramDetailLevel normalizeDetailLevel(String detailLevel) {

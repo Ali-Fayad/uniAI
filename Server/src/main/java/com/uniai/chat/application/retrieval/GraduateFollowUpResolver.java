@@ -31,6 +31,37 @@ public class GraduateFollowUpResolver {
             return GraduateFollowUpResolutionResult.unchanged(candidateQuery, List.of("current message"));
         }
 
+        if (candidateQuery.intent() == GraduateKnowledgeIntent.LOCATION_LOOKUP) {
+            List<UniversityCatalog> locationCatalogs = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
+            List<ResolvedUniversity> explicitLocationUniversities = GraduateKnowledgeResolutionSupport.resolveUniversities(
+                    normalize(currentUserMessage), locationCatalogs);
+            if (!explicitLocationUniversities.isEmpty()) {
+                GraduateKnowledgeQuery replaced = new GraduateKnowledgeQuery(
+                        candidateQuery.intent(),
+                        candidateQuery.resource(),
+                        candidateQuery.operation(),
+                        new GraduateKnowledgeFilters(
+                                explicitLocationUniversities,
+                                candidateQuery.degreeTypes(),
+                                candidateQuery.topicKeywords(),
+                                candidateQuery.filters().city()
+                        ),
+                        candidateQuery.detailLevel(),
+                        true,
+                        false
+                );
+                return GraduateFollowUpResolutionResult.resolved(replaced, List.of("current message"));
+            }
+            if (candidateQuery.filters().city() != null || !candidateQuery.resolvedUniversities().isEmpty()) {
+                return GraduateFollowUpResolutionResult.unchanged(candidateQuery, List.of("current message"));
+            }
+            return GraduateFollowUpResolutionResult.clarificationRequired(
+                    "LOCATION_SCOPE_REQUIRED",
+                    candidateQuery,
+                    List.of("current message")
+            );
+        }
+
         String normalizedMessage = normalize(currentUserMessage);
         List<UniversityCatalog> catalogs = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
         GraduateKnowledgeResolutionSupport.HistorySignals historySignals =

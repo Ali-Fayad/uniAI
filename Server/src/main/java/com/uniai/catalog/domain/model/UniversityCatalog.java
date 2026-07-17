@@ -31,6 +31,9 @@ public class UniversityCatalog {
 
     private String acronym;
 
+    @Column(name = "city")
+    private String city;
+
     @Column(name = "campus_name")
     private String campusName;
 

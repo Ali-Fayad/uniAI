@@ -265,6 +265,8 @@ refactor(ai): generalize graduate knowledge query model
 ```text
 TASK CODE: AI_RETRIEVAL_005_LOCATION_AND_CAMPUS
 
+**Status: ✅ Completed with implementation review approved with notes.**
+
 Recommended Model:
 GPT-5.6 Luna
 
@@ -1221,7 +1223,7 @@ docs(ai): document generalized graduate retrieval capabilities
 Complete the sequence only when all are approved:
 
 - [ ] AI_RETRIEVAL_004_QUERY_MODEL_FOUNDATION
-- [ ] AI_RETRIEVAL_005_LOCATION_AND_CAMPUS
+- [x] AI_RETRIEVAL_005_LOCATION_AND_CAMPUS
 - [ ] AI_RETRIEVAL_006_ACADEMIC_STRUCTURE
 - [ ] AI_RETRIEVAL_007_LANGUAGE_AND_ADMISSIONS
 - [ ] AI_RETRIEVAL_008_TUITION_ANALYTICS

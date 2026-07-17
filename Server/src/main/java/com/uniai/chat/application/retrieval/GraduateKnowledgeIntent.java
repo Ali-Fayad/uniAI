@@ -5,5 +5,6 @@ public enum GraduateKnowledgeIntent {
     PROGRAM_LOOKUP,
     TUITION_AGGREGATION,
     GRADUATE_OVERVIEW,
+    LOCATION_LOOKUP,
     UNKNOWN_OR_AMBIGUOUS
 }

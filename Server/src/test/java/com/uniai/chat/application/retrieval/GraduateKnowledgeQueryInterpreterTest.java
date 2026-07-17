@@ -20,7 +20,7 @@ class GraduateKnowledgeQueryInterpreterTest {
     void setUp() {
         interpreter = new GraduateKnowledgeQueryInterpreter();
         catalogs = List.of(
-                UniversityCatalog.builder().id(1L).name("American University of Beirut").nameAr("الجامعة الأميركية في بيروت").acronym("AUB").build(),
+                UniversityCatalog.builder().id(1L).name("American University of Beirut").nameAr("الجامعة الأميركية في بيروت").acronym("AUB").city("Beirut").build(),
                 university(2L, "Université Saint-Joseph", "USJ"),
                 university(3L, "Lebanese American University", "LAU"),
                 university(4L, "Lebanese National Conservatory", "LNC"),
@@ -116,6 +116,39 @@ class GraduateKnowledgeQueryInterpreterTest {
 
         assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, query.intent());
         assertEquals(1, query.resolvedUniversities().size());
+        assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveCampusCountForStructuredCity() {
+        GraduateKnowledgeQuery query = interpreter.interpret("How many campuses are in Beirut?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.CAMPUS, query.resource());
+        assertEquals(GraduateKnowledgeOperation.COUNT, query.operation());
+        assertEquals("Beirut", query.filters().city());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveUniversitiesByCityAsLogicalInstitutions() {
+        GraduateKnowledgeQuery query = interpreter.interpret("Which universities are in Beirut?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.UNIVERSITY, query.resource());
+        assertEquals(GraduateKnowledgeOperation.LIST, query.operation());
+        assertEquals("Beirut", query.filters().city());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveCampusExistenceForUniversity() {
+        GraduateKnowledgeQuery query = interpreter.interpret("Does AUB have a campus?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.CAMPUS, query.resource());
+        assertEquals(GraduateKnowledgeOperation.EXISTS, query.operation());
         assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
         assertFalse(query.ambiguous());
     }

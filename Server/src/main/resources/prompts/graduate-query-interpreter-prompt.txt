@@ -9,6 +9,7 @@ Supported intent values:
 - PROGRAM_LOOKUP
 - TUITION_AGGREGATION
 - GRADUATE_OVERVIEW
+- LOCATION_LOOKUP
 - UNKNOWN_OR_AMBIGUOUS
 
 Intent is the bounded routing concept. Also return typed retrieval metadata
@@ -59,7 +60,8 @@ Required JSON shape:
   "topicKeywords": [],
   "ambiguous": false,
   "clarificationNeeded": null,
-  "unsupportedConstraints": []
+  "unsupportedConstraints": [],
+  "city": null
 }
 
 Rules:
@@ -71,7 +73,10 @@ Rules:
 - PROGRAM_LOOKUP uses PROGRAM with LIST or DETAILS
 - TUITION_AGGREGATION uses PROGRAM with AGGREGATE
 - GRADUATE_OVERVIEW uses GRADUATE_OVERVIEW with OVERVIEW; this is a composite graduate route and must not be reduced to PROGRAM or UNIVERSITY
-- CAMPUS, FACULTY, and DEPARTMENT resources may be described only when the user explicitly asks for them; retrieval support will be added incrementally
+- LOCATION_LOOKUP uses CAMPUS or UNIVERSITY with LIST, COUNT, or EXISTS
+- use LOCATION_LOOKUP only for explicit structured campus or university-by-city questions
+- return the requested city in the optional city field; do not infer a region or location from a university name
+- CAMPUS, FACULTY, and DEPARTMENT resources may be described only when the user explicitly asks for them; only CAMPUS and UNIVERSITY location retrieval are currently supported
 - use GENERAL_CHAT for casual conversation and clearly harmless non-graduate requests; use empty universities and degreeTypes for it
 - never use GENERAL_CHAT when the message includes a known university, graduate degree, tuition or program request, a graduate comparison, or a graduate follow-up cue with usable history
 - use GRADUATE_OVERVIEW for broad university questions and for combined programs-plus-tuition requests

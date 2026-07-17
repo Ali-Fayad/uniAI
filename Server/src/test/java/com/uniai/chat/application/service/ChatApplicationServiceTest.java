@@ -22,11 +22,13 @@ import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
+import com.uniai.chat.application.port.out.GraduateLocationRetrievalPort;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionResult;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import com.uniai.chat.application.title.ChatTitleGenerationConfiguration;
@@ -72,6 +74,7 @@ class ChatApplicationServiceTest {
     private RecordingGraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
     private RecordingGraduateFollowUpResolver graduateFollowUpResolver;
     private RecordingGraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
+    private RecordingGraduateLocationRetrievalPort graduateLocationRetrievalPort;
     private RecordingConversationMemoryManager conversationMemoryManager;
     private RecordingChatTitleGenerationManager chatTitleGenerationManager;
     private SimpleMeterRegistry meterRegistry;
@@ -121,6 +124,9 @@ class ChatApplicationServiceTest {
                         ))
                 )
         );
+        graduateLocationRetrievalPort = new RecordingGraduateLocationRetrievalPort(
+                new GraduateKnowledgeRetrievalResult("Structured location context", List.of())
+        );
         conversationMemoryManager = new RecordingConversationMemoryManager();
         chatTitleGenerationManager = new RecordingChatTitleGenerationManager();
         meterRegistry = new SimpleMeterRegistry();
@@ -152,6 +158,7 @@ class ChatApplicationServiceTest {
                 graduateQueryInterpretationBudgetManager,
                 graduateQueryInterpretationValidator,
                 graduateKnowledgeRetrievalPort,
+                graduateLocationRetrievalPort,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
                 graduateFollowUpResolver,
@@ -161,6 +168,39 @@ class ChatApplicationServiceTest {
                 null,
                 meterRegistry
         );
+    }
+
+    @Test
+    void locationQueriesUseTheSeparateRetrievalPort() {
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                1,
+                "LOCATION_LOOKUP",
+                List.of(),
+                List.of(),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of(),
+                "UNIVERSITY",
+                "COUNT",
+                "Beirut"
+        );
+        User user = user(99L, "location-user", "location@example.com");
+        Chat chat = chat(990L, user, "location-chat");
+        userRepository.save(user);
+        chatRepository.save(chat);
+
+        chatApplicationService.sendMessage("location@example.com", SendMessageCommand.builder()
+                .chatId(chat.getId())
+                .content("How many universities are in Beirut?")
+                .build());
+
+        assertEquals(1, graduateLocationRetrievalPort.callCount);
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(GraduateKnowledgeResource.UNIVERSITY, graduateLocationRetrievalPort.lastQuery.resource());
     }
 
     @Test
@@ -1318,6 +1358,23 @@ class ChatApplicationServiceTest {
         private GraduateKnowledgeQuery lastQuery;
 
         private RecordingGraduateKnowledgeRetrievalPort(GraduateKnowledgeRetrievalResult result) {
+            this.result = result;
+        }
+
+        @Override
+        public GraduateKnowledgeRetrievalResult retrieveContext(GraduateKnowledgeQuery query) {
+            callCount++;
+            lastQuery = query;
+            return result;
+        }
+    }
+
+    private static final class RecordingGraduateLocationRetrievalPort implements GraduateLocationRetrievalPort {
+        private final GraduateKnowledgeRetrievalResult result;
+        private int callCount;
+        private GraduateKnowledgeQuery lastQuery;
+
+        private RecordingGraduateLocationRetrievalPort(GraduateKnowledgeRetrievalResult result) {
             this.result = result;
         }
 

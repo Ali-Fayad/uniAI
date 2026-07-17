@@ -2,6 +2,7 @@ package com.uniai.chat.application.interpretation;
 
 import com.uniai.catalog.domain.model.UniversityCatalog;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -120,6 +121,33 @@ class GraduateQueryInterpretationValidatorTest {
         assertEquals("PROGRAM", result.query().resource().name());
         assertEquals("LIST", result.query().operation().name());
         assertEquals(List.of("computer science"), result.query().topicKeywords());
+    }
+
+    @Test
+    void shouldValidateLocationLookupWithoutUniversityWhenCityIsProvided() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1,
+                "LOCATION_LOOKUP",
+                List.of(),
+                List.of(),
+                null,
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of(),
+                "UNIVERSITY",
+                "COUNT",
+                "Beirut"
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, result.query().intent());
+        assertEquals("Beirut", result.query().filters().city());
+        assertEquals(GraduateKnowledgeOperation.COUNT, result.query().operation());
     }
 
     @Test

@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 final class GraduateKnowledgeResolutionSupport {
 
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
+    private static final Pattern CITY_AFTER_IN = Pattern.compile("\\bin\\s+([\\p{L}][\\p{L}\\s'\\-]{1,60}?)(?:[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Set<String> GENERIC_UNIVERSITY_TOKENS = Set.of(
             "university",
             "college",
@@ -121,6 +122,66 @@ final class GraduateKnowledgeResolutionSupport {
                 "duration",
                 "thesis",
                 "tracks");
+    }
+
+    static boolean detectLocationLookupIntent(String text) {
+        if (text == null || text.isBlank()) {
+            return false;
+        }
+        String normalized = normalize(text);
+        return containsAny(normalized,
+                "campus", "campuses", "campus in", "located in",
+                "which universities are in", "which university is in",
+                "universities in", "university in", "universities located in",
+                "university located in");
+    }
+
+    static GraduateKnowledgeResource detectLocationResource(String text) {
+        return containsAny(normalize(text), "campus", "campuses")
+                ? GraduateKnowledgeResource.CAMPUS
+                : GraduateKnowledgeResource.UNIVERSITY;
+    }
+
+    static GraduateKnowledgeOperation detectLocationOperation(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "how many", "count", "number of")) {
+            return GraduateKnowledgeOperation.COUNT;
+        }
+        if (containsAny(normalized, "does ", "do ", "is there", "are there", "has ", "have ", "exist")) {
+            return GraduateKnowledgeOperation.EXISTS;
+        }
+        return GraduateKnowledgeOperation.LIST;
+    }
+
+    static String detectStructuredCity(String text, List<UniversityCatalog> catalogs) {
+        if (text == null || text.isBlank() || catalogs == null) {
+            return null;
+        }
+        String normalized = normalize(text);
+        return catalogs.stream()
+                .map(UniversityCatalog::getCity)
+                .filter(city -> city != null && !city.isBlank())
+                .distinct()
+                .sorted((left, right) -> Integer.compare(right.length(), left.length()))
+                .filter(city -> normalized.contains(normalize(city)))
+                .findFirst()
+                .orElse(null);
+    }
+
+    static String detectRequestedCity(String text, List<UniversityCatalog> catalogs) {
+        String structuredCity = detectStructuredCity(text, catalogs);
+        if (structuredCity != null) {
+            return structuredCity;
+        }
+        if (text == null || text.isBlank()) {
+            return null;
+        }
+        java.util.regex.Matcher matcher = CITY_AFTER_IN.matcher(text.trim());
+        if (!matcher.find()) {
+            return null;
+        }
+        String city = matcher.group(1).trim();
+        return city.isBlank() ? null : city;
     }
 
     static boolean isFollowUpMessage(String text) {
@@ -343,6 +404,9 @@ final class GraduateKnowledgeResolutionSupport {
     }
 
     private static GraduateKnowledgeIntent latestIntentCue(String normalizedMessage) {
+        if (detectLocationLookupIntent(normalizedMessage)) {
+            return GraduateKnowledgeIntent.LOCATION_LOOKUP;
+        }
         boolean tuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
         boolean programIntent = detectProgramLookupIntent(normalizedMessage, detectDegreeTypes(normalizedMessage), tuitionIntent);
         if (detectGraduateOverviewIntent(normalizedMessage, programIntent, tuitionIntent)) {

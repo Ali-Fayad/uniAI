@@ -30,12 +30,14 @@ import com.uniai.chat.application.port.out.AiProviderStatusPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
+import com.uniai.chat.application.port.out.GraduateLocationRetrievalPort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionResult;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionStatus;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.domain.builder.ChatBuilder;
@@ -94,6 +96,7 @@ public class ChatApplicationService implements
     private final GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager;
     private final GraduateQueryInterpretationValidator graduateQueryInterpretationValidator;
     private final GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort;
+    private final GraduateLocationRetrievalPort graduateLocationRetrievalPort;
     private final UniversityCatalogRepository universityCatalogRepository;
     private final GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter;
     private final GraduateFollowUpResolver graduateFollowUpResolver;
@@ -118,6 +121,7 @@ public class ChatApplicationService implements
             GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager,
             GraduateQueryInterpretationValidator graduateQueryInterpretationValidator,
             GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort,
+            GraduateLocationRetrievalPort graduateLocationRetrievalPort,
             UniversityCatalogRepository universityCatalogRepository,
             GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter,
             GraduateFollowUpResolver graduateFollowUpResolver,
@@ -137,6 +141,7 @@ public class ChatApplicationService implements
         this.graduateQueryInterpretationBudgetManager = graduateQueryInterpretationBudgetManager;
         this.graduateQueryInterpretationValidator = graduateQueryInterpretationValidator;
         this.graduateKnowledgeRetrievalPort = graduateKnowledgeRetrievalPort;
+        this.graduateLocationRetrievalPort = graduateLocationRetrievalPort;
         this.universityCatalogRepository = universityCatalogRepository;
         this.graduateKnowledgeQueryInterpreter = graduateKnowledgeQueryInterpreter;
         this.graduateFollowUpResolver = graduateFollowUpResolver;
@@ -145,6 +150,50 @@ public class ChatApplicationService implements
         this.chatTitleGenerationManager = chatTitleGenerationManager;
         this.aiProviderStatusPort = aiProviderStatusPort;
         this.meterRegistry = meterRegistry;
+    }
+
+    /** Compatibility constructor for tests and callers created before location retrieval was split out. */
+    public ChatApplicationService(
+            ChatRepository chatRepository,
+            MessageRepository messageRepository,
+            UserRepository userRepository,
+            AiServicePort aiServicePort,
+            ChatSystemPromptPort chatSystemPromptPort,
+            GraduateQueryInterpretationPort graduateQueryInterpretationPort,
+            GraduateQueryInterpreterPromptPort graduateQueryInterpreterPromptPort,
+            GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager,
+            GraduateQueryInterpretationValidator graduateQueryInterpretationValidator,
+            GraduateKnowledgeRetrievalPort graduateKnowledgeRetrievalPort,
+            UniversityCatalogRepository universityCatalogRepository,
+            GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter,
+            GraduateFollowUpResolver graduateFollowUpResolver,
+            AiContextBudgetManager aiContextBudgetManager,
+            ConversationMemoryManager conversationMemoryManager,
+            ChatTitleGenerationManager chatTitleGenerationManager,
+            AiProviderStatusPort aiProviderStatusPort,
+            MeterRegistry meterRegistry
+    ) {
+        this(
+                chatRepository,
+                messageRepository,
+                userRepository,
+                aiServicePort,
+                chatSystemPromptPort,
+                graduateQueryInterpretationPort,
+                graduateQueryInterpreterPromptPort,
+                graduateQueryInterpretationBudgetManager,
+                graduateQueryInterpretationValidator,
+                graduateKnowledgeRetrievalPort,
+                null,
+                universityCatalogRepository,
+                graduateKnowledgeQueryInterpreter,
+                graduateFollowUpResolver,
+                aiContextBudgetManager,
+                conversationMemoryManager,
+                chatTitleGenerationManager,
+                aiProviderStatusPort,
+                meterRegistry
+        );
     }
 
     public ChatApplicationService(
@@ -176,6 +225,7 @@ public class ChatApplicationService implements
                 graduateQueryInterpretationBudgetManager,
                 graduateQueryInterpretationValidator,
                 graduateKnowledgeRetrievalPort,
+                null,
                 universityCatalogRepository,
                 graduateKnowledgeQueryInterpreter,
                 graduateFollowUpResolver,
@@ -337,7 +387,10 @@ public class ChatApplicationService implements
                         chat.getId(),
                         recentConversationWindow.size());
                 long retrievalStartNanos = System.nanoTime();
-                GraduateKnowledgeRetrievalResult graduateKnowledgeRetrievalResult = graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
+                GraduateKnowledgeRetrievalResult graduateKnowledgeRetrievalResult = isLocationQuery(graduateKnowledgeQuery)
+                        && graduateLocationRetrievalPort != null
+                        ? graduateLocationRetrievalPort.retrieveContext(graduateKnowledgeQuery)
+                        : graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
                 graduateContext = graduateKnowledgeRetrievalResult != null ? graduateKnowledgeRetrievalResult.formattedContext() : null;
                 graduateCitations = graduateKnowledgeRetrievalResult != null
                         ? graduateKnowledgeRetrievalResult.citations()
@@ -658,6 +711,12 @@ public class ChatApplicationService implements
         return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 
+    private boolean isLocationQuery(GraduateKnowledgeQuery query) {
+        return query != null
+                && (query.resource() == GraduateKnowledgeResource.CAMPUS
+                || query.resource() == GraduateKnowledgeResource.UNIVERSITY);
+    }
+
     private List<AiConversationMessage> buildRecentConversationWindow(List<AiConversationMessage> conversationHistory) {
         if (conversationHistory == null || conversationHistory.isEmpty()) {
             return Collections.emptyList();
@@ -785,7 +844,8 @@ public class ChatApplicationService implements
 
         if (fallbackQuery.intent() == null || fallbackQuery.intent() == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
                 || fallbackQuery.ambiguous()
-                || fallbackQuery.resolvedUniversities().isEmpty()) {
+                || (fallbackQuery.resolvedUniversities().isEmpty()
+                && fallbackQuery.filters().city() == null)) {
             return GraduateQueryInterpretationResult.ambiguous(
                     buildAmbiguousGraduateMessage(),
                     fallbackQuery.resolvedUniversities().size(),
