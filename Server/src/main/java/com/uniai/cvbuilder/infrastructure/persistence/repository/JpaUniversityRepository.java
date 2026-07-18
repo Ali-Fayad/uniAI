@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JpaUniversityRepository extends JpaRepository<University, Long> {
 
-    boolean existsByNameAndCampusName(String name, String campusName);
 }

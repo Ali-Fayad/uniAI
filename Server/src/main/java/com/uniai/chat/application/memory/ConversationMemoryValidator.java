@@ -1,6 +1,7 @@
 package com.uniai.chat.application.memory;
 
 import com.uniai.catalog.domain.model.UniversityCatalog;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResolutionSupport;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -144,41 +145,21 @@ public class ConversationMemoryValidator {
             if (mention == null || mention.isBlank()) {
                 continue;
             }
-            boolean matched = false;
-            String normalizedMention = mention.trim().toLowerCase(Locale.ROOT);
-            for (UniversityCatalog catalog : catalogs) {
-                if (catalog == null || catalog.getId() == null) {
-                    continue;
-                }
-                if (matchesUniversity(normalizedMention, catalog)) {
-                    resolved.putIfAbsent(catalog.getId(), new MemoryUniversityRef(catalog.getId(), catalog.getName(), catalog.getAcronym()));
-                    matched = true;
-                }
-            }
-            if (!matched) {
+            List<com.uniai.chat.application.retrieval.ResolvedUniversity> matches =
+                    GraduateKnowledgeResolutionSupport.resolveUniversityMentions(List.of(mention), catalogs);
+            if (matches.isEmpty()) {
                 return null;
+            }
+            for (com.uniai.chat.application.retrieval.ResolvedUniversity university : matches) {
+                if (university != null && university.id() != null) {
+                    resolved.putIfAbsent(university.id(), new MemoryUniversityRef(university.id(), university.name(), university.acronym()));
+                }
             }
         }
         if (resolved.size() > limit) {
             return null;
         }
         return new ArrayList<>(resolved.values());
-    }
-
-    private boolean matchesUniversity(String mention, UniversityCatalog university) {
-        if (mention == null || mention.isBlank() || university == null) {
-            return false;
-        }
-        if (university.getAcronym() != null && mention.contains(university.getAcronym().trim().toLowerCase(Locale.ROOT))) {
-            return true;
-        }
-        if (university.getName() != null && mention.contains(university.getName().trim().toLowerCase(Locale.ROOT))) {
-            return true;
-        }
-        if (university.getNameAr() != null && mention.contains(university.getNameAr().trim().toLowerCase(Locale.ROOT))) {
-            return true;
-        }
-        return false;
     }
 
     private List<String> normalizeDegrees(List<String> values, int limit) {

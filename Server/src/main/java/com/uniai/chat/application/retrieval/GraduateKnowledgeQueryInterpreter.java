@@ -97,7 +97,9 @@ public class GraduateKnowledgeQueryInterpreter {
             resolvedUniversities = GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities);
             resolvedDegreeTypes = List.of();
             followUpResolved = currentFollowUp;
-            ambiguous = resolvedUniversities.isEmpty() && currentCity == null;
+            ambiguous = resolvedUniversities.isEmpty()
+                    && currentCity == null
+                    && currentLocationOperation != GraduateKnowledgeOperation.COUNT;
         } else if (currentOverviewIntent
                 || (currentFollowUp && inheritedHistoryIntent == GraduateKnowledgeIntent.GRADUATE_OVERVIEW)) {
             intent = GraduateKnowledgeIntent.GRADUATE_OVERVIEW;
@@ -172,8 +174,14 @@ public class GraduateKnowledgeQueryInterpreter {
             );
         }
 
+        if (!explicitComparison && currentUniversities.size() > 1) {
+            ambiguous = true;
+        }
+
         if (resolvedUniversities.isEmpty()
-                && currentCity == null) {
+                && currentCity == null
+                && !(intent == GraduateKnowledgeIntent.LOCATION_LOOKUP
+                && currentLocationOperation == GraduateKnowledgeOperation.COUNT)) {
             ambiguous = true;
         }
 

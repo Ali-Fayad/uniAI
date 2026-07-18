@@ -2,6 +2,7 @@ package com.uniai.chat.application.retrieval;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.catalog.domain.model.UniversityCatalog;
+import com.uniai.catalog.domain.model.CampusCatalog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -139,6 +140,32 @@ class GraduateKnowledgeQueryInterpreterTest {
         assertEquals(GraduateKnowledgeResource.UNIVERSITY, query.resource());
         assertEquals(GraduateKnowledgeOperation.LIST, query.operation());
         assertEquals("Beirut", query.filters().city());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveUniversityCountAsLocationLookup() {
+        GraduateKnowledgeQuery query = interpreter.interpret("How many universities do we have?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.UNIVERSITY, query.resource());
+        assertEquals(GraduateKnowledgeOperation.COUNT, query.operation());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldResolveCampusNameToItsUniversityAndCity() {
+        UniversityCatalog aub = UniversityCatalog.builder()
+                .id(1L).name("American University of Beirut").acronym("AUB")
+                .campuses(List.of(CampusCatalog.builder().name("Marine Research").city("Batroun").build()))
+                .build();
+
+        GraduateKnowledgeQuery query = interpreter.interpret("Where is the Marine Research campus?", List.of(), List.of(aub));
+
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeResource.CAMPUS, query.resource());
+        assertEquals("Batroun", query.filters().city());
+        assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
         assertFalse(query.ambiguous());
     }
 

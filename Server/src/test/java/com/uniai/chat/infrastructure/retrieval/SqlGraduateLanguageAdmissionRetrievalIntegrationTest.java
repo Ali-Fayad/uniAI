@@ -33,8 +33,8 @@ class SqlGraduateLanguageAdmissionRetrievalIntegrationTest extends PostgresInteg
     @BeforeEach
     void seedLanguageAndAdmissionRows() {
         universityId = jdbcTemplate.queryForObject(
-                "INSERT INTO university (name, acronym, city) VALUES (?, ?, ?) RETURNING id",
-                Long.class, "Language Admission Test University", "LATU", "Beirut");
+                "INSERT INTO university (name, acronym, country) VALUES (?, ?, ?) RETURNING id",
+                Long.class, "Language Admission Test University", "LATU", "Lebanon");
         Long languageId = jdbcTemplate.queryForObject(
                 "SELECT id FROM language WHERE LOWER(code) = 'en' ORDER BY id LIMIT 1", Long.class);
         Long degreeTypeId = jdbcTemplate.queryForObject(

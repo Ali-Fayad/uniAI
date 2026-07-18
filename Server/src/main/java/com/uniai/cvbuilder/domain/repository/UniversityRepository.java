@@ -14,7 +14,5 @@ public interface UniversityRepository {
 
     List<University> findAll();
 
-    boolean existsByNameAndCampusName(String name, String campusName);
-
     University save(University university);
 }

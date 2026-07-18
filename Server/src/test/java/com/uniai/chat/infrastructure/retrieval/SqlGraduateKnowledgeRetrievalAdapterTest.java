@@ -171,7 +171,7 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
 
         adapter.retrieveContext(query);
 
-        assertTrue(jdbcTemplate.lastSql.contains("u.city"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("FROM campus c"), jdbcTemplate.lastSql);
         assertTrue(jdbcTemplate.lastSql.contains("facultyName"), jdbcTemplate.lastSql);
         assertTrue(jdbcTemplate.lastSql.contains("departmentName"), jdbcTemplate.lastSql);
         assertTrue(jdbcTemplate.lastSql.contains("topicRegex"), jdbcTemplate.lastSql);
@@ -192,8 +192,29 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
 
         adapter.retrieveContext(query);
 
-        assertTrue(jdbcTemplate.lastSql.contains("universityIdsEmpty"), jdbcTemplate.lastSql);
-        assertTrue(jdbcTemplate.lastSql.contains("u.city"), jdbcTemplate.lastSql);
+        assertFalse(jdbcTemplate.lastSql.contains("universityIdsEmpty"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("FROM campus c"), jdbcTemplate.lastSql);
+    }
+
+    @Test
+    void absentOptionalFiltersAreOmittedFromProgramSqlAndParameters() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), null),
+                GraduateKnowledgeAggregation.empty(), GraduateKnowledgeSort.empty(), 5,
+                GraduateKnowledgeFollowUpContext.empty(), GraduateProgramDetailLevel.LIST, false, false
+        );
+
+        adapter.retrieveContext(query);
+
+        assertFalse(jdbcTemplate.lastSql.contains("IS NULL OR"), jdbcTemplate.lastSql);
+        assertFalse(jdbcTemplate.lastSql.contains("universityIdsEmpty"), jdbcTemplate.lastSql);
+        assertFalse(jdbcTemplate.lastParams.hasValue("city"));
+        assertFalse(jdbcTemplate.lastParams.hasValue("facultyName"));
+        assertFalse(jdbcTemplate.lastParams.hasValue("departmentName"));
+        assertFalse(jdbcTemplate.lastParams.hasValue("topicRegex"));
     }
 
     @Test
@@ -548,8 +569,8 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
     }
 
     private List<Map<String, Object>> filterProgramRows(MapSqlParameterSource params) {
-        Set<Long> universityIds = toLongSet(params.getValue("universityIds"));
-        Set<String> degreeTypes = toStringSet(params.getValue("degreeTypes"));
+        Set<Long> universityIds = toLongSet(paramValue(params, "universityIds"));
+        Set<String> degreeTypes = toStringSet(paramValue(params, "degreeTypes"));
         return programRows().stream()
                 .filter(row -> universityIds.isEmpty() || universityIds.contains(toLong(row.get("university_id"))))
                 .filter(row -> degreeTypes.isEmpty() || degreeTypes.contains(stringValue(row.get("degree_type_code")).toUpperCase(Locale.ROOT)))
@@ -557,8 +578,8 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
     }
 
     private List<Map<String, Object>> filterTuitionRows(MapSqlParameterSource params) {
-        Set<Long> universityIds = toLongSet(params.getValue("universityIds"));
-        Set<String> degreeTypes = toStringSet(params.getValue("degreeTypes"));
+        Set<Long> universityIds = toLongSet(paramValue(params, "universityIds"));
+        Set<String> degreeTypes = toStringSet(paramValue(params, "degreeTypes"));
         return tuitionRows().stream()
                 .filter(row -> universityIds.isEmpty() || universityIds.contains(toLong(row.get("university_id"))))
                 .filter(row -> degreeTypes.isEmpty() || degreeTypes.contains(stringValue(row.get("degree_type_code")).toUpperCase(Locale.ROOT)))

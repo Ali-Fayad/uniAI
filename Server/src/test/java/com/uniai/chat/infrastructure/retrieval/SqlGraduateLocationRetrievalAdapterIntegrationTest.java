@@ -32,14 +32,15 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
 
     @BeforeEach
     void seedStructuredLocationRows() {
-        jdbcTemplate.update("INSERT INTO university (name, acronym, city, campus_name, campus_type) VALUES (?, ?, ?, ?, ?)",
-                "Location Test University", "LTX", "Beirut", null, null);
-        jdbcTemplate.update("INSERT INTO university (name, acronym, city, campus_name, campus_type) VALUES (?, ?, ?, ?, ?)",
-                "Location Test University", "LTX", "Beirut", "Main Campus", "Main");
-        jdbcTemplate.update("INSERT INTO university (name, acronym, city, campus_name, campus_type) VALUES (?, ?, ?, ?, ?)",
-                "Location Test University", "LTX", "Tripoli", "North Campus", "Branch");
-        jdbcTemplate.update("INSERT INTO university (name, acronym, city, campus_name, campus_type) VALUES (?, ?, ?, ?, ?)",
-                "Location Test Other University", "LTO", "Beirut", null, null);
+        jdbcTemplate.update("INSERT INTO university (name, acronym, country) VALUES (?, ?, ?)",
+                "Location Test University", "LTX", "Lebanon");
+        Long universityId = jdbcTemplate.queryForObject("SELECT id FROM university WHERE acronym = 'LTX'", Long.class);
+        jdbcTemplate.update("INSERT INTO campus (university_id, name, city, campus_type) VALUES (?, ?, ?, ?)",
+                universityId, "Main Campus", "Beirut", "Main");
+        jdbcTemplate.update("INSERT INTO campus (university_id, name, city, campus_type) VALUES (?, ?, ?, ?)",
+                universityId, "North Campus", "Tripoli", "Branch");
+        jdbcTemplate.update("INSERT INTO university (name, acronym, country) VALUES (?, ?, ?)",
+                "Location Test Other University", "LTO", "Lebanon");
     }
 
     @AfterEach
@@ -70,7 +71,7 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
         assertTrue(adapter.retrieveContext(noMatchingCity).formattedContext().contains("No matching rows"));
 
         Map<String, Object> institution = jdbcTemplate.queryForMap(
-                "SELECT id, name, acronym FROM university WHERE name = ? AND campus_name IS NULL",
+                "SELECT id, name, acronym FROM university WHERE name = ?",
                 "Location Test Other University");
         GraduateKnowledgeQuery unavailableCampus = query(GraduateKnowledgeResource.CAMPUS, GraduateKnowledgeOperation.LIST,
                 new GraduateKnowledgeFilters(List.of(new ResolvedUniversity(
@@ -84,9 +85,9 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
     @Test
     void campusComparisonUsesBoundedGroupedCounts() {
         Map<String, Object> first = jdbcTemplate.queryForMap(
-                "SELECT id, name, acronym FROM university WHERE acronym = ? AND campus_name IS NOT NULL ORDER BY id LIMIT 1", "LTX");
+                "SELECT id, name, acronym FROM university WHERE acronym = ?", "LTX");
         Map<String, Object> second = jdbcTemplate.queryForMap(
-                "SELECT id, name, acronym FROM university WHERE acronym = ? AND city = ? AND campus_name IS NOT NULL", "LTX", "Tripoli");
+                "SELECT id, name, acronym FROM university WHERE acronym = ?", "LTX");
         GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
                 GraduateKnowledgeIntent.LOCATION_LOOKUP,
                 GraduateKnowledgeResource.CAMPUS,

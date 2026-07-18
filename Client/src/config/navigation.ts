@@ -34,7 +34,7 @@ export const APP_NAVIGATION_ITEMS: readonly AppNavigationItem[] = [
   {
     id: "cvs",
     label: "CVs",
-    route: ROUTES.CV_BUILDER,
+    route: ROUTES.CVS,
     icon: Files,
     requiresAuth: true,
     activeRoutes: [ROUTES.CVS, ROUTES.CV_BUILDER],
@@ -83,7 +83,10 @@ export const APP_NAVIGATION_ITEMS: readonly AppNavigationItem[] = [
 export const isAppNavigationItemActive = (
   item: AppNavigationItem,
   pathname: string
-) => item.activeRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
+) =>
+  item.activeRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  );
 
 export const filterAppNavigationItems = (
   items: readonly AppNavigationItem[],

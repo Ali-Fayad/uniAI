@@ -32,8 +32,8 @@ class SqlGraduateAcademicStructureRetrievalAdapterIntegrationTest extends Postgr
     @BeforeEach
     void seedStructuredAcademicRows() {
         universityId = jdbcTemplate.queryForObject(
-                "INSERT INTO university (name, acronym, city) VALUES (?, ?, ?) RETURNING id",
-                Long.class, "Academic Structure Test University", "ASTU", "Beirut");
+                "INSERT INTO university (name, acronym, country) VALUES (?, ?, ?) RETURNING id",
+                Long.class, "Academic Structure Test University", "ASTU", "Lebanon");
         Long facultyId = jdbcTemplate.queryForObject(
                 "INSERT INTO university_faculty (university_id, name, official_url) VALUES (?, ?, ?) RETURNING id",
                 Long.class, universityId, "Faculty of Engineering", "https://example.test/faculty");

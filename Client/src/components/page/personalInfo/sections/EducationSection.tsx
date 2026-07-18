@@ -9,19 +9,21 @@
  * - Persist personal info
  */
 
-import React, { useState, useRef } from 'react';
-import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
-import { FaGraduationCap } from 'react-icons/fa';
-import type { PersonalInfoEducationEntryDto } from '../../../../types/dto';
-import PersonalInfoSectionCard from '../PersonalInfoSectionCard';
-import AnimatedInput from '../../../common/AnimatedInput';
-import AnimatedTextarea from '../../../common/AnimatedTextarea';
-import FormButton from '../../../settings/FormButton';
-import { formatEducationLabel } from '../personalInfoStateHelpers';
+import React, { useState, useRef } from "react";
+import { useOnClickOutside } from "../../../../hooks/useOnClickOutside";
+import { FaGraduationCap } from "react-icons/fa";
+import type { PersonalInfoEducationEntryDto } from "../../../../types/dto";
+import PersonalInfoSectionCard from "../PersonalInfoSectionCard";
+import AnimatedInput from "../../../common/AnimatedInput";
+import AnimatedTextarea from "../../../common/AnimatedTextarea";
+import FormButton from "../../../settings/FormButton";
+import { formatEducationLabel } from "../personalInfoStateHelpers";
 
 export interface EducationSectionProps {
   education: PersonalInfoEducationEntryDto[];
-  setEducation: React.Dispatch<React.SetStateAction<PersonalInfoEducationEntryDto[]>>;
+  setEducation: React.Dispatch<
+    React.SetStateAction<PersonalInfoEducationEntryDto[]>
+  >;
 
   universityQuery: string;
   setUniversityQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -41,11 +43,14 @@ export interface EducationSectionProps {
   setEducationDescription: React.Dispatch<React.SetStateAction<string>>;
 
   isUniversitiesLoading: boolean;
-  universitySuggestions: Array<{ id: number; name: string; acronym?: string | null }>;
+  universitySuggestions: Array<{
+    id: number;
+    name: string;
+    acronym?: string | null;
+  }>;
 
   addEducation: () => void;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
-
 }
 
 const EducationSection: React.FC<EducationSectionProps> = ({
@@ -53,7 +58,6 @@ const EducationSection: React.FC<EducationSectionProps> = ({
   setEducation,
   universityQuery,
   setUniversityQuery,
-  selectedUniversityId,
   setSelectedUniversityId,
   educationDegree,
   setEducationDegree,
@@ -82,7 +86,10 @@ const EducationSection: React.FC<EducationSectionProps> = ({
       icon={<FaGraduationCap className="h-5 w-5" aria-hidden="true" />}
       className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] shadow-sm p-5 sm:p-6 space-y-4"
     >
-      <div ref={containerRef} className="relative flex flex-col sm:flex-row gap-3 items-start">
+      <div
+        ref={containerRef}
+        className="relative flex flex-col sm:flex-row gap-3 items-start"
+      >
         <div className="relative flex-1 w-full">
           <AnimatedInput
             value={universityQuery}
@@ -95,29 +102,33 @@ const EducationSection: React.FC<EducationSectionProps> = ({
             label="University"
             containerClassName="w-full"
           >
-            {isDropdownOpen && (isUniversitiesLoading || universitySuggestions.length > 0) && (
-              <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
-                {isUniversitiesLoading ? (
-                  <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">Loading suggestions...</p>
-                ) : (
-                  universitySuggestions.map((uni) => (
-                    <button
-                      key={uni.id}
-                      type="button"
-                      onClick={() => {
-                        setUniversityQuery(uni.name);
-                        setSelectedUniversityId(uni.id);
-                        setError(null);
-                        setIsDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
-                    >
-                      {uni.name}{uni.acronym ? ` (${uni.acronym})` : ''}
-                    </button>
-                  ))
-                )}
-              </div>
-            )}
+            {isDropdownOpen &&
+              (isUniversitiesLoading || universitySuggestions.length > 0) && (
+                <div className="absolute top-[calc(100%+4px)] left-0 right-0 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg z-20 max-h-72 overflow-auto">
+                  {isUniversitiesLoading ? (
+                    <p className="px-3 py-2 text-sm text-[var(--color-textSecondary)]">
+                      Loading suggestions...
+                    </p>
+                  ) : (
+                    universitySuggestions.map((uni) => (
+                      <button
+                        key={uni.id}
+                        type="button"
+                        onClick={() => {
+                          setUniversityQuery(uni.name);
+                          setSelectedUniversityId(uni.id);
+                          setError(null);
+                          setIsDropdownOpen(false);
+                        }}
+                        className="w-full text-left px-3 py-2 text-sm text-[var(--color-textPrimary)] hover:bg-[var(--color-elevatedSurface)]"
+                      >
+                        {uni.name}
+                        {uni.acronym ? ` (${uni.acronym})` : ""}
+                      </button>
+                    ))
+                  )}
+                </div>
+              )}
           </AnimatedInput>
         </div>
       </div>
@@ -166,13 +177,6 @@ const EducationSection: React.FC<EducationSectionProps> = ({
           type="button"
           onClick={addEducation}
           className="h-14 px-6 shrink-0 sm:self-end"
-          disabled={
-            !universityQuery.trim() ||
-            selectedUniversityId === null ||
-            !educationDegree.trim() ||
-            !educationFieldOfStudy.trim() ||
-            !educationStartDate.trim()
-          }
         >
           Add
         </FormButton>
@@ -194,7 +198,11 @@ const EducationSection: React.FC<EducationSectionProps> = ({
             {formatEducationLabel(item)}
             <button
               type="button"
-              onClick={() => setEducation((prev) => prev.filter((entry) => entry.id !== item.id))}
+              onClick={() =>
+                setEducation((prev) =>
+                  prev.filter((entry) => entry.id !== item.id),
+                )
+              }
               className="text-[var(--color-textSecondary)] hover:text-[var(--color-textPrimary)]"
             >
               ×
@@ -202,7 +210,6 @@ const EducationSection: React.FC<EducationSectionProps> = ({
           </span>
         ))}
       </div>
-
     </PersonalInfoSectionCard>
   );
 };

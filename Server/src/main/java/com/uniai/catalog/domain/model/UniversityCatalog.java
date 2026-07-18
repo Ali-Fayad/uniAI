@@ -6,6 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OrderBy;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,12 +36,19 @@ public class UniversityCatalog {
 
     private String acronym;
 
-    @Column(name = "city")
+    @Column(nullable = false)
+    private String country;
+
+    /** Deprecated in-memory compatibility fields for older callers; not database columns. */
+    @jakarta.persistence.Transient
     private String city;
-
-    @Column(name = "campus_name")
+    @jakarta.persistence.Transient
     private String campusName;
-
-    @Column(name = "campus_type")
+    @jakarta.persistence.Transient
     private String campusType;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "university_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OrderBy("name ASC")
+    private List<CampusCatalog> campuses;
 }

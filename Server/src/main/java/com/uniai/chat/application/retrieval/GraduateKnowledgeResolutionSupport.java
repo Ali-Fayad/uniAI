@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 
-final class GraduateKnowledgeResolutionSupport {
+public final class GraduateKnowledgeResolutionSupport {
 
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
     private static final Pattern CITY_AFTER_IN = Pattern.compile("\\bin\\s+([\\p{L}][\\p{L}\\s'\\-]{1,60}?)(?:[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
@@ -36,23 +36,92 @@ final class GraduateKnowledgeResolutionSupport {
     private GraduateKnowledgeResolutionSupport() {
     }
 
-    static List<ResolvedUniversity> resolveUniversities(String text, List<UniversityCatalog> catalogs) {
+    public static List<ResolvedUniversity> resolveUniversities(String text, List<UniversityCatalog> catalogs) {
         if (text == null || text.isBlank() || catalogs == null || catalogs.isEmpty()) {
             return List.of();
         }
 
-        String normalizedText = normalize(text);
+        return resolveUniversityMention(text, catalogs);
+    }
+
+    public static List<ResolvedUniversity> resolveUniversityMentions(
+            List<String> mentions,
+            List<UniversityCatalog> catalogs
+    ) {
         Map<Long, ResolvedUniversity> resolved = new LinkedHashMap<>();
-        for (UniversityCatalog catalog : catalogs) {
-            if (catalog == null || catalog.getId() == null) {
-                continue;
-            }
-            if (matchesUniversity(normalizedText, catalog)) {
-                resolved.putIfAbsent(catalog.getId(), new ResolvedUniversity(catalog.getId(), catalog.getName(), catalog.getAcronym()));
+        if (mentions == null) return List.of();
+        for (String mention : mentions) {
+            for (ResolvedUniversity university : resolveUniversityMention(mention, catalogs)) {
+                if (university != null && university.id() != null) resolved.putIfAbsent(university.id(), university);
             }
         }
         return new ArrayList<>(resolved.values());
     }
+
+    private static List<ResolvedUniversity> resolveUniversityMention(String text, List<UniversityCatalog> catalogs) {
+        if (text == null || text.isBlank() || catalogs == null || catalogs.isEmpty()) return List.of();
+        String normalizedText = normalize(text);
+        List<UniversityCatalog> exact = catalogs.stream()
+                .filter(catalog -> catalog != null && catalog.getId() != null)
+                .filter(catalog -> exactUniversityMatch(normalizedText, catalog))
+                .toList();
+        if (!exact.isEmpty()) return toResolved(exact);
+
+        List<UniversityCatalog> campusMatches = catalogs.stream()
+                .filter(catalog -> catalog != null && catalog.getId() != null)
+                .filter(catalog -> catalog.getCampuses() != null && catalog.getCampuses().stream()
+                        .anyMatch(campus -> campus != null && hasText(campus.getName())
+                                && containsPhrase(normalizedText, normalize(campus.getName()))))
+                .toList();
+        if (campusMatches.size() == 1) return toResolved(campusMatches);
+        if (campusMatches.size() > 1) return toResolved(campusMatches);
+
+        List<UniversityCandidate> partial = new ArrayList<>();
+        for (UniversityCatalog catalog : catalogs) {
+            if (catalog == null || catalog.getId() == null || !hasText(catalog.getName())) continue;
+            List<String> distinctiveTokens = tokenize(catalog.getName()).stream()
+                    .filter(token -> token.length() > 2 && !GENERIC_UNIVERSITY_TOKENS.contains(token))
+                    .distinct()
+                    .toList();
+            long matched = distinctiveTokens.stream().filter(token -> containsWord(normalizedText, token)).count();
+            if (matched >= 2) partial.add(new UniversityCandidate(catalog, (int) matched));
+        }
+        if (partial.isEmpty()) return List.of();
+        int bestScore = partial.stream().mapToInt(UniversityCandidate::score).max().orElse(0);
+        return partial.stream().filter(candidate -> candidate.score() == bestScore)
+                .map(UniversityCandidate::catalog).toList().stream().map(GraduateKnowledgeResolutionSupport::toResolved).toList();
+    }
+
+    private static boolean exactUniversityMatch(String normalizedText, UniversityCatalog university) {
+        if (hasText(university.getAcronym()) && containsWord(normalizedText, normalize(university.getAcronym()))) return true;
+        if (hasText(university.getName()) && containsPhrase(normalizedText, normalize(university.getName()))) return true;
+        return hasText(university.getNameAr()) && containsPhrase(normalizedText, normalize(university.getNameAr()));
+    }
+
+    private static boolean containsPhrase(String text, String phrase) {
+        if (!hasText(text) || !hasText(phrase)) return false;
+        String normalizedText = text.toLowerCase(Locale.ROOT).replaceAll("[^\\p{L}\\p{N}]+", " ").trim();
+        String normalizedPhrase = phrase.toLowerCase(Locale.ROOT).replaceAll("[^\\p{L}\\p{N}]+", " ").trim();
+        return (" " + normalizedText + " ").contains(" " + normalizedPhrase + " ");
+    }
+
+    private static boolean hasText(String value) {
+        return value != null && !value.isBlank();
+    }
+
+    private static ResolvedUniversity toResolved(UniversityCatalog catalog) {
+        return new ResolvedUniversity(catalog.getId(), catalog.getName(), catalog.getAcronym());
+    }
+
+    private static List<ResolvedUniversity> toResolved(List<UniversityCatalog> catalogs) {
+        Map<Long, ResolvedUniversity> resolved = new LinkedHashMap<>();
+        for (UniversityCatalog catalog : catalogs) {
+            if (catalog != null && catalog.getId() != null) resolved.putIfAbsent(catalog.getId(), toResolved(catalog));
+        }
+        return new ArrayList<>(resolved.values());
+    }
+
+    private record UniversityCandidate(UniversityCatalog catalog, int score) {}
 
     static List<String> detectDegreeTypes(String text) {
         if (text == null || text.isBlank()) {
@@ -277,6 +346,7 @@ final class GraduateKnowledgeResolutionSupport {
         String normalized = normalize(text);
         return containsAny(normalized,
                 "campus", "campuses", "campus in", "located in",
+                "how many universities", "number of universities", "universities do we have",
                 "which universities are in", "which university is in",
                 "universities in", "university in", "universities located in",
                 "university located in");
@@ -356,6 +426,25 @@ final class GraduateKnowledgeResolutionSupport {
             return null;
         }
         String normalized = normalize(text);
+        String campusMentionCity = catalogs.stream()
+                .flatMap(university -> university.getCampuses() == null ? java.util.stream.Stream.empty()
+                        : university.getCampuses().stream())
+                .filter(campus -> campus != null && campus.getName() != null && campus.getCity() != null
+                        && normalized.contains(normalize(campus.getName())))
+                .map(com.uniai.catalog.domain.model.CampusCatalog::getCity)
+                .findFirst()
+                .orElse(null);
+        if (campusMentionCity != null) return campusMentionCity;
+        String campusCity = catalogs.stream()
+                .flatMap(university -> university.getCampuses() == null ? java.util.stream.Stream.empty()
+                        : university.getCampuses().stream().map(com.uniai.catalog.domain.model.CampusCatalog::getCity))
+                .filter(city -> city != null && !city.isBlank())
+                .distinct()
+                .sorted((left, right) -> Integer.compare(right.length(), left.length()))
+                .filter(city -> normalized.contains(normalize(city)))
+                .findFirst()
+                .orElse(null);
+        if (campusCity != null) return campusCity;
         return catalogs.stream()
                 .map(UniversityCatalog::getCity)
                 .filter(city -> city != null && !city.isBlank())
@@ -645,41 +734,6 @@ final class GraduateKnowledgeResolutionSupport {
                 "overview of",
                 "graduate overview",
                 "overview");
-    }
-
-    private static boolean matchesUniversity(String normalizedText, UniversityCatalog university) {
-        if (normalizedText == null || normalizedText.isBlank() || university == null) {
-            return false;
-        }
-
-        if (university.getAcronym() != null && !university.getAcronym().isBlank()) {
-            String acronym = university.getAcronym().toLowerCase(Locale.ROOT);
-            if (containsWord(normalizedText, acronym)) {
-                return true;
-            }
-        }
-
-        if (university.getName() != null && !university.getName().isBlank()) {
-            String name = normalize(university.getName());
-            if (normalizedText.contains(name)) {
-                return true;
-            }
-
-            for (String token : tokenize(name)) {
-                if (token.length() > 2 && !GENERIC_UNIVERSITY_TOKENS.contains(token) && containsWord(normalizedText, token)) {
-                    return true;
-                }
-            }
-        }
-
-        if (university.getNameAr() != null && !university.getNameAr().isBlank()) {
-            String nameAr = normalize(university.getNameAr());
-            if (normalizedText.contains(nameAr)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private static List<String> tokenize(String value) {

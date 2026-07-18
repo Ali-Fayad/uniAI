@@ -37,19 +37,15 @@ public class GraduateFollowUpResolver {
                     normalize(currentUserMessage), locationCatalogs);
             if (!explicitLocationUniversities.isEmpty()) {
                 GraduateKnowledgeQuery replaced = new GraduateKnowledgeQuery(
-                        candidateQuery.intent(),
-                        candidateQuery.resource(),
-                        candidateQuery.operation(),
+                        candidateQuery.intent(), candidateQuery.resource(), candidateQuery.operation(),
                         new GraduateKnowledgeFilters(
                                 explicitLocationUniversities,
                                 candidateQuery.degreeTypes(),
                                 candidateQuery.topicKeywords(),
                                 candidateQuery.filters().city()
-                        ),
-                        candidateQuery.detailLevel(),
-                        true,
-                        false
-                );
+                        ), candidateQuery.aggregation(), candidateQuery.sort(), candidateQuery.limit(),
+                        candidateQuery.followUpContext(), candidateQuery.detailLevel(), true, false)
+                        .withDecisionMetadata(GraduateKnowledgeInterpretationSource.FOLLOW_UP, GraduateKnowledgeAmbiguityReason.NONE, false);
                 return GraduateFollowUpResolutionResult.resolved(replaced, List.of("current message"));
             }
             List<ResolvedUniversity> comparisonScope = comparisonUniversities(conversationMemory);
@@ -83,9 +79,7 @@ public class GraduateFollowUpResolver {
                     normalize(currentUserMessage), catalogs);
             if (!explicitUniversities.isEmpty()) {
                 GraduateKnowledgeQuery replaced = new GraduateKnowledgeQuery(
-                        candidateQuery.intent(),
-                        candidateQuery.resource(),
-                        candidateQuery.operation(),
+                        candidateQuery.intent(), candidateQuery.resource(), candidateQuery.operation(),
                         new GraduateKnowledgeFilters(
                                 explicitUniversities,
                                 candidateQuery.degreeTypes(),
@@ -93,11 +87,9 @@ public class GraduateFollowUpResolver {
                                 candidateQuery.filters().city(),
                                 candidateQuery.filters().facultyName(),
                                 candidateQuery.filters().departmentName()
-                        ),
-                        candidateQuery.detailLevel(),
-                        true,
-                        false
-                );
+                        ), candidateQuery.aggregation(), candidateQuery.sort(), candidateQuery.limit(),
+                        candidateQuery.followUpContext(), candidateQuery.detailLevel(), true, false)
+                        .withDecisionMetadata(GraduateKnowledgeInterpretationSource.FOLLOW_UP, GraduateKnowledgeAmbiguityReason.NONE, false);
                 return GraduateFollowUpResolutionResult.resolved(replaced, List.of("current message"));
             }
             if (!candidateQuery.resolvedUniversities().isEmpty()) {
@@ -280,31 +272,47 @@ public class GraduateFollowUpResolver {
                     candidateQuery.filters().thresholdOperator(),
                     candidateQuery.filters().thresholdValue()
             );
+            GraduateKnowledgeResource effectiveResource = currentTuitionIntent
+                    ? GraduateKnowledgeResource.PROGRAM : candidateQuery.resource();
+            GraduateKnowledgeOperation effectiveOperation = currentTuitionIntent
+                    ? GraduateKnowledgeOperation.AGGREGATE : candidateQuery.operation();
+            GraduateKnowledgeIntent effectiveIntent = currentTuitionIntent
+                    ? GraduateKnowledgeIntent.TUITION_AGGREGATION : candidateQuery.intent();
             resolvedQuery = new GraduateKnowledgeQuery(
-                    resolvedIntent,
-                    candidateQuery.resource(),
-                    candidateQuery.operation(),
+                    effectiveIntent,
+                    effectiveResource,
+                    effectiveOperation,
                     filters,
-                    resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
-                            ? safeTuitionAggregation(candidateQuery) : GraduateKnowledgeQuery.aggregationFor(resolvedIntent),
-                    resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
-                            ? candidateQuery.sort() : GraduateKnowledgeSort.empty(),
-                    resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
-                            ? candidateQuery.limit() : null,
-                    followUpContext(candidateQuery, universityResolution.resolvedUniversities),
-                    resolvedIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
+                    currentTuitionIntent
+                            ? GraduateKnowledgeQuery.aggregationFor(GraduateKnowledgeIntent.TUITION_AGGREGATION)
+                            : candidateQuery.aggregation(),
+                    candidateQuery.sort(),
+                    candidateQuery.limit(),
+                    universityResolution.resolvedUniversities.equals(candidateQuery.resolvedUniversities())
+                            ? candidateQuery.followUpContext() : followUpContext(candidateQuery, universityResolution.resolvedUniversities),
+                    detailLevel,
                     followUpResolved,
+                    ambiguous
+            ).withDecisionMetadata(
+                    GraduateKnowledgeInterpretationSource.FOLLOW_UP,
+                    ambiguous ? GraduateKnowledgeAmbiguityReason.UNRESOLVED_UNIVERSITY : GraduateKnowledgeAmbiguityReason.NONE,
                     ambiguous
             );
         } else {
+            GraduateKnowledgeResource effectiveResource = candidateQuery.resource() == GraduateKnowledgeResource.NONE
+                    ? GraduateKnowledgeQuery.resourceFor(resolvedIntent) : candidateQuery.resource();
+            GraduateKnowledgeOperation effectiveOperation = candidateQuery.operation() == GraduateKnowledgeOperation.NONE
+                    ? GraduateKnowledgeQuery.operationFor(resolvedIntent, detailLevel) : candidateQuery.operation();
             resolvedQuery = new GraduateKnowledgeQuery(
-                    resolvedIntent,
-                    universityResolution.resolvedUniversities,
-                    resolvedDegreeTypes,
-                    resolvedIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
-                    followUpResolved,
-                    ambiguous
-            );
+                    resolvedIntent, effectiveResource, effectiveOperation,
+                    new GraduateKnowledgeFilters(universityResolution.resolvedUniversities, resolvedDegreeTypes, candidateQuery.topicKeywords()),
+                    candidateQuery.aggregation(), candidateQuery.sort(), candidateQuery.limit(),
+                    universityResolution.resolvedUniversities.equals(candidateQuery.resolvedUniversities())
+                            ? candidateQuery.followUpContext() : followUpContext(candidateQuery, universityResolution.resolvedUniversities),
+                    detailLevel, followUpResolved, ambiguous)
+                    .withDecisionMetadata(GraduateKnowledgeInterpretationSource.FOLLOW_UP,
+                            ambiguous ? GraduateKnowledgeAmbiguityReason.UNRESOLVED_UNIVERSITY : GraduateKnowledgeAmbiguityReason.NONE,
+                            ambiguous);
         }
 
         if (ambiguous) {
@@ -316,7 +324,7 @@ public class GraduateFollowUpResolver {
         }
 
         if (sameQuery(candidateQuery, resolvedQuery)) {
-            return GraduateFollowUpResolutionResult.unchanged(resolvedQuery, universityResolution.sources);
+            return GraduateFollowUpResolutionResult.unchanged(candidateQuery, universityResolution.sources);
         }
         return GraduateFollowUpResolutionResult.resolved(resolvedQuery, universityResolution.sources);
     }
@@ -714,7 +722,16 @@ public class GraduateFollowUpResolver {
     }
 
     private boolean sameQuery(GraduateKnowledgeQuery left, GraduateKnowledgeQuery right) {
-        return Objects.equals(left, right);
+        return left.resource() == right.resource()
+                && left.operation() == right.operation()
+                && left.scope() == right.scope()
+                && Objects.equals(left.filters(), right.filters())
+                && Objects.equals(left.aggregation(), right.aggregation())
+                && Objects.equals(left.sort(), right.sort())
+                && Objects.equals(left.limit(), right.limit())
+                && Objects.equals(left.followUpContext(), right.followUpContext())
+                && left.detailLevel() == right.detailLevel()
+                && left.ambiguous() == right.ambiguous();
     }
 
     private boolean hasExplicitUniversityReference(String normalizedMessage) {

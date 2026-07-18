@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import { useTheme } from "@/hooks/useTheme";
-import { TEXT } from "@/constants/static";
 import "leaflet/dist/leaflet.css";
 import useMap from "@/hooks/useMap";
 import { ROUTES } from "@/router";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { formatLocation } from "@/components/page/map/mapUniversityMapper";
 
 const MapPage = () => {
   const { themeName } = useTheme();
@@ -20,6 +21,8 @@ const MapPage = () => {
     openSidebar,
     closeSidebar,
     center,
+    isLoading,
+    error,
   } = useMap();
 
   useEffect(() => {
@@ -54,9 +57,9 @@ const MapPage = () => {
           style={{ height: "100%", width: "100%" }}
         >
           <TileLayer attribution={attribution} url={tileLayerUrl} />
-          {universities.map((u) => (
+          {!isLoading && !error && universities.map((u) => (
             <CircleMarker
-              key={u.id}
+              key={`${u.universityId}-${u.campusId}`}
               center={u.coordinates}
               radius={10}
               pathOptions={{
@@ -74,13 +77,30 @@ const MapPage = () => {
               <Popup>
                 <div className="max-w-xs">
                   <h3 className="font-bold">{u.name}</h3>
-                  <p className="text-sm">{u.description}</p>
+                  <p className="text-sm">{u.campusName}</p>
+                  <p className="text-sm">{formatLocation(u)}</p>
                 </div>
               </Popup>
             </CircleMarker>
           ))}
         </MapContainer>
       </div>
+
+      {(isLoading || error || (!universities.length && !isLoading)) && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <div className="pointer-events-auto rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/95 px-6 py-5 text-center shadow-lg">
+            {isLoading && <LoadingSpinner text="Loading universities..." />}
+            {!isLoading && error && (
+              <p className="text-sm text-[var(--color-error)]">{error}</p>
+            )}
+            {!isLoading && !error && !universities.length && (
+              <p className="text-sm text-[var(--color-textSecondary)]">
+                No university campuses with map coordinates are available.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Floating sidebar toggle (top-right) */}
       <div className="fixed z-50 top-6 right-6">
@@ -146,7 +166,7 @@ const MapPage = () => {
           <div className="overflow-auto flex-1 space-y-3">
             {universities.map((u) => (
               <div
-                key={u.id}
+                key={`${u.universityId}-${u.campusId}`}
                 onClick={() => {
                   setSelected(u);
                 }}
@@ -169,17 +189,23 @@ const MapPage = () => {
                   <h3 className="font-medium text-[var(--color-textPrimary)]">
                     {u.name}
                   </h3>
+                  {u.acronym && (
+                    <p className="text-sm text-[var(--color-textSecondary)]">
+                      {u.acronym}
+                    </p>
+                  )}
+                  {u.nameAr && (
+                    <p className="text-sm text-[var(--color-textSecondary)]">
+                      {u.nameAr}
+                    </p>
+                  )}
                   <p className="text-sm text-[var(--color-textSecondary)]">
-                    {u.description}
+                    {u.campusName}
+                    {u.campusType ? ` · ${u.campusType}` : ''}
                   </p>
-                  <a
-                    href={u.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sm text-[var(--color-primary)] underline mt-1 inline-block"
-                  >
-                    {TEXT.map.visitWebsite}
-                  </a>
+                  <p className="text-sm text-[var(--color-textSecondary)]">
+                    {formatLocation(u)}
+                  </p>
                 </div>
               </div>
             ))}

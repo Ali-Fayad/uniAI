@@ -32,7 +32,11 @@ public class CVDataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        try {
+        // University and campus catalog data is now migrated and owned by Flyway.
+        // Keep this runner as a no-op compatibility component so older deployments
+        // do not re-import the obsolete row-per-campus markdown source.
+        return;
+        /*try {
             Resource resource = resolveResource();
             if (resource == null || !resource.exists()) {
                 logger.info("Universities seed file not found; skipping load");
@@ -98,7 +102,7 @@ public class CVDataLoader implements ApplicationRunner {
             }
         } catch (Exception ex) {
             logger.warn("Failed to seed universities: {}", ex.getMessage(), ex);
-        }
+        }*/
     }
 
     private Resource resolveResource() {

@@ -6,6 +6,7 @@ public record GraduateKnowledgeQuery(
         GraduateKnowledgeIntent intent,
         GraduateKnowledgeResource resource,
         GraduateKnowledgeOperation operation,
+        GraduateKnowledgeScope scope,
         GraduateKnowledgeFilters filters,
         GraduateKnowledgeAggregation aggregation,
         GraduateKnowledgeSort sort,
@@ -13,7 +14,9 @@ public record GraduateKnowledgeQuery(
         GraduateKnowledgeFollowUpContext followUpContext,
         GraduateProgramDetailLevel detailLevel,
         boolean followUpResolved,
-        boolean ambiguous
+        boolean ambiguous,
+        GraduateKnowledgeInterpretationSource interpretationSource,
+        GraduateKnowledgeAmbiguityReason ambiguityReason
 ) {
     public static final int DEFAULT_TUITION_LIMIT = 5;
     public static final int MAX_LIMIT = 20;
@@ -22,16 +25,27 @@ public record GraduateKnowledgeQuery(
         intent = intent == null ? GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS : intent;
         resource = resource == null ? resourceFor(intent) : resource;
         operation = operation == null ? operationFor(intent, detailLevel) : operation;
+        if (intent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS) {
+            intent = deriveIntent(resource, operation);
+        }
+        scope = scope == null ? scopeFor(resource, intent) : scope;
         filters = filters == null ? GraduateKnowledgeFilters.empty() : filters;
         aggregation = aggregation == null ? aggregationFor(intent) : aggregation;
         sort = sort == null ? GraduateKnowledgeSort.empty() : sort;
         followUpContext = followUpContext == null ? GraduateKnowledgeFollowUpContext.empty() : followUpContext;
+        interpretationSource = interpretationSource == null ? GraduateKnowledgeInterpretationSource.DETERMINISTIC : interpretationSource;
+        ambiguityReason = ambiguityReason == null
+                ? (ambiguous ? GraduateKnowledgeAmbiguityReason.MISSING_REQUIRED_SCOPE : GraduateKnowledgeAmbiguityReason.NONE)
+                : ambiguityReason;
         if (limit != null && (limit < 1 || limit > MAX_LIMIT)) {
             throw new IllegalArgumentException("Query limit must be positive");
         }
         if (!isCompatible(resource, operation)) {
             throw new IllegalArgumentException("Unsupported graduate resource/operation combination: "
                     + resource + "/" + operation);
+        }
+        if (!isScopeCompatible(resource, scope)) {
+            throw new IllegalArgumentException("Unsupported graduate resource/scope combination: " + resource + "/" + scope);
         }
         if (operation == GraduateKnowledgeOperation.COMPARE
                 && followUpContext.comparisonDimension() == null) {
@@ -55,8 +69,7 @@ public record GraduateKnowledgeQuery(
                 && !"PROGRAM".equals(filters.tuitionScopeLevel())) {
             throw new IllegalArgumentException("Program filters require PROGRAM tuition scope");
         }
-        if (intent == GraduateKnowledgeIntent.GENERAL_CHAT
-                || intent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS) {
+        if (resource == GraduateKnowledgeResource.NONE && operation == GraduateKnowledgeOperation.NONE) {
             filters = GraduateKnowledgeFilters.empty();
         }
         if (detailLevel == null && intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP) {
@@ -77,6 +90,7 @@ public record GraduateKnowledgeQuery(
                 intent,
                 resourceFor(intent),
                 operationFor(intent, detailLevel),
+                scopeFor(resourceFor(intent), intent),
                 new GraduateKnowledgeFilters(resolvedUniversities, degreeTypes, List.of()),
                 aggregationFor(intent),
                 GraduateKnowledgeSort.empty(),
@@ -84,7 +98,9 @@ public record GraduateKnowledgeQuery(
                 GraduateKnowledgeFollowUpContext.empty(),
                 detailLevel,
                 followUpResolved,
-                ambiguous
+                ambiguous,
+                GraduateKnowledgeInterpretationSource.DETERMINISTIC,
+                ambiguous ? GraduateKnowledgeAmbiguityReason.MISSING_REQUIRED_SCOPE : GraduateKnowledgeAmbiguityReason.NONE
         );
     }
 
@@ -102,6 +118,7 @@ public record GraduateKnowledgeQuery(
                 intent,
                 resource,
                 operation,
+                scopeFor(resource, intent),
                 filters,
                 aggregationFor(intent),
                 GraduateKnowledgeSort.empty(),
@@ -109,8 +126,30 @@ public record GraduateKnowledgeQuery(
                 GraduateKnowledgeFollowUpContext.empty(),
                 detailLevel,
                 followUpResolved,
-                ambiguous
+                ambiguous,
+                GraduateKnowledgeInterpretationSource.DETERMINISTIC,
+                ambiguous ? GraduateKnowledgeAmbiguityReason.MISSING_REQUIRED_SCOPE : GraduateKnowledgeAmbiguityReason.NONE
         );
+    }
+
+    /** Compatibility constructor for the pre-metadata normalized shape. */
+    public GraduateKnowledgeQuery(
+            GraduateKnowledgeIntent intent,
+            GraduateKnowledgeResource resource,
+            GraduateKnowledgeOperation operation,
+            GraduateKnowledgeFilters filters,
+            GraduateKnowledgeAggregation aggregation,
+            GraduateKnowledgeSort sort,
+            Integer limit,
+            GraduateKnowledgeFollowUpContext followUpContext,
+            GraduateProgramDetailLevel detailLevel,
+            boolean followUpResolved,
+            boolean ambiguous
+    ) {
+        this(intent, resource, operation, scopeFor(resource, intent), filters, aggregation, sort, limit,
+                followUpContext, detailLevel, followUpResolved, ambiguous,
+                GraduateKnowledgeInterpretationSource.DETERMINISTIC,
+                ambiguous ? GraduateKnowledgeAmbiguityReason.MISSING_REQUIRED_SCOPE : GraduateKnowledgeAmbiguityReason.NONE);
     }
 
     public List<ResolvedUniversity> resolvedUniversities() {
@@ -131,6 +170,34 @@ public record GraduateKnowledgeQuery(
 
     public boolean hasDegreeTypes() {
         return !degreeTypes().isEmpty();
+    }
+
+    public GraduateKnowledgeQuery withDecisionMetadata(
+            GraduateKnowledgeInterpretationSource source,
+            GraduateKnowledgeAmbiguityReason reason,
+            boolean ambiguous
+    ) {
+        return new GraduateKnowledgeQuery(intent, resource, operation, scope, filters, aggregation, sort, limit,
+                followUpContext, detailLevel, followUpResolved, ambiguous, source, reason);
+    }
+
+    public static GraduateKnowledgeScope scopeFor(GraduateKnowledgeResource resource, GraduateKnowledgeIntent intent) {
+        if (resource == GraduateKnowledgeResource.GRADUATE_OVERVIEW) return GraduateKnowledgeScope.GRADUATE_OVERVIEW;
+        if (resource == GraduateKnowledgeResource.CAMPUS) return GraduateKnowledgeScope.CAMPUS;
+        if (resource == GraduateKnowledgeResource.FACULTY) return GraduateKnowledgeScope.FACULTY;
+        if (resource == GraduateKnowledgeResource.DEPARTMENT) return GraduateKnowledgeScope.DEPARTMENT;
+        if (resource == GraduateKnowledgeResource.PROGRAM) return GraduateKnowledgeScope.PROGRAM;
+        if (resource == GraduateKnowledgeResource.UNIVERSITY) return GraduateKnowledgeScope.UNIVERSITY;
+        return intent == GraduateKnowledgeIntent.GENERAL_CHAT ? GraduateKnowledgeScope.GENERAL : GraduateKnowledgeScope.GENERAL;
+    }
+
+    public static GraduateKnowledgeIntent deriveIntent(GraduateKnowledgeResource resource, GraduateKnowledgeOperation operation) {
+        if (resource == GraduateKnowledgeResource.GRADUATE_OVERVIEW && operation == GraduateKnowledgeOperation.OVERVIEW) return GraduateKnowledgeIntent.GRADUATE_OVERVIEW;
+        if (resource == GraduateKnowledgeResource.PROGRAM && operation == GraduateKnowledgeOperation.AGGREGATE) return GraduateKnowledgeIntent.TUITION_AGGREGATION;
+        if (resource == GraduateKnowledgeResource.PROGRAM && operation != GraduateKnowledgeOperation.NONE) return GraduateKnowledgeIntent.PROGRAM_LOOKUP;
+        if ((resource == GraduateKnowledgeResource.CAMPUS || resource == GraduateKnowledgeResource.UNIVERSITY) && operation != GraduateKnowledgeOperation.NONE) return GraduateKnowledgeIntent.LOCATION_LOOKUP;
+        if (resource == GraduateKnowledgeResource.FACULTY || resource == GraduateKnowledgeResource.DEPARTMENT) return GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP;
+        return GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;
     }
 
     private static boolean hasProgramScopedFilters(GraduateKnowledgeFilters filters) {
@@ -200,5 +267,18 @@ public record GraduateKnowledgeQuery(
             return false;
         }
         return true;
+    }
+
+    public static boolean isScopeCompatible(GraduateKnowledgeResource resource, GraduateKnowledgeScope scope) {
+        if (resource == null || scope == null) return false;
+        return switch (resource) {
+            case NONE -> scope == GraduateKnowledgeScope.GENERAL;
+            case GRADUATE_OVERVIEW -> scope == GraduateKnowledgeScope.GRADUATE_OVERVIEW || scope == GraduateKnowledgeScope.UNIVERSITY;
+            case UNIVERSITY -> scope == GraduateKnowledgeScope.UNIVERSITY;
+            case CAMPUS -> scope == GraduateKnowledgeScope.CAMPUS || scope == GraduateKnowledgeScope.UNIVERSITY;
+            case PROGRAM -> scope == GraduateKnowledgeScope.PROGRAM || scope == GraduateKnowledgeScope.UNIVERSITY;
+            case FACULTY -> scope == GraduateKnowledgeScope.FACULTY || scope == GraduateKnowledgeScope.UNIVERSITY;
+            case DEPARTMENT -> scope == GraduateKnowledgeScope.DEPARTMENT || scope == GraduateKnowledgeScope.FACULTY || scope == GraduateKnowledgeScope.UNIVERSITY;
+        };
     }
 }

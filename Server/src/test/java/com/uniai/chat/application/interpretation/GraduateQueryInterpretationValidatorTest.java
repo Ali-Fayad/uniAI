@@ -3,6 +3,7 @@ package com.uniai.chat.application.interpretation;
 import com.uniai.catalog.domain.model.UniversityCatalog;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -203,8 +204,9 @@ class GraduateQueryInterpretationValidatorTest {
 
         GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
 
-        assertEquals(GraduateQueryInterpretationStatus.INVALID, result.status());
-        assertEquals("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED", result.failureCategory());
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(GraduateKnowledgeResource.UNIVERSITY, result.query().resource());
+        assertEquals(GraduateKnowledgeOperation.COUNT, result.query().operation());
     }
 
     @Test

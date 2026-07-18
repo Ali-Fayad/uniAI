@@ -178,8 +178,19 @@ export interface PositionCatalogDto {
 export interface UniversityCatalogDto {
   id: number;
   name: string;
-  acronym?: string;
-  nameAr?: string;
+  acronym?: string | null;
+  nameAr?: string | null;
+  campuses: CampusCatalogDto[];
+}
+
+export interface CampusCatalogDto {
+  id: number;
+  name: string;
+  campusType?: string | null;
+  city: string;
+  locality?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 export interface ChangePasswordDto {

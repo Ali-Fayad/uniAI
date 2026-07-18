@@ -29,11 +29,6 @@ public class UniversityRepositoryAdapter implements UniversityRepository {
     }
 
     @Override
-    public boolean existsByNameAndCampusName(String name, String campusName) {
-        return jpaRepository.existsByNameAndCampusName(name, campusName);
-    }
-
-    @Override
     public University save(University university) {
         return jpaRepository.save(university);
     }

@@ -1,20 +1,20 @@
 /**
  * useMap hook
  *
- * Responsible only for interactive map state (selected university, sidebar
- * open/close).  Static university data lives in data/universities.ts (SRP).
+ * Owns interactive map state while delegating server-backed campus loading to
+ * useMapUniversities.
  */
 
 import { useState } from 'react';
-import { UNIVERSITIES } from '../data/universities';
-import type { University } from '../data/universities';
+import { useMapUniversities } from './useMapUniversities';
+import type { MapUniversity } from '../components/page/map/mapUniversityMapper';
 
-// Re-export University type so existing consumers keep their import path.
-export type { University };
+export type { MapUniversity };
 
 export const useMap = () => {
-  const [selected, setSelected] = useState<University | null>(null);
+  const [selected, setSelected] = useState<MapUniversity | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const mapUniversities = useMapUniversities();
 
   const toggleSidebar = () => setIsSidebarOpen((s: boolean) => !s);
   const openSidebar = () => setIsSidebarOpen(true);
@@ -23,7 +23,9 @@ export const useMap = () => {
   const center: [number, number] = [33.8547, 35.8623];
 
   return {
-    universities: UNIVERSITIES,
+    universities: mapUniversities.universities,
+    isLoading: mapUniversities.isLoading,
+    error: mapUniversities.error,
     selected,
     setSelected,
     isSidebarOpen,
@@ -35,4 +37,3 @@ export const useMap = () => {
 };
 
 export default useMap;
-

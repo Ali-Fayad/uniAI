@@ -2,6 +2,8 @@ package com.uniai.catalog.application.service;
 
 import com.uniai.catalog.application.dto.response.UniversityCatalogResponse;
 import com.uniai.catalog.domain.model.UniversityCatalog;
+import com.uniai.catalog.domain.model.CampusCatalog;
+import com.uniai.catalog.infrastructure.persistence.repository.CampusCatalogJpaRepository;
 import com.uniai.catalog.infrastructure.persistence.repository.UniversityCatalogJpaRepository;
 import com.uniai.support.PostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,9 @@ class CatalogQueryServiceIntegrationTest extends PostgresIntegrationTest {
 
     @Autowired
     private UniversityCatalogJpaRepository universityCatalogJpaRepository;
+
+    @Autowired
+    private CampusCatalogJpaRepository campusCatalogJpaRepository;
 
     @Test
     void getUniversitiesShouldReturnOneLogicalUniversityForAcronymAndFullNameSearches() {
@@ -46,10 +51,11 @@ class CatalogQueryServiceIntegrationTest extends PostgresIntegrationTest {
 
     @Test
     void getUniversitiesShouldCollapseCampusVariantsIntoOneLogicalInstitution() {
-        UniversityCatalog branch = university(999101L, "Test University", "TST", null, "Branch", "Branch");
-        UniversityCatalog mainCampus = university(999102L, "Test University", "TST", null, "Main Campus", "Main");
         UniversityCatalog institutionLevel = university(999103L, "Test University", "TST", null, null, null);
-        universityCatalogJpaRepository.saveAll(List.of(branch, mainCampus, institutionLevel));
+        UniversityCatalog saved = universityCatalogJpaRepository.save(institutionLevel);
+        campusCatalogJpaRepository.saveAll(List.of(
+                CampusCatalog.builder().universityId(saved.getId()).name("Main Campus").city("Beirut").campusType("Main").build(),
+                CampusCatalog.builder().universityId(saved.getId()).name("Branch").city("Tripoli").campusType("Branch").build()));
 
         List<UniversityCatalogResponse> result = catalogQueryService.getUniversities("TST");
 
@@ -72,6 +78,7 @@ class CatalogQueryServiceIntegrationTest extends PostgresIntegrationTest {
                 .id(id)
                 .name(name)
                 .acronym(acronym)
+                .country("Lebanon")
                 .nameAr(nameAr)
                 .campusName(campusName)
                 .campusType(campusType)

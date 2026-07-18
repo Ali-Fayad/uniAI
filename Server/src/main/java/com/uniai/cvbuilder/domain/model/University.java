@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * JPA entity storing university and campus metadata used for education lookups and seeding.
+ * Institution entity used by CV education references. Physical locations live in campus.
  */
 @Entity
 @Table(name = "universities")
@@ -32,13 +32,17 @@ public class University {
 
     private String acronym;
 
+    @Transient
     private BigDecimal latitude;
+
+    @Transient
     private BigDecimal longitude;
 
-    @Column(name = "campus_name")
+    /** Deprecated response compatibility fields; campus data is served by the catalog API. */
+    @Transient
     private String campusName;
 
-    @Column(name = "campus_type")
+    @Transient
     private String campusType;
 
     @Column(name = "created_at", updatable = false)

@@ -95,4 +95,29 @@ class GraduateKnowledgeQueryTest {
                 5, GraduateKnowledgeFollowUpContext.empty(), GraduateProgramDetailLevel.LIST, true, false
         ));
     }
+
+    @Test
+    void typedDecisionDerivesCompatibilityIntentAndPreservesMetadata() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS,
+                GraduateKnowledgeResource.UNIVERSITY,
+                GraduateKnowledgeOperation.COUNT,
+                GraduateKnowledgeScope.UNIVERSITY,
+                GraduateKnowledgeFilters.empty(),
+                GraduateKnowledgeAggregation.empty(),
+                GraduateKnowledgeSort.empty(),
+                5,
+                GraduateKnowledgeFollowUpContext.empty(),
+                null,
+                false,
+                false,
+                GraduateKnowledgeInterpretationSource.AI,
+                GraduateKnowledgeAmbiguityReason.NONE
+        );
+
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, query.intent());
+        assertEquals(GraduateKnowledgeScope.UNIVERSITY, query.scope());
+        assertEquals(GraduateKnowledgeInterpretationSource.AI, query.interpretationSource());
+        assertEquals(GraduateKnowledgeAmbiguityReason.NONE, query.ambiguityReason());
+    }
 }

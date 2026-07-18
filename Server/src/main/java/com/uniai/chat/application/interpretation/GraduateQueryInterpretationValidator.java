@@ -16,6 +16,9 @@ import com.uniai.chat.application.retrieval.GraduateKnowledgeComparisonDimension
 import com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResolutionSupport;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeInterpretationSource;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeAmbiguityReason;
 
 import java.util.ArrayList;
 import java.math.BigDecimal;
@@ -36,14 +39,6 @@ public class GraduateQueryInterpretationValidator {
     private static final int MAX_CITY_LENGTH = 120;
     private static final int MAX_STRING_LENGTH = 120;
     private static final Pattern WORD_SPLIT = Pattern.compile("[^\\p{L}\\p{N}+]+");
-    private static final Set<String> GENERIC_UNIVERSITY_TOKENS = Set.of(
-            "university",
-            "college",
-            "institute",
-            "school",
-            "faculty",
-            "department"
-    );
     private static final Set<String> SUPPORTED_ADMISSION_TYPES = Set.of(
             "GENERAL", "GRE", "GMAT", "ENGLISH", "PORTFOLIO", "INTERVIEW",
             "EXPERIENCE", "ACADEMIC", "PREREQUISITE", "OTHER"
@@ -146,7 +141,10 @@ public class GraduateQueryInterpretationValidator {
             );
         }
 
-        if (intent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS) {
+        if (intent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
+                && (partialQuery == null
+                || (partialQuery.resource() == GraduateKnowledgeResource.NONE
+                && partialQuery.operation() == GraduateKnowledgeOperation.NONE))) {
             return GraduateQueryInterpretationResult.ambiguous(
                     buildAmbiguousMessage(intent),
                     resolvedUniversities.size(),
@@ -233,6 +231,10 @@ public class GraduateQueryInterpretationValidator {
                     queryDetailLevel,
                     followUpResolved,
                     false
+            ).withDecisionMetadata(
+                    GraduateKnowledgeInterpretationSource.AI,
+                    GraduateKnowledgeAmbiguityReason.NONE,
+                    false
             );
         }
         if (resourceValue == null || operationValue == null) {
@@ -248,13 +250,13 @@ public class GraduateQueryInterpretationValidator {
         if (Boolean.TRUE.equals(interpretation.comparison()) && operation != GraduateKnowledgeOperation.COMPARE) {
             throw new IllegalArgumentException("Comparison metadata requires COMPARE operation");
         }
-        if (!GraduateKnowledgeQuery.isCompatible(resource, operation) || !matchesIntent(intent, resource, operation)) {
+        if (!GraduateKnowledgeQuery.isCompatible(resource, operation)) {
             throw new IllegalArgumentException("Unsupported graduate resource/operation combination");
         }
         if (operation == GraduateKnowledgeOperation.COMPARE && !comparisonDimensionMatchesResource(comparisonDimension, resource)) {
             throw new IllegalArgumentException("Comparison dimension is incompatible with resource");
         }
-        return new GraduateKnowledgeQuery(
+        GraduateKnowledgeQuery normalizedQuery = new GraduateKnowledgeQuery(
                 intent,
                 resource,
                 operation,
@@ -265,6 +267,11 @@ public class GraduateQueryInterpretationValidator {
                 new GraduateKnowledgeFollowUpContext(null, null, resource, operation, List.of(), comparisonDimension),
                 queryDetailLevel,
                 followUpResolved,
+                false
+        );
+        return normalizedQuery.withDecisionMetadata(
+                GraduateKnowledgeInterpretationSource.AI,
+                GraduateKnowledgeAmbiguityReason.NONE,
                 false
         );
     }
@@ -454,55 +461,8 @@ public class GraduateQueryInterpretationValidator {
     }
 
     private List<ResolvedUniversity> resolveUniversities(List<String> universityMentions, List<UniversityCatalog> catalogs) {
-        if (universityMentions == null || universityMentions.isEmpty() || catalogs == null || catalogs.isEmpty()) {
-            return List.of();
-        }
-
-        Map<Long, ResolvedUniversity> resolved = new LinkedHashMap<>();
-        for (String mention : universityMentions) {
-            if (mention == null || mention.isBlank()) {
-                continue;
-            }
-            for (UniversityCatalog catalog : catalogs) {
-                if (catalog == null || catalog.getId() == null) {
-                    continue;
-                }
-                if (matchesUniversity(mention, catalog)) {
-                    resolved.putIfAbsent(catalog.getId(), new ResolvedUniversity(catalog.getId(), catalog.getName(), catalog.getAcronym()));
-                }
-            }
-        }
-        return new ArrayList<>(resolved.values()).stream().limit(MAX_UNIVERSITIES).toList();
-    }
-
-    private boolean matchesUniversity(String mention, UniversityCatalog university) {
-        if (mention == null || mention.isBlank() || university == null) {
-            return false;
-        }
-
-        String normalizedMention = normalizeText(mention);
-
-        if (hasText(university.getAcronym()) && containsWord(normalizedMention, normalizeText(university.getAcronym()))) {
-            return true;
-        }
-
-        if (hasText(university.getName()) && normalizedMention.contains(normalizeText(university.getName()))) {
-            return true;
-        }
-
-        if (hasText(university.getNameAr()) && normalizedMention.contains(normalizeText(university.getNameAr()))) {
-            return true;
-        }
-
-        if (hasText(university.getName())) {
-            for (String token : tokenize(university.getName())) {
-                if (token.length() > 2 && !GENERIC_UNIVERSITY_TOKENS.contains(token) && containsWord(normalizedMention, token)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return GraduateKnowledgeResolutionSupport.resolveUniversityMentions(universityMentions, catalogs)
+                .stream().limit(MAX_UNIVERSITIES).toList();
     }
 
     private List<String> normalizeSupportedDegrees(List<String> degreeTypes) {

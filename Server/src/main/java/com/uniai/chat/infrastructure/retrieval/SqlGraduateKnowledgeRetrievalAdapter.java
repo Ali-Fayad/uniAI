@@ -281,11 +281,16 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             GraduateKnowledgeComparisonDimension dimension
     ) {
         String table = dimension == GraduateKnowledgeComparisonDimension.FACULTY_COUNT ? "university_faculty" : "university_department";
+        StringBuilder filters = new StringBuilder();
+        appendUniversityScope(filters, query, "u.id", true);
+        appendCityFilter(filters, query, "u.id");
         String sql = "SELECT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, COUNT(DISTINCT a.id) AS result_count FROM "
                 + table + " a JOIN university u ON u.id = a.university_id WHERE "
-                + "(:universityIdsEmpty = TRUE OR u.id IN (:universityIds)) AND (:city IS NULL OR LOWER(BTRIM(u.city)) = LOWER(BTRIM(:city))) GROUP BY u.id, u.name, u.acronym ORDER BY result_count DESC, LOWER(u.name) LIMIT "
+                + "1 = 1 " + filters + " GROUP BY u.id, u.name, u.acronym ORDER BY result_count DESC, LOWER(u.name) LIMIT "
                 + (query.limit() == null ? GraduateKnowledgeQuery.MAX_LIMIT : query.limit());
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, baseProgramParams(query));
+        MapSqlParameterSource parameters = baseProgramParams(query);
+        if (StringUtils.hasText(query.filters().city())) parameters.addValue("city", query.filters().city().trim());
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, parameters);
         return formatGroupedComparison(dimension, rows);
     }
 
@@ -324,12 +329,9 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     FROM source s
                     WHERE s.id = gp.source_id
                 ) src ON TRUE
-                WHERE gp.university_id IN (:universityIds)
-                AND (:degreeTypesEmpty = TRUE OR dt.code IN (:degreeTypes))
-                AND (:facultyName IS NULL OR LOWER(BTRIM(fac.name)) = LOWER(BTRIM(:facultyName)))
-                AND (:departmentName IS NULL OR LOWER(BTRIM(dep.name)) = LOWER(BTRIM(:departmentName)))
-                AND (:topicRegex IS NULL OR CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category) ~* :topicRegex)
+                WHERE 1 = 1
                 """;
+        sql += academicProgramFilterClause(query);
         if (operation.equals("COUNT") || operation.equals("EXISTS")) {
             Long count = jdbcTemplate.queryForObject(sql, parameters.values(), Long.class);
             return new AcademicRows(List.of(new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)), count == null ? 0 : count, "PROGRAM");
@@ -343,7 +345,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         boolean scalar = query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.COUNT
                 || query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS;
         String sql = (scalar ? "SELECT COUNT(DISTINCT fac.id) " : "SELECT DISTINCT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, fac.id AS academic_id, fac.name AS academic_name, fac.short_name AS short_name, fac.official_url AS official_url ")
-                + "FROM university_faculty fac JOIN university u ON u.id = fac.university_id WHERE fac.university_id IN (:universityIds) AND (:facultyName IS NULL OR LOWER(BTRIM(fac.name)) = LOWER(BTRIM(:facultyName)))";
+                + "FROM university_faculty fac JOIN university u ON u.id = fac.university_id WHERE 1 = 1"
+                + academicFacultyFilterClause(query);
         if (scalar) {
             Long count = jdbcTemplate.queryForObject(sql, parameters.values(), Long.class);
             return new AcademicRows(List.of(new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)), count == null ? 0 : count, "FACULTY");
@@ -357,7 +360,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         boolean scalar = query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.COUNT
                 || query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS;
         String sql = (scalar ? "SELECT COUNT(DISTINCT dep.id) " : "SELECT DISTINCT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, dep.id AS academic_id, dep.name AS academic_name, dep.short_name AS short_name, dep.official_url AS official_url ")
-                + "FROM university_department dep JOIN university u ON u.id = dep.university_id LEFT JOIN university_faculty fac ON fac.id = dep.faculty_id WHERE dep.university_id IN (:universityIds) AND (:departmentName IS NULL OR LOWER(BTRIM(dep.name)) = LOWER(BTRIM(:departmentName))) AND (:facultyName IS NULL OR LOWER(BTRIM(fac.name)) = LOWER(BTRIM(:facultyName)))";
+                + "FROM university_department dep JOIN university u ON u.id = dep.university_id LEFT JOIN university_faculty fac ON fac.id = dep.faculty_id WHERE 1 = 1"
+                + academicDepartmentFilterClause(query);
         if (scalar) {
             Long count = jdbcTemplate.queryForObject(sql, parameters.values(), Long.class);
             return new AcademicRows(List.of(new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)), count == null ? 0 : count, "DEPARTMENT");
@@ -368,14 +372,61 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private AcademicParameters academicParameters(GraduateKnowledgeQuery query) {
         List<Long> universityIds = universityIds(query.resolvedUniversities());
-        MapSqlParameterSource values = new MapSqlParameterSource()
-                .addValue("universityIds", universityIds)
-                .addValue("degreeTypes", query.degreeTypes().stream().map(value -> value.toUpperCase(Locale.ROOT)).toList())
-                .addValue("degreeTypesEmpty", query.degreeTypes().isEmpty())
-                .addValue("facultyName", query.filters().facultyName())
-                .addValue("departmentName", query.filters().departmentName())
-                .addValue("topicRegex", academicTopicRegex(query.topicKeywords()));
+        MapSqlParameterSource values = new MapSqlParameterSource();
+        if (!universityIds.isEmpty()) values.addValue("universityIds", universityIds);
+        if (!query.degreeTypes().isEmpty()) values.addValue("degreeTypes", query.degreeTypes().stream().map(value -> value.toUpperCase(Locale.ROOT)).toList());
+        if (StringUtils.hasText(query.filters().facultyName())) values.addValue("facultyName", query.filters().facultyName().trim());
+        if (StringUtils.hasText(query.filters().departmentName())) values.addValue("departmentName", query.filters().departmentName().trim());
+        String topicRegex = academicTopicRegex(query.topicKeywords());
+        if (StringUtils.hasText(topicRegex)) values.addValue("topicRegex", topicRegex);
         return new AcademicParameters(values);
+    }
+
+    /* Optional collection semantics preserved from the previous guards:
+       absent universityIds means all universities in program/tuition/comparison paths;
+       absent degreeTypes means all degree types; absent languages/admission types means no filter.
+       Academic resource queries historically required universityIds, so an absent ID list becomes 1=0. */
+    private String academicProgramFilterClause(GraduateKnowledgeQuery query) {
+        StringBuilder clause = new StringBuilder();
+        appendAcademicUniversityScope(clause, query, "gp.university_id");
+        appendAcademicDegreeFilter(clause, query, "dt.code");
+        appendOptionalEquals(clause, query.filters().facultyName(), "LOWER(BTRIM(fac.name))", "facultyName");
+        appendOptionalEquals(clause, query.filters().departmentName(), "LOWER(BTRIM(dep.name))", "departmentName");
+        appendOptionalRegex(clause, query.topicKeywords(), "CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category)");
+        return clause.toString();
+    }
+
+    private String academicFacultyFilterClause(GraduateKnowledgeQuery query) {
+        StringBuilder clause = new StringBuilder();
+        appendAcademicUniversityScope(clause, query, "fac.university_id");
+        appendOptionalEquals(clause, query.filters().facultyName(), "LOWER(BTRIM(fac.name))", "facultyName");
+        return clause.toString();
+    }
+
+    private String academicDepartmentFilterClause(GraduateKnowledgeQuery query) {
+        StringBuilder clause = new StringBuilder();
+        appendAcademicUniversityScope(clause, query, "dep.university_id");
+        appendOptionalEquals(clause, query.filters().departmentName(), "LOWER(BTRIM(dep.name))", "departmentName");
+        appendOptionalEquals(clause, query.filters().facultyName(), "LOWER(BTRIM(fac.name))", "facultyName");
+        return clause.toString();
+    }
+
+    private void appendAcademicUniversityScope(StringBuilder clause, GraduateKnowledgeQuery query, String column) {
+        clause.append(query.resolvedUniversities().isEmpty()
+                ? " AND 1 = 0\n"
+                : " AND " + column + " IN (:universityIds)\n");
+    }
+
+    private void appendAcademicDegreeFilter(StringBuilder clause, GraduateKnowledgeQuery query, String column) {
+        if (!query.degreeTypes().isEmpty()) clause.append(" AND ").append(column).append(" IN (:degreeTypes)\n");
+    }
+
+    private void appendOptionalEquals(StringBuilder clause, String value, String expression, String parameter) {
+        if (StringUtils.hasText(value)) clause.append(" AND ").append(expression).append(" = LOWER(BTRIM(:").append(parameter).append("))\n");
+    }
+
+    private void appendOptionalRegex(StringBuilder clause, List<String> keywords, String expression) {
+        if (StringUtils.hasText(academicTopicRegex(keywords))) clause.append(" AND ").append(expression).append(" ~* :topicRegex\n");
     }
 
     private String academicTopicRegex(List<String> keywords) {
@@ -565,10 +616,14 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private String tuitionFilterClause(GraduateKnowledgeQuery query) {
         StringBuilder clause = new StringBuilder();
-        clause.append("AND (:universityIdsEmpty = TRUE OR gtr.university_id IN (:universityIds))\n");
-        clause.append("AND (:city IS NULL OR LOWER(BTRIM(u.city)) = LOWER(BTRIM(:city)))\n");
-        clause.append("AND (:facultyName IS NULL OR EXISTS (SELECT 1 FROM university_faculty tuition_faculty_filter WHERE LOWER(BTRIM(tuition_faculty_filter.name)) = LOWER(BTRIM(:facultyName)) AND (tuition_faculty_filter.id = gtr.faculty_id OR tuition_faculty_filter.id = gp.faculty_id)))\n");
-        clause.append("AND (:departmentName IS NULL OR EXISTS (SELECT 1 FROM university_department tuition_department_filter WHERE LOWER(BTRIM(tuition_department_filter.name)) = LOWER(BTRIM(:departmentName)) AND (tuition_department_filter.id = gtr.department_id OR tuition_department_filter.id = gp.department_id)))\n");
+        appendUniversityScope(clause, query, "gtr.university_id", true);
+        appendCityFilter(clause, query, "u.id");
+        if (StringUtils.hasText(query.filters().facultyName())) {
+            clause.append("AND EXISTS (SELECT 1 FROM university_faculty tuition_faculty_filter WHERE LOWER(BTRIM(tuition_faculty_filter.name)) = LOWER(BTRIM(:facultyName)) AND (tuition_faculty_filter.id = gtr.faculty_id OR tuition_faculty_filter.id = gp.faculty_id))\n");
+        }
+        if (StringUtils.hasText(query.filters().departmentName())) {
+            clause.append("AND EXISTS (SELECT 1 FROM university_department tuition_department_filter WHERE LOWER(BTRIM(tuition_department_filter.name)) = LOWER(BTRIM(:departmentName)) AND (tuition_department_filter.id = gtr.department_id OR tuition_department_filter.id = gp.department_id))\n");
+        }
         if (!query.topicKeywords().isEmpty() || query.filters().programName() != null
                 || !query.filters().languages().isEmpty() || !query.filters().admissionRequirementTypes().isEmpty()) {
             clause.append("AND gtr.program_id IS NOT NULL\n");
@@ -635,13 +690,14 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     private MapSqlParameterSource baseProgramParams(GraduateKnowledgeQuery query) {
-        MapSqlParameterSource params = new MapSqlParameterSource()
-                .addValue("universityIds", universityIds(query.resolvedUniversities()))
-                .addValue("universityIdsEmpty", query.resolvedUniversities().isEmpty())
-                .addValue("city", query.filters().city())
-                .addValue("topicRegex", academicTopicRegex(query.topicKeywords()))
-                .addValue("facultyName", query.filters().facultyName())
-                .addValue("departmentName", query.filters().departmentName());
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        List<Long> universityIds = universityIds(query.resolvedUniversities());
+        if (!universityIds.isEmpty()) params.addValue("universityIds", universityIds);
+        if (StringUtils.hasText(query.filters().city())) params.addValue("city", query.filters().city().trim());
+        String topicRegex = academicTopicRegex(query.topicKeywords());
+        if (StringUtils.hasText(topicRegex)) params.addValue("topicRegex", topicRegex);
+        if (StringUtils.hasText(query.filters().facultyName())) params.addValue("facultyName", query.filters().facultyName().trim());
+        if (StringUtils.hasText(query.filters().departmentName())) params.addValue("departmentName", query.filters().departmentName().trim());
         if (query.degreeTypes() != null && !query.degreeTypes().isEmpty()) {
             params.addValue("degreeTypes", query.degreeTypes().stream()
                     .filter(StringUtils::hasText)
@@ -668,11 +724,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private String programFilterClause(GraduateKnowledgeQuery query) {
         StringBuilder clause = new StringBuilder();
-        clause.append("AND (:universityIdsEmpty = TRUE OR gp.university_id IN (:universityIds))\n");
-        clause.append("AND (:city IS NULL OR LOWER(BTRIM(u.city)) = LOWER(BTRIM(:city)))\n");
-        clause.append("AND (:facultyName IS NULL OR LOWER(BTRIM(fac.name)) = LOWER(BTRIM(:facultyName)))\n");
-        clause.append("AND (:departmentName IS NULL OR LOWER(BTRIM(dep.name)) = LOWER(BTRIM(:departmentName)))\n");
-        clause.append("AND (:topicRegex IS NULL OR CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category) ~* :topicRegex)\n");
+        appendUniversityScope(clause, query, "gp.university_id", true);
+        appendCityFilter(clause, query, "u.id");
+        appendOptionalEquals(clause, query.filters().facultyName(), "LOWER(BTRIM(fac.name))", "facultyName");
+        appendOptionalEquals(clause, query.filters().departmentName(), "LOWER(BTRIM(dep.name))", "departmentName");
+        appendOptionalRegex(clause, query.topicKeywords(), "CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category)");
         if (!query.filters().languages().isEmpty()) {
             clause.append("AND (LOWER(BTRIM(l.name)) IN (:languages) "
                     + "OR LOWER(BTRIM(l.code)) IN (:languages) "
@@ -690,6 +746,21 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     + "OR (admission_filter.program_id IS NULL AND admission_filter.scope_level = 'DEPARTMENT' AND admission_filter.department_id = gp.department_id)))\n");
         }
         return clause.toString();
+    }
+
+    private void appendUniversityScope(StringBuilder clause, GraduateKnowledgeQuery query, String column, boolean emptyMeansAll) {
+        if (!query.resolvedUniversities().isEmpty()) {
+            clause.append("AND ").append(column).append(" IN (:universityIds)\n");
+        } else if (!emptyMeansAll) {
+            clause.append("AND 1 = 0\n");
+        }
+    }
+
+    private void appendCityFilter(StringBuilder clause, GraduateKnowledgeQuery query, String universityColumn) {
+        if (!StringUtils.hasText(query.filters().city())) return;
+        clause.append("AND EXISTS (SELECT 1 FROM campus c WHERE c.university_id = ")
+                .append(universityColumn)
+                .append(" AND LOWER(BTRIM(c.city)) = LOWER(BTRIM(:city)))\n");
     }
 
     private String programOrderClause(GraduateKnowledgeQuery query) {

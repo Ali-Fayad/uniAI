@@ -1,6 +1,7 @@
 package com.uniai.catalog.application.service;
 
 import com.uniai.catalog.application.dto.response.LanguageCatalogResponse;
+import com.uniai.catalog.application.dto.response.CampusCatalogResponse;
 import com.uniai.catalog.application.dto.response.PositionCatalogResponse;
 import com.uniai.catalog.application.dto.response.SkillCatalogResponse;
 import com.uniai.catalog.application.dto.response.UniversityCatalogResponse;
@@ -67,7 +68,10 @@ public class CatalogQueryService {
                 : universityRepository.searchByName(search);
 
         return rows.stream()
-                .map(item -> new UniversityCatalogResponse(item.getId(), item.getName(), item.getAcronym(), item.getNameAr()))
+                .map(item -> new UniversityCatalogResponse(item.getId(), item.getName(), item.getAcronym(), item.getNameAr(),
+                        item.getCampuses() == null ? List.<CampusCatalogResponse>of() : item.getCampuses().stream()
+                                .map(campus -> new CampusCatalogResponse(campus.getId(), campus.getName(), campus.getCampusType(), campus.getCity(), campus.getLocality(), campus.getLatitude(), campus.getLongitude()))
+                                .toList()))
                 .toList();
     }
 }
