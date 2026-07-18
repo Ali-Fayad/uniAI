@@ -69,4 +69,30 @@ class GraduateKnowledgeQueryTest {
                 false
         ));
     }
+
+    @Test
+    void compareRequiresObjectiveDimension() {
+        GraduateKnowledgeFollowUpContext context = new GraduateKnowledgeFollowUpContext(
+                null, null, GraduateKnowledgeResource.PROGRAM, GraduateKnowledgeOperation.COMPARE,
+                List.of(new GraduateKnowledgeReference(GraduateKnowledgeReferenceKind.UNIVERSITY, "AUB", "AUB", 1)),
+                GraduateKnowledgeComparisonDimension.PROGRAM_COUNT
+        );
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.COMPARE,
+                new GraduateKnowledgeFilters(List.of(), List.of("MASTER"), List.of()),
+                GraduateKnowledgeAggregation.empty(), GraduateKnowledgeSort.empty(), 5,
+                context, GraduateProgramDetailLevel.LIST, true, false
+        );
+
+        assertEquals(GraduateKnowledgeComparisonDimension.PROGRAM_COUNT, query.followUpContext().comparisonDimension());
+        assertThrows(IllegalArgumentException.class, () -> new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.COMPARE,
+                GraduateKnowledgeFilters.empty(), GraduateKnowledgeAggregation.empty(), GraduateKnowledgeSort.empty(),
+                5, GraduateKnowledgeFollowUpContext.empty(), GraduateProgramDetailLevel.LIST, true, false
+        ));
+    }
 }

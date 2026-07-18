@@ -332,6 +332,21 @@ class GraduateQueryInterpretationValidatorTest {
         assertEquals("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED", result.failureCategory());
     }
 
+    @Test
+    void shouldRequireObjectiveDimensionForCompare() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1, "PROGRAM_LOOKUP", List.of("AUB", "USJ"), List.of(), "LIST", false, true,
+                List.of(), false, null, List.of(), "PROGRAM", "COMPARE", null, null, null,
+                List.of(), List.of(), null, null, null, null, null, null, null, null, null, null, null, "PROGRAM_COUNT"
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(GraduateKnowledgeOperation.COMPARE, result.query().operation());
+        assertEquals("PROGRAM_COUNT", result.query().followUpContext().comparisonDimension().name());
+    }
+
     private UniversityCatalog university(Long id, String name, String acronym, String nameAr) {
         return UniversityCatalog.builder()
                 .id(id)

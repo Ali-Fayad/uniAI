@@ -33,6 +33,10 @@ public record GraduateKnowledgeQuery(
             throw new IllegalArgumentException("Unsupported graduate resource/operation combination: "
                     + resource + "/" + operation);
         }
+        if (operation == GraduateKnowledgeOperation.COMPARE
+                && followUpContext.comparisonDimension() == null) {
+            throw new IllegalArgumentException("Objective comparison dimension is required");
+        }
         if (intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
                 && aggregation.function() != GraduateKnowledgeAggregationFunction.AVG
                 && aggregation.function() != GraduateKnowledgeAggregationFunction.MIN
@@ -188,7 +192,8 @@ public record GraduateKnowledgeQuery(
         if (resource == GraduateKnowledgeResource.FACULTY || resource == GraduateKnowledgeResource.DEPARTMENT) {
             return operation == GraduateKnowledgeOperation.LIST
                     || operation == GraduateKnowledgeOperation.COUNT
-                    || operation == GraduateKnowledgeOperation.EXISTS;
+                    || operation == GraduateKnowledgeOperation.EXISTS
+                    || operation == GraduateKnowledgeOperation.COMPARE;
         }
         if (operation == GraduateKnowledgeOperation.OVERVIEW
                 || operation == GraduateKnowledgeOperation.NONE) {

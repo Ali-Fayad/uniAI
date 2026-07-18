@@ -1,5 +1,7 @@
 package com.uniai.chat.application.memory;
 
+import com.uniai.chat.application.retrieval.GraduateKnowledgeReference;
+
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -18,8 +20,13 @@ public final class ConversationMemoryPromptFormatter {
         appendLine(builder, "lastIntent", memory.lastIntent());
         appendLine(builder, "comparisonActive", String.valueOf(memory.comparisonActive()));
         appendUniversities(builder, "activeUniversities", memory.activeUniversities());
+        appendReferences(builder, "activeReferences", memory.activeReferences());
         appendStrings(builder, "activeDegreeTypes", memory.activeDegreeTypes());
         appendUniversities(builder, "comparisonUniversities", memory.comparisonUniversities());
+        appendReferences(builder, "comparisonReferences", memory.comparisonReferences());
+        if (memory.comparisonDimension() != null) {
+            appendLine(builder, "comparisonDimension", memory.comparisonDimension().name());
+        }
         appendStrings(builder, "pendingTopics", memory.pendingTopics());
         appendStrings(builder, "corrections", memory.corrections());
         appendStrings(builder, "unresolvedReferences", memory.unresolvedReferences());
@@ -50,13 +57,6 @@ public final class ConversationMemoryPromptFormatter {
                 }
                 entry.append(ref.name());
             }
-            if (ref.id() != null) {
-                if (entry.length() > 0) {
-                    entry.append(" (#").append(ref.id()).append(")");
-                } else {
-                    entry.append('#').append(ref.id());
-                }
-            }
             if (entry.length() > 0) {
                 joiner.add(entry.toString());
             }
@@ -65,6 +65,20 @@ public final class ConversationMemoryPromptFormatter {
             return;
         }
         appendLine(builder, label, joiner.toString());
+    }
+
+    private static void appendReferences(StringBuilder builder, String label, List<GraduateKnowledgeReference> values) {
+        if (values == null || values.isEmpty()) return;
+        StringJoiner joiner = new StringJoiner(", ");
+        for (GraduateKnowledgeReference reference : values) {
+            if (reference == null) continue;
+            StringBuilder value = new StringBuilder(reference.kind().name());
+            if (reference.logicalName() != null) value.append(" - ").append(reference.logicalName());
+            if (reference.acronym() != null) value.append(" (").append(reference.acronym()).append(')');
+            if (reference.renderedOrdinal() != null) value.append(" ordinal=").append(reference.renderedOrdinal());
+            joiner.add(value.toString());
+        }
+        if (joiner.length() > 0) appendLine(builder, label, joiner.toString());
     }
 
     private static void appendStrings(StringBuilder builder, String label, List<String> values) {

@@ -41,6 +41,11 @@ public class SqlGraduateLocationRetrievalAdapter implements GraduateLocationRetr
             return result("Location data is unavailable for this request.");
         }
 
+        if (query.operation() == GraduateKnowledgeOperation.COMPARE
+                && query.followUpContext().comparisonDimension() == com.uniai.chat.application.retrieval.GraduateKnowledgeComparisonDimension.CAMPUS_COUNT) {
+            return compareCampusCounts(query, filters);
+        }
+
         String field = campusResource ? "campus_name" : "city";
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         String scope = buildScope(filters, parameters);
@@ -84,7 +89,29 @@ public class SqlGraduateLocationRetrievalAdapter implements GraduateLocationRetr
             predicates.add("id IN (:universityIds)");
             parameters.addValue("universityIds", ids);
         }
+        if (filters.city() != null && !filters.city().isBlank()) {
+            predicates.add("LOWER(BTRIM(city)) = LOWER(BTRIM(:city))");
+            parameters.addValue("city", filters.city().trim());
+        }
         return predicates.isEmpty() ? "1 = 1" : String.join(" AND ", predicates);
+    }
+
+    private GraduateKnowledgeRetrievalResult compareCampusCounts(GraduateKnowledgeQuery query, GraduateKnowledgeFilters filters) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        String scope = buildScope(filters, parameters);
+        String sql = "SELECT id, name, acronym, COUNT(*) AS campus_count FROM university WHERE " + scope
+                + " AND NULLIF(BTRIM(campus_name), '') IS NOT NULL GROUP BY id, name, acronym ORDER BY campus_count DESC, LOWER(name), id LIMIT "
+                + (query.limit() == null ? GraduateKnowledgeQuery.MAX_LIMIT : query.limit());
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, parameters);
+        if (rows.isEmpty()) return result("No comparable campus data was found.");
+        StringBuilder builder = new StringBuilder("Campus comparison:\n");
+        int ordinal = 1;
+        for (Map<String, Object> row : rows) {
+            builder.append(ordinal++).append(". ").append(row.get("name"));
+            if (row.get("acronym") != null) builder.append(" (").append(row.get("acronym")).append(')');
+            builder.append(" - campuses: ").append(row.get("campus_count")).append('\n');
+        }
+        return result(builder.toString().trim());
     }
 
     private long countRows(String where, MapSqlParameterSource parameters) {

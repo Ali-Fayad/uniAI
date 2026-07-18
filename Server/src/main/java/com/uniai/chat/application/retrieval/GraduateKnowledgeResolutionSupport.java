@@ -139,6 +139,30 @@ final class GraduateKnowledgeResolutionSupport {
                 && containsAny(normalized, "average", "avg", "mean", "compare", "comparison", "same", "cheaper", "cost"));
     }
 
+    static GraduateKnowledgeComparisonDimension detectComparisonDimension(String text) {
+        String normalized = normalize(text);
+        if (containsAny(normalized, "best", "better", "which should i choose", "should i choose")) return null;
+        if (containsAny(normalized, "campus count", "campus counts", "more campuses", "how many campuses")) return GraduateKnowledgeComparisonDimension.CAMPUS_COUNT;
+        if (containsAny(normalized, "more master's programs", "more masters programs", "program count", "more programs", "how many programs")) return GraduateKnowledgeComparisonDimension.PROGRAM_COUNT;
+        if (containsAny(normalized, "more faculties", "faculty count", "how many faculties")) return GraduateKnowledgeComparisonDimension.FACULTY_COUNT;
+        if (containsAny(normalized, "more departments", "department count", "how many departments")) return GraduateKnowledgeComparisonDimension.DEPARTMENT_COUNT;
+        if (containsAny(normalized, "english programs", "french programs", "arabic programs", "teach in english", "language availability")) return GraduateKnowledgeComparisonDimension.LANGUAGE_AVAILABILITY;
+        if (containsAny(normalized, "admission requirements", "admissions requirements", "compare admissions")) return GraduateKnowledgeComparisonDimension.ADMISSION_REQUIREMENTS;
+        if (containsAny(normalized, "cheapest", "cheaper", "lower tuition", "average tuition", "tuition average")) return GraduateKnowledgeComparisonDimension.TUITION_AVERAGE;
+        if (containsAny(normalized, "minimum tuition", "lowest tuition")) return GraduateKnowledgeComparisonDimension.TUITION_MINIMUM;
+        if (containsAny(normalized, "maximum tuition", "highest tuition")) return GraduateKnowledgeComparisonDimension.TUITION_MAXIMUM;
+        if (containsAny(normalized, "tuition range", "range of tuition")) return GraduateKnowledgeComparisonDimension.TUITION_RANGE;
+        if (containsAny(normalized, "offer it", "offers it", "does it offer")) return GraduateKnowledgeComparisonDimension.PROGRAM_AVAILABILITY;
+        if (containsAny(normalized, "compare", "comparison", " vs ", "versus", "between")) return GraduateKnowledgeComparisonDimension.UNIVERSITY;
+        return null;
+    }
+
+    static boolean isSubjectiveComparison(String text) {
+        String normalized = normalize(text);
+        return containsAny(normalized, "best", "better", "which should i choose", "should i choose")
+                && detectComparisonDimension(normalized) == null;
+    }
+
     static GraduateKnowledgeAggregationFunction detectTuitionAggregation(String text) {
         String normalized = normalize(text);
         if (containsAny(normalized, "range", "minimum and maximum", "min and max")) return GraduateKnowledgeAggregationFunction.RANGE;

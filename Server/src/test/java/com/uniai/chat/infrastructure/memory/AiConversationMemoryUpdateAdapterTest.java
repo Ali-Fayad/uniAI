@@ -13,6 +13,8 @@ import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeReference;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeReferenceKind;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AiConversationMemoryUpdateAdapterTest {
+
+    @Test
+    void promptVisibleMemoryOmitsPersistenceIdentifiers() {
+        ConversationMemory memory = new ConversationMemory(
+                ConversationMemory.SCHEMA_VERSION,
+                List.of(new com.uniai.chat.application.memory.MemoryUniversityRef(42L, "American University of Beirut", "AUB")),
+                List.of("MASTER"),
+                "PROGRAM_LOOKUP",
+                true,
+                List.of(new com.uniai.chat.application.memory.MemoryUniversityRef(42L, "American University of Beirut", "AUB")),
+                List.of(), List.of(), List.of(), new com.uniai.chat.application.memory.ConversationPreferences(null, null, null),
+                List.of(new GraduateKnowledgeReference(GraduateKnowledgeReferenceKind.UNIVERSITY, "American University of Beirut", "AUB", 1)),
+                List.of(), null
+        );
+
+        String prompt = ConversationMemoryPromptFormatter.render(memory);
+
+        assertFalse(prompt.contains("42"));
+        assertTrue(prompt.contains("AUB"));
+        assertTrue(prompt.contains("UNIVERSITY"));
+    }
 
     @Test
     void proposeUpdateShouldParseFencedJsonAndPreserveContextShape() {

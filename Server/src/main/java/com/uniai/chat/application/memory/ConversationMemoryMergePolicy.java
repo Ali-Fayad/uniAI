@@ -97,6 +97,13 @@ public class ConversationMemoryMergePolicy {
             preferences = effectivePatch.setAllowedPreferences();
         }
 
+        List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> queryReferences = query == null
+                ? List.of() : query.followUpContext().references();
+        List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> activeReferences = queryReferences.isEmpty()
+                ? base.activeReferences() : queryReferences;
+        List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> comparisonReferences = comparisonActive
+                ? (queryReferences.isEmpty() ? base.comparisonReferences() : queryReferences)
+                : List.of();
         return new ConversationMemory(
                 ConversationMemory.SCHEMA_VERSION,
                 activeUniversities,
@@ -107,7 +114,10 @@ public class ConversationMemoryMergePolicy {
                 pendingTopics,
                 corrections,
                 unresolvedReferences,
-                preferences
+                preferences,
+                activeReferences,
+                comparisonReferences,
+                comparisonActive && query != null ? query.followUpContext().comparisonDimension() : null
         );
     }
 

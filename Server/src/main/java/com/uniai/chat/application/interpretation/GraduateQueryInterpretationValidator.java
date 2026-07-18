@@ -12,6 +12,8 @@ import com.uniai.chat.application.retrieval.GraduateKnowledgeSortField;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeThresholdOperator;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeComparisonDimension;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 
@@ -208,9 +210,13 @@ public class GraduateQueryInterpretationValidator {
         );
         GraduateKnowledgeSort sort = parseSort(interpretation.sortField(), interpretation.sortDirection());
         Integer limit = parseLimit(interpretation.limit());
+        GraduateKnowledgeComparisonDimension comparisonDimension = parseComparisonDimension(interpretation.comparisonDimension());
         GraduateProgramDetailLevel queryDetailLevel = intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null;
         String resourceValue = normalizeOptionalValue(interpretation.resource());
         String operationValue = normalizeOptionalValue(interpretation.operation());
+        if (Boolean.TRUE.equals(interpretation.comparison()) && (resourceValue == null || operationValue == null)) {
+            throw new IllegalArgumentException("Comparison requires typed resource and COMPARE operation");
+        }
         if (resourceValue == null && operationValue == null) {
             if (intent == GraduateKnowledgeIntent.ACADEMIC_STRUCTURE_LOOKUP) {
                 throw new IllegalArgumentException("Academic structure routing metadata is required");
@@ -223,7 +229,7 @@ public class GraduateQueryInterpretationValidator {
                     aggregation,
                     sort,
                     limit,
-                    com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext.empty(),
+                    GraduateKnowledgeFollowUpContext.empty(),
                     queryDetailLevel,
                     followUpResolved,
                     false
@@ -235,8 +241,18 @@ public class GraduateQueryInterpretationValidator {
 
         GraduateKnowledgeResource resource = GraduateKnowledgeResource.valueOf(resourceValue);
         GraduateKnowledgeOperation operation = GraduateKnowledgeOperation.valueOf(operationValue);
+        if ((Boolean.TRUE.equals(interpretation.comparison()) || operation == GraduateKnowledgeOperation.COMPARE)
+                && comparisonDimension == null) {
+            throw new IllegalArgumentException("Objective comparison dimension is required");
+        }
+        if (Boolean.TRUE.equals(interpretation.comparison()) && operation != GraduateKnowledgeOperation.COMPARE) {
+            throw new IllegalArgumentException("Comparison metadata requires COMPARE operation");
+        }
         if (!GraduateKnowledgeQuery.isCompatible(resource, operation) || !matchesIntent(intent, resource, operation)) {
             throw new IllegalArgumentException("Unsupported graduate resource/operation combination");
+        }
+        if (operation == GraduateKnowledgeOperation.COMPARE && !comparisonDimensionMatchesResource(comparisonDimension, resource)) {
+            throw new IllegalArgumentException("Comparison dimension is incompatible with resource");
         }
         return new GraduateKnowledgeQuery(
                 intent,
@@ -246,7 +262,7 @@ public class GraduateQueryInterpretationValidator {
                 aggregation,
                 sort,
                 limit,
-                com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext.empty(),
+                new GraduateKnowledgeFollowUpContext(null, null, resource, operation, List.of(), comparisonDimension),
                 queryDetailLevel,
                 followUpResolved,
                 false
@@ -272,6 +288,15 @@ public class GraduateQueryInterpretationValidator {
             // Report all unsupported values through the normal interpretation validation path.
         }
         throw new IllegalArgumentException("Unsupported tuition aggregation");
+    }
+
+    private GraduateKnowledgeComparisonDimension parseComparisonDimension(String value) {
+        if (value == null || value.isBlank()) return null;
+        try {
+            return GraduateKnowledgeComparisonDimension.valueOf(value.trim().toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Unsupported comparison dimension");
+        }
     }
 
     private GraduateKnowledgeThresholdOperator parseThresholdOperator(String value) {
@@ -348,22 +373,41 @@ public class GraduateQueryInterpretationValidator {
             case GENERAL_CHAT, UNKNOWN_OR_AMBIGUOUS -> resource == GraduateKnowledgeResource.NONE
                     && operation == GraduateKnowledgeOperation.NONE;
             case PROGRAM_LOOKUP -> resource == GraduateKnowledgeResource.PROGRAM
-                    && (operation == GraduateKnowledgeOperation.LIST || operation == GraduateKnowledgeOperation.DETAILS);
+                    && (operation == GraduateKnowledgeOperation.LIST || operation == GraduateKnowledgeOperation.DETAILS || operation == GraduateKnowledgeOperation.COMPARE);
             case TUITION_AGGREGATION -> resource == GraduateKnowledgeResource.PROGRAM
-                    && operation == GraduateKnowledgeOperation.AGGREGATE;
+                    && (operation == GraduateKnowledgeOperation.AGGREGATE || operation == GraduateKnowledgeOperation.COMPARE);
             case GRADUATE_OVERVIEW -> resource == GraduateKnowledgeResource.GRADUATE_OVERVIEW
                     && operation == GraduateKnowledgeOperation.OVERVIEW;
             case LOCATION_LOOKUP -> (resource == GraduateKnowledgeResource.CAMPUS
                     || resource == GraduateKnowledgeResource.UNIVERSITY)
                     && (operation == GraduateKnowledgeOperation.LIST
                     || operation == GraduateKnowledgeOperation.COUNT
-                    || operation == GraduateKnowledgeOperation.EXISTS);
+                    || operation == GraduateKnowledgeOperation.EXISTS
+                    || operation == GraduateKnowledgeOperation.COMPARE);
             case ACADEMIC_STRUCTURE_LOOKUP -> (resource == GraduateKnowledgeResource.PROGRAM
                     || resource == GraduateKnowledgeResource.FACULTY
                     || resource == GraduateKnowledgeResource.DEPARTMENT)
                     && (operation == GraduateKnowledgeOperation.LIST
                     || operation == GraduateKnowledgeOperation.COUNT
-                    || operation == GraduateKnowledgeOperation.EXISTS);
+                    || operation == GraduateKnowledgeOperation.EXISTS
+                    || operation == GraduateKnowledgeOperation.COMPARE);
+        };
+    }
+
+    private boolean comparisonDimensionMatchesResource(
+            GraduateKnowledgeComparisonDimension dimension,
+            GraduateKnowledgeResource resource
+    ) {
+        if (dimension == null || resource == null) return false;
+        return switch (dimension) {
+            case CAMPUS_COUNT -> resource == GraduateKnowledgeResource.CAMPUS;
+            case FACULTY_COUNT -> resource == GraduateKnowledgeResource.FACULTY;
+            case DEPARTMENT_COUNT -> resource == GraduateKnowledgeResource.DEPARTMENT;
+            case PROGRAM_AVAILABILITY, PROGRAM_COUNT, LANGUAGE_AVAILABILITY, ADMISSION_REQUIREMENTS,
+                    TUITION_AVERAGE, TUITION_MINIMUM, TUITION_MAXIMUM, TUITION_RANGE -> resource == GraduateKnowledgeResource.PROGRAM;
+            case UNIVERSITY -> resource == GraduateKnowledgeResource.UNIVERSITY
+                    || resource == GraduateKnowledgeResource.PROGRAM
+                    || resource == GraduateKnowledgeResource.GRADUATE_OVERVIEW;
         };
     }
 

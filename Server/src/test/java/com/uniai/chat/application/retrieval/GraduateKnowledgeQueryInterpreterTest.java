@@ -196,6 +196,23 @@ class GraduateKnowledgeQueryInterpreterTest {
     }
 
     @Test
+    void shouldUseTypedCompareOperationForUniversityComparison() {
+        GraduateKnowledgeQuery query = interpreter.interpret("Compare AUB and LAU.", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeOperation.COMPARE, query.operation());
+        assertEquals(GraduateKnowledgeComparisonDimension.UNIVERSITY, query.followUpContext().comparisonDimension());
+        assertEquals(List.of("AUB", "LAU"), query.resolvedUniversities().stream().map(ResolvedUniversity::acronym).toList());
+    }
+
+    @Test
+    void shouldKeepSubjectiveBestQuestionAmbiguous() {
+        GraduateKnowledgeQuery query = interpreter.interpret("Which is the best university?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS, query.intent());
+        assertTrue(query.ambiguous());
+    }
+
+    @Test
     void shouldComposeProgramFiltersWithCityLanguageAdmissionAndTopic() {
         GraduateKnowledgeQuery query = interpreter.interpret(
                 "Show English master's computer science programs in Beirut requiring GMAT at AUB",

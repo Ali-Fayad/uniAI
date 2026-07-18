@@ -181,6 +181,91 @@ Excluded from that gate:
 - `ChatApplicationService`: create chat, send messages, list chats, get messages, delete one chat, delete all chats
 - `PlaceholderAiServiceAdapter`: mock AI provider
 
+#### Graduate retrieval
+
+Graduate retrieval is an application-layer pipeline under `chat`:
+
+```text
+user message
+  -> AI interpretation or deterministic fallback
+  -> typed GraduateKnowledgeQuery validation
+  -> follow-up/reference resolution
+  -> location port or graduate-knowledge port
+  -> SQL-owned retrieval, citations, ranking, compression, and context budgeting
+```
+
+The trusted query model uses typed enums and records rather than a generic filter map. The current resources are:
+
+- `UNIVERSITY`
+- `CAMPUS`
+- `PROGRAM`
+- `FACULTY`
+- `DEPARTMENT`
+- `GRADUATE_OVERVIEW` (a bounded composite route)
+
+Supported operations are `LIST`, `COUNT`, `EXISTS`, `DETAILS`, `AGGREGATE`, `COMPARE`, and `OVERVIEW`, subject to resource/operation validation.
+
+Supported filters are:
+
+- university identity, including logical name and acronym
+- city, including city-only scope without resolved university IDs
+- degree type
+- program topic keywords and exact program name
+- faculty and department name
+- primary language
+- admission requirement type
+- tuition currency, billing basis, academic year, and scope
+- typed tuition threshold operator and value
+
+Filters compose with strict `AND` semantics. One-to-many language, admission, and related predicates use same-program ownership rules and `EXISTS`-style SQL conditions; result projections use `DISTINCT` or grouped queries where required. An unresolved filter must be rejected or clarified rather than silently dropped.
+
+Tuition rules:
+
+- supported analytics are `AVG`, `MIN`, `MAX`, and `RANGE`
+- thresholds are typed and bounded; `RANGE` plus a threshold is rejected
+- program-linked tuition filters require compatible `PROGRAM` tuition scope
+- comparisons must not combine incompatible currencies, billing bases, academic years, scopes, or entity groups
+- comparison tuition dimensions select the corresponding SQL aggregate
+
+Comparison and follow-up behavior:
+
+- `COMPARE` requires a validated objective dimension; subjective requests such as “best”, “better”, or “which should I choose?” are clarified unless the user supplies a measurable criterion
+- comparison references have typed kinds: `UNIVERSITY`, `CAMPUS`, `PROGRAM`, `FACULTY`, and `DEPARTMENT`
+- ordinal references are valid only against the exact, resource-aware rendered ordering; unsafe ordinals and pronouns require clarification
+- inherited filters are applied identically to all comparison targets
+- comparison state is reset when the resource, metric, or topic changes
+- prompt-visible memory retains logical names, acronyms, filters, dimensions, and order, but never database or persistence identifiers
+
+Examples:
+
+- “List English master’s programs in Beirut with admission requirements.”
+- “Which university has more graduate programs in computer science?”
+- “Compare average MBA tuition in USD per credit for AUB and LAU.”
+- “Show the second program from the previous result.”
+
+Unsupported or unsafe examples:
+
+- “Which university is best?” without a measurable criterion
+- “Which one should I choose?” without an objective dimension
+- comparing tuition values across mixed currencies or billing bases
+- inheriting an unresolved filter or ordinal from an unrelated topic
+
+Known limitations:
+
+- Docker/Testcontainers integration tests require a reachable Docker daemon and are not executable in environments without one
+- academic-structure detail SQL paths should receive an explicit database-side bound before production-scale use
+- comparison dimensions that do not have a dedicated resource adapter must be rejected or routed explicitly; they must not return generic fallback text
+- source citations are preserved for program and tuition evidence; grouped count comparisons may have no row-level citation when the aggregate query has no direct source projection
+
+Extension guide for future resources:
+
+1. Add a typed resource and compatible operations to the query model.
+2. Add only bounded, typed filters and update validator compatibility rules.
+3. Extend the existing application port/adapter boundary; do not introduce generic maps or a parallel retrieval subsystem.
+4. Keep SQL parameterized, enum-control dynamic clauses, use stable ordering, apply filters/grouping before `ORDER BY`/`LIMIT`, and prevent duplicate rows.
+5. Define follow-up reference kinds and rendered ordering before enabling ordinals.
+6. Add unit, adapter, citation, memory, budget, and Docker-dependent integration tests, then update this section.
+
 #### CV builder module
 
 - `PersonalInfoApplicationService`: read/update user-level personal info JSON sections

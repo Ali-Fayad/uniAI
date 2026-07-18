@@ -1,6 +1,8 @@
 package com.uniai.chat.infrastructure.retrieval;
 
 import com.uniai.chat.application.retrieval.GraduateKnowledgeFilters;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeComparisonDimension;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
@@ -77,6 +79,30 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
                         (String) institution.get("acronym")
                 )), List.of(), List.of(), null));
         assertTrue(adapter.retrieveContext(unavailableCampus).formattedContext().contains("Location data is unavailable"));
+    }
+
+    @Test
+    void campusComparisonUsesBoundedGroupedCounts() {
+        Map<String, Object> first = jdbcTemplate.queryForMap(
+                "SELECT id, name, acronym FROM university WHERE acronym = ? AND campus_name IS NOT NULL ORDER BY id LIMIT 1", "LTX");
+        Map<String, Object> second = jdbcTemplate.queryForMap(
+                "SELECT id, name, acronym FROM university WHERE acronym = ? AND city = ? AND campus_name IS NOT NULL", "LTX", "Tripoli");
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.LOCATION_LOOKUP,
+                GraduateKnowledgeResource.CAMPUS,
+                GraduateKnowledgeOperation.COMPARE,
+                new GraduateKnowledgeFilters(List.of(
+                        new ResolvedUniversity(((Number) first.get("id")).longValue(), (String) first.get("name"), (String) first.get("acronym")),
+                        new ResolvedUniversity(((Number) second.get("id")).longValue(), (String) second.get("name"), (String) second.get("acronym"))
+                ), List.of(), List.of()),
+                com.uniai.chat.application.retrieval.GraduateKnowledgeAggregation.empty(),
+                com.uniai.chat.application.retrieval.GraduateKnowledgeSort.empty(), 5,
+                new GraduateKnowledgeFollowUpContext(null, null, GraduateKnowledgeResource.CAMPUS,
+                        GraduateKnowledgeOperation.COMPARE, List.of(), GraduateKnowledgeComparisonDimension.CAMPUS_COUNT),
+                null, true, false
+        );
+
+        assertTrue(adapter.retrieveContext(query).formattedContext().contains("Campus comparison:"));
     }
 
     private GraduateKnowledgeQuery query(GraduateKnowledgeResource resource, GraduateKnowledgeOperation operation,

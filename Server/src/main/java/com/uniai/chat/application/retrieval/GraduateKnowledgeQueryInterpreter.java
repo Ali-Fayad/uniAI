@@ -45,9 +45,19 @@ public class GraduateKnowledgeQueryInterpreter {
         List<String> currentLanguages = GraduateKnowledgeResolutionSupport.detectLanguages(normalizedMessage);
         List<String> currentAdmissionTypes = GraduateKnowledgeResolutionSupport.detectAdmissionRequirementTypes(normalizedMessage);
         String currentProgramName = GraduateKnowledgeResolutionSupport.detectProgramName(normalizedMessage);
+        GraduateKnowledgeComparisonDimension currentComparisonDimension = GraduateKnowledgeResolutionSupport.detectComparisonDimension(normalizedMessage);
         boolean currentOverviewIntent = GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, currentProgramIntent, currentTuitionIntent);
         boolean currentFollowUp = isFollowUpMessage(normalizedMessage);
-        boolean explicitComparison = containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between", "with");
+        boolean explicitComparison = containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between")
+                || (currentComparisonDimension != null
+                && containsAny(normalizedMessage, "which one", "which university", "more ", "cheaper", "second", "first"));
+
+        if (GraduateKnowledgeResolutionSupport.isSubjectiveComparison(normalizedMessage)) {
+            return new GraduateKnowledgeQuery(
+                    GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS,
+                    List.of(), List.of(), null, false, true
+            );
+        }
 
         if (isDeterministicGeneralChatMessage(normalizedMessage)
                 && currentUniversities.isEmpty()
@@ -186,8 +196,12 @@ public class GraduateKnowledgeQueryInterpreter {
             return new GraduateKnowledgeQuery(
                     intent,
                     currentLocationResource,
-                    currentLocationOperation,
+                    explicitComparison ? GraduateKnowledgeOperation.COMPARE : currentLocationOperation,
                     new GraduateKnowledgeFilters(resolvedUniversities, List.of(), List.of(), currentCity),
+                    GraduateKnowledgeAggregation.empty(),
+                    GraduateKnowledgeSort.empty(),
+                    null,
+                    explicitComparison ? new GraduateKnowledgeFollowUpContext(null, null, currentLocationResource, GraduateKnowledgeOperation.COMPARE, List.of(), currentComparisonDimension) : null,
                     null,
                     followUpResolved,
                     ambiguous
@@ -198,7 +212,7 @@ public class GraduateKnowledgeQueryInterpreter {
             return new GraduateKnowledgeQuery(
                     intent,
                     currentAcademicResource,
-                    currentAcademicOperation,
+                    explicitComparison ? GraduateKnowledgeOperation.COMPARE : currentAcademicOperation,
                     new GraduateKnowledgeFilters(
                             resolvedUniversities,
                             resolvedDegreeTypes,
@@ -207,6 +221,10 @@ public class GraduateKnowledgeQueryInterpreter {
                             currentFacultyName,
                             currentDepartmentName
                     ),
+                    GraduateKnowledgeAggregation.empty(),
+                    GraduateKnowledgeSort.empty(),
+                    null,
+                    explicitComparison ? new GraduateKnowledgeFollowUpContext(null, null, currentAcademicResource, GraduateKnowledgeOperation.COMPARE, List.of(), currentComparisonDimension) : null,
                     null,
                     followUpResolved,
                     ambiguous
@@ -237,12 +255,14 @@ public class GraduateKnowledgeQueryInterpreter {
             return new GraduateKnowledgeQuery(
                     intent,
                     GraduateKnowledgeResource.PROGRAM,
-                    GraduateKnowledgeOperation.AGGREGATE,
+                    explicitComparison ? GraduateKnowledgeOperation.COMPARE : GraduateKnowledgeOperation.AGGREGATE,
                     tuitionFilters,
                     new GraduateKnowledgeAggregation(function, "tuition"),
                     sort,
                     limit,
-                    GraduateKnowledgeFollowUpContext.empty(),
+                    explicitComparison
+                            ? new GraduateKnowledgeFollowUpContext(null, null, GraduateKnowledgeResource.PROGRAM, GraduateKnowledgeOperation.COMPARE, List.of(), currentComparisonDimension)
+                            : GraduateKnowledgeFollowUpContext.empty(),
                     null,
                     followUpResolved,
                     ambiguous
@@ -273,12 +293,14 @@ public class GraduateKnowledgeQueryInterpreter {
                 intent,
                 GraduateKnowledgeResource.PROGRAM,
                 intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP
-                        ? GraduateKnowledgeOperation.LIST : GraduateKnowledgeOperation.NONE,
+                        ? (explicitComparison ? GraduateKnowledgeOperation.COMPARE : GraduateKnowledgeOperation.LIST) : GraduateKnowledgeOperation.NONE,
                 filters,
                 GraduateKnowledgeAggregation.empty(),
                 GraduateKnowledgeSort.empty(),
                 intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? GraduateKnowledgeQuery.MAX_LIMIT : null,
-                GraduateKnowledgeFollowUpContext.empty(),
+                explicitComparison
+                        ? new GraduateKnowledgeFollowUpContext(null, null, GraduateKnowledgeResource.PROGRAM, GraduateKnowledgeOperation.COMPARE, List.of(), currentComparisonDimension)
+                        : GraduateKnowledgeFollowUpContext.empty(),
                 intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
                 followUpResolved,
                 ambiguous

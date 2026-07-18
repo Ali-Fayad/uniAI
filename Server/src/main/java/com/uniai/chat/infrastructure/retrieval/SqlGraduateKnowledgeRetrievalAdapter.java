@@ -5,10 +5,13 @@ import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.port.out.GraduateKnowledgeRetrievalPort;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeAggregation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeAggregationFunction;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeSortField;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeSortDirection;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeThresholdOperator;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeComparisonDimension;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
@@ -102,6 +105,9 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             }
 
             if (safeQuery.intent() == GraduateKnowledgeIntent.PROGRAM_LOOKUP) {
+                if (safeQuery.operation() == GraduateKnowledgeOperation.COMPARE) {
+                    return retrieveComparison(safeQuery, startNanos, retrievalStrategy, intent);
+                }
                 List<ProgramRecord> programs = queryPrograms(safeQuery);
                 logger.debug("[RETRIEVAL] Program SQL completed rows={} strategy=PROGRAM_LOOKUP", programs.size());
                 List<ProgramRecord> rankedPrograms = rankProgramRecords(safeQuery, programs);
@@ -115,6 +121,9 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             }
 
             if (safeQuery.intent() == GraduateKnowledgeIntent.TUITION_AGGREGATION) {
+                if (safeQuery.operation() == GraduateKnowledgeOperation.COMPARE) {
+                    return retrieveComparison(safeQuery, startNanos, retrievalStrategy, intent);
+                }
                 List<TuitionAggregationRecord> tuitionAggregations = queryTuitionAggregations(safeQuery);
                 logger.debug("[RETRIEVAL] Tuition aggregation SQL completed rows={} strategy=TUITION_AGGREGATION",
                         tuitionAggregations.size());
@@ -202,6 +211,96 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         recordRetrievalMetrics(startNanos, retrievalStrategy, intent, empty ? "empty" : "success",
                 rows.candidateCount(), rows.rows().size(), context.length());
         return new GraduateKnowledgeRetrievalResult(context, citations);
+    }
+
+    private GraduateKnowledgeRetrievalResult retrieveComparison(
+            GraduateKnowledgeQuery query,
+            long startNanos,
+            String retrievalStrategy,
+            String intent
+    ) {
+        GraduateKnowledgeComparisonDimension dimension = query.followUpContext().comparisonDimension();
+        if (dimension == null) {
+            return new GraduateKnowledgeRetrievalResult("A comparison criterion is required.", List.of());
+        }
+        if (dimension == GraduateKnowledgeComparisonDimension.TUITION_AVERAGE
+                || dimension == GraduateKnowledgeComparisonDimension.TUITION_MINIMUM
+                || dimension == GraduateKnowledgeComparisonDimension.TUITION_MAXIMUM
+                || dimension == GraduateKnowledgeComparisonDimension.TUITION_RANGE) {
+            GraduateKnowledgeQuery tuitionQuery = queryWithComparisonTuitionAggregation(query, dimension);
+            List<TuitionAggregationRecord> rows = queryTuitionAggregations(tuitionQuery);
+            return new GraduateKnowledgeRetrievalResult(buildTuitionContext(tuitionQuery, rows), buildTuitionCitations(rows));
+        }
+        if (dimension == GraduateKnowledgeComparisonDimension.FACULTY_COUNT
+                || dimension == GraduateKnowledgeComparisonDimension.DEPARTMENT_COUNT) {
+            return groupedAcademicComparison(query, dimension);
+        }
+        if (dimension == GraduateKnowledgeComparisonDimension.PROGRAM_COUNT
+                || dimension == GraduateKnowledgeComparisonDimension.PROGRAM_AVAILABILITY
+                || dimension == GraduateKnowledgeComparisonDimension.LANGUAGE_AVAILABILITY
+                || dimension == GraduateKnowledgeComparisonDimension.ADMISSION_REQUIREMENTS) {
+            return groupedProgramComparison(query, dimension);
+        }
+        return new GraduateKnowledgeRetrievalResult("This comparison dimension is handled by the location retrieval path.", List.of());
+    }
+
+    private GraduateKnowledgeQuery queryWithComparisonTuitionAggregation(
+            GraduateKnowledgeQuery query,
+            GraduateKnowledgeComparisonDimension dimension
+    ) {
+        GraduateKnowledgeAggregationFunction function = switch (dimension) {
+            case TUITION_MINIMUM -> GraduateKnowledgeAggregationFunction.MIN;
+            case TUITION_MAXIMUM -> GraduateKnowledgeAggregationFunction.MAX;
+            case TUITION_RANGE -> GraduateKnowledgeAggregationFunction.RANGE;
+            default -> GraduateKnowledgeAggregationFunction.AVG;
+        };
+        return new GraduateKnowledgeQuery(
+                query.intent(), query.resource(), query.operation(), query.filters(),
+                new GraduateKnowledgeAggregation(function, query.aggregation().field()),
+                query.sort(), query.limit(), query.followUpContext(), query.detailLevel(),
+                query.followUpResolved(), query.ambiguous());
+    }
+
+    private GraduateKnowledgeRetrievalResult groupedProgramComparison(
+            GraduateKnowledgeQuery query,
+            GraduateKnowledgeComparisonDimension dimension
+    ) {
+        String degreeClause = query.degreeTypes().isEmpty() ? "" : "AND dt.code IN (:degreeTypes)\n";
+        String sql = "SELECT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, COUNT(DISTINCT gp.id) AS result_count "
+                + "FROM graduate_program gp JOIN university u ON u.id = gp.university_id LEFT JOIN degree_type dt ON dt.id = gp.degree_type_id "
+                + "LEFT JOIN university_faculty fac ON fac.id = gp.faculty_id LEFT JOIN university_department dep ON dep.id = gp.department_id LEFT JOIN language l ON l.id = gp.primary_language_id "
+                + "WHERE 1 = 1 " + degreeClause + programFilterClause(query)
+                + " GROUP BY u.id, u.name, u.acronym ORDER BY result_count DESC, LOWER(u.name) LIMIT "
+                + (query.limit() == null ? GraduateKnowledgeQuery.MAX_LIMIT : query.limit());
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, baseProgramParams(query));
+        return formatGroupedComparison(dimension, rows);
+    }
+
+    private GraduateKnowledgeRetrievalResult groupedAcademicComparison(
+            GraduateKnowledgeQuery query,
+            GraduateKnowledgeComparisonDimension dimension
+    ) {
+        String table = dimension == GraduateKnowledgeComparisonDimension.FACULTY_COUNT ? "university_faculty" : "university_department";
+        String sql = "SELECT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, COUNT(DISTINCT a.id) AS result_count FROM "
+                + table + " a JOIN university u ON u.id = a.university_id WHERE "
+                + "(:universityIdsEmpty = TRUE OR u.id IN (:universityIds)) AND (:city IS NULL OR LOWER(BTRIM(u.city)) = LOWER(BTRIM(:city))) GROUP BY u.id, u.name, u.acronym ORDER BY result_count DESC, LOWER(u.name) LIMIT "
+                + (query.limit() == null ? GraduateKnowledgeQuery.MAX_LIMIT : query.limit());
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, baseProgramParams(query));
+        return formatGroupedComparison(dimension, rows);
+    }
+
+    private GraduateKnowledgeRetrievalResult formatGroupedComparison(
+            GraduateKnowledgeComparisonDimension dimension,
+            List<Map<String, Object>> rows
+    ) {
+        StringBuilder builder = new StringBuilder(dimension.name() + " comparison:\n");
+        int ordinal = 1;
+        for (Map<String, Object> row : rows) {
+            builder.append(ordinal++).append(". ").append(row.get("university_name"));
+            if (row.get("university_acronym") != null) builder.append(" (").append(row.get("university_acronym")).append(')');
+            builder.append(" - count: ").append(row.get("result_count")).append('\n');
+        }
+        return new GraduateKnowledgeRetrievalResult(builder.toString().trim(), List.of());
     }
 
     private AcademicRows queryAcademicPrograms(GraduateKnowledgeQuery query) {

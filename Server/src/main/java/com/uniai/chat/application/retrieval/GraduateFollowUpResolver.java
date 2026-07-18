@@ -52,6 +52,21 @@ public class GraduateFollowUpResolver {
                 );
                 return GraduateFollowUpResolutionResult.resolved(replaced, List.of("current message"));
             }
+            List<ResolvedUniversity> comparisonScope = comparisonUniversities(conversationMemory);
+            if (candidateQuery.operation() == GraduateKnowledgeOperation.COMPARE && comparisonScope.size() > 1) {
+                GraduateKnowledgeFollowUpContext context = new GraduateKnowledgeFollowUpContext(
+                        null, null, candidateQuery.resource(), candidateQuery.operation(),
+                        comparisonScope.stream().map((university) -> new GraduateKnowledgeReference(
+                                GraduateKnowledgeReferenceKind.UNIVERSITY,
+                                university.name(), university.acronym(), comparisonScope.indexOf(university) + 1)).toList(),
+                        candidateQuery.followUpContext().comparisonDimension());
+                GraduateKnowledgeQuery compared = new GraduateKnowledgeQuery(
+                        candidateQuery.intent(), candidateQuery.resource(), candidateQuery.operation(),
+                        new GraduateKnowledgeFilters(comparisonScope, candidateQuery.degreeTypes(), candidateQuery.topicKeywords(), candidateQuery.filters().city()),
+                        candidateQuery.aggregation(), candidateQuery.sort(), candidateQuery.limit(), context,
+                        candidateQuery.detailLevel(), true, false);
+                return GraduateFollowUpResolutionResult.resolved(compared, List.of("conversation memory"));
+            }
             if (candidateQuery.filters().city() != null || !candidateQuery.resolvedUniversities().isEmpty()) {
                 return GraduateFollowUpResolutionResult.unchanged(candidateQuery, List.of("current message"));
             }
@@ -111,22 +126,70 @@ public class GraduateFollowUpResolver {
         boolean currentTuitionIntent = GraduateKnowledgeResolutionSupport.detectTuitionAggregationIntent(normalizedMessage);
         boolean currentProgramIntent = GraduateKnowledgeResolutionSupport.detectProgramLookupIntent(normalizedMessage, explicitDegreeTypes, currentTuitionIntent);
         boolean followUpCue = GraduateKnowledgeResolutionSupport.isFollowUpMessage(normalizedMessage);
-        boolean comparisonCue = GraduateKnowledgeResolutionSupport.containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between", "with");
+        boolean comparisonCue = GraduateKnowledgeResolutionSupport.containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between")
+                || (GraduateKnowledgeResolutionSupport.detectComparisonDimension(normalizedMessage) != null
+                && GraduateKnowledgeResolutionSupport.containsAny(normalizedMessage, "which one", "which university", "more ", "cheaper", "second", "first"));
         boolean correctionCue = GraduateKnowledgeResolutionSupport.isCorrectionMessage(normalizedMessage);
         boolean explicitUniversityReference = hasExplicitUniversityReference(normalizedMessage) && !sameUniversityCue;
 
         List<ResolvedUniversity> memoryUniversities = memoryUniversities(conversationMemory);
         List<ResolvedUniversity> memoryComparisonUniversities = comparisonUniversities(conversationMemory);
+        GraduateKnowledgeComparisonDimension requestedComparisonDimension =
+                GraduateKnowledgeResolutionSupport.detectComparisonDimension(normalizedMessage);
+        boolean comparisonStateChanged = conversationMemory != null
+                && conversationMemory.comparisonActive()
+                && !comparisonCue
+                && !followUpCue
+                && (currentProgramIntent || currentTuitionIntent || explicitUniversityReference
+                || candidateQuery.operation() != GraduateKnowledgeOperation.COMPARE
+                || requestedComparisonDimension != null
+                && requestedComparisonDimension != conversationMemory.comparisonDimension());
         List<ResolvedUniversity> activeComparisonUniversities = !memoryComparisonUniversities.isEmpty()
                 ? memoryComparisonUniversities
                 : candidateQuery.resolvedUniversities();
+        if (comparisonStateChanged) {
+            activeComparisonUniversities = List.of();
+        }
         boolean hasComparisonState = comparisonCue
-                || (conversationMemory != null && conversationMemory.comparisonActive() && activeComparisonUniversities.size() > 1)
+                || (!comparisonStateChanged && conversationMemory != null && conversationMemory.comparisonActive() && activeComparisonUniversities.size() > 1)
                 || candidateQuery.followUpResolved() && candidateQuery.resolvedUniversities().size() > 1;
 
         GraduateKnowledgeIntent resolvedIntent = resolveIntent(candidateQuery.intent(), currentTuitionIntent, currentProgramIntent, followUpCue, historySignals, conversationMemory);
         if (resolvedIntent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS) {
             return GraduateFollowUpResolutionResult.clarificationRequired("INTENT_REQUIRED", candidateQuery, List.of("current message", "recent history", "conversation memory"));
+        }
+
+        Integer ordinal = ordinalIndex(currentUserMessage);
+        if (ordinal != null && candidateQuery.resource() != GraduateKnowledgeResource.UNIVERSITY
+                && candidateQuery.resource() != GraduateKnowledgeResource.CAMPUS) {
+            GraduateKnowledgeReferenceKind requiredKind = referenceKind(candidateQuery.resource());
+            List<GraduateKnowledgeReference> allReferences = candidateQuery.followUpContext().references();
+            List<GraduateKnowledgeReference> orderedReferences = allReferences.stream()
+                    .filter(reference -> reference != null && reference.kind() == requiredKind)
+                    .toList();
+            if (allReferences.isEmpty()) {
+                // Legacy university comparisons may have no typed rendered references yet;
+                // retain the existing university antecedent resolution in that case.
+                orderedReferences = null;
+            }
+            if (orderedReferences == null) {
+                // fall through to the university-aware resolver below
+            } else {
+            if (orderedReferences.size() <= ordinal) {
+                return GraduateFollowUpResolutionResult.clarificationRequired(
+                        "RESOURCE_ORDER_REQUIRED", candidateQuery, List.of("rendered results", "conversation memory"));
+            }
+            GraduateKnowledgeReference selected = orderedReferences.get(ordinal);
+            GraduateKnowledgeFollowUpContext selectedContext = new GraduateKnowledgeFollowUpContext(
+                    candidateQuery.followUpContext().referencedUniversityId(), ordinal + 1,
+                    candidateQuery.resource(), candidateQuery.operation(), List.of(selected),
+                    candidateQuery.followUpContext().comparisonDimension());
+            GraduateKnowledgeQuery selectedQuery = new GraduateKnowledgeQuery(
+                    candidateQuery.intent(), candidateQuery.resource(), candidateQuery.operation(), candidateQuery.filters(),
+                    candidateQuery.aggregation(), candidateQuery.sort(), candidateQuery.limit(), selectedContext,
+                    candidateQuery.detailLevel(), true, false);
+            return GraduateFollowUpResolutionResult.resolved(selectedQuery, List.of("rendered results", "conversation memory"));
+            }
         }
 
         List<String> resolvedDegreeTypes = resolveDegreeTypes(
@@ -197,7 +260,9 @@ public class GraduateFollowUpResolver {
         );
 
         GraduateKnowledgeQuery resolvedQuery;
-        if (hasProgramDetailFilters(candidateQuery.filters()) || resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION) {
+        if (hasProgramDetailFilters(candidateQuery.filters())
+                || resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                || candidateQuery.operation() == GraduateKnowledgeOperation.COMPARE) {
             GraduateKnowledgeFilters filters = new GraduateKnowledgeFilters(
                     universityResolution.resolvedUniversities,
                     resolvedDegreeTypes,
@@ -226,7 +291,7 @@ public class GraduateFollowUpResolver {
                             ? candidateQuery.sort() : GraduateKnowledgeSort.empty(),
                     resolvedIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
                             ? candidateQuery.limit() : null,
-                    candidateQuery.followUpContext(),
+                    followUpContext(candidateQuery, universityResolution.resolvedUniversities),
                     resolvedIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
                     followUpResolved,
                     ambiguous
@@ -298,6 +363,34 @@ public class GraduateFollowUpResolver {
                 || !filters.languages().isEmpty()
                 || !filters.admissionRequirementTypes().isEmpty()
                 || filters.programName() != null);
+    }
+
+    private GraduateKnowledgeFollowUpContext followUpContext(
+            GraduateKnowledgeQuery candidateQuery,
+            List<ResolvedUniversity> universities
+    ) {
+        GraduateKnowledgeFollowUpContext current = candidateQuery.followUpContext();
+        List<GraduateKnowledgeReference> references = current.references();
+        if (references.isEmpty() && universities != null) {
+            List<GraduateKnowledgeReference> ordered = new ArrayList<>();
+            for (int index = 0; index < universities.size(); index++) {
+                ResolvedUniversity university = universities.get(index);
+                if (university != null) {
+                    ordered.add(new GraduateKnowledgeReference(
+                            GraduateKnowledgeReferenceKind.UNIVERSITY,
+                            university.name(), university.acronym(), index + 1));
+                }
+            }
+            references = ordered;
+        }
+        return new GraduateKnowledgeFollowUpContext(
+                current.referencedUniversityId(),
+                current.referencedResultOrdinal(),
+                candidateQuery.resource(),
+                candidateQuery.operation(),
+                references,
+                current.comparisonDimension()
+        );
     }
 
     private GraduateKnowledgeAggregation safeTuitionAggregation(GraduateKnowledgeQuery query) {
@@ -608,6 +701,16 @@ public class GraduateFollowUpResolver {
             return 1;
         }
         return null;
+    }
+
+    private GraduateKnowledgeReferenceKind referenceKind(GraduateKnowledgeResource resource) {
+        return switch (resource) {
+            case CAMPUS -> GraduateKnowledgeReferenceKind.CAMPUS;
+            case PROGRAM -> GraduateKnowledgeReferenceKind.PROGRAM;
+            case FACULTY -> GraduateKnowledgeReferenceKind.FACULTY;
+            case DEPARTMENT -> GraduateKnowledgeReferenceKind.DEPARTMENT;
+            default -> GraduateKnowledgeReferenceKind.UNIVERSITY;
+        };
     }
 
     private boolean sameQuery(GraduateKnowledgeQuery left, GraduateKnowledgeQuery right) {

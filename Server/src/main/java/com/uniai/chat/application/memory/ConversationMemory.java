@@ -2,6 +2,8 @@ package com.uniai.chat.application.memory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeComparisonDimension;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,10 @@ public record ConversationMemory(
         List<String> pendingTopics,
         List<String> corrections,
         List<String> unresolvedReferences,
-        ConversationPreferences userPreferences
+        ConversationPreferences userPreferences,
+        List<GraduateKnowledgeReference> activeReferences,
+        List<GraduateKnowledgeReference> comparisonReferences,
+        GraduateKnowledgeComparisonDimension comparisonDimension
 ) {
     public static final int SCHEMA_VERSION = 1;
 
@@ -29,7 +34,26 @@ public record ConversationMemory(
         corrections = normalizeStrings(corrections);
         unresolvedReferences = normalizeStrings(unresolvedReferences);
         userPreferences = userPreferences == null ? new ConversationPreferences(null, null, null) : userPreferences;
+        activeReferences = normalizeReferences(activeReferences);
+        comparisonReferences = normalizeReferences(comparisonReferences);
         schemaVersion = schemaVersion <= 0 ? SCHEMA_VERSION : schemaVersion;
+    }
+
+    public ConversationMemory(
+            int schemaVersion,
+            List<MemoryUniversityRef> activeUniversities,
+            List<String> activeDegreeTypes,
+            String lastIntent,
+            boolean comparisonActive,
+            List<MemoryUniversityRef> comparisonUniversities,
+            List<String> pendingTopics,
+            List<String> corrections,
+            List<String> unresolvedReferences,
+            ConversationPreferences userPreferences
+    ) {
+        this(schemaVersion, activeUniversities, activeDegreeTypes, lastIntent, comparisonActive,
+                comparisonUniversities, pendingTopics, corrections, unresolvedReferences, userPreferences,
+                List.of(), List.of(), null);
     }
 
     public static ConversationMemory empty() {
@@ -43,7 +67,8 @@ public record ConversationMemory(
                 List.of(),
                 List.of(),
                 List.of(),
-                new ConversationPreferences(null, null, null)
+                new ConversationPreferences(null, null, null),
+                List.of(), List.of(), null
         );
     }
 
@@ -56,6 +81,9 @@ public record ConversationMemory(
                 && pendingTopics.isEmpty()
                 && corrections.isEmpty()
                 && unresolvedReferences.isEmpty()
+                && activeReferences.isEmpty()
+                && comparisonReferences.isEmpty()
+                && comparisonDimension == null
                 && (userPreferences == null || userPreferences.isEmpty());
     }
 
@@ -104,6 +132,11 @@ public record ConversationMemory(
             }
         }
         return List.copyOf(normalized);
+    }
+
+    private static List<GraduateKnowledgeReference> normalizeReferences(List<GraduateKnowledgeReference> values) {
+        if (values == null || values.isEmpty()) return List.of();
+        return values.stream().filter(value -> value != null).limit(10).toList();
     }
 
     private static String normalizeString(String value) {
