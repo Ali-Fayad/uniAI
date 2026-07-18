@@ -2,6 +2,11 @@ package com.uniai.chat.infrastructure.retrieval;
 
 import com.uniai.chat.application.citation.GraduateKnowledgeRetrievalResult;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeFilters;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeFollowUpContext;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeSort;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
@@ -109,6 +114,49 @@ class SqlGraduateKnowledgeRetrievalAdapterIntegrationTest extends PostgresIntegr
         assertFalse(result.citations().isEmpty());
         assertEquals("S1", result.citations().get(0).label());
         assertTrue(result.citations().stream().anyMatch(citation -> "TUITION".equals(citation.sourceType())));
+    }
+
+    @Test
+    void retrieveContextShouldComposeCityDegreeAndExactProgramFilters() {
+        String city = jdbcTemplate.queryForObject(
+                "SELECT city FROM university WHERE id = ?", String.class, programFixture.universityId());
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(
+                        List.of(), List.of(programFixture.degreeTypeCode()), List.of(), city,
+                        null, null, List.of(), List.of(), programFixture.officialProgramName()
+                ),
+                com.uniai.chat.application.retrieval.GraduateKnowledgeAggregation.empty(),
+                GraduateKnowledgeSort.empty(), 5, GraduateKnowledgeFollowUpContext.empty(),
+                GraduateProgramDetailLevel.LIST, false, false
+        );
+
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+
+        assertTrue(result.formattedContext().contains(programFixture.officialProgramName()), result.formattedContext());
+        assertFalse(result.citations().isEmpty());
+    }
+
+    @Test
+    void retrieveContextShouldSupportCityScopeWithoutResolvedUniversityIds() {
+        String city = jdbcTemplate.queryForObject(
+                "SELECT city FROM university WHERE id = ?", String.class, programFixture.universityId());
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), city),
+                com.uniai.chat.application.retrieval.GraduateKnowledgeAggregation.empty(),
+                GraduateKnowledgeSort.empty(), 5, GraduateKnowledgeFollowUpContext.empty(),
+                GraduateProgramDetailLevel.LIST, false, false
+        );
+
+        GraduateKnowledgeRetrievalResult result = adapter.retrieveContext(query);
+
+        assertTrue(result.formattedContext().contains("Programs:"), result.formattedContext());
+        assertFalse(result.citations().isEmpty());
     }
 
     private ProgramFixture discoverProgramFixture() {

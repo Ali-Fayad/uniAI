@@ -300,6 +300,38 @@ class GraduateQueryInterpretationValidatorTest {
         assertEquals(1, result.query().resolvedUniversities().size());
     }
 
+    @Test
+    void shouldValidateCityScopedMultiFilterQueryWithoutUniversity() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1, "PROGRAM_LOOKUP", List.of(), List.of("MASTER"), "LIST", false, false,
+                List.of("computer science"), false, null, List.of(), "PROGRAM", "LIST",
+                "Beirut", null, null, List.of("English"), List.of("GMAT"), null,
+                null, null, null, null, null, null, null, "NAME", "ASC", 5
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertTrue(result.query().resolvedUniversities().isEmpty());
+        assertEquals("Beirut", result.query().filters().city());
+        assertEquals(5, result.query().limit());
+    }
+
+    @Test
+    void shouldRejectRangeThresholdCombination() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1, "TUITION_AGGREGATION", List.of("AUB"), List.of("MASTER"), null, false, false,
+                List.of(), false, null, List.of(), "PROGRAM", "AGGREGATE",
+                null, null, null, List.of(), List.of(), null,
+                "RANGE", "LT", "10000", "USD", "PER_YEAR", null, "PROGRAM", "TUITION", "ASC", 5
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.INVALID, result.status());
+        assertEquals("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED", result.failureCategory());
+    }
+
     private UniversityCatalog university(Long id, String name, String acronym, String nameAr) {
         return UniversityCatalog.builder()
                 .id(id)

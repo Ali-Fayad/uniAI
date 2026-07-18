@@ -11,6 +11,8 @@ import com.uniai.chat.application.retrieval.GraduateProgramDetailLevel;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeSort;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeSortField;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeSortDirection;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
@@ -144,6 +146,54 @@ class SqlGraduateKnowledgeRetrievalAdapterTest {
         assertTrue(jdbcTemplate.lastSql.contains("admissionRequirementTypes"), jdbcTemplate.lastSql);
         assertTrue(jdbcTemplate.lastSql.contains("documents"), jdbcTemplate.lastSql);
         assertTrue(jdbcTemplate.lastSql.contains("scope_level"), jdbcTemplate.lastSql);
+    }
+
+    @Test
+    void programCompositionUsesAllSuppliedFiltersAndBoundedLimit() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(
+                        List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                        List.of("MASTER"), List.of("computer science"), "Beirut",
+                        "Faculty of Engineering", "Computer Science", List.of("English"), List.of("GMAT"),
+                        "Master of Science in Computer Science"
+                ),
+                GraduateKnowledgeAggregation.empty(),
+                new GraduateKnowledgeSort(GraduateKnowledgeSortField.NAME, GraduateKnowledgeSortDirection.ASC),
+                5,
+                GraduateKnowledgeFollowUpContext.empty(),
+                GraduateProgramDetailLevel.LIST,
+                false,
+                false
+        );
+
+        adapter.retrieveContext(query);
+
+        assertTrue(jdbcTemplate.lastSql.contains("u.city"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("facultyName"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("departmentName"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("topicRegex"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("admission_filter"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("LIMIT 5"), jdbcTemplate.lastSql);
+    }
+
+    @Test
+    void cityScopedProgramQueryDoesNotRequireUniversityIds() {
+        GraduateKnowledgeQuery query = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                GraduateKnowledgeResource.PROGRAM,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(List.of(), List.of("MASTER"), List.of(), "Beirut"),
+                GraduateKnowledgeAggregation.empty(), GraduateKnowledgeSort.empty(), 5,
+                GraduateKnowledgeFollowUpContext.empty(), GraduateProgramDetailLevel.LIST, false, false
+        );
+
+        adapter.retrieveContext(query);
+
+        assertTrue(jdbcTemplate.lastSql.contains("universityIdsEmpty"), jdbcTemplate.lastSql);
+        assertTrue(jdbcTemplate.lastSql.contains("u.city"), jdbcTemplate.lastSql);
     }
 
     @Test

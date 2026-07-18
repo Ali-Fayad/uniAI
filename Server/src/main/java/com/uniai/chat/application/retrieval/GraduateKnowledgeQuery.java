@@ -40,6 +40,17 @@ public record GraduateKnowledgeQuery(
                 && aggregation.function() != GraduateKnowledgeAggregationFunction.RANGE) {
             throw new IllegalArgumentException("Unsupported tuition aggregation function");
         }
+        if (intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                && aggregation.function() == GraduateKnowledgeAggregationFunction.RANGE
+                && filters.thresholdOperator() != GraduateKnowledgeThresholdOperator.NONE) {
+            throw new IllegalArgumentException("RANGE cannot be combined with a tuition threshold");
+        }
+        if (intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                && hasProgramScopedFilters(filters)
+                && filters.tuitionScopeLevel() != null
+                && !"PROGRAM".equals(filters.tuitionScopeLevel())) {
+            throw new IllegalArgumentException("Program filters require PROGRAM tuition scope");
+        }
         if (intent == GraduateKnowledgeIntent.GENERAL_CHAT
                 || intent == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS) {
             filters = GraduateKnowledgeFilters.empty();
@@ -116,6 +127,13 @@ public record GraduateKnowledgeQuery(
 
     public boolean hasDegreeTypes() {
         return !degreeTypes().isEmpty();
+    }
+
+    private static boolean hasProgramScopedFilters(GraduateKnowledgeFilters filters) {
+        return !filters.topicKeywords().isEmpty()
+                || filters.programName() != null
+                || !filters.languages().isEmpty()
+                || !filters.admissionRequirementTypes().isEmpty();
     }
 
     public static GraduateKnowledgeResource resourceFor(GraduateKnowledgeIntent intent) {

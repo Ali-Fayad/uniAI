@@ -291,7 +291,11 @@ public class GraduateFollowUpResolver {
 
     private boolean hasProgramDetailFilters(GraduateKnowledgeFilters filters) {
         return filters != null
-                && (!filters.languages().isEmpty()
+                && (filters.city() != null
+                || filters.facultyName() != null
+                || filters.departmentName() != null
+                || !filters.topicKeywords().isEmpty()
+                || !filters.languages().isEmpty()
                 || !filters.admissionRequirementTypes().isEmpty()
                 || filters.programName() != null);
     }

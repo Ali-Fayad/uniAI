@@ -134,7 +134,8 @@ public class GraduateQueryInterpretationValidator {
         } catch (IllegalArgumentException ex) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED");
         }
-        if (requiresUniversity(intent) && resolvedUniversities.isEmpty()) {
+        if (requiresUniversity(intent) && resolvedUniversities.isEmpty()
+                && (partialQuery == null || partialQuery.filters().city() == null)) {
             return GraduateQueryInterpretationResult.ambiguous(
                     buildAmbiguousMessage(intent),
                     0,
@@ -178,6 +179,21 @@ public class GraduateQueryInterpretationValidator {
         String billingBasis = normalizeTuitionDimension(interpretation.billingBasis(), "billing basis");
         String academicYear = normalizeTuitionDimension(interpretation.academicYear(), "academic year");
         String tuitionScope = normalizeTuitionDimension(interpretation.tuitionScopeLevel(), "tuition scope");
+        if (intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                && aggregation.function() == GraduateKnowledgeAggregationFunction.RANGE
+                && thresholdOperator != GraduateKnowledgeThresholdOperator.NONE) {
+            throw new IllegalArgumentException("RANGE cannot be combined with a tuition threshold");
+        }
+        boolean hasProgramIdentityFilter = !topicKeywords.isEmpty()
+                || programName != null
+                || !languages.isEmpty()
+                || !admissionRequirementTypes.isEmpty();
+        if (intent == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                && hasProgramIdentityFilter
+                && tuitionScope != null
+                && !"PROGRAM".equals(tuitionScope)) {
+            throw new IllegalArgumentException("Program filters require PROGRAM tuition scope");
+        }
         if (billingBasis != null && !SUPPORTED_BILLING_BASES.contains(billingBasis)) {
             throw new IllegalArgumentException("Unsupported billing basis");
         }

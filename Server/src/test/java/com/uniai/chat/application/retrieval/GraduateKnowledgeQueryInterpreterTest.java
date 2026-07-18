@@ -196,6 +196,33 @@ class GraduateKnowledgeQueryInterpreterTest {
     }
 
     @Test
+    void shouldComposeProgramFiltersWithCityLanguageAdmissionAndTopic() {
+        GraduateKnowledgeQuery query = interpreter.interpret(
+                "Show English master's computer science programs in Beirut requiring GMAT at AUB",
+                List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, query.intent());
+        assertEquals("Beirut", query.filters().city());
+        assertEquals(List.of("computer science"), query.filters().topicKeywords());
+        assertEquals(List.of("english"), query.filters().languages());
+        assertEquals(List.of("GMAT"), query.filters().admissionRequirementTypes());
+        assertEquals(List.of("AUB"), query.resolvedUniversities().stream().map(ResolvedUniversity::acronym).toList());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldAllowCityAsBoundedProgramScopeWithoutUniversity() {
+        GraduateKnowledgeQuery query = interpreter.interpret(
+                "Find master's programs in Tripoli",
+                List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, query.intent());
+        assertEquals("tripoli", query.filters().city());
+        assertTrue(query.resolvedUniversities().isEmpty());
+        assertFalse(query.ambiguous());
+    }
+
+    @Test
     void shouldResolveFollowUpSameAtLauUsingLatestTuitionIntent() {
         List<AiConversationMessage> history = List.of(
                 message("user", "What is the average tuition at AUB?"),

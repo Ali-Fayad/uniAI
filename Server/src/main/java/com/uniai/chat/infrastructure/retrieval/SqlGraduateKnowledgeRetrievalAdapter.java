@@ -83,7 +83,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         try {
             if (safeQuery.intent() == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
                     || safeQuery.ambiguous()
-                    || safeQuery.resolvedUniversities().isEmpty()) {
+                    || (safeQuery.resolvedUniversities().isEmpty() && !StringUtils.hasText(safeQuery.filters().city()))) {
                 String emptyContext = buildEmptyContext(safeQuery, "Unable to determine a specific graduate-information intent.");
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                         emptyContext.length(),
@@ -366,16 +366,17 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private List<ProgramRecord> queryPrograms(GraduateKnowledgeQuery query) {
         List<Long> universityIds = universityIds(query.resolvedUniversities());
-        if (universityIds.isEmpty()) {
+        if (universityIds.isEmpty() && !StringUtils.hasText(query.filters().city())) {
             logger.warn("[RETRIEVAL] No university IDs resolved for program lookup");
             return List.of();
         }
 
         boolean details = query.detailLevel() == GraduateProgramDetailLevel.DETAILS;
         String degreeClause = query.degreeTypes().isEmpty() ? "" : "AND dt.code IN (:degreeTypes)\n";
+        int limit = query.limit() == null ? GraduateKnowledgeQuery.MAX_LIMIT : query.limit();
         String sql = details
-                ? programDetailsSql(degreeClause + programFilterClause(query))
-                : programListSql(degreeClause + programFilterClause(query));
+                ? programDetailsSql(degreeClause + programFilterClause(query), programOrderClause(query), limit)
+                : programListSql(degreeClause + programFilterClause(query), programOrderClause(query), limit);
 
         MapSqlParameterSource params = baseProgramParams(query);
         logger.debug("[RETRIEVAL] Program SQL execution started universityIdCount={} degreeTypeCount={} detailLevel={}",
@@ -392,7 +393,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private List<TuitionAggregationRecord> queryTuitionAggregations(GraduateKnowledgeQuery query) {
         List<Long> universityIds = universityIds(query.resolvedUniversities());
-        if (universityIds.isEmpty()) {
+        if (universityIds.isEmpty() && !StringUtils.hasText(query.filters().city())) {
             logger.warn("[RETRIEVAL] No university IDs resolved for tuition aggregation");
             return List.of();
         }
@@ -423,7 +424,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 LEFT JOIN graduate_program gp ON gp.id = gtr.program_id
                 LEFT JOIN degree_type dt ON dt.id = gp.degree_type_id
                 LEFT JOIN source s ON s.id = gtr.source_id
-                WHERE gtr.university_id IN (:universityIds)
+                WHERE 1 = 1
                 %s
                 GROUP BY u.id, u.name, u.acronym, dt.code, gtr.currency, gtr.billing_basis, gtr.scope_level, gtr.academic_year
                 %s
@@ -465,6 +466,26 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private String tuitionFilterClause(GraduateKnowledgeQuery query) {
         StringBuilder clause = new StringBuilder();
+        clause.append("AND (:universityIdsEmpty = TRUE OR gtr.university_id IN (:universityIds))\n");
+        clause.append("AND (:city IS NULL OR LOWER(BTRIM(u.city)) = LOWER(BTRIM(:city)))\n");
+        clause.append("AND (:facultyName IS NULL OR EXISTS (SELECT 1 FROM university_faculty tuition_faculty_filter WHERE LOWER(BTRIM(tuition_faculty_filter.name)) = LOWER(BTRIM(:facultyName)) AND (tuition_faculty_filter.id = gtr.faculty_id OR tuition_faculty_filter.id = gp.faculty_id)))\n");
+        clause.append("AND (:departmentName IS NULL OR EXISTS (SELECT 1 FROM university_department tuition_department_filter WHERE LOWER(BTRIM(tuition_department_filter.name)) = LOWER(BTRIM(:departmentName)) AND (tuition_department_filter.id = gtr.department_id OR tuition_department_filter.id = gp.department_id)))\n");
+        if (!query.topicKeywords().isEmpty() || query.filters().programName() != null
+                || !query.filters().languages().isEmpty() || !query.filters().admissionRequirementTypes().isEmpty()) {
+            clause.append("AND gtr.program_id IS NOT NULL\n");
+        }
+        if (query.topicKeywords() != null && !query.topicKeywords().isEmpty()) {
+            clause.append("AND CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category) ~* :topicRegex\n");
+        }
+        if (query.filters().programName() != null) {
+            clause.append("AND LOWER(BTRIM(gp.official_degree_name)) = LOWER(BTRIM(:programName))\n");
+        }
+        if (!query.filters().languages().isEmpty()) {
+            clause.append("AND EXISTS (SELECT 1 FROM language tuition_language_filter WHERE tuition_language_filter.id = gp.primary_language_id AND (LOWER(BTRIM(tuition_language_filter.name)) IN (:languages) OR LOWER(BTRIM(tuition_language_filter.code)) IN (:languages) OR LOWER(BTRIM(COALESCE(tuition_language_filter.native_name, ''))) IN (:languages)))\n");
+        }
+        if (!query.filters().admissionRequirementTypes().isEmpty()) {
+            clause.append("AND EXISTS (SELECT 1 FROM graduate_admission_requirement tuition_admission_filter WHERE tuition_admission_filter.requirement_type IN (:admissionRequirementTypes) AND (tuition_admission_filter.program_id = gp.id OR (tuition_admission_filter.program_id IS NULL AND tuition_admission_filter.scope_level = 'UNIVERSITY' AND tuition_admission_filter.university_id = gp.university_id) OR (tuition_admission_filter.program_id IS NULL AND tuition_admission_filter.scope_level = 'FACULTY' AND tuition_admission_filter.faculty_id = gp.faculty_id) OR (tuition_admission_filter.program_id IS NULL AND tuition_admission_filter.scope_level = 'DEPARTMENT' AND tuition_admission_filter.department_id = gp.department_id)))\n");
+        }
         if (StringUtils.hasText(query.filters().currency())) clause.append("AND UPPER(BTRIM(gtr.currency)) = :tuitionCurrency\n");
         if (StringUtils.hasText(query.filters().billingBasis())) clause.append("AND UPPER(BTRIM(gtr.billing_basis)) = :tuitionBillingBasis\n");
         if (StringUtils.hasText(query.filters().academicYear())) clause.append("AND BTRIM(gtr.academic_year) = :tuitionAcademicYear\n");
@@ -516,7 +537,12 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private MapSqlParameterSource baseProgramParams(GraduateKnowledgeQuery query) {
         MapSqlParameterSource params = new MapSqlParameterSource()
-                .addValue("universityIds", universityIds(query.resolvedUniversities()));
+                .addValue("universityIds", universityIds(query.resolvedUniversities()))
+                .addValue("universityIdsEmpty", query.resolvedUniversities().isEmpty())
+                .addValue("city", query.filters().city())
+                .addValue("topicRegex", academicTopicRegex(query.topicKeywords()))
+                .addValue("facultyName", query.filters().facultyName())
+                .addValue("departmentName", query.filters().departmentName());
         if (query.degreeTypes() != null && !query.degreeTypes().isEmpty()) {
             params.addValue("degreeTypes", query.degreeTypes().stream()
                     .filter(StringUtils::hasText)
@@ -543,6 +569,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private String programFilterClause(GraduateKnowledgeQuery query) {
         StringBuilder clause = new StringBuilder();
+        clause.append("AND (:universityIdsEmpty = TRUE OR gp.university_id IN (:universityIds))\n");
+        clause.append("AND (:city IS NULL OR LOWER(BTRIM(u.city)) = LOWER(BTRIM(:city)))\n");
+        clause.append("AND (:facultyName IS NULL OR LOWER(BTRIM(fac.name)) = LOWER(BTRIM(:facultyName)))\n");
+        clause.append("AND (:departmentName IS NULL OR LOWER(BTRIM(dep.name)) = LOWER(BTRIM(:departmentName)))\n");
+        clause.append("AND (:topicRegex IS NULL OR CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category) ~* :topicRegex)\n");
         if (!query.filters().languages().isEmpty()) {
             clause.append("AND (LOWER(BTRIM(l.name)) IN (:languages) "
                     + "OR LOWER(BTRIM(l.code)) IN (:languages) "
@@ -560,6 +591,18 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     + "OR (admission_filter.program_id IS NULL AND admission_filter.scope_level = 'DEPARTMENT' AND admission_filter.department_id = gp.department_id)))\n");
         }
         return clause.toString();
+    }
+
+    private String programOrderClause(GraduateKnowledgeQuery query) {
+        GraduateKnowledgeSortField field = query.sort() == null ? GraduateKnowledgeSortField.NONE : query.sort().field();
+        GraduateKnowledgeSortDirection direction = query.sort() == null ? GraduateKnowledgeSortDirection.ASC : query.sort().direction();
+        String expression = switch (field) {
+            case UNIVERSITY, NAME, RELEVANCE, NONE -> "u.name";
+            case DEGREE_TYPE -> "dt.code";
+            case TUITION -> "gp.official_degree_name";
+        };
+        String directionSql = direction == GraduateKnowledgeSortDirection.DESC ? "DESC" : "ASC";
+        return expression + " " + directionSql + ", dt.code ASC NULLS LAST, gp.official_degree_name ASC";
     }
 
     private RowMapper<ProgramRecord> programRowMapper(boolean details) {
@@ -582,7 +625,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         );
     }
 
-    private String programListSql(String degreeClause) {
+    private String programListSql(String filterClause, String orderClause, int limit) {
         return """
                 SELECT
                     u.id AS university_id,
@@ -598,6 +641,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 JOIN university u ON u.id = gp.university_id
                 LEFT JOIN degree_type dt ON dt.id = gp.degree_type_id
                 LEFT JOIN university_faculty fac ON fac.id = gp.faculty_id
+                LEFT JOIN university_department dep ON dep.id = gp.department_id
                 LEFT JOIN language l ON l.id = gp.primary_language_id
                 LEFT JOIN LATERAL (
                     SELECT STRING_AGG(DISTINCT source_url, ' | ' ORDER BY source_url) AS source_urls
@@ -612,13 +656,14 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                         WHERE gps.program_id = gp.id
                     ) source_union
                 ) src ON TRUE
-                WHERE gp.university_id IN (:universityIds)
+                WHERE 1 = 1
                 %s
-                ORDER BY u.name ASC, dt.code ASC NULLS LAST, gp.official_degree_name ASC
-                """.formatted(degreeClause);
+                ORDER BY %s
+                LIMIT %d
+                """.formatted(filterClause, orderClause, limit);
     }
 
-    private String programDetailsSql(String degreeClause) {
+    private String programDetailsSql(String filterClause, String orderClause, int limit) {
         return """
                 SELECT
                     u.id AS university_id,
@@ -640,6 +685,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 JOIN university u ON u.id = gp.university_id
                 LEFT JOIN degree_type dt ON dt.id = gp.degree_type_id
                 LEFT JOIN university_faculty fac ON fac.id = gp.faculty_id
+                LEFT JOIN university_department dep ON dep.id = gp.department_id
                 LEFT JOIN language l ON l.id = gp.primary_language_id
                 LEFT JOIN LATERAL (
                     SELECT STRING_AGG(
@@ -722,10 +768,11 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                            OR (grd2.program_id IS NULL AND grd2.scope_level = 'DEPARTMENT' AND grd2.department_id = gp.department_id)
                     ) source_union
                 ) src ON TRUE
-                WHERE gp.university_id IN (:universityIds)
+                WHERE 1 = 1
                 %s
-                ORDER BY u.name ASC, dt.code ASC NULLS LAST, gp.official_degree_name ASC
-                """.formatted(degreeClause);
+                ORDER BY %s
+                LIMIT %d
+                """.formatted(filterClause, orderClause, limit);
     }
 
     private List<ProgramRecord> rankProgramRecords(GraduateKnowledgeQuery query, List<ProgramRecord> programs) {

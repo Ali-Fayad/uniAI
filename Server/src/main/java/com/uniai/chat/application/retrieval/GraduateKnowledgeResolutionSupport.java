@@ -23,6 +23,7 @@ final class GraduateKnowledgeResolutionSupport {
     private static final Pattern CITY_AFTER_IN = Pattern.compile("\\bin\\s+([\\p{L}][\\p{L}\\s'\\-]{1,60}?)(?:[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Pattern FACULTY_NAME = Pattern.compile("(?:faculty|school)\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Pattern DEPARTMENT_NAME = Pattern.compile("department\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern PROGRAM_NAME = Pattern.compile("(?:program(?:me)?|degree)\\s+(?:called|named|in)\\s+['\\\"]?([\\p{L}][\\p{L}0-9&'\\-\\s]{1,100}?)(?:['\\\"]|\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Set<String> GENERIC_UNIVERSITY_TOKENS = Set.of(
             "university",
             "college",
@@ -70,6 +71,47 @@ final class GraduateKnowledgeResolutionSupport {
             degreeTypes.add("PHD");
         }
         return new ArrayList<>(degreeTypes);
+    }
+
+    static List<String> detectTopicKeywords(String text) {
+        if (text == null || text.isBlank()) return List.of();
+        String normalized = normalize(text);
+        List<String> topics = new ArrayList<>();
+        for (String topic : List.of("computer science", "engineering", "medicine", "business administration", "business", "mba", "law", "education")) {
+            if (containsAny(normalized, topic)) topics.add(topic);
+        }
+        return topics;
+    }
+
+    static List<String> detectLanguages(String text) {
+        if (text == null || text.isBlank()) return List.of();
+        String normalized = normalize(text);
+        List<String> languages = new ArrayList<>();
+        for (String[] language : List.of(
+                new String[]{"english", "en"}, new String[]{"french", "fr"},
+                new String[]{"arabic", "ar"})) {
+            if (containsAny(normalized, language[0]) || containsWord(normalized, language[1])) languages.add(language[0]);
+        }
+        return languages;
+    }
+
+    static List<String> detectAdmissionRequirementTypes(String text) {
+        if (text == null || text.isBlank()) return List.of();
+        String normalized = normalize(text);
+        List<String> requirements = new ArrayList<>();
+        for (String[] requirement : List.of(
+                new String[]{"gmat", "GMAT"}, new String[]{"gre", "GRE"},
+                new String[]{"portfolio", "PORTFOLIO"}, new String[]{"interview", "INTERVIEW"},
+                new String[]{"experience", "EXPERIENCE"}, new String[]{"prerequisite", "PREREQUISITE"})) {
+            if (containsWord(normalized, requirement[0])) requirements.add(requirement[1]);
+        }
+        return requirements;
+    }
+
+    static String detectProgramName(String text) {
+        if (text == null || text.isBlank()) return null;
+        java.util.regex.Matcher matcher = PROGRAM_NAME.matcher(text.trim());
+        return matcher.find() && matcher.group(1) != null ? matcher.group(1).trim() : null;
     }
 
     static boolean detectTuitionAggregationIntent(String text) {

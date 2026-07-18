@@ -41,6 +41,10 @@ public class GraduateKnowledgeQueryInterpreter {
         GraduateKnowledgeOperation currentAcademicOperation = GraduateKnowledgeResolutionSupport.detectAcademicOperation(normalizedMessage);
         String currentFacultyName = GraduateKnowledgeResolutionSupport.detectFacultyName(normalizedMessage);
         String currentDepartmentName = GraduateKnowledgeResolutionSupport.detectDepartmentName(normalizedMessage);
+        List<String> currentTopicKeywords = GraduateKnowledgeResolutionSupport.detectTopicKeywords(normalizedMessage);
+        List<String> currentLanguages = GraduateKnowledgeResolutionSupport.detectLanguages(normalizedMessage);
+        List<String> currentAdmissionTypes = GraduateKnowledgeResolutionSupport.detectAdmissionRequirementTypes(normalizedMessage);
+        String currentProgramName = GraduateKnowledgeResolutionSupport.detectProgramName(normalizedMessage);
         boolean currentOverviewIntent = GraduateKnowledgeResolutionSupport.detectGraduateOverviewIntent(normalizedMessage, currentProgramIntent, currentTuitionIntent);
         boolean currentFollowUp = isFollowUpMessage(normalizedMessage);
         boolean explicitComparison = containsAny(normalizedMessage, "compare", "comparison", "vs", "versus", "between", "with");
@@ -78,7 +82,7 @@ public class GraduateKnowledgeQueryInterpreter {
             resolvedUniversities = GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities);
             resolvedDegreeTypes = new ArrayList<>(currentDegreeTypes);
             ambiguous = resolvedUniversities.isEmpty();
-        } else if (currentLocationIntent) {
+        } else if (currentLocationIntent && !currentProgramIntent && !currentTuitionIntent) {
             intent = GraduateKnowledgeIntent.LOCATION_LOOKUP;
             resolvedUniversities = GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities);
             resolvedDegreeTypes = List.of();
@@ -101,6 +105,7 @@ public class GraduateKnowledgeQueryInterpreter {
             resolvedUniversities = resolveTuitionUniversities(normalizedMessage, currentUniversities, historySignals, explicitComparison);
             resolvedDegreeTypes = resolveDegreeTypesForFollowUp(currentDegreeTypes, historySignals);
             ambiguous = shouldFlagAmbiguousTuition(normalizedMessage, currentUniversities, historySignals, explicitComparison, resolvedUniversities);
+            if (currentCity != null) ambiguous = false;
         } else if (currentProgramIntent
                 || (currentFollowUp && inheritedHistoryIntent == GraduateKnowledgeIntent.PROGRAM_LOOKUP)
                 || (!currentUniversities.isEmpty() && currentFollowUp)) {
@@ -110,6 +115,7 @@ public class GraduateKnowledgeQueryInterpreter {
             resolvedDegreeTypes = resolveDegreeTypesForFollowUp(currentDegreeTypes, historySignals);
             detailLevel = resolveDetailLevel(normalizedMessage);
             ambiguous = shouldFlagAmbiguousProgram(normalizedMessage, currentUniversities, historySignals, explicitComparison, resolvedUniversities);
+            if (currentCity != null) ambiguous = false;
         } else if (explicitComparison && !currentUniversities.isEmpty()) {
             intent = inheritedHistoryIntent == GraduateKnowledgeIntent.TUITION_AGGREGATION
                     ? GraduateKnowledgeIntent.TUITION_AGGREGATION
@@ -157,7 +163,7 @@ public class GraduateKnowledgeQueryInterpreter {
         }
 
         if (resolvedUniversities.isEmpty()
-                && (intent != GraduateKnowledgeIntent.LOCATION_LOOKUP || currentCity == null)) {
+                && currentCity == null) {
             ambiguous = true;
         }
 
@@ -196,7 +202,7 @@ public class GraduateKnowledgeQueryInterpreter {
                     new GraduateKnowledgeFilters(
                             resolvedUniversities,
                             resolvedDegreeTypes,
-                            List.of(),
+                            currentTopicKeywords,
                             null,
                             currentFacultyName,
                             currentDepartmentName
@@ -211,13 +217,13 @@ public class GraduateKnowledgeQueryInterpreter {
             GraduateKnowledgeFilters tuitionFilters = new GraduateKnowledgeFilters(
                     resolvedUniversities,
                     resolvedDegreeTypes,
-                    List.of(),
-                    null,
-                    null,
-                    null,
-                    List.of(),
-                    List.of(),
-                    null,
+                    currentTopicKeywords,
+                    currentCity,
+                    currentFacultyName,
+                    currentDepartmentName,
+                    currentLanguages,
+                    currentAdmissionTypes,
+                    currentProgramName,
                     GraduateKnowledgeResolutionSupport.detectTuitionCurrency(normalizedMessage),
                     GraduateKnowledgeResolutionSupport.detectTuitionBillingBasis(normalizedMessage),
                     GraduateKnowledgeResolutionSupport.detectTuitionAcademicYear(normalizedMessage),
@@ -242,8 +248,41 @@ public class GraduateKnowledgeQueryInterpreter {
                     ambiguous
             );
         }
-        return new GraduateKnowledgeQuery(intent, resolvedUniversities, resolvedDegreeTypes,
-                intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null, followUpResolved, ambiguous);
+        if (intent != GraduateKnowledgeIntent.PROGRAM_LOOKUP) {
+            return new GraduateKnowledgeQuery(
+                    intent,
+                    resolvedUniversities,
+                    resolvedDegreeTypes,
+                    null,
+                    followUpResolved,
+                    ambiguous
+            );
+        }
+        GraduateKnowledgeFilters filters = new GraduateKnowledgeFilters(
+                resolvedUniversities,
+                resolvedDegreeTypes,
+                currentTopicKeywords,
+                currentCity,
+                currentFacultyName,
+                currentDepartmentName,
+                currentLanguages,
+                currentAdmissionTypes,
+                currentProgramName
+        );
+        return new GraduateKnowledgeQuery(
+                intent,
+                GraduateKnowledgeResource.PROGRAM,
+                intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP
+                        ? GraduateKnowledgeOperation.LIST : GraduateKnowledgeOperation.NONE,
+                filters,
+                GraduateKnowledgeAggregation.empty(),
+                GraduateKnowledgeSort.empty(),
+                intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? GraduateKnowledgeQuery.MAX_LIMIT : null,
+                GraduateKnowledgeFollowUpContext.empty(),
+                intent == GraduateKnowledgeIntent.PROGRAM_LOOKUP ? detailLevel : null,
+                followUpResolved,
+                ambiguous
+        );
     }
 
     private List<ResolvedUniversity> resolveOverviewUniversities(

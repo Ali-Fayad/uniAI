@@ -92,6 +92,10 @@ Rules:
 - tuition thresholds use only LT, LTE, GT, or GTE with a non-negative numeric thresholdValue
 - compare tuition only within the requested compatible currency, billing basis, academic year, scope, and entity grouping; never convert currencies or billing units
 - tuition result limits default to 5 and must not exceed 20; sorting and threshold filtering remain structured retrieval concerns
+- when multiple filters are present, preserve every filter for strict AND composition; never omit an explicit filter
+- if a filter cannot be resolved safely or conflicts with the selected resource, mark the request ambiguous or preserve it in unsupportedConstraints
+- city is a valid bounded scope for program and tuition retrieval even when no university mention is resolved
+- RANGE must not be combined with a tuition threshold
 - GRADUATE_OVERVIEW uses GRADUATE_OVERVIEW with OVERVIEW; this is a composite graduate route and must not be reduced to PROGRAM or UNIVERSITY
 - LOCATION_LOOKUP uses CAMPUS or UNIVERSITY with LIST, COUNT, or EXISTS
 - use LOCATION_LOOKUP only for explicit structured campus or university-by-city questions
