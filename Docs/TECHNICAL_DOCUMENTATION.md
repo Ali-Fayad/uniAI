@@ -8,6 +8,14 @@ This document was generated from the current codebase and validated against the 
 - Legacy context used: `README.md`, `API_DOC.md`, `DTOs.md`, `externalAPI.md`, `UnisCoordinateTable.md`, and `Server/docker-compose.yml`.
 - When legacy docs conflict with code, this document follows the code and calls out the mismatch explicitly.
 
+## Capstone Report Assets
+
+The detailed, code-grounded material for the capstone report is maintained separately under [`Docs/report/`](report/README.md). It includes the [asset index](report/REPORT_ASSET_INDEX.md), [core database documentation](report/technical/09_core_database.md), [AI/knowledge database documentation](report/technical/10_ai_database_and_knowledge_model.md), [PlantUML sources](report/diagrams/README.md), [API inventory](report/api/api_inventory.md), [report tables](report/tables/README.md), and [screenshot manifest](report/screenshots/screenshot_manifest.md).
+
+For current chat/AI implementation details, use the report chapters on [AI architecture](report/technical/11_ai_architecture.md), [chat and memory](report/technical/12_chat_and_memory.md), and [graduate retrieval](report/technical/13_graduate_retrieval.md). The configured provider boundary supports Gemini, Groq, Ollama, and placeholder modes; external provider operation depends on runtime configuration.
+
+PlantUML source links: [system context](report/diagrams/system/system_context.puml), [high-level architecture](report/diagrams/system/high_level_architecture.puml), [component architecture](report/diagrams/system/component_architecture.puml), [hexagonal backend](report/diagrams/backend/backend_hexagonal_architecture.puml), [backend packages](report/diagrams/backend/backend_package_diagram.puml), [backend components](report/diagrams/backend/backend_component_diagram.puml), [domain classes](report/diagrams/backend/important_domain_classes.puml), [frontend components](report/diagrams/frontend/frontend_component_architecture.puml), [frontend routing](report/diagrams/frontend/frontend_routing.puml), [frontend state/service flow](report/diagrams/frontend/frontend_state_and_service_flow.puml), [core ERD](report/diagrams/database/core_application_erd.puml), [AI ERD](report/diagrams/database/ai_knowledge_erd.puml), [AI request pipeline](report/diagrams/ai/ai_request_pipeline.puml), [interpretation flow](report/diagrams/ai/ai_query_interpretation_flow.puml), [budget flow](report/diagrams/ai/context_budget_flow.puml), [retrieval flow](report/diagrams/ai/graduate_retrieval_flow.puml), [memory flow](report/diagrams/ai/conversation_memory_flow.puml), [citation flow](report/diagrams/ai/citation_and_context_flow.puml), [authentication sequence](report/diagrams/sequences/authentication_sequence.puml), [registration sequence](report/diagrams/sequences/registration_sequence.puml), [chat/AI/graduate sequences](report/diagrams/sequences/chat_message_sequence.puml), [history/CV/profile sequences](report/diagrams/sequences/cv_builder_sequence.puml), [map/feedback/admin sequences](report/diagrams/sequences/university_map_sequence.puml), [activities](report/diagrams/activities/ask_ai_activity.puml), and [deployment views](report/diagrams/deployment/docker_deployment.puml).
+
 ---
 
 ## 1. System Overview
@@ -18,7 +26,7 @@ This document was generated from the current codebase and validated against the 
 
 1. Authentication and user profile management
 2. CV and personal-information management
-3. A chat UI backed by a placeholder AI adapter
+3. A chat UI backed by configurable AI provider adapters, a placeholder fallback mode, and a graduate-retrieval pipeline
 
 It also includes:
 
@@ -75,7 +83,7 @@ Main backend modules:
 
 ### Important reality checks
 
-- The chat module is not connected to a real LLM provider yet. `PlaceholderAiServiceAdapter` currently returns `AI response to: <user message>`.
+- The chat module selects Gemini, Groq, Ollama, or placeholder mode through `ai.provider`. Real-provider operation depends on configured credentials/network availability; placeholder remains an explicit fallback mode.
 - Google OAuth is only partially implemented. The backend exposes `POST /api/auth/google/url`, but there is no controller callback endpoint that exchanges a Google authorization code for a uniAI JWT.
 - The map page uses a static frontend dataset from `Client/src/data/universities.ts`, not the backend university catalog.
 
@@ -179,7 +187,7 @@ Excluded from that gate:
 #### Chat module
 
 - `ChatApplicationService`: create chat, send messages, list chats, get messages, delete one chat, delete all chats
-- `PlaceholderAiServiceAdapter`: mock AI provider
+- `ChatAiConfiguration`: selects Gemini, Groq, Ollama, or placeholder AI adapter and wires query interpretation, memory, context budgets, citations, and retrieval collaborators
 
 #### Graduate retrieval
 
@@ -312,7 +320,7 @@ Extension guide for future resources:
 | Method | Path | Auth | Notes |
 |---|---|---|---|
 | `POST` | `/api/chats` | Yes | Creates an empty chat |
-| `POST` | `/api/chats/messages` | Yes | Stores user message, generates placeholder AI response |
+| `POST` | `/api/chats/messages` | Yes | Stores user message, performs interpreted/retrieval-backed or general AI response generation, and returns citations when applicable |
 | `GET` | `/api/chats` | Yes | Returns user chats |
 | `GET` | `/api/chats/{chatId}/messages` | Yes | Returns ordered messages |
 | `DELETE` | `/api/chats/{chatId}` | Yes | Deletes one chat |
@@ -607,7 +615,7 @@ API base URL behavior:
 1. Frontend creates a chat if needed
 2. Frontend sends message to `/api/chats/messages`
 3. Backend stores user message
-4. Placeholder AI adapter returns mock response
+4. `ChatApplicationService` applies query interpretation/retrieval when applicable, budgets the AI request, and invokes the configured provider adapter or safe fallback
 5. Backend stores AI response and returns it
 
 ### 4.7 Map feature

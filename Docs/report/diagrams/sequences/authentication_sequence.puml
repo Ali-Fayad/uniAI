@@ -1,0 +1,13 @@
+@startuml
+title Authentication Sequence
+actor User
+participant Client
+participant AuthController
+participant AuthApplicationService
+database PostgreSQL
+User -> Client : submit sign-in
+Client -> AuthController : POST /api/auth/signin
+AuthController -> AuthApplicationService : signIn(command)
+AuthApplicationService -> PostgreSQL : verify user/password/status
+AuthApplicationService --> Client : JWT or verification/2FA outcome
+@enduml

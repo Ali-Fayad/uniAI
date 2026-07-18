@@ -1,0 +1,15 @@
+@startuml
+title Graduate Query Sequence
+participant ChatApplicationService
+participant GraduateQueryInterpretationPort
+participant GraduateFollowUpResolver
+participant "Retrieval Port" as retrieval
+database PostgreSQL
+ChatApplicationService -> GraduateQueryInterpretationPort : interpret
+GraduateQueryInterpretationPort --> ChatApplicationService : typed result/fallback
+ChatApplicationService -> GraduateFollowUpResolver : resolve
+ChatApplicationService -> retrieval : retrieveContext(query)
+retrieval -> PostgreSQL : parameterized SQL
+PostgreSQL --> retrieval : rows
+retrieval --> ChatApplicationService : context + citations
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+title Admin User Management Sequence
+actor Administrator
+participant AdminController
+participant AdminApplicationService
+database PostgreSQL
+Administrator -> AdminController : ADMIN endpoint request
+AdminController -> AdminApplicationService : overview/search/update/delete
+AdminApplicationService -> PostgreSQL : query or mutation
+AdminApplicationService --> Administrator : response
+@enduml

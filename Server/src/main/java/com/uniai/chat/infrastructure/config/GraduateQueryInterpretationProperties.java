@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class GraduateQueryInterpretationProperties {
 
     private boolean enabled = true;
-    private long maxInputTokens = 1500L;
+    private long maxInputTokens = 4500L;
     private int maxOutputTokens = 250;
     private int historyMessageLimit = 4;
     private String promptPath = "prompts/graduate-query-interpreter-prompt.txt";

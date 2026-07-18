@@ -1,0 +1,14 @@
+@startuml
+title Graduate Retrieval Flow
+start
+:Validated GraduateKnowledgeQuery;
+:GraduateFollowUpResolver;
+if (Location/campus?) then (yes)
+  :GraduateLocationRetrievalPort;
+else (no)
+  :GraduateKnowledgeRetrievalPort;
+endif
+:Parameterized SQL adapter;
+:Format context and citations;
+stop
+@enduml

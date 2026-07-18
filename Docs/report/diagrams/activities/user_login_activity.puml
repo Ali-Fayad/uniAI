@@ -1,0 +1,13 @@
+@startuml
+title User Login Activity
+start
+:Enter credentials;
+:POST /api/auth/signin;
+if (Verified and no 2FA?) then (yes)
+  :Receive JWT;
+  :Open protected route;
+else (no)
+  :Follow verification or 2FA flow;
+endif
+stop
+@enduml

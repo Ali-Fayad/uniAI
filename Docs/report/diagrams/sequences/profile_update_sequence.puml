@@ -1,0 +1,11 @@
+@startuml
+title Profile Update Sequence
+actor User
+participant PersonalInfoController
+participant PersonalInfoApplicationService
+database PostgreSQL
+User -> PersonalInfoController : PUT /api/cv/personal-info
+PersonalInfoController -> PersonalInfoApplicationService : update
+PersonalInfoApplicationService -> PostgreSQL : upsert personal_info
+PersonalInfoApplicationService --> User : PersonalInfoResponse
+@enduml

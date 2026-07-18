@@ -1,0 +1,11 @@
+@startuml
+title Backend Components
+[AuthController] --> [AuthApplicationService]
+[ChatController] --> [ChatApplicationService]
+[CVController] --> [CVApplicationService]
+[CatalogController] --> [CatalogQueryService]
+[FeedbackController] --> [FeedbackApplicationService]
+[AdminController] --> [AdminApplicationService]
+[ChatApplicationService] --> [GraduateFollowUpResolver]
+[ChatApplicationService] --> [AiContextBudgetManager]
+@enduml

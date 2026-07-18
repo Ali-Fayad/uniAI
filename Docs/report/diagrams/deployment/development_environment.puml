@@ -1,0 +1,12 @@
+@startuml
+title Development Environment
+actor Developer
+node "Local workspace" as ws
+node "Vite :5173" as vite
+node "Spring Boot :9090" as boot
+database "Docker PostgreSQL or configured datasource" as db
+Developer --> ws
+ws --> vite
+ws --> boot
+boot --> db
+@enduml

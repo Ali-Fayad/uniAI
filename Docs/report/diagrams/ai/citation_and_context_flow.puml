@@ -1,0 +1,8 @@
+@startuml
+title Citation and Context Flow
+[SQL retrieval adapter] --> [GraduateKnowledgeRetrievalResult]
+[GraduateKnowledgeRetrievalResult] --> [GraduateCitationEngine]
+[GraduateCitationEngine] --> [System prompt citation instructions]
+[System prompt citation instructions] --> [AI provider]
+[AI provider] --> [Extract cited response DTOs]
+@enduml

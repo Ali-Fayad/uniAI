@@ -1,0 +1,20 @@
+@startuml
+title AI Request Pipeline
+start
+:Persist user message;
+:Load bounded history and conversation memory;
+:Interpret graduate query;
+if (Ambiguous or unsupported?) then (yes)
+  :Persist safe clarification;
+  stop
+endif
+:Resolve follow-up and retrieve context;
+:Apply context budget;
+if (Request fits?) then (yes)
+  :Call configured AI provider;
+else (no)
+  :Create safe budget fallback;
+endif
+:Extract citations and persist assistant message;
+stop
+@enduml

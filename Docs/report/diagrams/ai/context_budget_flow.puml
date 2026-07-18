@@ -1,0 +1,17 @@
+@startuml
+title Context Budget Flow
+start
+:AiRequest with history, retrieval context, memory;
+:Estimate tokens with AiTokenEstimator;
+if (Within provider limit?) then (yes)
+  :Return request;
+else (no)
+  :Trim history and retrieval context;
+endif
+if (Fits after trimming?) then (yes)
+  :Return bounded request;
+else (no)
+  :Reject with diagnostic category;
+endif
+stop
+@enduml

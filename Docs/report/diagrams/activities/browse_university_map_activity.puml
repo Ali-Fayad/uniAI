@@ -1,0 +1,9 @@
+@startuml
+title Browse University Map Activity
+start
+:Navigate to /map;
+:Load static frontend coordinates;
+:Render Leaflet markers;
+:Browse map;
+stop
+@enduml

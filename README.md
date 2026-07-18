@@ -1,216 +1,139 @@
 # uniAI
 
-[![Top language](https://img.shields.io/github/languages/top/Ali-Fayad/uniAI?color=blue)](https://github.com/Ali-Fayad/uniAI)
-[![Repo size](https://img.shields.io/github/repo-size/Ali-Fayad/uniAI)](https://github.com/Ali-Fayad/uniAI)
-[![Last commit](https://img.shields.io/github/last-commit/Ali-Fayad/uniAI)](https://github.com/Ali-Fayad/uniAI/commits/main)
+uniAI is a full-stack university guidance platform. It combines authenticated user features, a CV Builder, a university map, feedback and administration with configurable AI-assisted chat and SQL-backed graduate-program retrieval.
 
-A university information chatbot — a full‑stack application using a Java Spring Boot backend and a React + TypeScript frontend to answer questions and provide information about universities in Lebanon.
+## Principal features
 
----
+- JWT authentication, email verification, password reset, and 2FA flows
+- User profiles and CV Builder with templates and section management
+- Persisted chat history, configurable AI providers, context budgeting, and conversation memory
+- Graduate information retrieval for programmes, locations, academic structures, language, admissions, tuition, multi-filter search, and objective comparisons
+- Searchable catalogs, frontend Leaflet university map, feedback, and ADMIN-protected administration
 
-## Table of contents
-- [What is this project](#what-is-this-project)
-- [Languages & composition](#languages--composition)
-- [Architecture (visual)](#architecture-visual)
-- [Project structure (visual tree)](#project-structure-visual-tree)
-- [Quick start — Docker Compose](#quick-start---docker-compose)
-- [Run individually (dev)](#run-individually-dev)
-- [Environment variables](#environment-variables)
-- [Troubleshooting & tips](#troubleshooting--tips)
-- [Screenshots / Demo ideas](#screenshots--demo-ideas)
-- [What I inspected](#what-i-inspected)
-- [Next steps / suggestions](#next-steps--suggestions)
+## Architecture
 
----
+- Frontend: React 19, TypeScript, Vite, React Router, Axios, Leaflet
+- Backend: Java 17, Spring Boot 4, Spring Security, JPA/JDBC, Flyway
+- Database: PostgreSQL 17; one physical database with core and AI/knowledge logical domains
+- Operations: Docker Compose with PostgreSQL, Spring Boot, Vite, nginx, and mounted local TLS certificates
+- AI: configurable Gemini, Groq, Ollama, or placeholder adapter behind `AiServicePort`
 
-## What is this project
-- Backend: Java Spring Boot (Java 17) exposing REST endpoints, handling authentication (JWT) and server-side logic. Includes Thymeleaf templates and JPA/JDBC support.
-- Frontend: React + TypeScript (Vite) single page application delivering the UI and interacting with backend APIs.
-- nginx: TLS termination and reverse proxy to serve the built static frontend and proxy API requests to the backend.
-- Orchestration: Docker Compose workflows for development (with hot reload) and production-like static serving.
+See [technical documentation](Docs/TECHNICAL_DOCUMENTATION.md) and the [capstone report asset package](Docs/report/README.md).
 
----
+## Project structure
 
-## Languages & composition
-This repository language breakdown (provided):
-- Java — 65.3% (Server / Spring Boot)
-- TypeScript — 21.3% (Client / React + Vite)
-- HTML — 11.4% (Client static files / templates)
-- Other — 2%
-
----
-
-## Architecture (visual)
-
-flowchart LR
-  subgraph Host
-    direction TB
-    Certs["certs volume"]:::vol
-    nginx["nginx container<br>ports: 443 / 80"]:::srv
-    app["Spring Boot app<br>9090"]:::srv
-    client_dev["Vite dev server<br>5173"]:::srv
-    client_build["Client build → Server/client/dist"]:::proc
-    ServerDist["Server/client/dist"]:::fs
-  end
-
-  Certs --> nginx
-  nginx -->|/api →| app
-  nginx -->|serves static| ServerDist
-  client_dev -->|proxy (dev)| nginx
-  client_build --> ServerDist
-
-  classDef srv fill:#f8f9fa,stroke:#333,stroke-width:1px;
-  classDef vol fill:#fff7d6,stroke:#c79b00;
-  classDef proc fill:#e6f7ff,stroke:#1a8cff;
-  classDef fs fill:#f0fff4,stroke:#1f8f3b;
-
-Short explanation:
-- certs: generates self-signed certs for local TLS.
-- nginx: serves static files or proxies to Vite dev and proxies /api to the Spring Boot app.
-- client-dev: Vite dev server for hot reload (port 5173).
-- client-build: builds static assets into `Server/client/dist`.
-- app: Spring Boot backend (port 9090).
-
----
-
-## Project structure (visual tree)
 ```text
-uniAI/
-├─ Client/                # React + TypeScript + Vite frontend
-│  ├─ public/
-│  ├─ src/
-│  ├─ index.html
-│  ├─ package.json
-│  └─ README.md
-├─ Server/                # Spring Boot (Maven) backend
-│  ├─ src/
-│  ├─ pom.xml
-│  ├─ server/Dockerfile
-│  └─ docker-compose.yml (server-only)
-├─ nginx/                 # nginx Dockerfile & config
-├─ docker-compose.yml     # top-level compose (certs, app, client-build, client-dev, nginx)
-└─ README.md
+Client/       React + TypeScript + Vite SPA
+Server/       Spring Boot backend, Flyway migrations, Maven wrapper
+Docs/         existing engineering and research material
+Docs/report/  code-grounded report assets, diagrams, tables, inventories
+nginx/        reverse proxy and certificate tooling
+docker-compose.yml
 ```
 
----
+## Prerequisites
 
-## Quick start — Docker Compose
+- Java 17
+- Node.js/npm compatible with `Client/package-lock.json`
+- Docker Desktop and Docker Compose v2 for the full stack
+- PostgreSQL only when running the backend without Docker
+- AI provider credentials only when using Gemini/Groq; Ollama requires a local server/model
 
-Recommended: Docker and Docker Compose (or `docker compose` v2).
+## Environment setup
 
-From repository root:
+Create a local `.env` file for Docker. Do not commit it.
 
-1. Build and run the full development-friendly stack:
+```env
+POSTGRES_USER=uniai
+POSTGRES_PASSWORD=replace-me
+POSTGRES_DB=uniai
+JWT_SECRET=replace-with-a-long-random-secret
+MAIL_USERNAME=your-mail-account
+MAIL_PASSWORD=your-mail-secret
+APP_BASE_URL=https://localhost
+AI_PROVIDER=placeholder
+```
+
+Additional optional AI variables are documented in `Server/src/main/resources/application.properties`: `GEMINI_API_KEY`, `GROQ_API_KEY`, provider URLs/models, and Ollama settings. Never publish real keys, passwords, tokens, or connection strings.
+
+## Run with Docker
+
+Generate local certificates once if needed:
+
+```bash
+sh nginx/certs/generate.sh
+```
+
+Start the stack from the repository root:
+
 ```bash
 docker compose up --build
-# or detached
-docker compose up --build -d
 ```
 
-2. Build frontend only (to produce `Server/client/dist`), then run app + nginx:
+The compose configuration exposes nginx on ports 80/443, Spring Boot on 9090, and Vite on 5173. It includes development-oriented source mounts and a Vite service; production hardening is a separate concern.
+
+Validate the compose syntax:
+
 ```bash
-# build frontend artifacts
-docker compose run --rm client-build
-
-# then run server + nginx + certs
-docker compose up --build app nginx certs
+docker compose config
 ```
 
-What each service does (top-level compose):
-- certs: creates self-signed certs stored in a Docker volume.
-- client-build: runs `npm ci && npm run build` and copies `dist` to `Server/client/dist`.
-- client-dev: runs Vite dev server with HMR (port 5173).
-- app: builds/runs the Spring Boot app using the provided Dockerfile / Maven wrapper; port 9090.
-- nginx: serves static files from `Server/client/dist` or proxies to client-dev; terminates TLS and forwards /api to the backend.
+## Run locally
 
-Note: Top-level compose maps HTTPS to host 8443 (to avoid clashing with system 443). You can change host ports in `docker-compose.yml`.
+Backend:
 
----
-
-## Run individually (development)
-
-Backend (local, no Docker)
 ```bash
 cd Server
-# use the included Maven wrapper
 ./mvnw spring-boot:run
-# or with global maven:
-mvn spring-boot:run
 ```
 
-Frontend (local, no Docker)
+Frontend:
+
 ```bash
 cd Client
 npm ci
-npm run dev      # Vite dev server — http://localhost:5173
-npm run build    # production build -> dist/
+npm run dev
 ```
 
----
+For direct Vite development, configure `VITE_BACKEND_TARGET` or `VITE_API_URL` appropriately. The backend needs a reachable PostgreSQL datasource and required runtime environment values.
 
-## Environment variables
+## Build and test
 
-Used (or referenced) by services:
-- SPRING_PROFILES_ACTIVE (compose uses `dev`)
-- APP_BASE_URL (ex: https://localhost)
-- JWT_SECRET (required for JWT auth flows)
-- MAIL_USERNAME, MAIL_PASSWORD (email sending)
+Backend:
 
-Create a `.env` file (gitignore it) in repo root for local docker-compose:
-```env
-JWT_SECRET=supersecret
-MAIL_USERNAME=your@mail.com
-MAIL_PASSWORD=strongpassword
-APP_BASE_URL=https://localhost
+```bash
+cd Server
+./mvnw -q -DskipTests compile
+./mvnw -q test
 ```
 
-Do not commit secrets.
+Frontend:
 
----
-
-## Troubleshooting & tips
-- Permission issues with `~/.m2`: ensure Docker can read/write your `.m2` directory or remove the mount in `docker-compose.yml`.
-- Port conflicts: adjust host port mappings if 8443/8080/5173/9090 are in use.
-- Nginx still serving old files: re-run `docker compose run --rm client-build` then `docker compose restart nginx`.
-- If client HMR is desired, use `client-dev` and access Vite directly on port 5173 or configure nginx to proxy to it.
-- For production: replace self-signed certs with real certificates (Let's Encrypt) and use a built jar/wrapper instead of running `mvn spring-boot:run`.
-
----
-
-## Screenshots / Demo ideas
-Add screenshots or a short gif in `Client/public/screenshots/` and reference them here:
-
-Example:
-```markdown
-![chat-screenshot](Client/public/screenshots/chat.png)
+```bash
+cd Client
+npm run lint
+npm run build
 ```
 
-Screenshots improve onboarding and make the README visually attractive.
+The backend contains Testcontainers integration tests, so the full test suite needs a reachable Docker daemon. The frontend currently has lint/build scripts but no confirmed test script.
 
----
+## Documentation
 
-## What I inspected to produce this README
-- Top-level `docker-compose.yml` — orchestration, ports and services
-- `Client/` — `package.json`, `README.md`, `vite.config.ts`, `index.html`
-- `Server/` — `pom.xml`, `server/Dockerfile`, `docker-compose.yml`, `src/` layout
-- `nginx/` — to confirm reverse-proxy pattern
-- Provided language composition: Java (majority), TypeScript, HTML
+- [Engineering documentation](Docs/TECHNICAL_DOCUMENTATION.md)
+- [Report asset package](Docs/report/README.md)
+- [Report asset index](Docs/report/REPORT_ASSET_INDEX.md)
+- [Diagram sources](Docs/report/diagrams/README.md)
+- [API inventory](Docs/report/api/api_inventory.md)
+- [Screenshot manifest](Docs/report/screenshots/screenshot_manifest.md)
 
----
+## Known limitations
 
-## Next steps / suggestions
-- Add a small `.env.example` (no secrets) listing required env variables for contributors.
-- Add screenshots or a demo GIF to `Client/public/screenshots/`.
-- Add a GitHub Actions workflow to:
-  - run frontend build,
-  - run tests,
-  - optionally update `Server/client/dist` artifacts or produce an artifact/ release.
-- Consider a short CONTRIBUTING.md and issue templates to onboard contributors.
-- Ollama is optional and not installed by this task; use `AI_PROVIDER=ollama` only after pulling a local model and starting the Ollama server.
+- Google OAuth URL generation is implemented; a callback/code-exchange endpoint was not confirmed.
+- AI responses require provider availability and valid configuration unless the placeholder adapter is selected.
+- Docker-dependent integration tests and report screenshots cannot be completed without Docker and safe demo data/accounts.
+- The map uses static frontend coordinates, separate from the graduate catalogue.
+- Development CORS uses a wildcard policy and must be restricted before production.
 
----
+## Maintenance notes
 
-If you'd like, I can:
-- Open a PR that replaces/updates the repository README with this file.
-- Create `/.env.example` and screenshot placeholders and open a PR for them.
-Tell me which action you'd like next and I can create the changes and/or PR for you.
+Keep Flyway migrations immutable once applied, keep secrets outside the repository, maintain the typed graduate query boundary when extending retrieval, and update `Docs/report/` when architecture, API, or schema behavior changes.

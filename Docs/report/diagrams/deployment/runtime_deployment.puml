@@ -1,0 +1,12 @@
+@startuml
+title Runtime Deployment View
+cloud Browser
+node nginx
+node "Spring Boot :9090" as app
+database PostgreSQL
+cloud "Gemini/Groq/Ollama" as ai
+Browser --> nginx
+nginx --> app
+app --> PostgreSQL
+app --> ai
+@enduml

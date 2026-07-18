@@ -1,0 +1,14 @@
+@startuml
+title Docker Deployment
+node Host {
+  node nginx
+  node "client-dev\nVite" as vite
+  node app
+  database "postgres:17-alpine" as db
+  folder "postgres_data volume" as volume
+}
+nginx --> vite
+nginx --> app
+app --> db
+db --> volume
+@enduml

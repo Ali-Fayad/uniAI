@@ -1,0 +1,18 @@
+@startuml
+title Graduate Query Interpretation Flow
+start
+:Build interpretation request;
+:Apply interpretation budget;
+:Call GraduateQueryInterpretationPort;
+if (Valid typed result?) then (yes)
+  :GraduateQueryInterpretationValidator;
+else (no)
+  :GraduateKnowledgeQueryInterpreter deterministic fallback;
+endif
+if (Ambiguous/unsupported?) then (yes)
+  :Clarify safely;
+else (no)
+  :GraduateKnowledgeQuery;
+endif
+stop
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+title Build CV Activity
+start
+:Complete profile if required;
+:Open CV list/editor;
+:Select template and sections;
+:Create or update CV and items;
+:Preview/print from client;
+stop
+@enduml

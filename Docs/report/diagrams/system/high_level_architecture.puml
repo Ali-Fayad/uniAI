@@ -1,0 +1,13 @@
+@startuml
+title uniAI High-Level Architecture
+rectangle "React + TypeScript + Vite\nClient" as client #D6EAF8
+rectangle "nginx" as nginx #D5F5E3
+rectangle "Spring Boot\nREST + application services" as server #D5F5E3
+database "PostgreSQL 17\nFlyway" as db #FCF3CF
+cloud "Configurable AI provider" as ai #E8DAEF
+client --> nginx : HTTPS / browser
+nginx --> client : dev frontend proxy
+nginx --> server : /api
+server --> db : JPA + JDBC
+server --> ai : AI service port
+@enduml

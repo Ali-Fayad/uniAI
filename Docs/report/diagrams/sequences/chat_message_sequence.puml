@@ -1,0 +1,13 @@
+@startuml
+title Chat Message Sequence
+actor User
+participant Client
+participant ChatController
+participant ChatApplicationService
+database PostgreSQL
+User -> Client : message
+Client -> ChatController : POST /api/chats/messages
+ChatController -> ChatApplicationService : sendMessage
+ChatApplicationService -> PostgreSQL : store user/AI messages
+ChatApplicationService --> Client : MessageResponseDto
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+title Ask AI Activity
+start
+:Open/create chat;
+:Send message;
+:Interpret/retrieve if applicable;
+:Budget request;
+:Generate answer or safe fallback;
+:Persist/display answer and citations;
+stop
+@enduml

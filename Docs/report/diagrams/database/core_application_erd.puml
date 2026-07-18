@@ -1,0 +1,20 @@
+@startuml
+title Core Application ERD (Logical View)
+hide methods
+entity users { *id : bigint <<PK>>\nemail\nusername\nrole }
+entity verification_code { *id : bigint <<PK>>\nuser_id : bigint <<FK>> }
+entity personal_info { *id : bigint <<PK>>\nuser_id : bigint <<FK>> }
+entity chats { *id : bigint <<PK>>\nuser_id : bigint <<FK>>\nconversation_memory : jsonb }
+entity messages { *id : bigint <<PK>>\nchat_id : bigint <<FK>> }
+entity cvs { *id : bigint <<PK>>\nuser_id : bigint <<FK>>\ntemplate_id : bigint <<FK>> }
+entity cv_templates { *id : bigint <<PK>> }
+entity feedback { *id : bigint <<PK>>\nuser_id : bigint <<FK>> }
+users ||--o{ verification_code
+users ||--o| personal_info
+users ||--o{ chats
+chats ||--o{ messages
+users ||--o{ cvs
+cv_templates ||--o{ cvs
+users ||--o{ feedback
+note bottom : Logical core view; physically stored with AI/knowledge tables in one PostgreSQL database.
+@enduml

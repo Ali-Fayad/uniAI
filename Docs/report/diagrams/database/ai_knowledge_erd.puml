@@ -1,0 +1,26 @@
+@startuml
+title AI and Knowledge ERD (Logical View)
+hide methods
+entity university { *id : bigint <<PK>>\nname\nacronym\ncity\ncampus_name }
+entity university_faculty { *id : bigint <<PK>>\nuniversity_id : bigint <<FK>> }
+entity university_department { *id : bigint <<PK>>\nuniversity_id : bigint <<FK>>\nfaculty_id : bigint <<FK>> }
+entity degree_type { *id : bigint <<PK>>\ncode }
+entity language { *id : bigint <<PK>>\nname\ncode }
+entity source { *id : bigint <<PK>>\nurl }
+entity graduate_program { *id : bigint <<PK>>\nuniversity_id : bigint <<FK>>\nfaculty_id : bigint <<FK>>\ndepartment_id : bigint <<FK>>\ndegree_type_id : bigint <<FK>>\nprimary_language_id : bigint <<FK>>\nsource_id : bigint <<FK>> }
+entity graduate_tuition_rate { *id : bigint <<PK>>\nprogram_id : bigint <<FK>>\nsource_id : bigint <<FK>> }
+entity graduate_admission_requirement { *id : bigint <<PK>>\nprogram_id : bigint <<FK>>\nsource_id : bigint <<FK>> }
+entity graduate_program_source { *id : bigint <<PK>>\nprogram_id : bigint <<FK>>\nsource_id : bigint <<FK>> }
+university ||--o{ university_faculty
+university ||--o{ university_department
+university ||--o{ graduate_program
+university_faculty ||--o{ university_department
+graduate_program }o--|| degree_type
+graduate_program }o--|| language
+graduate_program }o--|| source
+graduate_program ||--o{ graduate_tuition_rate
+graduate_program ||--o{ graduate_admission_requirement
+graduate_program ||--o{ graduate_program_source
+source ||--o{ graduate_program_source
+note bottom : Logical AI/knowledge view; physically shared PostgreSQL database.
+@enduml
