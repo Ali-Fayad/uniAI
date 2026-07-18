@@ -181,6 +181,9 @@ public class GeminiAiServiceAdapter implements AiServicePort {
         if (request != null && request.getMaxTokens() != null) {
             generationConfig.put("max_output_tokens", request.getMaxTokens());
         }
+        if (request != null && request.getOperation() == AiOperation.INTERPRETATION) {
+            generationConfig.put("response_mime_type", "application/json");
+        }
         if (!generationConfig.isEmpty()) {
             body.put("generation_config", generationConfig);
         }

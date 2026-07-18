@@ -74,6 +74,30 @@ class AiGraduateQueryInterpretationAdapterTest {
         assertThrows(IllegalStateException.class, () -> invalidAdapter.interpret(new GraduateQueryInterpretationRequest("Hello", List.of(), ConversationMemory.empty())));
     }
 
+    @Test
+    void interpretShouldMapCompactJsonContract() {
+        AiGraduateQueryInterpretationAdapter adapter = adapter(new RecordingAiServicePort("""
+                {"schemaVersion":1,"resource":"PROGRAM","operation":"AGGREGATE","universities":["LAU"],"degreeTypes":["MASTER"],"aggregation":"AVG","tuition":{"currency":"USD"}}
+                """));
+
+        GraduateQueryInterpretation interpretation = adapter.interpret(
+                new GraduateQueryInterpretationRequest("What is tuition at LAU?", List.of(), ConversationMemory.empty()));
+
+        assertEquals("PROGRAM", interpretation.resource());
+        assertEquals("AGGREGATE", interpretation.operation());
+        assertEquals("AVG", interpretation.aggregation());
+        assertEquals("USD", interpretation.currency());
+        assertEquals(List.of("LAU"), interpretation.universities());
+    }
+
+    @Test
+    void interpretShouldRejectMaxTokenCompletion() {
+        RecordingAiServicePort port = new RecordingAiServicePort("{\"schemaVersion\":1}", "MAX_TOKENS");
+        AiGraduateQueryInterpretationAdapter adapter = adapter(port);
+        assertThrows(IllegalStateException.class, () -> adapter.interpret(
+                new GraduateQueryInterpretationRequest("What is tuition?", List.of(), ConversationMemory.empty())));
+    }
+
     private AiGraduateQueryInterpretationAdapter adapter(RecordingAiServicePort aiServicePort) {
         return new AiGraduateQueryInterpretationAdapter(
                 aiServicePort,
@@ -85,10 +109,16 @@ class AiGraduateQueryInterpretationAdapterTest {
 
     private static final class RecordingAiServicePort implements AiServicePort {
         private final String content;
+        private final String finishReason;
         private int callCount;
 
         private RecordingAiServicePort(String content) {
+            this(content, null);
+        }
+
+        private RecordingAiServicePort(String content, String finishReason) {
             this.content = content;
+            this.finishReason = finishReason;
         }
 
         @Override
@@ -98,6 +128,7 @@ class AiGraduateQueryInterpretationAdapterTest {
                     .provider("gemini")
                     .model("gemini-2.5-flash")
                     .content(content)
+                    .finishReason(finishReason)
                     .fallback(false)
                     .build();
         }

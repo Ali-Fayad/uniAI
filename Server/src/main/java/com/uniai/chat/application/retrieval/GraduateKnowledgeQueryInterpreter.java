@@ -554,6 +554,48 @@ public class GraduateKnowledgeQueryInterpreter {
                 || (conversationMemory != null && conversationMemory.lastIntentEnum() != GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS);
     }
 
+    /**
+     * Conservative confidence gate for the deterministic-first orchestration path.
+     * Complex, comparative, follow-up, unresolved, and ambiguous requests remain provider eligible.
+     */
+    public boolean isHighConfidenceDeterministic(
+            String userMessage,
+            GraduateKnowledgeQuery query
+    ) {
+        if (query == null || query.ambiguous()
+                || query.intent() == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
+                || query.intent() == GraduateKnowledgeIntent.GENERAL_CHAT
+                || query.operation() == GraduateKnowledgeOperation.COMPARE) {
+            return false;
+        }
+        String normalized = normalize(userMessage);
+        if (normalized.isBlank()
+                || GraduateKnowledgeResolutionSupport.isSubjectiveComparison(normalized)
+                || isFollowUpMessage(normalized)
+                || containsAny(normalized, "compare", "comparison", " vs ", "versus", "between", "which one", "more ", "cheaper", "best", "better")) {
+            return false;
+        }
+        boolean locationCue = containsAny(normalized, "campus", "campuses", "university", "universities", "located", "how many", "number of");
+        boolean academicCue = containsAny(normalized, "faculty", "faculties", "department", "departments", "admission", "admissions", "language", "languages");
+        boolean tuitionCue = detectTuitionAggregationIntent(normalized);
+        boolean recognizedHighConfidenceResource = (query.resource() == GraduateKnowledgeResource.CAMPUS
+                || query.resource() == GraduateKnowledgeResource.UNIVERSITY) && locationCue
+                || (query.resource() == GraduateKnowledgeResource.FACULTY
+                || query.resource() == GraduateKnowledgeResource.DEPARTMENT) && academicCue
+                || query.operation() == GraduateKnowledgeOperation.AGGREGATE && tuitionCue;
+        if (!recognizedHighConfidenceResource) {
+            return false;
+        }
+        boolean globalCount = query.operation() == GraduateKnowledgeOperation.COUNT
+                && (query.resource() == GraduateKnowledgeResource.UNIVERSITY
+                || query.resource() == GraduateKnowledgeResource.CAMPUS)
+                && query.resolvedUniversities().isEmpty()
+                && query.filters().city() == null;
+        boolean scopedDecision = !query.resolvedUniversities().isEmpty()
+                || query.filters().city() != null;
+        return globalCount || scopedDecision;
+    }
+
     private String normalize(String text) {
         return text == null ? "" : text.trim().toLowerCase();
     }

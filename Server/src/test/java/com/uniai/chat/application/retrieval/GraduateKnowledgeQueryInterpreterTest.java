@@ -374,6 +374,17 @@ class GraduateKnowledgeQueryInterpreterTest {
         assertTrue(unsupported.ambiguous());
     }
 
+    @Test
+    void shouldClassifyHighConfidenceRequestsForProviderBypass() {
+        GraduateKnowledgeQuery globalCount = interpreter.interpret("How many universities do we have?", List.of(), catalogs);
+        GraduateKnowledgeQuery campusList = interpreter.interpret("List AUB campuses.", List.of(), catalogs);
+        GraduateKnowledgeQuery comparison = interpreter.interpret("Compare AUB and USJ campuses.", List.of(), catalogs);
+
+        assertTrue(interpreter.isHighConfidenceDeterministic("How many universities do we have?", globalCount));
+        assertTrue(interpreter.isHighConfidenceDeterministic("List AUB campuses.", campusList));
+        assertFalse(interpreter.isHighConfidenceDeterministic("Compare AUB and USJ campuses.", comparison));
+    }
+
     private AiConversationMessage message(String role, String content) {
         return AiConversationMessage.builder().role(role).content(content).build();
     }

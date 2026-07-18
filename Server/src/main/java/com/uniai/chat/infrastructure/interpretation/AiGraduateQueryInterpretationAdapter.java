@@ -9,6 +9,7 @@ import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.CompactGraduateQueryInterpretation;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
@@ -94,6 +95,12 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
                     elapsedMillis(startNanos));
             throw new IllegalStateException("Interpretation provider fallback response");
         }
+        if ("MAX_TOKENS".equalsIgnoreCase(aiResponse.getFinishReason())
+                || "LENGTH".equalsIgnoreCase(aiResponse.getFinishReason())) {
+            logger.warn("[AI_INTERPRETATION] Provider response truncated provider={} model={} durationMs={}",
+                    aiResponse.getProvider(), aiResponse.getModel(), elapsedMillis(startNanos));
+            throw new IllegalStateException("Interpretation provider response reached max output tokens");
+        }
 
         String content = aiResponse.getContent();
         if (!StringUtils.hasText(content)) {
@@ -106,7 +113,13 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
 
         String cleaned = stripJsonFences(content.trim());
         try {
-            GraduateQueryInterpretation interpretation = objectMapper.readValue(cleaned, GraduateQueryInterpretation.class);
+            com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(cleaned);
+            GraduateQueryInterpretation interpretation;
+            if (root.has("intent")) {
+                interpretation = objectMapper.treeToValue(root, GraduateQueryInterpretation.class);
+            } else {
+                interpretation = objectMapper.treeToValue(root, CompactGraduateQueryInterpretation.class).toLegacyInterpretation();
+            }
             logger.debug("[AI_INTERPRETATION] Request completed provider={} model={} responseLength={} durationMs={}",
                     aiResponse.getProvider(),
                     aiResponse.getModel(),

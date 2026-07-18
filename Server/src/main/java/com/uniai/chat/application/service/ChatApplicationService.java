@@ -748,6 +748,30 @@ public class ChatApplicationService implements
                     0
             );
         }
+        try {
+            GraduateKnowledgeQuery deterministicQuery = graduateKnowledgeQueryInterpreter.interpret(
+                    currentMessage,
+                    recentConversationWindow,
+                    universityCatalogs,
+                    conversationMemory
+            );
+            if (graduateKnowledgeQueryInterpreter.isHighConfidenceDeterministic(currentMessage, deterministicQuery)) {
+                logger.info("[AI_INTERPRETATION] Deterministic provider bypass chatId={} resource={} operation={} scope={}",
+                        chatId,
+                        deterministicQuery.resource(),
+                        deterministicQuery.operation(),
+                        deterministicQuery.scope());
+                GraduateQueryInterpretationResult deterministicResult = GraduateQueryInterpretationResult.valid(
+                        deterministicQuery,
+                        deterministicQuery.resolvedUniversities().size(),
+                        deterministicQuery.degreeTypes().size()
+                );
+                recordInterpretationMetrics(interpretationStartNanos, "deterministic", deterministicResult, "deterministic_bypass");
+                return deterministicResult;
+            }
+        } catch (RuntimeException ex) {
+            logger.debug("[AI_INTERPRETATION] Deterministic candidate unavailable chatId={} reason={}", chatId, ex.getMessage());
+        }
         String prompt = graduateQueryInterpreterPromptPort.getPrompt();
         GraduateQueryInterpretationRequest request = new GraduateQueryInterpretationRequest(currentMessage, recentConversationWindow, conversationMemory);
         GraduateQueryInterpretationBudgetResult budgetResult = graduateQueryInterpretationBudgetManager.budget(request, prompt);
