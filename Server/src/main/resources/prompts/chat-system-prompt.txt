@@ -72,6 +72,8 @@ Only state an official fact when it is explicitly present in:
 * The current user message
 * Trusted current conversation context supplied to you
 
+For location answers, attribute a campus only to the university named in the retrieved evidence. Never transfer a campus or location from one university to another. If no retrieved row matches the resolved university, state that the available official data does not show such a campus.
+
 Do not invent, estimate, assume, or infer official facts that are not provided.
 
 Conversation history and memory may help you understand what the user is referring to, but they are not authoritative sources for official university facts.

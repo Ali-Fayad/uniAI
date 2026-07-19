@@ -22,11 +22,9 @@ import com.uniai.chat.application.retrieval.GraduateKnowledgeAmbiguityReason;
 
 import java.util.ArrayList;
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -52,6 +50,14 @@ public class GraduateQueryInterpretationValidator {
     public GraduateQueryInterpretationResult validate(
             GraduateQueryInterpretation interpretation,
             List<UniversityCatalog> catalogs
+    ) {
+        return validate(interpretation, catalogs, null);
+    }
+
+    public GraduateQueryInterpretationResult validate(
+            GraduateQueryInterpretation interpretation,
+            List<UniversityCatalog> catalogs,
+            String currentUserMessage
     ) {
         if (interpretation == null) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_EMPTY");
@@ -113,6 +119,13 @@ public class GraduateQueryInterpretationValidator {
         }
 
         List<ResolvedUniversity> resolvedUniversities = resolveUniversities(normalizedUniversities, catalogs);
+        boolean explicitUniversityReference = !normalizedUniversities.isEmpty()
+                || GraduateKnowledgeResolutionSupport.hasExplicitUniversityReference(currentUserMessage, catalogs);
+        boolean unresolvedUniversityReference = !GraduateKnowledgeResolutionSupport
+                .unresolvedUniversityMentions(normalizedUniversities, catalogs).isEmpty()
+                || (explicitUniversityReference
+                && resolvedUniversities.isEmpty()
+                && GraduateKnowledgeResolutionSupport.hasExplicitUniversityReference(currentUserMessage, catalogs));
         GraduateKnowledgeQuery partialQuery;
         try {
             partialQuery = buildQuery(
@@ -131,6 +144,15 @@ public class GraduateQueryInterpretationValidator {
         } catch (IllegalArgumentException ex) {
             return GraduateQueryInterpretationResult.invalid("AI_QUERY_INTERPRETATION_RESOURCE_OPERATION_UNSUPPORTED");
         }
+        if (unresolvedUniversityReference) {
+            return GraduateQueryInterpretationResult.ambiguous(
+                    buildAmbiguousMessage(intent),
+                    resolvedUniversities.size(),
+                    countSupportedDegrees(normalizedDegrees),
+                    partialQuery
+            );
+        }
+
         if (requiresUniversity(intent) && resolvedUniversities.isEmpty()
                 && (partialQuery == null || partialQuery.filters().city() == null)) {
             return GraduateQueryInterpretationResult.ambiguous(

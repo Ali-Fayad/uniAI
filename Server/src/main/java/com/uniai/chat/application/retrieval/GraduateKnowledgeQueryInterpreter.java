@@ -27,6 +27,7 @@ public class GraduateKnowledgeQueryInterpreter {
         String normalizedMessage = normalize(userMessage);
         List<UniversityCatalog> catalog = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
         List<ResolvedUniversity> currentUniversities = resolveUniversities(normalizedMessage, catalog);
+        boolean explicitUniversityReference = GraduateKnowledgeResolutionSupport.hasExplicitUniversityReference(normalizedMessage, catalog);
         GraduateKnowledgeContextPolicy contextPolicy = GraduateKnowledgeContextPolicyClassifier.classify(normalizedMessage, currentUniversities);
         GraduateKnowledgeResolutionSupport.HistorySignals historySignals = GraduateKnowledgeResolutionSupport.analyzeHistorySignals(
                 recentConversationHistory, catalog, conversationMemory, contextPolicy);
@@ -98,7 +99,8 @@ public class GraduateKnowledgeQueryInterpreter {
             resolvedUniversities = GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities);
             resolvedDegreeTypes = List.of();
             followUpResolved = currentFollowUp;
-            ambiguous = resolvedUniversities.isEmpty()
+            ambiguous = explicitUniversityReference && resolvedUniversities.isEmpty()
+                    || resolvedUniversities.isEmpty()
                     && currentCity == null
                     && currentLocationOperation != GraduateKnowledgeOperation.COUNT;
         } else if (currentOverviewIntent

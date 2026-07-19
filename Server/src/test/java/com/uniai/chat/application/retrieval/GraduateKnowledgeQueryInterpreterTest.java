@@ -181,6 +181,38 @@ class GraduateKnowledgeQueryInterpreterTest {
     }
 
     @Test
+    void shouldKeepLuCampusQuestionScopedAndRejectUnknownUniversityScope() {
+        UniversityCatalog lu = UniversityCatalog.builder()
+                .id(11L).name("Lebanese University").acronym("UL")
+                .campuses(List.of(CampusCatalog.builder().name("Saida Campus").city("Saida").build()))
+                .build();
+        UniversityCatalog liu = UniversityCatalog.builder()
+                .id(27L).name("Lebanese International University").acronym("LIU")
+                .campuses(List.of(CampusCatalog.builder().name("Nabatieh Campus").city("Nabatieh").build()))
+                .build();
+        List<UniversityCatalog> locationCatalogs = List.of(lu, liu);
+
+        GraduateKnowledgeQuery scoped = interpreter.interpret(
+                "Does LU have a campus in Nabatieh?", List.of(), locationCatalogs);
+        assertEquals(GraduateKnowledgeIntent.LOCATION_LOOKUP, scoped.intent());
+        assertEquals(11L, scoped.resolvedUniversities().get(0).id());
+        assertEquals("Nabatieh", scoped.filters().city());
+        assertFalse(scoped.ambiguous());
+
+        GraduateKnowledgeQuery unknown = interpreter.interpret(
+                "Does XYZ University have a campus in Nabatieh?", List.of(), locationCatalogs);
+        assertTrue(unknown.ambiguous());
+        assertTrue(unknown.resolvedUniversities().isEmpty());
+        assertEquals("Nabatieh", unknown.filters().city());
+
+        GraduateKnowledgeQuery broad = interpreter.interpret(
+                "Which universities have campuses in Nabatieh?", List.of(), locationCatalogs);
+        assertFalse(broad.ambiguous());
+        assertTrue(broad.resolvedUniversities().isEmpty());
+        assertEquals("Nabatieh", broad.filters().city());
+    }
+
+    @Test
     void shouldResolveAcademicProgramCountWithTypedRouting() {
         GraduateKnowledgeQuery query = interpreter.interpret("How many master's programs does AUB offer?", List.of(), catalogs);
 

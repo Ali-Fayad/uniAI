@@ -126,6 +126,60 @@ class GraduateFollowUpResolverTest {
     }
 
     @Test
+    void shouldRetainLebaneseUniversityScopeForLocationFollowUp() {
+        UniversityCatalog lu = UniversityCatalog.builder()
+                .id(11L).name("Lebanese University").acronym("UL").build();
+        UniversityCatalog liu = UniversityCatalog.builder()
+                .id(27L).name("Lebanese International University").acronym("LIU")
+                .campuses(List.of(com.uniai.catalog.domain.model.CampusCatalog.builder()
+                        .name("Nabatieh Campus").city("Nabatieh").build()))
+                .build();
+        List<UniversityCatalog> locationCatalogs = List.of(lu, liu);
+        List<AiConversationMessage> history = List.of(
+                message("user", "List Lebanese University campuses."),
+                message("assistant", "Lebanese University campuses")
+        );
+        GraduateKnowledgeQuery candidate = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.LOCATION_LOOKUP,
+                GraduateKnowledgeResource.CAMPUS,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Nabatieh"),
+                null, false, false);
+
+        GraduateFollowUpResolutionResult result = resolver.resolve(
+                "What about Nabatieh?", candidate, history, ConversationMemory.empty(), locationCatalogs);
+
+        assertEquals(GraduateFollowUpResolutionStatus.RESOLVED, result.status());
+        assertEquals(List.of("UL"), result.resolvedQuery().resolvedUniversities().stream()
+                .map(ResolvedUniversity::acronym).toList());
+    }
+
+    @Test
+    void shouldNotInheritUniversityScopeForBroadLocationFollowUp() {
+        UniversityCatalog lu = UniversityCatalog.builder()
+                .id(11L).name("Lebanese University").acronym("UL").build();
+        UniversityCatalog liu = UniversityCatalog.builder()
+                .id(27L).name("Lebanese International University").acronym("LIU").build();
+        GraduateKnowledgeQuery candidate = new GraduateKnowledgeQuery(
+                GraduateKnowledgeIntent.LOCATION_LOOKUP,
+                GraduateKnowledgeResource.CAMPUS,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Nabatieh"),
+                null, false, false);
+        List<AiConversationMessage> history = List.of(
+                message("user", "List Lebanese University campuses."),
+                message("assistant", "Lebanese University campuses")
+        );
+
+        GraduateFollowUpResolutionResult result = resolver.resolve(
+                "Which other universities are in Nabatieh?", candidate, history,
+                ConversationMemory.empty(), List.of(lu, liu));
+
+        assertEquals(GraduateFollowUpResolutionStatus.UNCHANGED, result.status());
+        assertTrue(result.resolvedQuery().resolvedUniversities().isEmpty());
+    }
+
+    @Test
     void shouldPreserveGraduateOverviewWhenSameQuestionReplacesOnlyUniversity() {
         ConversationMemory memory = new ConversationMemory(
                 ConversationMemory.SCHEMA_VERSION,

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest(properties = "ai.provider=placeholder")
 class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegrationTest {
@@ -50,10 +51,12 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
 
     @Test
     void campusCountUsesDistinctStructuredCampusRows() {
+        Map<String, Object> institution = temporaryUniversity("LTX");
         GraduateKnowledgeQuery query = query(GraduateKnowledgeResource.CAMPUS, GraduateKnowledgeOperation.COUNT,
-                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Beirut"));
+                new GraduateKnowledgeFilters(List.of(toResolvedUniversity(institution)), List.of(), List.of(), "Beirut"));
 
-        assertTrue(adapter.retrieveContext(query).formattedContext().contains("Structured campus count: 1"));
+        String context = adapter.retrieveContext(query).formattedContext();
+        assertTrue(context.contains("Structured campus count: 1"), context);
     }
 
     @Test
@@ -67,25 +70,27 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
     @Test
     void distinguishesUnavailableLocationDataFromNoMatchingRows() {
         GraduateKnowledgeQuery noMatchingCity = query(GraduateKnowledgeResource.CAMPUS, GraduateKnowledgeOperation.LIST,
-                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Sidon"));
-        assertTrue(adapter.retrieveContext(noMatchingCity).formattedContext().contains("No matching rows"));
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Location Test Missing City"));
+        String noMatchingContext = adapter.retrieveContext(noMatchingCity).formattedContext();
+        assertTrue(noMatchingContext.contains("No matching rows"), noMatchingContext);
 
-        Map<String, Object> institution = jdbcTemplate.queryForMap(
-                "SELECT id, name, acronym FROM university WHERE name = ?",
-                "Location Test Other University");
+        Map<String, Object> institution = temporaryUniversity("LTO");
         GraduateKnowledgeQuery unavailableCampus = query(GraduateKnowledgeResource.CAMPUS, GraduateKnowledgeOperation.LIST,
-                new GraduateKnowledgeFilters(List.of(new ResolvedUniversity(
-                        ((Number) institution.get("id")).longValue(),
-                        (String) institution.get("name"),
-                        (String) institution.get("acronym")
-                )), List.of(), List.of(), null));
-        assertTrue(adapter.retrieveContext(unavailableCampus).formattedContext().contains("Location data is unavailable"));
+                new GraduateKnowledgeFilters(List.of(toResolvedUniversity(institution)), List.of(), List.of(), null));
+        String noCampusContext = adapter.retrieveContext(unavailableCampus).formattedContext();
+        assertTrue(noCampusContext.contains("No matching rows"), noCampusContext);
+
+        GraduateKnowledgeQuery unavailableLocation = query(GraduateKnowledgeResource.NONE, GraduateKnowledgeOperation.NONE,
+                new GraduateKnowledgeFilters(List.of(toResolvedUniversity(institution)), List.of(), List.of(), null));
+        String unavailableContext = adapter.retrieveContext(unavailableLocation).formattedContext();
+        assertTrue(unavailableContext.contains("Location data is unavailable"), unavailableContext);
     }
 
     @Test
     void existenceContextPreservesConditionAndMatchingCampusEvidence() {
+        Map<String, Object> institution = temporaryUniversity("LTX");
         GraduateKnowledgeQuery query = query(GraduateKnowledgeResource.CAMPUS, GraduateKnowledgeOperation.EXISTS,
-                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Beirut"));
+                new GraduateKnowledgeFilters(List.of(toResolvedUniversity(institution)), List.of(), List.of(), "Beirut"));
 
         String context = adapter.retrieveContext(query).formattedContext();
 
@@ -131,6 +136,50 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
         );
 
         assertTrue(adapter.retrieveContext(query).formattedContext().contains("Campus comparison:"));
+    }
+
+    @Test
+    void scopedLebaneseUniversityLocationDoesNotReturnLiuEvidence() {
+        Map<String, Object> lu = jdbcTemplate.queryForMap(
+                "SELECT id, name, acronym FROM university WHERE acronym = ?", "UL");
+        GraduateKnowledgeQuery query = query(
+                GraduateKnowledgeResource.CAMPUS,
+                GraduateKnowledgeOperation.EXISTS,
+                new GraduateKnowledgeFilters(List.of(new ResolvedUniversity(
+                        ((Number) lu.get("id")).longValue(),
+                        (String) lu.get("name"),
+                        (String) lu.get("acronym")
+                )), List.of(), List.of(), "Nabatieh"));
+
+        String context = adapter.retrieveContext(query).formattedContext();
+
+        assertTrue(context.contains("Exists: false"), context);
+        assertFalse(context.contains("Lebanese International University"), context);
+    }
+
+    @Test
+    void broadNabatiehLocationQueryCanReturnLiu() {
+        GraduateKnowledgeQuery query = query(
+                GraduateKnowledgeResource.CAMPUS,
+                GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Nabatieh"));
+
+        String context = adapter.retrieveContext(query).formattedContext();
+
+        assertTrue(context.contains("Lebanese International University"), context);
+        assertTrue(context.contains("Nabatieh"), context);
+    }
+
+    private Map<String, Object> temporaryUniversity(String acronym) {
+        return jdbcTemplate.queryForMap(
+                "SELECT id, name, acronym FROM university WHERE acronym = ?", acronym);
+    }
+
+    private ResolvedUniversity toResolvedUniversity(Map<String, Object> university) {
+        return new ResolvedUniversity(
+                ((Number) university.get("id")).longValue(),
+                (String) university.get("name"),
+                (String) university.get("acronym"));
     }
 
     private GraduateKnowledgeQuery query(GraduateKnowledgeResource resource, GraduateKnowledgeOperation operation,

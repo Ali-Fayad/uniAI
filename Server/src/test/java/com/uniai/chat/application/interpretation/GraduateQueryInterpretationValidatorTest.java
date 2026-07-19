@@ -185,6 +185,37 @@ class GraduateQueryInterpretationValidatorTest {
     }
 
     @Test
+    void shouldRejectUnknownExplicitUniversityInsteadOfAcceptingCityOnlyScope() {
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1, "LOCATION_LOOKUP", List.of(), List.of(), "EXISTS", false, false,
+                List.of(), false, null, List.of(), "CAMPUS", "EXISTS", "Nabatieh");
+
+        GraduateQueryInterpretationResult result = validator.validate(
+                interpretation, catalogs, "Does XYZ University have a campus in Nabatieh?");
+
+        assertEquals(GraduateQueryInterpretationStatus.AMBIGUOUS, result.status());
+        assertTrue(result.query().resolvedUniversities().isEmpty());
+        assertEquals("Nabatieh", result.query().filters().city());
+    }
+
+    @Test
+    void shouldResolveLuAliasDuringValidation() {
+        List<UniversityCatalog> locationCatalogs = List.of(
+                university(11L, "Lebanese University", "UL", null),
+                university(27L, "Lebanese International University", "LIU", null)
+        );
+        GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
+                1, "LOCATION_LOOKUP", List.of("LU"), List.of(), "EXISTS", false, false,
+                List.of(), false, null, List.of(), "CAMPUS", "EXISTS", "Nabatieh");
+
+        GraduateQueryInterpretationResult result = validator.validate(
+                interpretation, locationCatalogs, "Does LU have a campus in Nabatieh?");
+
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(11L, result.query().resolvedUniversities().get(0).id());
+    }
+
+    @Test
     void shouldRejectTypedMetadataThatConflictsWithIntent() {
         GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
                 1,

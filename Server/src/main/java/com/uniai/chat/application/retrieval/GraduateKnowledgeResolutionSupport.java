@@ -19,6 +19,10 @@ import java.math.BigDecimal;
 
 public final class GraduateKnowledgeResolutionSupport {
 
+    private static final Map<String, String> UNIVERSITY_ALIASES = Map.of(
+            "lu", "ul"
+    );
+
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
     private static final Pattern CITY_AFTER_IN = Pattern.compile("\\bin\\s+([\\p{L}][\\p{L}\\s'\\-]{1,60}?)(?:[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Pattern FACULTY_NAME = Pattern.compile("(?:faculty|school)\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
@@ -58,6 +62,40 @@ public final class GraduateKnowledgeResolutionSupport {
         return new ArrayList<>(resolved.values());
     }
 
+    /** Returns explicit university references that could not be resolved to a catalog entry. */
+    public static List<String> unresolvedUniversityMentions(
+            List<String> mentions,
+            List<UniversityCatalog> catalogs
+    ) {
+        if (mentions == null || mentions.isEmpty()) return List.of();
+        List<String> unresolved = new ArrayList<>();
+        for (String mention : mentions) {
+            if (hasText(mention) && resolveUniversityMention(mention, catalogs).isEmpty()) {
+                unresolved.add(mention.trim());
+            }
+        }
+        return List.copyOf(unresolved);
+    }
+
+    /** Detects a named university reference without treating broad city questions as scoped. */
+    public static boolean hasExplicitUniversityReference(String text, List<UniversityCatalog> catalogs) {
+        if (text == null || text.isBlank()) return false;
+        if (!resolveUniversityMention(text, catalogs).isEmpty()) return true;
+        String normalized = normalize(text);
+        return Pattern.compile("\\b(?!(?:which|what|how many|number of)\\s+)(?:[\\p{L}\\p{N}][\\p{L}\\p{N}&.'-]*\\s+){1,5}(?:university|college|institute)\\b", Pattern.CASE_INSENSITIVE)
+                .matcher(normalized)
+                .find();
+    }
+
+    public static boolean isBroadLocationQuestion(String text) {
+        if (text == null || text.isBlank()) return false;
+        String normalized = normalize(text);
+        return containsAny(normalized,
+                "which universities", "which other universities", "what universities", "what other universities", "how many universities",
+                "number of universities", "universities in", "university in",
+                "universities located in", "university located in");
+    }
+
     private static List<ResolvedUniversity> resolveUniversityMention(String text, List<UniversityCatalog> catalogs) {
         if (text == null || text.isBlank() || catalogs == null || catalogs.isEmpty()) return List.of();
         String normalizedText = normalize(text);
@@ -93,7 +131,16 @@ public final class GraduateKnowledgeResolutionSupport {
     }
 
     private static boolean exactUniversityMatch(String normalizedText, UniversityCatalog university) {
-        if (hasText(university.getAcronym()) && containsWord(normalizedText, normalize(university.getAcronym()))) return true;
+        if (hasText(university.getAcronym())) {
+            String acronym = normalize(university.getAcronym());
+            if (containsWord(normalizedText, acronym)) return true;
+            String canonicalAlias = UNIVERSITY_ALIASES.entrySet().stream()
+                    .filter(entry -> entry.getValue().equals(acronym))
+                    .map(Map.Entry::getKey)
+                    .findFirst()
+                    .orElse(null);
+            if (canonicalAlias != null && containsWord(normalizedText, canonicalAlias)) return true;
+        }
         if (hasText(university.getName()) && containsPhrase(normalizedText, normalize(university.getName()))) return true;
         return hasText(university.getNameAr()) && containsPhrase(normalizedText, normalize(university.getNameAr()));
     }

@@ -812,7 +812,8 @@ public class ChatApplicationService implements
 
         try {
             GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
-            GraduateQueryInterpretationResult result = graduateQueryInterpretationValidator.validate(rawInterpretation, universityCatalogs);
+            GraduateQueryInterpretationResult result = graduateQueryInterpretationValidator.validate(
+                    rawInterpretation, universityCatalogs, currentMessage);
             if (isUnsafeGeneralChatRouting(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, result)) {
                 GraduateQueryInterpretationResult fallback = fallbackInterpretation(
                         currentMessage,

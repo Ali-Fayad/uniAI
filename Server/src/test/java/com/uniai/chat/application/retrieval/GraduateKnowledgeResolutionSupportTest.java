@@ -46,6 +46,33 @@ class GraduateKnowledgeResolutionSupportTest {
         assertEquals(List.of("LAU", "USJ"), acronyms(GraduateKnowledgeResolutionSupport.resolveUniversities("Main Campus", List.of(aub, lau, usj))));
     }
 
+    @Test
+    void resolvesLuAliasToLebaneseUniversityWithoutMatchingLiu() {
+        UniversityCatalog lu = university(11L, "Lebanese University", "UL");
+        UniversityCatalog liu = university(27L, "Lebanese International University", "LIU");
+        List<UniversityCatalog> catalogs = List.of(lu, liu);
+
+        assertEquals(List.of("UL"), acronyms(GraduateKnowledgeResolutionSupport.resolveUniversities("LU", catalogs)));
+        assertEquals(List.of("UL"), acronyms(GraduateKnowledgeResolutionSupport.resolveUniversities("ul", catalogs)));
+        assertEquals(List.of("UL"), acronyms(GraduateKnowledgeResolutionSupport.resolveUniversities("Lebanese University", catalogs)));
+        assertEquals(List.of("LIU"), acronyms(GraduateKnowledgeResolutionSupport.resolveUniversities("LIU", catalogs)));
+        assertEquals(List.of("LIU"), acronyms(GraduateKnowledgeResolutionSupport.resolveUniversities("Lebanese International University", catalogs)));
+        assertTrue(GraduateKnowledgeResolutionSupport.resolveUniversities("LU", List.of(liu)).isEmpty());
+    }
+
+    @Test
+    void distinguishesExplicitUnknownUniversityFromBroadCityQuestion() {
+        List<UniversityCatalog> catalogs = List.of(
+                university(11L, "Lebanese University", "UL"),
+                university(27L, "Lebanese International University", "LIU")
+        );
+
+        assertTrue(GraduateKnowledgeResolutionSupport.hasExplicitUniversityReference(
+                "Does XYZ University have a campus in Nabatieh?", catalogs));
+        assertTrue(!GraduateKnowledgeResolutionSupport.hasExplicitUniversityReference(
+                "Which universities have campuses in Nabatieh?", catalogs));
+    }
+
     private UniversityCatalog university(Long id, String name, String acronym) {
         return UniversityCatalog.builder().id(id).name(name).acronym(acronym).country("Lebanon").build();
     }

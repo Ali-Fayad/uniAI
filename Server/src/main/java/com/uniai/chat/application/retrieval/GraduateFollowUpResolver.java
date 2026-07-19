@@ -48,6 +48,12 @@ public class GraduateFollowUpResolver {
                         .withDecisionMetadata(GraduateKnowledgeInterpretationSource.FOLLOW_UP, GraduateKnowledgeAmbiguityReason.NONE, false);
                 return GraduateFollowUpResolutionResult.resolved(replaced, List.of("current message"));
             }
+            boolean explicitUniversityReference = GraduateKnowledgeResolutionSupport.hasExplicitUniversityReference(
+                    currentUserMessage, locationCatalogs);
+            if (explicitUniversityReference && candidateQuery.resolvedUniversities().isEmpty()) {
+                return GraduateFollowUpResolutionResult.clarificationRequired(
+                        "UNIVERSITY_REQUIRED", candidateQuery, List.of("current message"));
+            }
             List<ResolvedUniversity> comparisonScope = comparisonUniversities(conversationMemory);
             if (candidateQuery.operation() == GraduateKnowledgeOperation.COMPARE && comparisonScope.size() > 1) {
                 GraduateKnowledgeFollowUpContext context = new GraduateKnowledgeFollowUpContext(
@@ -64,6 +70,33 @@ public class GraduateFollowUpResolver {
                 return GraduateFollowUpResolutionResult.resolved(compared, List.of("conversation memory"));
             }
             if (candidateQuery.filters().city() != null || !candidateQuery.resolvedUniversities().isEmpty()) {
+                if (candidateQuery.filters().city() != null
+                        && candidateQuery.resolvedUniversities().isEmpty()
+                        && GraduateKnowledgeResolutionSupport.isFollowUpMessage(normalize(currentUserMessage))
+                        && !GraduateKnowledgeResolutionSupport.isBroadLocationQuestion(currentUserMessage)) {
+                    GraduateKnowledgeResolutionSupport.HistorySignals historySignals =
+                            GraduateKnowledgeResolutionSupport.analyzeHistorySignals(
+                                    recentConversationHistory, locationCatalogs, conversationMemory);
+                    if (historySignals.distinctUniversities().size() == 1) {
+                        GraduateKnowledgeQuery scoped = new GraduateKnowledgeQuery(
+                                candidateQuery.intent(),
+                                candidateQuery.resource(),
+                                candidateQuery.operation(),
+                                new GraduateKnowledgeFilters(
+                                        historySignals.distinctUniversities(),
+                                        candidateQuery.degreeTypes(),
+                                        candidateQuery.topicKeywords(),
+                                        candidateQuery.filters().city()),
+                                candidateQuery.aggregation(),
+                                candidateQuery.sort(),
+                                candidateQuery.limit(),
+                                candidateQuery.followUpContext(),
+                                candidateQuery.detailLevel(),
+                                true,
+                                false);
+                        return GraduateFollowUpResolutionResult.resolved(scoped, List.of("recent history", "conversation memory"));
+                    }
+                }
                 return GraduateFollowUpResolutionResult.unchanged(candidateQuery, List.of("current message"));
             }
             return GraduateFollowUpResolutionResult.clarificationRequired(
