@@ -83,6 +83,33 @@ class SqlGraduateLocationRetrievalAdapterIntegrationTest extends PostgresIntegra
     }
 
     @Test
+    void existenceContextPreservesConditionAndMatchingCampusEvidence() {
+        GraduateKnowledgeQuery query = query(GraduateKnowledgeResource.CAMPUS, GraduateKnowledgeOperation.EXISTS,
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Beirut"));
+
+        String context = adapter.retrieveContext(query).formattedContext();
+
+        assertTrue(context.contains("Checked entity: CAMPUS"), context);
+        assertTrue(context.contains("Condition: city=Beirut"), context);
+        assertTrue(context.contains("Exists: true"), context);
+        assertTrue(context.contains("Campus: Main Campus"), context);
+        assertTrue(context.contains("Campus type: Main"), context);
+    }
+
+    @Test
+    void campusListContextPreservesStructuredLocationFields() {
+        GraduateKnowledgeQuery query = query(GraduateKnowledgeResource.CAMPUS, GraduateKnowledgeOperation.LIST,
+                new GraduateKnowledgeFilters(List.of(), List.of(), List.of(), "Beirut"));
+
+        String context = adapter.retrieveContext(query).formattedContext();
+
+        assertTrue(context.contains("University: Location Test University (LTX)"), context);
+        assertTrue(context.contains("Campus: Main Campus"), context);
+        assertTrue(context.contains("City: Beirut"), context);
+        assertTrue(context.contains("Campus type: Main"), context);
+    }
+
+    @Test
     void campusComparisonUsesBoundedGroupedCounts() {
         Map<String, Object> first = jdbcTemplate.queryForMap(
                 "SELECT id, name, acronym FROM university WHERE acronym = ?", "LTX");

@@ -484,8 +484,18 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         if (query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.COUNT
                 || query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS) {
             long count = result.rows().get(0).count();
+            appendBullet(builder, "Resource", query.resource().name());
+            appendBullet(builder, "Operation", query.operation().name());
+            appendBullet(builder, "Scope", query.scope().name());
+            appendBullet(builder, "Filters", summarizeScalarFilters(query));
             appendBullet(builder, "Count", String.valueOf(count));
             appendBullet(builder, "Exists", String.valueOf(count > 0));
+            appendBullet(builder, "Checked entity", query.resource().name());
+            if (query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS) {
+                appendBullet(builder, "Evidence", count > 0
+                        ? "At least one matching " + query.resource().name().toLowerCase(Locale.ROOT) + " was counted."
+                        : "No matching " + query.resource().name().toLowerCase(Locale.ROOT) + " was counted.");
+            }
             return builder.toString().trim();
         }
         int index = 1;
@@ -1209,12 +1219,23 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private void appendQueryInterpretation(StringBuilder builder, GraduateKnowledgeQuery query) {
         appendSectionTitle(builder, "Query interpretation");
+        appendBullet(builder, "Resource", query.resource().name());
+        appendBullet(builder, "Operation", query.operation().name());
+        appendBullet(builder, "Scope", query.scope().name());
         appendBullet(builder, "Intent", query.intent().name());
         appendBullet(builder, "Resolved universities", formatResolvedUniversities(query.resolvedUniversities()));
         appendBullet(builder, "Degree types", formatDegreeTypes(query.degreeTypes()));
         appendBullet(builder, "Follow-up resolved", String.valueOf(query.followUpResolved()));
         appendBullet(builder, "Ambiguous", String.valueOf(query.ambiguous()));
         appendBullet(builder, "Detail level", query.detailLevel() == null ? "Not available in official data" : query.detailLevel().name());
+    }
+
+    private String summarizeScalarFilters(GraduateKnowledgeQuery query) {
+        List<String> filters = new ArrayList<>();
+        if (!query.resolvedUniversities().isEmpty()) filters.add("universities=" + query.resolvedUniversities().size());
+        if (!query.degreeTypes().isEmpty()) filters.add("degreeTypes=" + String.join(",", query.degreeTypes()));
+        if (StringUtils.hasText(query.filters().city())) filters.add("city=" + query.filters().city());
+        return filters.isEmpty() ? "none" : String.join("; ", filters);
     }
 
     private int appendProgramsSection(StringBuilder builder, List<ProgramRecord> programs, boolean details) {
