@@ -80,7 +80,17 @@ export const useSignIn = (): UseSignInReturn => {
           };
         };
 
-        if (axiosError.response?.status === 401) {
+        const responseData = axiosError.response?.data;
+        const responseMessage =
+          typeof responseData === 'string'
+            ? responseData
+            : responseData?.message ?? '';
+        const isTwoFactorResponse = /two[- ]factor|2fa/i.test(responseMessage);
+
+        if (
+          axiosError.response?.status === 401 ||
+          (axiosError.response?.status === 403 && isTwoFactorResponse)
+        ) {
           navigate(ROUTES.VERIFY_2FA, {
             state: { email },
           });

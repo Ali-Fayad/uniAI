@@ -121,14 +121,15 @@ export const useChat = () => {
     ]);
 
     let targetChatId = currentChatId;
+    let isNewChat = false;
 
     try {
       if (!targetChatId) {
         const newChat = await chatService.createChat();
         targetChatId = newChat.chatId;
+        isNewChat = true;
 
         setCurrentChatId(targetChatId);
-        setChatListRefreshKey((current) => current + 1);
         skipNextMessageLoadRef.current = true;
       }
 
@@ -138,6 +139,10 @@ export const useChat = () => {
       };
 
       const response = await chatService.sendMessage(data);
+
+      if (isNewChat) {
+        setChatListRefreshKey((current) => current + 1);
+      }
 
       setMessages((previousMessages) => [
         ...previousMessages,
