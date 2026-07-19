@@ -1,17 +1,65 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   MapContainer,
   TileLayer,
   CircleMarker,
   Popup,
+  useMap as useLeafletMap,
 } from "react-leaflet";
+import { LatLngBounds } from "leaflet";
 import { useTheme } from "@/hooks/useTheme";
 import "leaflet/dist/leaflet.css";
 import useMap from "@/hooks/useMap";
 import { ROUTES } from "@/router";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
-import { formatLocation } from "@/components/page/map/mapUniversityMapper";
+import {
+  formatLocation,
+  type MapUniversity,
+} from "@/components/page/map/mapUniversityMapper";
+
+interface MapViewportControllerProps {
+  campuses: MapUniversity[];
+}
+
+const MapViewportController = ({
+  campuses,
+}: MapViewportControllerProps) => {
+  const map = useLeafletMap();
+  const fittedBoundsKey = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!campuses.length) {
+      fittedBoundsKey.current = null;
+      return;
+    }
+
+    const boundsKey = campuses
+      .map(({ universityId, campusId, coordinates }) =>
+        `${universityId}:${campusId}:${coordinates[0]}:${coordinates[1]}`,
+      )
+      .join("|");
+
+    if (fittedBoundsKey.current === boundsKey) {
+      return;
+    }
+
+    fittedBoundsKey.current = boundsKey;
+
+    map.fitBounds(
+      new LatLngBounds(
+        campuses.map(({ coordinates }) => coordinates),
+      ),
+      {
+        padding: [40, 40],
+        maxZoom: 12,
+        animate: false,
+      },
+    );
+  }, [campuses, map]);
+
+  return null;
+};
 
 const MapPage = () => {
   const { themeName } = useTheme();
@@ -19,7 +67,6 @@ const MapPage = () => {
 
   const {
     universities,
-    selected,
     setSelected,
     isSidebarOpen,
     toggleSidebar,
@@ -147,6 +194,8 @@ const MapPage = () => {
             attribution={attribution}
             url={tileLayerUrl}
           />
+
+          <MapViewportController campuses={visibleUniversities} />
 
           {!isLoading &&
             !error &&
