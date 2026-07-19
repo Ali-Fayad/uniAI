@@ -1,6 +1,11 @@
 package com.uniai.chat.application.interpretation;
 
+import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
+
 import java.util.List;
+import java.util.Locale;
 
 /** Compact provider-facing contract. Catalog resolution and validation remain in Java. */
 public record CompactGraduateQueryInterpretation(
@@ -50,7 +55,7 @@ public record CompactGraduateQueryInterpretation(
     public GraduateQueryInterpretation toLegacyInterpretation() {
         return new GraduateQueryInterpretation(
                 schemaVersion,
-                null,
+                deriveCompatibilityIntent(resource, operation),
                 universities,
                 degreeTypes,
                 detailLevel,
@@ -80,5 +85,31 @@ public record CompactGraduateQueryInterpretation(
                 limit,
                 comparisonDimension
         );
+    }
+
+    /**
+     * Task 1 compatibility bridge: providers emit compact typed routing while
+     * the existing validator still requires the legacy intent field.
+     *
+     * The value remains deterministic and is derived only from supported
+     * domain routing values; malformed routing intentionally remains null so
+     * the existing validator reports an invalid provider contract.
+     */
+    private static String deriveCompatibilityIntent(String resourceValue, String operationValue) {
+        if (resourceValue == null || resourceValue.isBlank()
+                || operationValue == null || operationValue.isBlank()) {
+            return null;
+        }
+
+        try {
+            GraduateKnowledgeResource resource = GraduateKnowledgeResource.valueOf(resourceValue.trim().toUpperCase(Locale.ROOT));
+            GraduateKnowledgeOperation operation = GraduateKnowledgeOperation.valueOf(operationValue.trim().toUpperCase(Locale.ROOT));
+            if (!GraduateKnowledgeQuery.isCompatible(resource, operation)) {
+                return null;
+            }
+            return GraduateKnowledgeQuery.deriveIntent(resource, operation).name();
+        } catch (IllegalArgumentException ex) {
+            return null;
+        }
     }
 }

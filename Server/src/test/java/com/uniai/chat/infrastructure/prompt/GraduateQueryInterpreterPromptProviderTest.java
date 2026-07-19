@@ -15,10 +15,11 @@ class GraduateQueryInterpreterPromptProviderTest {
 
         GraduateQueryInterpreterPromptProvider provider = new GraduateQueryInterpreterPromptProvider(properties);
 
-        assertTrue(provider.getPrompt().contains("schemaVersion 1"));
-        assertTrue(provider.getPrompt().contains("PROGRAM_LOOKUP"));
+        assertTrue(provider.getPrompt().contains("schemaVersion 2"));
+        assertTrue(provider.getPrompt().contains("CanonicalGraduateQueryDraft"));
+        assertTrue(provider.getPrompt().contains("AGGREGATE"));
         assertTrue(provider.getPrompt().contains("GRADUATE_OVERVIEW"));
-        assertTrue(provider.getPrompt().contains("GENERAL_CHAT"));
+        assertTrue(provider.getPrompt().contains("unsupportedConstraints"));
     }
 
     @Test

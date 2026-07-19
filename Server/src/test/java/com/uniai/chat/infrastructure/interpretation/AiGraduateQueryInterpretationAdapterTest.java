@@ -4,6 +4,7 @@ import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfig
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
@@ -75,9 +76,19 @@ class AiGraduateQueryInterpretationAdapterTest {
     }
 
     @Test
+    void interpretShouldRejectMalformedCompactJson() {
+        AiGraduateQueryInterpretationAdapter adapter = adapter(new RecordingAiServicePort(
+                "{\"schemaVersion\":1,\"resource\":\"PROGRAM\","
+        ));
+
+        assertThrows(IllegalStateException.class, () -> adapter.interpret(
+                new GraduateQueryInterpretationRequest("What programs are available?", List.of(), ConversationMemory.empty())));
+    }
+
+    @Test
     void interpretShouldMapCompactJsonContract() {
         AiGraduateQueryInterpretationAdapter adapter = adapter(new RecordingAiServicePort("""
-                {"schemaVersion":1,"resource":"PROGRAM","operation":"AGGREGATE","universities":["LAU"],"degreeTypes":["MASTER"],"aggregation":"AVG","tuition":{"currency":"USD"}}
+                {"schemaVersion":2,"resource":"PROGRAM","operation":"AGGREGATE","filters":{"universities":["LAU"],"degreeTypes":["MASTER"],"tuition":{"currency":"USD"}},"aggregation":{"function":"AVG","field":"TUITION"}}
                 """));
 
         GraduateQueryInterpretation interpretation = adapter.interpret(
@@ -85,9 +96,48 @@ class AiGraduateQueryInterpretationAdapterTest {
 
         assertEquals("PROGRAM", interpretation.resource());
         assertEquals("AGGREGATE", interpretation.operation());
+        assertEquals("TUITION_AGGREGATION", interpretation.intent());
         assertEquals("AVG", interpretation.aggregation());
         assertEquals("USD", interpretation.currency());
         assertEquals(List.of("LAU"), interpretation.universities());
+    }
+
+    @Test
+    void interpretDraftShouldReturnValidatedCanonicalContract() {
+        AiGraduateQueryInterpretationAdapter adapter = adapter(new RecordingAiServicePort("""
+                {"schemaVersion":2,"resource":"PROGRAM","operation":"LIST","filters":{"universities":["AUB"],"degreeTypes":["MASTER"]},"detailLevel":"LIST","clarificationRequired":false,"unsupportedConstraints":[]}
+                """));
+
+        CanonicalGraduateQueryDraft draft = adapter.interpretDraft(
+                new GraduateQueryInterpretationRequest("List AUB master's programs", List.of(), ConversationMemory.empty()));
+
+        assertEquals(2, draft.schemaVersion());
+        assertEquals("PROGRAM", draft.resource());
+        assertEquals(List.of("AUB"), draft.filters().universities());
+    }
+
+    @Test
+    void interpretDraftShouldRejectUnsupportedEnumBeforeCompatibilityConversion() {
+        AiGraduateQueryInterpretationAdapter adapter = adapter(new RecordingAiServicePort(
+                "{\"schemaVersion\":2,\"resource\":\"PROGRAM\",\"operation\":\"DELETE\",\"filters\":{}}"));
+
+        assertThrows(IllegalStateException.class, () -> adapter.interpretDraft(
+                new GraduateQueryInterpretationRequest("invalid", List.of(), ConversationMemory.empty())));
+    }
+
+    @Test
+    void interpretDraftShouldSupportComparisonLocationAndAcademicRoutes() {
+        assertDraftRoute("{\"schemaVersion\":2,\"resource\":\"PROGRAM\",\"operation\":\"COMPARE\",\"filters\":{\"universities\":[\"AUB\",\"LAU\"]},\"comparison\":{\"dimension\":\"PROGRAM_COUNT\"}}", "PROGRAM", "COMPARE");
+        assertDraftRoute("{\"schemaVersion\":2,\"resource\":\"CAMPUS\",\"operation\":\"EXISTS\",\"filters\":{\"city\":\"Beirut\"}}", "CAMPUS", "EXISTS");
+        assertDraftRoute("{\"schemaVersion\":2,\"resource\":\"FACULTY\",\"operation\":\"LIST\",\"filters\":{\"universities\":[\"AUB\"]}}", "FACULTY", "LIST");
+    }
+
+    private void assertDraftRoute(String json, String resource, String operation) {
+        AiGraduateQueryInterpretationAdapter adapter = adapter(new RecordingAiServicePort(json));
+        CanonicalGraduateQueryDraft draft = adapter.interpretDraft(
+                new GraduateQueryInterpretationRequest("route", List.of(), ConversationMemory.empty()));
+        assertEquals(resource, draft.resource());
+        assertEquals(operation, draft.operation());
     }
 
     @Test

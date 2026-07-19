@@ -125,6 +125,71 @@ class GraduateQueryInterpretationValidatorTest {
     }
 
     @Test
+    void shouldValidateCompactTypedRoutingWithoutLegacyIntent() {
+        CompactGraduateQueryInterpretation compact = new CompactGraduateQueryInterpretation(
+                1,
+                "PROGRAM",
+                "AGGREGATE",
+                List.of("AUB"),
+                List.of("MASTER"),
+                null,
+                null,
+                null,
+                null,
+                List.of(),
+                List.of(),
+                List.of(),
+                null,
+                "AVG",
+                new CompactGraduateQueryInterpretation.Tuition(null, null, "USD", "PER_YEAR", null, "PROGRAM"),
+                null,
+                null,
+                null,
+                false,
+                false,
+                null,
+                List.of()
+        );
+
+        GraduateQueryInterpretation interpretation = compact.toLegacyInterpretation();
+        GraduateQueryInterpretationResult result = validator.validate(interpretation, catalogs);
+
+        assertEquals("TUITION_AGGREGATION", interpretation.intent());
+        assertEquals(GraduateQueryInterpretationStatus.VALID, result.status());
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, result.query().intent());
+        assertEquals(GraduateKnowledgeResource.PROGRAM, result.query().resource());
+        assertEquals(GraduateKnowledgeOperation.AGGREGATE, result.query().operation());
+    }
+
+    @Test
+    void shouldRejectCompactRoutingWhenRequiredFieldsAreMissing() {
+        CompactGraduateQueryInterpretation compact = new CompactGraduateQueryInterpretation(
+                1, null, null, List.of(), List.of(), null, null, null, null,
+                List.of(), List.of(), List.of(), null, null, null, null, null,
+                null, false, false, null, List.of()
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(compact.toLegacyInterpretation(), catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.INVALID, result.status());
+        assertEquals("AI_QUERY_INTERPRETATION_INVALID_INTENT", result.failureCategory());
+    }
+
+    @Test
+    void shouldRejectCompactRoutingWithUnsupportedEnums() {
+        CompactGraduateQueryInterpretation compact = new CompactGraduateQueryInterpretation(
+                1, "NOT_A_RESOURCE", "LIST", List.of(), List.of(), null, null, null, null,
+                List.of(), List.of(), List.of(), null, null, null, null, null,
+                null, false, false, null, List.of()
+        );
+
+        GraduateQueryInterpretationResult result = validator.validate(compact.toLegacyInterpretation(), catalogs);
+
+        assertEquals(GraduateQueryInterpretationStatus.INVALID, result.status());
+        assertEquals("AI_QUERY_INTERPRETATION_INVALID_INTENT", result.failureCategory());
+    }
+
+    @Test
     void shouldValidateTypedAcademicStructureRouting() {
         GraduateQueryInterpretation interpretation = new GraduateQueryInterpretation(
                 1,

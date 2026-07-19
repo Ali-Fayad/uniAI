@@ -19,10 +19,6 @@ import java.math.BigDecimal;
 
 public final class GraduateKnowledgeResolutionSupport {
 
-    private static final Map<String, String> UNIVERSITY_ALIASES = Map.of(
-            "lu", "ul"
-    );
-
     private static final Pattern WORD_SPLIT = Pattern.compile("[^A-Za-z0-9+]+");
     private static final Pattern CITY_AFTER_IN = Pattern.compile("\\bin\\s+([\\p{L}][\\p{L}\\s'\\-]{1,60}?)(?:[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Pattern FACULTY_NAME = Pattern.compile("(?:faculty|school)\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
@@ -134,7 +130,7 @@ public final class GraduateKnowledgeResolutionSupport {
         if (hasText(university.getAcronym())) {
             String acronym = normalize(university.getAcronym());
             if (containsWord(normalizedText, acronym)) return true;
-            String canonicalAlias = UNIVERSITY_ALIASES.entrySet().stream()
+            String canonicalAlias = GraduateKnowledgeUniversityAliases.all().entrySet().stream()
                     .filter(entry -> entry.getValue().equals(acronym))
                     .map(Map.Entry::getKey)
                     .findFirst()
