@@ -1,5 +1,10 @@
-import { useEffect, useMemo } from "react";
-import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  CircleMarker,
+  Popup,
+} from "react-leaflet";
 import { useTheme } from "@/hooks/useTheme";
 import "leaflet/dist/leaflet.css";
 import useMap from "@/hooks/useMap";
@@ -26,11 +31,23 @@ const MapPage = () => {
   } = useMap();
 
   /*
-   * The `universities` array contains one item per campus because each campus
-   * needs its own map marker.
+   * Controls the sidebar university filter.
    *
-   * The sidebar, however, should show each university only once.
-   * The first campus is kept as the representative item for that university.
+   * null:
+   *   Show all university campus markers.
+   *
+   * university ID:
+   *   Show only campus markers belonging to that university.
+   */
+  const [selectedUniversityId, setSelectedUniversityId] = useState<
+    number | null
+  >(null);
+
+  /*
+   * `universities` contains one item per campus because every campus needs
+   * its own marker.
+   *
+   * The sidebar should display each university only once.
    */
   const sidebarUniversities = useMemo(() => {
     const uniqueUniversities = new Map<
@@ -50,8 +67,25 @@ const MapPage = () => {
     return Array.from(uniqueUniversities.values());
   }, [universities]);
 
+  /*
+   * Keep the original campus marker list when no university is selected.
+   * Otherwise, show only the campuses of the selected university.
+   */
+  const visibleUniversities = useMemo(() => {
+    if (selectedUniversityId === null) {
+      return universities;
+    }
+
+    return universities.filter(
+      (university) =>
+        university.universityId === selectedUniversityId,
+    );
+  }, [universities, selectedUniversityId]);
+
   useEffect(() => {
-    const mapContainer = document.querySelector(".leaflet-container");
+    const mapContainer = document.querySelector(
+      ".leaflet-container",
+    );
 
     if (mapContainer) {
       if (themeName === "dark") {
@@ -61,6 +95,30 @@ const MapPage = () => {
       }
     }
   }, [themeName]);
+
+  const handleSidebarUniversityClick = (
+    university: (typeof universities)[number],
+  ) => {
+    const isAlreadySelected =
+      selectedUniversityId === university.universityId;
+
+    if (isAlreadySelected) {
+      /*
+       * Clicking the active university deselects it and restores
+       * every campus marker.
+       */
+      setSelectedUniversityId(null);
+      setSelected(null);
+      return;
+    }
+
+    /*
+     * Only one university can be selected.
+     * Selecting another university replaces the previous filter.
+     */
+    setSelectedUniversityId(university.universityId);
+    setSelected(university);
+  };
 
   const tileLayerUrl =
     themeName === "dark"
@@ -80,13 +138,19 @@ const MapPage = () => {
           center={center}
           zoom={9}
           scrollWheelZoom
-          style={{ height: "100%", width: "100%" }}
+          style={{
+            height: "100%",
+            width: "100%",
+          }}
         >
-          <TileLayer attribution={attribution} url={tileLayerUrl} />
+          <TileLayer
+            attribution={attribution}
+            url={tileLayerUrl}
+          />
 
           {!isLoading &&
             !error &&
-            universities.map((university) => (
+            visibleUniversities.map((university) => (
               <CircleMarker
                 key={`${university.universityId}-${university.campusId}`}
                 center={university.coordinates}
@@ -98,6 +162,11 @@ const MapPage = () => {
                 }}
                 eventHandlers={{
                   click: () => {
+                    /*
+                     * Preserve the existing marker behavior.
+                     * Clicking a marker selects its campus and opens
+                     * the sidebar without activating a sidebar filter.
+                     */
                     setSelected(university);
                     openSidebar();
                   },
@@ -202,9 +271,18 @@ const MapPage = () => {
       >
         <div className="flex h-full flex-col p-4">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-[var(--color-textPrimary)]">
-              Universities
-            </h2>
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--color-textPrimary)]">
+                Universities
+              </h2>
+
+              {selectedUniversityId !== null && (
+                <p className="mt-1 text-xs text-[var(--color-textSecondary)]">
+                  Click the selected university again to show all
+                  campuses.
+                </p>
+              )}
+            </div>
 
             <button
               type="button"
@@ -228,45 +306,52 @@ const MapPage = () => {
           </div>
 
           <div className="flex-1 space-y-3 overflow-auto">
-            {sidebarUniversities.map((university) => (
-              <div
-                key={university.universityId}
-                onClick={() => {
-                  setSelected(university);
-                }}
-                className={`flex cursor-pointer items-start gap-3 rounded-lg border border-[var(--color-border)] p-3 hover:shadow-md ${
-                  selected?.universityId ===
-                  university.universityId
-                    ? "ring-2 ring-[var(--color-primary)]"
-                    : ""
-                }`}
-              >
-                <div
-                  className="mt-1.5 h-3 w-3 shrink-0 rounded-full"
-                  style={{
-                    background: university.color,
-                  }}
-                />
+            {sidebarUniversities.map((university) => {
+              const isSelected =
+                selectedUniversityId ===
+                university.universityId;
 
-                <div className="min-w-0">
-                  <h3 className="font-medium text-[var(--color-textPrimary)]">
-                    {university.name}
-                  </h3>
+              return (
+                <button
+                  type="button"
+                  key={university.universityId}
+                  onClick={() =>
+                    handleSidebarUniversityClick(university)
+                  }
+                  aria-pressed={isSelected}
+                  className={`flex w-full cursor-pointer items-start gap-3 rounded-lg border p-3 text-left transition-shadow hover:shadow-md ${
+                    isSelected
+                      ? "border-[var(--color-primary)] bg-[var(--color-elevatedSurface)] ring-2 ring-[var(--color-primary)]"
+                      : "border-[var(--color-border)]"
+                  }`}
+                >
+                  <span
+                    className="mt-1.5 h-3 w-3 shrink-0 rounded-full"
+                    style={{
+                      background: university.color,
+                    }}
+                  />
 
-                  {university.acronym && (
-                    <p className="text-sm text-[var(--color-textSecondary)]">
-                      {university.acronym}
-                    </p>
-                  )}
+                  <span className="min-w-0">
+                    <span className="block font-medium text-[var(--color-textPrimary)]">
+                      {university.name}
+                    </span>
 
-                  {university.nameAr && (
-                    <p className="text-sm text-[var(--color-textSecondary)]">
-                      {university.nameAr}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
+                    {university.acronym && (
+                      <span className="block text-sm text-[var(--color-textSecondary)]">
+                        {university.acronym}
+                      </span>
+                    )}
+
+                    {university.nameAr && (
+                      <span className="block text-sm text-[var(--color-textSecondary)]">
+                        {university.nameAr}
+                      </span>
+                    )}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </aside>
