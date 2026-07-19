@@ -23,7 +23,7 @@ const AuthLanding = () => {
       }
       window.crypto.getRandomValues(stateBytes);
       const state = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
-      const redirectUri = `${window.location.origin}/google/callback`;
+      const redirectUri = 'http://localhost:5173/google/callback';
       sessionStorage.setItem(STORAGE_KEYS.GOOGLE_OAUTH_STATE, state);
       const response = await authService.getGoogleAuthUrl({ redirectUri, state });
       // Redirect to Google OAuth URL

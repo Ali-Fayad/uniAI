@@ -25,7 +25,7 @@ const GoogleCallback = () => {
       const returnedState = searchParams.get('state');
       const errorParam = searchParams.get('error');
       const expectedState = sessionStorage.getItem(STORAGE_KEYS.GOOGLE_OAUTH_STATE);
-      const redirectUri = `${window.location.origin}/google/callback`;
+      const redirectUri = 'http://localhost:5173/google/callback';
 
       try {
         if (errorParam) throw new Error('Google authentication was cancelled or rejected');

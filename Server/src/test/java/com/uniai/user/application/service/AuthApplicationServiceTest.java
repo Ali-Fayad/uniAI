@@ -3,6 +3,7 @@ package com.uniai.user.application.service;
 import com.uniai.shared.exception.AlreadyExistsException;
 import com.uniai.shared.exception.VerificationCodeRateLimitException;
 import com.uniai.shared.exception.GoogleAuthException;
+import com.uniai.shared.infrastructure.jwt.JwtTokenPayload;
 import com.uniai.shared.infrastructure.jwt.JwtUtil;
 import com.uniai.user.application.dto.command.EmailRequestCommand;
 import com.uniai.user.application.dto.command.SignUpCommand;
