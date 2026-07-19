@@ -1,5 +1,7 @@
 package com.uniai.chat.infrastructure.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
 import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiTokenEstimator;
@@ -7,23 +9,27 @@ import com.uniai.chat.application.budget.ConversationMemoryBudgetConfiguration;
 import com.uniai.chat.application.budget.ConversationMemoryBudgetManager;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
 import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
+import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
 import com.uniai.chat.application.memory.ConversationMemoryManager;
 import com.uniai.chat.application.memory.ConversationMemoryMergePolicy;
 import com.uniai.chat.application.memory.ConversationMemoryTriggerPolicy;
-import com.uniai.chat.application.memory.ConversationMemoryValidator;
 import com.uniai.chat.application.memory.ConversationMemoryUpdatePort;
+import com.uniai.chat.application.memory.ConversationMemoryValidator;
+import com.uniai.chat.application.port.out.AiProviderStatusPort;
+import com.uniai.chat.application.port.out.AiServicePort;
+import com.uniai.chat.application.port.out.ChatTitlePromptPort;
+import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
+import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
+import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.title.ChatTitleGenerationConfiguration;
 import com.uniai.chat.application.title.ChatTitleGenerationManager;
-import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
-import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
-import com.uniai.chat.application.port.out.ChatTitlePromptPort;
-import com.uniai.chat.application.port.out.AiServicePort;
-import com.uniai.chat.application.port.out.AiProviderStatusPort;
-import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
-import com.uniai.chat.infrastructure.memory.AiConversationMemoryUpdateAdapter;
+import com.uniai.chat.domain.repository.ChatRepository;
+import com.uniai.chat.domain.repository.MessageRepository;
 import com.uniai.chat.infrastructure.ai.GeminiAiProperties;
 import com.uniai.chat.infrastructure.ai.GeminiAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.GroqAiProperties;
@@ -33,24 +39,20 @@ import com.uniai.chat.infrastructure.ai.OllamaAiProperties;
 import com.uniai.chat.infrastructure.ai.OllamaAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
 import com.uniai.chat.infrastructure.interpretation.AiGraduateQueryInterpretationAdapter;
+import com.uniai.chat.infrastructure.memory.AiConversationMemoryUpdateAdapter;
 import com.uniai.chat.infrastructure.prompt.GraduateQueryInterpreterPromptProvider;
-import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
-import com.uniai.chat.domain.repository.MessageRepository;
-import com.uniai.chat.domain.repository.ChatRepository;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class ChatAiConfiguration {
@@ -58,16 +60,19 @@ public class ChatAiConfiguration {
     private static final Logger logger = LogManager.getLogger(ChatAiConfiguration.class);
 
     @Bean
-    public AiContextBudgetConfiguration aiContextBudgetConfiguration(AiContextBudgetProperties properties) {
+    public AiContextBudgetConfiguration aiContextBudgetConfiguration(
+            AiContextBudgetProperties properties) {
         Map<String, AiContextBudgetConfiguration.ProviderBudget> providerBudgets = new LinkedHashMap<>();
+
         if (properties != null && properties.getProviders() != null) {
-            properties.getProviders().forEach((provider, budget) -> providerBudgets.put(provider, new AiContextBudgetConfiguration.ProviderBudget(
-                    budget != null ? budget.getMaxInputTokens() : null,
-                    budget != null ? budget.getReservedOutputTokens() : null,
-                    budget != null ? budget.getMaxHistoryTokens() : null,
-                    budget != null ? budget.getMaxRetrievalTokens() : null,
-                    budget != null ? budget.getRequestOverheadTokens() : null
-            )));
+            properties.getProviders().forEach((provider, budget) -> providerBudgets.put(
+                    provider,
+                    new AiContextBudgetConfiguration.ProviderBudget(
+                            budget != null ? budget.getMaxInputTokens() : null,
+                            budget != null ? budget.getReservedOutputTokens() : null,
+                            budget != null ? budget.getMaxHistoryTokens() : null,
+                            budget != null ? budget.getMaxRetrievalTokens() : null,
+                            budget != null ? budget.getRequestOverheadTokens() : null)));
         }
 
         return new AiContextBudgetConfiguration(
@@ -77,12 +82,12 @@ public class ChatAiConfiguration {
                 properties != null ? properties.getMaxRetrievalTokens() : 120000,
                 properties != null ? properties.getCharactersPerToken() : 4,
                 properties != null ? properties.getRequestOverheadTokens() : 128,
-                providerBudgets
-        );
+                providerBudgets);
     }
 
     @Bean
-    public AiTokenEstimator aiTokenEstimator(AiContextBudgetConfiguration configuration) {
+    public AiTokenEstimator aiTokenEstimator(
+            AiContextBudgetConfiguration configuration) {
         return new AiTokenEstimator(configuration);
     }
 
@@ -91,19 +96,24 @@ public class ChatAiConfiguration {
             AiContextBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             @Value("${ai.provider:placeholder}") String provider,
-            MeterRegistry meterRegistry
-    ) {
-        return new AiContextBudgetManager(configuration, estimator, provider, meterRegistry);
+            MeterRegistry meterRegistry) {
+        return new AiContextBudgetManager(
+                configuration,
+                estimator,
+                provider,
+                meterRegistry);
     }
 
     @Bean
-    public ConversationMemoryBudgetConfiguration conversationMemoryBudgetConfiguration(ConversationMemoryProperties properties) {
+    public ConversationMemoryBudgetConfiguration conversationMemoryBudgetConfiguration(
+            ConversationMemoryProperties properties) {
         return new ConversationMemoryBudgetConfiguration(
                 properties != null && properties.isEnabled(),
                 properties != null ? properties.getMaxInputTokens() : 1200L,
                 properties != null ? properties.getMaxOutputTokens() : 250,
-                properties != null ? properties.getPromptPath() : "prompts/conversation-memory-updater-prompt.txt"
-        );
+                properties != null
+                        ? properties.getPromptPath()
+                        : "prompts/conversation-memory-updater-prompt.txt");
     }
 
     @Bean
@@ -111,9 +121,12 @@ public class ChatAiConfiguration {
             ConversationMemoryBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             @Value("${ai.provider:placeholder}") String provider,
-            MeterRegistry meterRegistry
-    ) {
-        return new ConversationMemoryBudgetManager(configuration, estimator, provider, meterRegistry);
+            MeterRegistry meterRegistry) {
+        return new ConversationMemoryBudgetManager(
+                configuration,
+                estimator,
+                provider,
+                meterRegistry);
     }
 
     @Bean
@@ -128,15 +141,15 @@ public class ChatAiConfiguration {
 
     @Bean
     public GraduateQueryInterpretationBudgetConfiguration graduateQueryInterpretationBudgetConfiguration(
-            GraduateQueryInterpretationProperties properties
-    ) {
+            GraduateQueryInterpretationProperties properties) {
         return new GraduateQueryInterpretationBudgetConfiguration(
                 properties != null && properties.isEnabled(),
                 properties != null ? properties.getMaxInputTokens() : 1500L,
                 properties != null ? properties.getMaxOutputTokens() : 250,
                 properties != null ? properties.getHistoryMessageLimit() : 4,
-                properties != null ? properties.getPromptPath() : "prompts/graduate-query-interpreter-prompt.txt"
-        );
+                properties != null
+                        ? properties.getPromptPath()
+                        : "prompts/graduate-query-interpreter-prompt.txt");
     }
 
     @Bean
@@ -144,9 +157,12 @@ public class ChatAiConfiguration {
             GraduateQueryInterpretationBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             @Value("${ai.provider:placeholder}") String provider,
-            MeterRegistry meterRegistry
-    ) {
-        return new GraduateQueryInterpretationBudgetManager(configuration, estimator, provider, meterRegistry);
+            MeterRegistry meterRegistry) {
+        return new GraduateQueryInterpretationBudgetManager(
+                configuration,
+                estimator,
+                provider,
+                meterRegistry);
     }
 
     @Bean
@@ -174,9 +190,12 @@ public class ChatAiConfiguration {
             AiServicePort aiServicePort,
             ConversationMemoryPromptPort promptPort,
             ConversationMemoryBudgetConfiguration budgetConfiguration,
-            ObjectMapper objectMapper
-    ) {
-        return new AiConversationMemoryUpdateAdapter(aiServicePort, promptPort, budgetConfiguration, objectMapper);
+            ObjectMapper objectMapper) {
+        return new AiConversationMemoryUpdateAdapter(
+                aiServicePort,
+                promptPort,
+                budgetConfiguration,
+                objectMapper);
     }
 
     @Bean
@@ -190,8 +209,7 @@ public class ChatAiConfiguration {
             UniversityCatalogRepository universityCatalogRepository,
             MessageRepository messageRepository,
             ConversationMemoryPromptPort promptPort,
-            ConversationMemoryBudgetConfiguration budgetConfiguration
-    ) {
+            ConversationMemoryBudgetConfiguration budgetConfiguration) {
         return new ConversationMemoryManager(
                 persistencePort,
                 updatePort,
@@ -202,25 +220,31 @@ public class ChatAiConfiguration {
                 universityCatalogRepository,
                 messageRepository,
                 promptPort,
-                budgetConfiguration
-        );
+                budgetConfiguration);
     }
 
     @Bean
     public ChatTitleGenerationConfiguration chatTitleGenerationConfiguration(
-            @Value("${ai.provider:placeholder}") String provider
-    ) {
+            @Value("${ai.provider:placeholder}") String provider) {
         String normalizedProvider = normalizeProvider(provider);
+
         boolean enabled = "gemini".equals(normalizedProvider)
                 || "groq".equals(normalizedProvider)
                 || "ollama".equals(normalizedProvider);
-        return new ChatTitleGenerationConfiguration(enabled, 300L, 24, 60);
+
+        return new ChatTitleGenerationConfiguration(
+                enabled,
+                300L,
+                24,
+                60);
     }
 
     @Bean(destroyMethod = "shutdown")
     public Executor chatTitleExecutor() {
         return Executors.newSingleThreadExecutor(runnable -> {
-            Thread thread = new Thread(runnable, "chat-title-generator");
+            Thread thread = new Thread(
+                    runnable,
+                    "chat-title-generator");
             thread.setDaemon(true);
             return thread;
         });
@@ -235,8 +259,7 @@ public class ChatAiConfiguration {
             ChatTitleGenerationConfiguration configuration,
             @Value("${ai.provider:placeholder}") String provider,
             Executor chatTitleExecutor,
-            MeterRegistry meterRegistry
-    ) {
+            MeterRegistry meterRegistry) {
         return new ChatTitleGenerationManager(
                 chatRepository,
                 aiServicePort,
@@ -245,8 +268,7 @@ public class ChatAiConfiguration {
                 configuration,
                 chatTitleExecutor,
                 provider,
-                meterRegistry
-        );
+                meterRegistry);
     }
 
     @Bean
@@ -262,37 +284,79 @@ public class ChatAiConfiguration {
             OllamaAiProperties ollamaAiProperties,
             AiProviderStatusPort aiProviderStatusPort,
             ObjectMapper objectMapper,
-            MeterRegistry meterRegistry
-    ) {
+            MeterRegistry meterRegistry) {
         String normalizedProvider = normalizeProvider(provider);
 
         if ("gemini".equals(normalizedProvider)) {
-            logger.info("[AI] Provider selected provider=gemini model={}", geminiAiProperties.getModel());
-            AiServicePort aiServicePort = new GeminiAiServiceAdapter(geminiAiProperties, objectMapper, aiProviderStatusPort, meterRegistry);
-            logger.info("[AI] Provider initialized successfully provider=gemini model={}", geminiAiProperties.getModel());
+            logger.info(
+                    "[AI] Provider selected provider=gemini model={}",
+                    geminiAiProperties.getModel());
+
+            AiServicePort aiServicePort = new GeminiAiServiceAdapter(
+                    geminiAiProperties,
+                    objectMapper,
+                    aiProviderStatusPort,
+                    meterRegistry);
+
+            logger.info(
+                    "[AI] Provider initialized successfully provider=gemini model={}",
+                    geminiAiProperties.getModel());
+
             return aiServicePort;
         }
 
         if ("groq".equals(normalizedProvider)) {
-            logger.info("[AI] Provider selected provider=groq model={}", groqAiProperties.getModel());
-            AiServicePort aiServicePort = new GroqAiServiceAdapter(groqAiProperties, objectMapper, aiProviderStatusPort, meterRegistry);
-            logger.info("[AI] Provider initialized successfully provider=groq model={}", groqAiProperties.getModel());
+            logger.info(
+                    "[AI] Provider selected provider=groq model={}",
+                    groqAiProperties.getModel());
+
+            AiServicePort aiServicePort = new GroqAiServiceAdapter(
+                    groqAiProperties,
+                    objectMapper,
+                    aiProviderStatusPort,
+                    meterRegistry);
+
+            logger.info(
+                    "[AI] Provider initialized successfully provider=groq model={}",
+                    groqAiProperties.getModel());
+
             return aiServicePort;
         }
 
         if ("ollama".equals(normalizedProvider)) {
-            logger.info("[AI] Provider selected provider=ollama model={}", ollamaAiProperties.getModel());
-            AiServicePort aiServicePort = new OllamaAiServiceAdapter(ollamaAiProperties, objectMapper, aiProviderStatusPort, meterRegistry);
-            logger.info("[AI] Provider initialized successfully provider=ollama model={}", ollamaAiProperties.getModel());
+            logger.info(
+                    "[AI] Provider selected provider=ollama model={}",
+                    ollamaAiProperties.getModel());
+
+            AiServicePort aiServicePort = new OllamaAiServiceAdapter(
+                    ollamaAiProperties,
+                    objectMapper,
+                    aiProviderStatusPort,
+                    meterRegistry);
+
+            logger.info(
+                    "[AI] Provider initialized successfully provider=ollama model={}",
+                    ollamaAiProperties.getModel());
+
             return aiServicePort;
         }
 
         if (!"placeholder".equals(normalizedProvider)) {
-            logger.warn("[AI] Unsupported provider configured provider={} falling back to placeholder", provider);
+            logger.warn(
+                    "[AI] Unsupported provider configured provider={} falling back to placeholder",
+                    provider);
         }
-        logger.info("[AI] Provider selected provider=placeholder model=placeholder");
-        AiServicePort aiServicePort = new PlaceholderAiServiceAdapter(aiProviderStatusPort, meterRegistry);
-        logger.info("[AI] Provider initialized successfully provider=placeholder model=placeholder");
+
+        logger.info(
+                "[AI] Provider selected provider=placeholder model=placeholder");
+
+        AiServicePort aiServicePort = new PlaceholderAiServiceAdapter(
+                aiProviderStatusPort,
+                meterRegistry);
+
+        logger.info(
+                "[AI] Provider initialized successfully provider=placeholder model=placeholder");
+
         return aiServicePort;
     }
 
@@ -302,8 +366,7 @@ public class ChatAiConfiguration {
             GroqAiProperties groqAiProperties,
             OllamaAiProperties ollamaAiProperties,
             AiProviderStatusPort aiProviderStatusPort,
-            ObjectMapper objectMapper
-    ) {
+            ObjectMapper objectMapper) {
         return aiServicePort(
                 provider,
                 geminiAiProperties,
@@ -311,8 +374,7 @@ public class ChatAiConfiguration {
                 ollamaAiProperties,
                 aiProviderStatusPort,
                 objectMapper,
-                null
-        );
+                null);
     }
 
     @Bean
@@ -322,23 +384,50 @@ public class ChatAiConfiguration {
             GraduateQueryInterpreterPromptProvider promptProvider,
             GraduateQueryInterpretationBudgetConfiguration configuration,
             ObjectMapper objectMapper,
-            MeterRegistry meterRegistry
-    ) {
-        if (!configuration.enabled() || "placeholder".equals(normalizeProvider(provider))) {
-            logger.info("[AI_INTERPRETATION] Interpretation disabled enabled={} provider={}", configuration.enabled(), provider);
-            return request -> {
-                throw new IllegalStateException("Graduate query interpretation is disabled");
+            MeterRegistry meterRegistry) {
+        if (!configuration.enabled()
+                || "placeholder".equals(normalizeProvider(provider))) {
+
+            logger.info(
+                    "[AI_INTERPRETATION] Interpretation disabled enabled={} provider={}",
+                    configuration.enabled(),
+                    provider);
+
+            return new GraduateQueryInterpretationPort() {
+
+                @Override
+                public GraduateQueryInterpretation interpret(
+                        GraduateQueryInterpretationRequest request) {
+                    throw new IllegalStateException(
+                            "Graduate query interpretation is disabled");
+                }
+
+                @Override
+                public CanonicalGraduateQueryDraft interpretDraft(
+                        GraduateQueryInterpretationRequest request) {
+                    throw new IllegalStateException(
+                            "Graduate query interpretation is disabled");
+                }
             };
         }
 
-        logger.info("[AI_INTERPRETATION] Interpretation initialized provider={} maxOutputTokens={} historyMessageLimit={}",
+        logger.info(
+                "[AI_INTERPRETATION] Interpretation initialized provider={} maxOutputTokens={} historyMessageLimit={}",
                 provider,
                 configuration.maxOutputTokens(),
                 configuration.historyMessageLimit());
-        return new AiGraduateQueryInterpretationAdapter(aiServicePort, promptProvider, configuration, objectMapper, meterRegistry);
+
+        return new AiGraduateQueryInterpretationAdapter(
+                aiServicePort,
+                promptProvider,
+                configuration,
+                objectMapper,
+                meterRegistry);
     }
 
     private String normalizeProvider(String provider) {
-        return provider == null ? "" : provider.trim().toLowerCase(Locale.ROOT);
+        return provider == null
+                ? ""
+                : provider.trim().toLowerCase(Locale.ROOT);
     }
 }

@@ -14,6 +14,7 @@ import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetResult
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationStatus;
@@ -395,6 +396,10 @@ public class ChatApplicationService implements
                 graduateCitations = graduateKnowledgeRetrievalResult != null
                         ? graduateKnowledgeRetrievalResult.citations()
                         : List.of();
+                if (isResolvedNoData(graduateContext)) {
+                    interpretationResult = interpretationResult.withOutcome(
+                            com.uniai.chat.application.interpretation.GraduateQueryInterpretationOutcome.RESOLVED_NO_DATA);
+                }
                 logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
                         chat.getId(),
                         graduateContext != null ? graduateContext.length() : 0,
@@ -762,6 +767,7 @@ public class ChatApplicationService implements
                     0
             );
         }
+        GraduateKnowledgeQuery deterministicCandidate = null;
         try {
             GraduateKnowledgeQuery deterministicQuery = graduateKnowledgeQueryInterpreter.interpret(
                     currentMessage,
@@ -769,7 +775,9 @@ public class ChatApplicationService implements
                     universityCatalogs,
                     conversationMemory
             );
-            if (graduateKnowledgeQueryInterpreter.isHighConfidenceDeterministic(currentMessage, deterministicQuery)) {
+            deterministicCandidate = deterministicQuery;
+            if (!deterministicQuery.followUpResolved()
+                    && graduateKnowledgeQueryInterpreter.isHighConfidenceDeterministic(currentMessage, deterministicQuery)) {
                 logger.info("[AI_INTERPRETATION] Deterministic provider bypass chatId={} resource={} operation={} scope={}",
                         chatId,
                         deterministicQuery.resource(),
@@ -811,9 +819,16 @@ public class ChatApplicationService implements
         }
 
         try {
-            GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
-            GraduateQueryInterpretationResult result = graduateQueryInterpretationValidator.validate(
-                    rawInterpretation, universityCatalogs, currentMessage);
+            GraduateQueryInterpretationResult result;
+            try {
+                CanonicalGraduateQueryDraft canonicalDraft = graduateQueryInterpretationPort.interpretDraft(budgetResult.request());
+                result = graduateQueryInterpretationValidator.validateCanonicalDraft(
+                        canonicalDraft, universityCatalogs, currentMessage, false);
+            } catch (UnsupportedOperationException compatibilityOnlyPort) {
+                // Temporary migration bridge for external/test ports that still expose only the legacy contract.
+                GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
+                result = graduateQueryInterpretationValidator.validate(rawInterpretation, universityCatalogs, currentMessage);
+            }
             if (isUnsafeGeneralChatRouting(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, result)) {
                 GraduateQueryInterpretationResult fallback = fallbackInterpretation(
                         currentMessage,
@@ -836,6 +851,15 @@ public class ChatApplicationService implements
             if (result.status() == GraduateQueryInterpretationStatus.INVALID) {
                 incrementInterpretationInvalid(resolveCurrentProviderName(), result.failureCategory());
             }
+            if (deterministicCandidate != null && result.query() != null
+                    && !sameQueryShape(deterministicCandidate, result.query())) {
+                ChatAiMetrics.incrementCounter(
+                        meterRegistry,
+                        ChatAiMetrics.INTERPRETATION_DISAGREEMENTS,
+                        "Deterministic and canonical interpretation disagreements",
+                        "provider",
+                        resolveCurrentProviderName());
+            }
             GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, result, null);
             logger.debug("[AI_INTERPRETATION] Validation completed chatId={} status={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={}",
                     chatId,
@@ -847,6 +871,14 @@ public class ChatApplicationService implements
             return resolved;
         } catch (RuntimeException ex) {
             logger.warn("[AI_INTERPRETATION] Provider interpretation failed chatId={} reason={}", chatId, ex.getMessage());
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.PROVIDER_FAILURES,
+                    "Graduate-query interpretation provider failures",
+                    "operation",
+                    "interpretation",
+                    "provider",
+                    resolveCurrentProviderName());
             GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
             GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
             recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, "provider_failure");
@@ -1088,6 +1120,41 @@ public class ChatApplicationService implements
                 "outcome",
                 ChatAiMetrics.normalizeTagValue(outcome)
         );
+        ChatAiMetrics.incrementCounter(
+                meterRegistry,
+                ChatAiMetrics.INTERPRETATION_OUTCOMES,
+                "Canonical graduate-query interpretation outcomes",
+                "provider",
+                resolvedProvider,
+                "model",
+                model,
+                "outcome",
+                interpretationResult == null
+                        ? "invalid_interpretation"
+                        : ChatAiMetrics.normalizeEnumName(interpretationResult.outcome())
+        );
+        if (interpretationResult != null && interpretationResult.fallbackUsed()) {
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.FALLBACKS,
+                    "Graduate-query interpretation fallback usage",
+                    "operation",
+                    "interpretation",
+                    "reason",
+                    ChatAiMetrics.normalizeTagValue(interpretationResult.failureCategory())
+            );
+        }
+        if (interpretationResult != null && interpretationResult.ambiguous()) {
+            ChatAiMetrics.incrementCounter(
+                    meterRegistry,
+                    ChatAiMetrics.INTERPRETATION_CLARIFICATIONS,
+                    "Graduate-query clarification outcomes",
+                    "provider",
+                    resolvedProvider,
+                    "reason",
+                    ChatAiMetrics.normalizeTagValue(interpretationResult.failureCategory())
+            );
+        }
     }
 
     private void incrementInterpretationInvalid(String provider, String reason) {
@@ -1113,12 +1180,27 @@ public class ChatApplicationService implements
         if (interpretationResult == null) {
             return "failure";
         }
-        return switch (interpretationResult.status()) {
-            case VALID -> "valid";
-            case FALLBACK_USED -> "fallback";
-            case AMBIGUOUS, UNSUPPORTED -> "fallback";
-            case INVALID -> "invalid";
-        };
+        return ChatAiMetrics.normalizeEnumName(interpretationResult.outcome());
+    }
+
+    private boolean isResolvedNoData(String formattedContext) {
+        if (!StringUtils.hasText(formattedContext)) {
+            return true;
+        }
+        String normalized = formattedContext.toLowerCase(java.util.Locale.ROOT);
+        return normalized.contains("no matching rows")
+                || normalized.contains("no matching campus")
+                || normalized.contains("no matching program")
+                || normalized.contains("location data is unavailable");
+    }
+
+    private boolean sameQueryShape(GraduateKnowledgeQuery left, GraduateKnowledgeQuery right) {
+        return left.intent() == right.intent()
+                && left.resource() == right.resource()
+                && left.operation() == right.operation()
+                && Objects.equals(left.filters().city(), right.filters().city())
+                && Objects.equals(left.resolvedUniversities(), right.resolvedUniversities())
+                && Objects.equals(left.degreeTypes(), right.degreeTypes());
     }
 
     private String resolveCurrentProviderName() {

@@ -825,6 +825,21 @@ class ChatApplicationServiceIntegrationTest extends PostgresIntegrationTest {
             return nextInterpretation;
         }
 
+        @Override
+        public com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft interpretDraft(
+                com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest request
+        ) {
+            callCount++;
+            if (nextInterpretation == null || nextInterpretation.intent() == null) {
+                throw new UnsupportedOperationException("legacy fixture");
+            }
+            if (nextFailure != null) {
+                throw nextFailure;
+            }
+            return com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraftCompatibility
+                    .fromLegacyInterpretation(nextInterpretation);
+        }
+
         private void reset() {
             nextInterpretation = null;
             nextFailure = null;

@@ -1247,6 +1247,20 @@ class ChatApplicationServiceTest {
             }
             return nextInterpretation;
         }
+
+        @Override
+        public com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft interpretDraft(GraduateQueryInterpretationRequest request) {
+            callCount++;
+            lastRequest = request;
+            if (nextInterpretation == null || nextInterpretation.intent() == null) {
+                throw new UnsupportedOperationException("legacy fixture");
+            }
+            if (nextRuntimeException != null) {
+                throw nextRuntimeException;
+            }
+            return com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraftCompatibility
+                    .fromLegacyInterpretation(nextInterpretation);
+        }
     }
 
     private static final class RecordingGraduateFollowUpResolver extends GraduateFollowUpResolver {

@@ -22,6 +22,9 @@ public final class ChatAiMetrics {
     public static final String PROVIDER_FAILURES = "uniai.ai.provider.failures";
     public static final String FALLBACKS = "uniai.ai.fallbacks";
     public static final String INTERPRETATION_INVALID = "uniai.ai.interpretation.invalid";
+    public static final String INTERPRETATION_OUTCOMES = "uniai.ai.interpretation.outcomes";
+    public static final String INTERPRETATION_CLARIFICATIONS = "uniai.ai.interpretation.clarifications";
+    public static final String INTERPRETATION_DISAGREEMENTS = "uniai.ai.interpretation.disagreements";
     public static final String RETRIEVAL_REQUESTS = "uniai.retrieval.requests";
     public static final String RETRIEVAL_EMPTY = "uniai.retrieval.empty";
     public static final String BUDGET_REJECTIONS = "uniai.ai.budget.rejections";
