@@ -1,0 +1,128 @@
+@startuml
+title AI Chat Processing Pipeline
+skinparam shadowing false
+skinparam sequenceArrowThickness 1
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 120
+
+actor User
+boundary ChatPage
+participant useChat
+participant chatService
+boundary ChatController
+control ChatApplicationService
+entity ChatRepository
+entity MessageRepository
+control GraduateKnowledgeQueryInterpreter
+control GraduateFollowUpResolver
+control AiContextBudgetManager
+participant GraduateKnowledgeRetrievalPort
+participant SqlGraduateKnowledgeRetrievalAdapter
+control GraduateCitationEngine
+control ConversationMemoryManager
+control ChatTitleGenerationManager
+participant AiServicePort
+participant "Configured provider adapter" as ProviderAdapter
+database PostgreSQL
+
+User -> ChatPage : submit message
+ChatPage -> useChat : sendMessage(chatId, content)
+useChat -> chatService : sendMessage(command)
+chatService -> ChatController : POST /api/chats/{id}/messages
+ChatController -> ChatApplicationService : sendMessage(email, command)
+activate ChatApplicationService
+ChatApplicationService -> ChatApplicationService : validate content
+ChatApplicationService -> ChatRepository : findById(chatId)
+ChatRepository -> PostgreSQL : SELECT chat and owner
+PostgreSQL --> ChatRepository : Chat
+ChatApplicationService -> ChatApplicationService : validate ownership
+ChatApplicationService -> ConversationMemoryManager : loadMemory(chatId)
+ConversationMemoryManager --> ChatApplicationService : advisory memory
+ChatApplicationService -> MessageRepository : save user message
+MessageRepository -> PostgreSQL : INSERT user message
+PostgreSQL --> MessageRepository : persisted message
+ChatApplicationService -> MessageRepository : load recent history
+MessageRepository -> PostgreSQL : SELECT recent messages
+PostgreSQL --> MessageRepository : conversation history
+ChatApplicationService -> GraduateKnowledgeQueryInterpreter : interpret current message/history/catalog
+activate GraduateKnowledgeQueryInterpreter
+GraduateKnowledgeQueryInterpreter -> GraduateFollowUpResolver : resolve referential context when needed
+GraduateFollowUpResolver --> GraduateKnowledgeQueryInterpreter : patched query or clarification
+alt Deterministic high-confidence query
+  GraduateKnowledgeQueryInterpreter --> ChatApplicationService : normalized query
+else Provider interpretation required
+  GraduateKnowledgeQueryInterpreter --> ChatApplicationService : provider-needed candidate
+  ChatApplicationService -> AiServicePort : interpretation request
+  AiServicePort -> ProviderAdapter : generate structured interpretation
+  ProviderAdapter --> AiServicePort : compact JSON / failure
+  AiServicePort --> ChatApplicationService : interpretation result
+  ChatApplicationService -> GraduateKnowledgeQueryInterpreter : deterministic fallback if provider failed
+  GraduateKnowledgeQueryInterpreter --> ChatApplicationService : normalized fallback query
+end
+deactivate GraduateKnowledgeQueryInterpreter
+
+alt Ambiguous or unsupported interpretation
+  ChatApplicationService -> MessageRepository : save clarification/safe message
+  MessageRepository -> PostgreSQL : INSERT assistant message
+  ChatApplicationService -> ChatTitleGenerationManager : optional first-turn title
+  ChatApplicationService -> ConversationMemoryManager : optional memory update
+  ChatApplicationService --> ChatController : clarification response
+else General chat
+  ChatApplicationService -> AiContextBudgetManager : budget request without retrieval
+  AiContextBudgetManager -> AiServicePort : main response request
+  AiServicePort -> ProviderAdapter : generate response
+  ProviderAdapter --> AiServicePort : response/fallback
+  AiServicePort --> ChatApplicationService : AI response
+else Graduate knowledge query
+  ChatApplicationService -> GraduateKnowledgeRetrievalPort : retrieveContext(query)
+  GraduateKnowledgeRetrievalPort -> SqlGraduateKnowledgeRetrievalAdapter : SQL retrieval
+  SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : execute bounded SQL
+  PostgreSQL --> SqlGraduateKnowledgeRetrievalAdapter : rows/aggregate/context
+  SqlGraduateKnowledgeRetrievalAdapter --> GraduateKnowledgeRetrievalPort : retrieval result
+  GraduateKnowledgeRetrievalPort --> ChatApplicationService : formatted context and citations
+  ChatApplicationService -> GraduateCitationEngine : append citation instructions
+  GraduateCitationEngine --> ChatApplicationService : citation-aware system prompt
+  ChatApplicationService -> AiContextBudgetManager : budget history/context/request
+  AiContextBudgetManager -> AiContextBudgetManager : trim history/context if required
+  alt Budget exceeded
+    AiContextBudgetManager --> ChatApplicationService : non-fitting result
+    ChatApplicationService --> ChatController : service-error fallback response
+  else Request fits
+    AiContextBudgetManager --> ChatApplicationService : budgeted request
+    ChatApplicationService -> AiServicePort : main response request
+    AiServicePort -> ProviderAdapter : generate response
+    alt Provider failure or empty response
+      ProviderAdapter --> AiServicePort : fallback/error response
+      AiServicePort --> ChatApplicationService : provider fallback
+    else Provider success
+      ProviderAdapter --> AiServicePort : answer
+      AiServicePort --> ChatApplicationService : answer
+    end
+  end
+end
+
+ChatApplicationService -> MessageRepository : save assistant message
+MessageRepository -> PostgreSQL : INSERT assistant message
+ChatApplicationService -> ChatRepository : update chat timestamp
+ChatRepository -> PostgreSQL : UPDATE chat
+opt First user turn and title generation enabled
+  ChatApplicationService -> ChatTitleGenerationManager : register title generation
+  ChatTitleGenerationManager -> AiServicePort : title request
+  AiServicePort -> ProviderAdapter : generate title
+  ProviderAdapter --> AiServicePort : title
+  ChatTitleGenerationManager -> ChatRepository : persist title
+end
+opt Conversation memory enabled
+  ChatApplicationService -> ConversationMemoryManager : register memory update
+  ConversationMemoryManager -> AiServicePort : memory patch request
+  AiServicePort -> ProviderAdapter : generate memory patch
+  ProviderAdapter --> AiServicePort : patch
+  ConversationMemoryManager -> ChatRepository : persist validated memory
+end
+ChatApplicationService --> ChatController : MessageResponseDto and citations
+deactivate ChatApplicationService
+ChatController --> chatService : JSON response
+chatService --> useChat : update messages
+useChat --> ChatPage : render response
+ChatPage --> User : answer
+@enduml

@@ -1,0 +1,341 @@
+@startuml
+title uniAI — Complete Implementation-Grounded Use Case Diagram
+
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam actor {
+  BackgroundColor #F3F4F6
+  BorderColor #374151
+  FontColor #111827
+}
+skinparam usecase {
+  BackgroundColor #FFFFFF
+  BorderColor #374151
+  FontColor #111827
+}
+skinparam package {
+  BorderColor #64748B
+  FontColor #0F172A
+}
+skinparam note {
+  BackgroundColor #FFFBEB
+  BorderColor #B45309
+  FontColor #451A03
+}
+
+actor Visitor as visitor #D1D5DB
+actor "Registered User" as user #BFDBFE
+actor Administrator as admin #C4B5FD
+actor "Email Service" as email #BBF7D0
+actor "Google OAuth Provider" as google #FED7AA
+actor "AI Provider\n(Gemini / Groq / Ollama)" as ai #FED7AA
+
+user --|> visitor
+admin --|> user
+
+rectangle "uniAI System" as system {
+
+  package "Authentication and Access" #E0F2FE {
+    usecase "Register Account" as UC_Register
+    usecase "Check Email\nAvailability" as UC_CheckEmail
+    usecase "Check Username\nAvailability" as UC_CheckUsername
+    usecase "Verify Email" as UC_VerifyEmail
+    usecase "Resend Verification\nCode" as UC_ResendVerification
+    usecase "Sign In" as UC_SignIn
+    usecase "Complete Two-Factor\nAuthentication" as UC_2FA
+    usecase "Request Password\nReset" as UC_RequestReset
+    usecase "Reset Password" as UC_ResetPassword
+    usecase "Generate Google OAuth\nAuthorization URL" as UC_GoogleUrl
+    usecase "Authenticate Protected\nRequest" as UC_ProtectedRequest
+    usecase "Sign Out" as UC_SignOut
+  }
+
+  package "Account and Profile" #ECFEFF {
+    usecase "View Account" as UC_ViewAccount
+    usecase "Update Account" as UC_UpdateAccount
+    usecase "Change Password" as UC_ChangePassword
+    usecase "Delete Own Account" as UC_DeleteAccount
+    usecase "View Personal\nInformation" as UC_ViewProfile
+    usecase "Update Personal\nInformation" as UC_UpdateProfile
+    usecase "Check Profile\nCompletion" as UC_ProfileStatus
+    usecase "Complete Required\nProfile Information" as UC_CompleteProfile
+  }
+
+  package "CV Builder" #ECFDF5 {
+    usecase "Create CV" as UC_CreateCV
+    usecase "List CVs" as UC_ListCV
+    usecase "View CV" as UC_ViewCV
+    usecase "Update CV" as UC_UpdateCV
+    usecase "Delete CV" as UC_DeleteCV
+    usecase "View Available\nTemplates" as UC_ListTemplates
+    usecase "Select CV Template" as UC_SelectTemplate
+    usecase "Manage CV Sections" as UC_ManageSections
+    usecase "Manage Education, Experience, Skills,\nProjects, Languages, and Certificates" as UC_SectionTypes
+    usecase "Select CV Items" as UC_SelectItems
+    usecase "Reorder CV Sections" as UC_ReorderSections
+    usecase "Preview CV" as UC_PreviewCV
+    usecase "Print or Export CV" as UC_ExportCV
+  }
+
+  package "Chat and AI Assistant" #F5F3FF {
+    usecase "Create Chat" as UC_CreateChat
+    usecase "List Chats" as UC_ListChats
+    usecase "Open Chat" as UC_OpenChat
+    usecase "Delete Chat" as UC_DeleteChat
+    usecase "Delete All Chats" as UC_DeleteAllChats
+    usecase "Send Message" as UC_SendMessage
+    usecase "Process AI Request" as UC_ProcessAI
+    usecase "Interpret User Query" as UC_InterpretQuery
+    usecase "Invoke AI Provider" as UC_InvokeAI
+    usecase "Receive AI Response" as UC_ReceiveAI
+    usecase "Display Citations" as UC_DisplayCitations
+    usecase "Resolve Follow-Up\nQuestion" as UC_FollowUp
+    usecase "Ask for Clarification" as UC_Clarification
+    usecase "Maintain Conversation\nMemory" as UC_Memory
+    usecase "Generate Chat Title" as UC_ChatTitle
+  }
+
+  package "Graduate Knowledge" #FEFCE8 {
+    usecase "Search Graduate\nKnowledge" as UC_SearchGraduate
+    usecase "Retrieve Matching\nKnowledge" as UC_RetrieveKnowledge
+    usecase "Interpret Graduate\nQuery" as UC_InterpretGraduate
+    usecase "Generate Evidence-Based\nResponse" as UC_GenerateEvidenceResponse
+    usecase "Retrieve Programs and\nAcademic Structure" as UC_ProgramsAcademic
+    usecase "Retrieve and Analyze\nTuition" as UC_Tuition
+    usecase "Analyze Tuition\nValues" as UC_TuitionAnalysis
+    usecase "Retrieve Admissions, Documents,\nand Deadlines" as UC_Admissions
+    usecase "Retrieve Funding and\nAccreditation" as UC_FundingAccreditation
+    usecase "Retrieve University and\nCampus Locations" as UC_UniversityCampusLocations
+    usecase "Generate Source\nCitations" as UC_SourceCitations
+    usecase "Return No-Data\nResponse" as UC_NoData
+  }
+
+  package "Catalogue and University Map" #F0FDFA {
+    usecase "Search Skills" as UC_SearchSkills
+    usecase "Search Languages" as UC_SearchLanguages
+    usecase "Search Positions" as UC_SearchPositions
+    usecase "Search Universities" as UC_SearchUniversities
+    usecase "View University Map" as UC_ViewMap
+    usecase "Load Universities and\nCampuses" as UC_LoadCampuses
+    usecase "Validate Campus\nCoordinates" as UC_ValidateCoordinates
+    usecase "View Campus Markers" as UC_ViewMarkers
+    usecase "View Campus Details" as UC_CampusDetails
+  }
+
+  package "Feedback" #FFF7ED {
+    usecase "Submit Feedback" as UC_SubmitFeedback
+  }
+
+  package "Administration" #FFF1F2 {
+    usecase "View Administration\nDashboard" as UC_AdminDashboard
+    usecase "View System Health" as UC_SystemHealth
+    usecase "View Aggregate\nStatistics" as UC_Statistics
+    usecase "Search Users" as UC_SearchUsers
+    usecase "Inspect User Details" as UC_UserDetails
+    usecase "View User Personal\nInformation" as UC_AdminProfile
+    usecase "View User Feedback" as UC_AdminFeedback
+    usecase "Delete User" as UC_AdminDeleteUser
+    usecase "Delete Feedback" as UC_AdminDeleteFeedback
+    usecase "Change User Role" as UC_ChangeRole
+  }
+}
+
+' -----------------------------------------------------------------------------
+' Actor associations: direct user goals
+' -----------------------------------------------------------------------------
+visitor --> UC_Register
+visitor --> UC_CheckEmail
+visitor --> UC_CheckUsername
+visitor --> UC_VerifyEmail
+visitor --> UC_ResendVerification
+visitor --> UC_SignIn
+visitor --> UC_2FA
+visitor --> UC_RequestReset
+visitor --> UC_ResetPassword
+visitor --> UC_GoogleUrl
+
+user --> UC_SignOut
+user --> UC_ViewAccount
+user --> UC_UpdateAccount
+user --> UC_ChangePassword
+user --> UC_DeleteAccount
+user --> UC_ViewProfile
+user --> UC_UpdateProfile
+user --> UC_CompleteProfile
+
+user --> UC_CreateCV
+user --> UC_ListCV
+user --> UC_ViewCV
+user --> UC_UpdateCV
+user --> UC_DeleteCV
+user --> UC_SelectTemplate
+user --> UC_ManageSections
+user --> UC_SelectItems
+user --> UC_ReorderSections
+user --> UC_PreviewCV
+user --> UC_ExportCV
+
+user --> UC_CreateChat
+user --> UC_ListChats
+user --> UC_OpenChat
+user --> UC_DeleteChat
+user --> UC_DeleteAllChats
+user --> UC_SendMessage
+
+user --> UC_SearchGraduate
+user --> UC_SearchSkills
+user --> UC_SearchLanguages
+user --> UC_SearchPositions
+user --> UC_SearchUniversities
+user --> UC_ViewMap
+user --> UC_CampusDetails
+user --> UC_SubmitFeedback
+
+admin --> UC_AdminDashboard
+admin --> UC_SystemHealth
+admin --> UC_Statistics
+admin --> UC_SearchUsers
+admin --> UC_UserDetails
+admin --> UC_AdminProfile
+admin --> UC_AdminFeedback
+admin --> UC_AdminDeleteUser
+admin --> UC_AdminDeleteFeedback
+admin --> UC_ChangeRole
+
+' -----------------------------------------------------------------------------
+' Authentication and account relationships
+' -----------------------------------------------------------------------------
+UC_2FA .> UC_SignIn : <<extend>>
+UC_VerifyEmail .> UC_SignIn : <<extend>>
+UC_GoogleUrl --> google : authorization request
+UC_Register --> email : verification message
+UC_ResendVerification --> email : verification message
+UC_RequestReset --> email : reset message
+UC_2FA --> email : two-factor code
+UC_UpdateAccount .> UC_ProtectedRequest : <<include>>
+UC_DeleteAccount .> UC_ProtectedRequest : <<include>>
+UC_ChangePassword .> UC_ProtectedRequest : <<include>>
+UC_ViewProfile .> UC_ProtectedRequest : <<include>>
+UC_UpdateProfile .> UC_ProtectedRequest : <<include>>
+UC_ProfileStatus .> UC_ProtectedRequest : <<include>>
+UC_CompleteProfile .> UC_UpdateProfile : <<include>>
+
+' -----------------------------------------------------------------------------
+' CV Builder relationships
+' -----------------------------------------------------------------------------
+UC_CreateCV .> UC_ProtectedRequest : <<include>>
+UC_ListCV .> UC_ProtectedRequest : <<include>>
+UC_ViewCV .> UC_ProtectedRequest : <<include>>
+UC_UpdateCV .> UC_ProtectedRequest : <<include>>
+UC_DeleteCV .> UC_ProtectedRequest : <<include>>
+UC_ListTemplates .> UC_ProtectedRequest : <<include>>
+UC_SelectTemplate .> UC_ListTemplates : <<include>>
+UC_SectionTypes --|> UC_ManageSections
+UC_SelectItems .> UC_UpdateCV : <<include>>
+UC_ReorderSections .> UC_UpdateCV : <<include>>
+UC_PreviewCV .> UC_ViewCV : <<include>>
+UC_ExportCV .> UC_PreviewCV : <<include>>
+
+' -----------------------------------------------------------------------------
+' Chat and AI relationships
+' -----------------------------------------------------------------------------
+UC_CreateChat .> UC_ProtectedRequest : <<include>>
+UC_ListChats .> UC_ProtectedRequest : <<include>>
+UC_OpenChat .> UC_ListChats : <<include>>
+UC_DeleteChat .> UC_ProtectedRequest : <<include>>
+UC_DeleteAllChats .> UC_ProtectedRequest : <<include>>
+UC_SendMessage .> UC_ProcessAI : <<include>>
+UC_SendMessage .> UC_ProtectedRequest : <<include>>
+UC_ProcessAI .> UC_InterpretQuery : <<include>>
+UC_ProcessAI .> UC_InvokeAI : <<include>>
+UC_ProcessAI .> UC_ReceiveAI : <<include>>
+UC_DisplayCitations .> UC_ReceiveAI : <<extend>>
+UC_FollowUp .> UC_InterpretQuery : <<extend>>
+UC_Clarification .> UC_ProcessAI : <<extend>>
+UC_Memory .> UC_ProcessAI : <<extend>>
+UC_ChatTitle .> UC_SendMessage : <<extend>>
+UC_InvokeAI --> ai : provider request
+UC_Memory --> ai : memory update request
+UC_ChatTitle --> ai : title request
+
+' -----------------------------------------------------------------------------
+' Graduate knowledge relationships
+' -----------------------------------------------------------------------------
+UC_SearchGraduate .> UC_InterpretGraduate : <<include>>
+UC_SearchGraduate .> UC_RetrieveKnowledge : <<include>>
+UC_SearchGraduate .> UC_GenerateEvidenceResponse : <<include>>
+UC_ProgramsAcademic --|> UC_RetrieveKnowledge
+UC_Tuition --|> UC_RetrieveKnowledge
+UC_Admissions --|> UC_RetrieveKnowledge
+UC_FundingAccreditation --|> UC_RetrieveKnowledge
+UC_TuitionAnalysis .> UC_Tuition : <<extend>>
+UC_UniversityCampusLocations .> UC_RetrieveKnowledge : <<extend>>
+UC_SourceCitations .> UC_GenerateEvidenceResponse : <<include>>
+UC_NoData .> UC_RetrieveKnowledge : <<extend>>
+UC_Clarification .> UC_InterpretGraduate : <<extend>>
+UC_InterpretGraduate --> ai : interpretation request
+UC_GenerateEvidenceResponse --> ai : response request
+
+' -----------------------------------------------------------------------------
+' Catalogue and map relationships
+' -----------------------------------------------------------------------------
+UC_SearchSkills .> UC_ProtectedRequest : <<include>>
+UC_SearchLanguages .> UC_ProtectedRequest : <<include>>
+UC_SearchPositions .> UC_ProtectedRequest : <<include>>
+UC_SearchUniversities .> UC_ProtectedRequest : <<include>>
+UC_ViewMap .> UC_LoadCampuses : <<include>>
+UC_ViewMap .> UC_ViewMarkers : <<include>>
+UC_LoadCampuses .> UC_SearchUniversities : <<include>>
+UC_ViewMarkers .> UC_ValidateCoordinates : <<include>>
+UC_CampusDetails .> UC_ViewMarkers : <<extend>>
+
+' -----------------------------------------------------------------------------
+' Administration relationships
+' -----------------------------------------------------------------------------
+UC_AdminDashboard .> UC_ProtectedRequest : <<include>>
+UC_AdminDashboard .> UC_Statistics : <<include>>
+UC_AdminDashboard .> UC_SystemHealth : <<include>>
+UC_SearchUsers .> UC_ProtectedRequest : <<include>>
+UC_UserDetails .> UC_SearchUsers : <<include>>
+UC_AdminProfile .> UC_UserDetails : <<include>>
+UC_AdminFeedback .> UC_UserDetails : <<include>>
+UC_AdminDeleteFeedback .> UC_ProtectedRequest : <<include>>
+UC_AdminDeleteUser .> UC_ProtectedRequest : <<include>>
+UC_ChangeRole .> UC_ProtectedRequest : <<include>>
+
+note right of UC_GoogleUrl
+  Google authorization URL generation is implemented.
+  A complete OAuth callback/code-exchange flow is not confirmed.
+end note
+
+note right of UC_ExportCV
+  CV export is client-side print/PDF presentation.
+  No backend PDF-generation endpoint is implied.
+end note
+
+note right of UC_Memory
+  Memory, title generation, and provider selection
+  are configuration-dependent and rely on external AI providers.
+end note
+
+note right of UC_NoData
+  Graduate responses use stored knowledge and may return
+  clarification or no-data behavior when evidence is unavailable.
+end note
+
+legend right
+  |= notation |= meaning |
+  | solid association | actor participates in a user goal |
+  | ..> <<include>> | mandatory reused behavior |
+  | ..> <<extend>> | optional, conditional, or exceptional behavior |
+  | --|> | actor or use-case generalization |
+  | green actor | external notification service |
+  | orange actor | external OAuth or AI provider |
+endlegend
+
+@enduml

@@ -1,0 +1,74 @@
+@startuml
+title Graduate Knowledge Retrieval Flow
+skinparam shadowing false
+skinparam sequenceArrowThickness 1
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 120
+
+participant GraduateKnowledgeQueryInterpreter
+control GraduateKnowledgeResolutionSupport
+participant GraduateKnowledgeQuery
+participant GraduateKnowledgeRetrievalPort
+participant SqlGraduateKnowledgeRetrievalAdapter
+participant GraduateLocationRetrievalPort
+participant SqlGraduateLocationRetrievalAdapter
+control GraduateCitationEngine
+database PostgreSQL
+
+GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeQueryInterpreter : normalize message
+GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeResolutionSupport : detect resource/operation/scope
+GraduateKnowledgeResolutionSupport --> GraduateKnowledgeQueryInterpreter : structured signals
+GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeResolutionSupport : resolve university aliases/location
+GraduateKnowledgeResolutionSupport --> GraduateKnowledgeQueryInterpreter : resolved entities and filters
+GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeQuery : construct normalized query
+
+alt Ambiguous or unsupported query
+  GraduateKnowledgeQueryInterpreter --> GraduateKnowledgeRetrievalPort : no retrieval; clarification state
+else Location resource (CAMPUS or UNIVERSITY)
+  GraduateKnowledgeQueryInterpreter -> GraduateLocationRetrievalPort : retrieveContext(query)
+  GraduateLocationRetrievalPort -> SqlGraduateLocationRetrievalAdapter : choose location SQL
+  alt COUNT
+    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT COUNT(DISTINCT ...)
+  else EXISTS
+    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT EXISTS(...)
+    opt Matching evidence exists
+      SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT one bounded evidence row
+    end
+  else LIST
+    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT bounded campus/university rows
+  else COMPARE campus counts
+    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : GROUP BY university, COUNT(DISTINCT campus)
+  end
+  PostgreSQL --> SqlGraduateLocationRetrievalAdapter : rows or scalar result
+  SqlGraduateLocationRetrievalAdapter --> GraduateLocationRetrievalPort : structured location context
+  GraduateLocationRetrievalPort --> GraduateKnowledgeQueryInterpreter : retrieval result
+else Academic resource (PROGRAM/FACULTY/DEPARTMENT)
+  GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeRetrievalPort : retrieveContext(query)
+  GraduateKnowledgeRetrievalPort -> SqlGraduateKnowledgeRetrievalAdapter : academic SQL branch
+  alt Program list/details
+    SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : SELECT programs and requested projections
+  else Program count/exists
+    SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : COUNT(DISTINCT graduate_program)
+  else Faculty or department count/exists
+    SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : COUNT(DISTINCT academic entity)
+  end
+  PostgreSQL --> SqlGraduateKnowledgeRetrievalAdapter : academic rows/scalar
+  SqlGraduateKnowledgeRetrievalAdapter --> GraduateKnowledgeRetrievalPort : formatted academic context
+  GraduateKnowledgeRetrievalPort --> GraduateKnowledgeQueryInterpreter : retrieval result
+else Tuition aggregation
+  GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeRetrievalPort : retrieveContext(query)
+  GraduateKnowledgeRetrievalPort -> SqlGraduateKnowledgeRetrievalAdapter : tuition aggregation branch
+  SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : grouped tuition aggregate SQL
+  PostgreSQL --> SqlGraduateKnowledgeRetrievalAdapter : tuition aggregates and source URLs
+  SqlGraduateKnowledgeRetrievalAdapter --> GraduateKnowledgeRetrievalPort : tuition context
+  GraduateKnowledgeRetrievalPort --> GraduateKnowledgeQueryInterpreter : retrieval result
+end
+
+alt No data
+  GraduateCitationEngine -> GraduateCitationEngine : preserve explicit missing-data context
+else Citations available
+  GraduateCitationEngine -> GraduateCitationEngine : format citation instructions
+end
+GraduateKnowledgeQueryInterpreter --> GraduateCitationEngine : normalized query and retrieval result
+GraduateCitationEngine --> GraduateKnowledgeQueryInterpreter : formatted context/citation metadata
+@enduml

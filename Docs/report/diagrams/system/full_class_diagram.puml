@@ -1,0 +1,336 @@
+@startuml
+title uniAI — Implementation-Grounded Architectural Class Diagram
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam backgroundColor white
+skinparam classAttributeIconSize 0
+skinparam nodesep 18
+skinparam ranksep 22
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor white
+  BorderColor #586174
+  ArrowColor #586174
+}
+
+package "User and Authentication" #E8F1FB {
+  class AuthController <<controller>> {
+    +signUp()
+    +signIn()
+    +verify()
+  }
+  class UserController <<controller>> {
+    +getCurrentUser()
+    +updateUser()
+    +deleteUser()
+  }
+  class AuthApplicationService <<application service>> {
+    +signUp()
+    +signIn()
+    +verifyEmail()
+    +requestPasswordReset()
+  }
+  class UserApplicationService <<application service>> {
+    +getCurrentUser()
+    +updateUser()
+    +deleteUser()
+  }
+  class User <<domain model>> {
+    +id: Long
+    +username: String
+    +email: String
+    +role: UserRole
+    +isVerified: boolean
+  }
+  enum UserRole <<enum>> { USER; ADMIN }
+  interface UserRepository <<repository>> {
+    +findByEmail(email)
+    +save(user)
+    +delete(user)
+  }
+  interface VerifyCodeRepository <<repository>> { +findActiveCode(); +save(code) }
+  interface NotificationPort <<port>> { +sendVerificationEmail(); +sendPasswordResetEmail() }
+  class EmailNotificationAdapter <<adapter>> { +sendVerificationEmail(); +sendPasswordResetEmail() }
+}
+
+package "Profile and CV Builder" #EAF7F0 {
+  class PersonalInfoController <<controller>> { +getProfile(); +updateProfile() }
+  class CVController <<controller>> { +createCV(); +getCV(); +updateCV(); +deleteCV() }
+  class PersonalInfoApplicationService <<application service>> { +getPersonalInfo(); +updatePersonalInfo() }
+  class CVApplicationService <<application service>> { +createCV(); +updateCV(); +addEducation(); +addExperience(); +getCV() }
+  class CV <<entity>> {
+    +id: Long
+    +userId: Long
+    +cvName: String
+    +templateId: Long
+    +sectionsOrder: List<String>
+    +isDefault: boolean
+  }
+  class PersonalInfo <<entity>> {
+    +userId: Long
+    +phone: String
+    +summary: String
+    +jobTitle: String
+    +isFilled: Boolean
+  }
+  class CVTemplate <<entity>> { +id: Long; +name: String; +componentName: String; +isActive: boolean }
+  class Education <<entity>> { +id: Long; +cvId: Long; +degree: String; +fieldOfStudy: String; +startDate: LocalDate }
+  class Experience <<entity>> { +id: Long; +cvId: Long; +position: String; +company: String; +isCurrent: boolean }
+  class Skill <<entity>> { +id: Long; +cvId: Long; +name: String; +level: String; +order: Integer }
+  class Project <<entity>> { +id: Long; +cvId: Long; +name: String; +description: String; +technologies: List<String> }
+  class Language <<entity>> { +id: Long; +cvId: Long; +name: String; +proficiency: String }
+  class Certificate <<entity>> { +id: Long; +cvId: Long; +name: String; +issuer: String; +credentialUrl: String }
+  interface CVRepository <<repository>> { +findById(id); +findByUserId(userId); +save(cv); +delete(cv) }
+  interface PersonalInfoRepository <<repository>> { +findByUserId(userId); +save(info); +delete(info) }
+  interface CVTemplateRepository <<repository>> { +findActive(); +findById(id) }
+  class CVTemplateResolver <<policy>> { +resolve(templateId); +resolveDefault() }
+}
+
+package "Chat Application" #F0E9FA {
+  class ChatController <<controller>> { +createChat(); +sendMessage(); +getMessages(); +deleteChat() }
+  class ChatApplicationService <<application service>> { +createChat(); +sendMessage(); +getMessages(); +deleteChat() }
+  class Chat <<domain model>> {
+    +id: Long
+    +user: User
+    +title: String
+    +conversationMemory: ConversationMemory
+    +memoryVersion: Long
+  }
+  class Message <<domain model>> { +id: Long; +chat: Chat; +senderId: Long; +content: String; +timestamp: LocalDateTime }
+  interface ChatRepository <<repository>> { +findById(id); +findByUserId(userId); +save(chat); +delete(chat) }
+  interface MessageRepository <<repository>> { +findByChatId(chatId); +save(message); +deleteByChatId(chatId) }
+}
+
+package "AI Processing" #F2EAFB {
+  interface AiServicePort <<port>> { +generateResponse(request): AiResponse }
+  class GeminiAiServiceAdapter <<adapter>>
+  class GroqAiServiceAdapter <<adapter>>
+  class OllamaAiServiceAdapter <<adapter>>
+  class PlaceholderAiServiceAdapter <<adapter>>
+  class AiContextBudgetManager <<policy>> { +budget(request): AiContextBudgetResult }
+  class AiTokenEstimator <<policy>> { +estimateTokens(text); +estimateContextTokens(context) }
+  class AiContextBudgetResult <<record>> { +request; +requestFits; +contextTrimmed; +finalEstimatedInputTokens }
+  class GraduateKnowledgeQueryInterpreter <<application service>> { +interpret(message, history, catalog): GraduateKnowledgeQuery; +isHighConfidenceDeterministic() }
+  interface GraduateQueryInterpretationPort <<port>> { +interpret(request): GraduateQueryInterpretation }
+  class AiGraduateQueryInterpretationAdapter <<adapter>> { +interpret(request): GraduateQueryInterpretation }
+  class GraduateQueryInterpretationValidator <<policy>> { +validate(interpretation, catalog) }
+  class ConversationMemoryManager <<application service>> { +updateMemory(chat, request); +loadMemory(chat) }
+  class ConversationMemoryValidator <<policy>> { +validate(memory) }
+  class ConversationMemoryMergePolicy <<policy>> { +merge(previous, patch, query, contextPolicy) }
+  interface ConversationMemoryUpdatePort <<port>> { +update(request): ConversationMemoryPatch }
+  class AiConversationMemoryUpdateAdapter <<adapter>>
+  class ChatTitleGenerationManager <<application service>> { +generateTitle(chat, message) }
+  interface AiProviderStatusPort <<port>> { +getStatus(provider); +recordFailure() }
+  enum AiProviderFailureCategory <<enum>> { NONE; TIMEOUT; RATE_LIMITED; INVALID_RESPONSE; UNKNOWN }
+}
+
+package "Graduate Knowledge" #FFF6D8 {
+  class GraduateKnowledgeQuery <<record>> {
+    +resource: GraduateKnowledgeResource
+    +operation: GraduateKnowledgeOperation
+    +scope: GraduateKnowledgeScope
+    +filters: GraduateKnowledgeFilters
+    +aggregation: GraduateKnowledgeAggregation
+    +limit: Integer
+  }
+  class GraduateKnowledgeFilters <<record>> { +universities; +degreeTypes; +city; +facultyName; +departmentName }
+  class GraduateKnowledgeAggregation <<record>> { +function; +field }
+  enum GraduateKnowledgeIntent <<enum>> { PROGRAM_LOOKUP; TUITION_AGGREGATION; LOCATION_LOOKUP; ACADEMIC_STRUCTURE_LOOKUP; GRADUATE_OVERVIEW; UNKNOWN_OR_AMBIGUOUS }
+  enum GraduateKnowledgeResource <<enum>> { PROGRAM; CAMPUS; UNIVERSITY; FACULTY; DEPARTMENT; GRADUATE_OVERVIEW }
+  enum GraduateKnowledgeOperation <<enum>> { LIST; DETAILS; COUNT; EXISTS; AGGREGATE; COMPARE; OVERVIEW }
+  enum GraduateKnowledgeScope <<enum>> { GENERAL; UNIVERSITY; CAMPUS; PROGRAM; FACULTY; DEPARTMENT; GRADUATE_OVERVIEW }
+  interface GraduateKnowledgeRetrievalPort <<port>> { +retrieveContext(query): GraduateKnowledgeRetrievalResult }
+  interface GraduateLocationRetrievalPort <<port>> { +retrieveContext(query): GraduateKnowledgeRetrievalResult }
+  class SqlGraduateKnowledgeRetrievalAdapter <<adapter>> { +retrieveContext(query) }
+  class SqlGraduateLocationRetrievalAdapter <<adapter>> { +retrieveContext(query) }
+  class GraduateFollowUpResolver <<policy>> { +resolve(candidate, history, memory) }
+  class GraduateKnowledgeResolutionSupport <<policy>> { +resolveUniversities(); +detectCity(); +analyzeHistorySignals() }
+  class GraduateCitationEngine <<policy>> { +appendCitationInstructions(prompt, citations) }
+  class GraduateKnowledgeRetrievalResult <<record>> { +formattedContext; +citations }
+}
+
+package "Catalogue and Map" #E3F6F4 {
+  class CatalogController <<controller>> { +getUniversities(); +getLanguages(); +getSkills() }
+  class CatalogQueryService <<application service>> { +getUniversities(); +getLanguages(); +getSkills() }
+  class UniversityCatalog <<entity>> { +id: Long; +name: String; +acronym: String; +country: String; +campuses: List<CampusCatalog> }
+  class CampusCatalog <<entity>> { +id: Long; +universityId: Long; +name: String; +city: String; +campusType: String; +latitude: BigDecimal; +longitude: BigDecimal }
+  interface UniversityCatalogRepository <<repository>> { +findAll(); +searchByName(search) }
+}
+
+package "Feedback and Administration" #FBE8EE {
+  class FeedbackController <<controller>> { +submitFeedback() }
+  class FeedbackApplicationService <<application service>> { +submitFeedback(); +getFeedback() }
+  class Feedback <<entity>> { +id: Long; +userId: Long; +content: String; +rating: Integer }
+  interface FeedbackRepository <<repository>> { +save(feedback); +findAll() }
+  class AdminController <<controller>> { +getOverview(); +searchUsers(); +updateRole(); +deleteUser() }
+  class AdminApplicationService <<application service>> { +getOverview(); +searchUsers(); +updateRole(); +deleteUser() }
+}
+
+package "Infrastructure and Security" #EEEEEE {
+  class SecurityConfig <<configuration>>
+  class JwtFilter <<adapter>>
+  class GlobalExceptionHandler <<controller>>
+  class JwtFacade <<adapter>> { +generateToken(); +validateToken() }
+}
+
+package "Frontend Integration" #FFF0DD {
+  class AuthContext <<context>> { +user; +signIn(); +signOut() }
+  class "api.ts" as api <<frontend service>> { +get(); +post(); +put(); +delete() }
+  class ProtectedRoute <<page>>
+  class useChat <<hook>> { +messages; +sendMessage(); +loadHistory() }
+  class "chat.ts" as chatService <<frontend service>> { +sendMessage(); +getMessages(); +deleteChat() }
+  class CVBuilderPage <<page>>
+  class useCVBuilderController <<hook>> { +loadCV(); +saveCV(); +exportCV() }
+  class "cv.ts" as cvService <<frontend service>> { +getCV(); +updateCV(); +exportCV() }
+  class MapPage <<page>>
+  class useMapUniversities <<hook>> { +universities; +loadUniversities() }
+  class AdminDashboardPage <<page>>
+  class "admin.ts" as adminService <<frontend service>> { +getOverview(); +searchUsers(); +updateRole() }
+}
+
+' Interface realizations
+EmailNotificationAdapter ..|> NotificationPort
+GeminiAiServiceAdapter ..|> AiServicePort
+GroqAiServiceAdapter ..|> AiServicePort
+OllamaAiServiceAdapter ..|> AiServicePort
+PlaceholderAiServiceAdapter ..|> AiServicePort
+AiGraduateQueryInterpretationAdapter ..|> GraduateQueryInterpretationPort
+AiConversationMemoryUpdateAdapter ..|> ConversationMemoryUpdatePort
+SqlGraduateKnowledgeRetrievalAdapter ..|> GraduateKnowledgeRetrievalPort
+SqlGraduateLocationRetrievalAdapter ..|> GraduateLocationRetrievalPort
+
+' Controller -> application service boundaries
+AuthController ..> AuthApplicationService : uses
+UserController ..> UserApplicationService : uses
+PersonalInfoController ..> PersonalInfoApplicationService : uses
+CVController ..> CVApplicationService : uses
+ChatController ..> ChatApplicationService : uses
+CatalogController ..> CatalogQueryService : uses
+FeedbackController ..> FeedbackApplicationService : uses
+AdminController ..> AdminApplicationService : uses
+
+' Application service dependencies
+AuthApplicationService ..> UserRepository : uses
+AuthApplicationService ..> VerifyCodeRepository : uses
+AuthApplicationService ..> NotificationPort : uses
+UserApplicationService ..> UserRepository : uses
+PersonalInfoApplicationService ..> PersonalInfoRepository : uses
+CVApplicationService ..> CVRepository : uses
+CVApplicationService ..> CVTemplateResolver : uses
+CVTemplateResolver ..> CVTemplateRepository : uses
+ChatApplicationService ..> ChatRepository : uses
+ChatApplicationService ..> MessageRepository : uses
+ChatApplicationService ..> AiServicePort : uses
+ChatApplicationService ..> GraduateKnowledgeQueryInterpreter : uses
+ChatApplicationService ..> GraduateKnowledgeRetrievalPort : routes
+ChatApplicationService ..> GraduateLocationRetrievalPort : routes
+ChatApplicationService ..> GraduateCitationEngine : uses
+ChatApplicationService ..> AiContextBudgetManager : uses
+ChatApplicationService ..> ConversationMemoryManager : uses
+ChatApplicationService ..> ChatTitleGenerationManager : uses
+CatalogQueryService ..> UniversityCatalogRepository : uses
+FeedbackApplicationService ..> FeedbackRepository : uses
+AdminApplicationService ..> UserRepository : reads
+AdminApplicationService ..> FeedbackRepository : reads
+AdminApplicationService ..> ChatRepository : reads
+
+' AI processing dependencies
+AiContextBudgetManager ..> AiTokenEstimator : collaborates
+GraduateKnowledgeQueryInterpreter ..> GraduateKnowledgeResolutionSupport : uses
+AiGraduateQueryInterpretationAdapter ..> AiServicePort : uses
+AiGraduateQueryInterpretationAdapter ..> GraduateQueryInterpretationValidator : normalized by
+ConversationMemoryManager ..> ConversationMemoryUpdatePort : uses
+ConversationMemoryManager ..> ConversationMemoryValidator : uses
+ConversationMemoryManager ..> ConversationMemoryMergePolicy : uses
+AiConversationMemoryUpdateAdapter ..> AiServicePort : uses
+ChatTitleGenerationManager ..> AiServicePort : uses
+
+' Graduate retrieval flow
+GraduateKnowledgeQueryInterpreter ..> GraduateKnowledgeQuery : produces
+GraduateKnowledgeQuery ..> GraduateKnowledgeIntent
+GraduateKnowledgeQuery ..> GraduateKnowledgeResource
+GraduateKnowledgeQuery ..> GraduateKnowledgeOperation
+GraduateKnowledgeQuery ..> GraduateKnowledgeScope
+GraduateKnowledgeQuery ..> GraduateKnowledgeFilters
+GraduateKnowledgeQuery ..> GraduateKnowledgeAggregation
+GraduateFollowUpResolver ..> GraduateKnowledgeQuery : patches
+GraduateFollowUpResolver ..> GraduateKnowledgeResolutionSupport : uses
+
+' Domain associations and ownership
+User "1" --> "0..*" Chat : owns
+Chat "1" *-- "0..*" Message : contains
+User "1" --> "0..1" PersonalInfo : profile
+User "1" --> "0..*" CV : owns
+CV "1" o-- "0..*" Education : cvId
+CV "1" o-- "0..*" Experience : cvId
+CV "1" o-- "0..*" Skill : cvId
+CV "1" o-- "0..*" Project : cvId
+CV "1" o-- "0..*" Language : cvId
+CV "1" o-- "0..*" Certificate : cvId
+CV "0..*" --> "0..1" CVTemplate : templateId
+UniversityCatalog "1" o-- "0..*" CampusCatalog : campuses
+User "1" --> "0..*" Feedback : userId
+User --> UserRole : role
+
+' Security and external boundaries
+SecurityConfig ..> JwtFilter : configures
+JwtFilter ..> JwtFacade : validates
+AuthApplicationService ..> JwtFacade : uses
+GlobalExceptionHandler ..> AuthController : handles errors
+GlobalExceptionHandler ..> ChatController : handles errors
+
+' Frontend dependencies
+AuthContext ..> api : REST/JSON
+ProtectedRoute ..> AuthContext : checks
+useChat ..> chatService : uses
+chatService ..> api : REST/JSON
+CVBuilderPage ..> useCVBuilderController : uses
+useCVBuilderController ..> cvService : uses
+cvService ..> api : REST/JSON
+MapPage ..> useMapUniversities : uses
+useMapUniversities ..> api : REST/JSON
+AdminDashboardPage ..> adminService : uses
+adminService ..> api : REST/JSON
+api ..> AuthController : HTTP/JSON
+api ..> ChatController : HTTP/JSON
+api ..> CVController : HTTP/JSON
+api ..> CatalogController : HTTP/JSON
+api ..> AdminController : HTTP/JSON
+api ..> FeedbackController : HTTP/JSON
+
+note right of AiServicePort
+  Gemini, Groq and Ollama are external services.
+  Their HTTP clients are represented by internal adapters.
+end note
+
+note bottom of GraduateKnowledgeQuery
+  Core and graduate-knowledge records share PostgreSQL,
+  but database tables are intentionally not modeled here.
+end note
+
+note bottom of ChatApplicationService
+  Hexagonal direction: controllers use application services;
+  services depend on ports; infrastructure implements ports.
+end note
+
+note bottom of api
+  React pages and hooks call backend controllers through REST/JSON.
+end note
+
+legend left
+  |= Symbol |= Meaning |
+  | <<controller>> | HTTP boundary |
+  | <<application service>> | use-case orchestration |
+  | <<port>> | application-facing interface |
+  | <<adapter>> | infrastructure implementation |
+  | <<domain model>> / <<entity>> | business or persistence model |
+  | ..|> | interface realization |
+  | ..> | dependency |
+  | --> | association |
+  | o-- | aggregation |
+  | *-- | composition |
+  | "1", "0..*" | multiplicity |
+endlegend
+@enduml

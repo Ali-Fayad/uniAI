@@ -1,0 +1,81 @@
+@startuml
+title CV Builder Workflow
+skinparam shadowing false
+skinparam sequenceArrowThickness 1
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 120
+
+actor User
+boundary CVBuilderPage
+control useCVBuilderController
+participant cvService
+boundary CVController
+control ProfileCompletionInterceptor
+control CVApplicationService
+participant CVTemplateResolver
+entity CVRepository
+entity PersonalInfoRepository
+database PostgreSQL
+
+User -> CVBuilderPage : open CV builder / select CV
+CVBuilderPage -> useCVBuilderController : load(cvId)
+useCVBuilderController -> cvService : getCV(cvId)
+cvService -> CVController : GET /api/cv/{id}
+CVController -> ProfileCompletionInterceptor : pre-handle request
+alt Profile incomplete
+  ProfileCompletionInterceptor -> PersonalInfoRepository : findByUserId(userId)
+  PersonalInfoRepository -> PostgreSQL : SELECT personal_info
+  PostgreSQL --> PersonalInfoRepository : missing/incomplete profile
+  ProfileCompletionInterceptor --> CVController : redirect/deny to personal info
+  CVController --> cvService : profile completion response
+  cvService --> useCVBuilderController : redirect state
+  useCVBuilderController --> CVBuilderPage : show profile-completion prompt
+else Profile complete
+  CVController -> CVApplicationService : getCV(email, cvId)
+  CVApplicationService -> CVRepository : findByUserId / find CV
+  CVRepository -> PostgreSQL : SELECT cv
+  PostgreSQL --> CVRepository : CV
+  CVApplicationService -> PersonalInfoRepository : findByUserId(userId)
+  PersonalInfoRepository -> PostgreSQL : SELECT personal_info
+  PostgreSQL --> PersonalInfoRepository : personal info
+  CVApplicationService --> CVController : CV response
+  CVController --> cvService : JSON CV
+  cvService --> useCVBuilderController : CV state
+  useCVBuilderController --> CVBuilderPage : render sections/template
+end
+
+opt Create or change template
+  CVBuilderPage -> useCVBuilderController : create/update CV
+  useCVBuilderController -> cvService : createCV()/updateCV(command)
+  cvService -> CVController : POST/PUT /api/cv
+  CVController -> CVApplicationService : createCV()/updateCV()
+  CVApplicationService -> CVTemplateResolver : resolve template
+  CVTemplateResolver -> PostgreSQL : SELECT active template
+  PostgreSQL --> CVTemplateResolver : CVTemplate
+  CVApplicationService -> CVRepository : save CV/template/section order
+  CVRepository -> PostgreSQL : INSERT/UPDATE cvs
+  PostgreSQL --> CVRepository : persisted CV
+  CVApplicationService --> CVController : CV response
+  CVController --> cvService : JSON response
+  cvService --> useCVBuilderController : update local state
+end
+
+opt Edit a CV section
+  CVBuilderPage -> useCVBuilderController : edit education/experience/skill/project/language/certificate
+  useCVBuilderController -> cvService : add/update section
+  cvService -> CVController : section endpoint
+  CVController -> CVApplicationService : add/update section
+  CVApplicationService -> PostgreSQL : INSERT/UPDATE section row
+  PostgreSQL --> CVApplicationService : saved section
+  CVApplicationService --> CVController : section response
+  CVController --> cvService : JSON section
+  cvService --> useCVBuilderController : merge section state
+end
+
+opt Preview or print/export
+  User -> CVBuilderPage : preview / print
+  CVBuilderPage -> useCVBuilderController : select preview template
+  useCVBuilderController --> CVBuilderPage : rendered CV view
+  CVBuilderPage --> User : browser print/export surface
+end
+@enduml
