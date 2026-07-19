@@ -9,6 +9,8 @@ services:
   postgres:
     image: postgres:17-alpine
     container_name: uniai_postgres
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-uniai}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
