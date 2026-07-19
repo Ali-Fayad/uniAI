@@ -21,7 +21,10 @@ import LoadingSpinner from "../../common/LoadingSpinner";
 import { SectionItemSelector } from "./SectionItemSelector";
 import { AddItemModal } from "./AddItemModal";
 import CVExportSurface from "./CVExportSurface";
-import { getTemplateComponent, getTemplatePreviewConfig } from "./templates/templateRegistry";
+import {
+  getTemplateComponent,
+  getTemplatePreviewConfig,
+} from "./templates/templateRegistry";
 import { CV_SECTION_OPTIONS } from "./cvBuilderSections";
 import type { UseCVBuilderControllerReturn } from "./useCVBuilderController";
 import type { CVSectionKey } from "../../../types/dto";
@@ -79,7 +82,12 @@ const SortableSectionItem = ({
 
 const TemplateCardPreview = ({ config }: { config: TemplatePreviewConfig }) => {
   const { palette, layout } = config;
-  const sidebarWidth = layout === "sidebar" ? "34%" : layout === "academic" || layout === "executive" ? "24%" : "0";
+  const sidebarWidth =
+    layout === "sidebar"
+      ? "34%"
+      : layout === "academic" || layout === "executive"
+        ? "24%"
+        : "0";
 
   return (
     <div
@@ -92,21 +100,63 @@ const TemplateCardPreview = ({ config }: { config: TemplatePreviewConfig }) => {
             className="h-full rounded-sm p-1"
             style={{
               width: sidebarWidth,
-              backgroundColor: layout === "sidebar" ? palette.sidebar ?? palette.accent : palette.accentSoft,
+              backgroundColor:
+                layout === "sidebar"
+                  ? (palette.sidebar ?? palette.accent)
+                  : palette.accentSoft,
             }}
           >
-            <div className="mb-1 h-1.5 rounded-sm" style={{ backgroundColor: layout === "sidebar" ? palette.sidebarInk : palette.accent }} />
-            <div className="h-1 w-2/3 rounded-sm" style={{ backgroundColor: layout === "sidebar" ? palette.sidebarInk : palette.muted, opacity: 0.75 }} />
+            <div
+              className="mb-1 h-1.5 rounded-sm"
+              style={{
+                backgroundColor:
+                  layout === "sidebar" ? palette.sidebarInk : palette.accent,
+              }}
+            />
+            <div
+              className="h-1 w-2/3 rounded-sm"
+              style={{
+                backgroundColor:
+                  layout === "sidebar" ? palette.sidebarInk : palette.muted,
+                opacity: 0.75,
+              }}
+            />
           </div>
         )}
         <div className="min-w-0 flex-1">
-          <div className="h-2.5 w-3/5 rounded-sm" style={{ backgroundColor: palette.ink }} />
-          <div className="mt-1 h-1.5 w-2/5 rounded-sm" style={{ backgroundColor: palette.accent }} />
-          <div className="mt-2 h-px w-full" style={{ backgroundColor: palette.rule }} />
-          <div className={layout === "compact" || layout === "technical" ? "mt-2 grid grid-cols-2 gap-1" : "mt-2 space-y-1.5"}>
-            <div className="h-1.5 rounded-sm" style={{ backgroundColor: palette.muted, opacity: 0.55 }} />
-            <div className="h-1.5 rounded-sm" style={{ backgroundColor: palette.muted, opacity: 0.45 }} />
-            {layout !== "compact" && <div className="h-1.5 w-4/5 rounded-sm" style={{ backgroundColor: palette.muted, opacity: 0.35 }} />}
+          <div
+            className="h-2.5 w-3/5 rounded-sm"
+            style={{ backgroundColor: palette.ink }}
+          />
+          <div
+            className="mt-1 h-1.5 w-2/5 rounded-sm"
+            style={{ backgroundColor: palette.accent }}
+          />
+          <div
+            className="mt-2 h-px w-full"
+            style={{ backgroundColor: palette.rule }}
+          />
+          <div
+            className={
+              layout === "compact" || layout === "technical"
+                ? "mt-2 grid grid-cols-2 gap-1"
+                : "mt-2 space-y-1.5"
+            }
+          >
+            <div
+              className="h-1.5 rounded-sm"
+              style={{ backgroundColor: palette.muted, opacity: 0.55 }}
+            />
+            <div
+              className="h-1.5 rounded-sm"
+              style={{ backgroundColor: palette.muted, opacity: 0.45 }}
+            />
+            {layout !== "compact" && (
+              <div
+                className="h-1.5 w-4/5 rounded-sm"
+                style={{ backgroundColor: palette.muted, opacity: 0.35 }}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -231,22 +281,29 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
             </p>
 
             <div className="mt-4 flex-1 overflow-x-auto pb-4 print:m-0 print:overflow-visible print:pb-0">
-              <div className="mx-auto bg-[var(--color-surface)] rounded-lg shadow-md print:shadow-none cv-a4-preview-container print:rounded-none print:bg-white">
-                <Suspense
-                  fallback={
-                    <div className="p-4 text-sm text-[var(--color-textSecondary)] print:hidden">
-                      Loading template preview...
-                    </div>
-                  }
-                >
-                  {createElement(getTemplateComponent(controller.selectedTemplateComponentName), {
-                    personalInfo: controller.personalInfo,
-                    displayName: controller.displayName,
-                    sectionOrder: controller.selectedSectionsOrder,
-                    selectedItems: controller.selectedItems,
-                    itemsOrder: controller.itemsOrder,
-                  })}
-                </Suspense>
+              <div className="cv-a4-preview-viewport">
+                <div className="mx-auto bg-[var(--color-surface)] rounded-lg shadow-md print:shadow-none cv-a4-preview-container print:rounded-none print:bg-white">
+                  <Suspense
+                    fallback={
+                      <div className="p-4 text-sm text-[var(--color-textSecondary)] print:hidden">
+                        Loading template preview...
+                      </div>
+                    }
+                  >
+                    {createElement(
+                      getTemplateComponent(
+                        controller.selectedTemplateComponentName,
+                      ),
+                      {
+                        personalInfo: controller.personalInfo,
+                        displayName: controller.displayName,
+                        sectionOrder: controller.selectedSectionsOrder,
+                        selectedItems: controller.selectedItems,
+                        itemsOrder: controller.itemsOrder,
+                      },
+                    )}
+                  </Suspense>
+                </div>
               </div>
             </div>
           </section>
@@ -262,7 +319,9 @@ const CVBuilderPageShell = ({ controller }: CVBuilderPageShellProps) => {
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1">
               {controller.templates.map((template) => {
                 const selected = template.id === controller.selectedTemplateId;
-                const previewConfig = getTemplatePreviewConfig(template.componentName);
+                const previewConfig = getTemplatePreviewConfig(
+                  template.componentName,
+                );
 
                 return (
                   <button

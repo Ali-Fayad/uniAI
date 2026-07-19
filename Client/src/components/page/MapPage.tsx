@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import { useTheme } from "@/hooks/useTheme";
 import "leaflet/dist/leaflet.css";
@@ -25,8 +25,34 @@ const MapPage = () => {
     error,
   } = useMap();
 
+  /*
+   * The `universities` array contains one item per campus because each campus
+   * needs its own map marker.
+   *
+   * The sidebar, however, should show each university only once.
+   * The first campus is kept as the representative item for that university.
+   */
+  const sidebarUniversities = useMemo(() => {
+    const uniqueUniversities = new Map<
+      number,
+      (typeof universities)[number]
+    >();
+
+    universities.forEach((university) => {
+      if (!uniqueUniversities.has(university.universityId)) {
+        uniqueUniversities.set(
+          university.universityId,
+          university,
+        );
+      }
+    });
+
+    return Array.from(uniqueUniversities.values());
+  }, [universities]);
+
   useEffect(() => {
     const mapContainer = document.querySelector(".leaflet-container");
+
     if (mapContainer) {
       if (themeName === "dark") {
         mapContainer.classList.add("dark-mode-map");
@@ -47,8 +73,8 @@ const MapPage = () => {
       : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
   return (
-    <div className="relative h-[calc(100vh-64px)] w-full bg-[var(--color-background)] overflow-hidden">
-      {/* Fullscreen Map as background */}
+    <div className="relative h-[calc(100vh-64px)] w-full overflow-hidden bg-[var(--color-background)]">
+      {/* Fullscreen map */}
       <div className="absolute inset-0 z-0">
         <MapContainer
           center={center}
@@ -57,61 +83,84 @@ const MapPage = () => {
           style={{ height: "100%", width: "100%" }}
         >
           <TileLayer attribution={attribution} url={tileLayerUrl} />
-          {!isLoading && !error && universities.map((u) => (
-            <CircleMarker
-              key={`${u.universityId}-${u.campusId}`}
-              center={u.coordinates}
-              radius={10}
-              pathOptions={{
-                color: u.color,
-                fillColor: u.color,
-                fillOpacity: 0.9,
-              }}
-              eventHandlers={{
-                click: () => {
-                  setSelected(u);
-                  openSidebar();
-                },
-              }}
-            >
-              <Popup>
-                <div className="max-w-xs">
-                  <h3 className="font-bold">{u.name}</h3>
-                  <p className="text-sm">{u.campusName}</p>
-                  <p className="text-sm">{formatLocation(u)}</p>
-                </div>
-              </Popup>
-            </CircleMarker>
-          ))}
+
+          {!isLoading &&
+            !error &&
+            universities.map((university) => (
+              <CircleMarker
+                key={`${university.universityId}-${university.campusId}`}
+                center={university.coordinates}
+                radius={10}
+                pathOptions={{
+                  color: university.color,
+                  fillColor: university.color,
+                  fillOpacity: 0.9,
+                }}
+                eventHandlers={{
+                  click: () => {
+                    setSelected(university);
+                    openSidebar();
+                  },
+                }}
+              >
+                <Popup>
+                  <div className="max-w-xs">
+                    <h3 className="font-bold">
+                      {university.name}
+                    </h3>
+
+                    <p className="text-sm">
+                      {university.campusName}
+                    </p>
+
+                    <p className="text-sm">
+                      {formatLocation(university)}
+                    </p>
+                  </div>
+                </Popup>
+              </CircleMarker>
+            ))}
         </MapContainer>
       </div>
 
-      {(isLoading || error || (!universities.length && !isLoading)) && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+      {(isLoading ||
+        error ||
+        (!universities.length && !isLoading)) && (
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
           <div className="pointer-events-auto rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/95 px-6 py-5 text-center shadow-lg">
-            {isLoading && <LoadingSpinner text="Loading universities..." />}
-            {!isLoading && error && (
-              <p className="text-sm text-[var(--color-error)]">{error}</p>
+            {isLoading && (
+              <LoadingSpinner text="Loading universities..." />
             )}
-            {!isLoading && !error && !universities.length && (
-              <p className="text-sm text-[var(--color-textSecondary)]">
-                No university campuses with map coordinates are available.
+
+            {!isLoading && error && (
+              <p className="text-sm text-[var(--color-error)]">
+                {error}
               </p>
             )}
+
+            {!isLoading &&
+              !error &&
+              !universities.length && (
+                <p className="text-sm text-[var(--color-textSecondary)]">
+                  No university campuses with map coordinates are
+                  available.
+                </p>
+              )}
           </div>
         </div>
       )}
 
-      {/* Floating sidebar toggle (top-right) */}
-      <div className="fixed z-50 top-6 right-6">
+      {/* Floating sidebar toggle */}
+      <div className="fixed right-6 top-6 z-50">
         <button
+          type="button"
           aria-label={
             isSidebarOpen
               ? "Close universities sidebar"
               : "Open universities sidebar"
           }
           onClick={toggleSidebar}
-          className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-[var(--color-primary)] text-[var(--color-background)] border border-[var(--color-border)] shadow-lg hover:shadow-xl"
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-primary)] text-[var(--color-background)] shadow-lg hover:shadow-xl"
         >
           {isSidebarOpen ? (
             <svg
@@ -139,73 +188,82 @@ const MapPage = () => {
         </button>
       </div>
 
-      {/* Header removed by request: Map is full background and controls are overlaid */}
-
-      {/* Sidebar (right) */}
+      {/* Universities sidebar */}
       <aside
-        className={`fixed top-0 right-0 h-full z-20 transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        } w-full sm:w-96`}
+        className={`fixed right-0 top-0 z-20 h-full w-full transform transition-transform duration-300 ease-in-out sm:w-96 ${
+          isSidebarOpen
+            ? "translate-x-0"
+            : "translate-x-full"
+        }`}
         style={{
           background: "var(--color-surface)",
           borderLeft: "1px solid var(--color-border)",
         }}
       >
-        <div className="p-4 h-full flex flex-col">
-          <div className="flex items-center justify-between mb-4">
+        <div className="flex h-full flex-col p-4">
+          <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-[var(--color-textPrimary)]">
               Universities
             </h2>
+
             <button
+              type="button"
               onClick={closeSidebar}
               aria-label="Close universities sidebar"
-              className="inline-flex items-center justify-center h-8 w-8 rounded bg-transparent text-[var(--color-textSecondary)] hover:bg-[var(--color-elevatedSurface)]"
-            />
+              className="inline-flex h-8 w-8 items-center justify-center rounded bg-transparent text-[var(--color-textSecondary)] hover:bg-[var(--color-elevatedSurface)]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
           </div>
 
-          <div className="overflow-auto flex-1 space-y-3">
-            {universities.map((u) => (
+          <div className="flex-1 space-y-3 overflow-auto">
+            {sidebarUniversities.map((university) => (
               <div
-                key={`${u.universityId}-${u.campusId}`}
+                key={university.universityId}
                 onClick={() => {
-                  setSelected(u);
+                  setSelected(university);
                 }}
-                className={`p-3 rounded-lg border border-[var(--color-border)] hover:shadow-md cursor-pointer flex items-start gap-3 ${
-                  selected?.id === u.id
+                className={`flex cursor-pointer items-start gap-3 rounded-lg border border-[var(--color-border)] p-3 hover:shadow-md ${
+                  selected?.universityId ===
+                  university.universityId
                     ? "ring-2 ring-[var(--color-primary)]"
                     : ""
                 }`}
               >
                 <div
+                  className="mt-1.5 h-3 w-3 shrink-0 rounded-full"
                   style={{
-                    width: 12,
-                    height: 12,
-                    background: u.color,
-                    borderRadius: 6,
-                    marginTop: 6,
+                    background: university.color,
                   }}
                 />
-                <div>
+
+                <div className="min-w-0">
                   <h3 className="font-medium text-[var(--color-textPrimary)]">
-                    {u.name}
+                    {university.name}
                   </h3>
-                  {u.acronym && (
+
+                  {university.acronym && (
                     <p className="text-sm text-[var(--color-textSecondary)]">
-                      {u.acronym}
+                      {university.acronym}
                     </p>
                   )}
-                  {u.nameAr && (
+
+                  {university.nameAr && (
                     <p className="text-sm text-[var(--color-textSecondary)]">
-                      {u.nameAr}
+                      {university.nameAr}
                     </p>
                   )}
-                  <p className="text-sm text-[var(--color-textSecondary)]">
-                    {u.campusName}
-                    {u.campusType ? ` · ${u.campusType}` : ''}
-                  </p>
-                  <p className="text-sm text-[var(--color-textSecondary)]">
-                    {formatLocation(u)}
-                  </p>
                 </div>
               </div>
             ))}
@@ -213,22 +271,24 @@ const MapPage = () => {
         </div>
       </aside>
 
-      {/* Floating back to menu button */}
-      <div className="fixed z-30 bottom-6 right-6">
+      {/* Floating back-to-menu button */}
+      <div className="fixed bottom-6 right-6 z-30">
         <button
+          type="button"
           onClick={() => navigate(ROUTES.HOME)}
-          className="inline-flex items-center justify-center h-12 px-4 rounded-full bg-[var(--color-primary)] text-[var(--color-background)] shadow-lg hover:shadow-xl"
+          className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-primary)] px-4 text-[var(--color-background)] shadow-lg hover:shadow-xl"
         >
           Back to Menu
         </button>
       </div>
 
-      {/* Dark mode styles for Leaflet controls and popup tweaks */}
+      {/* Dark-mode styles for Leaflet */}
       <style>{`
         .dark-mode-map .leaflet-control-attribution {
           background-color: rgba(0, 0, 0, 0.6) !important;
           color: #fff !important;
         }
+
         .dark-mode-map .leaflet-popup-content-wrapper {
           background-color: #222 !important;
           color: #eee !important;

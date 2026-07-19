@@ -1,48 +1,73 @@
 /* Print styles for CV Builder A4 generation */
 
-/* CV Preview Container (Screen & Print) */
+/*
+ * CV Preview Container
+ *
+ * `zoom` affects only the on-screen live preview.
+ * Change 0.72 to control its size:
+ * - 0.65 = smaller
+ * - 0.72 = recommended
+ * - 0.80 = larger
+ * - 1.00 = full A4 size
+ */
 .cv-a4-preview-container {
   width: 210mm;
   min-height: 297mm;
   padding: 0;
   margin: 0 auto;
+  zoom: 0.72;
 }
 
 .cv-a4-preview-container > article {
-  max-width: none !important;
   width: 100% !important;
+  max-width: none !important;
   margin: 0 !important;
 }
 
 @media print {
-  /* Set A4 paper size and reset margins to allow browser to handle pages smoothly */
+  /* Generate the document using the real A4 dimensions. */
   @page {
     size: A4;
     margin: 0;
   }
 
+  html,
   body {
-    background: white !important;
-    color: black !important;
+    width: 210mm;
+    min-height: 297mm;
     margin: 0 !important;
     padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  /* Reset Next.js/React wrapper backgrounds */
-  #root,
-  .print-page-wrapper {
     background: white !important;
   }
 
-  /* Target the preview container directly to strip out its constraints */
+  body {
+    overflow: visible !important;
+  }
+
+  /*
+   * Undo the live-preview zoom before printing.
+   * The downloaded/printed CV therefore remains full-size A4.
+   */
   .cv-a4-preview-container {
+    width: 210mm;
+    min-height: 297mm;
     padding: 0 !important;
+    margin: 0 !important;
+    zoom: 1;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: white !important;
+  }
+
+  .cv-a4-preview-container > article {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    margin: 0 !important;
     box-shadow: none !important;
   }
 
-  /* Prevent sections from splitting mid-way across pages */
+  /* Prevent CV entries and headings from splitting across pages. */
   .cv-a4-preview-container section,
   .cv-a4-preview-container article > div > section,
   .cv-a4-preview-container article > header {
