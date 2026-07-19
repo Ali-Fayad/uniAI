@@ -102,10 +102,12 @@ public class GraduateFollowUpResolver {
 
         String normalizedMessage = normalize(currentUserMessage);
         List<UniversityCatalog> catalogs = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
+        List<ResolvedUniversity> currentExplicitUniversities = GraduateKnowledgeResolutionSupport.resolveUniversities(normalizedMessage, catalogs);
+        GraduateKnowledgeContextPolicy contextPolicy = GraduateKnowledgeContextPolicyClassifier.classify(normalizedMessage, currentExplicitUniversities);
         GraduateKnowledgeResolutionSupport.HistorySignals historySignals =
-                GraduateKnowledgeResolutionSupport.analyzeHistorySignals(recentConversationHistory, catalogs, conversationMemory);
+                GraduateKnowledgeResolutionSupport.analyzeHistorySignals(recentConversationHistory, catalogs, conversationMemory, contextPolicy);
 
-        List<ResolvedUniversity> explicitUniversities = GraduateKnowledgeResolutionSupport.resolveUniversities(normalizedMessage, catalogs);
+        List<ResolvedUniversity> explicitUniversities = currentExplicitUniversities;
         boolean sameUniversityCue = GraduateKnowledgeResolutionSupport.containsStandaloneTokenOrPhrase(normalizedMessage, "same university", "the same university");
         boolean sameDegreeCue = GraduateKnowledgeResolutionSupport.containsStandaloneTokenOrPhrase(normalizedMessage, "same degree", "same program", "the same degree");
         DegreeReferenceSignal degreeReferenceSignal = detectDegreeReference(normalizedMessage);

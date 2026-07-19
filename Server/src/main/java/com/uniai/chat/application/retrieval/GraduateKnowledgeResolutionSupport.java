@@ -601,6 +601,19 @@ public final class GraduateKnowledgeResolutionSupport {
             List<UniversityCatalog> catalogs,
             ConversationMemory conversationMemory
     ) {
+        return analyzeHistorySignals(recentConversationHistory, catalogs, conversationMemory,
+                GraduateKnowledgeContextPolicy.REFERENTIAL);
+    }
+
+    static HistorySignals analyzeHistorySignals(
+            List<AiConversationMessage> recentConversationHistory,
+            List<UniversityCatalog> catalogs,
+            ConversationMemory conversationMemory,
+            GraduateKnowledgeContextPolicy contextPolicy
+    ) {
+        if (!GraduateKnowledgeContextPolicyClassifier.allowsInheritance(contextPolicy)) {
+            return HistorySignals.empty();
+        }
         if (recentConversationHistory == null || recentConversationHistory.isEmpty()) {
             return seedFromMemory(HistorySignals.empty(), conversationMemory);
         }

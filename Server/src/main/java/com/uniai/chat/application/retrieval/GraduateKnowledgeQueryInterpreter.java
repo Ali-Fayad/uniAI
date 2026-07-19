@@ -26,9 +26,10 @@ public class GraduateKnowledgeQueryInterpreter {
     ) {
         String normalizedMessage = normalize(userMessage);
         List<UniversityCatalog> catalog = universityCatalogs == null ? List.of() : List.copyOf(universityCatalogs);
-        GraduateKnowledgeResolutionSupport.HistorySignals historySignals = analyzeHistory(recentConversationHistory, catalog, conversationMemory);
-
         List<ResolvedUniversity> currentUniversities = resolveUniversities(normalizedMessage, catalog);
+        GraduateKnowledgeContextPolicy contextPolicy = GraduateKnowledgeContextPolicyClassifier.classify(normalizedMessage, currentUniversities);
+        GraduateKnowledgeResolutionSupport.HistorySignals historySignals = GraduateKnowledgeResolutionSupport.analyzeHistorySignals(
+                recentConversationHistory, catalog, conversationMemory, contextPolicy);
         List<String> currentDegreeTypes = detectDegreeTypes(normalizedMessage);
         boolean currentTuitionIntent = detectTuitionAggregationIntent(normalizedMessage);
         boolean currentProgramIntent = detectProgramLookupIntent(normalizedMessage, currentDegreeTypes, currentTuitionIntent);
@@ -149,7 +150,9 @@ public class GraduateKnowledgeQueryInterpreter {
         } else if (historySignals.canInheritProgramIntent(currentFollowUp)) {
             intent = GraduateKnowledgeIntent.PROGRAM_LOOKUP;
             followUpResolved = true;
-            resolvedUniversities = historySignals.latestUniversity() == null ? List.of() : List.of(historySignals.latestUniversity());
+            resolvedUniversities = !currentUniversities.isEmpty()
+                    ? GraduateKnowledgeResolutionSupport.distinctUniversities(currentUniversities)
+                    : historySignals.latestUniversity() == null ? List.of() : List.of(historySignals.latestUniversity());
             resolvedDegreeTypes = resolveDegreeTypesForFollowUp(currentDegreeTypes, historySignals);
             detailLevel = resolveDetailLevel(normalizedMessage);
             ambiguous = resolvedUniversities.isEmpty();

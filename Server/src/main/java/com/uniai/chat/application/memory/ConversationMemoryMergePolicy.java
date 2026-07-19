@@ -2,6 +2,7 @@ package com.uniai.chat.application.memory;
 
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeContextPolicy;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,6 +15,11 @@ import java.util.Set;
 public class ConversationMemoryMergePolicy {
 
     public ConversationMemory merge(ConversationMemory previous, ConversationMemoryPatch patch, GraduateKnowledgeQuery query) {
+        return merge(previous, patch, query, GraduateKnowledgeContextPolicy.REFERENTIAL);
+    }
+
+    public ConversationMemory merge(ConversationMemory previous, ConversationMemoryPatch patch, GraduateKnowledgeQuery query,
+                                    GraduateKnowledgeContextPolicy contextPolicy) {
         ConversationMemory base = previous == null ? ConversationMemory.empty() : previous;
         ConversationMemoryPatch effectivePatch = patch == null ? emptyPatch() : patch;
 
@@ -43,7 +49,9 @@ public class ConversationMemoryMergePolicy {
             comparisonActive = query.followUpResolved() && query.resolvedUniversities().size() > 1;
         }
 
-        if (effectivePatch.clearFields().contains("activeUniversities")) {
+        boolean resetScope = contextPolicy == GraduateKnowledgeContextPolicy.STANDALONE
+                || contextPolicy == GraduateKnowledgeContextPolicy.TOPIC_RESET;
+        if (effectivePatch.clearFields().contains("activeUniversities") || resetScope && (query == null || query.resolvedUniversities().isEmpty())) {
             activeUniversities = List.of();
         } else if (!effectivePatch.replaceActiveUniversities().isEmpty()) {
             activeUniversities = resolveUniversities(effectivePatch.replaceActiveUniversities(), query);
@@ -54,7 +62,7 @@ public class ConversationMemoryMergePolicy {
             activeUniversities = applyUniversityDelta(queryUniversities, effectivePatch.addActiveUniversities(), effectivePatch.removeActiveUniversities(), query);
         }
 
-        if (effectivePatch.clearFields().contains("activeDegreeTypes")) {
+        if (effectivePatch.clearFields().contains("activeDegreeTypes") || resetScope && (query == null || query.degreeTypes().isEmpty())) {
             activeDegreeTypes = List.of();
         } else if (!effectivePatch.replaceActiveDegreeTypes().isEmpty()) {
             activeDegreeTypes = normalizeDegrees(effectivePatch.replaceActiveDegreeTypes());

@@ -699,12 +699,26 @@ public class ChatApplicationService implements
         int startIndex = Math.max(0, endIndex - MAX_CONVERSATION_HISTORY_MESSAGES);
         List<AiConversationMessage> history = new ArrayList<>();
         for (Message message : messages.subList(startIndex, endIndex)) {
+            if (message != null && message.getSenderId() != null && message.getSenderId().equals(0L)
+                    && isAssistantErrorMessage(message.getContent())) {
+                continue;
+            }
             history.add(AiConversationMessage.builder()
                     .role(resolveConversationRole(message))
                     .content(message.getContent())
                     .build());
         }
         return history;
+    }
+
+    private boolean isAssistantErrorMessage(String content) {
+        if (!StringUtils.hasText(content)) return false;
+        String normalized = content.trim().toLowerCase();
+        return normalized.contains("please try again later")
+                || normalized.contains("temporarily unavailable")
+                || normalized.contains("provider error")
+                || normalized.contains("service error")
+                || normalized.contains("request failed");
     }
 
     private long elapsedMillis(long startNanos) {

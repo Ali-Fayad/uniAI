@@ -7,6 +7,8 @@ import com.uniai.chat.application.budget.ConversationMemoryBudgetManager;
 import com.uniai.chat.application.budget.ConversationMemoryBudgetResult;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationStatus;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeContextPolicy;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeContextPolicyClassifier;
 import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
 import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort.ConversationMemoryState;
 import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
@@ -118,8 +120,10 @@ public class ConversationMemoryManager {
             }
         }
 
-        ConversationMemory merged = mergePolicy.merge(baseMemory, patch, interpretationResult.query());
-        persistWithRetry(chatId, merged, patch, interpretationResult);
+        GraduateKnowledgeContextPolicy contextPolicy = GraduateKnowledgeContextPolicyClassifier.classify(
+                currentUserMessage, interpretationResult.query().resolvedUniversities());
+        ConversationMemory merged = mergePolicy.merge(baseMemory, patch, interpretationResult.query(), contextPolicy);
+        persistWithRetry(chatId, merged, patch, interpretationResult, contextPolicy);
     }
 
     private boolean isEnabled() {
@@ -192,7 +196,8 @@ public class ConversationMemoryManager {
         );
     }
 
-    private void persistWithRetry(Long chatId, ConversationMemory merged, ConversationMemoryPatch patch, GraduateQueryInterpretationResult interpretationResult) {
+    private void persistWithRetry(Long chatId, ConversationMemory merged, ConversationMemoryPatch patch, GraduateQueryInterpretationResult interpretationResult,
+                                  GraduateKnowledgeContextPolicy contextPolicy) {
         if (chatId == null || persistencePort == null || merged == null) {
             return;
         }
@@ -207,7 +212,7 @@ public class ConversationMemoryManager {
         ConversationMemoryState refreshedState = persistencePort.load(chatId);
         long refreshedVersion = refreshedState == null ? 0L : refreshedState.memoryVersion();
         ConversationMemory retryBase = refreshedState == null || refreshedState.memory() == null ? ConversationMemory.empty() : refreshedState.memory();
-        ConversationMemory retried = mergePolicy.merge(retryBase, patch, interpretationResult != null ? interpretationResult.query() : null);
+        ConversationMemory retried = mergePolicy.merge(retryBase, patch, interpretationResult != null ? interpretationResult.query() : null, contextPolicy);
         if (persistencePort.save(chatId, refreshedVersion, retried, LocalDateTime.now())) {
             logger.debug("[AI_MEMORY] Memory updated after retry chatId={} version={}", chatId, refreshedVersion + 1);
         } else {
