@@ -2,6 +2,7 @@ package com.uniai.user.application.service;
 
 import com.uniai.shared.exception.AlreadyExistsException;
 import com.uniai.shared.exception.VerificationCodeRateLimitException;
+import com.uniai.shared.exception.GoogleAuthException;
 import com.uniai.shared.infrastructure.jwt.JwtUtil;
 import com.uniai.user.application.dto.command.EmailRequestCommand;
 import com.uniai.user.application.dto.command.SignUpCommand;
@@ -63,6 +64,87 @@ class AuthApplicationServiceTest {
     void setUp() {
         ReflectionTestUtils.setField(authApplicationService, "codeLength", 6);
         ReflectionTestUtils.setField(authApplicationService, "codeExpiryMinutes", 15);
+        ReflectionTestUtils.setField(authApplicationService, "googleRedirectUri", "http://localhost:5173/google/callback");
+    }
+
+    @Test
+    void googleLoginReusesExistingUserWithoutChangingAccountFields() {
+        User existing = User.builder()
+                .id(7L).firstName("Existing").lastName("User").username("existing")
+                .email("existing@example.com").password("existing-password")
+                .role(UserRole.ADMIN).isVerified(false).isTwoFacAuth(true).build();
+        when(oAuthPort.authenticate("code", "http://localhost:5173/google/callback"))
+                .thenReturn(new OAuthPort.GoogleProfile(" Existing@Example.com ", true, "Google", "Name"));
+        when(userRepository.findByEmail("existing@example.com")).thenReturn(java.util.Optional.of(existing));
+        when(jwtUtil.generateToken(any(JwtTokenPayload.class))).thenReturn("jwt-token");
+
+        assertEquals("jwt-token", authApplicationService.completeGoogleLogin(
+                "code", "http://localhost:5173/google/callback"));
+        verify(userRepository, never()).save(any(User.class));
+        assertEquals("existing", existing.getUsername());
+        assertEquals("existing-password", existing.getPassword());
+        assertEquals(UserRole.ADMIN, existing.getRole());
+        assertFalse(existing.isVerified());
+        assertTrue(existing.isTwoFacAuth());
+    }
+
+    @Test
+    void googleLoginCreatesVerifiedUserWithUniqueUsernameAndEncodedRandomPassword() {
+        when(oAuthPort.authenticate("code", "http://localhost:5173/google/callback"))
+                .thenReturn(new OAuthPort.GoogleProfile("ali@example.com", true, "Ali", "Fayad"));
+        when(userRepository.findByEmail("ali@example.com")).thenReturn(java.util.Optional.empty());
+        when(userRepository.existsByUsername("afayad")).thenReturn(false);
+        when(passwordEncoder.encode(any(String.class))).thenReturn("encoded-password");
+        when(userRepository.saveAndFlush(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(jwtUtil.generateToken(any(JwtTokenPayload.class))).thenReturn("jwt-token");
+
+        assertEquals("jwt-token", authApplicationService.completeGoogleLogin(
+                "code", "http://localhost:5173/google/callback"));
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(userRepository).save(userCaptor.capture());
+        User created = userCaptor.getValue();
+        assertEquals("afayad", created.getUsername());
+        assertEquals("ali@example.com", created.getEmail());
+        assertEquals("encoded-password", created.getPassword());
+        assertTrue(created.isVerified());
+        assertEquals(UserRole.USER, created.getRole());
+        assertFalse(created.isTwoFacAuth());
+    }
+
+    @Test
+    void googleLoginRejectsUntrustedRedirectUriBeforeProviderCall() {
+        assertThrows(GoogleAuthException.class, () -> authApplicationService.completeGoogleLogin(
+                "code", "https://evil.example/callback"));
+        verifyNoInteractions(oAuthPort);
+    }
+
+    @Test
+    void googleLoginRejectsUnverifiedGoogleEmail() {
+        when(oAuthPort.authenticate("code", "http://localhost:5173/google/callback"))
+                .thenReturn(new OAuthPort.GoogleProfile("ali@example.com", false, "Ali", "Fayad"));
+
+        assertThrows(GoogleAuthException.class, () -> authApplicationService.completeGoogleLogin(
+                "code", "http://localhost:5173/google/callback"));
+        verifyNoInteractions(userRepository, jwtUtil);
+    }
+
+    @Test
+    void googleLoginIncrementsUsernameSuffixUntilAvailable() {
+        when(oAuthPort.authenticate("code", "http://localhost:5173/google/callback"))
+                .thenReturn(new OAuthPort.GoogleProfile("ali@example.com", true, "Ali", "Fayad"));
+        when(userRepository.findByEmail("ali@example.com")).thenReturn(java.util.Optional.empty());
+        when(userRepository.existsByUsername("afayad")).thenReturn(true);
+        when(userRepository.existsByUsername("afayad1")).thenReturn(true);
+        when(userRepository.existsByUsername("afayad2")).thenReturn(false);
+        when(passwordEncoder.encode(any(String.class))).thenReturn("encoded-password");
+        when(userRepository.saveAndFlush(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(jwtUtil.generateToken(any(JwtTokenPayload.class))).thenReturn("jwt-token");
+
+        authApplicationService.completeGoogleLogin("code", "http://localhost:5173/google/callback");
+
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(userRepository).save(userCaptor.capture());
+        assertEquals("afayad2", userCaptor.getValue().getUsername());
     }
 
     @Test

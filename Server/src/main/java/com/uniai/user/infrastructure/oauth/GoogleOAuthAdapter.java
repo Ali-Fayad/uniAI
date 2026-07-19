@@ -9,16 +9,13 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.uniai.shared.exception.GoogleAuthException;
 import com.uniai.user.application.port.out.OAuthPort;
-import com.uniai.user.domain.builder.UserBuilder;
-import com.uniai.user.domain.model.User;
-import com.uniai.user.domain.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.time.Instant;
 
 /**
  * Google OAuth2 implementation of {@link OAuthPort}.
@@ -26,7 +23,6 @@ import java.util.Collections;
  * All Google library dependencies are confined here — the application layer stays clean.
  */
 @Component
-@RequiredArgsConstructor
 public class GoogleOAuthAdapter implements OAuthPort {
 
     private static final String TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token";
@@ -40,8 +36,6 @@ public class GoogleOAuthAdapter implements OAuthPort {
     @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
     private String configuredRedirectUri;
 
-    private final UserRepository userRepository;
-
     // -------------------------------------------------------------------------
     // OAuthPort
     // -------------------------------------------------------------------------
@@ -51,6 +45,9 @@ public class GoogleOAuthAdapter implements OAuthPort {
         String effectiveRedirect = (overrideRedirectUri == null || overrideRedirectUri.isBlank())
                 ? configuredRedirectUri
                 : overrideRedirectUri;
+        if (!configuredRedirectUri.equals(effectiveRedirect)) {
+            throw new GoogleAuthException("Google redirect URI is not allowed");
+        }
 
         GoogleAuthorizationCodeRequestUrl urlBuilder = new GoogleAuthorizationCodeRequestUrl(
                 clientId,
@@ -65,21 +62,35 @@ public class GoogleOAuthAdapter implements OAuthPort {
     }
 
     @Override
-    public User findOrCreateUserFromCode(String code) {
+    public GoogleProfile authenticate(String code, String redirectUri) {
         if (code == null || code.isBlank()) {
             throw new GoogleAuthException("Authorization code is missing");
         }
+        if (redirectUri == null || redirectUri.isBlank()) {
+            throw new GoogleAuthException("Redirect URI is missing");
+        }
+        if (!configuredRedirectUri.equals(redirectUri)) {
+            throw new GoogleAuthException("Google redirect URI is not allowed");
+        }
 
-        String idTokenString = exchangeCodeForIdToken(code);
+        String idTokenString = exchangeCodeForIdToken(code, redirectUri);
         GoogleIdToken.Payload payload = verifyIdToken(idTokenString);
-        return findOrCreateUser(payload);
+        Boolean emailVerified = payload.getEmailVerified();
+        if (!Boolean.TRUE.equals(emailVerified)) {
+            throw new GoogleAuthException("Google email is not verified");
+        }
+        String email = payload.getEmail() == null ? "" : payload.getEmail().trim();
+        if (email.isBlank()) {
+            throw new GoogleAuthException("Google profile is missing email");
+        }
+        return new GoogleProfile(email, true, stringClaim(payload, "given_name"), stringClaim(payload, "family_name"));
     }
 
     // -------------------------------------------------------------------------
     // Private helpers
     // -------------------------------------------------------------------------
 
-    private String exchangeCodeForIdToken(String code) {
+    private String exchangeCodeForIdToken(String code, String redirectUri) {
         GoogleTokenResponse tokenResponse;
         try {
             tokenResponse = new GoogleAuthorizationCodeTokenRequest(
@@ -89,7 +100,7 @@ public class GoogleOAuthAdapter implements OAuthPort {
                     clientId,
                     clientSecret,
                     code,
-                    configuredRedirectUri
+                    redirectUri
             ).execute();
         } catch (IOException e) {
             throw new GoogleAuthException("Failed to exchange authorization code for tokens", e);
@@ -110,6 +121,7 @@ public class GoogleOAuthAdapter implements OAuthPort {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
                 new NetHttpTransport(), new GsonFactory())
                 .setAudience(Collections.singletonList(clientId))
+                .setIssuer("https://accounts.google.com")
                 .build();
 
         GoogleIdToken idToken;
@@ -124,21 +136,19 @@ public class GoogleOAuthAdapter implements OAuthPort {
         }
 
         GoogleIdToken.Payload payload = idToken.getPayload();
-        if (payload == null || payload.getEmail() == null || payload.getEmail().isBlank()) {
+        if (payload == null
+                || payload.getEmail() == null
+                || payload.getEmail().isBlank()
+                || !"https://accounts.google.com".equals(payload.getIssuer())
+                || payload.getExpirationTimeSeconds() == null
+                || payload.getExpirationTimeSeconds() <= Instant.now().getEpochSecond()) {
             throw new GoogleAuthException("ID token payload is invalid or missing email");
         }
         return payload;
     }
 
-    private User findOrCreateUser(GoogleIdToken.Payload payload) {
-        String email = payload.getEmail();
-
-        return userRepository.findByEmail(email).orElseGet(() -> {
-            String firstName = (String) payload.get("given_name");
-            String lastName  = (String) payload.get("family_name");
-
-            User newUser = UserBuilder.forOAuth(firstName, lastName, email).build();
-            return userRepository.save(newUser);
-        });
+    private String stringClaim(GoogleIdToken.Payload payload, String claim) {
+        Object value = payload.get(claim);
+        return value == null ? "" : value.toString();
     }
 }

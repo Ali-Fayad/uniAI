@@ -24,6 +24,11 @@ public interface UserRepository {
 
     User save(User user);
 
+    /** Flush-capable save used when a unique-key collision must be detected immediately. */
+    default User saveAndFlush(User user) {
+        return save(user);
+    }
+
     void delete(User user);
 
     boolean deleteByEmail(String email);

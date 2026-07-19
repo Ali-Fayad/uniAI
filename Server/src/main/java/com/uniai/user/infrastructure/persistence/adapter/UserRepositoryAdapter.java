@@ -6,6 +6,8 @@ import com.uniai.user.domain.valueobject.UserRole;
 import com.uniai.user.infrastructure.persistence.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +50,12 @@ public class UserRepositoryAdapter implements UserRepository {
     @Override
     public User save(User user) {
         return jpaRepository.save(user);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public User saveAndFlush(User user) {
+        return jpaRepository.saveAndFlush(user);
     }
 
     @Override

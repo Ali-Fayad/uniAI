@@ -4,6 +4,7 @@ import type {
   VerifyDto,
   RequestPasswordDto,
   GoogleAuthUrlRequestDto,
+  GoogleAuthCallbackDto,
   CheckEmailResponse,
   CheckUsernameResponse,
   TokenResponse,
@@ -27,6 +28,7 @@ export interface IAuthService {
   forgotPassword(email: string): Promise<MessageResponse>;
   forgotPasswordConfirm(data: RequestPasswordDto): Promise<TokenResponse>;
   getGoogleAuthUrl(data?: GoogleAuthUrlRequestDto): Promise<UrlResponse>;
+  completeGoogleAuth(data: GoogleAuthCallbackDto): Promise<TokenResponse>;
   checkEmailAvailability(email: string): Promise<CheckEmailResponse>;
   checkUsernameAvailability(username: string): Promise<CheckUsernameResponse>;
 }

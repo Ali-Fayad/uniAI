@@ -47,6 +47,9 @@ class AuthControllerTest {
     private GetGoogleAuthUrlUseCase getGoogleAuthUrlUseCase;
 
     @Mock
+    private CompleteGoogleLoginUseCase completeGoogleLoginUseCase;
+
+    @Mock
     private CheckEmailAvailabilityUseCase checkEmailAvailabilityUseCase;
 
     @Mock
@@ -63,6 +66,7 @@ class AuthControllerTest {
                 forgotPasswordUseCase,
                 confirmPasswordResetUseCase,
                 getGoogleAuthUrlUseCase,
+                completeGoogleLoginUseCase,
                 checkEmailAvailabilityUseCase,
                 checkUsernameAvailabilityUseCase);
     }

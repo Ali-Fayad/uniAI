@@ -156,7 +156,7 @@ class AuthPersistenceIntegrationTest extends PostgresIntegrationTest {
                 }
 
                 @Override
-                public com.uniai.user.domain.model.User findOrCreateUserFromCode(String code) {
+                public OAuthPort.GoogleProfile authenticate(String code, String redirectUri) {
                     return null;
                 }
             };

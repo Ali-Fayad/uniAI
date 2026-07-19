@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { authService } from '../../../services/auth';
 import { StaggerContainer, staggerItemVariants } from '../../animations';
+import { STORAGE_KEYS } from '../../../constants';
 
 /**
  * Auth Landing page - provides options to sign in, sign up, or use OAuth
@@ -10,15 +11,27 @@ import { StaggerContainer, staggerItemVariants } from '../../animations';
 const AuthLanding = () => {
   const navigate = useNavigate();
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
+  const [googleError, setGoogleError] = useState('');
 
   const handleGoogleAuth = async () => {
     setIsLoadingGoogle(true);
+    setGoogleError('');
     try {
-      const response = await authService.getGoogleAuthUrl();
+      const stateBytes = new Uint8Array(32);
+      if (!window.crypto?.getRandomValues) {
+        throw new Error('Secure OAuth state generation is unavailable');
+      }
+      window.crypto.getRandomValues(stateBytes);
+      const state = Array.from(stateBytes, byte => byte.toString(16).padStart(2, '0')).join('');
+      const redirectUri = `${window.location.origin}/google/callback`;
+      sessionStorage.setItem(STORAGE_KEYS.GOOGLE_OAUTH_STATE, state);
+      const response = await authService.getGoogleAuthUrl({ redirectUri, state });
       // Redirect to Google OAuth URL
       window.location.href = response.url;
     } catch (error) {
       console.error('Failed to get Google auth URL:', error);
+      sessionStorage.removeItem(STORAGE_KEYS.GOOGLE_OAUTH_STATE);
+      setGoogleError('Unable to start Google sign in. Please try again.');
       setIsLoadingGoogle(false);
     }
   };
@@ -122,6 +135,11 @@ const AuthLanding = () => {
                   >
                     {isLoadingGoogle ? 'Loading...' : 'Google'}
                   </motion.button>
+                  {googleError && (
+                    <p role="alert" className="text-sm text-[var(--color-error)] text-center">
+                      {googleError}
+                    </p>
+                  )}
                 </motion.div>
               </div>
             </StaggerContainer>

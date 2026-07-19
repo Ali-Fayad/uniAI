@@ -8,6 +8,7 @@ import type {
   RequestPasswordDto,
   EmailRequestDto,
   GoogleAuthUrlRequestDto,
+  GoogleAuthCallbackDto,
   TokenResponse,
   MessageResponse,
   UrlResponse,
@@ -142,6 +143,14 @@ export const authService: IAuthService = {
     const response = await apiClient.post<UrlResponse>(
       ENDPOINTS.AUTH.GOOGLE_URL,
       data || {}
+    );
+    return response.data;
+  },
+
+  async completeGoogleAuth(data: GoogleAuthCallbackDto): Promise<TokenResponse> {
+    const response = await apiClient.post<TokenResponse>(
+      ENDPOINTS.AUTH.GOOGLE_CALLBACK,
+      data
     );
     return response.data;
   },

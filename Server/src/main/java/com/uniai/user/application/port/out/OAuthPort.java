@@ -1,6 +1,5 @@
 package com.uniai.user.application.port.out;
 
-import com.uniai.user.domain.model.User;
 
 /**
  * Outbound port — implemented in infrastructure.
@@ -17,12 +16,8 @@ public interface OAuthPort {
      */
     String buildAuthorizationUrl(String overrideRedirectUri, String state);
 
-    /**
-     * Exchanges the authorization code for an ID token, verifies it,
-     * and finds or creates the corresponding user.
-     *
-     * @param code the authorization code received from Google
-     * @return the domain User (existing or newly created)
-     */
-    User findOrCreateUserFromCode(String code);
+    /** Exchanges and validates a Google authorization code into an application-owned profile. */
+    GoogleProfile authenticate(String code, String redirectUri);
+
+    record GoogleProfile(String email, boolean emailVerified, String firstName, String lastName) {}
 }

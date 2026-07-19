@@ -16,6 +16,7 @@ export const ENDPOINTS = {
     FORGOT_PASSWORD: '/api/auth/forget-password',
     FORGOT_PASSWORD_CONFIRM: '/api/auth/forget-password/confirm',
     GOOGLE_URL: '/api/auth/google/url',
+    GOOGLE_CALLBACK: '/api/auth/google/callback',
   },
 
   // User endpoints
@@ -77,4 +78,5 @@ export const ENDPOINTS = {
 export const STORAGE_KEYS = {
   TOKEN: 'auth_token',
   USER: 'user_data',
+  GOOGLE_OAUTH_STATE: 'google_oauth_state',
 } as const;

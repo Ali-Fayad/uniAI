@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import LoadingSpinner from "../../common/LoadingSpinner";
+import { authService } from "../../../services/auth";
+import { STORAGE_KEYS } from "../../../constants";
 
 /**
  * GoogleCallback component to handle OAuth redirect
@@ -12,35 +14,37 @@ const GoogleCallback = () => {
   const [searchParams] = useSearchParams();
   const { login } = useAuth();
   const [error, setError] = useState("");
+  const submitted = useRef(false);
 
   useEffect(() => {
-    const handleCallback = () => {
-      // Get token from query parameters
-      const token = searchParams.get('token');
+    if (submitted.current) return;
+    submitted.current = true;
+
+    const handleCallback = async () => {
+      const code = searchParams.get('code');
+      const returnedState = searchParams.get('state');
       const errorParam = searchParams.get('error');
+      const expectedState = sessionStorage.getItem(STORAGE_KEYS.GOOGLE_OAUTH_STATE);
+      const redirectUri = `${window.location.origin}/google/callback`;
 
-      if (errorParam) {
-        setError(errorParam);
-        // Redirect to auth page after showing error
-        setTimeout(() => {
-          navigate('/auth');
-        }, 3000);
-        return;
-      }
-
-      if (token) {
-        // Store token and redirect to chat
-        login(token);
-        navigate('/chat');
-      } else {
-        setError('No authentication token received');
-        setTimeout(() => {
-          navigate('/auth');
-        }, 3000);
+      try {
+        if (errorParam) throw new Error('Google authentication was cancelled or rejected');
+        if (!code) throw new Error('Google authorization code is missing');
+        if (!returnedState || !expectedState || returnedState !== expectedState) {
+          throw new Error('Google authentication state is invalid');
+        }
+        const response = await authService.completeGoogleAuth({ code, redirectUri });
+        login(response.token);
+        navigate('/chat', { replace: true });
+      } catch (callbackError) {
+        setError(callbackError instanceof Error ? callbackError.message : 'Unable to authenticate with Google');
+        window.setTimeout(() => navigate('/auth', { replace: true }), 3000);
+      } finally {
+        sessionStorage.removeItem(STORAGE_KEYS.GOOGLE_OAUTH_STATE);
       }
     };
 
-    handleCallback();
+    void handleCallback();
   }, [searchParams, login, navigate]);
 
   if (error) {

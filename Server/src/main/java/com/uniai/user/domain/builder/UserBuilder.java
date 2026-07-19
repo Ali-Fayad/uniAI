@@ -82,6 +82,22 @@ public final class UserBuilder {
         return b;
     }
 
+    /** Focused factory for the completed Google flow; preserves the legacy OAuth factory. */
+    public static UserBuilder forGoogleOAuth(String firstName, String lastName,
+                                             String username, String email,
+                                             String encodedPassword) {
+        UserBuilder b = new UserBuilder();
+        b.firstName = firstName;
+        b.lastName = lastName;
+        b.username = username;
+        b.email = email;
+        b.encodedPassword = encodedPassword;
+        b.role = UserRole.USER;
+        b.isVerified = true;
+        b.isTwoFacAuth = false;
+        return b;
+    }
+
     // -------------------------------------------------------------------------
     // Optional overrides
     // -------------------------------------------------------------------------

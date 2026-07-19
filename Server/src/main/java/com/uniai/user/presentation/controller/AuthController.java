@@ -5,6 +5,7 @@ import com.uniai.user.application.dto.command.SignInCommand;
 import com.uniai.user.application.dto.command.SignUpCommand;
 import com.uniai.user.application.dto.command.VerifyCommand;
 import com.uniai.user.application.dto.command.EmailRequestCommand;
+import com.uniai.user.application.dto.command.GoogleAuthCallbackCommand;
 import com.uniai.user.application.dto.response.SignUpResultDto;
 import com.uniai.user.application.port.in.*;
 import jakarta.validation.Valid;
@@ -30,6 +31,7 @@ public class AuthController {
     private final ForgotPasswordUseCase forgotPasswordUseCase;
     private final ConfirmPasswordResetUseCase confirmPasswordResetUseCase;
     private final GetGoogleAuthUrlUseCase getGoogleAuthUrlUseCase;
+    private final CompleteGoogleLoginUseCase completeGoogleLoginUseCase;
     private final CheckEmailAvailabilityUseCase checkEmailAvailabilityUseCase;
     private final CheckUsernameAvailabilityUseCase checkUsernameAvailabilityUseCase;
 
@@ -81,6 +83,12 @@ public class AuthController {
         String state = request == null ? null : request.state();
         String url = getGoogleAuthUrlUseCase.getGoogleAuthUrl(redirectUri, state);
         return ResponseEntity.ok(new UrlResponse(url));
+    }
+
+    @PostMapping("/google/callback")
+    public ResponseEntity<?> completeGoogleLogin(@Valid @RequestBody GoogleAuthCallbackCommand command) {
+        return ResponseEntity.ok(new TokenResponse(
+                completeGoogleLoginUseCase.completeGoogleLogin(command.code(), command.redirectUri())));
     }
 
     @GetMapping("/check-email")

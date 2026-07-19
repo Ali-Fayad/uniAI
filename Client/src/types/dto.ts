@@ -35,6 +35,11 @@ export interface GoogleAuthUrlRequestDto {
   state?: string;
 }
 
+export interface GoogleAuthCallbackDto {
+  code: string;
+  redirectUri: string;
+}
+
 // ============================================================
 // Response DTOs
 // ============================================================
@@ -108,6 +113,9 @@ export interface AuthenticationResponseDto {
   role: UserRole;
   isVerified: boolean;
   isTwoFacAuth: boolean;
+  /** Compatibility aliases used by older backend response serializers. */
+  twoFactorEnabled?: boolean;
+  twoFacAuth?: boolean;
 }
 
 export interface MessageResponse {
