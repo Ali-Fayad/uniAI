@@ -23,6 +23,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
+
+import java.text.Normalizer;
+import java.util.Base64;
+import java.util.Locale;
+import java.security.SecureRandom;
 
 /**
  * Application service for all authentication use cases.
@@ -39,6 +45,7 @@ public class AuthApplicationService implements
         ForgotPasswordUseCase,
         ConfirmPasswordResetUseCase,
     GetGoogleAuthUrlUseCase,
+    CompleteGoogleLoginUseCase,
     CheckEmailAvailabilityUseCase,
     CheckUsernameAvailabilityUseCase {
 
@@ -58,6 +65,12 @@ public class AuthApplicationService implements
 
     @Value("${app.email.code-expiry-minutes:15}")
     private int codeExpiryMinutes;
+
+    @Value("${spring.security.oauth2.client.registration.google.redirect-uri:http://localhost:5173/google/callback}")
+    private String googleRedirectUri;
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+    private static final int MAX_USERNAME_ATTEMPTS = 10_000;
 
     // -------------------------------------------------------------------------
     // SignUpUseCase
@@ -150,6 +163,7 @@ public class AuthApplicationService implements
     // -------------------------------------------------------------------------
 
     @Override
+    @Transactional
     public String verifyEmail(VerifyCommand command) {
         User user = verifyCodeAndGetUser(
                 command.getEmail().toLowerCase(),
@@ -163,6 +177,7 @@ public class AuthApplicationService implements
     // -------------------------------------------------------------------------
 
     @Override
+    @Transactional
     public String verifyTwoFactor(VerifyCommand command) {
         User user = verifyCodeAndGetUser(
                 command.getEmail().toLowerCase(),
@@ -176,6 +191,7 @@ public class AuthApplicationService implements
     // -------------------------------------------------------------------------
 
     @Override
+    @Transactional
     public void forgotPassword(String email) {
         User user = userRepository.findByEmail(email.toLowerCase())
                 .orElseThrow(InvalidEmailOrPassword::new);
@@ -187,6 +203,7 @@ public class AuthApplicationService implements
     // -------------------------------------------------------------------------
 
     @Override
+    @Transactional
     public String confirmPasswordReset(RequestPasswordCommand command) {
         User user = verifyCodeAndGetUser(
                 command.getEmail().toLowerCase(),
@@ -205,7 +222,22 @@ public class AuthApplicationService implements
 
     @Override
     public String getGoogleAuthUrl(String overrideRedirectUri, String state) {
-        return oAuthPort.buildAuthorizationUrl(overrideRedirectUri, state);
+        return oAuthPort.buildAuthorizationUrl(validateGoogleRedirectUri(overrideRedirectUri), state);
+    }
+
+    @Override
+    @Transactional
+    public String completeGoogleLogin(String code, String redirectUri) {
+        String validatedRedirectUri = validateGoogleRedirectUri(redirectUri);
+        OAuthPort.GoogleProfile profile = oAuthPort.authenticate(code, validatedRedirectUri);
+        if (profile == null || profile.email() == null || profile.email().isBlank()
+                || !profile.emailVerified()) {
+            throw new GoogleAuthException("Google profile could not be validated");
+        }
+
+        String email = normalizeEmail(profile.email());
+        User user = userRepository.findByEmail(email).orElseGet(() -> createGoogleUser(profile, email));
+        return jwtUtil.generateToken(toPayload(user));
     }
 
     @Override
@@ -216,6 +248,81 @@ public class AuthApplicationService implements
     @Override
     public boolean isUsernameAvailable(String username) {
         return !userRepository.existsByUsername(username.toLowerCase());
+    }
+
+    private String validateGoogleRedirectUri(String redirectUri) {
+        String candidate = redirectUri == null || redirectUri.isBlank() ? googleRedirectUri : redirectUri.trim();
+        if (candidate == null || !candidate.equals(googleRedirectUri)) {
+            throw new GoogleAuthException("Google redirect URI is not allowed");
+        }
+        return candidate;
+    }
+
+    private String normalizeEmail(String email) {
+        return email == null ? "" : email.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private User createGoogleUser(OAuthPort.GoogleProfile profile, String email) {
+        String firstName = safeName(profile.firstName());
+        String lastName = safeName(profile.lastName());
+        String encodedPassword = passwordEncoder.encode(generateRandomPassword());
+        String baseUsername = googleUsernameBase(firstName, lastName, email);
+
+        for (int suffix = 0; suffix < MAX_USERNAME_ATTEMPTS; suffix++) {
+            String username = suffix == 0 ? baseUsername : baseUsername + suffix;
+            if (username.length() > 50 || userRepository.existsByUsername(username)) {
+                continue;
+            }
+            try {
+                return userRepository.saveAndFlush(UserBuilder.forGoogleOAuth(
+                        firstName, lastName, username, email, encodedPassword).build());
+            } catch (DataIntegrityViolationException ex) {
+                if (!isUsernameConstraintViolation(ex)) {
+                    throw ex;
+                }
+            }
+        }
+        throw new GoogleAuthException("Unable to allocate a unique Google username");
+    }
+
+    private boolean isUsernameConstraintViolation(DataIntegrityViolationException exception) {
+        String message = exception.getMostSpecificCause() == null
+                ? exception.getMessage()
+                : exception.getMostSpecificCause().getMessage();
+        String normalized = message == null ? "" : message.toLowerCase(Locale.ROOT);
+        return normalized.contains("username") && normalized.contains("unique");
+    }
+
+    private String safeName(String value) {
+        return value == null || value.isBlank() ? "" : value.trim();
+    }
+
+    private String googleUsernameBase(String firstName, String lastName, String email) {
+        String first = sanitizeUsername(firstName);
+        String last = sanitizeUsername(lastName);
+        String base;
+        if (!first.isBlank() && !last.isBlank()) {
+            base = first.substring(0, 1) + last;
+        } else {
+            String localPart = email.substring(0, Math.max(0, email.indexOf('@')));
+            base = sanitizeUsername(localPart);
+        }
+        if (base.isBlank()) base = "googleuser";
+        // Leave room for the numeric suffix while staying within User's 50-character constraint.
+        return base.substring(0, Math.min(base.length(), 45));
+    }
+
+    private String sanitizeUsername(String value) {
+        if (value == null || value.isBlank()) return "";
+        String ascii = Normalizer.normalize(value.trim().toLowerCase(Locale.ROOT), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "");
+        return ascii.replaceAll("[^a-z0-9]", "");
+    }
+
+    private String generateRandomPassword() {
+        byte[] bytes = new byte[32];
+        SECURE_RANDOM.nextBytes(bytes);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
     }
 
     // -------------------------------------------------------------------------

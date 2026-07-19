@@ -4,6 +4,8 @@ import com.uniai.user.domain.model.VerifyCode;
 import com.uniai.user.domain.repository.VerifyCodeRepository;
 import com.uniai.user.domain.valueobject.VerificationCodeType;
 import com.uniai.user.infrastructure.persistence.repository.VerifyCodeJpaRepository;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +36,7 @@ public class VerifyCodeRepositoryAdapter implements VerifyCodeRepository {
     }
 
     @Override
+    @Transactional
     public void markByUserIdAndTypeUsed(Long userId, VerificationCodeType type) {
         jpaRepository.markByUserIdAndTypeUsed(userId, type);
     }
