@@ -34,6 +34,31 @@ class GraduateKnowledgeQueryFactoryTest {
     }
 
     @Test
+    void buildsTuitionAggregationFromCanonicalDraft() {
+        CanonicalGraduateQueryDraft draft = new CanonicalGraduateQueryDraft(
+                2, "PROGRAM", "AGGREGATE",
+                new CanonicalGraduateQueryDraft.Filters(
+                        List.of("AUB"), List.of("MASTER"), null,
+                        null, null, "Master of Science in Computer Science",
+                        List.of(), List.of(), List.of(), null),
+                new CanonicalGraduateQueryDraft.Aggregation("AVG", "TUITION"),
+                null, null, null, null, false, List.of());
+
+        GraduateKnowledgeQuery query = factory.create(
+                draft,
+                List.of(new ResolvedUniversity(1L, "American University of Beirut", "AUB")),
+                null,
+                false);
+
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, query.intent());
+        assertEquals(GraduateKnowledgeOperation.AGGREGATE, query.operation());
+        assertEquals(GraduateKnowledgeAggregationFunction.AVG, query.aggregation().function());
+        assertEquals("tuition", query.aggregation().field());
+        assertEquals(1L, query.resolvedUniversities().get(0).id());
+        assertEquals(List.of("MASTER"), query.filters().degreeTypes());
+    }
+
+    @Test
     void buildsScopedLocationAndComparisonQueries() {
         CanonicalGraduateQueryDraft location = new CanonicalGraduateQueryDraft(
                 2, "CAMPUS", "EXISTS",

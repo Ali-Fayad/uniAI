@@ -820,14 +820,27 @@ public class ChatApplicationService implements
 
         try {
             GraduateQueryInterpretationResult result;
+            CanonicalGraduateQueryDraft canonicalDraft = null;
             try {
-                CanonicalGraduateQueryDraft canonicalDraft = graduateQueryInterpretationPort.interpretDraft(budgetResult.request());
+                canonicalDraft = graduateQueryInterpretationPort.interpretDraft(budgetResult.request());
                 result = graduateQueryInterpretationValidator.validateCanonicalDraft(
                         canonicalDraft, universityCatalogs, currentMessage, false);
             } catch (UnsupportedOperationException compatibilityOnlyPort) {
                 // Temporary migration bridge for external/test ports that still expose only the legacy contract.
                 GraduateQueryInterpretation rawInterpretation = graduateQueryInterpretationPort.interpret(budgetResult.request());
                 result = graduateQueryInterpretationValidator.validate(rawInterpretation, universityCatalogs, currentMessage);
+            }
+            if (canonicalDraft != null
+                    && result.query() != null
+                    && result.query().intent() == GraduateKnowledgeIntent.PROGRAM_LOOKUP
+                    && deterministicCandidate != null
+                    && deterministicCandidate.intent() == GraduateKnowledgeIntent.TUITION_AGGREGATION
+                    && graduateKnowledgeQueryInterpreter.isHighConfidenceDeterministic(currentMessage, deterministicCandidate)) {
+                logger.info("[AI_INTERPRETATION] Tuition routing safeguard applied resource=PROGRAM operation=AGGREGATE aggregationField=TUITION aggregationFunction=AVG universityCount={} degreeTypeCount={}",
+                        deterministicCandidate.resolvedUniversities().size(),
+                        deterministicCandidate.degreeTypes().size());
+                result = graduateQueryInterpretationValidator.validateCanonicalDraft(
+                        canonicalDraft.withTuitionAggregation(), universityCatalogs, currentMessage, false);
             }
             if (isUnsafeGeneralChatRouting(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, result)) {
                 GraduateQueryInterpretationResult fallback = fallbackInterpretation(

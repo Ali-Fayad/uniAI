@@ -26,6 +26,8 @@ import com.uniai.chat.application.port.out.GraduateLocationRetrievalPort;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolutionResult;
 import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeOperation;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeAggregationFunction;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
@@ -424,6 +426,60 @@ class ChatApplicationServiceTest {
         assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
         assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, graduateKnowledgeRetrievalPort.lastQuery.intent());
         assertEquals(1, aiServicePort.callCount);
+    }
+
+    @Test
+    void explicitTuitionQuestionUsesTuitionAggregationSafeguardWhenProviderReturnsProgramList() {
+        User user = user(181L, "aub-tuition", "aub-tuition@example.com");
+        Chat chat = chat(1810L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextInterpretation = new GraduateQueryInterpretation(
+                2,
+                "PROGRAM_LOOKUP",
+                List.of("AUB"),
+                List.of("MASTER"),
+                "LIST",
+                false,
+                false,
+                List.of(),
+                false,
+                null,
+                List.of(),
+                "PROGRAM",
+                "LIST",
+                null,
+                null,
+                null,
+                List.of(),
+                List.of(),
+                "Master's in Computer Science",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder()
+                        .chatId(chat.getId())
+                        .content("What is the tuition for the Master's in Computer Science at AUB?")
+                        .build()
+        );
+
+        assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, graduateKnowledgeRetrievalPort.lastQuery.intent());
+        assertEquals(GraduateKnowledgeOperation.AGGREGATE, graduateKnowledgeRetrievalPort.lastQuery.operation());
+        assertEquals(GraduateKnowledgeAggregationFunction.AVG,
+                graduateKnowledgeRetrievalPort.lastQuery.aggregation().function());
+        assertEquals("tuition", graduateKnowledgeRetrievalPort.lastQuery.aggregation().field());
     }
 
     @Test
@@ -1153,9 +1209,17 @@ class ChatApplicationServiceTest {
                     ? Collections.emptyList()
                     : List.copyOf(universityCatalogs);
             lastConversationMemory = conversationMemory == null ? ConversationMemory.empty() : conversationMemory;
+            boolean tuitionMessage = userMessage != null
+                    && (userMessage.toLowerCase().contains("tuition")
+                    || userMessage.toLowerCase().contains("cost")
+                    || userMessage.toLowerCase().contains("fee"));
             lastQuery = new GraduateKnowledgeQuery(
-                    GraduateKnowledgeIntent.PROGRAM_LOOKUP,
-                    List.of(new ResolvedUniversity(2L, "Université Saint-Joseph", "USJ")),
+                    tuitionMessage
+                            ? GraduateKnowledgeIntent.TUITION_AGGREGATION
+                            : GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                    List.of(tuitionMessage
+                            ? new ResolvedUniversity(1L, "American University of Beirut", "AUB")
+                            : new ResolvedUniversity(2L, "Université Saint-Joseph", "USJ")),
                     List.of("MASTER"),
                     GraduateProgramDetailLevel.LIST,
                     true,

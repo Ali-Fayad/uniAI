@@ -89,6 +89,9 @@ Rules:
 - Use clarificationRequired=true for ambiguity or an unresolved request.
 - Put unsupported user constraints in unsupportedConstraints.
 - Use AGGREGATE only for a supported aggregation request.
+- When the user explicitly asks for program tuition, fees, cost, or price,
+  use resource PROGRAM with operation AGGREGATE and aggregation AVG/TUITION.
+  Do not use PROGRAM/LIST or PROGRAM/DETAILS for an explicit tuition request.
 - Use COMPARE only for an explicit objective comparison and provide comparison.dimension.
 - Do not include comparison when operation is not COMPARE.
 - City-only location questions are valid; do not invent a university scope.

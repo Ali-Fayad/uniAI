@@ -66,4 +66,24 @@ public record CanonicalGraduateQueryDraft(
     public record Sort(String field, String direction) {}
 
     public record Comparison(String dimension) {}
+
+    /**
+     * Creates the canonical form for an explicit program-tuition request while
+     * preserving all user-supplied filters and bounds.
+     */
+    public CanonicalGraduateQueryDraft withTuitionAggregation() {
+        return new CanonicalGraduateQueryDraft(
+                schemaVersion,
+                "PROGRAM",
+                "AGGREGATE",
+                filters,
+                new Aggregation("AVG", "TUITION"),
+                sort,
+                null,
+                null,
+                limit,
+                false,
+                unsupportedConstraints
+        );
+    }
 }
