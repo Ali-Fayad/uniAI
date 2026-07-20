@@ -42,6 +42,10 @@ import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeResource;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
+import com.uniai.chat.application.planning.GraduateRoutePlannerShadowManager;
+import com.uniai.chat.application.planning.GraduateRouteRuntimeManager;
+import com.uniai.chat.application.planning.GraduateRouteRuntimeOutcome;
+import com.uniai.chat.application.planning.GraduateRouteExecutionResult;
 import com.uniai.chat.domain.builder.ChatBuilder;
 import com.uniai.chat.domain.builder.MessageBuilder;
 import com.uniai.chat.domain.model.Chat;
@@ -107,9 +111,21 @@ public class ChatApplicationService implements
     private final ChatTitleGenerationManager chatTitleGenerationManager;
     private final AiProviderStatusPort aiProviderStatusPort;
     private final MeterRegistry meterRegistry;
+    private GraduateRoutePlannerShadowManager routePlannerShadowManager;
+    private GraduateRouteRuntimeManager routePlannerRuntimeManager;
 
     private static final int MAX_CONVERSATION_HISTORY_MESSAGES = 6;
     private static final int MAX_INTERPRETATION_HISTORY_MESSAGES = 4;
+
+    @Autowired(required = false)
+    void configureRoutePlannerShadowManager(GraduateRoutePlannerShadowManager manager) {
+        this.routePlannerShadowManager = manager;
+    }
+
+    @Autowired(required = false)
+    void configureRoutePlannerRuntimeManager(GraduateRouteRuntimeManager manager) {
+        this.routePlannerRuntimeManager = manager;
+    }
 
     @Autowired
     public ChatApplicationService(
@@ -312,99 +328,105 @@ public class ChatApplicationService implements
                     chat.getId(),
                     recentConversationWindow.size());
             List<UniversityCatalog> universityCatalogs = universityCatalogRepository.findAll();
-            GraduateQueryInterpretationResult interpretationResult = interpretGraduateQuery(
-                    chat.getId(),
-                    command.getContent(),
-                    recentConversationWindow,
-                    universityCatalogs,
-                    conversationMemory
-            );
-            logger.debug("[RETRIEVAL] Interpretation completed chatId={} status={} fallbackUsed={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={} failureCategory={}",
-                    chat.getId(),
-                    interpretationResult.status(),
-                    interpretationResult.fallbackUsed(),
-                    interpretationResult.resolvedUniversityCount(),
-                    interpretationResult.degreeTypeCount(),
-                    interpretationResult.ambiguous(),
-                    interpretationResult.failureCategory());
-
-            if (interpretationResult.status() == GraduateQueryInterpretationStatus.AMBIGUOUS
-                    || interpretationResult.status() == GraduateQueryInterpretationStatus.UNSUPPORTED) {
-                String safeContent = StringUtils.hasText(interpretationResult.safeMessage())
-                        ? interpretationResult.safeMessage()
-                        : buildSafeInterpretationMessage(interpretationResult.status());
-                chatOutcome = interpretationResult.status() == GraduateQueryInterpretationStatus.UNSUPPORTED
-                        ? "unsupported"
-                        : "clarification";
-                logger.info("[CHAT] Interpretation stopped before retrieval chatId={} status={} reason={}",
-                        chat.getId(),
-                        interpretationResult.status(),
-                        interpretationResult.failureCategory());
-                Message aiMessage = MessageBuilder.aiMessage(chat, safeContent).build();
-                long aiSaveStartNanos = System.nanoTime();
-                Message persistedAiMessage = messageRepository.save(aiMessage);
-                logger.debug("[PERSISTENCE] Assistant message saved id={} chatId={} durationMs={}",
-                        persistedAiMessage != null ? persistedAiMessage.getId() : null,
-                        chat.getId(),
-                        elapsedMillis(aiSaveStartNanos));
-
-                chat.setUpdatedAt(LocalDateTime.now());
-                chatRepository.save(chat);
-                registerChatTitleGeneration(chat.getId(), command.getContent(), isFirstUserTurn);
-                registerConversationMemoryUpdate(chat.getId(), conversationMemory, command.getContent(), safeContent, interpretationResult);
-
-                logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
-                        user.getId(),
-                        chat.getId(),
-                        persistedAiMessage != null ? persistedAiMessage.getId() : null,
-                        safeContent.length(),
-                        elapsedMillis(requestStartNanos));
-
-                return toDto(aiMessage, List.of());
-            }
-
-            GraduateKnowledgeQuery graduateKnowledgeQuery = interpretationResult.query();
-            if (graduateKnowledgeQuery == null) {
-                graduateKnowledgeQuery = graduateKnowledgeQueryInterpreter.interpret(
-                        command.getContent(),
-                        recentConversationWindow,
-                        universityCatalogs
-                );
-            }
-            logger.debug("[RETRIEVAL] Query interpreted chatId={} intent={} universityCount={} degreeTypeCount={} followUpResolved={} ambiguous={} detailLevel={}",
-                    chat.getId(),
-                    graduateKnowledgeQuery.intent(),
-                    graduateKnowledgeQuery.resolvedUniversities().size(),
-                    graduateKnowledgeQuery.degreeTypes().size(),
-                    graduateKnowledgeQuery.followUpResolved(),
-                    graduateKnowledgeQuery.ambiguous(),
-                    graduateKnowledgeQuery.detailLevel());
-            boolean generalChat = graduateKnowledgeQuery.intent() == GraduateKnowledgeIntent.GENERAL_CHAT;
+            GraduateRouteRuntimeOutcome routeOutcome = routePlannerRuntimeManager == null
+                    ? null
+                    : routePlannerRuntimeManager.execute(
+                    command.getContent(), recentConversationWindow, conversationMemory, universityCatalogs)
+                    .orElse(null);
+            GraduateRouteExecutionResult activeRouteExecution = routeOutcome == null
+                    ? null : routeOutcome.executionResult();
+            GraduateQueryInterpretationResult interpretationResult;
+            boolean generalChat;
             String graduateContext = null;
             List<GraduateCitation> graduateCitations = List.of();
-            if (generalChat) {
-                logger.debug("[RETRIEVAL] Bypassed for general chat chatId={}", chat.getId());
-            } else {
-                logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
-                        chat.getId(),
-                        recentConversationWindow.size());
-                long retrievalStartNanos = System.nanoTime();
-                GraduateKnowledgeRetrievalResult graduateKnowledgeRetrievalResult = isLocationQuery(graduateKnowledgeQuery)
-                        && graduateLocationRetrievalPort != null
-                        ? graduateLocationRetrievalPort.retrieveContext(graduateKnowledgeQuery)
-                        : graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
-                graduateContext = graduateKnowledgeRetrievalResult != null ? graduateKnowledgeRetrievalResult.formattedContext() : null;
-                graduateCitations = graduateKnowledgeRetrievalResult != null
-                        ? graduateKnowledgeRetrievalResult.citations()
-                        : List.of();
-                if (isResolvedNoData(graduateContext)) {
+            if (routeOutcome != null) {
+                interpretationResult = routeOutcome.memoryCompatibilityResult();
+                generalChat = activeRouteExecution.route()
+                        == com.uniai.chat.application.planning.GraduateAiRoute.DIRECT_AI_RESPONSE;
+                graduateContext = generalChat ? null : routeOutcome.finalContext();
+                graduateCitations = activeRouteExecution.citations();
+                if (activeRouteExecution.empty() && !generalChat) {
                     interpretationResult = interpretationResult.withOutcome(
                             com.uniai.chat.application.interpretation.GraduateQueryInterpretationOutcome.RESOLVED_NO_DATA);
                 }
-                logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
+                logger.info("[RETRIEVAL] Route runtime selected chatId={} route={} empty={} citationCount={}",
+                        chat.getId(), activeRouteExecution.route(), activeRouteExecution.empty(),
+                        graduateCitations.size());
+            } else {
+                interpretationResult = interpretGraduateQuery(
                         chat.getId(),
-                        graduateContext != null ? graduateContext.length() : 0,
-                        elapsedMillis(retrievalStartNanos));
+                        command.getContent(),
+                        recentConversationWindow,
+                        universityCatalogs,
+                        conversationMemory
+                );
+                logger.debug("[RETRIEVAL] Interpretation completed chatId={} status={} fallbackUsed={} resolvedUniversityCount={} degreeTypeCount={} ambiguous={} failureCategory={}",
+                        chat.getId(), interpretationResult.status(), interpretationResult.fallbackUsed(),
+                        interpretationResult.resolvedUniversityCount(), interpretationResult.degreeTypeCount(),
+                        interpretationResult.ambiguous(), interpretationResult.failureCategory());
+
+                if (interpretationResult.status() == GraduateQueryInterpretationStatus.AMBIGUOUS
+                        || interpretationResult.status() == GraduateQueryInterpretationStatus.UNSUPPORTED) {
+                    String safeContent = StringUtils.hasText(interpretationResult.safeMessage())
+                            ? interpretationResult.safeMessage()
+                            : buildSafeInterpretationMessage(interpretationResult.status());
+                    chatOutcome = interpretationResult.status() == GraduateQueryInterpretationStatus.UNSUPPORTED
+                            ? "unsupported" : "clarification";
+                    logger.info("[CHAT] Interpretation stopped before retrieval chatId={} status={} reason={}",
+                            chat.getId(), interpretationResult.status(), interpretationResult.failureCategory());
+                    Message aiMessage = MessageBuilder.aiMessage(chat, safeContent).build();
+                    long aiSaveStartNanos = System.nanoTime();
+                    Message persistedAiMessage = messageRepository.save(aiMessage);
+                    logger.debug("[PERSISTENCE] Assistant message saved id={} chatId={} durationMs={}",
+                            persistedAiMessage != null ? persistedAiMessage.getId() : null,
+                            chat.getId(), elapsedMillis(aiSaveStartNanos));
+                    chat.setUpdatedAt(LocalDateTime.now());
+                    chatRepository.save(chat);
+                    registerChatTitleGeneration(chat.getId(), command.getContent(), isFirstUserTurn);
+                    registerConversationMemoryUpdate(chat.getId(), conversationMemory,
+                            command.getContent(), safeContent, interpretationResult);
+                    logger.info("[CHAT] Request completed userId={} chatId={} assistantMessageId={} responseLength={} durationMs={}",
+                            user.getId(), chat.getId(),
+                            persistedAiMessage != null ? persistedAiMessage.getId() : null,
+                            safeContent.length(), elapsedMillis(requestStartNanos));
+                    return toDto(aiMessage, List.of());
+                }
+
+                GraduateKnowledgeQuery graduateKnowledgeQuery = interpretationResult.query();
+                if (graduateKnowledgeQuery == null) {
+                    graduateKnowledgeQuery = graduateKnowledgeQueryInterpreter.interpret(
+                            command.getContent(), recentConversationWindow, universityCatalogs);
+                }
+                logger.debug("[RETRIEVAL] Query interpreted chatId={} intent={} universityCount={} degreeTypeCount={} followUpResolved={} ambiguous={} detailLevel={}",
+                        chat.getId(), graduateKnowledgeQuery.intent(),
+                        graduateKnowledgeQuery.resolvedUniversities().size(),
+                        graduateKnowledgeQuery.degreeTypes().size(), graduateKnowledgeQuery.followUpResolved(),
+                        graduateKnowledgeQuery.ambiguous(), graduateKnowledgeQuery.detailLevel());
+                if (routePlannerShadowManager != null) {
+                    routePlannerShadowManager.submit(
+                            command.getContent(), recentConversationWindow, conversationMemory, graduateKnowledgeQuery);
+                }
+                generalChat = graduateKnowledgeQuery.intent() == GraduateKnowledgeIntent.GENERAL_CHAT;
+                if (generalChat) {
+                    logger.debug("[RETRIEVAL] Bypassed for general chat chatId={}", chat.getId());
+                } else {
+                    logger.debug("[RETRIEVAL] Retrieval started chatId={} historyWindowCount={}",
+                            chat.getId(), recentConversationWindow.size());
+                    long retrievalStartNanos = System.nanoTime();
+                    GraduateKnowledgeRetrievalResult retrievalResult = isLocationQuery(graduateKnowledgeQuery)
+                            && graduateLocationRetrievalPort != null
+                            ? graduateLocationRetrievalPort.retrieveContext(graduateKnowledgeQuery)
+                            : graduateKnowledgeRetrievalPort.retrieveContext(graduateKnowledgeQuery);
+                    graduateContext = retrievalResult != null ? retrievalResult.formattedContext() : null;
+                    graduateCitations = retrievalResult != null ? retrievalResult.citations() : List.of();
+                    if (isResolvedNoData(graduateContext)) {
+                        interpretationResult = interpretationResult.withOutcome(
+                                com.uniai.chat.application.interpretation.GraduateQueryInterpretationOutcome.RESOLVED_NO_DATA);
+                    }
+                    logger.debug("[RETRIEVAL] Retrieval completed chatId={} contextLength={} durationMs={}",
+                            chat.getId(), graduateContext != null ? graduateContext.length() : 0,
+                            elapsedMillis(retrievalStartNanos));
+                }
             }
             List<String> context = (graduateContext != null && !graduateContext.isBlank())
                     ? List.of(graduateContext)
@@ -414,6 +436,11 @@ public class ChatApplicationService implements
             }
 
             String baseSystemPrompt = chatSystemPromptPort.getPrompt();
+            if (activeRouteExecution != null && generalChat) {
+                baseSystemPrompt += "\n\nThe route planner selected DIRECT_AI_RESPONSE with reason "
+                        + activeRouteExecution.directAiReason()
+                        + ". No Graduate Knowledge database retrieval was performed.";
+            }
             String systemPrompt = generalChat
                     ? baseSystemPrompt
                     : GraduateCitationEngine.appendCitationInstructions(baseSystemPrompt, graduateCitations);

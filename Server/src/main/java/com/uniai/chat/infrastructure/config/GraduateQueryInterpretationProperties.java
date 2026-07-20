@@ -14,4 +14,7 @@ public class GraduateQueryInterpretationProperties {
     private int maxOutputTokens = 500;
     private int historyMessageLimit = 4;
     private String promptPath = "prompts/graduate-query-interpreter-prompt.txt";
+    private boolean routePlannerEnabled = false;
+    private boolean routePlannerShadowEnabled = false;
+    private String routePlannerPromptPath = "prompts/graduate-route-planner-prompt.txt";
 }

@@ -1,5 +1,6 @@
 package com.uniai.chat.application.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.budget.AiContextBudgetConfiguration;
 import com.uniai.chat.application.budget.AiContextBudgetManager;
@@ -14,9 +15,14 @@ import com.uniai.chat.application.dto.command.SendMessageCommand;
 import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryManager;
+import com.uniai.chat.application.planning.GraduateAiRoute;
+import com.uniai.chat.application.planning.GraduateRouteExecutionResult;
+import com.uniai.chat.application.planning.GraduateRouteRuntimeManager;
+import com.uniai.chat.application.planning.GraduateRouteRuntimeOutcome;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationProviderException;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.ChatSystemPromptPort;
@@ -271,6 +277,50 @@ class ChatApplicationServiceTest {
                 .tags("outcome", "success")
                 .timer()
                 .count());
+    }
+
+    @Test
+    void enabledRouteRuntimeFeedsTrustedRouteContextToTheFinalAiAndSkipsLegacyRetrieval() {
+        User user = user(191L, "route-user", "route@example.com");
+        Chat chat = chat(1910L, user, "route-chat");
+        userRepository.save(user);
+        chatRepository.save(chat);
+        ObjectMapper objectMapper = new ObjectMapper();
+        ResolvedUniversity aub = new ResolvedUniversity(1L, "American University of Beirut", "AUB");
+        GraduateRouteExecutionResult execution = new GraduateRouteExecutionResult(
+                GraduateAiRoute.LIST_PROGRAMS,
+                objectMapper.createObjectNode().put("university", "American University of Beirut"),
+                "Program results:\n- Master of Science in Computer Science",
+                List.of(), List.of(), false, List.of(aub), null);
+        GraduateQueryInterpretationResult memoryResult = GraduateQueryInterpretationResult.valid(
+                new GraduateKnowledgeQuery(GraduateKnowledgeIntent.PROGRAM_LOOKUP,
+                        List.of(aub), List.of(), GraduateProgramDetailLevel.LIST, false, false),
+                1, 0);
+        GraduateRouteRuntimeOutcome outcome = new GraduateRouteRuntimeOutcome(
+                execution,
+                "Graduate route execution:\nSelected route: LIST_PROGRAMS\nRetrieved database context:\n"
+                        + execution.formattedContext(),
+                memoryResult);
+        chatApplicationService.configureRoutePlannerRuntimeManager(new GraduateRouteRuntimeManager(
+                false, null, null, null, null, null) {
+            @Override
+            public Optional<GraduateRouteRuntimeOutcome> execute(String currentMessage,
+                                                                 List<AiConversationMessage> recentHistory,
+                                                                 ConversationMemory memory,
+                                                                 List<UniversityCatalog> universityCatalogs) {
+                return Optional.of(outcome);
+            }
+        });
+
+        chatApplicationService.sendMessage(user.getEmail(), SendMessageCommand.builder()
+                .chatId(chat.getId()).content("What programs does AUB offer?").build());
+
+        assertEquals(0, graduateQueryInterpretationPort.callCount);
+        assertEquals(0, graduateKnowledgeRetrievalPort.callCount);
+        assertTrue(aiServicePort.lastRequest.getContext().get(0).contains("Selected route: LIST_PROGRAMS"));
+        assertTrue(aiServicePort.lastRequest.getContext().get(0).contains("Master of Science in Computer Science"));
+        assertEquals(1, aiServicePort.callCount);
+        assertEquals(1, conversationMemoryManager.updateCallCount);
     }
 
     @Test
