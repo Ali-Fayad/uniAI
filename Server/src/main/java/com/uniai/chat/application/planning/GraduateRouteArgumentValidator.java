@@ -22,7 +22,9 @@ public final class GraduateRouteArgumentValidator {
         validateNode(plan.canonicalArguments());
         validateAcademicYear(plan.canonicalArguments().get("academicYear"));
         validateCurrency(plan.canonicalArguments().get("currency"));
-        validateUniversityList(plan.canonicalArguments().get("universities"));
+        validateCollectionSizes(plan.canonicalArguments());
+        validateUniversityList(plan);
+        validateRankingLimit(plan);
         validateRouteInvariant(plan);
     }
 
@@ -58,11 +60,46 @@ public final class GraduateRouteArgumentValidator {
         }
     }
 
-    private void validateUniversityList(JsonNode value) {
+    private void validateUniversityList(ValidatedGraduateRoutePlan<?> plan) {
+        JsonNode value = plan.canonicalArguments().get("universities");
         if (value != null && !value.isNull()
+                && isComparison(plan.route())
                 && (value.size() < 1 || value.size() > MAX_COMPARISON_UNIVERSITIES)) {
             throw invalid("UNIVERSITY_LIST_SIZE_INVALID");
         }
+    }
+
+    private void validateCollectionSizes(JsonNode args) {
+        validateListSize(args, "universities", 20);
+        validateListSize(args, "faculties", 30);
+        validateListSize(args, "departments", 50);
+        validateListSize(args, "programs", 50);
+        validateListSize(args, "degreeTypes", 20);
+        validateListSize(args, "cities", 30);
+    }
+
+    private void validateListSize(JsonNode args, String field, int maximum) {
+        JsonNode value = args.get(field);
+        if (value != null && !value.isNull() && (!value.isArray() || value.size() > maximum)) {
+            throw invalid(field.toUpperCase(Locale.ROOT) + "_LIST_SIZE_INVALID");
+        }
+    }
+
+    private void validateRankingLimit(ValidatedGraduateRoutePlan<?> plan) {
+        if (plan.route() != GraduateAiRoute.RANK_UNIVERSITIES_BY_TUITION
+                && plan.route() != GraduateAiRoute.RANK_PROGRAMS_BY_TUITION) return;
+        JsonNode limit = plan.canonicalArguments().get("limit");
+        if (limit != null && !limit.isNull() && (!limit.isIntegralNumber() || limit.asInt() < 1 || limit.asInt() > 10)) {
+            throw invalid("RANKING_LIMIT_INVALID");
+        }
+    }
+
+    private boolean isComparison(GraduateAiRoute route) {
+        return switch (route) {
+            case COMPARE_UNIVERSITIES, COMPARE_CAMPUS_COUNTS, COMPARE_PROGRAM_AVAILABILITY,
+                    COMPARE_PROGRAM_COUNTS, COMPARE_TUITION, COMPARE_ADMISSION_REQUIREMENTS -> true;
+            default -> false;
+        };
     }
 
     private void validateRouteInvariant(ValidatedGraduateRoutePlan<?> plan) {

@@ -10,9 +10,16 @@ public record ResolvedGraduateRoutePlan<T>(
         GraduateAiRoute route,
         T arguments,
         JsonNode canonicalArguments,
-        List<ResolvedUniversity> universities
+        List<ResolvedUniversity> universities,
+        List<String> unresolvedUniversities
 ) {
     public ResolvedGraduateRoutePlan {
         universities = universities == null ? List.of() : List.copyOf(universities);
+        unresolvedUniversities = unresolvedUniversities == null ? List.of() : List.copyOf(unresolvedUniversities);
+    }
+
+    public ResolvedGraduateRoutePlan(GraduateAiRoute route, T arguments, JsonNode canonicalArguments,
+                                     List<ResolvedUniversity> universities) {
+        this(route, arguments, canonicalArguments, universities, List.of());
     }
 }

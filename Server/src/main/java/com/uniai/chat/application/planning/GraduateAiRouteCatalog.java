@@ -72,6 +72,12 @@ public final class GraduateAiRouteCatalog {
         add(routes, GraduateAiRoute.GET_MAXIMUM_TUITION, "Get maximum matching tuition", TuitionAggregateArguments.class, List.of(), 100);
         add(routes, GraduateAiRoute.GET_AVERAGE_TUITION, "Get average matching tuition", TuitionAggregateArguments.class, List.of(), 100);
         add(routes, GraduateAiRoute.COMPARE_TUITION, "Compare tuition", CompareTuitionArguments.class, List.of("universities"), 100);
+        add(routes, GraduateAiRoute.RANK_UNIVERSITIES_BY_TUITION,
+                "Rank universities by comparable graduate tuition, optionally filtered by candidate universities, programs, degree types, cities, academic year, currency, and billing unit",
+                RankUniversitiesByTuitionArguments.class, List.of(), 10);
+        add(routes, GraduateAiRoute.RANK_PROGRAMS_BY_TUITION,
+                "Rank graduate programs by comparable tuition, optionally filtered by candidate universities, faculties, departments, programs, degree types, cities, academic year, currency, and billing unit",
+                RankProgramsByTuitionArguments.class, List.of(), 10);
         add(routes, GraduateAiRoute.LIST_FEE_ITEMS, "List non-tuition fee items", FeeArguments.class, List.of(), DEFAULT_LIST_LIMIT);
 
         add(routes, GraduateAiRoute.GET_ADMISSION_REQUIREMENTS, "Get admission requirements", RequirementArguments.class, List.of(), DEFAULT_LIST_LIMIT);

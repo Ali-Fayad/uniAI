@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 /** Server-owned, deterministic university identity resolution. */
 public class GraduateKnowledgeEntityResolver {
-    private static final int MAX_UNIVERSITIES = 3;
+    private static final int MAX_UNIVERSITIES = 20;
     private static final double DEFAULT_FUZZY_CONFIDENCE_THRESHOLD = 0.86d;
     private static final Pattern EXPLICIT_UNIVERSITY = Pattern.compile(
             "\\b(?!(?:which|what|how many|number of)\\s+)(?:[\\p{L}\\p{N}][\\p{L}\\p{N}&.'-]*\\s+){1,6}(?:university|college|institute)\\b",

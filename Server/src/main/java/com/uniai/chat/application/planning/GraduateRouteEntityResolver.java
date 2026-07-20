@@ -30,19 +30,22 @@ public final class GraduateRouteEntityResolver {
                                                     String currentUserMessage) {
         if (plan.route() == GraduateAiRoute.DIRECT_AI_RESPONSE) {
             return new ResolvedGraduateRoutePlan<>(plan.route(), plan.arguments(),
-                    plan.canonicalArguments(), List.of());
+                    plan.canonicalArguments(), List.of(), List.of());
         }
         List<String> references = universityReferences(plan.arguments());
         GraduateKnowledgeEntityResolutionResult result = universityResolver.resolve(
                 references, catalogs, currentUserMessage);
-        if (result.status() == GraduateKnowledgeEntityResolutionStatus.UNKNOWN) {
+        boolean ranking = plan.route() == GraduateAiRoute.RANK_UNIVERSITIES_BY_TUITION
+                || plan.route() == GraduateAiRoute.RANK_PROGRAMS_BY_TUITION;
+        if (result.status() == GraduateKnowledgeEntityResolutionStatus.UNKNOWN && (!ranking || result.universities().isEmpty())) {
             throw new GraduateRoutePlanningException("Unknown university reference");
         }
         if (result.status() == GraduateKnowledgeEntityResolutionStatus.AMBIGUOUS) {
             throw new GraduateRoutePlanningException("Ambiguous university reference");
         }
         return new ResolvedGraduateRoutePlan<>(plan.route(), plan.arguments(),
-                canonicalize(plan.canonicalArguments(), result.universities()), result.universities());
+                canonicalize(plan.canonicalArguments(), result.universities()), result.universities(),
+                result.unresolvedReferences());
     }
 
     private List<String> universityReferences(Object arguments) {

@@ -61,10 +61,42 @@ class SqlGraduateTuitionRouteDaoIntegrationTest extends PostgresIntegrationTest 
                 .distinct().count());
     }
 
+    @Test
+    void ranksSelectedUniversitiesWithoutMixingComparableDimensions() {
+        Long aubId = jdbcTemplate.queryForObject("SELECT id FROM university WHERE acronym='AUB'", Long.class);
+        List<GraduateTuitionRouteDao.UniversityTuitionRankingRow> rows = dao.rankUniversitiesByTuition(
+                rankingCriteria(List.of(aubId), List.of("Computer Science"), List.of(), List.of(), List.of("MASTER"),
+                        "2026-2027", "USD", "PER_CREDIT", "ASC", 10));
+
+        assertFalse(rows.isEmpty(), rows.toString());
+        assertTrue(rows.stream().allMatch(row -> "USD".equals(row.currency())
+                && "PER_CREDIT".equals(row.billingBasis())
+                && "2026-2027".equals(row.academicYear())));
+    }
+
+    @Test
+    void ranksProgramsWithAverageMinimumMaximumAndScopeMetadata() {
+        Long aubId = jdbcTemplate.queryForObject("SELECT id FROM university WHERE acronym='AUB'", Long.class);
+        List<GraduateTuitionRouteDao.ProgramTuitionRankingRow> rows = dao.rankProgramsByTuition(
+                rankingCriteria(List.of(aubId), List.of("Computer Science"), List.of(), List.of(), List.of("MASTER"),
+                        "2026-2027", "USD", "PER_CREDIT", "ASC", 10));
+
+        assertTrue(rows.stream().anyMatch(row -> row.programName().contains("Computer Science")
+                && row.averageAmount().compareTo(new BigDecimal("1136.00")) == 0
+                && "FACULTY".equals(row.scopeLevel())), rows.toString());
+    }
+
     private GraduateTuitionRouteDao.TuitionCriteria criteria(
             List<Long> universities, String program, String degree, String faculty, String department,
             String year, String currency, String billing, String scope, int limit) {
         return new GraduateTuitionRouteDao.TuitionCriteria(
                 universities, program, degree, faculty, department, year, currency, billing, scope, limit);
+    }
+
+    private GraduateTuitionRouteDao.TuitionRankingCriteria rankingCriteria(
+            List<Long> universities, List<String> programs, List<String> faculties, List<String> departments,
+            List<String> degrees, String year, String currency, String billing, String order, int limit) {
+        return new GraduateTuitionRouteDao.TuitionRankingCriteria(
+                universities, programs, faculties, departments, degrees, List.of(), year, currency, billing, order, limit);
     }
 }

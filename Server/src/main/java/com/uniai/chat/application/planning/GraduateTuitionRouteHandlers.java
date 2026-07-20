@@ -20,6 +20,8 @@ public final class GraduateTuitionRouteHandlers {
                 handler(GraduateAiRoute.GET_MAXIMUM_TUITION, TuitionAggregateArguments.class, dao),
                 handler(GraduateAiRoute.GET_AVERAGE_TUITION, TuitionAggregateArguments.class, dao),
                 handler(GraduateAiRoute.COMPARE_TUITION, CompareTuitionArguments.class, dao),
+                handler(GraduateAiRoute.RANK_UNIVERSITIES_BY_TUITION, RankUniversitiesByTuitionArguments.class, dao),
+                handler(GraduateAiRoute.RANK_PROGRAMS_BY_TUITION, RankProgramsByTuitionArguments.class, dao),
                 handler(GraduateAiRoute.LIST_FEE_ITEMS, FeeArguments.class, dao));
     }
 

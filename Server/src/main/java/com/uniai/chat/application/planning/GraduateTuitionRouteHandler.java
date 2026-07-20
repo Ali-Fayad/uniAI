@@ -8,11 +8,15 @@ import com.uniai.chat.application.port.out.GraduateTuitionRouteDao.TuitionAggreg
 import com.uniai.chat.application.port.out.GraduateTuitionRouteDao.TuitionCriteria;
 import com.uniai.chat.application.port.out.GraduateTuitionRouteDao.TuitionPage;
 import com.uniai.chat.application.port.out.GraduateTuitionRouteDao.TuitionRow;
+import com.uniai.chat.application.port.out.GraduateTuitionRouteDao.TuitionRankingCriteria;
+import com.uniai.chat.application.port.out.GraduateTuitionRouteDao.UniversityTuitionRankingRow;
+import com.uniai.chat.application.port.out.GraduateTuitionRouteDao.ProgramTuitionRankingRow;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /** Route execution for tuition, tuition analytics, comparison, and fee items. */
@@ -37,6 +41,12 @@ public final class GraduateTuitionRouteHandler<T> implements GraduateAiRouteHand
 
     @Override
     public GraduateRouteExecutionResult executeResolved(ResolvedGraduateRoutePlan<T> plan) {
+        if (route == GraduateAiRoute.RANK_UNIVERSITIES_BY_TUITION) {
+            return rankUniversities(plan, dao.rankUniversitiesByTuition(rankingCriteria(plan, false)));
+        }
+        if (route == GraduateAiRoute.RANK_PROGRAMS_BY_TUITION) {
+            return rankPrograms(plan, dao.rankProgramsByTuition(rankingCriteria(plan, true)));
+        }
         TuitionCriteria criteria = criteria(plan.arguments(), plan.universities());
         return switch (route) {
             case GET_TUITION, GET_PROGRAM_TUITION, GET_FACULTY_TUITION,
@@ -46,6 +56,93 @@ public final class GraduateTuitionRouteHandler<T> implements GraduateAiRouteHand
             case LIST_FEE_ITEMS -> fees(plan, dao.findFees(criteria));
             default -> throw new GraduateRoutePlanningException("Unsupported tuition route: " + route);
         };
+    }
+
+    private TuitionRankingCriteria rankingCriteria(ResolvedGraduateRoutePlan<T> plan, boolean includeFacultyAndDepartment) {
+        Object arguments = plan.arguments();
+        List<Long> universityIds = plan.universities().stream().map(ResolvedUniversity::id)
+                .filter(Objects::nonNull).toList();
+        if (arguments instanceof GraduateRouteArguments.RankUniversitiesByTuitionArguments a) {
+            return new TuitionRankingCriteria(universityIds, a.programs(), List.of(), List.of(), a.degreeTypes(),
+                    a.cities(), a.academicYear(), a.currency(), name(a.tuitionUnit()), name(a.order()), a.limit());
+        }
+        if (arguments instanceof GraduateRouteArguments.RankProgramsByTuitionArguments a) {
+            return new TuitionRankingCriteria(universityIds, a.programs(),
+                    includeFacultyAndDepartment ? a.faculties() : List.of(),
+                    includeFacultyAndDepartment ? a.departments() : List.of(), a.degreeTypes(), a.cities(),
+                    a.academicYear(), a.currency(), name(a.tuitionUnit()), name(a.order()), a.limit());
+        }
+        throw new GraduateRoutePlanningException("Unsupported tuition ranking arguments");
+    }
+
+    private GraduateRouteExecutionResult rankUniversities(ResolvedGraduateRoutePlan<T> plan,
+                                                           List<UniversityTuitionRankingRow> rows) {
+        StringBuilder context = new StringBuilder("University tuition ranking (comparable groups):\n")
+                .append("Ranking is based only on comparable tuition data; cheapest does not mean objectively best.\n");
+        for (int i = 0; i < rows.size(); i++) {
+            UniversityTuitionRankingRow row = rows.get(i);
+            context.append(i + 1).append(". University: ").append(row.universityName());
+            append(context, "Acronym", row.universityAcronym());
+            append(context, "Average tuition", money(row.averageAmount(), row.currency()));
+            append(context, "Minimum tuition", money(row.minimumAmount(), row.currency()));
+            append(context, "Maximum tuition", money(row.maximumAmount(), row.currency()));
+            append(context, "Matching records", String.valueOf(row.matchingRecordCount()));
+            append(context, "Billing basis", row.billingBasis());
+            append(context, "Scope level", row.scopeLevel());
+            append(context, "Academic year", row.academicYear());
+            context.append('\n');
+        }
+        return result(plan, context.toString().trim(), List.of(), rankingWarnings(plan, rows), rows.isEmpty());
+    }
+
+    private GraduateRouteExecutionResult rankPrograms(ResolvedGraduateRoutePlan<T> plan,
+                                                       List<ProgramTuitionRankingRow> rows) {
+        StringBuilder context = new StringBuilder("Program tuition ranking (comparable groups):\n")
+                .append("Ranking is based only on comparable tuition data; cheapest does not mean objectively best.\n");
+        for (int i = 0; i < rows.size(); i++) {
+            ProgramTuitionRankingRow row = rows.get(i);
+            context.append(i + 1).append(". Program: ").append(row.programName());
+            append(context, "University", row.universityName());
+            append(context, "Acronym", row.universityAcronym());
+            append(context, "Average tuition", money(row.averageAmount(), row.currency()));
+            append(context, "Minimum tuition", money(row.minimumAmount(), row.currency()));
+            append(context, "Maximum tuition", money(row.maximumAmount(), row.currency()));
+            append(context, "Matching records", String.valueOf(row.matchingRecordCount()));
+            append(context, "Billing basis", row.billingBasis());
+            append(context, "Scope level", row.scopeLevel());
+            append(context, "Academic year", row.academicYear());
+            context.append('\n');
+        }
+        return result(plan, context.toString().trim(), List.of(), rankingWarnings(plan, rows), rows.isEmpty());
+    }
+
+    private List<String> rankingWarnings(ResolvedGraduateRoutePlan<T> plan, List<?> rows) {
+        List<String> warnings = new ArrayList<>();
+        plan.unresolvedUniversities().forEach(candidate ->
+                warnings.add("Unresolved university candidate: " + candidate));
+        if (rows.isEmpty()) {
+            warnings.add("No comparable tuition records matched the supplied filters.");
+            return List.copyOf(warnings);
+        }
+        if (plan.arguments() instanceof GraduateRouteArguments.RankUniversitiesByTuitionArguments a
+                && !a.universities().isEmpty()) {
+            List<String> present = rows.stream().map(row -> ((UniversityTuitionRankingRow) row).universityName())
+                    .map(this::normalize).toList();
+            a.universities().stream().filter(candidate -> present.stream().noneMatch(name -> name.equals(normalize(candidate))))
+                    .forEach(candidate -> warnings.add("No comparable tuition data was found for university: " + candidate));
+        }
+        if (plan.arguments() instanceof GraduateRouteArguments.RankProgramsByTuitionArguments a
+                && !a.programs().isEmpty()) {
+            List<String> present = rows.stream().map(row -> ((ProgramTuitionRankingRow) row).programName())
+                    .map(this::normalize).toList();
+            a.programs().stream().filter(candidate -> present.stream().noneMatch(name -> name.equals(normalize(candidate))))
+                    .forEach(candidate -> warnings.add("No comparable tuition data was found for program: " + candidate));
+        }
+        return List.copyOf(warnings);
+    }
+
+    private String normalize(String value) {
+        return value == null ? "" : value.toLowerCase(Locale.ROOT).replaceAll("[^\\p{L}\\p{N}]+", " ").trim();
     }
 
     private TuitionCriteria criteria(Object arguments, List<ResolvedUniversity> universities) {
@@ -161,6 +258,8 @@ public final class GraduateTuitionRouteHandler<T> implements GraduateAiRouteHand
     }
 
     private boolean text(String value) { return value != null && !value.isBlank(); }
+
+    private String name(Enum<?> value) { return value == null ? null : value.name(); }
 
     private static final class Values {
         String programName;

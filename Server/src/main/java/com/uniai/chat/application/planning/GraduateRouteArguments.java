@@ -10,6 +10,7 @@ public final class GraduateRouteArguments {
     public enum BillingBasis { PER_CREDIT, PER_SEMESTER, PER_YEAR, PER_TERM, PER_PROGRAM, FLAT_FEE, PER_APPLICATION, PER_ACADEMIC_YEAR }
     public enum ScopeLevel { UNIVERSITY, FACULTY, DEPARTMENT, PROGRAM }
     public enum TuitionAggregation { AVG, MIN, MAX }
+    public enum TuitionRankingOrder { ASC, DESC }
     public enum UniversityComparisonDimension { CAMPUS_COUNT, PROGRAM_COUNT, FACULTY_COUNT, DEPARTMENT_COUNT }
     public enum RequirementType { GENERAL, GRE, GMAT, ENGLISH, PORTFOLIO, INTERVIEW, EXPERIENCE, ACADEMIC, PREREQUISITE, OTHER }
     public enum DeadlineType { APPLICATION_OPEN, EARLY, PRIORITY, REGULAR, FINAL, INTERVIEW, ENROLLMENT, OTHER }
@@ -70,6 +71,29 @@ public final class GraduateRouteArguments {
     public record CompareTuitionArguments(List<String> universities, String programName, DegreeLevel degreeType,
                                           String academicYear, String currency, BillingBasis billingBasis,
                                           TuitionAggregation aggregation) {}
+    public record RankUniversitiesByTuitionArguments(
+            List<String> universities, List<String> programs, List<String> degreeTypes, List<String> cities,
+            String academicYear, String currency, BillingBasis tuitionUnit,
+            TuitionRankingOrder order, Integer limit) {
+        public RankUniversitiesByTuitionArguments {
+            universities = safe(universities); programs = safe(programs);
+            degreeTypes = safe(degreeTypes); cities = safe(cities);
+            order = order == null ? TuitionRankingOrder.ASC : order;
+            limit = limit == null ? 10 : limit;
+        }
+    }
+    public record RankProgramsByTuitionArguments(
+            List<String> universities, List<String> faculties, List<String> departments,
+            List<String> programs, List<String> degreeTypes, List<String> cities,
+            String academicYear, String currency, BillingBasis tuitionUnit,
+            TuitionRankingOrder order, Integer limit) {
+        public RankProgramsByTuitionArguments {
+            universities = safe(universities); faculties = safe(faculties); departments = safe(departments);
+            programs = safe(programs); degreeTypes = safe(degreeTypes); cities = safe(cities);
+            order = order == null ? TuitionRankingOrder.ASC : order;
+            limit = limit == null ? 10 : limit;
+        }
+    }
     public record FeeArguments(String university, String programName, String facultyName, String departmentName,
                                String academicYear, String currency, Integer limit) {}
 
@@ -98,4 +122,8 @@ public final class GraduateRouteArguments {
                                        String departmentName, String academicYear, Integer limit) {}
     public record AccreditationArguments(String university, String programName, String facultyName,
                                          String departmentName, String status, Integer limit) {}
+
+    private static <T> List<T> safe(List<T> values) {
+        return values == null ? List.of() : List.copyOf(values);
+    }
 }

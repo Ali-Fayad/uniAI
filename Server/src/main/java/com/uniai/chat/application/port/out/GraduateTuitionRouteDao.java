@@ -9,6 +9,10 @@ public interface GraduateTuitionRouteDao {
 
     List<TuitionAggregateRow> aggregateTuition(TuitionCriteria criteria);
 
+    List<UniversityTuitionRankingRow> rankUniversitiesByTuition(TuitionRankingCriteria criteria);
+
+    List<ProgramTuitionRankingRow> rankProgramsByTuition(TuitionRankingCriteria criteria);
+
     FeePage findFees(TuitionCriteria criteria);
 
     record TuitionCriteria(
@@ -67,6 +71,44 @@ public interface GraduateTuitionRouteDao {
             BigDecimal averageAmount,
             BigDecimal minimumAmount,
             BigDecimal maximumAmount
+    ) {}
+
+    record TuitionRankingCriteria(
+            List<Long> universityIds,
+            List<String> programs,
+            List<String> faculties,
+            List<String> departments,
+            List<String> degreeTypes,
+            List<String> cities,
+            String academicYear,
+            String currency,
+            String billingBasis,
+            String order,
+            int limit
+    ) {
+        public TuitionRankingCriteria {
+            universityIds = universityIds == null ? List.of() : List.copyOf(universityIds);
+            programs = programs == null ? List.of() : List.copyOf(programs);
+            faculties = faculties == null ? List.of() : List.copyOf(faculties);
+            departments = departments == null ? List.of() : List.copyOf(departments);
+            degreeTypes = degreeTypes == null ? List.of() : List.copyOf(degreeTypes);
+            cities = cities == null ? List.of() : List.copyOf(cities);
+            if (limit < 1 || limit > 100) throw new IllegalArgumentException("Ranking limit must be between 1 and 100");
+        }
+    }
+
+    record UniversityTuitionRankingRow(
+            long universityId, String universityName, String universityAcronym,
+            String academicYear, String currency, String billingBasis, String scopeLevel,
+            BigDecimal averageAmount, BigDecimal minimumAmount, BigDecimal maximumAmount,
+            long matchingRecordCount
+    ) {}
+
+    record ProgramTuitionRankingRow(
+            long programId, String programName, long universityId, String universityName,
+            String universityAcronym, String academicYear, String currency, String billingBasis, String scopeLevel,
+            BigDecimal averageAmount, BigDecimal minimumAmount, BigDecimal maximumAmount,
+            long matchingRecordCount
     ) {}
 
     record FeePage(List<FeeRow> rows, long totalMatches) {

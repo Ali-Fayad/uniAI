@@ -31,6 +31,22 @@ class GraduateRouteArgumentValidatorTest {
         assertInvalid("{\"route\":\"CHECK_CAMPUS_EXISTS\",\"arguments\":{}}");
     }
 
+    @Test
+    void acceptsUnscopedTuitionRankingWithOptionalCandidateLists() {
+        assertDoesNotThrow(() -> validator.validate(parser.parse(
+                "{\"route\":\"RANK_UNIVERSITIES_BY_TUITION\",\"arguments\":{"
+                        + "\"universities\":[],\"programs\":[\"Computer Science\"],"
+                        + "\"degreeTypes\":[\"MASTER\"],\"cities\":[],"
+                        + "\"currency\":\"USD\",\"tuitionUnit\":\"PER_CREDIT\","
+                        + "\"order\":\"ASC\",\"limit\":5}}")));
+    }
+
+    @Test
+    void rejectsAnUnboundedTuitionRanking() {
+        assertThrows(GraduateRoutePlanningException.class, () -> parser.parse(
+                "{\"route\":\"RANK_PROGRAMS_BY_TUITION\",\"arguments\":{\"limit\":11}}"));
+    }
+
     private void assertInvalid(String json) {
         ValidatedGraduateRoutePlan<?> plan = parser.parse(json);
         assertThrows(GraduateRoutePlanningException.class, () -> validator.validate(plan));
