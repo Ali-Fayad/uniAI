@@ -1,11 +1,11 @@
 package com.uniai.chat.infrastructure.interpretation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
+import com.uniai.chat.application.budget.GraduateRoutePlannerBudgetConfiguration;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationProviderException;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.planning.GraduateRoutePlannerProviderException;
+import com.uniai.chat.application.planning.GraduateRoutePlanningRequest;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.planning.GraduateAiRoute;
 import com.uniai.chat.application.planning.GraduateAiRouteCatalog;
@@ -46,14 +46,14 @@ class AiGraduateRoutePlannerAdapterTest {
 
     @Test
     void classifiesProviderTruncationSeparately() {
-        GraduateQueryInterpretationProviderException exception = assertThrows(
-                GraduateQueryInterpretationProviderException.class,
+        GraduateRoutePlannerProviderException exception = assertThrows(
+                GraduateRoutePlannerProviderException.class,
                 () -> adapter(new RecordingAiService("{}", "MAX_TOKENS")).plan(request("List programs")));
         assertEquals("AI_QUERY_PLANNER_PROVIDER_TRUNCATED", exception.failureCategory());
     }
 
     private void assertInvalid(String content) {
-        assertThrows(GraduateQueryInterpretationProviderException.class,
+        assertThrows(GraduateRoutePlannerProviderException.class,
                 () -> adapter(new RecordingAiService(content, "STOP")).plan(request("query")));
     }
 
@@ -62,13 +62,13 @@ class AiGraduateRoutePlannerAdapterTest {
         return new AiGraduateRoutePlannerAdapter(
                 service,
                 () -> "Strict planner prompt",
-                new GraduateQueryInterpretationBudgetConfiguration(true, 4500, 500, 4,
+                new GraduateRoutePlannerBudgetConfiguration(true, 4500, 500, 4,
                         "prompts/graduate-route-planner-prompt.txt"),
                 parser);
     }
 
-    private GraduateQueryInterpretationRequest request(String message) {
-        return new GraduateQueryInterpretationRequest(message, List.of(), ConversationMemory.empty());
+    private GraduateRoutePlanningRequest request(String message) {
+        return new GraduateRoutePlanningRequest(message, List.of(), ConversationMemory.empty());
     }
 
     private static final class RecordingAiService implements AiServicePort {

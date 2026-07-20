@@ -1,13 +1,13 @@
 @startuml
 title Graduate Query Sequence
 participant ChatApplicationService
-participant GraduateQueryInterpretationPort
-participant GraduateFollowUpResolver
+participant GraduateRoutePlannerPort
+participant route-aware conversation context
 participant "Retrieval Port" as retrieval
 database PostgreSQL
-ChatApplicationService -> GraduateQueryInterpretationPort : interpret
-GraduateQueryInterpretationPort --> ChatApplicationService : typed result/fallback
-ChatApplicationService -> GraduateFollowUpResolver : resolve
+ChatApplicationService -> GraduateRoutePlannerPort : interpret
+GraduateRoutePlannerPort --> ChatApplicationService : typed result/fallback
+ChatApplicationService -> route-aware conversation context : resolve
 ChatApplicationService -> retrieval : retrieveContext(query)
 retrieval -> PostgreSQL : parameterized SQL
 PostgreSQL --> retrieval : rows

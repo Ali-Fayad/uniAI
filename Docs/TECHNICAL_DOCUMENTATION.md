@@ -196,7 +196,7 @@ Graduate retrieval is an application-layer pipeline under `chat`:
 ```text
 user message
   -> AI interpretation or deterministic fallback
-  -> typed GraduateKnowledgeQuery validation
+  -> typed GraduateRoutePlan validation
   -> follow-up/reference resolution
   -> location port or graduate-knowledge port
   -> SQL-owned retrieval, citations, ranking, compression, and context budgeting

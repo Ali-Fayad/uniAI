@@ -3,7 +3,7 @@ package com.uniai.chat.infrastructure.prompt;
 import com.uniai.chat.application.planning.GraduateAiRouteCatalog;
 import com.uniai.chat.application.planning.GraduateAiRouteDefinition;
 import com.uniai.chat.application.port.out.GraduateRoutePlannerPromptPort;
-import com.uniai.chat.infrastructure.config.GraduateQueryInterpretationProperties;
+import com.uniai.chat.infrastructure.config.GraduateRoutePlannerProperties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
@@ -23,11 +23,11 @@ public final class GraduateRoutePlannerPromptProvider implements GraduateRoutePl
     private static final String CATALOG_PLACEHOLDER = "{{ROUTE_CATALOG}}";
     private final String prompt;
 
-    public GraduateRoutePlannerPromptProvider(GraduateQueryInterpretationProperties properties,
+    public GraduateRoutePlannerPromptProvider(GraduateRoutePlannerProperties properties,
                                               GraduateAiRouteCatalog catalog) {
-        String path = properties != null && properties.getRoutePlannerPromptPath() != null
-                && !properties.getRoutePlannerPromptPath().isBlank()
-                ? properties.getRoutePlannerPromptPath().trim()
+        String path = properties != null && properties.getPromptPath() != null
+                && !properties.getPromptPath().isBlank()
+                ? properties.getPromptPath().trim()
                 : "prompts/graduate-route-planner-prompt.txt";
         String template = load(path);
         if (!template.contains(CATALOG_PLACEHOLDER)) {

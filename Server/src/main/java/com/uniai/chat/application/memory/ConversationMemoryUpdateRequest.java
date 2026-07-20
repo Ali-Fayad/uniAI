@@ -1,12 +1,12 @@
 package com.uniai.chat.application.memory;
 
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
+import com.uniai.chat.application.planning.GraduateRouteExecutionResult;
 
 public record ConversationMemoryUpdateRequest(
         ConversationMemory previousMemory,
         String currentUserMessage,
         String assistantResponse,
-        GraduateQueryInterpretationResult interpretationResult
+        GraduateRouteExecutionResult routeResult
 ) {
     public ConversationMemoryUpdateRequest {
         previousMemory = previousMemory == null ? ConversationMemory.empty() : previousMemory;

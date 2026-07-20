@@ -6,6 +6,6 @@ title Backend Components
 [CatalogController] --> [CatalogQueryService]
 [FeedbackController] --> [FeedbackApplicationService]
 [AdminController] --> [AdminApplicationService]
-[ChatApplicationService] --> [GraduateFollowUpResolver]
+[ChatApplicationService] --> [route-aware conversation context]
 [ChatApplicationService] --> [AiContextBudgetManager]
 @enduml

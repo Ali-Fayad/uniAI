@@ -1,12 +1,12 @@
 package com.uniai.chat.infrastructure.interpretation;
 
-import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
+import com.uniai.chat.application.budget.GraduateRoutePlannerBudgetConfiguration;
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
 import com.uniai.chat.application.dto.ai.AiOperation;
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationProviderException;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.planning.GraduateRoutePlannerProviderException;
+import com.uniai.chat.application.planning.GraduateRoutePlanningRequest;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryPromptFormatter;
 import com.uniai.chat.application.planning.GraduateRoutePlanParser;
@@ -26,12 +26,12 @@ public final class AiGraduateRoutePlannerAdapter implements GraduateRoutePlanner
     private static final Logger logger = LogManager.getLogger(AiGraduateRoutePlannerAdapter.class);
     private final AiServicePort aiServicePort;
     private final GraduateRoutePlannerPromptPort promptPort;
-    private final GraduateQueryInterpretationBudgetConfiguration budgetConfiguration;
+    private final GraduateRoutePlannerBudgetConfiguration budgetConfiguration;
     private final GraduateRoutePlanParser parser;
 
     public AiGraduateRoutePlannerAdapter(AiServicePort aiServicePort,
                                          GraduateRoutePlannerPromptPort promptPort,
-                                         GraduateQueryInterpretationBudgetConfiguration budgetConfiguration,
+                                         GraduateRoutePlannerBudgetConfiguration budgetConfiguration,
                                          GraduateRoutePlanParser parser) {
         this.aiServicePort = aiServicePort;
         this.promptPort = promptPort;
@@ -40,7 +40,7 @@ public final class AiGraduateRoutePlannerAdapter implements GraduateRoutePlanner
     }
 
     @Override
-    public ValidatedGraduateRoutePlan<?> plan(GraduateQueryInterpretationRequest request) {
+    public ValidatedGraduateRoutePlan<?> plan(GraduateRoutePlanningRequest request) {
         AiResponse response = requestProvider(request);
         if (!StringUtils.hasText(response.getContent())) {
             throw providerFailure("AI_QUERY_PLANNER_PROVIDER_EMPTY", "Route planner provider returned empty content");
@@ -49,14 +49,14 @@ public final class AiGraduateRoutePlannerAdapter implements GraduateRoutePlanner
             // Markdown fences are intentionally not stripped: the contract requires one JSON object only.
             return parser.parse(response.getContent().trim());
         } catch (GraduateRoutePlanningException ex) {
-            throw new GraduateQueryInterpretationProviderException(
+            throw new GraduateRoutePlannerProviderException(
                     "Route planner returned an invalid contract",
                     "AI_QUERY_PLANNER_PROVIDER_INVALID",
                     ex);
         }
     }
 
-    private AiResponse requestProvider(GraduateQueryInterpretationRequest request) {
+    private AiResponse requestProvider(GraduateRoutePlanningRequest request) {
         String userMessage = request != null ? request.userMessage() : null;
         List<AiConversationMessage> history = request != null ? request.recentConversationHistory() : List.of();
         ConversationMemory memory = request != null ? request.conversationMemory() : ConversationMemory.empty();
@@ -91,7 +91,7 @@ public final class AiGraduateRoutePlannerAdapter implements GraduateRoutePlanner
         return StringUtils.hasText(rendered) ? prompt + "\n\nTrusted conversation memory:\n" + rendered : prompt;
     }
 
-    private GraduateQueryInterpretationProviderException providerFailure(String category, String message) {
-        return new GraduateQueryInterpretationProviderException(message, category);
+    private GraduateRoutePlannerProviderException providerFailure(String category, String message) {
+        return new GraduateRoutePlannerProviderException(message, category);
     }
 }

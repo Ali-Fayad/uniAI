@@ -3,16 +3,16 @@ title Graduate Query Interpretation Flow
 start
 :Build interpretation request;
 :Apply interpretation budget;
-:Call GraduateQueryInterpretationPort;
+:Call GraduateRoutePlannerPort;
 if (Valid typed result?) then (yes)
-  :GraduateQueryInterpretationValidator;
+  :GraduateRouteArgumentValidator;
 else (no)
-  :GraduateKnowledgeQueryInterpreter deterministic fallback;
+  :GraduateRoutePlannerPort deterministic fallback;
 endif
 if (Ambiguous/unsupported?) then (yes)
   :Clarify safely;
 else (no)
-  :GraduateKnowledgeQuery;
+  :GraduateRoutePlan;
 endif
 stop
 @enduml

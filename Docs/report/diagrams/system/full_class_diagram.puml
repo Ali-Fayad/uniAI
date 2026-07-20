@@ -112,10 +112,10 @@ package "AI Processing" #F2EAFB {
   class AiContextBudgetManager <<policy>> { +budget(request): AiContextBudgetResult }
   class AiTokenEstimator <<policy>> { +estimateTokens(text); +estimateContextTokens(context) }
   class AiContextBudgetResult <<record>> { +request; +requestFits; +contextTrimmed; +finalEstimatedInputTokens }
-  class GraduateKnowledgeQueryInterpreter <<application service>> { +interpret(message, history, catalog): GraduateKnowledgeQuery; +isHighConfidenceDeterministic() }
-  interface GraduateQueryInterpretationPort <<port>> { +interpret(request): GraduateQueryInterpretation }
-  class AiGraduateQueryInterpretationAdapter <<adapter>> { +interpret(request): GraduateQueryInterpretation }
-  class GraduateQueryInterpretationValidator <<policy>> { +validate(interpretation, catalog) }
+  class GraduateRoutePlannerPort <<application service>> { +interpret(message, history, catalog): GraduateRoutePlan; +isHighConfidenceDeterministic() }
+  interface GraduateRoutePlannerPort <<port>> { +interpret(request): GraduateRoutePlanning }
+  class AiGraduateRoutePlannerAdapter <<adapter>> { +interpret(request): GraduateRoutePlanning }
+  class GraduateRouteArgumentValidator <<policy>> { +validate(interpretation, catalog) }
   class ConversationMemoryManager <<application service>> { +updateMemory(chat, request); +loadMemory(chat) }
   class ConversationMemoryValidator <<policy>> { +validate(memory) }
   class ConversationMemoryMergePolicy <<policy>> { +merge(previous, patch, query, contextPolicy) }
@@ -127,7 +127,7 @@ package "AI Processing" #F2EAFB {
 }
 
 package "Graduate Knowledge" #FFF6D8 {
-  class GraduateKnowledgeQuery <<record>> {
+  class GraduateRoutePlan <<record>> {
     +resource: GraduateKnowledgeResource
     +operation: GraduateKnowledgeOperation
     +scope: GraduateKnowledgeScope
@@ -137,16 +137,16 @@ package "Graduate Knowledge" #FFF6D8 {
   }
   class GraduateKnowledgeFilters <<record>> { +universities; +degreeTypes; +city; +facultyName; +departmentName }
   class GraduateKnowledgeAggregation <<record>> { +function; +field }
-  enum GraduateKnowledgeIntent <<enum>> { PROGRAM_LOOKUP; TUITION_AGGREGATION; LOCATION_LOOKUP; ACADEMIC_STRUCTURE_LOOKUP; GRADUATE_OVERVIEW; UNKNOWN_OR_AMBIGUOUS }
+  enum GraduateAiRoute <<enum>> { PROGRAM_LOOKUP; TUITION_AGGREGATION; LOCATION_LOOKUP; ACADEMIC_STRUCTURE_LOOKUP; GRADUATE_OVERVIEW; UNKNOWN_OR_AMBIGUOUS }
   enum GraduateKnowledgeResource <<enum>> { PROGRAM; CAMPUS; UNIVERSITY; FACULTY; DEPARTMENT; GRADUATE_OVERVIEW }
   enum GraduateKnowledgeOperation <<enum>> { LIST; DETAILS; COUNT; EXISTS; AGGREGATE; COMPARE; OVERVIEW }
   enum GraduateKnowledgeScope <<enum>> { GENERAL; UNIVERSITY; CAMPUS; PROGRAM; FACULTY; DEPARTMENT; GRADUATE_OVERVIEW }
-  interface GraduateKnowledgeRetrievalPort <<port>> { +retrieveContext(query): GraduateKnowledgeRetrievalResult }
-  interface GraduateLocationRetrievalPort <<port>> { +retrieveContext(query): GraduateKnowledgeRetrievalResult }
-  class SqlGraduateKnowledgeRetrievalAdapter <<adapter>> { +retrieveContext(query) }
-  class SqlGraduateLocationRetrievalAdapter <<adapter>> { +retrieveContext(query) }
-  class GraduateFollowUpResolver <<policy>> { +resolve(candidate, history, memory) }
-  class GraduateKnowledgeResolutionSupport <<policy>> { +resolveUniversities(); +detectCity(); +analyzeHistorySignals() }
+  interface GraduateRouteHandler <<port>> { +retrieveContext(query): GraduateKnowledgeRetrievalResult }
+  interface GraduateCatalogRouteHandler <<port>> { +retrieveContext(query): GraduateKnowledgeRetrievalResult }
+  class typed route DAO adapters <<adapter>> { +retrieveContext(query) }
+  class SqlGraduateCatalogRouteDao <<adapter>> { +retrieveContext(query) }
+  class route-aware conversation context <<policy>> { +resolve(candidate, history, memory) }
+  class GraduateRouteEntityResolver <<policy>> { +resolveUniversities(); +detectCity(); +analyzeHistorySignals() }
   class GraduateCitationEngine <<policy>> { +appendCitationInstructions(prompt, citations) }
   class GraduateKnowledgeRetrievalResult <<record>> { +formattedContext; +citations }
 }
@@ -196,10 +196,10 @@ GeminiAiServiceAdapter ..|> AiServicePort
 GroqAiServiceAdapter ..|> AiServicePort
 OllamaAiServiceAdapter ..|> AiServicePort
 PlaceholderAiServiceAdapter ..|> AiServicePort
-AiGraduateQueryInterpretationAdapter ..|> GraduateQueryInterpretationPort
+AiGraduateRoutePlannerAdapter ..|> GraduateRoutePlannerPort
 AiConversationMemoryUpdateAdapter ..|> ConversationMemoryUpdatePort
-SqlGraduateKnowledgeRetrievalAdapter ..|> GraduateKnowledgeRetrievalPort
-SqlGraduateLocationRetrievalAdapter ..|> GraduateLocationRetrievalPort
+typed route DAO adapters ..|> GraduateRouteHandler
+SqlGraduateCatalogRouteDao ..|> GraduateCatalogRouteHandler
 
 ' Controller -> application service boundaries
 AuthController ..> AuthApplicationService : uses
@@ -223,9 +223,9 @@ CVTemplateResolver ..> CVTemplateRepository : uses
 ChatApplicationService ..> ChatRepository : uses
 ChatApplicationService ..> MessageRepository : uses
 ChatApplicationService ..> AiServicePort : uses
-ChatApplicationService ..> GraduateKnowledgeQueryInterpreter : uses
-ChatApplicationService ..> GraduateKnowledgeRetrievalPort : routes
-ChatApplicationService ..> GraduateLocationRetrievalPort : routes
+ChatApplicationService ..> GraduateRoutePlannerPort : uses
+ChatApplicationService ..> GraduateRouteHandler : routes
+ChatApplicationService ..> GraduateCatalogRouteHandler : routes
 ChatApplicationService ..> GraduateCitationEngine : uses
 ChatApplicationService ..> AiContextBudgetManager : uses
 ChatApplicationService ..> ConversationMemoryManager : uses
@@ -238,9 +238,9 @@ AdminApplicationService ..> ChatRepository : reads
 
 ' AI processing dependencies
 AiContextBudgetManager ..> AiTokenEstimator : collaborates
-GraduateKnowledgeQueryInterpreter ..> GraduateKnowledgeResolutionSupport : uses
-AiGraduateQueryInterpretationAdapter ..> AiServicePort : uses
-AiGraduateQueryInterpretationAdapter ..> GraduateQueryInterpretationValidator : normalized by
+GraduateRoutePlannerPort ..> GraduateRouteEntityResolver : uses
+AiGraduateRoutePlannerAdapter ..> AiServicePort : uses
+AiGraduateRoutePlannerAdapter ..> GraduateRouteArgumentValidator : normalized by
 ConversationMemoryManager ..> ConversationMemoryUpdatePort : uses
 ConversationMemoryManager ..> ConversationMemoryValidator : uses
 ConversationMemoryManager ..> ConversationMemoryMergePolicy : uses
@@ -248,15 +248,15 @@ AiConversationMemoryUpdateAdapter ..> AiServicePort : uses
 ChatTitleGenerationManager ..> AiServicePort : uses
 
 ' Graduate retrieval flow
-GraduateKnowledgeQueryInterpreter ..> GraduateKnowledgeQuery : produces
-GraduateKnowledgeQuery ..> GraduateKnowledgeIntent
-GraduateKnowledgeQuery ..> GraduateKnowledgeResource
-GraduateKnowledgeQuery ..> GraduateKnowledgeOperation
-GraduateKnowledgeQuery ..> GraduateKnowledgeScope
-GraduateKnowledgeQuery ..> GraduateKnowledgeFilters
-GraduateKnowledgeQuery ..> GraduateKnowledgeAggregation
-GraduateFollowUpResolver ..> GraduateKnowledgeQuery : patches
-GraduateFollowUpResolver ..> GraduateKnowledgeResolutionSupport : uses
+GraduateRoutePlannerPort ..> GraduateRoutePlan : produces
+GraduateRoutePlan ..> GraduateAiRoute
+GraduateRoutePlan ..> GraduateKnowledgeResource
+GraduateRoutePlan ..> GraduateKnowledgeOperation
+GraduateRoutePlan ..> GraduateKnowledgeScope
+GraduateRoutePlan ..> GraduateKnowledgeFilters
+GraduateRoutePlan ..> GraduateKnowledgeAggregation
+route-aware conversation context ..> GraduateRoutePlan : patches
+route-aware conversation context ..> GraduateRouteEntityResolver : uses
 
 ' Domain associations and ownership
 User "1" --> "0..*" Chat : owns
@@ -305,7 +305,7 @@ note right of AiServicePort
   Their HTTP clients are represented by internal adapters.
 end note
 
-note bottom of GraduateKnowledgeQuery
+note bottom of GraduateRoutePlan
   Core and graduate-knowledge records share PostgreSQL,
   but database tables are intentionally not modeled here.
 end note

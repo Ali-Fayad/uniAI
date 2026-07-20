@@ -5,8 +5,7 @@ import com.uniai.catalog.domain.repository.UniversityCatalogRepository;
 import com.uniai.chat.application.budget.ConversationMemoryBudgetConfiguration;
 import com.uniai.chat.application.budget.ConversationMemoryBudgetManager;
 import com.uniai.chat.application.budget.ConversationMemoryBudgetResult;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationStatus;
+import com.uniai.chat.application.planning.GraduateRouteExecutionResult;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeContextPolicy;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeContextPolicyClassifier;
 import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
@@ -78,15 +77,15 @@ public class ConversationMemoryManager {
             ConversationMemory previousMemory,
             String currentUserMessage,
             String assistantResponse,
-            GraduateQueryInterpretationResult interpretationResult
+            GraduateRouteExecutionResult routeResult
     ) {
-        if (chatId == null || !isEnabled() || interpretationResult == null) {
+        if (chatId == null || !isEnabled() || routeResult == null) {
             return;
         }
 
         ConversationMemory baseMemory = previousMemory == null ? ConversationMemory.empty() : previousMemory;
         long completedTurns = messageRepository == null ? 0L : Math.max(0L, messageRepository.countByChatId(chatId) / 2L);
-        if (!triggerPolicy.shouldUpdate(baseMemory, interpretationResult, completedTurns, currentUserMessage)) {
+        if (!triggerPolicy.shouldUpdate(baseMemory, routeResult, completedTurns, currentUserMessage)) {
             logger.debug("[AI_MEMORY] Memory update skipped chatId={} reason=no-trigger", chatId);
             return;
         }
@@ -95,7 +94,7 @@ public class ConversationMemoryManager {
                 baseMemory,
                 currentUserMessage,
                 assistantResponse,
-                interpretationResult
+                routeResult
         );
 
         String prompt = promptPort != null ? promptPort.getPrompt() : "";
@@ -112,7 +111,7 @@ public class ConversationMemoryManager {
         ConversationMemoryValidator.ValidationResult validationResult = validator.validatePatch(patch, catalogs);
         if (!validationResult.isValid()) {
             logger.warn("[AI_MEMORY] Memory patch rejected chatId={} category={}", chatId, validationResult.failureCategory());
-            patch = buildDeterministicPatch(interpretationResult);
+            patch = buildDeterministicPatch(routeResult);
             validationResult = validator.validatePatch(patch, catalogs);
             if (!validationResult.isValid() && !validationResult.unsupported()) {
                 logger.warn("[AI_MEMORY] Deterministic memory patch rejected chatId={} category={}", chatId, validationResult.failureCategory());
@@ -121,9 +120,9 @@ public class ConversationMemoryManager {
         }
 
         GraduateKnowledgeContextPolicy contextPolicy = GraduateKnowledgeContextPolicyClassifier.classify(
-                currentUserMessage, interpretationResult.query().resolvedUniversities());
-        ConversationMemory merged = mergePolicy.merge(baseMemory, patch, interpretationResult.query(), contextPolicy);
-        persistWithRetry(chatId, merged, patch, interpretationResult, contextPolicy);
+                currentUserMessage, routeResult.resolvedUniversities());
+        ConversationMemory merged = mergePolicy.merge(baseMemory, patch, routeResult, contextPolicy);
+        persistWithRetry(chatId, merged, patch, routeResult, contextPolicy);
     }
 
     private boolean isEnabled() {
@@ -132,32 +131,33 @@ public class ConversationMemoryManager {
 
     private ConversationMemoryPatch proposePatch(ConversationMemoryUpdateRequest request) {
         if (updatePort == null) {
-            return buildDeterministicPatch(request.interpretationResult());
+            return buildDeterministicPatch(request.routeResult());
         }
         try {
             ConversationMemoryPatch patch = updatePort.proposeUpdate(request);
-            return patch == null ? buildDeterministicPatch(request.interpretationResult()) : patch;
+            return patch == null ? buildDeterministicPatch(request.routeResult()) : patch;
         } catch (RuntimeException ex) {
             logger.warn("[AI_MEMORY] Memory update provider failed reason={}", ex.getMessage());
-            return buildDeterministicPatch(request.interpretationResult());
+            return buildDeterministicPatch(request.routeResult());
         }
     }
 
-    private ConversationMemoryPatch buildDeterministicPatch(GraduateQueryInterpretationResult interpretationResult) {
-        if (interpretationResult == null || interpretationResult.query() == null) {
+    private ConversationMemoryPatch buildDeterministicPatch(GraduateRouteExecutionResult routeResult) {
+        if (routeResult == null) {
             return emptyPatch();
         }
 
-        List<String> universities = interpretationResult.query().resolvedUniversities().stream()
+        List<String> universities = routeResult.resolvedUniversities().stream()
                 .map(university -> university == null ? null : universeMention(university))
                 .filter(value -> value != null && !value.isBlank())
                 .toList();
-        List<String> degrees = interpretationResult.query().degreeTypes() == null ? List.of() : interpretationResult.query().degreeTypes();
-        boolean comparisonActive = interpretationResult.query().followUpResolved() && interpretationResult.query().resolvedUniversities().size() > 1;
+        List<String> degrees = extractDegrees(routeResult);
+        boolean comparisonActive = routeResult.route().name().startsWith("COMPARE_")
+                && routeResult.resolvedUniversities().size() > 1;
 
         return new ConversationMemoryPatch(
                 ConversationMemory.SCHEMA_VERSION,
-                interpretationResult.query().intent() != null ? interpretationResult.query().intent().name() : null,
+                routeResult.route().name(),
                 comparisonActive,
                 universities,
                 List.of(),
@@ -196,7 +196,7 @@ public class ConversationMemoryManager {
         );
     }
 
-    private void persistWithRetry(Long chatId, ConversationMemory merged, ConversationMemoryPatch patch, GraduateQueryInterpretationResult interpretationResult,
+    private void persistWithRetry(Long chatId, ConversationMemory merged, ConversationMemoryPatch patch, GraduateRouteExecutionResult routeResult,
                                   GraduateKnowledgeContextPolicy contextPolicy) {
         if (chatId == null || persistencePort == null || merged == null) {
             return;
@@ -212,7 +212,7 @@ public class ConversationMemoryManager {
         ConversationMemoryState refreshedState = persistencePort.load(chatId);
         long refreshedVersion = refreshedState == null ? 0L : refreshedState.memoryVersion();
         ConversationMemory retryBase = refreshedState == null || refreshedState.memory() == null ? ConversationMemory.empty() : refreshedState.memory();
-        ConversationMemory retried = mergePolicy.merge(retryBase, patch, interpretationResult != null ? interpretationResult.query() : null, contextPolicy);
+        ConversationMemory retried = mergePolicy.merge(retryBase, patch, routeResult, contextPolicy);
         if (persistencePort.save(chatId, refreshedVersion, retried, LocalDateTime.now())) {
             logger.debug("[AI_MEMORY] Memory updated after retry chatId={} version={}", chatId, refreshedVersion + 1);
         } else {
@@ -228,5 +228,16 @@ public class ConversationMemoryManager {
             return university.acronym();
         }
         return university.name();
+    }
+
+    private List<String> extractDegrees(GraduateRouteExecutionResult routeResult) {
+        if (routeResult == null || routeResult.canonicalArguments() == null) return List.of();
+        var value = routeResult.canonicalArguments().get("degreeType");
+        if (value != null && value.isTextual()) return List.of(value.textValue());
+        value = routeResult.canonicalArguments().get("degreeTypes");
+        if (value == null || !value.isArray()) return List.of();
+        List<String> degrees = new java.util.ArrayList<>();
+        value.forEach(item -> { if (item.isTextual()) degrees.add(item.textValue()); });
+        return List.copyOf(degrees);
     }
 }

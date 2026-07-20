@@ -1,9 +1,9 @@
 package com.uniai.chat.application.budget;
 
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.planning.GraduateRoutePlanningRequest;
 
-public record GraduateQueryInterpretationBudgetResult(
-        GraduateQueryInterpretationRequest request,
+public record GraduateRoutePlannerBudgetResult(
+        GraduateRoutePlanningRequest request,
         long originalEstimatedInputTokens,
         long finalEstimatedInputTokens,
         long maxInputTokens,

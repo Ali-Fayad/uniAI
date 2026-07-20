@@ -76,16 +76,12 @@ public class ConversationMemoryBudgetManager {
     }
 
     private String renderInterpretationSummary(ConversationMemoryUpdateRequest request) {
-        if (request.interpretationResult() == null) {
+        if (request.routeResult() == null) {
             return "";
         }
-        return "status=" + request.interpretationResult().status()
-                + "\nresolvedUniversities=" + request.interpretationResult().resolvedUniversityCount()
-                + "\ndegreeTypes=" + request.interpretationResult().degreeTypeCount()
-                + "\nambiguous=" + request.interpretationResult().ambiguous()
-                + "\nfallbackUsed=" + request.interpretationResult().fallbackUsed()
-                + "\nfailureCategory=" + request.interpretationResult().failureCategory()
-                + "\nunsupportedConstraints=" + request.interpretationResult().unsupportedConstraints();
+        return "route=" + request.routeResult().route()
+                + "\nresolvedUniversities=" + request.routeResult().resolvedUniversities().size()
+                + "\nempty=" + request.routeResult().empty();
     }
 
     private long elapsedMillis(long startNanos) {

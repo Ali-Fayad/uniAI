@@ -1,6 +1,6 @@
 package com.uniai.chat.application.memory;
 
-import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.planning.GraduateRouteExecutionResult;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeContextPolicy;
 
@@ -14,11 +14,11 @@ import java.util.Set;
 
 public class ConversationMemoryMergePolicy {
 
-    public ConversationMemory merge(ConversationMemory previous, ConversationMemoryPatch patch, GraduateKnowledgeQuery query) {
-        return merge(previous, patch, query, GraduateKnowledgeContextPolicy.REFERENTIAL);
+    public ConversationMemory merge(ConversationMemory previous, ConversationMemoryPatch patch, GraduateRouteExecutionResult result) {
+        return merge(previous, patch, result, GraduateKnowledgeContextPolicy.REFERENTIAL);
     }
 
-    public ConversationMemory merge(ConversationMemory previous, ConversationMemoryPatch patch, GraduateKnowledgeQuery query,
+    public ConversationMemory merge(ConversationMemory previous, ConversationMemoryPatch patch, GraduateRouteExecutionResult result,
                                     GraduateKnowledgeContextPolicy contextPolicy) {
         ConversationMemory base = previous == null ? ConversationMemory.empty() : previous;
         ConversationMemoryPatch effectivePatch = patch == null ? emptyPatch() : patch;
@@ -37,48 +37,48 @@ public class ConversationMemoryMergePolicy {
             lastIntent = null;
         } else if (effectivePatch.setLastIntent() != null) {
             lastIntent = effectivePatch.setLastIntent().trim().toUpperCase(Locale.ROOT);
-        } else if (query != null && query.intent() != null) {
-            lastIntent = query.intent().name();
+        } else if (result != null && result.route() != null) {
+            lastIntent = result.route().name();
         }
 
         if (effectivePatch.clearFields().contains("comparisonActive")) {
             comparisonActive = false;
         } else if (effectivePatch.setComparisonActive() != null) {
             comparisonActive = effectivePatch.setComparisonActive();
-        } else if (query != null) {
-            comparisonActive = query.followUpResolved() && query.resolvedUniversities().size() > 1;
+        } else if (result != null) {
+            comparisonActive = result.route().name().startsWith("COMPARE_") && result.resolvedUniversities().size() > 1;
         }
 
         boolean resetScope = contextPolicy == GraduateKnowledgeContextPolicy.STANDALONE
                 || contextPolicy == GraduateKnowledgeContextPolicy.TOPIC_RESET;
-        if (effectivePatch.clearFields().contains("activeUniversities") || resetScope && (query == null || query.resolvedUniversities().isEmpty())) {
+        if (effectivePatch.clearFields().contains("activeUniversities") || resetScope && (result == null || result.resolvedUniversities().isEmpty())) {
             activeUniversities = List.of();
         } else if (!effectivePatch.replaceActiveUniversities().isEmpty()) {
-            activeUniversities = resolveUniversities(effectivePatch.replaceActiveUniversities(), query);
+            activeUniversities = resolveUniversities(effectivePatch.replaceActiveUniversities(), result);
         } else {
-            List<MemoryUniversityRef> queryUniversities = query == null || query.resolvedUniversities() == null || query.resolvedUniversities().isEmpty()
+            List<MemoryUniversityRef> queryUniversities = result == null || result.resolvedUniversities() == null || result.resolvedUniversities().isEmpty()
                     ? activeUniversities
-                    : resolvedUniversities(query.resolvedUniversities());
-            activeUniversities = applyUniversityDelta(queryUniversities, effectivePatch.addActiveUniversities(), effectivePatch.removeActiveUniversities(), query);
+                    : resolvedUniversities(result.resolvedUniversities());
+            activeUniversities = applyUniversityDelta(queryUniversities, effectivePatch.addActiveUniversities(), effectivePatch.removeActiveUniversities(), result);
         }
 
-        if (effectivePatch.clearFields().contains("activeDegreeTypes") || resetScope && (query == null || query.degreeTypes().isEmpty())) {
+        if (effectivePatch.clearFields().contains("activeDegreeTypes") || resetScope && (result == null || extractDegrees(result).isEmpty())) {
             activeDegreeTypes = List.of();
         } else if (!effectivePatch.replaceActiveDegreeTypes().isEmpty()) {
             activeDegreeTypes = normalizeDegrees(effectivePatch.replaceActiveDegreeTypes());
         } else {
-            List<String> queryDegrees = query == null || query.degreeTypes() == null || query.degreeTypes().isEmpty()
+            List<String> queryDegrees = result == null || extractDegrees(result).isEmpty()
                     ? activeDegreeTypes
-                    : query.degreeTypes();
-            activeDegreeTypes = applyDegreeDelta(queryDegrees, effectivePatch.addActiveDegreeTypes(), effectivePatch.removeActiveDegreeTypes(), query);
+                    : extractDegrees(result);
+            activeDegreeTypes = applyDegreeDelta(queryDegrees, effectivePatch.addActiveDegreeTypes(), effectivePatch.removeActiveDegreeTypes(), result);
         }
 
         if (effectivePatch.clearFields().contains("comparisonUniversities")) {
             comparisonUniversities = List.of();
         } else if (!effectivePatch.replaceComparisonUniversities().isEmpty()) {
-            comparisonUniversities = resolveUniversities(effectivePatch.replaceComparisonUniversities(), query);
+            comparisonUniversities = resolveUniversities(effectivePatch.replaceComparisonUniversities(), result);
         } else if (comparisonActive) {
-            comparisonUniversities = mergeComparisonUniversities(comparisonUniversities, query);
+            comparisonUniversities = mergeComparisonUniversities(comparisonUniversities, result);
         } else {
             comparisonUniversities = List.of();
         }
@@ -105,10 +105,8 @@ public class ConversationMemoryMergePolicy {
             preferences = effectivePatch.setAllowedPreferences();
         }
 
-        List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> queryReferences = query == null
-                ? List.of() : query.followUpContext().references();
-        List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> activeReferences = queryReferences.isEmpty()
-                ? base.activeReferences() : queryReferences;
+        List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> queryReferences = List.of();
+        List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> activeReferences = base.activeReferences();
         List<com.uniai.chat.application.retrieval.GraduateKnowledgeReference> comparisonReferences = comparisonActive
                 ? (queryReferences.isEmpty() ? base.comparisonReferences() : queryReferences)
                 : List.of();
@@ -125,7 +123,7 @@ public class ConversationMemoryMergePolicy {
                 preferences,
                 activeReferences,
                 comparisonReferences,
-                comparisonActive && query != null ? query.followUpContext().comparisonDimension() : null
+                null
         );
     }
 
@@ -150,7 +148,7 @@ public class ConversationMemoryMergePolicy {
         );
     }
 
-    private List<MemoryUniversityRef> resolveUniversities(List<String> mentions, GraduateKnowledgeQuery query) {
+    private List<MemoryUniversityRef> resolveUniversities(List<String> mentions, GraduateRouteExecutionResult result) {
         if (mentions == null || mentions.isEmpty()) {
             return List.of();
         }
@@ -159,7 +157,7 @@ public class ConversationMemoryMergePolicy {
             if (mention == null || mention.isBlank()) {
                 continue;
             }
-            for (ResolvedUniversity university : query != null ? query.resolvedUniversities() : List.<ResolvedUniversity>of()) {
+            for (ResolvedUniversity university : result != null ? result.resolvedUniversities() : List.<ResolvedUniversity>of()) {
                 if (university == null || university.id() == null) {
                     continue;
                 }
@@ -171,7 +169,7 @@ public class ConversationMemoryMergePolicy {
         return new ArrayList<>(byId.values());
     }
 
-    private List<MemoryUniversityRef> applyUniversityDelta(List<MemoryUniversityRef> current, List<String> add, List<String> remove, GraduateKnowledgeQuery query) {
+    private List<MemoryUniversityRef> applyUniversityDelta(List<MemoryUniversityRef> current, List<String> add, List<String> remove, GraduateRouteExecutionResult result) {
         Map<Long, MemoryUniversityRef> byId = new LinkedHashMap<>();
         if (current != null) {
             for (MemoryUniversityRef ref : current) {
@@ -180,22 +178,22 @@ public class ConversationMemoryMergePolicy {
                 }
             }
         }
-        for (MemoryUniversityRef ref : resolveUniversities(add, query)) {
+        for (MemoryUniversityRef ref : resolveUniversities(add, result)) {
             if (ref != null && ref.id() != null) {
                 byId.putIfAbsent(ref.id(), ref);
             }
         }
-        Set<Long> removeIds = universityIds(remove, query);
+        Set<Long> removeIds = universityIds(remove, result);
         byId.keySet().removeIf(removeIds::contains);
         return new ArrayList<>(byId.values());
     }
 
-    private Set<Long> universityIds(List<String> mentions, GraduateKnowledgeQuery query) {
+    private Set<Long> universityIds(List<String> mentions, GraduateRouteExecutionResult result) {
         Set<Long> ids = new LinkedHashSet<>();
         if (mentions == null) {
             return ids;
         }
-        for (MemoryUniversityRef ref : resolveUniversities(mentions, query)) {
+        for (MemoryUniversityRef ref : resolveUniversities(mentions, result)) {
             if (ref.id() != null) {
                 ids.add(ref.id());
             }
@@ -203,13 +201,13 @@ public class ConversationMemoryMergePolicy {
         return ids;
     }
 
-    private List<String> applyDegreeDelta(List<String> current, List<String> add, List<String> remove, GraduateKnowledgeQuery query) {
+    private List<String> applyDegreeDelta(List<String> current, List<String> add, List<String> remove, GraduateRouteExecutionResult result) {
         Set<String> degrees = new LinkedHashSet<>(normalizeDegrees(current));
         degrees.addAll(normalizeDegrees(add));
         Set<String> removeSet = new LinkedHashSet<>(normalizeDegrees(remove));
         degrees.removeIf(removeSet::contains);
-        if (degrees.isEmpty() && query != null && query.degreeTypes() != null) {
-            degrees.addAll(normalizeDegrees(query.degreeTypes()));
+        if (degrees.isEmpty() && result != null) {
+            degrees.addAll(normalizeDegrees(extractDegrees(result)));
         }
         return new ArrayList<>(degrees);
     }
@@ -255,7 +253,7 @@ public class ConversationMemoryMergePolicy {
         return new ArrayList<>(values);
     }
 
-    private List<MemoryUniversityRef> mergeComparisonUniversities(List<MemoryUniversityRef> current, GraduateKnowledgeQuery query) {
+    private List<MemoryUniversityRef> mergeComparisonUniversities(List<MemoryUniversityRef> current, GraduateRouteExecutionResult result) {
         Map<Long, MemoryUniversityRef> byId = new LinkedHashMap<>();
         if (current != null) {
             for (MemoryUniversityRef ref : current) {
@@ -264,8 +262,8 @@ public class ConversationMemoryMergePolicy {
                 }
             }
         }
-        if (query != null) {
-            for (ResolvedUniversity university : query.resolvedUniversities()) {
+        if (result != null) {
+            for (ResolvedUniversity university : result.resolvedUniversities()) {
                 if (university != null && university.id() != null) {
                     byId.putIfAbsent(university.id(), new MemoryUniversityRef(university.id(), university.name(), university.acronym()));
                 }
@@ -299,5 +297,16 @@ public class ConversationMemoryMergePolicy {
             return true;
         }
         return false;
+    }
+
+    private List<String> extractDegrees(GraduateRouteExecutionResult result) {
+        if (result == null || result.canonicalArguments() == null) return List.of();
+        var value = result.canonicalArguments().get("degreeType");
+        if (value != null && value.isTextual()) return List.of(value.textValue());
+        value = result.canonicalArguments().get("degreeTypes");
+        if (value == null || !value.isArray()) return List.of();
+        List<String> degrees = new ArrayList<>();
+        value.forEach(item -> { if (item.isTextual()) degrees.add(item.textValue()); });
+        return List.copyOf(degrees);
     }
 }

@@ -13,11 +13,11 @@ boundary ChatController
 control ChatApplicationService
 entity ChatRepository
 entity MessageRepository
-control GraduateKnowledgeQueryInterpreter
-control GraduateFollowUpResolver
+control GraduateRoutePlannerPort
+control route-aware conversation context
 control AiContextBudgetManager
-participant GraduateKnowledgeRetrievalPort
-participant SqlGraduateKnowledgeRetrievalAdapter
+participant GraduateRouteHandler
+participant typed route DAO adapters
 control GraduateCitationEngine
 control ConversationMemoryManager
 control ChatTitleGenerationManager
@@ -44,22 +44,22 @@ PostgreSQL --> MessageRepository : persisted message
 ChatApplicationService -> MessageRepository : load recent history
 MessageRepository -> PostgreSQL : SELECT recent messages
 PostgreSQL --> MessageRepository : conversation history
-ChatApplicationService -> GraduateKnowledgeQueryInterpreter : interpret current message/history/catalog
-activate GraduateKnowledgeQueryInterpreter
-GraduateKnowledgeQueryInterpreter -> GraduateFollowUpResolver : resolve referential context when needed
-GraduateFollowUpResolver --> GraduateKnowledgeQueryInterpreter : patched query or clarification
+ChatApplicationService -> GraduateRoutePlannerPort : interpret current message/history/catalog
+activate GraduateRoutePlannerPort
+GraduateRoutePlannerPort -> route-aware conversation context : resolve referential context when needed
+route-aware conversation context --> GraduateRoutePlannerPort : patched query or clarification
 alt Deterministic high-confidence query
-  GraduateKnowledgeQueryInterpreter --> ChatApplicationService : normalized query
+  GraduateRoutePlannerPort --> ChatApplicationService : normalized query
 else Provider interpretation required
-  GraduateKnowledgeQueryInterpreter --> ChatApplicationService : provider-needed candidate
+  GraduateRoutePlannerPort --> ChatApplicationService : provider-needed candidate
   ChatApplicationService -> AiServicePort : interpretation request
   AiServicePort -> ProviderAdapter : generate structured interpretation
   ProviderAdapter --> AiServicePort : compact JSON / failure
   AiServicePort --> ChatApplicationService : interpretation result
-  ChatApplicationService -> GraduateKnowledgeQueryInterpreter : deterministic fallback if provider failed
-  GraduateKnowledgeQueryInterpreter --> ChatApplicationService : normalized fallback query
+  ChatApplicationService -> GraduateRoutePlannerPort : deterministic fallback if provider failed
+  GraduateRoutePlannerPort --> ChatApplicationService : normalized fallback query
 end
-deactivate GraduateKnowledgeQueryInterpreter
+deactivate GraduateRoutePlannerPort
 
 alt Ambiguous or unsupported interpretation
   ChatApplicationService -> MessageRepository : save clarification/safe message
@@ -74,12 +74,12 @@ else General chat
   ProviderAdapter --> AiServicePort : response/fallback
   AiServicePort --> ChatApplicationService : AI response
 else Graduate knowledge query
-  ChatApplicationService -> GraduateKnowledgeRetrievalPort : retrieveContext(query)
-  GraduateKnowledgeRetrievalPort -> SqlGraduateKnowledgeRetrievalAdapter : SQL retrieval
-  SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : execute bounded SQL
-  PostgreSQL --> SqlGraduateKnowledgeRetrievalAdapter : rows/aggregate/context
-  SqlGraduateKnowledgeRetrievalAdapter --> GraduateKnowledgeRetrievalPort : retrieval result
-  GraduateKnowledgeRetrievalPort --> ChatApplicationService : formatted context and citations
+  ChatApplicationService -> GraduateRouteHandler : retrieveContext(query)
+  GraduateRouteHandler -> typed route DAO adapters : SQL retrieval
+  typed route DAO adapters -> PostgreSQL : execute bounded SQL
+  PostgreSQL --> typed route DAO adapters : rows/aggregate/context
+  typed route DAO adapters --> GraduateRouteHandler : retrieval result
+  GraduateRouteHandler --> ChatApplicationService : formatted context and citations
   ChatApplicationService -> GraduateCitationEngine : append citation instructions
   GraduateCitationEngine --> ChatApplicationService : citation-aware system prompt
   ChatApplicationService -> AiContextBudgetManager : budget history/context/request

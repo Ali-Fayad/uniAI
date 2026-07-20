@@ -3,9 +3,9 @@ Purpose: component responsibility map.
 | Component | Responsibility |
 |---|---|
 | `ChatApplicationService` | orchestrates chat lifecycle |
-| `GraduateQueryInterpretationValidator` | trusts only valid typed interpretation |
-| `GraduateKnowledgeQueryInterpreter` | deterministic fallback |
-| `GraduateFollowUpResolver` | safe reference inheritance |
+| `GraduateRouteArgumentValidator` | trusts only valid typed interpretation |
+| `GraduateRoutePlannerPort` | deterministic fallback |
+| `route-aware conversation context` | safe reference inheritance |
 | `AiContextBudgetManager` | prompt size control |
 | SQL retrieval adapters | bounded evidence retrieval |
 | `GraduateCitationEngine` | citation instructions/extraction |

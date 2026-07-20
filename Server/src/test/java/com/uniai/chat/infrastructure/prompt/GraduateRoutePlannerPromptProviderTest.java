@@ -2,7 +2,7 @@ package com.uniai.chat.infrastructure.prompt;
 
 import com.uniai.chat.application.planning.GraduateAiRoute;
 import com.uniai.chat.application.planning.GraduateAiRouteCatalog;
-import com.uniai.chat.infrastructure.config.GraduateQueryInterpretationProperties;
+import com.uniai.chat.infrastructure.config.GraduateRoutePlannerProperties;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +12,7 @@ class GraduateRoutePlannerPromptProviderTest {
     @Test
     void generatesEveryEnabledRouteAndItsTypedArgumentsFromJavaMetadata() {
         GraduateRoutePlannerPromptProvider provider = new GraduateRoutePlannerPromptProvider(
-                new GraduateQueryInterpretationProperties(), new GraduateAiRouteCatalog());
+                new GraduateRoutePlannerProperties(), new GraduateAiRouteCatalog());
         String prompt = provider.getPrompt();
 
         for (GraduateAiRoute route : GraduateAiRoute.values()) {

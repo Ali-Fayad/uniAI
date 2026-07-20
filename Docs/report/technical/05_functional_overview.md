@@ -6,7 +6,6 @@
 | Profile and CV management | Implemented | `PersonalInfoController`, `CVController` |
 | Chat/history/delete | Implemented | `ChatController` |
 | AI providers and fallback | Implemented | `ChatAiConfiguration` |
-| Graduate search/retrieval | Implemented with notes | `SqlGraduateKnowledgeRetrievalAdapter` |
+| Graduate search/retrieval | Implemented with notes | `typed route DAO adapters` |
 | Catalog and map | Implemented | `CatalogController`, `MapPage` |
 | Feedback/admin | Implemented | `FeedbackController`, `AdminController` |
-

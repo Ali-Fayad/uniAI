@@ -1,8 +1,6 @@
 package com.uniai.chat.application.memory;
 
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationStatus;
-import com.uniai.chat.application.retrieval.GraduateKnowledgeQuery;
+import com.uniai.chat.application.planning.GraduateRouteExecutionResult;
 import com.uniai.chat.application.retrieval.ResolvedUniversity;
 
 import java.util.HashSet;
@@ -15,16 +13,15 @@ public final class ConversationMemoryTriggerPolicy {
 
     public boolean shouldUpdate(
             ConversationMemory previousMemory,
-            GraduateQueryInterpretationResult interpretationResult,
+            GraduateRouteExecutionResult routeResult,
             long completedTurnCount,
             String currentUserMessage
     ) {
-        if (interpretationResult == null) {
+        if (routeResult == null) {
             return false;
         }
 
-        GraduateKnowledgeQuery query = interpretationResult.query();
-        if (query != null && query.intent() == com.uniai.chat.application.retrieval.GraduateKnowledgeIntent.GENERAL_CHAT) {
+        if (routeResult.route() == com.uniai.chat.application.planning.GraduateAiRoute.DIRECT_AI_RESPONSE) {
             return false;
         }
 
@@ -32,41 +29,28 @@ public final class ConversationMemoryTriggerPolicy {
             return true;
         }
 
-        if (interpretationResult.status() != GraduateQueryInterpretationStatus.VALID
-                && interpretationResult.status() != GraduateQueryInterpretationStatus.FALLBACK_USED) {
-            return false;
-        }
-
-        if (query == null) {
-            return false;
-        }
-
         ConversationMemory memory = previousMemory == null ? ConversationMemory.empty() : previousMemory;
-        if (!sameIntent(memory.lastIntentEnum(), query.intent())) {
+        if (!java.util.Objects.equals(memory.lastIntent(), routeResult.route().name())) {
             return true;
         }
 
         Set<Long> previousIds = universityIds(memory.activeUniversities());
-        Set<Long> currentIds = universityIdsResolved(query.resolvedUniversities());
+        Set<Long> currentIds = universityIdsResolved(routeResult.resolvedUniversities());
         if (!previousIds.equals(currentIds)) {
             return true;
         }
 
-        if (!sameDegrees(memory.activeDegreeTypes(), query.degreeTypes())) {
+        if (!sameDegrees(memory.activeDegreeTypes(), extractDegrees(routeResult))) {
             return true;
         }
 
-        boolean currentComparison = query.followUpResolved() && query.resolvedUniversities().size() > 1;
+        boolean currentComparison = routeResult.route().name().startsWith("COMPARE_")
+                && routeResult.resolvedUniversities().size() > 1;
         if (memory.comparisonActive() != currentComparison) {
             return true;
         }
 
         return containsMemorySignal(currentUserMessage);
-    }
-
-    private boolean sameIntent(com.uniai.chat.application.retrieval.GraduateKnowledgeIntent left,
-                               com.uniai.chat.application.retrieval.GraduateKnowledgeIntent right) {
-        return left == right;
     }
 
     private Set<Long> universityIds(List<MemoryUniversityRef> universities) {
@@ -130,5 +114,16 @@ public final class ConversationMemoryTriggerPolicy {
                 || normalized.contains("same")
                 || normalized.contains("compare")
                 || normalized.contains("comparison");
+    }
+
+    private List<String> extractDegrees(GraduateRouteExecutionResult result) {
+        if (result.canonicalArguments() == null) return List.of();
+        var value = result.canonicalArguments().get("degreeType");
+        if (value != null && value.isTextual()) return List.of(value.textValue());
+        value = result.canonicalArguments().get("degreeTypes");
+        if (value == null || !value.isArray()) return List.of();
+        java.util.ArrayList<String> degrees = new java.util.ArrayList<>();
+        value.forEach(item -> { if (item.isTextual()) degrees.add(item.textValue()); });
+        return List.copyOf(degrees);
     }
 }

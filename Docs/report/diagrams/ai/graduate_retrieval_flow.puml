@@ -1,12 +1,12 @@
 @startuml
 title Graduate Retrieval Flow
 start
-:Validated GraduateKnowledgeQuery;
-:GraduateFollowUpResolver;
+:Validated GraduateRoutePlan;
+:route-aware conversation context;
 if (Location/campus?) then (yes)
-  :GraduateLocationRetrievalPort;
+  :GraduateCatalogRouteHandler;
 else (no)
-  :GraduateKnowledgeRetrievalPort;
+  :GraduateRouteHandler;
 endif
 :Parameterized SQL adapter;
 :Format context and citations;

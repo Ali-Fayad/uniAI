@@ -1,7 +1,6 @@
 package com.uniai.chat.application.memory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.uniai.chat.application.retrieval.GraduateKnowledgeIntent;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeComparisonDimension;
 import com.uniai.chat.application.retrieval.GraduateKnowledgeReference;
 
@@ -93,17 +92,6 @@ public record ConversationMemory(
 
     public String toPromptText() {
         return ConversationMemoryPromptFormatter.render(this);
-    }
-
-    public GraduateKnowledgeIntent lastIntentEnum() {
-        if (lastIntent == null || lastIntent.isBlank()) {
-            return GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;
-        }
-        try {
-            return GraduateKnowledgeIntent.valueOf(lastIntent.trim().toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            return GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS;
-        }
     }
 
     private static List<MemoryUniversityRef> normalizeUniversities(List<MemoryUniversityRef> universities) {

@@ -1,7 +1,7 @@
 package com.uniai.chat.application.budget;
 
 import com.uniai.chat.application.dto.ai.AiConversationMessage;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.planning.GraduateRoutePlanningRequest;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.infrastructure.metrics.ChatAiMetrics;
 import org.apache.logging.log4j.LogManager;
@@ -12,26 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GraduateQueryInterpretationBudgetManager {
+public class GraduateRoutePlannerBudgetManager {
 
-    private static final Logger logger = LogManager.getLogger(GraduateQueryInterpretationBudgetManager.class);
+    private static final Logger logger = LogManager.getLogger(GraduateRoutePlannerBudgetManager.class);
     private static final String BUDGET_EXCEEDED_CATEGORY = "AI_QUERY_INTERPRETATION_BUDGET_EXCEEDED";
 
-    private final GraduateQueryInterpretationBudgetConfiguration configuration;
+    private final GraduateRoutePlannerBudgetConfiguration configuration;
     private final AiTokenEstimator estimator;
     private final String activeProvider;
     private final MeterRegistry meterRegistry;
 
-    public GraduateQueryInterpretationBudgetManager(
-            GraduateQueryInterpretationBudgetConfiguration configuration,
+    public GraduateRoutePlannerBudgetManager(
+            GraduateRoutePlannerBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             String activeProvider
     ) {
         this(configuration, estimator, activeProvider, null);
     }
 
-    public GraduateQueryInterpretationBudgetManager(
-            GraduateQueryInterpretationBudgetConfiguration configuration,
+    public GraduateRoutePlannerBudgetManager(
+            GraduateRoutePlannerBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             String activeProvider,
             MeterRegistry meterRegistry
@@ -42,7 +42,7 @@ public class GraduateQueryInterpretationBudgetManager {
         this.meterRegistry = meterRegistry;
     }
 
-    public GraduateQueryInterpretationBudgetResult budget(GraduateQueryInterpretationRequest request, String prompt) {
+    public GraduateRoutePlannerBudgetResult budget(GraduateRoutePlanningRequest request, String prompt) {
         Objects.requireNonNull(request, "request");
         long startNanos = System.nanoTime();
 
@@ -131,7 +131,7 @@ public class GraduateQueryInterpretationBudgetManager {
             );
         }
 
-        GraduateQueryInterpretationRequest budgetedRequest = new GraduateQueryInterpretationRequest(
+        GraduateRoutePlanningRequest budgetedRequest = new GraduateRoutePlanningRequest(
                 request.userMessage(),
                 List.copyOf(budgetedHistory),
                 conversationMemory
@@ -149,7 +149,7 @@ public class GraduateQueryInterpretationBudgetManager {
                 requestFits,
                 elapsedMillis(startNanos));
 
-        return new GraduateQueryInterpretationBudgetResult(
+        return new GraduateRoutePlannerBudgetResult(
                 budgetedRequest,
                 originalTotal,
                 finalEstimatedInputTokens,

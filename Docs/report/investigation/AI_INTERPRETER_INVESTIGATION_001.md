@@ -6,8 +6,8 @@ Recommendation: **partially refactor the interpreter now, using a hybrid determi
 
 The current pipeline has three production blockers and several architectural correctness defects:
 
-1. Correct global `COUNT` interpretations can be overwritten by later generic scope guards in both `ChatApplicationService` and `GraduateFollowUpResolver`.
-2. `SqlGraduateKnowledgeRetrievalAdapter` always emits optional nullable predicates and binds untyped nulls, causing the observed PostgreSQL parameter-type failures across more than the two logged queries.
+1. Correct global `COUNT` interpretations can be overwritten by later generic scope guards in both `ChatApplicationService` and `route-aware conversation context`.
+2. `typed route DAO adapters` always emits optional nullable predicates and binds untyped nulls, causing the observed PostgreSQL parameter-type failures across more than the two logged queries.
 3. The interpretation response contract has 30 fields, the prompt requires all of them, the runtime output budget is 250 tokens, and Gemini is not configured for provider-enforced structured output. Truncation is therefore an expected operating condition, not an edge case.
 
 The most important broader findings are:
@@ -64,19 +64,19 @@ ChatApplicationService.sendMessage
   -> interpretGraduateQuery
        -> exact deterministic GENERAL_CHAT bypass only
        -> interpretation input budget
-       -> AiGraduateQueryInterpretationAdapter
+       -> AiGraduateRoutePlannerAdapter
             -> append memory to interpreter system prompt
             -> send prompt + raw history + current message to provider
-            -> parse text as GraduateQueryInterpretation JSON
-       -> GraduateQueryInterpretationValidator
+            -> parse text as GraduateRoutePlanning JSON
+       -> GraduateRouteArgumentValidator
             -> normalize enum/string fields
             -> resolve university mentions
-            -> construct GraduateKnowledgeQuery
+            -> construct GraduateRoutePlan
             -> apply intent/resource/operation compatibility
             -> apply university-required guard
        -> if AI GENERAL_CHAT conflicts with Java graduate signal:
             deterministic fallback
-       -> GraduateFollowUpResolver (for valid/ambiguous/fallback results)
+       -> route-aware conversation context (for valid/ambiguous/fallback results)
             -> re-detect current entities and intents
             -> analyze user history and seed it with memory
             -> inherit/replace/merge universities and degree types
@@ -87,8 +87,8 @@ ChatApplicationService.sendMessage
             -> follow-up resolver
   -> stop for AMBIGUOUS / UNSUPPORTED
   -> route by resource:
-       UNIVERSITY or CAMPUS -> SqlGraduateLocationRetrievalAdapter
-       otherwise            -> SqlGraduateKnowledgeRetrievalAdapter
+       UNIVERSITY or CAMPUS -> SqlGraduateCatalogRouteDao
+       otherwise            -> typed route DAO adapters
   -> format context as plain text
   -> final AI prompt + full bounded conversation history + context + memory
   -> persist final answer
@@ -98,7 +98,7 @@ ChatApplicationService.sendMessage
 Decision ownership by stage:
 
 - Intent is selected independently by the provider prompt, deterministic interpreter, and follow-up resolver's current-message re-detection.
-- Resource and operation are selected by provider output or deterministic phrase rules; absent provider values fall back to intent-based defaults in `GraduateKnowledgeQuery`.
+- Resource and operation are selected by provider output or deterministic phrase rules; absent provider values fall back to intent-based defaults in `GraduateRoutePlan`.
 - University entities are resolved by the interpretation validator, deterministic resolution support, follow-up resolver, and conversation-memory validator/merge code.
 - History is prepared in `ChatApplicationService`; raw user and assistant messages are sent to the provider. Java follow-up analysis subsequently reads user messages only.
 - Memory is loaded before interpretation, appended to the provider prompt, used again by the follow-up resolver, passed to the final model, and updated after the turn.
@@ -111,25 +111,25 @@ Decision ownership by stage:
 
 | Rule / concern | Locations | Conflict or risk |
 |---|---|---|
-| Global/location-count recognition | Interpreter prompt; `GraduateKnowledgeResolutionSupport.detectLocationLookupIntent`, `detectLocationOperation`; validator intent mapping | Exact phrase rules and AI rules can disagree. Current uncommitted source added phrases for one observed question, but downstream guards still reject its global scope. |
-| “University required” | `GraduateQueryInterpretationValidator.requiresUniversity`; `ChatApplicationService.fallbackInterpretation`; `GraduateFollowUpResolver`; `SqlGraduateKnowledgeRetrievalAdapter.retrieveContext`, `queryPrograms`, `queryTuitionAggregations` | Rules differ by layer. The service and follow-up guards are broader than the validator and incorrectly reject global location counts. |
+| Global/location-count recognition | Interpreter prompt; `GraduateRouteEntityResolver.detectLocationLookupIntent`, `detectLocationOperation`; validator intent mapping | Exact phrase rules and AI rules can disagree. Current uncommitted source added phrases for one observed question, but downstream guards still reject its global scope. |
+| “University required” | `GraduateRouteArgumentValidator.requiresUniversity`; `ChatApplicationService.fallbackInterpretation`; `route-aware conversation context`; `typed route DAO adapters.retrieveContext`, `queryPrograms`, `queryTuitionAggregations` | Rules differ by layer. The service and follow-up guards are broader than the validator and incorrectly reject global location counts. |
 | General chat versus graduate lookup | Prompt; deterministic exact casual-chat bypass; `hasGraduateSignal`; unsafe-general-chat fallback | Provider is still invoked for obvious graduate questions. Only one direction of disagreement—AI says general, Java sees graduate—gets repaired. AI ambiguity does not. |
 | Follow-up detection | Prompt `followUp`; deterministic `isFollowUpMessage`; provider history; validator maps provider flag directly; follow-up resolver re-detects cues; memory comparison state | No single definition. Provider can set `followUp=true` from history even when the current question is standalone. |
-| University resolution | Validator; `GraduateKnowledgeResolutionSupport`; `ConversationMemoryValidator`; memory merge matching | Similar matching is repeated with different behavior. Validator and resolution support accept broad individual tokens; memory validator uses substring checks. None establishes exact-match precedence globally. |
+| University resolution | Validator; `GraduateRouteEntityResolver`; `ConversationMemoryValidator`; memory merge matching | Similar matching is repeated with different behavior. Validator and resolution support accept broad individual tokens; memory validator uses substring checks. None establishes exact-match precedence globally. |
 | Current entity versus inherited entity | Prompt; provider; follow-up resolver; memory merge | Explicit current entities are sometimes replaced correctly, but provider-produced extra entities can survive, and broad current-message matching itself creates extras. Location queries with a city preserve candidate universities even without a real follow-up cue. |
 | Ambiguity | Provider fields `ambiguous`/`clarificationNeeded`; validator; deterministic query flag; service result status; follow-up resolver | Provider ambiguity metadata is validated for length but not used to make the result ambiguous. Conversely, later Java guards can override a non-ambiguous normalized query. |
-| Resource/operation defaults | Prompt; validator; `GraduateKnowledgeQuery.resourceFor/operationFor`; deterministic recognizer | `LOCATION_LOOKUP` defaults to `CAMPUS/LIST`, so omitted typed metadata silently changes university counts/list requests. |
+| Resource/operation defaults | Prompt; validator; `GraduateRoutePlan.resourceFor/operationFor`; deterministic recognizer | `LOCATION_LOOKUP` defaults to `CAMPUS/LIST`, so omitted typed metadata silently changes university counts/list requests. |
 | Count semantics | Prompt; deterministic recognizer; location adapter formatter | Query model can carry `COUNT`, but location retrieval fetches rows then uses `rows.size()` rather than a dedicated aggregate result. University rows are distinct by university **and city**, so an unfiltered global university count can overcount multi-city institutions. |
 | Memory authority | Interpreter prompt says “use only bounded history” and “do not use external memory”; adapter appends “Trusted conversation memory” | Direct contradiction in the same provider request. |
 | Assistant history | Java history analyzer filters to user role; provider receives assistant messages | An assistant clarification/error can influence provider interpretation even though Java follow-up logic intentionally ignores it. |
 | Invalid output handling | AI adapter throws on malformed JSON; validator returns `INVALID` for semantic failures; service fallback paths differ | Parse failures use deterministic fallback. Semantic `INVALID` results bypass follow-up and later fall through to a separate deterministic call without the same status/fallback policy. |
 | Optional SQL filters | Program, tuition, academic program/faculty/department, grouped comparisons | The same nullable-guard strategy is repeated, creating a family of latent PostgreSQL failures. |
 
-Answer to the source-of-truth question: **neither the prompt nor Java validation is the sole source of truth**. The effective truth is the last layer that mutates or rejects the query, currently often `GraduateFollowUpResolver` or a retrieval guard. That is the architectural defect.
+Answer to the source-of-truth question: **neither the prompt nor Java validation is the sole source of truth**. The effective truth is the last layer that mutates or rejects the query, currently often `route-aware conversation context` or a retrieval guard. That is the architectural defect.
 
 ## 5. Query-model assessment
 
-`GraduateKnowledgeQuery` is more expressive than the coarse intent enum suggests. It already contains:
+`GraduateRoutePlan` is more expressive than the coarse intent enum suggests. It already contains:
 
 - resource
 - operation
@@ -268,7 +268,7 @@ Explicit casts or `Types.VARCHAR` would repair the immediate exception, but dyna
 
 ## 9. Retrieval-quality assessment
 
-`SqlGraduateLocationRetrievalAdapter` retrieves useful columns for list operations: university name/acronym, campus name, city, and campus type. The weakness is formatter branching:
+`SqlGraduateCatalogRouteDao` retrieves useful columns for list operations: university name/acronym, campus name, city, and campus type. The weakness is formatter branching:
 
 - `COUNT` returns only `Structured <resource> count: N.`
 - `EXISTS` returns only `A matching structured <resource> exists in the university data.`
@@ -300,19 +300,19 @@ For existence/location details, include the full university name, acronym, campu
 
 ### Why existing tests passed
 
-- `GraduateKnowledgeQueryInterpreterTest` directly tests the deterministic interpreter. The recently added global-count test never passes through `ChatApplicationService.fallbackInterpretation` or `GraduateFollowUpResolver`, the two layers that reject global scope.
+- `GraduateRoutePlannerPortTest` directly tests the deterministic interpreter. The recently added global-count test never passes through `ChatApplicationService.fallbackInterpretation` or `route-aware conversation context`, the two layers that reject global scope.
 - `ChatApplicationServiceTest.locationQueriesUseTheSeparateRetrievalPort` injects a perfect, canned AI interpretation with `city=Beirut`, uses recording retrieval ports, and asserts only which port was called.
 - AI adapter tests use short, complete, static JSON. They test blank and syntactically invalid JSON, but not `finishReason=MAX_TOKENS`, end-truncated valid prefixes, or deterministic recovery through the full service.
 - Follow-up tests exercise the resolver in isolation and intentionally test positive inheritance. They do not cover standalone city/global queries after a prior entity, explicit entity replacement across domains, or provider-contaminated candidates.
 - JDBC unit tests use a recording template. They inspect SQL strings and parameters but do not ask PostgreSQL to prepare them.
-- PostgreSQL tests construct `GraduateKnowledgeQuery` directly, bypassing text interpretation, validation, history, memory, and routing.
+- PostgreSQL tests construct `GraduateRoutePlan` directly, bypassing text interpretation, validation, history, memory, and routing.
 - There is no test that starts with user text and reaches real generated PostgreSQL SQL and formatted context.
 - Response tests use canned final-model responses, so context completeness and answer richness are not asserted.
 
 ### Execution during this investigation
 
-- Passed: `GraduateKnowledgeQueryInterpreterTest`, `GraduateFollowUpResolverTest`, `AiGraduateQueryInterpretationAdapterTest`, and `ChatApplicationServiceTest`.
-- Not executed successfully: `SqlGraduateKnowledgeRetrievalAdapterIntegrationTest` and `SqlGraduateLocationRetrievalAdapterIntegrationTest`; Testcontainers could not find a valid Docker environment.
+- Passed: `GraduateRoutePlannerPortTest`, `route-aware conversation contextTest`, `AiGraduateRoutePlannerAdapterTest`, and `ChatApplicationServiceTest`.
+- Not executed successfully: `typed route DAO adaptersIntegrationTest` and `SqlGraduateCatalogRouteDaoIntegrationTest`; Testcontainers could not find a valid Docker environment.
 - Runtime evidence remains decisive for SQL: the supplied log contains PostgreSQL's expanded placeholders and exact `$3`, `$4`, and `$5` type errors.
 
 ### Required test matrix
@@ -365,7 +365,7 @@ Adopt **Approach B immediately, evolving toward the normalized parts of Approach
 |---|---|
 | A — Targeted repair | Necessary for immediate blockers, but insufficient as the end state. Fixing each guard, phrase, token budget, and SQL parameter separately leaves duplicated authority and makes future regressions likely. |
 | B — Hybrid deterministic + AI | Best near-term architecture. Common bounded queries become reliable, cheap, and testable. AI remains valuable for complex language and ambiguous follow-ups. Both produce the same model and pass one validator. |
-| C — Fully normalized interpretation model | Correct strategic direction, but should be incremental. Much of it already exists in `GraduateKnowledgeQuery`; evolve that model instead of replacing all contracts at once. |
+| C — Fully normalized interpretation model | Correct strategic direction, but should be incremental. Much of it already exists in `GraduateRoutePlan`; evolve that model instead of replacing all contracts at once. |
 
 ### Proposed components
 
@@ -478,12 +478,12 @@ Do not combine these into one oversized implementation task.
 
 | Task code | Objective | Likely components | Dependencies | Risk | Validation |
 |---|---|---|---|---|---|
-| `AI_INTERPRETER_FIX_002_SQL_OPTIONAL_FILTERS` | Repair PostgreSQL production failures by omitting absent predicates and typing binds | `SqlGraduateKnowledgeRetrievalAdapter`, SQL tests | None | Medium | Real PostgreSQL tests for program, tuition, admissions, academic structure, comparisons |
+| `AI_INTERPRETER_FIX_002_SQL_OPTIONAL_FILTERS` | Repair PostgreSQL production failures by omitting absent predicates and typing binds | `typed route DAO adapters`, SQL tests | None | Medium | Real PostgreSQL tests for program, tuition, admissions, academic structure, comparisons |
 | `AI_INTERPRETER_FIX_003_GLOBAL_AGGREGATES` | Make global/city university and campus counts deterministic and semantically correct | service fallback guard, follow-up resolver, location adapter, aggregate formatter | SQL fix independent | Medium | 35 universities / 71 campuses in target DB; city counts; multi-city institution fixture |
 | `AI_INTERPRETER_FIX_004_ENTITY_RESOLUTION` | Centralize exact-first institution/campus matching and prevent `Beirut`/`science` false matches | validator, resolution support, memory validator, catalog aliases | None | High | Exact acronym/name, weak-token collision, multilingual and unknown entity tests |
 | `AI_INTERPRETER_FIX_005_HISTORY_PRECEDENCE` | Stop scope contamination; define explicit-current and standalone-query precedence | history preparation, follow-up resolver, memory merge/trigger, interpreter request | Entity resolution preferred first | High | All four required conversation sequences and assistant-error contamination |
 | `AI_INTERPRETER_FIX_006_PROVIDER_CONTRACT` | Compact sparse interpretation schema; safe output budget; structured output where supported | interpretation DTO/internal parse model, prompt, AI adapter, provider adapter/config | Normalized model decision | Medium | worst-case token measurements, `MAX_TOKENS`, malformed JSON, schema/version tests |
-| `AI_INTERPRETER_REFACTOR_007_NORMALIZED_MODEL` | Add explicit scope, campus identity, provenance, and typed ambiguity while preserving compatibility | `GraduateKnowledgeQuery`, filters/context/enums, validator | Entity resolution and policy decisions | High | model invariant/property tests; compatibility tests |
+| `AI_INTERPRETER_REFACTOR_007_NORMALIZED_MODEL` | Add explicit scope, campus identity, provenance, and typed ambiguity while preserving compatibility | `GraduateRoutePlan`, filters/context/enums, validator | Entity resolution and policy decisions | High | model invariant/property tests; compatibility tests |
 | `AI_INTERPRETER_REFACTOR_008_DETERMINISTIC_FIRST` | Add orchestrator and high-confidence deterministic-first routing | `ChatApplicationService`, interpreter ports/services, metrics | Normalized model | High | standalone/paraphrase matrix; provider call-count assertions; fallback equivalence |
 | `AI_RETRIEVAL_REFACTOR_009_ROUTER_HANDLERS` | Route by resource + operation + scope and isolate query builders | retrieval port/router/adapters | Normalized model, SQL strategy | High | handler contract tests and PostgreSQL integration tests |
 | `AI_RETRIEVAL_QUALITY_010_STRUCTURED_CONTEXT` | Return explicit aggregate/existence/list context with useful fields | location/program context formatters, final prompt only if needed | Stable routing | Low/Medium | golden context tests and final-answer quality scenarios |
@@ -534,7 +534,7 @@ Keep:
 
 - the pre-retrieval interpretation boundary
 - catalog-backed validation
-- `GraduateKnowledgeQuery` as the seed of the normalized internal model
+- `GraduateRoutePlan` as the seed of the normalized internal model
 - deterministic fallback as a concept
 - separate structured retrieval from final answer generation
 - bounded history and persistent memory, after their authority is constrained

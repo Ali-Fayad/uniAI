@@ -5,63 +5,63 @@ skinparam sequenceArrowThickness 1
 skinparam responseMessageBelowArrow true
 skinparam maxMessageSize 120
 
-participant GraduateKnowledgeQueryInterpreter
-control GraduateKnowledgeResolutionSupport
-participant GraduateKnowledgeQuery
-participant GraduateKnowledgeRetrievalPort
-participant SqlGraduateKnowledgeRetrievalAdapter
-participant GraduateLocationRetrievalPort
-participant SqlGraduateLocationRetrievalAdapter
+participant GraduateRoutePlannerPort
+control GraduateRouteEntityResolver
+participant GraduateRoutePlan
+participant GraduateRouteHandler
+participant typed route DAO adapters
+participant GraduateCatalogRouteHandler
+participant SqlGraduateCatalogRouteDao
 control GraduateCitationEngine
 database PostgreSQL
 
-GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeQueryInterpreter : normalize message
-GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeResolutionSupport : detect resource/operation/scope
-GraduateKnowledgeResolutionSupport --> GraduateKnowledgeQueryInterpreter : structured signals
-GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeResolutionSupport : resolve university aliases/location
-GraduateKnowledgeResolutionSupport --> GraduateKnowledgeQueryInterpreter : resolved entities and filters
-GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeQuery : construct normalized query
+GraduateRoutePlannerPort -> GraduateRoutePlannerPort : normalize message
+GraduateRoutePlannerPort -> GraduateRouteEntityResolver : detect resource/operation/scope
+GraduateRouteEntityResolver --> GraduateRoutePlannerPort : structured signals
+GraduateRoutePlannerPort -> GraduateRouteEntityResolver : resolve university aliases/location
+GraduateRouteEntityResolver --> GraduateRoutePlannerPort : resolved entities and filters
+GraduateRoutePlannerPort -> GraduateRoutePlan : construct normalized query
 
 alt Ambiguous or unsupported query
-  GraduateKnowledgeQueryInterpreter --> GraduateKnowledgeRetrievalPort : no retrieval; clarification state
+  GraduateRoutePlannerPort --> GraduateRouteHandler : no retrieval; clarification state
 else Location resource (CAMPUS or UNIVERSITY)
-  GraduateKnowledgeQueryInterpreter -> GraduateLocationRetrievalPort : retrieveContext(query)
-  GraduateLocationRetrievalPort -> SqlGraduateLocationRetrievalAdapter : choose location SQL
+  GraduateRoutePlannerPort -> GraduateCatalogRouteHandler : retrieveContext(query)
+  GraduateCatalogRouteHandler -> SqlGraduateCatalogRouteDao : choose location SQL
   alt COUNT
-    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT COUNT(DISTINCT ...)
+    SqlGraduateCatalogRouteDao -> PostgreSQL : SELECT COUNT(DISTINCT ...)
   else EXISTS
-    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT EXISTS(...)
+    SqlGraduateCatalogRouteDao -> PostgreSQL : SELECT EXISTS(...)
     opt Matching evidence exists
-      SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT one bounded evidence row
+      SqlGraduateCatalogRouteDao -> PostgreSQL : SELECT one bounded evidence row
     end
   else LIST
-    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : SELECT bounded campus/university rows
+    SqlGraduateCatalogRouteDao -> PostgreSQL : SELECT bounded campus/university rows
   else COMPARE campus counts
-    SqlGraduateLocationRetrievalAdapter -> PostgreSQL : GROUP BY university, COUNT(DISTINCT campus)
+    SqlGraduateCatalogRouteDao -> PostgreSQL : GROUP BY university, COUNT(DISTINCT campus)
   end
-  PostgreSQL --> SqlGraduateLocationRetrievalAdapter : rows or scalar result
-  SqlGraduateLocationRetrievalAdapter --> GraduateLocationRetrievalPort : structured location context
-  GraduateLocationRetrievalPort --> GraduateKnowledgeQueryInterpreter : retrieval result
+  PostgreSQL --> SqlGraduateCatalogRouteDao : rows or scalar result
+  SqlGraduateCatalogRouteDao --> GraduateCatalogRouteHandler : structured location context
+  GraduateCatalogRouteHandler --> GraduateRoutePlannerPort : retrieval result
 else Academic resource (PROGRAM/FACULTY/DEPARTMENT)
-  GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeRetrievalPort : retrieveContext(query)
-  GraduateKnowledgeRetrievalPort -> SqlGraduateKnowledgeRetrievalAdapter : academic SQL branch
+  GraduateRoutePlannerPort -> GraduateRouteHandler : retrieveContext(query)
+  GraduateRouteHandler -> typed route DAO adapters : academic SQL branch
   alt Program list/details
-    SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : SELECT programs and requested projections
+    typed route DAO adapters -> PostgreSQL : SELECT programs and requested projections
   else Program count/exists
-    SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : COUNT(DISTINCT graduate_program)
+    typed route DAO adapters -> PostgreSQL : COUNT(DISTINCT graduate_program)
   else Faculty or department count/exists
-    SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : COUNT(DISTINCT academic entity)
+    typed route DAO adapters -> PostgreSQL : COUNT(DISTINCT academic entity)
   end
-  PostgreSQL --> SqlGraduateKnowledgeRetrievalAdapter : academic rows/scalar
-  SqlGraduateKnowledgeRetrievalAdapter --> GraduateKnowledgeRetrievalPort : formatted academic context
-  GraduateKnowledgeRetrievalPort --> GraduateKnowledgeQueryInterpreter : retrieval result
+  PostgreSQL --> typed route DAO adapters : academic rows/scalar
+  typed route DAO adapters --> GraduateRouteHandler : formatted academic context
+  GraduateRouteHandler --> GraduateRoutePlannerPort : retrieval result
 else Tuition aggregation
-  GraduateKnowledgeQueryInterpreter -> GraduateKnowledgeRetrievalPort : retrieveContext(query)
-  GraduateKnowledgeRetrievalPort -> SqlGraduateKnowledgeRetrievalAdapter : tuition aggregation branch
-  SqlGraduateKnowledgeRetrievalAdapter -> PostgreSQL : grouped tuition aggregate SQL
-  PostgreSQL --> SqlGraduateKnowledgeRetrievalAdapter : tuition aggregates and source URLs
-  SqlGraduateKnowledgeRetrievalAdapter --> GraduateKnowledgeRetrievalPort : tuition context
-  GraduateKnowledgeRetrievalPort --> GraduateKnowledgeQueryInterpreter : retrieval result
+  GraduateRoutePlannerPort -> GraduateRouteHandler : retrieveContext(query)
+  GraduateRouteHandler -> typed route DAO adapters : tuition aggregation branch
+  typed route DAO adapters -> PostgreSQL : grouped tuition aggregate SQL
+  PostgreSQL --> typed route DAO adapters : tuition aggregates and source URLs
+  typed route DAO adapters --> GraduateRouteHandler : tuition context
+  GraduateRouteHandler --> GraduateRoutePlannerPort : retrieval result
 end
 
 alt No data
@@ -69,6 +69,6 @@ alt No data
 else Citations available
   GraduateCitationEngine -> GraduateCitationEngine : format citation instructions
 end
-GraduateKnowledgeQueryInterpreter --> GraduateCitationEngine : normalized query and retrieval result
-GraduateCitationEngine --> GraduateKnowledgeQueryInterpreter : formatted context/citation metadata
+GraduateRoutePlannerPort --> GraduateCitationEngine : normalized query and retrieval result
+GraduateCitationEngine --> GraduateRoutePlannerPort : formatted context/citation metadata
 @enduml

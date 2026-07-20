@@ -1,7 +1,9 @@
 package com.uniai.chat.application.memory;
 
 import com.uniai.catalog.domain.model.UniversityCatalog;
-import com.uniai.chat.application.retrieval.GraduateKnowledgeResolutionSupport;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeEntityResolutionResult;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeEntityResolutionStatus;
+import com.uniai.chat.application.retrieval.GraduateKnowledgeEntityResolver;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class ConversationMemoryValidator {
+
+    private final GraduateKnowledgeEntityResolver universityResolver = new GraduateKnowledgeEntityResolver();
 
     private static final int MAX_UNIVERSITIES = 3;
     private static final int MAX_DEGREE_TYPES = 4;
@@ -145,12 +149,11 @@ public class ConversationMemoryValidator {
             if (mention == null || mention.isBlank()) {
                 continue;
             }
-            List<com.uniai.chat.application.retrieval.ResolvedUniversity> matches =
-                    GraduateKnowledgeResolutionSupport.resolveUniversityMentions(List.of(mention), catalogs);
-            if (matches.isEmpty()) {
+            GraduateKnowledgeEntityResolutionResult resolution = universityResolver.resolve(List.of(mention), catalogs, mention);
+            if (resolution.status() != GraduateKnowledgeEntityResolutionStatus.RESOLVED) {
                 return null;
             }
-            for (com.uniai.chat.application.retrieval.ResolvedUniversity university : matches) {
+            for (com.uniai.chat.application.retrieval.ResolvedUniversity university : resolution.universities()) {
                 if (university != null && university.id() != null) {
                     resolved.putIfAbsent(university.id(), new MemoryUniversityRef(university.id(), university.name(), university.acronym()));
                 }

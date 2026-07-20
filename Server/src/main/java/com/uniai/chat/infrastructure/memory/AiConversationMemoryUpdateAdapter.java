@@ -80,15 +80,11 @@ public class AiConversationMemoryUpdateAdapter implements ConversationMemoryUpda
         if (StringUtils.hasText(memoryText)) {
             context.add("Previous trusted memory:\n" + memoryText);
         }
-        if (request.interpretationResult() != null) {
+        if (request.routeResult() != null) {
             context.add("Validated interpretation:\n"
-                    + "status=" + request.interpretationResult().status()
-                    + "\nintent=" + (request.interpretationResult().query() != null ? request.interpretationResult().query().intent() : null)
-                    + "\nresolvedUniversities=" + request.interpretationResult().resolvedUniversityCount()
-                    + "\ndegreeTypes=" + request.interpretationResult().degreeTypeCount()
-                    + "\nambiguous=" + request.interpretationResult().ambiguous()
-                    + "\nfallbackUsed=" + request.interpretationResult().fallbackUsed()
-                    + "\nfailureCategory=" + request.interpretationResult().failureCategory());
+                    + "route=" + request.routeResult().route()
+                    + "\nresolvedUniversities=" + request.routeResult().resolvedUniversities().size()
+                    + "\nempty=" + request.routeResult().empty());
         }
         if (StringUtils.hasText(request.assistantResponse())) {
             context.add("Final assistant response:\n" + request.assistantResponse());

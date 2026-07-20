@@ -3,8 +3,8 @@ title Chat and Graduate Retrieval Hexagonal View
 rectangle "ChatController" as controller
 rectangle "ChatApplicationService" as service
 interface "AiServicePort" as aiport
-interface "GraduateKnowledgeRetrievalPort" as retrieval
-interface "GraduateLocationRetrievalPort" as location
+interface "GraduateRouteHandler" as retrieval
+interface "GraduateCatalogRouteHandler" as location
 rectangle "AI adapters" as ai
 rectangle "SQL retrieval adapters" as sql
 controller --> service

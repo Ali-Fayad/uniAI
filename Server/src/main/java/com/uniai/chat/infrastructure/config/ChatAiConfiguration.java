@@ -7,12 +7,8 @@ import com.uniai.chat.application.budget.AiContextBudgetManager;
 import com.uniai.chat.application.budget.AiTokenEstimator;
 import com.uniai.chat.application.budget.ConversationMemoryBudgetConfiguration;
 import com.uniai.chat.application.budget.ConversationMemoryBudgetManager;
-import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetConfiguration;
-import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetManager;
-import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
-import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
+import com.uniai.chat.application.budget.GraduateRoutePlannerBudgetConfiguration;
+import com.uniai.chat.application.budget.GraduateRoutePlannerBudgetManager;
 import com.uniai.chat.application.memory.ConversationMemoryManager;
 import com.uniai.chat.application.memory.ConversationMemoryMergePolicy;
 import com.uniai.chat.application.memory.ConversationMemoryTriggerPolicy;
@@ -23,13 +19,11 @@ import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.ChatTitlePromptPort;
 import com.uniai.chat.application.port.out.ConversationMemoryPersistencePort;
 import com.uniai.chat.application.port.out.ConversationMemoryPromptPort;
-import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.GraduateRoutePlannerPort;
 import com.uniai.chat.application.planning.GraduateAiRouteCatalog;
 import com.uniai.chat.application.planning.GraduateRoutePlanParser;
 import com.uniai.chat.application.planning.GraduateRouteFinalContextBuilder;
 import com.uniai.chat.application.planning.GraduateRouteRuntimeManager;
-import com.uniai.chat.application.planning.GraduateRoutePlannerShadowManager;
 import com.uniai.chat.application.planning.GraduateAiRouteHandler;
 import com.uniai.chat.application.planning.GraduateAiRouteRegistry;
 import com.uniai.chat.application.planning.GraduateAiRouterManager;
@@ -42,8 +36,6 @@ import com.uniai.chat.application.port.out.GraduateCatalogRouteDao;
 import com.uniai.chat.application.planning.GraduateCatalogRouteHandlers;
 import com.uniai.chat.application.port.out.GraduateSupportRouteDao;
 import com.uniai.chat.application.planning.GraduateSupportRouteHandlers;
-import com.uniai.chat.application.retrieval.GraduateFollowUpResolver;
-import com.uniai.chat.application.retrieval.GraduateKnowledgeQueryInterpreter;
 import com.uniai.chat.application.title.ChatTitleGenerationConfiguration;
 import com.uniai.chat.application.title.ChatTitleGenerationManager;
 import com.uniai.chat.domain.repository.ChatRepository;
@@ -56,10 +48,8 @@ import com.uniai.chat.infrastructure.ai.InMemoryAiProviderStatusRegistry;
 import com.uniai.chat.infrastructure.ai.OllamaAiProperties;
 import com.uniai.chat.infrastructure.ai.OllamaAiServiceAdapter;
 import com.uniai.chat.infrastructure.ai.PlaceholderAiServiceAdapter;
-import com.uniai.chat.infrastructure.interpretation.AiGraduateQueryInterpretationAdapter;
 import com.uniai.chat.infrastructure.interpretation.AiGraduateRoutePlannerAdapter;
 import com.uniai.chat.infrastructure.memory.AiConversationMemoryUpdateAdapter;
-import com.uniai.chat.infrastructure.prompt.GraduateQueryInterpreterPromptProvider;
 import com.uniai.chat.infrastructure.prompt.GraduateRoutePlannerPromptProvider;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.logging.log4j.LogManager;
@@ -153,11 +143,6 @@ public class ChatAiConfiguration {
     }
 
     @Bean
-    public GraduateKnowledgeQueryInterpreter graduateKnowledgeQueryInterpreter() {
-        return new GraduateKnowledgeQueryInterpreter();
-    }
-
-    @Bean
     public GraduateAiRouteCatalog graduateAiRouteCatalog() {
         return new GraduateAiRouteCatalog();
     }
@@ -199,14 +184,12 @@ public class ChatAiConfiguration {
 
     @Bean
     public GraduateRouteRuntimeManager graduateRouteRuntimeManager(
-            GraduateQueryInterpretationProperties properties,
             GraduateRoutePlannerPort plannerPort,
             GraduateRoutePlannerPromptProvider promptProvider,
-            GraduateQueryInterpretationBudgetManager budgetManager,
+            GraduateRoutePlannerBudgetManager budgetManager,
             GraduateAiRouterManager routerManager,
             GraduateRouteFinalContextBuilder contextBuilder) {
         return new GraduateRouteRuntimeManager(
-                properties != null && properties.isRoutePlannerEnabled(),
                 plannerPort,
                 promptProvider,
                 budgetManager,
@@ -216,45 +199,35 @@ public class ChatAiConfiguration {
 
     @Bean
     public GraduateRoutePlannerPromptProvider graduateRoutePlannerPromptProvider(
-            GraduateQueryInterpretationProperties properties,
+            GraduateRoutePlannerProperties properties,
             GraduateAiRouteCatalog catalog) {
         return new GraduateRoutePlannerPromptProvider(properties, catalog);
     }
 
     @Bean
-    public GraduateFollowUpResolver graduateFollowUpResolver() {
-        return new GraduateFollowUpResolver();
-    }
-
-    @Bean
-    public GraduateQueryInterpretationBudgetConfiguration graduateQueryInterpretationBudgetConfiguration(
-            GraduateQueryInterpretationProperties properties) {
-        return new GraduateQueryInterpretationBudgetConfiguration(
-                properties != null && properties.isEnabled(),
-                properties != null ? properties.getMaxInputTokens() : 1500L,
-                properties != null ? properties.getMaxOutputTokens() : 250,
+    public GraduateRoutePlannerBudgetConfiguration graduateRoutePlannerBudgetConfiguration(
+            GraduateRoutePlannerProperties properties) {
+        return new GraduateRoutePlannerBudgetConfiguration(
+                true,
+                properties != null ? properties.getMaxInputTokens() : 4500L,
+                properties != null ? properties.getMaxOutputTokens() : 500,
                 properties != null ? properties.getHistoryMessageLimit() : 4,
                 properties != null
                         ? properties.getPromptPath()
-                        : "prompts/graduate-query-interpreter-prompt.txt");
+                        : "prompts/graduate-route-planner-prompt.txt");
     }
 
     @Bean
-    public GraduateQueryInterpretationBudgetManager graduateQueryInterpretationBudgetManager(
-            GraduateQueryInterpretationBudgetConfiguration configuration,
+    public GraduateRoutePlannerBudgetManager graduateRoutePlannerBudgetManager(
+            GraduateRoutePlannerBudgetConfiguration configuration,
             AiTokenEstimator estimator,
             @Value("${ai.provider:placeholder}") String provider,
             MeterRegistry meterRegistry) {
-        return new GraduateQueryInterpretationBudgetManager(
+        return new GraduateRoutePlannerBudgetManager(
                 configuration,
                 estimator,
                 provider,
                 meterRegistry);
-    }
-
-    @Bean
-    public GraduateQueryInterpretationValidator graduateQueryInterpretationValidator() {
-        return new GraduateQueryInterpretationValidator();
     }
 
     @Bean
@@ -335,30 +308,6 @@ public class ChatAiConfiguration {
             thread.setDaemon(true);
             return thread;
         });
-    }
-
-    @Bean(destroyMethod = "shutdown")
-    public Executor graduateRoutePlannerShadowExecutor() {
-        return Executors.newSingleThreadExecutor(runnable -> {
-            Thread thread = new Thread(runnable, "graduate-route-planner-shadow");
-            thread.setDaemon(true);
-            return thread;
-        });
-    }
-
-    @Bean
-    public GraduateRoutePlannerShadowManager graduateRoutePlannerShadowManager(
-            GraduateQueryInterpretationProperties properties,
-            GraduateRoutePlannerPort plannerPort,
-            GraduateRoutePlannerPromptProvider promptProvider,
-            GraduateQueryInterpretationBudgetManager budgetManager,
-            @Qualifier("graduateRoutePlannerShadowExecutor") Executor executor) {
-        return new GraduateRoutePlannerShadowManager(
-                properties != null && properties.isRoutePlannerShadowEnabled(),
-                plannerPort,
-                promptProvider,
-                budgetManager,
-                executor);
     }
 
     @Bean
@@ -489,65 +438,12 @@ public class ChatAiConfiguration {
     }
 
     @Bean
-    public GraduateQueryInterpretationPort graduateQueryInterpretationPort(
-            @Value("${ai.provider:placeholder}") String provider,
-            AiServicePort aiServicePort,
-            GraduateQueryInterpreterPromptProvider promptProvider,
-            GraduateQueryInterpretationBudgetConfiguration configuration,
-            ObjectMapper objectMapper,
-            MeterRegistry meterRegistry) {
-        if (!configuration.enabled()
-                || "placeholder".equals(normalizeProvider(provider))) {
-
-            logger.info(
-                    "[AI_INTERPRETATION] Interpretation disabled enabled={} provider={}",
-                    configuration.enabled(),
-                    provider);
-
-            return new GraduateQueryInterpretationPort() {
-
-                @Override
-                public GraduateQueryInterpretation interpret(
-                        GraduateQueryInterpretationRequest request) {
-                    throw new IllegalStateException(
-                            "Graduate query interpretation is disabled");
-                }
-
-                @Override
-                public CanonicalGraduateQueryDraft interpretDraft(
-                        GraduateQueryInterpretationRequest request) {
-                    throw new IllegalStateException(
-                            "Graduate query interpretation is disabled");
-                }
-            };
-        }
-
-        logger.info(
-                "[AI_INTERPRETATION] Interpretation initialized provider={} maxOutputTokens={} historyMessageLimit={}",
-                provider,
-                configuration.maxOutputTokens(),
-                configuration.historyMessageLimit());
-
-        return new AiGraduateQueryInterpretationAdapter(
-                aiServicePort,
-                promptProvider,
-                configuration,
-                objectMapper,
-                meterRegistry);
-    }
-
-    @Bean
     public GraduateRoutePlannerPort graduateRoutePlannerPort(
             @Value("${ai.provider:placeholder}") String provider,
             AiServicePort aiServicePort,
             GraduateRoutePlannerPromptProvider promptProvider,
-            GraduateQueryInterpretationBudgetConfiguration configuration,
+            GraduateRoutePlannerBudgetConfiguration configuration,
             GraduateRoutePlanParser parser) {
-        if (!configuration.enabled() || "placeholder".equals(normalizeProvider(provider))) {
-            return request -> {
-                throw new IllegalStateException("Graduate route planning is disabled");
-            };
-        }
         return new AiGraduateRoutePlannerAdapter(aiServicePort, promptProvider, configuration, parser);
     }
 
