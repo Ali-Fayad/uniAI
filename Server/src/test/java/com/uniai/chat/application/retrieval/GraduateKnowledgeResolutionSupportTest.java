@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GraduateKnowledgeResolutionSupportTest {
@@ -71,6 +72,32 @@ class GraduateKnowledgeResolutionSupportTest {
                 "Does XYZ University have a campus in Nabatieh?", catalogs));
         assertTrue(!GraduateKnowledgeResolutionSupport.hasExplicitUniversityReference(
                 "Which universities have campuses in Nabatieh?", catalogs));
+    }
+
+    @Test
+    void acceptsOnlyCatalogCitiesFromTheFreeTextInFallback() {
+        List<UniversityCatalog> catalogs = List.of(
+                UniversityCatalog.builder().id(1L).name("American University of Beirut").acronym("AUB")
+                        .city("Beirut").build(),
+                UniversityCatalog.builder().id(2L).name("Lebanese American University").acronym("LAU")
+                        .campuses(List.of(CampusCatalog.builder().name("Byblos Campus").city("Byblos").build()))
+                        .build()
+        );
+
+        assertEquals("Beirut", GraduateKnowledgeResolutionSupport.detectRequestedCity(
+                "What is the tuition in Beirut at AUB?", catalogs));
+        assertEquals("Byblos", GraduateKnowledgeResolutionSupport.detectRequestedCity(
+                "Graduate programs in Byblos", catalogs));
+        assertEquals("Dubai", GraduateKnowledgeResolutionSupport.detectRequestedCity(
+                "MBA in Dubai", catalogs));
+        assertNull(GraduateKnowledgeResolutionSupport.detectRequestedCity(
+                "What is the tuition for the Master's in Computer Science at LAU?", catalogs));
+        assertNull(GraduateKnowledgeResolutionSupport.detectRequestedCity(
+                "What is the tuition for Computer Science at AUB?", catalogs));
+        assertNull(GraduateKnowledgeResolutionSupport.detectRequestedCity(
+                "Master in Computer Science", catalogs));
+        assertNull(GraduateKnowledgeResolutionSupport.detectRequestedCity(
+                "Artificial Intelligence in Lebanon", catalogs));
     }
 
     private UniversityCatalog university(Long id, String name, String acronym) {

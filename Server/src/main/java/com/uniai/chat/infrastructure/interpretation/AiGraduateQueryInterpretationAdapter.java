@@ -14,6 +14,7 @@ import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft;
 import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraftCompatibility;
 import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraftValidator;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationProviderException;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpretationPort;
 import com.uniai.chat.application.port.out.CanonicalGraduateQueryDraftPort;
@@ -82,7 +83,10 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
             return CanonicalGraduateQueryDraftCompatibility.toLegacyInterpretation(draft);
         } catch (Exception ex) {
             recordParseFailure(aiResponse, ex);
-            throw new IllegalStateException("Failed to parse graduate query interpretation JSON", ex);
+            throw new GraduateQueryInterpretationProviderException(
+                    "Failed to parse graduate query interpretation JSON",
+                    "AI_QUERY_INTERPRETATION_PROVIDER_INVALID",
+                    ex);
         }
     }
 
@@ -98,7 +102,10 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
             return draftValidator.validate(objectMapper.treeToValue(root, CanonicalGraduateQueryDraft.class));
         } catch (Exception ex) {
             recordParseFailure(aiResponse, ex);
-            throw new IllegalStateException("Failed to parse canonical graduate query draft JSON", ex);
+            throw new GraduateQueryInterpretationProviderException(
+                    "Failed to parse canonical graduate query draft JSON",
+                    "AI_QUERY_INTERPRETATION_PROVIDER_INVALID",
+                    ex);
         }
     }
 
@@ -130,20 +137,26 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
 
         AiResponse aiResponse = aiServicePort.generateResponse(aiRequest);
         if (aiResponse == null) {
-            throw new IllegalStateException("Interpretation provider returned null response");
+            throw new GraduateQueryInterpretationProviderException(
+                    "Interpretation provider returned null response",
+                    "AI_QUERY_INTERPRETATION_PROVIDER_UNAVAILABLE");
         }
         if (Boolean.TRUE.equals(aiResponse.getFallback())) {
             logger.warn("[AI_INTERPRETATION] Provider fallback received provider={} model={} durationMs={}",
                     aiResponse.getProvider(),
                     aiResponse.getModel(),
                     elapsedMillis(startNanos));
-            throw new IllegalStateException("Interpretation provider fallback response");
+            throw new GraduateQueryInterpretationProviderException(
+                    "Interpretation provider fallback response",
+                    "AI_QUERY_INTERPRETATION_PROVIDER_UNAVAILABLE");
         }
         if ("MAX_TOKENS".equalsIgnoreCase(aiResponse.getFinishReason())
                 || "LENGTH".equalsIgnoreCase(aiResponse.getFinishReason())) {
             logger.warn("[AI_INTERPRETATION] Provider response truncated provider={} model={} durationMs={}",
                     aiResponse.getProvider(), aiResponse.getModel(), elapsedMillis(startNanos));
-            throw new IllegalStateException("Interpretation provider response reached max output tokens");
+            throw new GraduateQueryInterpretationProviderException(
+                    "Interpretation provider response reached max output tokens",
+                    "AI_QUERY_INTERPRETATION_PROVIDER_TRUNCATED");
         }
 
         logger.debug("[AI_INTERPRETATION] Provider response received provider={} model={} durationMs={}",
@@ -157,7 +170,9 @@ public class AiGraduateQueryInterpretationAdapter implements GraduateQueryInterp
             logger.warn("[AI_INTERPRETATION] Empty response received provider={} model={}",
                     aiResponse.getProvider(),
                     aiResponse.getModel());
-            throw new IllegalStateException("Interpretation provider returned empty content");
+            throw new GraduateQueryInterpretationProviderException(
+                    "Interpretation provider returned empty content",
+                    "AI_QUERY_INTERPRETATION_PROVIDER_EMPTY");
         }
         return stripJsonFences(content.trim());
     }

@@ -101,17 +101,27 @@ public record GraduateQueryInterpretationResult(
     }
 
     public static GraduateQueryInterpretationResult fallbackUsed(GraduateKnowledgeQuery query, String safeMessage) {
+        return fallbackUsed(query, safeMessage, "AI_QUERY_INTERPRETATION_FALLBACK_USED");
+    }
+
+    public static GraduateQueryInterpretationResult fallbackUsed(
+            GraduateKnowledgeQuery query,
+            String safeMessage,
+            String failureCategory
+    ) {
         int universityCount = query == null || query.resolvedUniversities() == null ? 0 : query.resolvedUniversities().size();
         int degreeCount = query == null || query.degreeTypes() == null ? 0 : query.degreeTypes().size();
         return new GraduateQueryInterpretationResult(
-                GraduateQueryInterpretationStatus.FALLBACK_USED,
+                GraduateQueryInterpretationStatus.VALID,
                 query,
                 universityCount,
                 degreeCount,
                 query != null && query.ambiguous(),
                 true,
                 safeMessage == null ? "" : safeMessage,
-                "AI_QUERY_INTERPRETATION_FALLBACK_USED",
+                failureCategory == null || failureCategory.isBlank()
+                        ? "AI_QUERY_INTERPRETATION_FALLBACK_USED"
+                        : failureCategory,
                 List.of(),
                 GraduateQueryInterpretationOutcome.SUCCESS
         );

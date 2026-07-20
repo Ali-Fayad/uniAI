@@ -15,6 +15,7 @@ import com.uniai.chat.application.dto.response.MessageResponseDto;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.memory.ConversationMemoryManager;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationProviderException;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationValidator;
 import com.uniai.chat.application.port.out.AiServicePort;
@@ -816,6 +817,30 @@ class ChatApplicationServiceTest {
         assertEquals(1, messageRepository.findByChatIdOrderByTimestampAsc(chat.getId()).stream()
                 .filter(message -> message.getSenderId() != null && message.getSenderId() == 0L)
                 .count());
+    }
+
+    @Test
+    void truncatedInterpretationFallsBackToExplicitTuitionQuery() {
+        User user = user(61L, "frank-tuition", "frank-tuition@example.com");
+        Chat chat = chat(610L, user, null);
+        userRepository.save(user);
+        chatRepository.save(chat);
+        graduateQueryInterpretationPort.nextRuntimeException = new GraduateQueryInterpretationProviderException(
+                "Interpretation provider response reached max output tokens",
+                "AI_QUERY_INTERPRETATION_PROVIDER_TRUNCATED");
+
+        MessageResponseDto result = chatApplicationService.sendMessage(
+                user.getEmail(),
+                SendMessageCommand.builder()
+                        .chatId(chat.getId())
+                        .content("Give me the average tuition in AUB.")
+                        .build()
+        );
+
+        assertEquals("Here is the official answer.", result.getContent());
+        assertEquals(1, graduateKnowledgeRetrievalPort.callCount);
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, graduateKnowledgeRetrievalPort.lastQuery.intent());
+        assertEquals(GraduateKnowledgeOperation.AGGREGATE, graduateKnowledgeRetrievalPort.lastQuery.operation());
     }
 
     @Test

@@ -61,7 +61,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     public GraduateKnowledgeRetrievalResult retrieveContext(GraduateKnowledgeQuery query) {
         long startNanos = System.nanoTime();
         GraduateKnowledgeQuery safeQuery = query == null
-                ? new GraduateKnowledgeQuery(GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS, List.of(), List.of(), null, false, true)
+                ? new GraduateKnowledgeQuery(GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS, List.of(), List.of(), null,
+                        false, true)
                 : query;
         String retrievalStrategy = safeStrategy(safeQuery);
         String intent = safeIntent(safeQuery);
@@ -72,10 +73,10 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 "retrieval_strategy",
                 retrievalStrategy,
                 "intent",
-                intent
-        );
+                intent);
 
-        logger.debug("[RETRIEVAL] Retrieval started intent={} universityCount={} degreeTypeCount={} followUpResolved={} ambiguous={} detailLevel={}",
+        logger.debug(
+                "[RETRIEVAL] Retrieval started intent={} universityCount={} degreeTypeCount={} followUpResolved={} ambiguous={} detailLevel={}",
                 safeQuery.intent(),
                 safeQuery.resolvedUniversities().size(),
                 safeQuery.degreeTypes().size(),
@@ -86,8 +87,10 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         try {
             if (safeQuery.intent() == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
                     || safeQuery.ambiguous()
-                    || (safeQuery.resolvedUniversities().isEmpty() && !StringUtils.hasText(safeQuery.filters().city()))) {
-                String emptyContext = buildEmptyContext(safeQuery, "Unable to determine a specific graduate-information intent.");
+                    || (safeQuery.resolvedUniversities().isEmpty()
+                            && !StringUtils.hasText(safeQuery.filters().city()))) {
+                String emptyContext = buildEmptyContext(safeQuery,
+                        "Unable to determine a specific graduate-information intent.");
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                         emptyContext.length(),
                         elapsedMillis(startNanos));
@@ -98,8 +101,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                         "retrieval_strategy",
                         retrievalStrategy,
                         "intent",
-                        intent
-                );
+                        intent);
                 recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "empty", 0L, 0L, emptyContext.length());
                 return new GraduateKnowledgeRetrievalResult(emptyContext, List.of());
             }
@@ -116,7 +118,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 logger.debug("[RETRIEVAL] Retrieval completed strategy=PROGRAM_LOOKUP contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
-                recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "success", programs.size(), citations.size(), context.length());
+                recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "success", programs.size(),
+                        citations.size(), context.length());
                 return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
@@ -132,10 +135,12 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                         : tuitionAggregations;
                 String context = buildTuitionContext(safeQuery, rankedTuitionAggregations);
                 List<GraduateCitation> citations = buildTuitionCitations(rankedTuitionAggregations);
-                logger.debug("[RETRIEVAL] Retrieval completed strategy=TUITION_AGGREGATION contextLength={} durationMs={}",
+                logger.debug(
+                        "[RETRIEVAL] Retrieval completed strategy=TUITION_AGGREGATION contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
-                recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "success", tuitionAggregations.size(), citations.size(), context.length());
+                recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "success", tuitionAggregations.size(),
+                        citations.size(), context.length());
                 return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
@@ -147,11 +152,13 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 List<TuitionAggregationRecord> tuitionAggregations = queryTuitionAggregations(safeQuery);
                 logger.debug("[RETRIEVAL] Tuition aggregation SQL completed rows={} strategy=GRADUATE_OVERVIEW",
                         tuitionAggregations.size());
-                List<TuitionAggregationRecord> rankedTuitionAggregations = rankTuitionAggregations(safeQuery, tuitionAggregations);
+                List<TuitionAggregationRecord> rankedTuitionAggregations = rankTuitionAggregations(safeQuery,
+                        tuitionAggregations);
 
                 String context = buildOverviewContext(safeQuery, rankedPrograms, rankedTuitionAggregations);
                 List<GraduateCitation> citations = buildOverviewCitations(rankedPrograms, rankedTuitionAggregations);
-                logger.debug("[RETRIEVAL] Retrieval completed strategy=GRADUATE_OVERVIEW contextLength={} durationMs={}",
+                logger.debug(
+                        "[RETRIEVAL] Retrieval completed strategy=GRADUATE_OVERVIEW contextLength={} durationMs={}",
                         context.length(),
                         elapsedMillis(startNanos));
                 recordRetrievalMetrics(
@@ -161,8 +168,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                         "success",
                         programs.size() + tuitionAggregations.size(),
                         citations.size(),
-                        context.length()
-                );
+                        context.length());
                 return new GraduateKnowledgeRetrievalResult(context, citations);
             }
 
@@ -170,7 +176,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 return retrieveAcademicStructure(safeQuery, startNanos, retrievalStrategy, intent);
             }
 
-            String emptyContext = buildEmptyContext(safeQuery, "Unable to determine a specific graduate-information intent.");
+            String emptyContext = buildEmptyContext(safeQuery,
+                    "Unable to determine a specific graduate-information intent.");
             logger.debug("[RETRIEVAL] Retrieval completed strategy=EMPTY contextLength={} durationMs={}",
                     emptyContext.length(),
                     elapsedMillis(startNanos));
@@ -181,12 +188,12 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     "retrieval_strategy",
                     retrievalStrategy,
                     "intent",
-                    intent
-            );
+                    intent);
             recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "empty", 0L, 0L, emptyContext.length());
             return new GraduateKnowledgeRetrievalResult(emptyContext, List.of());
         } catch (RuntimeException ex) {
-            logger.error("[RETRIEVAL] SQL retrieval failed durationMs={} reason={}", elapsedMillis(startNanos), ex.getMessage(), ex);
+            logger.error("[RETRIEVAL] SQL retrieval failed durationMs={} reason={}", elapsedMillis(startNanos),
+                    ex.getMessage(), ex);
             recordRetrievalMetrics(startNanos, retrievalStrategy, intent, "failure", 0L, 0L, 0L);
             throw ex;
         }
@@ -196,8 +203,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             GraduateKnowledgeQuery query,
             long startNanos,
             String retrievalStrategy,
-            String intent
-    ) {
+            String intent) {
         AcademicRows rows = switch (query.resource()) {
             case PROGRAM -> queryAcademicPrograms(query);
             case FACULTY -> queryAcademicFaculties(query);
@@ -217,8 +223,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             GraduateKnowledgeQuery query,
             long startNanos,
             String retrievalStrategy,
-            String intent
-    ) {
+            String intent) {
         GraduateKnowledgeComparisonDimension dimension = query.followUpContext().comparisonDimension();
         if (dimension == null) {
             return new GraduateKnowledgeRetrievalResult("A comparison criterion is required.", List.of());
@@ -229,7 +234,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 || dimension == GraduateKnowledgeComparisonDimension.TUITION_RANGE) {
             GraduateKnowledgeQuery tuitionQuery = queryWithComparisonTuitionAggregation(query, dimension);
             List<TuitionAggregationRecord> rows = queryTuitionAggregations(tuitionQuery);
-            return new GraduateKnowledgeRetrievalResult(buildTuitionContext(tuitionQuery, rows), buildTuitionCitations(rows));
+            return new GraduateKnowledgeRetrievalResult(buildTuitionContext(tuitionQuery, rows),
+                    buildTuitionCitations(rows));
         }
         if (dimension == GraduateKnowledgeComparisonDimension.FACULTY_COUNT
                 || dimension == GraduateKnowledgeComparisonDimension.DEPARTMENT_COUNT) {
@@ -241,13 +247,13 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 || dimension == GraduateKnowledgeComparisonDimension.ADMISSION_REQUIREMENTS) {
             return groupedProgramComparison(query, dimension);
         }
-        return new GraduateKnowledgeRetrievalResult("This comparison dimension is handled by the location retrieval path.", List.of());
+        return new GraduateKnowledgeRetrievalResult(
+                "This comparison dimension is handled by the location retrieval path.", List.of());
     }
 
     private GraduateKnowledgeQuery queryWithComparisonTuitionAggregation(
             GraduateKnowledgeQuery query,
-            GraduateKnowledgeComparisonDimension dimension
-    ) {
+            GraduateKnowledgeComparisonDimension dimension) {
         GraduateKnowledgeAggregationFunction function = switch (dimension) {
             case TUITION_MINIMUM -> GraduateKnowledgeAggregationFunction.MIN;
             case TUITION_MAXIMUM -> GraduateKnowledgeAggregationFunction.MAX;
@@ -263,8 +269,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private GraduateKnowledgeRetrievalResult groupedProgramComparison(
             GraduateKnowledgeQuery query,
-            GraduateKnowledgeComparisonDimension dimension
-    ) {
+            GraduateKnowledgeComparisonDimension dimension) {
         String degreeClause = query.degreeTypes().isEmpty() ? "" : "AND dt.code IN (:degreeTypes)\n";
         String sql = "SELECT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, COUNT(DISTINCT gp.id) AS result_count "
                 + "FROM graduate_program gp JOIN university u ON u.id = gp.university_id LEFT JOIN degree_type dt ON dt.id = gp.degree_type_id "
@@ -278,31 +283,33 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private GraduateKnowledgeRetrievalResult groupedAcademicComparison(
             GraduateKnowledgeQuery query,
-            GraduateKnowledgeComparisonDimension dimension
-    ) {
-        String table = dimension == GraduateKnowledgeComparisonDimension.FACULTY_COUNT ? "university_faculty" : "university_department";
+            GraduateKnowledgeComparisonDimension dimension) {
+        String table = dimension == GraduateKnowledgeComparisonDimension.FACULTY_COUNT ? "university_faculty"
+                : "university_department";
         StringBuilder filters = new StringBuilder();
         appendUniversityScope(filters, query, "u.id", true);
         appendCityFilter(filters, query, "u.id");
         String sql = "SELECT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, COUNT(DISTINCT a.id) AS result_count FROM "
                 + table + " a JOIN university u ON u.id = a.university_id WHERE "
-                + "1 = 1 " + filters + " GROUP BY u.id, u.name, u.acronym ORDER BY result_count DESC, LOWER(u.name) LIMIT "
+                + "1 = 1 " + filters
+                + " GROUP BY u.id, u.name, u.acronym ORDER BY result_count DESC, LOWER(u.name) LIMIT "
                 + (query.limit() == null ? GraduateKnowledgeQuery.MAX_LIMIT : query.limit());
         MapSqlParameterSource parameters = baseProgramParams(query);
-        if (StringUtils.hasText(query.filters().city())) parameters.addValue("city", query.filters().city().trim());
+        if (StringUtils.hasText(query.filters().city()))
+            parameters.addValue("city", query.filters().city().trim());
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, parameters);
         return formatGroupedComparison(dimension, rows);
     }
 
     private GraduateKnowledgeRetrievalResult formatGroupedComparison(
             GraduateKnowledgeComparisonDimension dimension,
-            List<Map<String, Object>> rows
-    ) {
+            List<Map<String, Object>> rows) {
         StringBuilder builder = new StringBuilder(dimension.name() + " comparison:\n");
         int ordinal = 1;
         for (Map<String, Object> row : rows) {
             builder.append(ordinal++).append(". ").append(row.get("university_name"));
-            if (row.get("university_acronym") != null) builder.append(" (").append(row.get("university_acronym")).append(')');
+            if (row.get("university_acronym") != null)
+                builder.append(" (").append(row.get("university_acronym")).append(')');
             builder.append(" - count: ").append(row.get("result_count")).append('\n');
         }
         return new GraduateKnowledgeRetrievalResult(builder.toString().trim(), List.of());
@@ -314,10 +321,10 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         String select = operation.equals("COUNT") || operation.equals("EXISTS")
                 ? "SELECT COUNT(DISTINCT gp.id) AS result_count "
                 : "SELECT DISTINCT u.id AS university_id, gp.id AS program_id, u.name AS university_name, "
-                + "u.acronym AS university_acronym, COALESCE(fac.name, '') AS faculty_name, "
-                + "COALESCE(dep.name, '') AS department_name, COALESCE(dt.code, '') AS degree_type_code, "
-                + "COALESCE(gp.official_degree_name, '') AS program_name, COALESCE(gp.official_program_url, '') AS official_url, "
-                + "COALESCE(src.source_urls, '') AS source_urls ";
+                        + "u.acronym AS university_acronym, COALESCE(fac.name, '') AS faculty_name, "
+                        + "COALESCE(dep.name, '') AS department_name, COALESCE(dt.code, '') AS degree_type_code, "
+                        + "COALESCE(gp.official_degree_name, '') AS program_name, COALESCE(gp.official_program_url, '') AS official_url, "
+                        + "COALESCE(src.source_urls, '') AS source_urls ";
         String sql = select + """
                 FROM graduate_program gp
                 JOIN university u ON u.id = gp.university_id
@@ -334,9 +341,12 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         sql += academicProgramFilterClause(query);
         if (operation.equals("COUNT") || operation.equals("EXISTS")) {
             Long count = jdbcTemplate.queryForObject(sql, parameters.values(), Long.class);
-            return new AcademicRows(List.of(new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)), count == null ? 0 : count, "PROGRAM");
+            return new AcademicRows(List.of(
+                    new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)),
+                    count == null ? 0 : count, "PROGRAM");
         }
-        List<AcademicRow> rows = jdbcTemplate.query(sql + " ORDER BY u.name ASC, program_name ASC", parameters.values(), this::mapAcademicRow);
+        List<AcademicRow> rows = jdbcTemplate.query(sql + " ORDER BY u.name ASC, program_name ASC", parameters.values(),
+                this::mapAcademicRow);
         return new AcademicRows(rows, rows.size(), "PROGRAM");
     }
 
@@ -344,14 +354,18 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         AcademicParameters parameters = academicParameters(query);
         boolean scalar = query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.COUNT
                 || query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS;
-        String sql = (scalar ? "SELECT COUNT(DISTINCT fac.id) " : "SELECT DISTINCT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, fac.id AS academic_id, fac.name AS academic_name, fac.short_name AS short_name, fac.official_url AS official_url ")
+        String sql = (scalar ? "SELECT COUNT(DISTINCT fac.id) "
+                : "SELECT DISTINCT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, fac.id AS academic_id, fac.name AS academic_name, fac.short_name AS short_name, fac.official_url AS official_url ")
                 + "FROM university_faculty fac JOIN university u ON u.id = fac.university_id WHERE 1 = 1"
                 + academicFacultyFilterClause(query);
         if (scalar) {
             Long count = jdbcTemplate.queryForObject(sql, parameters.values(), Long.class);
-            return new AcademicRows(List.of(new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)), count == null ? 0 : count, "FACULTY");
+            return new AcademicRows(List.of(
+                    new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)),
+                    count == null ? 0 : count, "FACULTY");
         }
-        List<AcademicRow> rows = jdbcTemplate.query(sql + " ORDER BY u.name ASC, fac.name ASC", parameters.values(), this::mapFacultyRow);
+        List<AcademicRow> rows = jdbcTemplate.query(sql + " ORDER BY u.name ASC, fac.name ASC", parameters.values(),
+                this::mapFacultyRow);
         return new AcademicRows(rows, rows.size(), "FACULTY");
     }
 
@@ -359,40 +373,56 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         AcademicParameters parameters = academicParameters(query);
         boolean scalar = query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.COUNT
                 || query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS;
-        String sql = (scalar ? "SELECT COUNT(DISTINCT dep.id) " : "SELECT DISTINCT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, dep.id AS academic_id, dep.name AS academic_name, dep.short_name AS short_name, dep.official_url AS official_url ")
+        String sql = (scalar ? "SELECT COUNT(DISTINCT dep.id) "
+                : "SELECT DISTINCT u.id AS university_id, u.name AS university_name, u.acronym AS university_acronym, dep.id AS academic_id, dep.name AS academic_name, dep.short_name AS short_name, dep.official_url AS official_url ")
                 + "FROM university_department dep JOIN university u ON u.id = dep.university_id LEFT JOIN university_faculty fac ON fac.id = dep.faculty_id WHERE 1 = 1"
                 + academicDepartmentFilterClause(query);
         if (scalar) {
             Long count = jdbcTemplate.queryForObject(sql, parameters.values(), Long.class);
-            return new AcademicRows(List.of(new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)), count == null ? 0 : count, "DEPARTMENT");
+            return new AcademicRows(List.of(
+                    new AcademicRow(null, null, null, null, null, null, null, count == null ? 0 : count, null, null)),
+                    count == null ? 0 : count, "DEPARTMENT");
         }
-        List<AcademicRow> rows = jdbcTemplate.query(sql + " ORDER BY u.name ASC, dep.name ASC", parameters.values(), this::mapDepartmentRow);
+        List<AcademicRow> rows = jdbcTemplate.query(sql + " ORDER BY u.name ASC, dep.name ASC", parameters.values(),
+                this::mapDepartmentRow);
         return new AcademicRows(rows, rows.size(), "DEPARTMENT");
     }
 
     private AcademicParameters academicParameters(GraduateKnowledgeQuery query) {
         List<Long> universityIds = universityIds(query.resolvedUniversities());
         MapSqlParameterSource values = new MapSqlParameterSource();
-        if (!universityIds.isEmpty()) values.addValue("universityIds", universityIds);
-        if (!query.degreeTypes().isEmpty()) values.addValue("degreeTypes", query.degreeTypes().stream().map(value -> value.toUpperCase(Locale.ROOT)).toList());
-        if (StringUtils.hasText(query.filters().facultyName())) values.addValue("facultyName", query.filters().facultyName().trim());
-        if (StringUtils.hasText(query.filters().departmentName())) values.addValue("departmentName", query.filters().departmentName().trim());
+        if (!universityIds.isEmpty())
+            values.addValue("universityIds", universityIds);
+        if (!query.degreeTypes().isEmpty())
+            values.addValue("degreeTypes",
+                    query.degreeTypes().stream().map(value -> value.toUpperCase(Locale.ROOT)).toList());
+        if (StringUtils.hasText(query.filters().facultyName()))
+            values.addValue("facultyName", query.filters().facultyName().trim());
+        if (StringUtils.hasText(query.filters().departmentName()))
+            values.addValue("departmentName", query.filters().departmentName().trim());
         String topicRegex = academicTopicRegex(query.topicKeywords());
-        if (StringUtils.hasText(topicRegex)) values.addValue("topicRegex", topicRegex);
+        if (StringUtils.hasText(topicRegex))
+            values.addValue("topicRegex", topicRegex);
         return new AcademicParameters(values);
     }
 
-    /* Optional collection semantics preserved from the previous guards:
-       absent universityIds means all universities in program/tuition/comparison paths;
-       absent degreeTypes means all degree types; absent languages/admission types means no filter.
-       Academic resource queries historically required universityIds, so an absent ID list becomes 1=0. */
+    /*
+     * Optional collection semantics preserved from the previous guards:
+     * absent universityIds means all universities in program/tuition/comparison
+     * paths;
+     * absent degreeTypes means all degree types; absent languages/admission types
+     * means no filter.
+     * Academic resource queries historically required universityIds, so an absent
+     * ID list becomes 1=0.
+     */
     private String academicProgramFilterClause(GraduateKnowledgeQuery query) {
         StringBuilder clause = new StringBuilder();
         appendAcademicUniversityScope(clause, query, "gp.university_id");
         appendAcademicDegreeFilter(clause, query, "dt.code");
         appendOptionalEquals(clause, query.filters().facultyName(), "LOWER(BTRIM(fac.name))", "facultyName");
         appendOptionalEquals(clause, query.filters().departmentName(), "LOWER(BTRIM(dep.name))", "departmentName");
-        appendOptionalRegex(clause, query.topicKeywords(), "CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category)");
+        appendOptionalRegex(clause, query.topicKeywords(),
+                "CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category)");
         return clause.toString();
     }
 
@@ -418,15 +448,18 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     private void appendAcademicDegreeFilter(StringBuilder clause, GraduateKnowledgeQuery query, String column) {
-        if (!query.degreeTypes().isEmpty()) clause.append(" AND ").append(column).append(" IN (:degreeTypes)\n");
+        if (!query.degreeTypes().isEmpty())
+            clause.append(" AND ").append(column).append(" IN (:degreeTypes)\n");
     }
 
     private void appendOptionalEquals(StringBuilder clause, String value, String expression, String parameter) {
-        if (StringUtils.hasText(value)) clause.append(" AND ").append(expression).append(" = LOWER(BTRIM(:").append(parameter).append("))\n");
+        if (StringUtils.hasText(value))
+            clause.append(" AND ").append(expression).append(" = LOWER(BTRIM(:").append(parameter).append("))\n");
     }
 
     private void appendOptionalRegex(StringBuilder clause, List<String> keywords, String expression) {
-        if (StringUtils.hasText(academicTopicRegex(keywords))) clause.append(" AND ").append(expression).append(" ~* :topicRegex\n");
+        if (StringUtils.hasText(academicTopicRegex(keywords)))
+            clause.append(" AND ").append(expression).append(" ~* :topicRegex\n");
     }
 
     private String academicTopicRegex(List<String> keywords) {
@@ -455,8 +488,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 rs.getString("degree_type_code"),
                 1L,
                 rs.getString("program_name") == null ? rs.getString("academic_name") : rs.getString("program_name"),
-                rs.getString("official_url")
-        );
+                rs.getString("official_url"));
     }
 
     private AcademicRow mapFacultyRow(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
@@ -476,9 +508,10 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         appendQueryInterpretation(builder, query);
         appendSectionTitle(builder, query.resource().name());
         if (empty) {
-            appendBullet(builder, "Result", query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS
-                    ? "No matching structured academic data found."
-                    : "No structured academic data is available for this request.");
+            appendBullet(builder, "Result",
+                    query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.EXISTS
+                            ? "No matching structured academic data found."
+                            : "No structured academic data is available for this request.");
             return builder.toString().trim();
         }
         if (query.operation() == com.uniai.chat.application.retrieval.GraduateKnowledgeOperation.COUNT
@@ -502,10 +535,14 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         for (AcademicRow row : result.rows()) {
             builder.append(index).append(".\n");
             appendIndentedBullet(builder, "Name", row.name());
-            if (StringUtils.hasText(row.facultyName())) appendIndentedBullet(builder, "Faculty", row.facultyName());
-            if (StringUtils.hasText(row.departmentName())) appendIndentedBullet(builder, "Department", row.departmentName());
-            if (StringUtils.hasText(row.degreeType())) appendIndentedBullet(builder, "Degree", row.degreeType());
-            if (StringUtils.hasText(row.officialUrl())) appendIndentedBullet(builder, "Official source URL", row.officialUrl());
+            if (StringUtils.hasText(row.facultyName()))
+                appendIndentedBullet(builder, "Faculty", row.facultyName());
+            if (StringUtils.hasText(row.departmentName()))
+                appendIndentedBullet(builder, "Department", row.departmentName());
+            if (StringUtils.hasText(row.degreeType()))
+                appendIndentedBullet(builder, "Degree", row.degreeType());
+            if (StringUtils.hasText(row.officialUrl()))
+                appendIndentedBullet(builder, "Official source URL", row.officialUrl());
             appendIndentedBullet(builder, "Citation label", "[S" + index++ + "]");
         }
         return builder.toString().trim();
@@ -515,11 +552,12 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         List<GraduateCitation> citations = new ArrayList<>();
         for (int i = 0; i < result.rows().size(); i++) {
             AcademicRow row = result.rows().get(i);
-            if (!StringUtils.hasText(row.officialUrl()) || row.universityId() == null) continue;
+            if (!StringUtils.hasText(row.officialUrl()) || row.universityId() == null)
+                continue;
             citations.add(new GraduateCitation(
                     "academic-" + row.universityId() + "-" + (row.programId() == null ? i : row.programId()),
-                    "S" + (i + 1), row.name(), row.officialUrl(), result.resourceType(), row.universityId(), row.universityName(), row.programId(), row.name()
-            ));
+                    "S" + (i + 1), row.name(), row.officialUrl(), result.resourceType(), row.universityId(),
+                    row.universityName(), row.programId(), row.name()));
         }
         return List.copyOf(citations);
     }
@@ -590,34 +628,67 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 %s
                 ORDER BY %s
                 LIMIT %d
-                """.formatted(degreeClause + tuitionFilterClause, havingClause, orderClause, limit);
+                """
+                .formatted(degreeClause + tuitionFilterClause, havingClause, orderClause, limit);
 
         MapSqlParameterSource params = baseProgramParams(query);
-        if (StringUtils.hasText(query.filters().currency())) params.addValue("tuitionCurrency", query.filters().currency());
-        if (StringUtils.hasText(query.filters().billingBasis())) params.addValue("tuitionBillingBasis", query.filters().billingBasis());
-        if (StringUtils.hasText(query.filters().academicYear())) params.addValue("tuitionAcademicYear", query.filters().academicYear());
-        if (StringUtils.hasText(query.filters().tuitionScopeLevel())) params.addValue("tuitionScopeLevel", query.filters().tuitionScopeLevel());
-        if (query.filters().thresholdValue() != null) params.addValue("tuitionThreshold", query.filters().thresholdValue());
+        if (StringUtils.hasText(query.filters().currency()))
+            params.addValue("tuitionCurrency", query.filters().currency());
+        if (StringUtils.hasText(query.filters().billingBasis()))
+            params.addValue("tuitionBillingBasis", query.filters().billingBasis());
+        if (StringUtils.hasText(query.filters().academicYear()))
+            params.addValue("tuitionAcademicYear", query.filters().academicYear());
+        if (StringUtils.hasText(query.filters().tuitionScopeLevel()))
+            params.addValue("tuitionScopeLevel", query.filters().tuitionScopeLevel());
+        if (query.filters().thresholdValue() != null)
+            params.addValue("tuitionThreshold", query.filters().thresholdValue());
+        logger.info(
+                "[TUITION DEBUG] intent={} operation={} resource={} scope={} universities={} universityIds={} degreeTypes={} programName={} topicKeywords={} faculty={} department={} languages={} admissionRequirementTypes={} city={} currency={} billingBasis={} academicYear={} scopeLevel={} thresholdOperator={} thresholdValue={} aggregation={} sort={} limit={}",
+                query.intent(),
+                query.operation(),
+                query.resource(),
+                query.scope(),
+                query.resolvedUniversities(),
+                universityIds,
+                query.degreeTypes(),
+                query.filters().programName(),
+                query.topicKeywords(),
+                query.filters().facultyName(),
+                query.filters().departmentName(),
+                query.filters().languages(),
+                query.filters().admissionRequirementTypes(),
+                query.filters().city(),
+                query.filters().currency(),
+                query.filters().billingBasis(),
+                query.filters().academicYear(),
+                query.filters().tuitionScopeLevel(),
+                query.filters().thresholdOperator(),
+                query.filters().thresholdValue(),
+                query.aggregation().function(),
+                query.sort(),
+                limit);
+        logger.info("[TUITION DEBUG] SQL:\n{}", sql);
+        logger.info("[TUITION DEBUG] Parameters={}", params.getValues());
         logger.debug("[RETRIEVAL] Tuition aggregation SQL execution started universityIdCount={} degreeTypeCount={}",
                 universityIds.size(),
                 query.degreeTypes().size());
         long startNanos = System.nanoTime();
-        List<TuitionAggregationRecord> aggregations = jdbcTemplate.query(sql, params, (rs, rowNum) -> new TuitionAggregationRecord(
-                rs.getLong("university_id"),
-                rs.getString("university_name"),
-                rs.getString("university_acronym"),
-                rs.getString("degree_type_code"),
-                rs.getString("currency"),
-                rs.getString("billing_basis"),
-                rs.getString("scope_level"),
-                rs.getString("academic_year"),
-                rs.getLong("record_count"),
-                rs.getLong("numeric_tuition_records_used"),
-                rs.getBigDecimal("average_amount"),
-                rs.getBigDecimal("minimum_amount"),
-                rs.getBigDecimal("maximum_amount"),
-                rs.getString("source_urls")
-        ));
+        List<TuitionAggregationRecord> aggregations = jdbcTemplate.query(sql, params,
+                (rs, rowNum) -> new TuitionAggregationRecord(
+                        rs.getLong("university_id"),
+                        rs.getString("university_name"),
+                        rs.getString("university_acronym"),
+                        rs.getString("degree_type_code"),
+                        rs.getString("currency"),
+                        rs.getString("billing_basis"),
+                        rs.getString("scope_level"),
+                        rs.getString("academic_year"),
+                        rs.getLong("record_count"),
+                        rs.getLong("numeric_tuition_records_used"),
+                        rs.getBigDecimal("average_amount"),
+                        rs.getBigDecimal("minimum_amount"),
+                        rs.getBigDecimal("maximum_amount"),
+                        rs.getString("source_urls")));
         logger.debug("[RETRIEVAL] Tuition aggregation SQL execution completed rows={} durationMs={}",
                 aggregations.size(),
                 elapsedMillis(startNanos));
@@ -626,40 +697,133 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private String tuitionFilterClause(GraduateKnowledgeQuery query) {
         StringBuilder clause = new StringBuilder();
+
         appendUniversityScope(clause, query, "gtr.university_id", true);
         appendCityFilter(clause, query, "u.id");
+
         if (StringUtils.hasText(query.filters().facultyName())) {
-            clause.append("AND EXISTS (SELECT 1 FROM university_faculty tuition_faculty_filter WHERE LOWER(BTRIM(tuition_faculty_filter.name)) = LOWER(BTRIM(:facultyName)) AND (tuition_faculty_filter.id = gtr.faculty_id OR tuition_faculty_filter.id = gp.faculty_id))\n");
+            clause.append("""
+                    AND EXISTS (
+                        SELECT 1
+                        FROM university_faculty tuition_faculty_filter
+                        WHERE LOWER(BTRIM(tuition_faculty_filter.name)) = LOWER(BTRIM(:facultyName))
+                          AND (
+                                tuition_faculty_filter.id = gtr.faculty_id
+                             OR tuition_faculty_filter.id = gp.faculty_id
+                          )
+                    )
+                    """);
         }
+
         if (StringUtils.hasText(query.filters().departmentName())) {
-            clause.append("AND EXISTS (SELECT 1 FROM university_department tuition_department_filter WHERE LOWER(BTRIM(tuition_department_filter.name)) = LOWER(BTRIM(:departmentName)) AND (tuition_department_filter.id = gtr.department_id OR tuition_department_filter.id = gp.department_id))\n");
+            clause.append("""
+                    AND EXISTS (
+                        SELECT 1
+                        FROM university_department tuition_department_filter
+                        WHERE LOWER(BTRIM(tuition_department_filter.name)) = LOWER(BTRIM(:departmentName))
+                          AND (
+                                tuition_department_filter.id = gtr.department_id
+                             OR tuition_department_filter.id = gp.department_id
+                          )
+                    )
+                    """);
         }
-        if (!query.topicKeywords().isEmpty() || query.filters().programName() != null
-                || !query.filters().languages().isEmpty() || !query.filters().admissionRequirementTypes().isEmpty()) {
+
+        if (!query.topicKeywords().isEmpty()
+                || StringUtils.hasText(query.filters().programName())
+                || !query.filters().languages().isEmpty()
+                || !query.filters().admissionRequirementTypes().isEmpty()) {
             clause.append("AND gtr.program_id IS NOT NULL\n");
         }
-        if (query.topicKeywords() != null && !query.topicKeywords().isEmpty()) {
-            clause.append("AND CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category) ~* :topicRegex\n");
+
+        if (!query.topicKeywords().isEmpty()) {
+            clause.append("""
+                    AND CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category)
+                        ~* :topicRegex
+                    """);
         }
-        if (query.filters().programName() != null) {
-            clause.append("AND LOWER(BTRIM(gp.official_degree_name)) = LOWER(BTRIM(:programName))\n");
+
+        if (StringUtils.hasText(query.filters().programName())) {
+            clause.append("""
+                    AND (
+                        LOWER(BTRIM(gp.official_degree_name)) = LOWER(BTRIM(:programName))
+                        OR EXISTS (
+                            SELECT 1
+                            FROM graduate_program_alias gpa
+                            WHERE gpa.program_id = gp.id
+                              AND LOWER(BTRIM(gpa.alias)) = LOWER(BTRIM(:programName))
+                        )
+                    )
+                    """);
         }
+
         if (!query.filters().languages().isEmpty()) {
-            clause.append("AND EXISTS (SELECT 1 FROM language tuition_language_filter WHERE tuition_language_filter.id = gp.primary_language_id AND (LOWER(BTRIM(tuition_language_filter.name)) IN (:languages) OR LOWER(BTRIM(tuition_language_filter.code)) IN (:languages) OR LOWER(BTRIM(COALESCE(tuition_language_filter.native_name, ''))) IN (:languages)))\n");
+            clause.append("""
+                    AND EXISTS (
+                        SELECT 1
+                        FROM language tuition_language_filter
+                        WHERE tuition_language_filter.id = gp.primary_language_id
+                          AND (
+                                LOWER(BTRIM(tuition_language_filter.name)) IN (:languages)
+                             OR LOWER(BTRIM(tuition_language_filter.code)) IN (:languages)
+                             OR LOWER(BTRIM(COALESCE(tuition_language_filter.native_name, ''))) IN (:languages)
+                          )
+                    )
+                    """);
         }
+
         if (!query.filters().admissionRequirementTypes().isEmpty()) {
-            clause.append("AND EXISTS (SELECT 1 FROM graduate_admission_requirement tuition_admission_filter WHERE tuition_admission_filter.requirement_type IN (:admissionRequirementTypes) AND (tuition_admission_filter.program_id = gp.id OR (tuition_admission_filter.program_id IS NULL AND tuition_admission_filter.scope_level = 'UNIVERSITY' AND tuition_admission_filter.university_id = gp.university_id) OR (tuition_admission_filter.program_id IS NULL AND tuition_admission_filter.scope_level = 'FACULTY' AND tuition_admission_filter.faculty_id = gp.faculty_id) OR (tuition_admission_filter.program_id IS NULL AND tuition_admission_filter.scope_level = 'DEPARTMENT' AND tuition_admission_filter.department_id = gp.department_id)))\n");
+            clause.append("""
+                    AND EXISTS (
+                        SELECT 1
+                        FROM graduate_admission_requirement tuition_admission_filter
+                        WHERE tuition_admission_filter.requirement_type IN (:admissionRequirementTypes)
+                          AND (
+                                tuition_admission_filter.program_id = gp.id
+                             OR (
+                                    tuition_admission_filter.program_id IS NULL
+                                AND tuition_admission_filter.scope_level = 'UNIVERSITY'
+                                AND tuition_admission_filter.university_id = gp.university_id
+                             )
+                             OR (
+                                    tuition_admission_filter.program_id IS NULL
+                                AND tuition_admission_filter.scope_level = 'FACULTY'
+                                AND tuition_admission_filter.faculty_id = gp.faculty_id
+                             )
+                             OR (
+                                    tuition_admission_filter.program_id IS NULL
+                                AND tuition_admission_filter.scope_level = 'DEPARTMENT'
+                                AND tuition_admission_filter.department_id = gp.department_id
+                             )
+                          )
+                    )
+                    """);
         }
-        if (StringUtils.hasText(query.filters().currency())) clause.append("AND UPPER(BTRIM(gtr.currency)) = :tuitionCurrency\n");
-        if (StringUtils.hasText(query.filters().billingBasis())) clause.append("AND UPPER(BTRIM(gtr.billing_basis)) = :tuitionBillingBasis\n");
-        if (StringUtils.hasText(query.filters().academicYear())) clause.append("AND BTRIM(gtr.academic_year) = :tuitionAcademicYear\n");
-        if (StringUtils.hasText(query.filters().tuitionScopeLevel())) clause.append("AND UPPER(BTRIM(gtr.scope_level)) = :tuitionScopeLevel\n");
+
+        if (StringUtils.hasText(query.filters().currency())) {
+            clause.append("AND UPPER(BTRIM(gtr.currency)) = :tuitionCurrency\n");
+        }
+
+        if (StringUtils.hasText(query.filters().billingBasis())) {
+            clause.append("AND UPPER(BTRIM(gtr.billing_basis)) = :tuitionBillingBasis\n");
+        }
+
+        if (StringUtils.hasText(query.filters().academicYear())) {
+            clause.append("AND BTRIM(gtr.academic_year) = :tuitionAcademicYear\n");
+        }
+
+        if (StringUtils.hasText(query.filters().tuitionScopeLevel())) {
+            clause.append("AND UPPER(BTRIM(gtr.scope_level)) = :tuitionScopeLevel\n");
+        }
+
         return clause.toString();
     }
 
     private String tuitionHavingClause(GraduateKnowledgeQuery query) {
         GraduateKnowledgeThresholdOperator operator = query.filters().thresholdOperator();
-        if (operator == null || operator == GraduateKnowledgeThresholdOperator.NONE || query.filters().thresholdValue() == null) return "";
+        if (operator == null || operator == GraduateKnowledgeThresholdOperator.NONE
+                || query.filters().thresholdValue() == null)
+            return "";
         String aggregateExpression = switch (query.aggregation().function()) {
             case MIN -> "MIN(gtr.amount)";
             case MAX -> "MAX(gtr.amount)";
@@ -676,19 +840,23 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private String tuitionOrderClause(GraduateKnowledgeQuery query) {
         String universityOrder = explicitUniversityOrderClause(query);
-        GraduateKnowledgeSortField field = query.sort() == null ? GraduateKnowledgeSortField.NONE : query.sort().field();
-        GraduateKnowledgeSortDirection direction = query.sort() == null ? GraduateKnowledgeSortDirection.ASC : query.sort().direction();
+        GraduateKnowledgeSortField field = query.sort() == null ? GraduateKnowledgeSortField.NONE
+                : query.sort().field();
+        GraduateKnowledgeSortDirection direction = query.sort() == null ? GraduateKnowledgeSortDirection.ASC
+                : query.sort().direction();
         String value = switch (field) {
             case TUITION -> "AVG(gtr.amount)";
             case DEGREE_TYPE -> "dt.code";
             case UNIVERSITY, NAME, NONE, RELEVANCE -> "u.name";
         };
         String directionSql = direction == GraduateKnowledgeSortDirection.DESC ? "DESC" : "ASC";
-        return universityOrder + ", " + value + " " + directionSql + ", dt.code ASC NULLS LAST, gtr.currency ASC, gtr.billing_basis ASC, gtr.academic_year DESC";
+        return universityOrder + ", " + value + " " + directionSql
+                + ", dt.code ASC NULLS LAST, gtr.currency ASC, gtr.billing_basis ASC, gtr.academic_year DESC";
     }
 
     private String explicitUniversityOrderClause(GraduateKnowledgeQuery query) {
-        if (query.resolvedUniversities() == null || query.resolvedUniversities().isEmpty()) return "u.name ASC";
+        if (query.resolvedUniversities() == null || query.resolvedUniversities().isEmpty())
+            return "u.name ASC";
         StringBuilder expression = new StringBuilder("CASE u.id ");
         int index = 0;
         for (ResolvedUniversity university : query.resolvedUniversities()) {
@@ -702,12 +870,17 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     private MapSqlParameterSource baseProgramParams(GraduateKnowledgeQuery query) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         List<Long> universityIds = universityIds(query.resolvedUniversities());
-        if (!universityIds.isEmpty()) params.addValue("universityIds", universityIds);
-        if (StringUtils.hasText(query.filters().city())) params.addValue("city", query.filters().city().trim());
+        if (!universityIds.isEmpty())
+            params.addValue("universityIds", universityIds);
+        if (StringUtils.hasText(query.filters().city()))
+            params.addValue("city", query.filters().city().trim());
         String topicRegex = academicTopicRegex(query.topicKeywords());
-        if (StringUtils.hasText(topicRegex)) params.addValue("topicRegex", topicRegex);
-        if (StringUtils.hasText(query.filters().facultyName())) params.addValue("facultyName", query.filters().facultyName().trim());
-        if (StringUtils.hasText(query.filters().departmentName())) params.addValue("departmentName", query.filters().departmentName().trim());
+        if (StringUtils.hasText(topicRegex))
+            params.addValue("topicRegex", topicRegex);
+        if (StringUtils.hasText(query.filters().facultyName()))
+            params.addValue("facultyName", query.filters().facultyName().trim());
+        if (StringUtils.hasText(query.filters().departmentName()))
+            params.addValue("departmentName", query.filters().departmentName().trim());
         if (query.degreeTypes() != null && !query.degreeTypes().isEmpty()) {
             params.addValue("degreeTypes", query.degreeTypes().stream()
                     .filter(StringUtils::hasText)
@@ -726,39 +899,83 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     .map(value -> value.trim().toUpperCase(Locale.ROOT))
                     .toList());
         }
-        if (query.filters().programName() != null) {
-            params.addValue("programName", query.filters().programName());
+        if (StringUtils.hasText(query.filters().programName())) {
+            params.addValue("programName", query.filters().programName().trim());
         }
         return params;
     }
 
     private String programFilterClause(GraduateKnowledgeQuery query) {
         StringBuilder clause = new StringBuilder();
+
         appendUniversityScope(clause, query, "gp.university_id", true);
         appendCityFilter(clause, query, "u.id");
+
         appendOptionalEquals(clause, query.filters().facultyName(), "LOWER(BTRIM(fac.name))", "facultyName");
         appendOptionalEquals(clause, query.filters().departmentName(), "LOWER(BTRIM(dep.name))", "departmentName");
-        appendOptionalRegex(clause, query.topicKeywords(), "CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category)");
+
+        appendOptionalRegex(
+                clause,
+                query.topicKeywords(),
+                "CONCAT_WS(' ', gp.official_degree_name, gp.major, gp.major_category)");
+
         if (!query.filters().languages().isEmpty()) {
-            clause.append("AND (LOWER(BTRIM(l.name)) IN (:languages) "
-                    + "OR LOWER(BTRIM(l.code)) IN (:languages) "
-                    + "OR LOWER(BTRIM(COALESCE(l.native_name, ''))) IN (:languages))\n");
+            clause.append("""
+                    AND (
+                        LOWER(BTRIM(l.name)) IN (:languages)
+                        OR LOWER(BTRIM(l.code)) IN (:languages)
+                        OR LOWER(BTRIM(COALESCE(l.native_name, ''))) IN (:languages)
+                    )
+                    """);
         }
-        if (query.filters().programName() != null) {
-            clause.append("AND LOWER(BTRIM(gp.official_degree_name)) = LOWER(BTRIM(:programName))\n");
+
+        if (StringUtils.hasText(query.filters().programName())) {
+            clause.append("""
+                    AND (
+                        LOWER(BTRIM(gp.official_degree_name)) = LOWER(BTRIM(:programName))
+                        OR EXISTS (
+                            SELECT 1
+                            FROM graduate_program_alias gpa
+                            WHERE gpa.program_id = gp.id
+                              AND LOWER(BTRIM(gpa.alias)) = LOWER(BTRIM(:programName))
+                        )
+                    )
+                    """);
         }
+
         if (!query.filters().admissionRequirementTypes().isEmpty()) {
-            clause.append("AND EXISTS (SELECT 1 FROM graduate_admission_requirement admission_filter "
-                    + "WHERE admission_filter.requirement_type IN (:admissionRequirementTypes) "
-                    + "AND (admission_filter.program_id = gp.id "
-                    + "OR (admission_filter.program_id IS NULL AND admission_filter.scope_level = 'UNIVERSITY' AND admission_filter.university_id = gp.university_id) "
-                    + "OR (admission_filter.program_id IS NULL AND admission_filter.scope_level = 'FACULTY' AND admission_filter.faculty_id = gp.faculty_id) "
-                    + "OR (admission_filter.program_id IS NULL AND admission_filter.scope_level = 'DEPARTMENT' AND admission_filter.department_id = gp.department_id)))\n");
+            clause.append("""
+                    AND EXISTS (
+                        SELECT 1
+                        FROM graduate_admission_requirement admission_filter
+                        WHERE admission_filter.requirement_type IN (:admissionRequirementTypes)
+                          AND (
+                                admission_filter.program_id = gp.id
+                             OR (
+                                    admission_filter.program_id IS NULL
+                                AND admission_filter.scope_level = 'UNIVERSITY'
+                                AND admission_filter.university_id = gp.university_id
+                             )
+                             OR (
+                                    admission_filter.program_id IS NULL
+                                AND admission_filter.scope_level = 'FACULTY'
+                                AND admission_filter.faculty_id = gp.faculty_id
+                             )
+                             OR (
+                                    admission_filter.program_id IS NULL
+                                AND admission_filter.scope_level = 'DEPARTMENT'
+                                AND admission_filter.department_id = gp.department_id
+                             )
+                          )
+                    )
+                    """);
         }
+
         return clause.toString();
     }
 
-    private void appendUniversityScope(StringBuilder clause, GraduateKnowledgeQuery query, String column, boolean emptyMeansAll) {
+    private void appendUniversityScope(StringBuilder clause, GraduateKnowledgeQuery query, String column,
+            boolean emptyMeansAll) {
         if (!query.resolvedUniversities().isEmpty()) {
             clause.append("AND ").append(column).append(" IN (:universityIds)\n");
         } else if (!emptyMeansAll) {
@@ -767,15 +984,18 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     private void appendCityFilter(StringBuilder clause, GraduateKnowledgeQuery query, String universityColumn) {
-        if (!StringUtils.hasText(query.filters().city())) return;
+        if (!StringUtils.hasText(query.filters().city()))
+            return;
         clause.append("AND EXISTS (SELECT 1 FROM campus c WHERE c.university_id = ")
                 .append(universityColumn)
                 .append(" AND LOWER(BTRIM(c.city)) = LOWER(BTRIM(:city)))\n");
     }
 
     private String programOrderClause(GraduateKnowledgeQuery query) {
-        GraduateKnowledgeSortField field = query.sort() == null ? GraduateKnowledgeSortField.NONE : query.sort().field();
-        GraduateKnowledgeSortDirection direction = query.sort() == null ? GraduateKnowledgeSortDirection.ASC : query.sort().direction();
+        GraduateKnowledgeSortField field = query.sort() == null ? GraduateKnowledgeSortField.NONE
+                : query.sort().field();
+        GraduateKnowledgeSortDirection direction = query.sort() == null ? GraduateKnowledgeSortDirection.ASC
+                : query.sort().direction();
         String expression = switch (field) {
             case UNIVERSITY, NAME, RELEVANCE, NONE -> "u.name";
             case DEGREE_TYPE -> "dt.code";
@@ -801,8 +1021,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 details ? rs.getString("tuition_summary") : null,
                 details ? rs.getString("admission_summary") : null,
                 rs.getString("official_program_url"),
-                rs.getString("source_urls")
-        );
+                rs.getString("source_urls"));
     }
 
     private String programListSql(String filterClause, String orderClause, int limit) {
@@ -952,7 +1171,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 %s
                 ORDER BY %s
                 LIMIT %d
-                """.formatted(filterClause, orderClause, limit);
+                """
+                .formatted(filterClause, orderClause, limit);
     }
 
     private List<ProgramRecord> rankProgramRecords(GraduateKnowledgeQuery query, List<ProgramRecord> programs) {
@@ -995,13 +1215,15 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             return List.copyOf(programs);
         }
 
-        logger.debug("[RETRIEVAL] Program ranking applied rankingStrategy=DETERMINISTIC_EVIDENCE buckets={} candidates={}",
+        logger.debug(
+                "[RETRIEVAL] Program ranking applied rankingStrategy=DETERMINISTIC_EVIDENCE buckets={} candidates={}",
                 query.resolvedUniversities().size(),
                 programs.size());
         return List.copyOf(ordered);
     }
 
-    private List<TuitionAggregationRecord> rankTuitionAggregations(GraduateKnowledgeQuery query, List<TuitionAggregationRecord> aggregations) {
+    private List<TuitionAggregationRecord> rankTuitionAggregations(GraduateKnowledgeQuery query,
+            List<TuitionAggregationRecord> aggregations) {
         if (aggregations == null || aggregations.size() <= 1) {
             return aggregations == null ? List.of() : List.copyOf(aggregations);
         }
@@ -1015,7 +1237,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         Map<Long, List<IndexedTuitionAggregationRecord>> buckets = bucketTuitionByUniversity(ranked, universityOrder);
         List<TuitionAggregationRecord> ordered = new ArrayList<>(aggregations.size());
         Comparator<IndexedTuitionAggregationRecord> comparator = Comparator
-                .comparingInt((IndexedTuitionAggregationRecord candidate) -> tuitionScore(candidate.record())).reversed()
+                .comparingInt((IndexedTuitionAggregationRecord candidate) -> tuitionScore(candidate.record()))
+                .reversed()
                 .thenComparing(candidate -> normalize(candidate.record().degreeTypeCode()))
                 .thenComparing(candidate -> normalize(candidate.record().currency()))
                 .thenComparing(candidate -> normalize(candidate.record().billingBasis()))
@@ -1041,7 +1264,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             return List.copyOf(aggregations);
         }
 
-        logger.debug("[RETRIEVAL] Tuition ranking applied rankingStrategy=DETERMINISTIC_EVIDENCE buckets={} candidates={}",
+        logger.debug(
+                "[RETRIEVAL] Tuition ranking applied rankingStrategy=DETERMINISTIC_EVIDENCE buckets={} candidates={}",
                 query.resolvedUniversities().size(),
                 aggregations.size());
         return List.copyOf(ordered);
@@ -1070,8 +1294,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private Map<Long, List<IndexedProgramRecord>> bucketProgramsByUniversity(
             List<IndexedProgramRecord> programs,
-            Map<Long, Integer> universityOrder
-    ) {
+            Map<Long, Integer> universityOrder) {
         Map<Long, List<IndexedProgramRecord>> buckets = new LinkedHashMap<>();
         for (IndexedProgramRecord candidate : programs) {
             Long universityId = candidate.record().universityId();
@@ -1086,8 +1309,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private Map<Long, List<IndexedTuitionAggregationRecord>> bucketTuitionByUniversity(
             List<IndexedTuitionAggregationRecord> aggregations,
-            Map<Long, Integer> universityOrder
-    ) {
+            Map<Long, Integer> universityOrder) {
         Map<Long, List<IndexedTuitionAggregationRecord>> buckets = new LinkedHashMap<>();
         for (IndexedTuitionAggregationRecord candidate : aggregations) {
             Long universityId = candidate.record().universityId();
@@ -1104,7 +1326,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         int score = 0;
         if (query.degreeTypes() != null && !query.degreeTypes().isEmpty()
                 && query.degreeTypes().stream().anyMatch(degreeType -> degreeType != null
-                && degreeType.trim().equalsIgnoreCase(record.degreeTypeCode()))) {
+                        && degreeType.trim().equalsIgnoreCase(record.degreeTypeCode()))) {
             score += 6;
         }
         if (StringUtils.hasText(record.officialDegreeName())) {
@@ -1189,8 +1411,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     private String buildOverviewContext(
             GraduateKnowledgeQuery query,
             List<ProgramRecord> programs,
-            List<TuitionAggregationRecord> aggregations
-    ) {
+            List<TuitionAggregationRecord> aggregations) {
         StringBuilder builder = new StringBuilder();
         appendQueryInterpretation(builder, query);
 
@@ -1201,8 +1422,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 false,
                 true,
                 citationIndex,
-                "No graduate programs are currently available in the official data."
-        );
+                "No graduate programs are currently available in the official data.");
         appendTuitionSection(builder, aggregations, GraduateKnowledgeAggregationFunction.AVG, true, citationIndex);
         appendOverviewSourcesSection(builder, programs, aggregations);
         appendOverviewMissingDataSection(builder, query, programs, aggregations);
@@ -1227,14 +1447,18 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         appendBullet(builder, "Degree types", formatDegreeTypes(query.degreeTypes()));
         appendBullet(builder, "Follow-up resolved", String.valueOf(query.followUpResolved()));
         appendBullet(builder, "Ambiguous", String.valueOf(query.ambiguous()));
-        appendBullet(builder, "Detail level", query.detailLevel() == null ? "Not available in official data" : query.detailLevel().name());
+        appendBullet(builder, "Detail level",
+                query.detailLevel() == null ? "Not available in official data" : query.detailLevel().name());
     }
 
     private String summarizeScalarFilters(GraduateKnowledgeQuery query) {
         List<String> filters = new ArrayList<>();
-        if (!query.resolvedUniversities().isEmpty()) filters.add("universities=" + query.resolvedUniversities().size());
-        if (!query.degreeTypes().isEmpty()) filters.add("degreeTypes=" + String.join(",", query.degreeTypes()));
-        if (StringUtils.hasText(query.filters().city())) filters.add("city=" + query.filters().city());
+        if (!query.resolvedUniversities().isEmpty())
+            filters.add("universities=" + query.resolvedUniversities().size());
+        if (!query.degreeTypes().isEmpty())
+            filters.add("degreeTypes=" + String.join(",", query.degreeTypes()));
+        if (StringUtils.hasText(query.filters().city()))
+            filters.add("city=" + query.filters().city());
         return filters.isEmpty() ? "none" : String.join("; ", filters);
     }
 
@@ -1248,8 +1472,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             boolean details,
             boolean includeCitationLabels,
             int nextCitationIndex,
-            String emptyMessage
-    ) {
+            String emptyMessage) {
         appendSectionTitle(builder, "Programs");
         if (programs.isEmpty()) {
             appendBullet(builder, "Result", emptyMessage);
@@ -1313,8 +1536,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             List<TuitionAggregationRecord> aggregations,
             GraduateKnowledgeAggregationFunction function,
             boolean includeCitationLabels,
-            int nextCitationIndex
-    ) {
+            int nextCitationIndex) {
         appendSectionTitle(builder, "Tuition aggregation");
         if (aggregations.isEmpty()) {
             appendBullet(builder, "Result", "Average tuition is not computable from the official stored data.");
@@ -1353,7 +1575,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     }
                     builder.append(index++).append(".\n");
                     appendIndentedBullet(builder, "Record count", String.valueOf(aggregation.recordCount()));
-                    appendIndentedBullet(builder, "Numeric tuition records used", String.valueOf(aggregation.numericTuitionRecordsUsed()));
+                    appendIndentedBullet(builder, "Numeric tuition records used",
+                            String.valueOf(aggregation.numericTuitionRecordsUsed()));
                     appendTuitionValue(builder, aggregation, function);
                     appendIndentedBullet(builder, "Source URLs", aggregation.sourceUrls());
                 }
@@ -1367,20 +1590,26 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     }
 
     private void appendTuitionValue(StringBuilder builder, TuitionAggregationRecord aggregation,
-                                    GraduateKnowledgeAggregationFunction function) {
-        String scope = formatTuitionScope(aggregation.currency(), aggregation.billingBasis(), aggregation.academicYear());
+            GraduateKnowledgeAggregationFunction function) {
+        String scope = formatTuitionScope(aggregation.currency(), aggregation.billingBasis(),
+                aggregation.academicYear());
         switch (function == null ? GraduateKnowledgeAggregationFunction.AVG : function) {
-            case MIN -> appendIndentedBullet(builder, "Computed minimum", formatAmount(aggregation.minimumTuition(), scope));
-            case MAX -> appendIndentedBullet(builder, "Computed maximum", formatAmount(aggregation.maximumTuition(), scope));
-            case RANGE -> appendIndentedBullet(builder, "Computed range", formatAmount(aggregation.minimumTuition(), scope)
-                    + " to " + formatAmount(aggregation.maximumTuition(), scope));
+            case MIN ->
+                appendIndentedBullet(builder, "Computed minimum", formatAmount(aggregation.minimumTuition(), scope));
+            case MAX ->
+                appendIndentedBullet(builder, "Computed maximum", formatAmount(aggregation.maximumTuition(), scope));
+            case RANGE ->
+                appendIndentedBullet(builder, "Computed range", formatAmount(aggregation.minimumTuition(), scope)
+                        + " to " + formatAmount(aggregation.maximumTuition(), scope));
             case AVG, NONE, COUNT -> appendIndentedBullet(builder, "Computed average", formatAverage(
-                    aggregation.averageTuition(), aggregation.currency(), aggregation.billingBasis(), aggregation.academicYear()));
+                    aggregation.averageTuition(), aggregation.currency(), aggregation.billingBasis(),
+                    aggregation.academicYear()));
         }
     }
 
     private String formatAmount(BigDecimal amount, String scope) {
-        if (amount == null) return "Not available in official data";
+        if (amount == null)
+            return "Not available in official data";
         return amount.setScale(2, RoundingMode.HALF_UP).toPlainString() + " (" + scope + ")";
     }
 
@@ -1404,11 +1633,9 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 && sameText(previous.universityAcronym(), current.universityAcronym())
                 && sameText(previous.facultyName(), current.facultyName())
                 && sameText(previous.degreeTypeCode(), current.degreeTypeCode())
-                && (!details || (
-                sameText(previous.languageName(), current.languageName())
+                && (!details || (sameText(previous.languageName(), current.languageName())
                         && sameText(previous.deliveryMode(), current.deliveryMode())
-                        && sameText(previous.thesisOrNonThesis(), current.thesisOrNonThesis())
-        ));
+                        && sameText(previous.thesisOrNonThesis(), current.thesisOrNonThesis())));
     }
 
     private boolean sameTuitionCompressionGroup(TuitionAggregationRecord previous, TuitionAggregationRecord current) {
@@ -1457,8 +1684,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
     private void appendOverviewSourcesSection(
             StringBuilder builder,
             List<ProgramRecord> programs,
-            List<TuitionAggregationRecord> aggregations
-    ) {
+            List<TuitionAggregationRecord> aggregations) {
         appendSectionTitle(builder, "Sources");
         Set<String> sources = new LinkedHashSet<>();
         for (ProgramRecord program : programs) {
@@ -1481,8 +1707,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             StringBuilder builder,
             GraduateKnowledgeQuery query,
             List<ProgramRecord> programs,
-            List<TuitionAggregationRecord> aggregations
-    ) {
+            List<TuitionAggregationRecord> aggregations) {
         Set<String> notes = new LinkedHashSet<>();
         if (query.resolvedUniversities().isEmpty()) {
             notes.add("Resolved universities: Not available in official data");
@@ -1555,8 +1780,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     program.universityId(),
                     program.universityName(),
                     program.programId(),
-                    program.officialDegreeName()
-            ));
+                    program.officialDegreeName()));
         }
         return List.copyOf(citations);
     }
@@ -1581,16 +1805,14 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     aggregation.universityId(),
                     aggregation.universityName(),
                     null,
-                    aggregation.degreeTypeCode()
-            ));
+                    aggregation.degreeTypeCode()));
         }
         return List.copyOf(citations);
     }
 
     private List<GraduateCitation> buildOverviewCitations(
             List<ProgramRecord> programs,
-            List<TuitionAggregationRecord> aggregations
-    ) {
+            List<TuitionAggregationRecord> aggregations) {
         List<GraduateCitation> merged = new ArrayList<>();
         merged.addAll(buildProgramCitations(programs));
         merged.addAll(buildTuitionCitations(aggregations));
@@ -1617,8 +1839,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     citation.universityId(),
                     citation.universityName(),
                     citation.programId(),
-                    citation.programName()
-            ));
+                    citation.programName()));
         }
         return List.copyOf(renumbered);
     }
@@ -1647,7 +1868,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
 
     private String buildTuitionCitationTitle(TuitionAggregationRecord aggregation) {
         String university = formatUniversity(aggregation.universityName(), aggregation.universityAcronym());
-        String scope = formatTuitionScope(aggregation.currency(), aggregation.billingBasis(), aggregation.academicYear())
+        String scope = formatTuitionScope(aggregation.currency(), aggregation.billingBasis(),
+                aggregation.academicYear())
                 + ", " + formatScope(aggregation.scopeLevel());
         if (!StringUtils.hasText(aggregation.degreeTypeCode())
                 || "Not available in official data".equalsIgnoreCase(aggregation.degreeTypeCode().trim())) {
@@ -1685,7 +1907,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         return value == null ? "unknown" : String.valueOf(value);
     }
 
-    private void appendMissingDataSection(StringBuilder builder, GraduateKnowledgeQuery query, List<ProgramRecord> programs) {
+    private void appendMissingDataSection(StringBuilder builder, GraduateKnowledgeQuery query,
+            List<ProgramRecord> programs) {
         Set<String> notes = new LinkedHashSet<>();
         if (query.resolvedUniversities().isEmpty()) {
             notes.add("Resolved universities: Not available in official data");
@@ -1715,7 +1938,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         }
     }
 
-    private void appendTuitionMissingDataSection(StringBuilder builder, List<TuitionAggregationRecord> aggregations, GraduateKnowledgeQuery query) {
+    private void appendTuitionMissingDataSection(StringBuilder builder, List<TuitionAggregationRecord> aggregations,
+            GraduateKnowledgeQuery query) {
         Set<String> notes = new LinkedHashSet<>();
         if (query.resolvedUniversities().isEmpty()) {
             notes.add("Resolved universities: Not available in official data");
@@ -1793,25 +2017,29 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             builder.append(" ").append(currency.trim());
         }
         String billingBasisLabel = formatBillingBasis(billingBasis);
-        if (StringUtils.hasText(billingBasisLabel) && !"Not available in official data".equalsIgnoreCase(billingBasisLabel.trim())) {
+        if (StringUtils.hasText(billingBasisLabel)
+                && !"Not available in official data".equalsIgnoreCase(billingBasisLabel.trim())) {
             builder.append(" ").append(billingBasisLabel);
         }
         String academicYearLabel = formatAcademicYear(academicYear);
-        if (StringUtils.hasText(academicYearLabel) && !"Not available in official data".equalsIgnoreCase(academicYearLabel.trim())) {
+        if (StringUtils.hasText(academicYearLabel)
+                && !"Not available in official data".equalsIgnoreCase(academicYearLabel.trim())) {
             builder.append(" | Academic Year ").append(academicYearLabel);
         }
         return builder.toString();
     }
 
     private String formatBillingBasis(String billingBasis) {
-        if (!StringUtils.hasText(billingBasis) || "Not available in official data".equalsIgnoreCase(billingBasis.trim())) {
+        if (!StringUtils.hasText(billingBasis)
+                || "Not available in official data".equalsIgnoreCase(billingBasis.trim())) {
             return "Not available in official data";
         }
         return billingBasis.trim().toLowerCase(Locale.ROOT).replace('_', ' ');
     }
 
     private String formatAcademicYear(String academicYear) {
-        if (!StringUtils.hasText(academicYear) || "Not available in official data".equalsIgnoreCase(academicYear.trim())) {
+        if (!StringUtils.hasText(academicYear)
+                || "Not available in official data".equalsIgnoreCase(academicYear.trim())) {
             return "Not available in official data";
         }
         return academicYear.trim();
@@ -1830,11 +2058,13 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             parts.add(currency.trim());
         }
         String billingBasisLabel = formatBillingBasis(billingBasis);
-        if (StringUtils.hasText(billingBasisLabel) && !"Not available in official data".equalsIgnoreCase(billingBasisLabel.trim())) {
+        if (StringUtils.hasText(billingBasisLabel)
+                && !"Not available in official data".equalsIgnoreCase(billingBasisLabel.trim())) {
             parts.add(billingBasisLabel);
         }
         String academicYearLabel = formatAcademicYear(academicYear);
-        if (StringUtils.hasText(academicYearLabel) && !"Not available in official data".equalsIgnoreCase(academicYearLabel.trim())) {
+        if (StringUtils.hasText(academicYearLabel)
+                && !"Not available in official data".equalsIgnoreCase(academicYearLabel.trim())) {
             parts.add("Academic Year " + academicYearLabel);
         }
         if (parts.isEmpty()) {
@@ -1898,7 +2128,8 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
         return (System.nanoTime() - startNanos) / 1_000_000L;
     }
 
-    private void recordRetrievalMetrics(long startNanos, String retrievalStrategy, String intent, String outcome, long candidates, long selected, long contextSize) {
+    private void recordRetrievalMetrics(long startNanos, String retrievalStrategy, String intent, String outcome,
+            long candidates, long selected, long contextSize) {
         ChatAiMetrics.recordTimer(
                 meterRegistry,
                 ChatAiMetrics.RETRIEVAL_DURATION,
@@ -1909,8 +2140,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 "intent",
                 intent,
                 "outcome",
-                outcome
-        );
+                outcome);
         if (candidates > 0) {
             ChatAiMetrics.recordSummary(
                     meterRegistry,
@@ -1921,8 +2151,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     "retrieval_strategy",
                     retrievalStrategy,
                     "intent",
-                    intent
-            );
+                    intent);
         }
         if (selected >= 0) {
             ChatAiMetrics.recordSummary(
@@ -1934,8 +2163,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                     "retrieval_strategy",
                     retrievalStrategy,
                     "intent",
-                    intent
-            );
+                    intent);
         }
         ChatAiMetrics.recordSummary(
                 meterRegistry,
@@ -1946,8 +2174,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
                 "retrieval_strategy",
                 retrievalStrategy,
                 "intent",
-                intent
-        );
+                intent);
     }
 
     private String safeStrategy(GraduateKnowledgeQuery query) {
@@ -1979,8 +2206,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             String tuitionSummary,
             String admissionSummary,
             String officialProgramUrl,
-            String sourceUrls
-    ) {
+            String sourceUrls) {
     }
 
     private record TuitionAggregationRecord(
@@ -1997,8 +2223,7 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             BigDecimal averageTuition,
             BigDecimal minimumTuition,
             BigDecimal maximumTuition,
-            String sourceUrls
-    ) {
+            String sourceUrls) {
     }
 
     private record IndexedProgramRecord(ProgramRecord record, int originalIndex) {
@@ -2030,7 +2255,6 @@ public class SqlGraduateKnowledgeRetrievalAdapter implements GraduateKnowledgeRe
             String degreeType,
             long count,
             String name,
-            String officialUrl
-    ) {
+            String officialUrl) {
     }
 }

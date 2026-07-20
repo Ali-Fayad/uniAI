@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GraduateKnowledgeQueryInterpreterTest {
@@ -24,7 +25,7 @@ class GraduateKnowledgeQueryInterpreterTest {
                 UniversityCatalog.builder().id(1L).name("American University of Beirut").nameAr("الجامعة الأميركية في بيروت").acronym("AUB").city("Beirut").build(),
                 university(2L, "Université Saint-Joseph", "USJ"),
                 university(3L, "Lebanese American University", "LAU"),
-                university(4L, "Lebanese National Conservatory", "LNC"),
+                UniversityCatalog.builder().id(4L).name("Lebanese National Conservatory").acronym("LNC").city("Tripoli").build(),
                 university(5L, "Al Maaref University", "MU")
         );
     }
@@ -119,6 +120,19 @@ class GraduateKnowledgeQueryInterpreterTest {
         assertEquals(1, query.resolvedUniversities().size());
         assertEquals("AUB", query.resolvedUniversities().get(0).acronym());
         assertFalse(query.ambiguous());
+    }
+
+    @Test
+    void shouldNotTreatProgramSubjectAsCityForTuitionQueries() {
+        GraduateKnowledgeQuery lauQuery = interpreter.interpret(
+                "What is the tuition for the Master's in Computer Science at LAU?", List.of(), catalogs);
+        GraduateKnowledgeQuery aubQuery = interpreter.interpret(
+                "What is the tuition for Computer Science at AUB?", List.of(), catalogs);
+
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, lauQuery.intent());
+        assertEquals(GraduateKnowledgeIntent.TUITION_AGGREGATION, aubQuery.intent());
+        assertNull(lauQuery.filters().city());
+        assertNull(aubQuery.filters().city());
     }
 
     @Test
@@ -293,7 +307,7 @@ class GraduateKnowledgeQueryInterpreterTest {
                 List.of(), catalogs);
 
         assertEquals(GraduateKnowledgeIntent.PROGRAM_LOOKUP, query.intent());
-        assertEquals("tripoli", query.filters().city());
+        assertEquals("Tripoli", query.filters().city());
         assertTrue(query.resolvedUniversities().isEmpty());
         assertFalse(query.ambiguous());
     }

@@ -11,7 +11,7 @@ public class GraduateQueryInterpretationProperties {
 
     private boolean enabled = true;
     private long maxInputTokens = 4500L;
-    private int maxOutputTokens = 250;
+    private int maxOutputTokens = 500;
     private int historyMessageLimit = 4;
     private String promptPath = "prompts/graduate-query-interpreter-prompt.txt";
 }

@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
+import java.time.ZoneId;
 
 public final class GraduateKnowledgeResolutionSupport {
 
@@ -24,6 +25,11 @@ public final class GraduateKnowledgeResolutionSupport {
     private static final Pattern FACULTY_NAME = Pattern.compile("(?:faculty|school)\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Pattern DEPARTMENT_NAME = Pattern.compile("department\\s+of\\s+([\\p{L}][\\p{L}\\s'\\-]{1,80}?)(?:\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
     private static final Pattern PROGRAM_NAME = Pattern.compile("(?:program(?:me)?|degree)\\s+(?:called|named|in)\\s+['\\\"]?([\\p{L}][\\p{L}0-9&'\\-\\s]{1,100}?)(?:['\\\"]|\\s+(?:at|in)\\s+|[?!.;,]|$)", Pattern.CASE_INSENSITIVE);
+    private static final Set<String> TIME_ZONE_CITY_NAMES = ZoneId.getAvailableZoneIds().stream()
+            .filter(zoneId -> zoneId.contains("/"))
+            .map(zoneId -> zoneId.substring(zoneId.lastIndexOf('/') + 1).replace('_', ' '))
+            .map(GraduateKnowledgeResolutionSupport::normalize)
+            .collect(Collectors.toUnmodifiableSet());
     private static final Set<String> GENERIC_UNIVERSITY_TOKENS = Set.of(
             "university",
             "college",
@@ -510,8 +516,34 @@ public final class GraduateKnowledgeResolutionSupport {
         if (!matcher.find()) {
             return null;
         }
-        String city = matcher.group(1).trim();
-        return city.isBlank() ? null : city;
+        String candidate = matcher.group(1).trim();
+        if (candidate.isBlank()) {
+            return null;
+        }
+        String catalogCity = knownCities(catalogs).stream()
+                .filter(city -> normalize(city).equals(normalize(candidate)))
+                .findFirst()
+                .orElse(null);
+        if (catalogCity != null) {
+            return catalogCity;
+        }
+        return TIME_ZONE_CITY_NAMES.contains(normalize(candidate)) ? candidate : null;
+    }
+
+    private static List<String> knownCities(List<UniversityCatalog> catalogs) {
+        if (catalogs == null || catalogs.isEmpty()) {
+            return List.of();
+        }
+        return catalogs.stream()
+                .flatMap(university -> java.util.stream.Stream.concat(
+                        university.getCampuses() == null ? java.util.stream.Stream.empty()
+                                : university.getCampuses().stream()
+                                .map(com.uniai.catalog.domain.model.CampusCatalog::getCity),
+                        java.util.stream.Stream.of(university.getCity())
+                ))
+                .filter(city -> city != null && !city.isBlank())
+                .distinct()
+                .toList();
     }
 
     static boolean isFollowUpMessage(String text) {

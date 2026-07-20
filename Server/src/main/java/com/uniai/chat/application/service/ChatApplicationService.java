@@ -14,6 +14,7 @@ import com.uniai.chat.application.budget.GraduateQueryInterpretationBudgetResult
 import com.uniai.chat.application.dto.ai.AiRequest;
 import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationProviderException;
 import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationResult;
@@ -812,7 +813,7 @@ public class ChatApplicationService implements
             logger.warn("[AI_INTERPRETATION] Budget rejected chatId={} category={}",
                     chatId,
                     budgetResult.diagnosticCategory());
-            GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
+            GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED", deterministicCandidate);
             GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_BUDGET_REJECTED");
             recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, "budget_rejected");
             return resolved;
@@ -848,7 +849,8 @@ public class ChatApplicationService implements
                         recentConversationWindow,
                         universityCatalogs,
                         conversationMemory,
-                        "AI_QUERY_INTERPRETATION_GENERAL_CHAT_REJECTED"
+                        "AI_QUERY_INTERPRETATION_GENERAL_CHAT_REJECTED",
+                        deterministicCandidate
                 );
                 GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(
                         currentMessage,
@@ -883,7 +885,11 @@ public class ChatApplicationService implements
             recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, mapInterpretationOutcome(resolved));
             return resolved;
         } catch (RuntimeException ex) {
-            logger.warn("[AI_INTERPRETATION] Provider interpretation failed chatId={} reason={}", chatId, ex.getMessage());
+            String failureCategory = ex instanceof GraduateQueryInterpretationProviderException providerException
+                    ? providerException.failureCategory()
+                    : "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE";
+            logger.warn("[AI_INTERPRETATION] Provider interpretation failed chatId={} category={} reason={}",
+                    chatId, failureCategory, ex.getMessage());
             ChatAiMetrics.incrementCounter(
                     meterRegistry,
                     ChatAiMetrics.PROVIDER_FAILURES,
@@ -892,8 +898,16 @@ public class ChatApplicationService implements
                     "interpretation",
                     "provider",
                     resolveCurrentProviderName());
-            GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
-            GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, "AI_QUERY_INTERPRETATION_PROVIDER_FAILURE");
+            logger.info("[AI_INTERPRETATION] Deterministic fallback started chatId={} category={}", chatId, failureCategory);
+            GraduateQueryInterpretationResult fallback = fallbackInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, failureCategory, deterministicCandidate);
+            logger.info("[AI_INTERPRETATION] Deterministic fallback completed chatId={} succeeded={} status={} fallbackUsed={} intent={}",
+                    chatId,
+                    fallback != null && fallback.query() != null && !fallback.ambiguous(),
+                    fallback == null ? null : fallback.status(),
+                    fallback != null && fallback.fallbackUsed(),
+                    fallback == null || fallback.query() == null || fallback.query().intent() == null
+                            ? null : fallback.query().intent());
+            GraduateQueryInterpretationResult resolved = resolveFollowUpInterpretation(currentMessage, recentConversationWindow, universityCatalogs, conversationMemory, fallback, failureCategory);
             recordInterpretationMetrics(interpretationStartNanos, resolveCurrentProviderName(), resolved, "provider_failure");
             return resolved;
         }
@@ -904,7 +918,8 @@ public class ChatApplicationService implements
             List<AiConversationMessage> recentConversationWindow,
             List<UniversityCatalog> universityCatalogs,
             ConversationMemory conversationMemory,
-            String failureCategory
+            String failureCategory,
+            GraduateKnowledgeQuery deterministicCandidate
     ) {
         if (isUnsupportedGraduateDegreeRequest(currentMessage)) {
             return GraduateQueryInterpretationResult.unsupported(
@@ -915,15 +930,18 @@ public class ChatApplicationService implements
             );
         }
 
-        GraduateKnowledgeQuery fallbackQuery = graduateKnowledgeQueryInterpreter.interpret(
-                currentMessage,
-                recentConversationWindow,
-                universityCatalogs,
-                conversationMemory
-        );
+        GraduateKnowledgeQuery fallbackQuery = deterministicCandidate != null
+                && graduateKnowledgeQueryInterpreter.isHighConfidenceDeterministic(currentMessage, deterministicCandidate)
+                ? deterministicCandidate
+                : graduateKnowledgeQueryInterpreter.interpret(
+                        currentMessage,
+                        recentConversationWindow,
+                        universityCatalogs,
+                        conversationMemory
+                );
 
         if (fallbackQuery.intent() == GraduateKnowledgeIntent.GENERAL_CHAT) {
-            return GraduateQueryInterpretationResult.fallbackUsed(fallbackQuery, buildFallbackUsedMessage(failureCategory));
+            return GraduateQueryInterpretationResult.fallbackUsed(fallbackQuery, buildFallbackUsedMessage(failureCategory), failureCategory);
         }
 
         if (fallbackQuery.intent() == null || fallbackQuery.intent() == GraduateKnowledgeIntent.UNKNOWN_OR_AMBIGUOUS
@@ -938,7 +956,7 @@ public class ChatApplicationService implements
             );
         }
 
-        return GraduateQueryInterpretationResult.fallbackUsed(fallbackQuery, buildFallbackUsedMessage(failureCategory));
+        return GraduateQueryInterpretationResult.fallbackUsed(fallbackQuery, buildFallbackUsedMessage(failureCategory), failureCategory);
     }
 
     private GraduateQueryInterpretationResult resolveFollowUpInterpretation(

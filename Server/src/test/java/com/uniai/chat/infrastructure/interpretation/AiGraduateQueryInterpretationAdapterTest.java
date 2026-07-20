@@ -5,9 +5,11 @@ import com.uniai.chat.application.dto.ai.AiResponse;
 import com.uniai.chat.application.memory.ConversationMemory;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretation;
 import com.uniai.chat.application.interpretation.CanonicalGraduateQueryDraft;
+import com.uniai.chat.application.interpretation.GraduateQueryInterpretationProviderException;
 import com.uniai.chat.application.interpretation.GraduateQueryInterpretationRequest;
 import com.uniai.chat.application.port.out.AiServicePort;
 import com.uniai.chat.application.port.out.GraduateQueryInterpreterPromptPort;
+import com.uniai.chat.infrastructure.config.GraduateQueryInterpretationProperties;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -144,8 +146,32 @@ class AiGraduateQueryInterpretationAdapterTest {
     void interpretShouldRejectMaxTokenCompletion() {
         RecordingAiServicePort port = new RecordingAiServicePort("{\"schemaVersion\":1}", "MAX_TOKENS");
         AiGraduateQueryInterpretationAdapter adapter = adapter(port);
-        assertThrows(IllegalStateException.class, () -> adapter.interpret(
+        GraduateQueryInterpretationProviderException exception = assertThrows(
+                GraduateQueryInterpretationProviderException.class, () -> adapter.interpret(
                 new GraduateQueryInterpretationRequest("What is tuition?", List.of(), ConversationMemory.empty())));
+        assertEquals("AI_QUERY_INTERPRETATION_PROVIDER_TRUNCATED", exception.failureCategory());
+    }
+
+    @Test
+    void interpretationOutputDefaultsToFiveHundredTokens() {
+        assertEquals(500, new GraduateQueryInterpretationProperties().getMaxOutputTokens());
+    }
+
+    @Test
+    void adapterUsesConfiguredInterpretationOutputLimit() {
+        RecordingAiServicePort port = new RecordingAiServicePort(
+                "{\"schemaVersion\":2,\"resource\":\"PROGRAM\",\"operation\":\"LIST\",\"filters\":{}}"
+        );
+        AiGraduateQueryInterpretationAdapter adapter = new AiGraduateQueryInterpretationAdapter(
+                port,
+                () -> "Interpretation prompt",
+                new GraduateQueryInterpretationBudgetConfiguration(true, 1000, 500, 4, "prompts/graduate-query-interpreter-prompt.txt"),
+                new com.fasterxml.jackson.databind.ObjectMapper()
+        );
+
+        adapter.interpretDraft(new GraduateQueryInterpretationRequest("List programs", List.of(), ConversationMemory.empty()));
+
+        assertEquals(500, port.lastRequest.getMaxTokens());
     }
 
     private AiGraduateQueryInterpretationAdapter adapter(RecordingAiServicePort aiServicePort) {
@@ -161,6 +187,7 @@ class AiGraduateQueryInterpretationAdapterTest {
         private final String content;
         private final String finishReason;
         private int callCount;
+        private com.uniai.chat.application.dto.ai.AiRequest lastRequest;
 
         private RecordingAiServicePort(String content) {
             this(content, null);
@@ -174,6 +201,7 @@ class AiGraduateQueryInterpretationAdapterTest {
         @Override
         public AiResponse generateResponse(com.uniai.chat.application.dto.ai.AiRequest request) {
             callCount++;
+            lastRequest = request;
             return AiResponse.builder()
                     .provider("gemini")
                     .model("gemini-2.5-flash")
