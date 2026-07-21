@@ -8,6 +8,8 @@ import type {
   AdminUserPersonalInfoResponse,
   AdminUserSearchResponse,
   UserRole,
+  AdminCatalogItem,
+  AdminPromptResponse,
 } from '../types/dto';
 import type { IAdminService } from '../interfaces';
 
@@ -71,5 +73,35 @@ export const adminService: IAdminService = {
 
   async deleteFeedback(feedbackId: number): Promise<void> {
     await apiClient.delete(ENDPOINTS.ADMIN.FEEDBACK.BY_ID(feedbackId));
+  },
+
+  async searchSkills(query = ''): Promise<AdminCatalogItem[]> {
+    const response = await apiClient.get<AdminCatalogItem[]>(ENDPOINTS.ADMIN.CATALOG.SKILLS, { params: { query } });
+    return response.data;
+  },
+
+  async createSkill(name: string, category = ''): Promise<AdminCatalogItem> {
+    const response = await apiClient.post<AdminCatalogItem>(ENDPOINTS.ADMIN.CATALOG.SKILLS, { name, category: category || null });
+    return response.data;
+  },
+
+  async searchPositions(query = ''): Promise<AdminCatalogItem[]> {
+    const response = await apiClient.get<AdminCatalogItem[]>(ENDPOINTS.ADMIN.CATALOG.POSITIONS, { params: { query } });
+    return response.data;
+  },
+
+  async createPosition(name: string): Promise<AdminCatalogItem> {
+    const response = await apiClient.post<AdminCatalogItem>(ENDPOINTS.ADMIN.CATALOG.POSITIONS, { name });
+    return response.data;
+  },
+
+  async listPrompts(): Promise<AdminPromptResponse[]> {
+    const response = await apiClient.get<AdminPromptResponse[]>(ENDPOINTS.ADMIN.PROMPTS.LIST);
+    return response.data;
+  },
+
+  async getPrompt(key: string): Promise<AdminPromptResponse> {
+    const response = await apiClient.get<AdminPromptResponse>(ENDPOINTS.ADMIN.PROMPTS.BY_KEY(key));
+    return response.data;
   },
 };

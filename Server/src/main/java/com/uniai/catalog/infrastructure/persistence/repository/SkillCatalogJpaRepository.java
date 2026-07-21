@@ -12,4 +12,7 @@ public interface SkillCatalogJpaRepository extends JpaRepository<SkillCatalog, L
     Optional<SkillCatalog> findByNameIgnoreCase(String name);
 
     List<SkillCatalog> findByNameContainingIgnoreCaseOrderByNameAsc(String search);
+
+    List<SkillCatalog> findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCaseOrderByNameAsc(
+            String name, String category);
 }

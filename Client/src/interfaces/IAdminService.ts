@@ -6,6 +6,8 @@ import type {
   AdminUserPersonalInfoResponse,
   AdminUserSearchResponse,
   UserRole,
+  AdminCatalogItem,
+  AdminPromptResponse,
 } from '../types/dto';
 
 /**
@@ -23,4 +25,10 @@ export interface IAdminService {
   deleteUser(userId: number): Promise<void>;
   getFeedback(): Promise<AdminFeedbackResponse[]>;
   deleteFeedback(feedbackId: number): Promise<void>;
+  searchSkills(query?: string): Promise<AdminCatalogItem[]>;
+  createSkill(name: string, category?: string): Promise<AdminCatalogItem>;
+  searchPositions(query?: string): Promise<AdminCatalogItem[]>;
+  createPosition(name: string): Promise<AdminCatalogItem>;
+  listPrompts(): Promise<AdminPromptResponse[]>;
+  getPrompt(key: string): Promise<AdminPromptResponse>;
 }

@@ -42,6 +42,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(409).body(ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidUsernameException.class)
+    public ResponseEntity<?> handleInvalidUsernameException(Exception ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(com.uniai.admin.prompt.service.AdminPromptService.PromptNotFoundException.class)
+    public ResponseEntity<?> handlePromptNotFoundException(Exception ex) {
+        return ResponseEntity.status(404).body("Prompt not found");
+    }
+
     @ExceptionHandler(InvalidVerificationCodeException.class)
     public ResponseEntity<?> handleInvalidVerificationCodeException(Exception ex) {
         logger.warn("InvalidVerificationCodeException: {}", ex.getMessage(), ex);

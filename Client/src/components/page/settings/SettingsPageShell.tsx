@@ -29,6 +29,8 @@ export interface SettingsPageShellProps {
   setSelectedTheme: (value: ThemeName) => void;
   handleProfileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleProfileSubmit: (e: React.FormEvent) => Promise<void>;
+  usernameAvailability: 'idle' | 'checking' | 'available' | 'unavailable' | 'error' | 'invalid';
+  usernameAvailabilityMessage: string;
   handleFeedbackSubmit: (e: React.FormEvent) => Promise<void>;
   setFeedback: React.Dispatch<React.SetStateAction<FeedbackState>>;
   onUpdatePersonalInfo: () => void;
@@ -42,6 +44,8 @@ const SettingsPageShell: React.FC<SettingsPageShellProps> = ({
   setSelectedTheme,
   handleProfileChange,
   handleProfileSubmit,
+  usernameAvailability,
+  usernameAvailabilityMessage,
   handleFeedbackSubmit,
   setFeedback,
   onUpdatePersonalInfo,
@@ -57,6 +61,8 @@ const SettingsPageShell: React.FC<SettingsPageShellProps> = ({
             isLoading={isLoading}
             onProfileChange={handleProfileChange}
             onProfileSubmit={handleProfileSubmit}
+            usernameAvailability={usernameAvailability}
+            usernameAvailabilityMessage={usernameAvailabilityMessage}
           />
         </AnimatedField>
 

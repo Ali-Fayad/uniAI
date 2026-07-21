@@ -24,6 +24,8 @@ export const useSettings = () => {
     isLoading: profile.isLoading,
     handleProfileChange: profile.handleProfileChange,
     handleProfileSubmit: profile.handleProfileSubmit,
+    usernameAvailability: profile.usernameAvailability,
+    usernameAvailabilityMessage: profile.usernameAvailabilityMessage,
 
     // Theme
     selectedTheme: theme.selectedTheme,

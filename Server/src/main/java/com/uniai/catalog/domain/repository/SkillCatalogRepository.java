@@ -9,6 +9,8 @@ public interface SkillCatalogRepository {
 
     List<SkillCatalog> searchByName(String search);
 
+    List<SkillCatalog> searchByNameOrCategory(String search);
+
     Optional<SkillCatalog> findByNameIgnoreCase(String name);
 
     SkillCatalog save(SkillCatalog skill);

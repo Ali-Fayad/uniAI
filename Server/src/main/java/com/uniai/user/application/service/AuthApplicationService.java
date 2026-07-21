@@ -82,7 +82,7 @@ public class AuthApplicationService implements
         if (userRepository.existsByEmail(command.getEmail().toLowerCase())) {
             throw new AlreadyExistsException("Email already registered");
         }
-        if (userRepository.existsByUsername(command.getUsername().toLowerCase())) {
+        if (userRepository.existsByUsername(UsernameNormalizer.normalize(command.getUsername()))) {
             throw new AlreadyExistsException("Username already exists");
         }
 
@@ -247,7 +247,7 @@ public class AuthApplicationService implements
 
     @Override
     public boolean isUsernameAvailable(String username) {
-        return !userRepository.existsByUsername(username.toLowerCase());
+        return !userRepository.existsByUsername(UsernameNormalizer.normalize(username));
     }
 
     private String validateGoogleRedirectUri(String redirectUri) {

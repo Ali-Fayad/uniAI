@@ -7,6 +7,7 @@ import com.uniai.user.application.dto.command.DeleteUserCommand;
 import com.uniai.user.application.dto.command.UpdateUserCommand;
 import com.uniai.user.application.dto.response.AuthResponseDto;
 import com.uniai.user.application.port.in.ChangePasswordUseCase;
+import com.uniai.user.application.port.in.CheckProfileUsernameAvailabilityUseCase;
 import com.uniai.user.application.port.in.DeleteUserUseCase;
 import com.uniai.user.application.port.in.GetCurrentUserUseCase;
 import com.uniai.user.application.port.in.UpdateUserUseCase;
@@ -27,7 +28,8 @@ public class UserApplicationService implements
         GetCurrentUserUseCase,
         UpdateUserUseCase,
         DeleteUserUseCase,
-        ChangePasswordUseCase {
+        ChangePasswordUseCase,
+        CheckProfileUsernameAvailabilityUseCase {
 
     private final UserRepository userRepository;
     private final FeedbackRepository feedbackRepository;
@@ -55,7 +57,7 @@ public class UserApplicationService implements
                 .orElseThrow(InvalidEmailOrPassword::new);
 
         if (command.getUsername() != null && !command.getUsername().isBlank()) {
-            String requestedUsername = command.getUsername().toLowerCase();
+            String requestedUsername = UsernameNormalizer.normalize(command.getUsername());
             if (!requestedUsername.equals(user.getUsername())) {
                 if (userRepository.existsByUsername(requestedUsername)) {
                     throw new AlreadyExistsException("Username already exists");
@@ -86,6 +88,16 @@ public class UserApplicationService implements
 
         userRepository.save(user);
         return toDto(user);
+    }
+
+    public boolean isUsernameAvailableForUser(String email, String requestedUsername) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(InvalidEmailOrPassword::new);
+        String normalized = UsernameNormalizer.normalize(requestedUsername);
+        if (normalized.equals(UsernameNormalizer.normalize(user.getUsername()))) {
+            return true;
+        }
+        return !userRepository.existsByUsername(normalized);
     }
 
     // -------------------------------------------------------------------------

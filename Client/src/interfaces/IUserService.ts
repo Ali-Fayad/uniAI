@@ -4,6 +4,7 @@ import type {
   ChangePasswordDto,
   DeleteAccountDto,
   FeedbackRequest,
+  CheckUsernameResponse,
 } from '../types/dto';
 
 /**
@@ -15,6 +16,7 @@ import type {
 export interface IUserService {
   getMe(): Promise<AuthenticationResponseDto>;
   updateMe(data: UpdateUserDto): Promise<AuthenticationResponseDto>;
+  checkUsernameAvailability(username: string): Promise<CheckUsernameResponse>;
   deleteAccount(data: DeleteAccountDto): Promise<void>;
   changePassword(data: ChangePasswordDto): Promise<void>;
   sendFeedback(data: FeedbackRequest): Promise<void>;

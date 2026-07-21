@@ -25,6 +25,8 @@ const SettingsPage: React.FC = () => {
     setSelectedTheme,
     handleProfileChange,
     handleProfileSubmit,
+    usernameAvailability,
+    usernameAvailabilityMessage,
     handleFeedbackSubmit,
     setFeedback,
   } = useSettings();
@@ -38,6 +40,8 @@ const SettingsPage: React.FC = () => {
       setSelectedTheme={setSelectedTheme}
       handleProfileChange={handleProfileChange}
       handleProfileSubmit={handleProfileSubmit}
+      usernameAvailability={usernameAvailability}
+      usernameAvailabilityMessage={usernameAvailabilityMessage}
       handleFeedbackSubmit={handleFeedbackSubmit}
       setFeedback={setFeedback}
       onUpdatePersonalInfo={() => navigate(ROUTES.PERSONAL_INFO, { state: { fromOnboarding: false } })}

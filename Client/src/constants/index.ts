@@ -22,6 +22,7 @@ export const ENDPOINTS = {
   // User endpoints
   USER: {
     ME: '/api/users/me',
+    USERNAME_AVAILABILITY: '/api/users/me/username-availability',
     UPDATE_ME: '/api/users/me',
     DELETE_ME: '/api/users/me',
     CHANGE_PASSWORD: '/api/users/change-password',
@@ -70,6 +71,14 @@ export const ENDPOINTS = {
     FEEDBACK: {
       LIST: '/api/admin/feedback',
       BY_ID: (feedbackId: number) => `/api/admin/feedback/${feedbackId}`,
+    },
+    CATALOG: {
+      SKILLS: '/api/admin/catalog/skills',
+      POSITIONS: '/api/admin/catalog/positions',
+    },
+    PROMPTS: {
+      LIST: '/api/admin/prompts',
+      BY_KEY: (key: string) => `/api/admin/prompts/${encodeURIComponent(key)}`,
     },
   },
 } as const;

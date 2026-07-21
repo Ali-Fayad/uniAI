@@ -25,6 +25,11 @@ public class SkillCatalogRepositoryAdapter implements SkillCatalogRepository {
     }
 
     @Override
+    public List<SkillCatalog> searchByNameOrCategory(String search) {
+        return jpaRepository.findByNameContainingIgnoreCaseOrCategoryContainingIgnoreCaseOrderByNameAsc(search, search);
+    }
+
+    @Override
     public Optional<SkillCatalog> findByNameIgnoreCase(String name) {
         return jpaRepository.findByNameIgnoreCase(name);
     }

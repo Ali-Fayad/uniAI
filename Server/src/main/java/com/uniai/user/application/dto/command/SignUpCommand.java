@@ -19,7 +19,7 @@ public class SignUpCommand {
     private String username;
 
     @NotBlank
-    @Size(min = 8, max = 100)
+    @Size(min = 2, max = 100)
     private String firstName;
 
     @NotBlank

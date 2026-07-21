@@ -6,6 +6,8 @@ import type { AdminOverviewResponse } from '../../../types/dto';
 import { adminDashboardTabButtonId, adminDashboardTabPanelId } from './AdminDashboardTabs';
 import AdminStatisticsSection from './sections/AdminStatisticsSection';
 import AdminUserSearchSection from './sections/AdminUserSearchSection';
+import AdminCatalogueSection from './sections/AdminCatalogueSection';
+import AdminPromptsSection from './sections/AdminPromptsSection';
 
 export interface AdminDashboardContentContext {
   overview: AdminOverviewResponse | null;
@@ -50,6 +52,14 @@ const adminDashboardTabs = [
         labelledBy={adminDashboardTabButtonId('user-search')}
       />
     ),
+  },
+  {
+    id: 'catalogue', label: 'Catalogue', description: 'Manage skills and positions',
+    renderContent: () => <AdminCatalogueSection />,
+  },
+  {
+    id: 'ai-prompts', label: 'AI Prompts', description: 'Inspect active prompt resources',
+    renderContent: () => <AdminPromptsSection />,
   },
 ] as const satisfies readonly AdminDashboardTabDefinition[];
 

@@ -6,12 +6,14 @@
  * are not forced to depend on theme or feedback state (ISP).
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Storage } from '../utils/Storage';
 import { userService } from '../services/user';
 import type { UpdateUserDto } from '../types/dto';
 import { useAuth } from './useAuth';
 import { useNotification } from './useNotification';
+import { isValidUsername } from '../lib/validation';
+import { isAxiosError } from 'axios';
 
 export interface ProfileState {
   firstName: string;
@@ -26,6 +28,8 @@ export interface UseProfileSettingsReturn {
   isLoading: boolean;
   handleProfileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleProfileSubmit: (e: React.FormEvent) => Promise<void>;
+  usernameAvailability: 'idle' | 'checking' | 'available' | 'unavailable' | 'error' | 'invalid';
+  usernameAvailabilityMessage: string;
 }
 
 const readTwoFactorEnabled = (
@@ -54,6 +58,10 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [usernameAvailability, setUsernameAvailability] = useState<UseProfileSettingsReturn['usernameAvailability']>('idle');
+  const [usernameAvailabilityMessage, setUsernameAvailabilityMessage] = useState('');
+  const usernameRequestSequence = useRef(0);
+  const currentUsername = useMemo(() => (user?.username ?? Storage.getUser()?.username ?? '').trim().toLowerCase(), [user?.username]);
 
   /** Refresh from the API so settings always reflect persisted server state. */
   useEffect(() => {
@@ -92,6 +100,36 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
     })();
   }, []);
 
+  useEffect(() => {
+    const normalized = profile.username.trim().toLowerCase();
+    const requestSequence = ++usernameRequestSequence.current;
+    if (!normalized || normalized === currentUsername) {
+      setUsernameAvailability(normalized === currentUsername && normalized ? 'available' : 'idle');
+      setUsernameAvailabilityMessage(normalized === currentUsername && normalized ? 'Username is available.' : '');
+      return;
+    }
+    if (!isValidUsername(normalized)) {
+      setUsernameAvailability('invalid');
+      setUsernameAvailabilityMessage('Use 2–50 letters, numbers, or underscores.');
+      return;
+    }
+    setUsernameAvailability('checking');
+    setUsernameAvailabilityMessage('Checking availability...');
+    const timeout = window.setTimeout(async () => {
+      try {
+        const response = await userService.checkUsernameAvailability(normalized);
+        if (requestSequence !== usernameRequestSequence.current) return;
+        setUsernameAvailability(response.available ? 'available' : 'unavailable');
+        setUsernameAvailabilityMessage(response.available ? 'Username is available.' : 'This username is already in use.');
+      } catch {
+        if (requestSequence !== usernameRequestSequence.current) return;
+        setUsernameAvailability('error');
+        setUsernameAvailabilityMessage('Unable to check username availability.');
+      }
+    }, 400);
+    return () => window.clearTimeout(timeout);
+  }, [currentUsername, profile.username]);
+
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setProfile((prev) => ({
@@ -106,6 +144,16 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
 
     try {
       const stored = Storage.getUser();
+      const normalizedUsername = profile.username.trim().toLowerCase();
+      if (normalizedUsername !== currentUsername && usernameAvailability !== 'available') {
+        setUsernameAvailabilityMessage(
+          usernameAvailability === 'checking' ? 'Wait for username availability to finish.' :
+            usernameAvailability === 'unavailable' ? 'This username is already in use.' :
+              'Enter a valid available username.',
+        );
+        setIsLoading(false);
+        return;
+      }
       const updateDto: UpdateUserDto = {};
       let hasChanges = false;
 
@@ -118,7 +166,7 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
         hasChanges = true;
       }
       if (profile.username !== (stored?.username ?? '')) {
-        updateDto.username = profile.username;
+        updateDto.username = normalizedUsername;
         hasChanges = true;
       }
       if (profile.twoFactorEnabled !== (stored?.twoFactorEnabled ?? false)) {
@@ -166,7 +214,12 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
         message: 'Profile settings updated successfully.',
       });
       console.log('Profile updated successfully');
-    } catch (error) {
+    } catch (error: unknown) {
+      const responseMessage = isAxiosError(error) ? String(error.response?.data ?? '') : '';
+      if (isAxiosError(error) && error.response?.status === 409 && responseMessage.toLowerCase().includes('username')) {
+        setUsernameAvailability('unavailable');
+        setUsernameAvailabilityMessage('This username is already in use.');
+      }
       showNotification({
         type: 'error',
         message: 'Failed to update profile settings. Please try again.',
@@ -179,5 +232,5 @@ export const useProfileSettings = (): UseProfileSettingsReturn => {
     }
   };
 
-  return { profile, isLoading, handleProfileChange, handleProfileSubmit };
+  return { profile, isLoading, handleProfileChange, handleProfileSubmit, usernameAvailability, usernameAvailabilityMessage };
 };

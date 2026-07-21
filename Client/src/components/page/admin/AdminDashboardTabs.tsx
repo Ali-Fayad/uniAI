@@ -38,7 +38,7 @@ const AdminDashboardTabs = ({ tabs, activeTab, onTabChange }: AdminDashboardTabs
                   : 'text-[var(--color-textSecondary)] hover:bg-[var(--color-elevatedSurface)] hover:text-[var(--color-textPrimary)]',
               ].join(' ')}
             >
-              {tab.icon ? <span aria-hidden="true" className="flex items-center justify-center">{tab.icon}</span> : null}
+              {'icon' in tab && tab.icon ? <span aria-hidden="true" className="flex items-center justify-center">{tab.icon}</span> : null}
               <span className="text-sm font-semibold leading-tight">{tab.label}</span>
               {tab.description ? (
                 <span

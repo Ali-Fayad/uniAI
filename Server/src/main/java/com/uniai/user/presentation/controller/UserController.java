@@ -5,6 +5,7 @@ import com.uniai.user.application.dto.command.ChangePasswordCommand;
 import com.uniai.user.application.dto.command.DeleteUserCommand;
 import com.uniai.user.application.dto.command.UpdateUserCommand;
 import com.uniai.user.application.dto.response.AuthResponseDto;
+import com.uniai.user.application.dto.response.UsernameAvailabilityResponse;
 import com.uniai.user.application.port.in.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class UserController {
     private final JwtFacade jwtFacade;
     private final GetCurrentUserUseCase getCurrentUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
+    private final CheckProfileUsernameAvailabilityUseCase checkProfileUsernameAvailabilityUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
     private final ChangePasswordUseCase changePasswordUseCase;
 
@@ -36,6 +38,17 @@ public class UserController {
     public ResponseEntity<AuthResponseDto> updateMe(@Valid @RequestBody UpdateUserCommand command) {
         String email = jwtFacade.getAuthenticatedUserEmail();
         return ResponseEntity.ok(updateUserUseCase.updateUser(email, command));
+    }
+
+    @GetMapping("/me/username-availability")
+    public ResponseEntity<UsernameAvailabilityResponse> checkUsernameAvailability(
+            @RequestParam String username) {
+        String email = jwtFacade.getAuthenticatedUserEmail();
+        boolean available = checkProfileUsernameAvailabilityUseCase
+                .isUsernameAvailableForUser(email, username);
+        return ResponseEntity.ok(new UsernameAvailabilityResponse(
+                available,
+                available ? "Username is available" : "This username is already in use"));
     }
 
     @DeleteMapping("/me")

@@ -21,6 +21,8 @@ export interface ProfileSettingsSectionProps {
   isLoading: boolean;
   onProfileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onProfileSubmit: (e: React.FormEvent) => Promise<void>;
+  usernameAvailability: 'idle' | 'checking' | 'available' | 'unavailable' | 'error' | 'invalid';
+  usernameAvailabilityMessage: string;
 }
 
 const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
@@ -28,6 +30,8 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
   isLoading,
   onProfileChange,
   onProfileSubmit,
+  usernameAvailability,
+  usernameAvailabilityMessage,
 }) => {
   return (
     <SettingsSection title={TEXT.settings.profile.title} icon="person">
@@ -59,7 +63,13 @@ const ProfileSettingsSection: React.FC<ProfileSettingsSectionProps> = ({
               
               value={profile.username}
               onChange={onProfileChange}
+              aria-invalid={['unavailable', 'invalid', 'error'].includes(usernameAvailability)}
             />
+            {usernameAvailabilityMessage && (
+              <p className={`mt-1 text-sm ${usernameAvailability === 'available' ? 'text-emerald-600' : usernameAvailability === 'checking' ? 'text-[var(--color-textSecondary)]' : 'text-red-500'}`} role="status">
+                {usernameAvailabilityMessage}
+              </p>
+            )}
           </div>
           <div className="sm:col-span-4">
             <AnimatedInput

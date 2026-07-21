@@ -6,6 +6,7 @@ import type {
   ChangePasswordDto,
   DeleteAccountDto,
   FeedbackRequest,
+  CheckUsernameResponse,
 } from '../types/dto';
 import type { IUserService } from '../interfaces';
 
@@ -32,6 +33,14 @@ export const userService: IUserService = {
     const response = await apiClient.put<AuthenticationResponseDto>(
       ENDPOINTS.USER.UPDATE_ME,
       data
+    );
+    return response.data;
+  },
+
+  async checkUsernameAvailability(username: string): Promise<CheckUsernameResponse> {
+    const response = await apiClient.get<CheckUsernameResponse>(
+      ENDPOINTS.USER.USERNAME_AVAILABILITY,
+      { params: { username } },
     );
     return response.data;
   },

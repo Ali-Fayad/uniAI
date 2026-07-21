@@ -99,6 +99,25 @@ export interface UpdateAdminUserRoleRequest {
   role: UserRole;
 }
 
+export interface AdminCatalogItem {
+  id: number;
+  name: string;
+  category?: string | null;
+}
+
+export interface AdminPromptResponse {
+  key: string;
+  displayName: string;
+  description: string;
+  resourcePath: string;
+  caller: string;
+  operation: string;
+  expectedOutput: string;
+  riskLevel: string;
+  editable: boolean;
+  content?: string | null;
+}
+
 export type AdminUserPersonalInfoResponse = PersonalInfoResponseDto;
 
 export interface TokenResponse {
