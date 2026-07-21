@@ -54,7 +54,7 @@ public class AuthController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<?> verifyEmail(@RequestBody VerifyCommand command) {
+    public ResponseEntity<?> verifyEmail(@Valid @RequestBody VerifyCommand command) {
         String token = verifyEmailUseCase.verifyEmail(command);
         return ResponseEntity.ok(new TokenResponse(token));
     }
@@ -66,7 +66,7 @@ public class AuthController {
     }
 
     @PostMapping("/forget-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
         forgotPasswordUseCase.forgotPassword(request.email());
         return ResponseEntity.ok(new MessageResponse("Verification code sent"));
     }
@@ -114,7 +114,10 @@ public class AuthController {
     private record UrlResponse(String url) {}
     private record CheckEmailResponse(boolean available, String message) {}
     private record CheckUsernameResponse(boolean available, String message) {}
-    private record ForgotPasswordRequest(String email) {}
+    private record ForgotPasswordRequest(
+            @jakarta.validation.constraints.NotBlank
+            @jakarta.validation.constraints.Email
+            @jakarta.validation.constraints.Size(max = 100) String email) {}
 
     private record GoogleAuthUrlRequest(
             @jakarta.validation.constraints.Size(max = 2048) String redirectUri,

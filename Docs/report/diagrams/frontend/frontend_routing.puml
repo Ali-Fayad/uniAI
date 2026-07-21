@@ -1,8 +1,0 @@
-@startuml
-title Frontend Routes
-rectangle "/, /auth, /signin, /signup, /verify, /2fa/verify, /forgot-password" as public
-rectangle "/chat, /welcome, /personal-info, /cvs, /cv-builder" as protected
-rectangle "/admin" as admin
-rectangle "/map, /about, /settings" as general
-note bottom of admin : ProtectedRoute(requiredRole="ADMIN")
-@enduml

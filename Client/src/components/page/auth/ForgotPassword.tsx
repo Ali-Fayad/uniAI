@@ -5,6 +5,7 @@ import { authService } from "../../../services/auth";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
 import AnimatedInput from "../../../components/common/AnimatedInput";
+import { isValidEmail } from "../../../lib/validation";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -17,15 +18,20 @@ const ForgotPassword = () => {
     e.preventDefault();
     setError("");
     setSuccess(false);
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!isValidEmail(normalizedEmail)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
     setIsLoading(true);
 
     try {
-      await authService.forgotPassword(email);
+      await authService.forgotPassword(normalizedEmail);
       setSuccess(true);
 
       // Navigate to confirmation page after a short delay
       setTimeout(() => {
-        navigate(ROUTES.FORGOT_PASSWORD_CONFIRM, { state: { email } });
+        navigate(ROUTES.FORGOT_PASSWORD_CONFIRM, { state: { email: normalizedEmail } });
       }, 1500);
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {

@@ -12,6 +12,7 @@
  */
 
 import { isValidPhoneNumber } from "../../../lib/utils";
+import { isHttpUrl, isValidDateRange } from "../../../lib/validation";
 import type {
   PersonalInfoCertificateEntryDto,
   PersonalInfoEducationEntryDto,
@@ -230,6 +231,22 @@ export const validatePersonalInfoState = (state: PersonalInfoState): ValidationR
       error: 'Project name is required for every project entry.',
       missingFields: [],
     };
+  }
+
+  const invalidUrls = [state.form.linkedin, state.form.github, state.form.portfolio]
+    .map((url) => url ?? '')
+    .some((url) => !isHttpUrl(url))
+    || state.projects.some((item) => !isHttpUrl(item.repositoryUrl ?? '') || !isHttpUrl(item.liveUrl ?? ''))
+    || state.certificates.some((item) => !isHttpUrl(item.credentialUrl ?? ''));
+  if (invalidUrls) {
+    return { error: 'Links must be valid HTTP or HTTPS URLs.', missingFields: [] };
+  }
+
+  const invalidDateRange = state.education.some((item) => !isValidDateRange(item.startDate ?? '', item.endDate ?? ''))
+    || state.experience.some((item) => !isValidDateRange(item.startDate ?? '', item.endDate ?? ''))
+    || state.projects.some((item) => !isValidDateRange(item.startDate ?? '', item.endDate ?? ''));
+  if (invalidDateRange) {
+    return { error: 'End dates cannot be before start dates.', missingFields: [] };
   }
 
   const invalidCertificates = state.certificates.some((item) => !item.name.trim());

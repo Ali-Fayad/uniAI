@@ -3,6 +3,7 @@ package com.uniai.cvbuilder.application.dto.command;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class CreateCVCommand {
 
     @NotBlank
+    @Size(max = 100)
     private String cvName;
 
     private Long templateId;

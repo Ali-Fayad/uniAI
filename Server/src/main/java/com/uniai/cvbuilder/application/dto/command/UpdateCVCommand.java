@@ -1,6 +1,7 @@
 package com.uniai.cvbuilder.application.dto.command;
 
 import java.util.List;
+import jakarta.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateCVCommand {
 
+    @Size(max = 100)
     private String cvName;
     private Long templateId;
     private String template;

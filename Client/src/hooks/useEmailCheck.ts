@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { authService } from '../services/auth';
+import { isValidEmail } from '../lib/validation';
 
 export type EmailCheckStatus =
   | 'idle'
@@ -26,7 +27,7 @@ export const useEmailCheck = (email: string, debounceMs = 400): UseEmailCheckRes
     if (!normalizedEmail) {
       return false;
     }
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
+    return isValidEmail(normalizedEmail);
   }, [normalizedEmail]);
 
   const [status, setStatus] = useState<EmailCheckStatus>('idle');

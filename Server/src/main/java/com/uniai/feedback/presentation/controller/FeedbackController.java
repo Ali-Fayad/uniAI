@@ -6,6 +6,7 @@ import com.uniai.shared.infrastructure.jwt.JwtFacade;
 import com.uniai.user.domain.model.User;
 import com.uniai.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class FeedbackController {
     private final SubmitFeedbackUseCase submitFeedbackUseCase;
 
     @PostMapping
-    public ResponseEntity<Void> submitFeedback(@RequestBody SubmitFeedbackCommand command) {
+    public ResponseEntity<Void> submitFeedback(@Valid @RequestBody SubmitFeedbackCommand command) {
         String email = jwtFacade.getAuthenticatedUserEmail();
         Long userId = userRepository.findByEmail(email)
                 .map(User::getId)

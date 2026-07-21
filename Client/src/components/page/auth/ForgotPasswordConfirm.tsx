@@ -7,6 +7,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { TEXT } from "../../../constants/static";
 import { ROUTES } from "../../../router";
 import type { RequestPasswordDto } from "../../../types/dto";
+import { isStrongPassword } from "../../../lib/validation";
 
 const ForgotPasswordConfirm = () => {
   const navigate = useNavigate();
@@ -33,6 +34,14 @@ const ForgotPasswordConfirm = () => {
 
     if (newPassword !== confirmPassword) {
       setError(TEXT.auth.forgotPasswordConfirm.errors.passwordMismatch);
+      return;
+    }
+    if (!/^[A-Za-z0-9]{6}$/.test(code)) {
+      setError("Enter the 6-character verification code.");
+      return;
+    }
+    if (!isStrongPassword(newPassword)) {
+      setError("Password must be 8–100 characters and include uppercase, lowercase, a number, and a special character.");
       return;
     }
 
@@ -86,7 +95,7 @@ const ForgotPasswordConfirm = () => {
                 type="text"
                 placeholder={TEXT.auth.verify.codePlaceholder}
                 value={code}
-                onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                onChange={(e) => setCode(e.target.value.replace(/[^A-Za-z0-9]/g, '').slice(0, 6))}
                 required
                 maxLength={6}
                 className="form-input w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] h-14 px-[15px] text-[var(--color-textPrimary)] tracking-widest"

@@ -55,11 +55,12 @@ const Card: React.FC<{
  * Feedback form section with rating and comment
  */
 const Feedback: React.FC = () => {
-  const { rating, email, comment, setRating, setEmail, setComment, handleSubmit } = useFeedback();
+  const { rating, email, comment, setRating, setEmail, setComment, handleSubmit, error } = useFeedback();
 
   return (
     <div className="max-w-2xl mx-auto p-6">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {error && <p role="alert" className="text-sm text-[var(--color-error)]">{error}</p>}
         {/* 1. Email Field */}
         <AnimatedField delay={0} threshold={0.15}>
           <label

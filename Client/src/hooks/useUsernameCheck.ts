@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { authService } from '../services/auth';
 import type { EmailCheckStatus } from './useEmailCheck';
+import { isValidUsername } from '../lib/validation';
 
 interface UseUsernameCheckResult {
   status: EmailCheckStatus;
@@ -15,9 +16,7 @@ interface UseUsernameCheckResult {
 export const useUsernameCheck = (username: string, debounceMs = 400): UseUsernameCheckResult => {
   const normalizedUsername = useMemo(() => username.trim().toLowerCase(), [username]);
 
-  // We no longer perform client-side "mock" format validation here.
-  // Availability and any format rules are enforced by the backend.
-  const isFormatValid = useMemo(() => normalizedUsername !== '', [normalizedUsername]);
+  const isFormatValid = useMemo(() => isValidUsername(normalizedUsername), [normalizedUsername]);
 
   const [status, setStatus] = useState<EmailCheckStatus>('idle');
   const [message, setMessage] = useState('');
@@ -29,7 +28,11 @@ export const useUsernameCheck = (username: string, debounceMs = 400): UseUsernam
       return;
     }
 
-    // Always attempt an availability check when user has typed a username.
+    if (!isFormatValid) {
+      setStatus('invalid');
+      setMessage('Use 2–50 letters, numbers, or underscores');
+      return;
+    }
 
     setStatus('checking');
     setMessage('Checking availability...');
@@ -51,7 +54,7 @@ export const useUsernameCheck = (username: string, debounceMs = 400): UseUsernam
     }, debounceMs);
 
     return () => clearTimeout(timeout);
-  }, [debounceMs, normalizedUsername]);
+  }, [debounceMs, isFormatValid, normalizedUsername]);
 
   return {
     status,

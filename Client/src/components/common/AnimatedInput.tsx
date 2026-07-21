@@ -56,7 +56,7 @@ const AnimatedInput: React.FC<AnimatedInputProps> = ({
       </div>
 
       {error && (
-        <span className="text-sm text-red-500 mt-1 block px-1">{error}</span>
+        <span id={`${inputId}-error`} role="alert" className="text-sm text-red-500 mt-1 block px-1">{error}</span>
       )}
       {children}
     </div>

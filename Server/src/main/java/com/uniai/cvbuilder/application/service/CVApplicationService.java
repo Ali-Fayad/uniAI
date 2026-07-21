@@ -233,6 +233,7 @@ public class CVApplicationService implements CVUseCase {
     public EducationResponse addEducation(String email, Long cvId, AddEducationCommand command) {
         Long userId = getUserId(email);
         validateOwnership(cvId, userId);
+        CVInputValidation.validateDateRange(command.getStartDate(), command.getEndDate(), "Education");
         Education education = EducationBuilder.newEducation(cvId, command.getDegree(), command.getFieldOfStudy(), command.getStartDate())
                 .universityId(command.getUniversityId())
                 .endDate(command.getEndDate())
@@ -247,6 +248,7 @@ public class CVApplicationService implements CVUseCase {
     @Transactional
     public EducationResponse updateEducation(String email, Long educationId, AddEducationCommand command) {
         Long userId = getUserId(email);
+        CVInputValidation.validateDateRange(command.getStartDate(), command.getEndDate(), "Education");
         Education education = educationRepository.findById(educationId)
                 .orElseThrow(SectionNotFoundException::new);
         validateOwnership(education.getCvId(), userId);
@@ -278,6 +280,7 @@ public class CVApplicationService implements CVUseCase {
     public ExperienceResponse addExperience(String email, Long cvId, AddExperienceCommand command) {
         Long userId = getUserId(email);
         validateOwnership(cvId, userId);
+        CVInputValidation.validateCurrentExperience(command.getStartDate(), command.getEndDate(), command.getIsCurrent());
         Experience experience = ExperienceBuilder.newExperience(cvId, command.getPosition(), command.getCompany(), command.getStartDate())
                 .location(command.getLocation())
                 .endDate(command.getEndDate())
@@ -293,6 +296,7 @@ public class CVApplicationService implements CVUseCase {
     @Transactional
     public ExperienceResponse updateExperience(String email, Long experienceId, AddExperienceCommand command) {
         Long userId = getUserId(email);
+        CVInputValidation.validateCurrentExperience(command.getStartDate(), command.getEndDate(), command.getIsCurrent());
         Experience experience = experienceRepository.findById(experienceId)
                 .orElseThrow(SectionNotFoundException::new);
         validateOwnership(experience.getCvId(), userId);
@@ -364,6 +368,7 @@ public class CVApplicationService implements CVUseCase {
     public ProjectResponse addProject(String email, Long cvId, AddProjectCommand command) {
         Long userId = getUserId(email);
         validateOwnership(cvId, userId);
+        CVInputValidation.validateDateRange(command.getStartDate(), command.getEndDate(), "Project");
         Project project = ProjectBuilder.newProject(cvId, command.getName())
                 .description(command.getDescription())
                 .githubUrl(command.getGithubUrl())
@@ -380,6 +385,7 @@ public class CVApplicationService implements CVUseCase {
     @Transactional
     public ProjectResponse updateProject(String email, Long projectId, AddProjectCommand command) {
         Long userId = getUserId(email);
+        CVInputValidation.validateDateRange(command.getStartDate(), command.getEndDate(), "Project");
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(SectionNotFoundException::new);
         validateOwnership(project.getCvId(), userId);

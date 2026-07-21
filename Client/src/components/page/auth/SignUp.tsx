@@ -27,7 +27,10 @@ const SignUp = () => {
     usernameCheckStatus,
     emailAvailabilityMessage,
     emailCheckStatus,
-    canSubmit,
+    fieldErrors,
+    visibleErrors,
+    passwordRules,
+    markFieldTouched,
     showPassword,
     showConfirmPassword,
     setUsername,
@@ -56,10 +59,17 @@ const SignUp = () => {
             {error && (
               <motion.div 
                 variants={staggerItemVariants}
+                role="alert"
+                aria-live="assertive"
                 className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm"
               >
                 {error}
               </motion.div>
+            )}
+            {Object.keys(fieldErrors).length > 0 && error && (
+              <p className="text-sm text-[var(--color-textSecondary)]" aria-live="polite">
+                Please correct the highlighted fields before continuing.
+              </p>
             )}
 
             {/* Username */}
@@ -67,10 +77,14 @@ const SignUp = () => {
               <AnimatedInput
                 type="text"
                 label={TEXT.auth.signUp.usernamePlaceholder}
+                id="signup-username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => { markFieldTouched('username'); setUsername(e.target.value); }}
+                onBlur={() => markFieldTouched('username')}
+                error={visibleErrors.username}
+                aria-invalid={Boolean(visibleErrors.username)}
+                aria-describedby="signup-username-error username-check-status"
                 required
-                aria-describedby="username-check-status"
                 className="pr-14"
               >
                 {usernameCheckStatus !== 'idle' && (
@@ -130,7 +144,7 @@ const SignUp = () => {
               id="username-check-status"
               variants={staggerItemVariants}
               aria-live="polite"
-              className="sr-only"
+              className="mt-1 px-1 text-xs text-[var(--color-textSecondary)]"
             >
               {usernameAvailabilityMessage}
             </motion.p>
@@ -140,15 +154,25 @@ const SignUp = () => {
               <AnimatedInput
                 type="text"
                 label={TEXT.auth.signUp.firstNamePlaceholder}
+                id="signup-firstName"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => { markFieldTouched('firstName'); setFirstName(e.target.value); }}
+                onBlur={() => markFieldTouched('firstName')}
+                error={visibleErrors.firstName}
+                aria-invalid={Boolean(visibleErrors.firstName)}
+                aria-describedby="signup-firstName-error"
                 required
               />
               <AnimatedInput
                 type="text"
                 label={TEXT.auth.signUp.lastNamePlaceholder}
+                id="signup-lastName"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => { markFieldTouched('lastName'); setLastName(e.target.value); }}
+                onBlur={() => markFieldTouched('lastName')}
+                error={visibleErrors.lastName}
+                aria-invalid={Boolean(visibleErrors.lastName)}
+                aria-describedby="signup-lastName-error"
                 required
               />
             </motion.div>
@@ -158,10 +182,14 @@ const SignUp = () => {
               <AnimatedInput
                 type="email"
                 label="Email address"
+                id="signup-email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => { markFieldTouched('email'); setEmail(e.target.value); }}
+                onBlur={() => markFieldTouched('email')}
+                error={visibleErrors.email}
+                aria-invalid={Boolean(visibleErrors.email)}
+                aria-describedby="signup-email-error email-check-status"
                 required
-                aria-describedby="email-check-status"
                 className="pr-14"
               >
                 {emailCheckStatus !== 'idle' && (
@@ -221,7 +249,7 @@ const SignUp = () => {
               id="email-check-status"
               variants={staggerItemVariants}
               aria-live="polite"
-              className="sr-only"
+              className="mt-1 px-1 text-xs text-[var(--color-textSecondary)]"
             >
               {emailAvailabilityMessage}
             </motion.p>
@@ -231,8 +259,13 @@ const SignUp = () => {
               <AnimatedInput
                 type={showPassword ? "text" : "password"}
                 label={TEXT.auth.signUp.passwordPlaceholder}
+                id="signup-password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => { markFieldTouched('password'); setPassword(e.target.value); }}
+                onBlur={() => markFieldTouched('password')}
+                error={visibleErrors.password}
+                aria-invalid={Boolean(visibleErrors.password)}
+                aria-describedby="signup-password-error signup-password-requirements"
                 required
                 minLength={8}
                 className="pr-14"
@@ -244,6 +277,13 @@ const SignUp = () => {
                 >
                   {showPassword ? <LuEyeOff size={22} /> : <LuEye size={22} />}
                 </button>
+                <ul id="signup-password-requirements" className="mt-2 space-y-1 px-1 text-xs" aria-live="polite">
+                  {passwordRules.map((rule) => (
+                    <li key={rule.label} className={rule.satisfied ? 'text-green-600' : 'text-[var(--color-textSecondary)]'}>
+                      <span aria-hidden="true">{rule.satisfied ? '✓' : '○'}</span>{' '}{rule.label}
+                    </li>
+                  ))}
+                </ul>
               </AnimatedInput>
             </motion.div>
 
@@ -252,8 +292,13 @@ const SignUp = () => {
               <AnimatedInput
                 type={showConfirmPassword ? "text" : "password"}
                 label={TEXT.auth.signUp.confirmPasswordPlaceholder}
+                id="signup-confirmPassword"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => { markFieldTouched('confirmPassword'); setConfirmPassword(e.target.value); }}
+                onBlur={() => markFieldTouched('confirmPassword')}
+                error={visibleErrors.confirmPassword}
+                aria-invalid={Boolean(visibleErrors.confirmPassword)}
+                aria-describedby="signup-confirmPassword-error"
                 required
                 minLength={8}
                 className="pr-14"
@@ -272,12 +317,12 @@ const SignUp = () => {
             <motion.div variants={staggerItemVariants}>
               <motion.button
                 type="submit"
-                disabled={!canSubmit}
+                disabled={isLoading}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="flex w-full items-center justify-center rounded-full h-12 bg-[var(--color-primary)] text-[var(--color-background)] font-bold hover:bg-[var(--color-primaryVariant)] transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? TEXT.auth.signUp.submitButtonLoading : TEXT.auth.signUp.submitButton}
+                {isLoading ? 'Creating account…' : TEXT.auth.signUp.submitButton}
               </motion.button>
             </motion.div>
           </form>
