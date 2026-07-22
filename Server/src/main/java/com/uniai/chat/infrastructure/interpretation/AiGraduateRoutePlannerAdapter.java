@@ -47,8 +47,16 @@ public final class AiGraduateRoutePlannerAdapter implements GraduateRoutePlanner
         }
         try {
             // Markdown fences are intentionally not stripped: the contract requires one JSON object only.
-            return parser.parse(response.getContent().trim());
+            GraduateRoutePlanParser.ParseResult result = parser.parseWithQueryRepair(
+                    response.getContent().trim(), request != null ? request.userMessage() : null);
+            if (result.repaired()) {
+                logger.warn("[AI_ROUTE_PLANNER] Contract repair succeeded missingArgument={} route={}",
+                        result.repairedArgument(), result.plan().route());
+            }
+            return result.plan();
         } catch (GraduateRoutePlanningException ex) {
+            logger.warn("[AI_ROUTE_PLANNER] Contract repair/final validation failed category={} repairAttempted={}",
+                    ex.getMessage(), ex.getMessage() != null && ex.getMessage().contains("ARGUMENT_REQUIRED_QUERY"));
             throw new GraduateRoutePlannerProviderException(
                     "Route planner returned an invalid contract",
                     "AI_QUERY_PLANNER_PROVIDER_INVALID",

@@ -52,6 +52,20 @@ class AiGraduateRoutePlannerAdapterTest {
         assertEquals("AI_QUERY_PLANNER_PROVIDER_TRUNCATED", exception.failureCategory());
     }
 
+    @Test
+    void repairsMissingQueryFromTheCurrentMessage() {
+        RecordingAiService provider = new RecordingAiService(
+                "{\"route\":\"SEARCH_CAMPUSES\",\"arguments\":{\"university\":\"LAU\",\"city\":\"Beirut\"}}",
+                "STOP");
+
+        ValidatedGraduateRoutePlan<?> plan = adapter(provider).plan(
+                request("what campuses does LAU have in Beirut?"));
+
+        GraduateRouteArguments.SearchCampusesArguments arguments =
+                assertInstanceOf(GraduateRouteArguments.SearchCampusesArguments.class, plan.arguments());
+        assertEquals("what campuses does LAU have in Beirut?", arguments.query());
+    }
+
     private void assertInvalid(String content) {
         assertThrows(GraduateRoutePlannerProviderException.class,
                 () -> adapter(new RecordingAiService(content, "STOP")).plan(request("query")));

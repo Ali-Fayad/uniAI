@@ -23,17 +23,30 @@ public class GraduateRouteRuntimeManager {
     private final GraduateRoutePlannerBudgetManager budgetManager;
     private final GraduateAiRouterManager routerManager;
     private final GraduateRouteFinalContextBuilder contextBuilder;
+    private final GraduateRouteDeterministicFallback deterministicFallback;
 
     public GraduateRouteRuntimeManager(GraduateRoutePlannerPort plannerPort,
                                        GraduateRoutePlannerPromptPort promptPort,
                                        GraduateRoutePlannerBudgetManager budgetManager,
                                        GraduateAiRouterManager routerManager,
                                        GraduateRouteFinalContextBuilder contextBuilder) {
+        this(plannerPort, promptPort, budgetManager, routerManager, contextBuilder,
+                new GraduateRouteDeterministicFallback(
+                        new GraduateRoutePlanParser(new GraduateAiRouteCatalog(), new com.fasterxml.jackson.databind.ObjectMapper())));
+    }
+
+    public GraduateRouteRuntimeManager(GraduateRoutePlannerPort plannerPort,
+                                       GraduateRoutePlannerPromptPort promptPort,
+                                       GraduateRoutePlannerBudgetManager budgetManager,
+                                       GraduateAiRouterManager routerManager,
+                                       GraduateRouteFinalContextBuilder contextBuilder,
+                                       GraduateRouteDeterministicFallback deterministicFallback) {
         this.plannerPort = plannerPort;
         this.promptPort = promptPort;
         this.budgetManager = budgetManager;
         this.routerManager = routerManager;
         this.contextBuilder = contextBuilder;
+        this.deterministicFallback = deterministicFallback;
     }
 
     public GraduateRouteRuntimeOutcome execute(String currentMessage,
@@ -49,7 +62,20 @@ public class GraduateRouteRuntimeManager {
             throw new GraduateRoutePlanningException("Route planner request exceeds its configured budget");
         }
         try {
-            ValidatedGraduateRoutePlan<?> plan = plannerPort.plan(budget.request());
+            ValidatedGraduateRoutePlan<?> plan;
+            try {
+                plan = plannerPort.plan(budget.request());
+            } catch (RuntimeException plannerFailure) {
+                logger.warn("[AI_ROUTE_PLANNER] Deterministic fallback attempted reason={}",
+                        plannerFailure.getClass().getSimpleName());
+                plan = deterministicFallback.plan(currentMessage, universityCatalogs)
+                        .map(fallbackPlan -> {
+                            logger.warn("[AI_ROUTE_PLANNER] Deterministic fallback succeeded route={}",
+                                    fallbackPlan.route());
+                            return fallbackPlan;
+                        })
+                        .orElseThrow(() -> plannerFailure);
+            }
             GraduateRouteExecutionResult result = routerManager.execute(
                     plan, currentMessage, universityCatalogs);
             logger.info("[AI_ROUTE_PLANNER] Runtime execution completed route={} empty={} citationCount={}",

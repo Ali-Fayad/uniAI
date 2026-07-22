@@ -22,6 +22,10 @@ class GraduateRoutePlannerPromptProviderTest {
         assertTrue(prompt.contains("programName:string!"));
         assertTrue(prompt.contains("degreeType:enum(CERTIFICATE|DIPLOMA|MASTER|PHD)?"));
         assertTrue(prompt.contains("Return exactly one JSON object"));
+        assertTrue(prompt.contains("Select exactly one route from ROUTE_CATALOG"));
+        assertTrue(prompt.contains("provide every required argument"));
+        assertTrue(prompt.contains("arguments.query"));
+        assertTrue(prompt.contains("SEARCH_CAMPUSES"));
         assertFalse(prompt.contains("{{ROUTE_CATALOG}}"));
     }
 }

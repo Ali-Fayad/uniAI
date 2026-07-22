@@ -133,6 +133,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
 
+    @ExceptionHandler(com.uniai.chat.application.planning.GraduateRoutePlanningException.class)
+    public ResponseEntity<?> handleGraduateRoutePlanningException(Exception ex) {
+        logger.warn("Graduate route planning failed: {}", ex.getMessage());
+        return ResponseEntity.status(422).body("The graduate knowledge request could not be understood safely.");
+    }
+
+    @ExceptionHandler(com.uniai.chat.application.planning.GraduateRoutePlannerProviderException.class)
+    public ResponseEntity<?> handleGraduateRoutePlannerProviderException(Exception ex) {
+        logger.warn("Graduate route planner provider failed: {}", ex.getMessage());
+        return ResponseEntity.status(422).body("The graduate knowledge request could not be processed safely.");
+    }
+
     @ExceptionHandler(InvalidMessageException.class)
     public ResponseEntity<?> handleInvalidMessageException(Exception ex) {
         logger.warn("InvalidMessageException: {}", ex.getMessage(), ex);

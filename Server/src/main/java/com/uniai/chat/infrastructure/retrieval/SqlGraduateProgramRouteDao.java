@@ -68,7 +68,7 @@ public final class SqlGraduateProgramRouteDao implements GraduateProgramRouteDao
                 JOIN source s
                   ON s.id = gp.source_id
                 WHERE 1 = 1
-                """ + parts.where() + """
+                """ + parts.where() + " \n" + """
                 ORDER BY
                     LOWER(u.name),
                     LOWER(COALESCE(gp.official_degree_name, gp.major, gp.program_key)),

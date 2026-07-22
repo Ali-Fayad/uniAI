@@ -56,6 +56,32 @@ class GraduateRoutePlanParserTest {
     }
 
     @Test
+    void repairsOnlyARequiredQueryFromTheCurrentUserMessage() {
+        GraduateRoutePlanParser.ParseResult result = parser.parseWithQueryRepair(
+                "{\"route\":\"SEARCH_CAMPUSES\",\"arguments\":{\"university\":\"LAU\",\"city\":\"Beirut\"}}",
+                "what campuses does LAU have in Beirut?");
+
+        assertEquals(GraduateAiRoute.SEARCH_CAMPUSES, result.plan().route());
+        GraduateRouteArguments.SearchCampusesArguments arguments =
+                assertInstanceOf(GraduateRouteArguments.SearchCampusesArguments.class, result.plan().arguments());
+        assertEquals("what campuses does LAU have in Beirut?", arguments.query());
+        assertEquals("query", result.repairedArgument());
+    }
+
+    @Test
+    void repairsBlankRequiredQueryButDoesNotGuessStructuredArguments() {
+        GraduateRoutePlanParser.ParseResult result = parser.parseWithQueryRepair(
+                "{\"route\":\"SEARCH_PROGRAMS\",\"arguments\":{\"query\":\" \"}}",
+                "List Computer Science programs at AUB");
+
+        assertEquals("List Computer Science programs at AUB",
+                assertInstanceOf(GraduateRouteArguments.SearchProgramsArguments.class, result.plan().arguments()).query());
+        assertThrows(GraduateRoutePlanningException.class, () -> parser.parseWithQueryRepair(
+                "{\"route\":\"CHECK_PROGRAM_EXISTS\",\"arguments\":{\"university\":\"AUB\"}}",
+                "Is there a program?"));
+    }
+
+    @Test
     void enforcesTheRouteSpecificMaximumLimit() {
         parser.parse("{\"route\":\"LIST_PROGRAMS\",\"arguments\":{\"limit\":200}}");
         assertInvalid("{\"route\":\"LIST_PROGRAMS\",\"arguments\":{\"limit\":201}}");

@@ -71,6 +71,18 @@ class SqlGraduateProgramRouteDaoIntegrationTest extends PostgresIntegrationTest 
         assertEquals(total, groups.get(0).count());
     }
 
+    @Test
+    void degreeLevelAsTheFinalOptionalFilterDoesNotAttachOrderByToItsParameter() {
+        Long maarefId = jdbcTemplate.queryForObject(
+                "SELECT id FROM university WHERE LOWER(name) LIKE '%maaref%' LIMIT 1", Long.class);
+
+        GraduateProgramRouteDao.ProgramPage page = dao.findPrograms(criteria(
+                List.of(maarefId), null, null, "MASTER", null, null, null, null, 20));
+
+        assertTrue(page.rows().stream().allMatch(row ->
+                row.degreeType() == null || "MASTER".equalsIgnoreCase(row.degreeType())), page.toString());
+    }
+
     private GraduateProgramRouteDao.ProgramCriteria criteria(
             List<Long> universityIds, String search, String program, String degree,
             String faculty, String department, String language, String city, int limit) {

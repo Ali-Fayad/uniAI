@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.lang.reflect.RecordComponent;
 import java.lang.reflect.ParameterizedType;
@@ -63,6 +64,60 @@ public final class GraduateRoutePlanParser {
         if (!definition.enabled()) throw invalid("ROUTE_DISABLED");
         return deserialize(definition, argumentsNode);
     }
+
+    /**
+     * Repairs only the safe, text-derived required query argument. All other
+     * contract failures remain rejected by the normal strict parser.
+     */
+    public ParseResult parseWithQueryRepair(String rawJson, String fallbackQuery) {
+        try {
+            return new ParseResult(parse(rawJson), false, null);
+        } catch (GraduateRoutePlanningException original) {
+            if (!original.getMessage().contains("ARGUMENT_REQUIRED_QUERY")
+                    || fallbackQuery == null || fallbackQuery.isBlank()) {
+                throw original;
+            }
+            final JsonNode root;
+            try {
+                root = objectMapper.readTree(rawJson);
+            } catch (JsonProcessingException ex) {
+                throw original;
+            }
+            if (!root.isObject() || root.get("route") == null || !root.get("route").isTextual()
+                    || root.get("arguments") == null || !root.get("arguments").isObject()) {
+                throw original;
+            }
+            final GraduateAiRoute route;
+            try {
+                route = GraduateAiRoute.valueOf(root.get("route").textValue().trim().toUpperCase(Locale.ROOT));
+            } catch (IllegalArgumentException ex) {
+                throw original;
+            }
+            GraduateAiRouteDefinition<?> definition;
+            try {
+                definition = catalog.definition(route);
+            } catch (GraduateRoutePlanningException ex) {
+                throw original;
+            }
+            if (!definition.requiredArguments().contains("query")) throw original;
+
+            ObjectNode repairedRoot = (ObjectNode) root.deepCopy();
+            ObjectNode repairedArguments = (ObjectNode) repairedRoot.get("arguments");
+            JsonNode query = repairedArguments.get("query");
+            if (query != null && !query.isNull() && (!query.isTextual() || !query.textValue().isBlank())) {
+                throw original;
+            }
+            repairedArguments.put("query", fallbackQuery.trim());
+            try {
+                ValidatedGraduateRoutePlan<?> repaired = parse(objectMapper.writeValueAsString(repairedRoot));
+                return new ParseResult(repaired, true, "query");
+            } catch (JsonProcessingException | GraduateRoutePlanningException ex) {
+                throw original;
+            }
+        }
+    }
+
+    public record ParseResult(ValidatedGraduateRoutePlan<?> plan, boolean repaired, String repairedArgument) {}
 
     private <T> ValidatedGraduateRoutePlan<T> deserialize(GraduateAiRouteDefinition<T> definition, JsonNode argumentsNode) {
         Set<String> allowedFields = new HashSet<>();
